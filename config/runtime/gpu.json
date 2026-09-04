@@ -1,0 +1,11 @@
+{
+  "python_series": "3.13",
+  "python_development_patch": "3.13.15",
+  "torch": "2.13.0",
+  "torchrec": "1.8.0",
+  "fbgemm_gpu": "1.8.0",
+  "cuda": "12.6",
+  "initial_instance_family": "ml.g6",
+  "initial_gpu_count": 1,
+  "notes": "GPU dependencies are intentionally isolated from the Studio CPU/dev environment. Training jobs must record the exact container digest and installed package versions."
+}

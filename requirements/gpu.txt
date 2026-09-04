@@ -1,0 +1,14 @@
+# Canonical OTTO GPU training stack.
+# Install only inside the SageMaker GPU training image/job, not the Studio dev environment.
+#
+# Compatibility contract:
+#   Python 3.13.x
+#   PyTorch 2.13.0
+#   TorchRec 1.8.0
+#   FBGEMM-GPU 1.8.0
+#   CUDA 12.6
+#
+# PyTorch and FBGEMM must be installed from the CUDA 12.6 PyTorch wheel index.
+torch==2.13.0
+torchrec==1.8.0
+fbgemm-gpu==1.8.0
