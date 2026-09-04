@@ -1,5 +1,8 @@
+import json
 import logging
 from pathlib import Path
+
+import pytest
 
 from otto_recsys.data.convert import convert_jsonl_to_parquet
 from otto_recsys.data.manifest import build_manifest, write_manifest
@@ -8,9 +11,9 @@ from otto_recsys.data.processed_validation import (
 )
 
 
-def test_processed_validation_matches_conversion(
+def build_processed_dataset(
     tmp_path: Path,
-) -> None:
+) -> Path:
     source = tmp_path / "train.jsonl"
 
     source.write_text(
@@ -45,14 +48,60 @@ def test_processed_validation_matches_conversion(
         heartbeat_seconds=10.0,
     )
 
+    return output
+
+
+def test_processed_validation_matches_conversion(
+    tmp_path: Path,
+) -> None:
+    output = build_processed_dataset(tmp_path)
+
     summary = validate_processed_dataset(
         output,
         logger=logging.getLogger("test"),
         heartbeat_seconds=10.0,
+        expected_status="complete",
     )
 
+    assert summary.status == "complete"
     assert summary.parts == 2
     assert summary.rows == 4
     assert summary.sessions == 2
     assert summary.min_ts == 1000
     assert summary.max_ts == 4000
+
+
+def test_processed_validation_detects_session_count_tampering(
+    tmp_path: Path,
+) -> None:
+    output = build_processed_dataset(tmp_path)
+
+    manifest_path = output / "manifest.json"
+    payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    payload["sessions_processed"] = 999
+
+    manifest_path.write_text(
+        json.dumps(payload),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(RuntimeError, match="sessions"):
+        validate_processed_dataset(
+            output,
+            logger=logging.getLogger("test"),
+            heartbeat_seconds=10.0,
+        )
+
+
+def test_processed_validation_enforces_expected_status(
+    tmp_path: Path,
+) -> None:
+    output = build_processed_dataset(tmp_path)
+
+    with pytest.raises(RuntimeError, match="expected conversion status"):
+        validate_processed_dataset(
+            output,
+            logger=logging.getLogger("test"),
+            heartbeat_seconds=10.0,
+            expected_status="partial",
+        )
