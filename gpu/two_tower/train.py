@@ -4,9 +4,7 @@ import argparse
 import hashlib
 import json
 import math
-import os
 import random
-import shutil
 import time
 from dataclasses import asdict
 from pathlib import Path
@@ -15,7 +13,13 @@ from typing import Any
 import numpy as np
 import torch
 
-from otto_two_tower.checkpoint import TrainingState, load_checkpoint, save_checkpoint
+from otto_two_tower.checkpoint import (
+    TrainingState,
+    load_checkpoint,
+    save_checkpoint,
+    save_state_dict_atomic,
+    write_json_atomic,
+)
 from otto_two_tower.config import DataConfig, ModelConfig, TrainConfig, config_payload
 from otto_two_tower.data import HardNegativeBatchStream, ItemVocabulary, PackedSessionStore
 from otto_two_tower.logging_utils import configure_logging
@@ -36,13 +40,6 @@ def _canonical_sha256(payload: dict[str, Any]) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def _write_json_atomic(payload: dict[str, Any], path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    os.replace(temporary, path)
-
-
 def _seed_everything(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -51,26 +48,12 @@ def _seed_everything(seed: int) -> None:
         torch.cuda.manual_seed_all(seed)
 
 
-def _estimate_batches(rows: int, batch_size: int, folds: int, training: bool) -> int:
-    fraction = (folds - 1) / folds if training else 1 / folds
-    return max(math.ceil(rows * fraction / batch_size), 1)
-
-
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--ranking-cache", type=Path, required=True)
     parser.add_argument("--hard-negatives", type=Path, required=True)
     parser.add_argument("--item-data", type=Path, required=True)
-    parser.add_argument(
-        "--output-dir",
-        type=Path,
-        default=Path(os.environ.get("SM_MODEL_DIR", "/opt/ml/model")),
-    )
-    parser.add_argument(
-        "--checkpoint-dir",
-        type=Path,
-        default=Path("/opt/ml/checkpoints"),
-    )
+    parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--validation-fold", type=int, default=0)
     parser.add_argument("--epochs", type=int, default=8)
     parser.add_argument("--batch-size", type=int, default=256)
@@ -79,6 +62,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--valid-rows", type=int)
     parser.add_argument("--seed", type=int, default=20260905)
     parser.add_argument("--heartbeat-seconds", type=float, default=30.0)
+    parser.add_argument("--code-commit", required=True)
     parser.add_argument("--checkpoint-steps", type=int, default=500)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--allow-cpu", action="store_true")
@@ -89,10 +73,8 @@ def main() -> int:
     args = _parse_args()
     overall_started = time.perf_counter()
     output_dir: Path = args.output_dir
-    checkpoint_dir: Path = args.checkpoint_dir
     output_dir.mkdir(parents=True, exist_ok=True)
-    checkpoint_dir.mkdir(parents=True, exist_ok=True)
-    logger = configure_logging("two_tower_training", checkpoint_dir / "logs")
+    logger = configure_logging("two_tower_training", output_dir / "logs")
 
     data_config = DataConfig(
         max_seq_len=args.max_seq_len,
@@ -117,7 +99,6 @@ def main() -> int:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     _seed_everything(data_config.seed)
 
-    source_commit = os.environ.get("OTTO_GIT_COMMIT", "unknown")
     ranking_manifest = _load_json(args.ranking_cache / "manifest.json")
     negative_manifest = _load_json(args.hard_negatives / "manifest.json")
     item_manifest = _load_json(args.item_data / "manifest.json")
@@ -125,17 +106,12 @@ def main() -> int:
         "validation_manifest_id"
     ):
         raise RuntimeError("ranking cache and hard-negative validation manifests differ")
-    training_config: dict[str, Any] = config_payload(
-        data_config,
-        model_config,
-        train_config,
-    )
-    input_payload: dict[str, Any] = {
+    input_payload = {
+        "code_commit": args.code_commit,
         "ranking": ranking_manifest,
         "hard_negatives": negative_manifest,
         "items": item_manifest,
-        "source_commit": source_commit,
-        "config": training_config,
+        "config": config_payload(data_config, model_config, train_config),
     }
     input_id = _canonical_sha256(input_payload)
 
@@ -148,9 +124,6 @@ def main() -> int:
             "torch_version": torch.__version__,
             "cuda_version": torch.version.cuda,
             "input_id": input_id,
-            "source_commit": source_commit,
-            "checkpoint_dir": str(checkpoint_dir),
-            "output_dir": str(output_dir),
         },
     )
 
@@ -190,7 +163,13 @@ def main() -> int:
     )
 
     total_rows = int(negative_manifest["output_rows"])
-    train_batches = _estimate_batches(total_rows, data_config.batch_size, data_config.folds, True)
+    estimated_train_rows = math.ceil(total_rows * (data_config.folds - 1) / data_config.folds)
+    effective_train_rows = (
+        min(estimated_train_rows, data_config.train_rows)
+        if data_config.train_rows is not None
+        else estimated_train_rows
+    )
+    train_batches = max(math.ceil(effective_train_rows / data_config.batch_size), 1)
     total_steps = train_batches * train_config.epochs
     warmup_steps = int(total_steps * train_config.warmup_fraction)
 
@@ -203,12 +182,20 @@ def main() -> int:
     dense_scheduler = torch.optim.lr_scheduler.LambdaLR(dense_optimizer, scheduler_function)
     sparse_scheduler = torch.optim.lr_scheduler.LambdaLR(sparse_optimizer, scheduler_function)
 
-    checkpoint_path = checkpoint_dir / "checkpoint.pt"
-    best_model_path = checkpoint_dir / "best_model.pt"
-    metrics_path = checkpoint_dir / "metrics.json"
-    progress_path = checkpoint_dir / "progress.json"
+    checkpoint_path = output_dir / "checkpoint.pt"
+    run_contract = {
+        "input_id": input_id,
+        "code_commit": args.code_commit,
+        "validation_manifest_id": ranking_manifest["validation_manifest_id"],
+        "config": input_payload["config"],
+        "torch_version": torch.__version__,
+        "cuda_version": torch.version.cuda,
+    }
+    write_json_atomic(run_contract, output_dir / "run_contract.json")
     state = TrainingState()
-    if args.resume and checkpoint_path.is_file():
+    if args.resume and not checkpoint_path.is_file():
+        raise RuntimeError("--resume requested but checkpoint.pt is missing")
+    if args.resume:
         state = load_checkpoint(
             checkpoint_path,
             model=model,
@@ -240,7 +227,6 @@ def main() -> int:
     }
 
     def checkpoint_callback(current: TrainingState) -> None:
-        checkpoint_started = time.perf_counter()
         save_checkpoint(
             checkpoint_path,
             model=model,
@@ -250,33 +236,10 @@ def main() -> int:
             sparse_scheduler=sparse_scheduler,
             state=current,
             input_id=input_id,
-            config=training_config,
-        )
-        _write_json_atomic(
-            {
-                "input_id": input_id,
-                "epoch": current.epoch,
-                "next_batch": current.next_batch,
-                "global_step": current.global_step,
-                "best_valid_loss": current.best_valid_loss,
-                "epochs_without_improvement": current.epochs_without_improvement,
-                "checkpoint_elapsed_seconds": round(
-                    time.perf_counter() - checkpoint_started,
-                    3,
-                ),
-            },
-            progress_path,
+            config=input_payload["config"],
         )
 
-    history: list[dict[str, Any]] = []
-    if args.resume and metrics_path.is_file():
-        prior_metrics = _load_json(metrics_path)
-        if prior_metrics.get("input_id") != input_id:
-            raise RuntimeError("metrics input_id does not match current training inputs")
-        prior_history = prior_metrics.get("history", [])
-        if not isinstance(prior_history, list):
-            raise RuntimeError("checkpoint metrics history must be a list")
-        history = list(prior_history)
+    history = state.history
     with TrainingHeartbeat(
         logger,
         stage="two_tower_training",
@@ -336,6 +299,7 @@ def main() -> int:
                 "valid": asdict(valid_metrics),
             }
             history.append(record)
+            state.history = history
             logger.info(
                 "epoch_complete",
                 extra={
@@ -356,17 +320,15 @@ def main() -> int:
             if improved:
                 state.best_valid_loss = valid_metrics.loss
                 state.epochs_without_improvement = 0
-                temporary_best = best_model_path.with_suffix(".pt.tmp")
-                torch.save(model.state_dict(), temporary_best)
-                os.replace(temporary_best, best_model_path)
+                save_state_dict_atomic(model.state_dict(), output_dir / "best_model.pt")
             else:
                 state.epochs_without_improvement += 1
 
             state.epoch = epoch + 1
             checkpoint_callback(state)
-            _write_json_atomic(
+            write_json_atomic(
                 {"input_id": input_id, "history": history},
-                metrics_path,
+                output_dir / "metrics.json",
             )
             if state.epochs_without_improvement > train_config.early_stopping_patience:
                 logger.info(
@@ -384,18 +346,14 @@ def main() -> int:
         "input_id": input_id,
         "validation_manifest_id": ranking_manifest["validation_manifest_id"],
         "validation_fold": data_config.validation_fold,
-        "source_commit": source_commit,
-        "config": training_config,
+        "code_commit": args.code_commit,
+        "config": input_payload["config"],
         "best_valid_loss": state.best_valid_loss,
         "global_step": state.global_step,
         "elapsed_seconds": round(total_elapsed, 3),
         "history": history,
     }
-    _write_json_atomic(training_manifest, checkpoint_dir / "training_manifest.json")
-    if not best_model_path.is_file():
-        raise RuntimeError("training completed without a durable best-model checkpoint")
-    shutil.copy2(best_model_path, output_dir / "best_model.pt")
-    _write_json_atomic(training_manifest, output_dir / "training_manifest.json")
+    write_json_atomic(training_manifest, output_dir / "training_manifest.json")
     logger.info(
         "training_complete",
         extra={

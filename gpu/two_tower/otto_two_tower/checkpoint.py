@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import json
 import os
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +17,7 @@ class TrainingState:
     global_step: int = 0
     best_valid_loss: float = float("inf")
     epochs_without_improvement: int = 0
+    history: list[dict[str, Any]] = field(default_factory=list)
 
 
 def capture_rng_state() -> dict[str, Any]:
@@ -33,6 +35,31 @@ def restore_rng_state(state: dict[str, Any]) -> None:
     torch.set_rng_state(state["torch"])
     if torch.cuda.is_available() and "cuda" in state:
         torch.cuda.set_rng_state_all(state["cuda"])
+
+
+def write_json_atomic(payload: dict[str, Any], path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def save_state_dict_atomic(state_dict: dict[str, Any], path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    torch.save(state_dict, temporary)
+    os.replace(temporary, path)
+
+
+def progress_payload(*, state: TrainingState, input_id: str) -> dict[str, Any]:
+    return {
+        "input_id": input_id,
+        "epoch": state.epoch,
+        "next_batch": state.next_batch,
+        "global_step": state.global_step,
+        "best_valid_loss": state.best_valid_loss,
+        "epochs_without_improvement": state.epochs_without_improvement,
+    }
 
 
 def save_checkpoint(
@@ -62,6 +89,10 @@ def save_checkpoint(
     }
     torch.save(payload, temporary)
     os.replace(temporary, path)
+    write_json_atomic(
+        progress_payload(state=state, input_id=input_id),
+        path.parent / "progress.json",
+    )
 
 
 def load_checkpoint(
