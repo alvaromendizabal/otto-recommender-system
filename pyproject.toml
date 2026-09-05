@@ -21,6 +21,7 @@ ml = [
   "catboost==1.2.10",
   "duckdb==1.5.5",
   "faiss-cpu==1.15.0",
+  "gensim==4.4.0",
   "lightgbm==4.7.0",
   "scikit-learn==1.9.0",
   "xgboost==3.4.1",
