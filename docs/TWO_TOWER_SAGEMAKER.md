@@ -1,17 +1,16 @@
-# Durable SageMaker two-tower training
+# SageMaker two-tower training
 
-The SageMaker GPU worker is disposable. The training state is not.
+The SageMaker GPU worker is disposable; training state is not.
 
-The resume-proof workflow freezes the training source under an immutable Git commit and source
-SHA-256, uses only S3-backed data channels, and configures SageMaker checkpoint synchronization
-from `/opt/ml/checkpoints` to a dedicated S3 run prefix. Job A is intentionally stopped only after
-both `checkpoint.pt` and `progress.json` are visible in S3. Job B starts on a new GPU with the same
-checkpoint S3 prefix and `--resume`; the trainer fails closed if the checkpoint is missing or its
-input identity differs.
+The canonical execution path is the managed SageMaker Pipeline described in
+[`TWO_TOWER_PIPELINE.md`](TWO_TOWER_PIPELINE.md). Source code is committed to GitHub, the exact
+training source archive is deterministically hashed and frozen to S3, all large inputs are S3-backed,
+and `/opt/ml/checkpoints` is synchronized to a run-specific S3 checkpoint prefix.
 
-A resume proof passes only when Job B advances `global_step` beyond the checkpoint observed from
-Job A. Both jobs are stopped after the proof to control GPU cost. The requests, source archive,
-progress snapshots, and final proof manifest are retained under the immutable S3 run prefix.
+The two-step resume proof uses a bounded first training job to create a durable checkpoint and a
+fresh second training job that is required to restore that checkpoint and advance optimization.
+The second job fails closed if the checkpoint is absent, has a mismatched immutable input identity,
+or does not advance beyond the restored `global_step`.
 
-The current GPU image contract is the AWS SageMaker PyTorch 2.13 Amazon Linux 2023 DLC with
-Python 3.12 and CUDA 13.3. The CPU Studio environment remains unchanged.
+Long-running orchestration is owned by SageMaker after the pipeline execution starts. An interactive
+Studio terminal is used only to register/start the managed execution and to inspect status later.

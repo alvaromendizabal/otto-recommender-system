@@ -10,6 +10,17 @@ import time
 from pathlib import Path
 
 
+def _parse_bool(value: str | bool) -> bool:
+    if isinstance(value, bool):
+        return value
+    normalized = value.strip().lower()
+    if normalized in {"1", "true", "yes", "on"}:
+        return True
+    if normalized in {"0", "false", "no", "off"}:
+        return False
+    raise argparse.ArgumentTypeError(f"invalid boolean value: {value}")
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--code-commit", required=True)
@@ -21,7 +32,21 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--valid-rows", type=int, required=True)
     parser.add_argument("--checkpoint-steps", type=int, default=20)
     parser.add_argument("--heartbeat-seconds", type=float, default=30.0)
-    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--stop-after-step", type=int)
+    parser.add_argument(
+        "--resume",
+        nargs="?",
+        const=True,
+        default=False,
+        type=_parse_bool,
+    )
+    parser.add_argument(
+        "--resume-if-available",
+        nargs="?",
+        const=True,
+        default=False,
+        type=_parse_bool,
+    )
     return parser.parse_args()
 
 
@@ -142,8 +167,12 @@ def main() -> int:
         "--code-commit",
         args.code_commit,
     ]
+    if args.stop_after_step is not None:
+        train_command.extend(["--stop-after-step", str(args.stop_after_step)])
     if args.resume:
         train_command.append("--resume")
+    if args.resume_if_available:
+        train_command.append("--resume-if-available")
 
     train_rc = _run_stage("training", train_command, args.heartbeat_seconds)
     if train_rc != 0:
@@ -155,6 +184,8 @@ def main() -> int:
         "training_manifest.json",
         "run_contract.json",
         "progress.json",
+        "resume_event.json",
+        "resume_proof.json",
     ):
         source = checkpoint_dir / filename
         if source.is_file():

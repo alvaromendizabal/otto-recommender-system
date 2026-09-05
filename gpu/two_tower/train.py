@@ -24,6 +24,7 @@ from otto_two_tower.config import DataConfig, ModelConfig, TrainConfig, config_p
 from otto_two_tower.data import HardNegativeBatchStream, ItemVocabulary, PackedSessionStore
 from otto_two_tower.logging_utils import configure_logging
 from otto_two_tower.model import TwoTowerModel
+from otto_two_tower.resume_contract import resume_proof_payload
 from otto_two_tower.telemetry import TrainingHeartbeat
 from otto_two_tower.trainer import cosine_warmup_lambda, run_epoch
 
@@ -64,9 +65,17 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--heartbeat-seconds", type=float, default=30.0)
     parser.add_argument("--code-commit", required=True)
     parser.add_argument("--checkpoint-steps", type=int, default=500)
+    parser.add_argument("--stop-after-step", type=int)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--resume-if-available", action="store_true")
     parser.add_argument("--allow-cpu", action="store_true")
     return parser.parse_args()
+
+
+
+
+class _CheckpointBoundaryReached(RuntimeError):
+    """Internal control flow used for a successful bounded checkpoint run."""
 
 
 def main() -> int:
@@ -193,9 +202,11 @@ def main() -> int:
     }
     write_json_atomic(run_contract, output_dir / "run_contract.json")
     state = TrainingState()
+    resumed_from_step = 0
     if args.resume and not checkpoint_path.is_file():
         raise RuntimeError("--resume requested but checkpoint.pt is missing")
-    if args.resume:
+    should_resume = args.resume or (args.resume_if_available and checkpoint_path.is_file())
+    if should_resume:
         state = load_checkpoint(
             checkpoint_path,
             model=model,
@@ -205,6 +216,19 @@ def main() -> int:
             sparse_scheduler=sparse_scheduler,
             expected_input_id=input_id,
             map_location=device,
+        )
+        resumed_from_step = state.global_step
+        if resumed_from_step <= 0:
+            raise RuntimeError("--resume restored a checkpoint with nonpositive global_step")
+        write_json_atomic(
+            {
+                "input_id": input_id,
+                "code_commit": args.code_commit,
+                "resumed_from_step": resumed_from_step,
+                "epoch": state.epoch,
+                "next_batch": state.next_batch,
+            },
+            output_dir / "resume_event.json",
         )
         logger.info(
             "checkpoint_resumed",
@@ -238,108 +262,150 @@ def main() -> int:
             input_id=input_id,
             config=input_payload["config"],
         )
+        if args.stop_after_step is not None and current.global_step >= args.stop_after_step:
+            raise _CheckpointBoundaryReached
 
     history = state.history
-    with TrainingHeartbeat(
-        logger,
-        stage="two_tower_training",
-        interval_seconds=train_config.heartbeat_seconds,
-        progress_provider=lambda: dict(progress),
-    ):
-        for epoch in range(state.epoch, train_config.epochs):
-            state.epoch = epoch
-            train_metrics = run_epoch(
-                model=model,
-                session_store=session_store,
-                stream=stream,
-                device=device,
-                epoch=epoch,
-                training=True,
-                dense_optimizer=dense_optimizer,
-                sparse_optimizer=sparse_optimizer,
-                dense_scheduler=dense_scheduler,
-                sparse_scheduler=sparse_scheduler,
-                in_batch_weight=train_config.in_batch_weight,
-                dense_grad_clip=train_config.dense_grad_clip,
-                sparse_grad_clip=train_config.sparse_grad_clip,
-                max_rows=data_config.train_rows,
-                start_batch=state.next_batch,
-                state=state,
-                checkpoint_callback=checkpoint_callback,
-                checkpoint_steps=train_config.checkpoint_steps,
-                progress=progress,
-                bf16=train_config.bf16,
-            )
-            state.next_batch = 0
-            valid_metrics = run_epoch(
-                model=model,
-                session_store=session_store,
-                stream=stream,
-                device=device,
-                epoch=epoch,
-                training=False,
-                dense_optimizer=None,
-                sparse_optimizer=None,
-                dense_scheduler=None,
-                sparse_scheduler=None,
-                in_batch_weight=train_config.in_batch_weight,
-                dense_grad_clip=train_config.dense_grad_clip,
-                sparse_grad_clip=train_config.sparse_grad_clip,
-                max_rows=data_config.valid_rows,
-                start_batch=0,
-                state=state,
-                checkpoint_callback=None,
-                checkpoint_steps=train_config.checkpoint_steps,
-                progress=progress,
-                bf16=train_config.bf16,
-            )
-            record = {
-                "epoch": epoch,
-                "train": asdict(train_metrics),
-                "valid": asdict(valid_metrics),
-            }
-            history.append(record)
-            state.history = history
-            logger.info(
-                "epoch_complete",
-                extra={
-                    "event": "epoch_complete",
-                    "stage": "two_tower_training",
+    try:
+        with TrainingHeartbeat(
+            logger,
+            stage="two_tower_training",
+            interval_seconds=train_config.heartbeat_seconds,
+            progress_provider=lambda: dict(progress),
+        ):
+            for epoch in range(state.epoch, train_config.epochs):
+                state.epoch = epoch
+                train_metrics = run_epoch(
+                    model=model,
+                    session_store=session_store,
+                    stream=stream,
+                    device=device,
+                    epoch=epoch,
+                    training=True,
+                    dense_optimizer=dense_optimizer,
+                    sparse_optimizer=sparse_optimizer,
+                    dense_scheduler=dense_scheduler,
+                    sparse_scheduler=sparse_scheduler,
+                    in_batch_weight=train_config.in_batch_weight,
+                    dense_grad_clip=train_config.dense_grad_clip,
+                    sparse_grad_clip=train_config.sparse_grad_clip,
+                    max_rows=data_config.train_rows,
+                    start_batch=state.next_batch,
+                    state=state,
+                    checkpoint_callback=checkpoint_callback,
+                    checkpoint_steps=train_config.checkpoint_steps,
+                    progress=progress,
+                    bf16=train_config.bf16,
+                )
+                state.next_batch = 0
+                valid_metrics = run_epoch(
+                    model=model,
+                    session_store=session_store,
+                    stream=stream,
+                    device=device,
+                    epoch=epoch,
+                    training=False,
+                    dense_optimizer=None,
+                    sparse_optimizer=None,
+                    dense_scheduler=None,
+                    sparse_scheduler=None,
+                    in_batch_weight=train_config.in_batch_weight,
+                    dense_grad_clip=train_config.dense_grad_clip,
+                    sparse_grad_clip=train_config.sparse_grad_clip,
+                    max_rows=data_config.valid_rows,
+                    start_batch=0,
+                    state=state,
+                    checkpoint_callback=None,
+                    checkpoint_steps=train_config.checkpoint_steps,
+                    progress=progress,
+                    bf16=train_config.bf16,
+                )
+                record = {
                     "epoch": epoch,
-                    "loss": round(valid_metrics.loss, 6),
-                    "mrr": round(valid_metrics.mrr, 6),
-                    "hit10": round(valid_metrics.hit10, 6),
-                    "elapsed_seconds": round(
-                        train_metrics.elapsed_seconds + valid_metrics.elapsed_seconds,
-                        3,
-                    ),
-                },
-            )
-
-            improved = valid_metrics.loss < state.best_valid_loss
-            if improved:
-                state.best_valid_loss = valid_metrics.loss
-                state.epochs_without_improvement = 0
-                save_state_dict_atomic(model.state_dict(), output_dir / "best_model.pt")
-            else:
-                state.epochs_without_improvement += 1
-
-            state.epoch = epoch + 1
-            checkpoint_callback(state)
-            write_json_atomic(
-                {"input_id": input_id, "history": history},
-                output_dir / "metrics.json",
-            )
-            if state.epochs_without_improvement > train_config.early_stopping_patience:
+                    "train": asdict(train_metrics),
+                    "valid": asdict(valid_metrics),
+                }
+                history.append(record)
+                state.history = history
                 logger.info(
-                    "early_stopping",
+                    "epoch_complete",
                     extra={
-                        "event": "early_stopping",
+                        "event": "epoch_complete",
                         "stage": "two_tower_training",
                         "epoch": epoch,
+                        "loss": round(valid_metrics.loss, 6),
+                        "mrr": round(valid_metrics.mrr, 6),
+                        "hit10": round(valid_metrics.hit10, 6),
+                        "elapsed_seconds": round(
+                            train_metrics.elapsed_seconds + valid_metrics.elapsed_seconds,
+                            3,
+                        ),
                     },
                 )
-                break
+
+                improved = valid_metrics.loss < state.best_valid_loss
+                if improved:
+                    state.best_valid_loss = valid_metrics.loss
+                    state.epochs_without_improvement = 0
+                    save_state_dict_atomic(model.state_dict(), output_dir / "best_model.pt")
+                else:
+                    state.epochs_without_improvement += 1
+
+                state.epoch = epoch + 1
+                checkpoint_callback(state)
+                write_json_atomic(
+                    {"input_id": input_id, "history": history},
+                    output_dir / "metrics.json",
+                )
+                if state.epochs_without_improvement > train_config.early_stopping_patience:
+                    logger.info(
+                        "early_stopping",
+                        extra={
+                            "event": "early_stopping",
+                            "stage": "two_tower_training",
+                            "epoch": epoch,
+                        },
+                    )
+                    break
+
+    except _CheckpointBoundaryReached:
+        total_elapsed = time.perf_counter() - overall_started
+        checkpoint_manifest = {
+            "status": "checkpointed",
+            "input_id": input_id,
+            "validation_manifest_id": ranking_manifest["validation_manifest_id"],
+            "validation_fold": data_config.validation_fold,
+            "code_commit": args.code_commit,
+            "global_step": state.global_step,
+            "stop_after_step": args.stop_after_step,
+            "elapsed_seconds": round(total_elapsed, 3),
+        }
+        write_json_atomic(checkpoint_manifest, output_dir / "training_manifest.json")
+        if args.resume:
+            proof = resume_proof_payload(
+                input_id=input_id,
+                code_commit=args.code_commit,
+                resumed_from_step=resumed_from_step,
+                final_step=state.global_step,
+            )
+            write_json_atomic(proof, output_dir / "resume_proof.json")
+            if proof["status"] != "passed":
+                raise RuntimeError(
+                    "resume proof did not advance beyond restored checkpoint"
+                ) from None
+        logger.info(
+            "checkpoint_boundary_reached",
+            extra={
+                "event": "checkpoint_boundary_reached",
+                "stage": "two_tower_training",
+                "status": "passed",
+                "step": state.global_step,
+                "elapsed_seconds": round(total_elapsed, 3),
+            },
+        )
+        print(json.dumps(checkpoint_manifest, indent=2, sort_keys=True))
+        print("OTTO_TWO_TOWER_CHECKPOINT_BOUNDARY_PASSED")
+        return 0
 
     total_elapsed = time.perf_counter() - overall_started
     training_manifest = {

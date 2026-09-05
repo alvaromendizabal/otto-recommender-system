@@ -42,4 +42,10 @@ if items:
     print(f"two_tower_items={items.get('items')}")
     print(f"two_tower_dimension={items.get('dimension')}")
 
+
+pipeline = load("artifacts/two_tower_pipeline/latest.json")
+if pipeline:
+    print(f"two_tower_pipeline={pipeline.get('pipeline_name')}")
+    print(f"two_tower_pipeline_run_id={pipeline.get('run_id')}")
+
 print("OTTO_PROJECT_STATUS_COMPLETE")
