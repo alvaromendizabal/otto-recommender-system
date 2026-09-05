@@ -23,8 +23,6 @@ from otto_recsys.retrieval.candidate_union import (
 )
 from otto_recsys.runtime import Heartbeat
 
-_OBJECTIVES = ("clicks", "carts", "orders")
-
 
 @dataclass(frozen=True)
 class HardNegativeConfig:
@@ -39,6 +37,7 @@ class HardNegativeConfig:
 
 @dataclass(frozen=True)
 class HardNegativeManifest:
+    validation_manifest_id: str
     input_id: str
     config: HardNegativeConfig
     completed_buckets: int
@@ -65,6 +64,38 @@ def _write_json_atomic(payload: dict[str, Any], path: Path) -> None:
         encoding="utf-8",
     )
     os.replace(temporary, path)
+
+
+def _manifest_id(payload: dict[str, Any], key: str, source: str) -> str:
+    value = payload.get(key)
+    if not isinstance(value, str) or len(value) != 64:
+        raise ValueError(f"{source} must contain a 64-character {key}")
+    return value
+
+
+def _validate_provenance(
+    *,
+    training_manifest: Path,
+    item2vec_manifest: Path,
+) -> str:
+    training = _load_json(training_manifest)
+    item2vec = _load_json(item2vec_manifest)
+    training_id = _manifest_id(
+        training,
+        "validation_manifest_id",
+        "ranking training manifest",
+    )
+    item2vec_id = _manifest_id(
+        item2vec,
+        "validation_manifest_id",
+        "Item2Vec manifest",
+    )
+    if training_id != item2vec_id:
+        raise RuntimeError(
+            "ranking training prefixes and Item2Vec artifacts do not share the "
+            "same frozen validation protocol"
+        )
+    return training_id
 
 
 def _input_id(
@@ -134,7 +165,8 @@ def create_hard_negative_training_rows(
                 min(CASE WHEN source = 'time' THEN source_rank END) AS time_rank,
                 min(CASE WHEN source = 'type' THEN source_rank END) AS type_rank,
                 min(CASE WHEN source = 'buy' THEN source_rank END) AS buy_rank,
-                min(CASE WHEN source = 'item2vec' THEN source_rank END) AS item2vec_rank,
+                min(CASE WHEN source = 'item2vec' THEN source_rank END)
+                    AS item2vec_rank,
                 max(CASE WHEN source = 'item2vec' THEN score END) AS item2vec_score,
                 count(DISTINCT source) AS source_count
             FROM source_candidates
@@ -183,7 +215,8 @@ def create_hard_negative_training_rows(
                 objective,
                 session,
                 list(aid ORDER BY negative_rank) AS hard_negative_aids,
-                list(source_count ORDER BY negative_rank) AS hard_negative_source_counts,
+                list(source_count ORDER BY negative_rank)
+                    AS hard_negative_source_counts,
                 list(reciprocal_rank_sum ORDER BY negative_rank)
                     AS hard_negative_rrf_scores
             FROM ranked
@@ -194,6 +227,7 @@ def create_hard_negative_training_rows(
             SELECT
                 l.objective,
                 l.session,
+                f.fold,
                 l.aid AS positive_aid,
                 coalesce(c.revisit, 0) AS positive_revisit,
                 coalesce(c.time, 0) AS positive_time,
@@ -208,6 +242,8 @@ def create_hard_negative_training_rows(
                 c.item2vec_rank AS positive_item2vec_rank,
                 c.item2vec_score AS positive_item2vec_score
             FROM vlabels AS l
+            INNER JOIN vfolds AS f
+              ON f.session = l.session
             LEFT JOIN candidate_features AS c
               ON c.objective = l.objective
              AND c.session = l.session
@@ -215,6 +251,7 @@ def create_hard_negative_training_rows(
         )
         SELECT
             p.session,
+            p.fold,
             p.objective,
             p.positive_aid,
             p.positive_revisit,
@@ -314,7 +351,7 @@ def mine_hard_negatives(
     temp_root: str | Path = "data/interim/duckdb_hard_negatives",
     heartbeat_seconds: float = 30.0,
 ) -> HardNegativeManifest:
-    """Mine deterministic retrieval-hard negatives from leakage-safe prefixes."""
+    """Mine deterministic retrieval-hard negatives from frozen validation prefixes."""
     if buckets <= 0 or buckets > 65_535:
         raise ValueError("buckets must be between 1 and 65535")
     if source_k <= 0 or item2vec_k <= 0 or hard_negatives <= 0:
@@ -333,6 +370,7 @@ def mine_hard_negatives(
 
     items_path = cache_root / "items.parquet"
     labels_path = cache_root / "labels.parquet"
+    examples_path = cache_root / "examples.parquet"
     training_manifest = cache_root / "manifest.json"
     item2vec_manifest = vectors_file.parent / "manifest.json"
     faiss_manifest = index_file.parent / "manifest.json"
@@ -340,6 +378,7 @@ def mine_hard_negatives(
     required = (
         items_path,
         labels_path,
+        examples_path,
         training_manifest,
         graph_root / "time.parquet",
         graph_root / "type.parquet",
@@ -356,6 +395,10 @@ def mine_hard_negatives(
         if not path.is_file():
             raise FileNotFoundError(path)
 
+    validation_id = _validate_provenance(
+        training_manifest=training_manifest,
+        item2vec_manifest=item2vec_manifest,
+    )
     config = HardNegativeConfig(
         buckets=buckets,
         source_k=source_k,
@@ -398,6 +441,7 @@ def mine_hard_negatives(
             "event": "hard_negative_mining_start",
             "stage": "hard_negative_mining",
             "input_id": input_id,
+            "validation_manifest_id": validation_id,
             "completed_buckets": len(completed),
             "item2vec_k": item2vec_k,
             "hard_negatives": hard_negatives,
@@ -456,6 +500,15 @@ def mine_hard_negatives(
                     labels_path=labels_path,
                     bucket=bucket,
                 )
+                examples_sql = sql_literal(examples_path)
+                connection.execute(
+                    f"""
+                    CREATE TEMP TABLE vfolds AS
+                    SELECT session, fold
+                    FROM read_parquet('{examples_sql}')
+                    WHERE bucket = {bucket}
+                    """
+                )
                 create_covisit_source_candidates(
                     connection,
                     covisit_dir=graph_root,
@@ -501,7 +554,7 @@ def mine_hard_negatives(
                     COPY (
                         SELECT *
                         FROM hard_negative_rows
-                        ORDER BY session, objective, positive_aid
+                        ORDER BY fold, session, objective, positive_aid
                     ) TO '{output_sql}' (
                         FORMAT PARQUET,
                         COMPRESSION ZSTD,
@@ -543,10 +596,7 @@ def mine_hard_negatives(
                     "buckets": buckets,
                     "sessions": sessions,
                     "events": rows,
-                    "elapsed_seconds": round(
-                        time.perf_counter() - bucket_started,
-                        3,
-                    ),
+                    "elapsed_seconds": round(time.perf_counter() - bucket_started, 3),
                 },
             )
 
@@ -561,6 +611,7 @@ def mine_hard_negatives(
     state["status"] = "completed"
     _write_json_atomic(state, state_path)
     manifest = HardNegativeManifest(
+        validation_manifest_id=validation_id,
         input_id=input_id,
         config=config,
         completed_buckets=buckets,

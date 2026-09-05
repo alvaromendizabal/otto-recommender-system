@@ -1,42 +1,63 @@
 # Ranking and neural-retrieval training data
 
-This subsystem creates leakage-safe supervised prefixes from the already-frozen
-pre-validation training universe and mines retrieval-hard negatives without ever
-using the final validation labels for training.
+This subsystem materializes the **frozen official-local validation prefixes and
+labels** as supervised training data and mines retrieval-hard negatives from
+artifacts fitted only on the earlier pre-validation universe.
 
-## Design
+## Leakage contract
 
-1. `training_cache.py` streams `data/processed/validation/train_sessions.jsonl`.
-   A deterministic session hash selects a reproducible training subset. A second
-   deterministic hash chooses an observed-prefix cut that always leaves hidden
-   future events. Only the last `max_prefix_events` observed events are retained.
-2. Future targets follow the OTTO objective contract: the first hidden event is
-   the click target; all unique hidden cart and order items are multi-positive
-   targets.
-3. The cache writes full observed events, most-recent unique items, labels, and
-   example metadata as Zstandard-compressed Parquet plus a content-addressed
-   manifest.
-4. `hard_negatives.py` reuses the validated co-visitation and Item2Vec candidate
-   generators. Every future positive for a session/objective is excluded before
-   negative ranking, preventing false-negative contamination.
-5. Negatives are ranked by source agreement and reciprocal source rank. The
-   output keeps compact lists of hard-negative aids instead of exploding one
-   row per negative.
-6. Both stages emit UTC structured logs, elapsed times, resource heartbeats,
-   atomic state/manifest files, deterministic configuration identities, and
-   explicit runtime guards.
+The ranking cache does **not** synthesize hidden futures inside the same sessions
+used to fit co-visitation or Item2Vec. Instead it consumes
+`data/processed/validation/test_sessions.jsonl` and the aligned
+`test_labels.jsonl`. Those prefixes occur after the training cutoff used by the
+validated co-visitation matrices and Item2Vec model.
 
-## Recommended first full training configuration
+This separation is critical: candidate-generation artifacts must not have been
+fit on the hidden future of a supervised example. The hard-negative miner checks
+that the ranking cache and Item2Vec artifacts share the same frozen validation
+manifest identity before it runs.
 
-Use a deterministic 1/8 sample of the 12.19M pre-validation sessions. This is a
-large enough first corpus to train and benchmark the initial target-conditioned
-two-tower while keeping CPU candidate mining and GPU iteration practical.
+## OOF design
 
-Candidate mining should use the measured high-recall Item2Vec diagnostic pool
-(`item2vec_k=800`) but retain only 64 hardest non-positive candidates per
-session/objective. In-batch negatives on GPU provide additional diversity.
+Every session receives a deterministic hash-based fold. The default is five
+folds. Downstream rankers and neural rerankers must produce out-of-fold
+predictions for local evaluation: a session is scored only by a model that was
+not trained on that session's labels.
 
-The 800-neighbor setting is **not** treated as a final serving budget. The final
-frontier remained boundary-limited, so deeper Item2Vec search is best regarded
-as a hard-negative discovery pool. Future two-tower and sequential retrievers
-must earn their own candidate quotas by incremental-recall testing.
+For a final Kaggle submission, after OOF model selection is complete, the chosen
+model may be refit on all frozen local-validation examples because those examples
+are historical relative to the competition test sessions.
+
+## Stored artifacts
+
+`training_cache.py` writes Zstandard-compressed Parquet:
+
+- `events.parquet`: every observed prefix event in order;
+- `items.parquet`: most-recent unique observed items for retrieval;
+- `labels.parquet`: click/cart/order targets with OOF fold IDs;
+- `examples.parquet`: session-level counts, timestamps, folds, and buckets;
+- `manifest.json`: source hashes, validation identity, configuration, output
+  hashes, counts, and elapsed time.
+
+`hard_negatives.py` reuses the validated co-visitation and Item2Vec candidate
+generators. It excludes **every positive label for the same session/objective**
+before ranking negatives. Each positive row retains its OOF fold and a compact
+list of hard-negative item IDs plus source-agreement diagnostics.
+
+## Runtime engineering
+
+Both stages use canonical filenames, explicit resource guards, UTC structured
+logging, elapsed-time reporting, progress heartbeats, deterministic input
+identities, atomic writes, and content hashes. Hard-negative mining is resumable
+bucket by bucket through `state.json`.
+
+## Recommended first neural corpus
+
+Use all 515,702 frozen local-validation prefixes for the first target-conditioned
+two-tower experiment. Mine from the measured high-recall Item2Vec discovery pool
+(`item2vec_k=800`) and retain 64 hardest non-positive items per
+session/objective. GPU training should combine these with in-batch negatives.
+
+The 800-neighbor setting is a **discovery pool**, not a serving budget. Every
+learned retriever must earn its final quota through incremental-recall and
+Recall@20 evaluation.

@@ -1,8 +1,13 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import duckdb
+import pytest
 
 from otto_recsys.ranking.hard_negatives import (
+    _validate_provenance,
     create_hard_negative_training_rows,
     hard_negative_contract_rows,
 )
@@ -29,6 +34,15 @@ def test_hard_negatives_exclude_all_future_positive_labels() -> None:
                 (1, 'orders', 40)
             """
         )
+        connection.execute(
+            """
+            CREATE TEMP TABLE vfolds (
+                session BIGINT,
+                fold UTINYINT
+            )
+            """
+        )
+        connection.execute("INSERT INTO vfolds VALUES (1, 3)")
         connection.execute(
             """
             CREATE TEMP TABLE source_candidates (
@@ -68,13 +82,47 @@ def test_hard_negatives_exclude_all_future_positive_labels() -> None:
 
         cart = connection.execute(
             """
-            SELECT hard_negative_aids
+            SELECT fold, hard_negative_aids
             FROM hard_negative_rows
             WHERE objective = 'carts' AND positive_aid = 20
             """
         ).fetchone()
         assert cart is not None
-        assert 20 not in cart[0]
-        assert 30 not in cart[0]
+        assert cart[0] == 3
+        assert 20 not in cart[1]
+        assert 30 not in cart[1]
     finally:
         connection.close()
+
+
+def test_provenance_contract_rejects_mismatched_validation_ids(tmp_path: Path) -> None:
+    training = tmp_path / "training.json"
+    item2vec = tmp_path / "item2vec.json"
+    training.write_text(
+        json.dumps({"validation_manifest_id": "a" * 64}),
+        encoding="utf-8",
+    )
+    item2vec.write_text(
+        json.dumps({"validation_manifest_id": "b" * 64}),
+        encoding="utf-8",
+    )
+    with pytest.raises(RuntimeError, match="same frozen validation protocol"):
+        _validate_provenance(
+            training_manifest=training,
+            item2vec_manifest=item2vec,
+        )
+
+
+def test_provenance_contract_accepts_matching_validation_ids(tmp_path: Path) -> None:
+    training = tmp_path / "training.json"
+    item2vec = tmp_path / "item2vec.json"
+    payload = {"validation_manifest_id": "a" * 64}
+    training.write_text(json.dumps(payload), encoding="utf-8")
+    item2vec.write_text(json.dumps(payload), encoding="utf-8")
+    assert (
+        _validate_provenance(
+            training_manifest=training,
+            item2vec_manifest=item2vec,
+        )
+        == "a" * 64
+    )

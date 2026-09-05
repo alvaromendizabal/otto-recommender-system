@@ -36,7 +36,9 @@ def resource_preflight(path: Path) -> None:
     if total_ram < _MIN_TOTAL_RAM_GIB:
         raise RuntimeError("hard-negative mining requires at least 16 GiB RAM")
     if available_ram < _MIN_AVAILABLE_RAM_GIB:
-        raise RuntimeError("hard-negative mining requires at least 12 GiB available RAM")
+        raise RuntimeError(
+            "hard-negative mining requires at least 12 GiB available RAM"
+        )
     if free_disk < _MIN_FREE_DISK_GIB:
         raise RuntimeError("hard-negative mining requires at least 25 GiB free disk")
 

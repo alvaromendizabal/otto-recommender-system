@@ -44,20 +44,16 @@ def resource_preflight(path: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Build deterministic supervised prefixes from the frozen pre-validation "
-            "training universe for ranker and neural-retriever training."
+            "Build the frozen official-local validation prefixes and labels as a "
+            "leakage-safe, fold-assigned OOF training cache."
         )
     )
-    parser.add_argument("--source", type=Path, required=True)
-    parser.add_argument("--source-manifest", type=Path, required=True)
+    parser.add_argument("--validation-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--buckets", type=int, default=32)
-    parser.add_argument("--seed", type=int, default=20260905)
-    parser.add_argument("--sample-denominator", type=int, default=8)
-    parser.add_argument("--sample-remainder", type=int, default=0)
-    parser.add_argument("--min-prefix-events", type=int, default=2)
-    parser.add_argument("--max-prefix-events", type=int, default=50)
-    parser.add_argument("--flush-examples", type=int, default=5_000)
+    parser.add_argument("--folds", type=int, default=5)
+    parser.add_argument("--fold-seed", type=int, default=20260905)
+    parser.add_argument("--flush-sessions", type=int, default=5_000)
     parser.add_argument("--max-examples", type=int)
     parser.add_argument("--heartbeat-seconds", type=float, default=30.0)
     args = parser.parse_args()
@@ -66,17 +62,13 @@ def main() -> int:
     resource_preflight(Path.home())
     logger = configure_logging("ranking_training_cache")
     manifest = build_ranking_training_cache(
-        args.source,
-        args.source_manifest,
+        args.validation_dir,
         args.output_dir,
         logger=logger,
         buckets=args.buckets,
-        seed=args.seed,
-        sample_denominator=args.sample_denominator,
-        sample_remainder=args.sample_remainder,
-        min_prefix_events=args.min_prefix_events,
-        max_prefix_events=args.max_prefix_events,
-        flush_examples=args.flush_examples,
+        folds=args.folds,
+        fold_seed=args.fold_seed,
+        flush_sessions=args.flush_sessions,
         max_examples=args.max_examples,
         heartbeat_seconds=args.heartbeat_seconds,
     )

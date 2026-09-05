@@ -7,7 +7,7 @@ import os
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, NotRequired, TypedDict
+from typing import Any
 
 import orjson
 import pyarrow as pa
@@ -22,14 +22,6 @@ _ACTION_TO_ID = {
     "orders": 2,
 }
 
-
-class FutureLabels(TypedDict):
-    """Typed OTTO future-label contract for one supervised prefix."""
-
-    clicks: int
-    carts: NotRequired[list[int]]
-    orders: NotRequired[list[int]]
-
 _EVENTS_SCHEMA = pa.schema(
     [
         pa.field("session", pa.int32(), nullable=False),
@@ -37,6 +29,7 @@ _EVENTS_SCHEMA = pa.schema(
         pa.field("ts", pa.int64(), nullable=False),
         pa.field("event_type", pa.int8(), nullable=False),
         pa.field("event_index", pa.uint16(), nullable=False),
+        pa.field("fold", pa.uint8(), nullable=False),
         pa.field("bucket", pa.uint16(), nullable=False),
     ]
 )
@@ -49,6 +42,7 @@ _ITEMS_SCHEMA = pa.schema(
         pa.field("event_type", pa.int8(), nullable=False),
         pa.field("event_index", pa.uint16(), nullable=False),
         pa.field("recency_rank", pa.uint16(), nullable=False),
+        pa.field("fold", pa.uint8(), nullable=False),
         pa.field("bucket", pa.uint16(), nullable=False),
     ]
 )
@@ -58,6 +52,7 @@ _LABELS_SCHEMA = pa.schema(
         pa.field("session", pa.int32(), nullable=False),
         pa.field("objective", pa.string(), nullable=False),
         pa.field("aid", pa.int32(), nullable=False),
+        pa.field("fold", pa.uint8(), nullable=False),
         pa.field("bucket", pa.uint16(), nullable=False),
     ]
 )
@@ -65,10 +60,14 @@ _LABELS_SCHEMA = pa.schema(
 _EXAMPLES_SCHEMA = pa.schema(
     [
         pa.field("session", pa.int32(), nullable=False),
-        pa.field("source_events", pa.uint16(), nullable=False),
-        pa.field("cut_index", pa.uint16(), nullable=False),
-        pa.field("prefix_events", pa.uint16(), nullable=False),
-        pa.field("future_events", pa.uint16(), nullable=False),
+        pa.field("observed_events", pa.uint16(), nullable=False),
+        pa.field("observed_unique_items", pa.uint16(), nullable=False),
+        pa.field("click_labels", pa.uint8(), nullable=False),
+        pa.field("cart_labels", pa.uint16(), nullable=False),
+        pa.field("order_labels", pa.uint16(), nullable=False),
+        pa.field("first_ts", pa.int64(), nullable=False),
+        pa.field("last_ts", pa.int64(), nullable=False),
+        pa.field("fold", pa.uint8(), nullable=False),
         pa.field("bucket", pa.uint16(), nullable=False),
     ]
 )
@@ -77,28 +76,27 @@ _EXAMPLES_SCHEMA = pa.schema(
 @dataclass(frozen=True)
 class RankingTrainingCacheConfig:
     buckets: int
-    seed: int
-    sample_denominator: int
-    sample_remainder: int
-    min_prefix_events: int
-    max_prefix_events: int
-    flush_examples: int
+    folds: int
+    fold_seed: int
+    flush_sessions: int
     max_examples: int | None
 
 
 @dataclass(frozen=True)
 class RankingTrainingCacheManifest:
-    source_manifest_id: str
+    validation_manifest_id: str
     input_id: str
     config: RankingTrainingCacheConfig
-    sessions_seen: int
-    examples: int
+    sessions: int
     event_rows: int
     item_rows: int
     label_rows: int
     click_labels: int
     cart_labels: int
     order_labels: int
+    fold_session_counts: tuple[int, ...]
+    source_sessions_sha256: str
+    source_labels_sha256: str
     events_sha256: str
     items_sha256: str
     labels_sha256: str
@@ -113,11 +111,14 @@ def _load_json(path: Path) -> dict[str, Any]:
     return payload
 
 
-def _source_manifest_id(path: Path) -> str:
-    payload = _load_json(path)
+def _validation_manifest_id(validation_dir: Path) -> str:
+    manifest_path = validation_dir / "manifest.json"
+    if not manifest_path.is_file():
+        raise FileNotFoundError(manifest_path)
+    payload = _load_json(manifest_path)
     value = payload.get("manifest_id")
     if not isinstance(value, str) or len(value) != 64:
-        raise ValueError("source manifest must contain a 64-character manifest_id")
+        raise ValueError("validation manifest must contain a 64-character manifest_id")
     return value
 
 
@@ -127,36 +128,11 @@ def _stable_u64(*parts: int) -> int:
     return int.from_bytes(digest, byteorder="little", signed=False)
 
 
-def session_is_selected(
-    session: int,
-    *,
-    seed: int,
-    denominator: int,
-    remainder: int,
-) -> bool:
-    """Deterministically subsample sessions without order dependence."""
-    if denominator <= 0:
-        raise ValueError("denominator must be positive")
-    if remainder < 0 or remainder >= denominator:
-        raise ValueError("remainder must be in [0, denominator)")
-    return _stable_u64(seed, session, 1) % denominator == remainder
-
-
-def deterministic_cut_index(
-    session: int,
-    event_count: int,
-    *,
-    seed: int,
-    min_prefix_events: int,
-) -> int:
-    """Choose a deterministic observed-prefix boundary with hidden future events."""
-    if min_prefix_events <= 0:
-        raise ValueError("min_prefix_events must be positive")
-    if event_count <= min_prefix_events:
-        raise ValueError("event_count must leave at least one hidden future event")
-
-    choices = event_count - min_prefix_events
-    return min_prefix_events + (_stable_u64(seed, session, 2) % choices)
+def fold_for_session(session: int, *, seed: int, folds: int) -> int:
+    """Assign one session to a stable OOF fold without order dependence."""
+    if folds < 2 or folds > 255:
+        raise ValueError("folds must be between 2 and 255")
+    return _stable_u64(seed, session, 1) % folds
 
 
 def _event_type(event: dict[str, Any], session: int) -> int:
@@ -167,100 +143,33 @@ def _event_type(event: dict[str, Any], session: int) -> int:
     return event_type
 
 
-def _unique_future_aids(
-    future_events: list[dict[str, Any]],
-    *,
-    objective: str,
-) -> list[int]:
-    seen: set[int] = set()
-    aids: list[int] = []
-    for event in future_events:
-        if str(event.get("type")) != objective:
-            continue
-        aid = int(event["aid"])
-        if aid not in seen:
-            seen.add(aid)
-            aids.append(aid)
-    return aids
-
-
-def future_labels(
-    future_events: list[dict[str, Any]],
-    *,
-    session: int,
-) -> FutureLabels:
-    """Return OTTO-style future labels for one deterministic prefix."""
-    if not future_events:
-        raise ValueError("future_events cannot be empty")
-
-    # Validate every hidden action before constructing objective-specific labels.
-    for event in future_events:
-        _event_type(event, session)
-
-    labels: FutureLabels = {"clicks": int(future_events[0]["aid"])}
-
-    cart_aids = _unique_future_aids(future_events, objective="carts")
-    if cart_aids:
-        labels["carts"] = cart_aids
-
-    order_aids = _unique_future_aids(future_events, objective="orders")
-    if order_aids:
-        labels["orders"] = order_aids
-
-    return labels
-
-
-def split_training_example(
-    record: dict[str, Any],
-    *,
-    seed: int,
-    min_prefix_events: int,
-    max_prefix_events: int,
-) -> tuple[int, list[dict[str, Any]], list[dict[str, Any]], int]:
-    """Split one session into observed prefix and hidden future without leakage."""
-    session = int(record["session"])
-    raw_events = record.get("events")
-    if not isinstance(raw_events, list):
-        raise ValueError(f"session {session} events must be a list")
-    if len(raw_events) <= min_prefix_events:
-        raise ValueError("session is too short for a supervised prefix")
-    if max_prefix_events < min_prefix_events:
-        raise ValueError("max_prefix_events must be >= min_prefix_events")
-    if len(raw_events) > 65_535:
-        raise ValueError(f"session {session} exceeds uint16 event-index range")
-
-    events = [dict(event) for event in raw_events]
-    cut_index = deterministic_cut_index(
-        session,
-        len(events),
-        seed=seed,
-        min_prefix_events=min_prefix_events,
-    )
-    prefix = events[:cut_index]
-    future = events[cut_index:]
-    if len(prefix) > max_prefix_events:
-        prefix = prefix[-max_prefix_events:]
-
-    if not prefix or not future:
-        raise RuntimeError("prefix/future split invariant failed")
-    return session, prefix, future, cut_index
-
-
 def _event_rows(
     session: int,
-    prefix: list[dict[str, Any]],
+    events: list[dict[str, Any]],
     *,
+    fold: int,
     bucket: int,
-) -> list[tuple[int, int, int, int, int, int]]:
-    rows: list[tuple[int, int, int, int, int, int]] = []
-    for event_index, event in enumerate(prefix):
+) -> list[tuple[int, int, int, int, int, int, int]]:
+    if not events:
+        raise ValueError(f"validation session {session} has no observed events")
+    if len(events) > 65_535:
+        raise ValueError(f"session {session} exceeds uint16 event-index range")
+
+    rows: list[tuple[int, int, int, int, int, int, int]] = []
+    previous_ts: int | None = None
+    for event_index, event in enumerate(events):
+        ts = int(event["ts"])
+        if previous_ts is not None and ts < previous_ts:
+            raise ValueError(f"session {session} events are not timestamp ordered")
+        previous_ts = ts
         rows.append(
             (
                 session,
                 int(event["aid"]),
-                int(event["ts"]),
+                ts,
                 _event_type(event, session),
                 event_index,
+                fold,
                 bucket,
             )
         )
@@ -269,16 +178,17 @@ def _event_rows(
 
 def _item_rows(
     session: int,
-    prefix: list[dict[str, Any]],
+    events: list[dict[str, Any]],
     *,
+    fold: int,
     bucket: int,
-) -> list[tuple[int, int, int, int, int, int, int]]:
+) -> list[tuple[int, int, int, int, int, int, int, int]]:
     seen: set[int] = set()
-    rows: list[tuple[int, int, int, int, int, int, int]] = []
+    rows: list[tuple[int, int, int, int, int, int, int, int]] = []
     recency_rank = 0
 
-    for event_index in range(len(prefix) - 1, -1, -1):
-        event = prefix[event_index]
+    for event_index in range(len(events) - 1, -1, -1):
+        event = events[event_index]
         aid = int(event["aid"])
         if aid in seen:
             continue
@@ -292,6 +202,7 @@ def _item_rows(
                 _event_type(event, session),
                 event_index,
                 recency_rank,
+                fold,
                 bucket,
             )
         )
@@ -300,15 +211,31 @@ def _item_rows(
 
 def _label_rows(
     session: int,
-    labels: FutureLabels,
+    labels: dict[str, Any],
     *,
+    fold: int,
     bucket: int,
-) -> list[tuple[int, str, int, int]]:
-    rows = [(session, "clicks", labels["clicks"], bucket)]
-    rows.extend((session, "carts", aid, bucket) for aid in labels.get("carts", []))
-    rows.extend(
-        (session, "orders", aid, bucket) for aid in labels.get("orders", [])
-    )
+) -> list[tuple[int, str, int, int, int]]:
+    rows: list[tuple[int, str, int, int, int]] = []
+
+    click = labels.get("clicks")
+    if click is not None:
+        rows.append((session, "clicks", int(click), fold, bucket))
+
+    for objective in ("carts", "orders"):
+        raw = labels.get(objective)
+        if raw is None:
+            continue
+        if not isinstance(raw, list):
+            raise ValueError(f"{objective} labels for session {session} must be a list")
+        seen: set[int] = set()
+        for value in raw:
+            aid = int(value)
+            if aid in seen:
+                continue
+            seen.add(aid)
+            rows.append((session, objective, aid, fold, bucket))
+
     return rows
 
 
@@ -343,67 +270,61 @@ def _manifest_from_json(path: Path) -> RankingTrainingCacheManifest:
     raw_config = payload.get("config")
     if not isinstance(raw_config, dict):
         raise ValueError("ranking training manifest config must be an object")
-    payload = dict(payload)
-    payload["config"] = RankingTrainingCacheConfig(**raw_config)
-    return RankingTrainingCacheManifest(**payload)
+    raw_fold_counts = payload.get("fold_session_counts")
+    if not isinstance(raw_fold_counts, list):
+        raise ValueError("ranking training manifest fold counts must be a list")
+    normalized = dict(payload)
+    normalized["config"] = RankingTrainingCacheConfig(**raw_config)
+    normalized["fold_session_counts"] = tuple(int(value) for value in raw_fold_counts)
+    return RankingTrainingCacheManifest(**normalized)
 
 
 def build_ranking_training_cache(
-    source_path: str | Path,
-    source_manifest_path: str | Path,
+    validation_dir: str | Path,
     output_dir: str | Path,
     *,
     logger: logging.Logger,
     buckets: int = 32,
-    seed: int = 20260905,
-    sample_denominator: int = 8,
-    sample_remainder: int = 0,
-    min_prefix_events: int = 2,
-    max_prefix_events: int = 50,
-    flush_examples: int = 5_000,
+    folds: int = 5,
+    fold_seed: int = 20260905,
+    flush_sessions: int = 5_000,
     max_examples: int | None = None,
     heartbeat_seconds: float = 30.0,
 ) -> RankingTrainingCacheManifest:
-    """Build deterministic pre-validation supervised prefixes for ranking/retrieval."""
+    """Materialize the frozen validation prefixes for leakage-safe OOF training."""
     if buckets <= 0 or buckets > 65_535:
         raise ValueError("buckets must be between 1 and 65535")
-    if sample_denominator <= 0:
-        raise ValueError("sample_denominator must be positive")
-    if sample_remainder < 0 or sample_remainder >= sample_denominator:
-        raise ValueError("sample_remainder must be in [0, sample_denominator)")
-    if min_prefix_events <= 0:
-        raise ValueError("min_prefix_events must be positive")
-    if max_prefix_events < min_prefix_events:
-        raise ValueError("max_prefix_events must be >= min_prefix_events")
-    if flush_examples <= 0:
-        raise ValueError("flush_examples must be positive")
+    if folds < 2 or folds > 255:
+        raise ValueError("folds must be between 2 and 255")
+    if flush_sessions <= 0:
+        raise ValueError("flush_sessions must be positive")
     if max_examples is not None and max_examples <= 0:
         raise ValueError("max_examples must be positive when provided")
 
-    source = Path(source_path).resolve()
-    source_manifest = Path(source_manifest_path).resolve()
+    source_dir = Path(validation_dir).resolve()
     destination = Path(output_dir).resolve()
-    if not source.is_file():
-        raise FileNotFoundError(source)
-    if not source_manifest.is_file():
-        raise FileNotFoundError(source_manifest)
+    sessions_path = source_dir / "test_sessions.jsonl"
+    labels_path = source_dir / "test_labels.jsonl"
+    for path in (sessions_path, labels_path):
+        if not path.is_file():
+            raise FileNotFoundError(path)
 
     destination.mkdir(parents=True, exist_ok=True)
-    source_id = _source_manifest_id(source_manifest)
+    validation_id = _validation_manifest_id(source_dir)
+    source_sessions_sha = sha256_file(sessions_path)
+    source_labels_sha = sha256_file(labels_path)
     config = RankingTrainingCacheConfig(
         buckets=buckets,
-        seed=seed,
-        sample_denominator=sample_denominator,
-        sample_remainder=sample_remainder,
-        min_prefix_events=min_prefix_events,
-        max_prefix_events=max_prefix_events,
-        flush_examples=flush_examples,
+        folds=folds,
+        fold_seed=fold_seed,
+        flush_sessions=flush_sessions,
         max_examples=max_examples,
     )
     input_id = canonical_json_sha256(
         {
-            "source_manifest_id": source_id,
-            "source_size_bytes": source.stat().st_size,
+            "validation_manifest_id": validation_id,
+            "source_sessions_sha256": source_sessions_sha,
+            "source_labels_sha256": source_labels_sha,
             "config": asdict(config),
         }
     )
@@ -411,24 +332,25 @@ def build_ranking_training_cache(
     manifest_path = destination / "manifest.json"
     events_path = destination / "events.parquet"
     items_path = destination / "items.parquet"
-    labels_path = destination / "labels.parquet"
+    labels_output_path = destination / "labels.parquet"
     examples_path = destination / "examples.parquet"
 
     if manifest_path.is_file():
         try:
             existing = _manifest_from_json(manifest_path)
-        except (TypeError, ValueError, json.JSONDecodeError):
+        except (OSError, TypeError, ValueError, json.JSONDecodeError):
             existing = None
         if (
             existing is not None
             and existing.input_id == input_id
+            and len(existing.fold_session_counts) == folds
             and events_path.is_file()
             and items_path.is_file()
-            and labels_path.is_file()
+            and labels_output_path.is_file()
             and examples_path.is_file()
             and sha256_file(events_path) == existing.events_sha256
             and sha256_file(items_path) == existing.items_sha256
-            and sha256_file(labels_path) == existing.labels_sha256
+            and sha256_file(labels_output_path) == existing.labels_sha256
             and sha256_file(examples_path) == existing.examples_sha256
         ):
             logger.info(
@@ -437,8 +359,9 @@ def build_ranking_training_cache(
                     "event": "ranking_training_cache_reused",
                     "stage": "ranking_training_cache",
                     "status": "passed",
-                    "sessions": existing.examples,
+                    "sessions": existing.sessions,
                     "events": existing.event_rows,
+                    "input_id": existing.input_id,
                 },
             )
             return existing
@@ -488,21 +411,16 @@ def build_ranking_training_cache(
     label_buffer: list[tuple[Any, ...]] = []
     example_buffer: list[tuple[Any, ...]] = []
 
-    sessions_seen = 0
-    examples = 0
+    sessions = 0
     event_rows = 0
     item_rows = 0
     label_rows = 0
     click_labels = 0
     cart_labels = 0
     order_labels = 0
+    fold_counts = [0] * folds
     started = time.perf_counter()
-
-    progress: dict[str, int] = {
-        "sessions": 0,
-        "examples": 0,
-        "events": 0,
-    }
+    progress: dict[str, int] = {"sessions": 0, "events": 0, "labels": 0}
 
     def snapshot() -> dict[str, int | float]:
         elapsed = max(time.perf_counter() - started, 1e-9)
@@ -522,79 +440,108 @@ def build_ranking_training_cache(
         label_buffer.clear()
         example_buffer.clear()
         progress["events"] = event_rows
+        progress["labels"] = label_rows
 
     logger.info(
         "ranking_training_cache_start",
         extra={
             "event": "ranking_training_cache_start",
             "stage": "ranking_training_cache",
-            "source_manifest_id": source_id,
+            "validation_manifest_id": validation_id,
             "input_id": input_id,
-            "sample_denominator": sample_denominator,
-            "sample_remainder": sample_remainder,
+            "folds": folds,
             "max_examples": max_examples,
         },
     )
 
     try:
-        with Heartbeat(
-            logger,
-            stage="ranking_training_cache",
-            interval_seconds=heartbeat_seconds,
-            progress_provider=snapshot,
-        ), source.open("rb") as handle:
-            for line in handle:
-                record = orjson.loads(line)
-                session = int(record["session"])
-                sessions_seen += 1
-                progress["sessions"] = sessions_seen
+        with (
+            Heartbeat(
+                logger,
+                stage="ranking_training_cache",
+                interval_seconds=heartbeat_seconds,
+                progress_provider=snapshot,
+            ),
+            sessions_path.open("rb") as sessions_handle,
+            labels_path.open("rb") as labels_handle,
+        ):
+            for session_line, label_line in zip(
+                sessions_handle,
+                labels_handle,
+                strict=True,
+            ):
+                session_record = orjson.loads(session_line)
+                label_record = orjson.loads(label_line)
+                session = int(session_record["session"])
+                if session != int(label_record["session"]):
+                    raise RuntimeError(
+                        "validation session and label streams are misaligned"
+                    )
 
-                if not session_is_selected(
-                    session,
-                    seed=seed,
-                    denominator=sample_denominator,
-                    remainder=sample_remainder,
-                ):
-                    continue
+                raw_events = session_record.get("events")
+                raw_labels = label_record.get("labels")
+                if not isinstance(raw_events, list) or not raw_events:
+                    raise ValueError(
+                        f"validation session {session} has no observed events"
+                    )
+                if not isinstance(raw_labels, dict):
+                    raise ValueError(
+                        f"validation labels for session {session} are invalid"
+                    )
 
-                raw_events = record.get("events")
-                if not isinstance(raw_events, list) or len(raw_events) <= min_prefix_events:
-                    continue
-
-                session, prefix, future, cut_index = split_training_example(
-                    record,
-                    seed=seed,
-                    min_prefix_events=min_prefix_events,
-                    max_prefix_events=max_prefix_events,
-                )
-                labels = future_labels(future, session=session)
+                fold = fold_for_session(session, seed=fold_seed, folds=folds)
                 bucket = session % buckets
+                events = [dict(event) for event in raw_events]
+                event_buffer.extend(
+                    _event_rows(session, events, fold=fold, bucket=bucket)
+                )
+                items = _item_rows(session, events, fold=fold, bucket=bucket)
+                item_buffer.extend(items)
+                labels = _label_rows(session, raw_labels, fold=fold, bucket=bucket)
+                label_buffer.extend(labels)
 
-                event_buffer.extend(_event_rows(session, prefix, bucket=bucket))
-                item_buffer.extend(_item_rows(session, prefix, bucket=bucket))
-                rows = _label_rows(session, labels, bucket=bucket)
-                label_buffer.extend(rows)
+                session_clicks = sum(1 for row in labels if row[1] == "clicks")
+                session_carts = sum(1 for row in labels if row[1] == "carts")
+                session_orders = sum(1 for row in labels if row[1] == "orders")
+                first_ts = int(events[0]["ts"])
+                last_ts = int(events[-1]["ts"])
                 example_buffer.append(
                     (
                         session,
-                        len(raw_events),
-                        cut_index,
-                        len(prefix),
-                        len(future),
+                        len(events),
+                        len(items),
+                        session_clicks,
+                        session_carts,
+                        session_orders,
+                        first_ts,
+                        last_ts,
+                        fold,
                         bucket,
                     )
                 )
 
-                examples += 1
-                progress["examples"] = examples
-                click_labels += 1
-                cart_labels += sum(1 for row in rows if row[1] == "carts")
-                order_labels += sum(1 for row in rows if row[1] == "orders")
+                sessions += 1
+                fold_counts[fold] += 1
+                click_labels += session_clicks
+                cart_labels += session_carts
+                order_labels += session_orders
+                progress["sessions"] = sessions
 
-                if examples % flush_examples == 0:
+                if sessions % flush_sessions == 0:
                     flush_buffers()
+                    logger.info(
+                        "ranking_training_cache_flush",
+                        extra={
+                            "event": "ranking_training_cache_flush",
+                            "stage": "ranking_training_cache",
+                            "sessions": sessions,
+                            "events": event_rows,
+                            "labels": label_rows,
+                            "elapsed_seconds": round(time.perf_counter() - started, 3),
+                        },
+                    )
 
-                if max_examples is not None and examples >= max_examples:
+                if max_examples is not None and sessions >= max_examples:
                     break
 
         flush_buffers()
@@ -602,32 +549,36 @@ def build_ranking_training_cache(
         for writer in writers.values():
             writer.close()
 
-    if examples <= 0 or event_rows <= 0 or item_rows <= 0 or label_rows <= 0:
+    if sessions <= 0 or event_rows <= 0 or item_rows <= 0 or label_rows <= 0:
         for path in temp_paths.values():
             path.unlink(missing_ok=True)
         raise RuntimeError("ranking training cache is empty")
+    if sum(fold_counts) != sessions:
+        raise RuntimeError("ranking training fold counts do not match session count")
 
     os.replace(temp_paths["events"], events_path)
     os.replace(temp_paths["items"], items_path)
-    os.replace(temp_paths["labels"], labels_path)
+    os.replace(temp_paths["labels"], labels_output_path)
     os.replace(temp_paths["examples"], examples_path)
 
     elapsed = round(time.perf_counter() - started, 3)
     manifest = RankingTrainingCacheManifest(
-        source_manifest_id=source_id,
+        validation_manifest_id=validation_id,
         input_id=input_id,
         config=config,
-        sessions_seen=sessions_seen,
-        examples=examples,
+        sessions=sessions,
         event_rows=event_rows,
         item_rows=item_rows,
         label_rows=label_rows,
         click_labels=click_labels,
         cart_labels=cart_labels,
         order_labels=order_labels,
+        fold_session_counts=tuple(fold_counts),
+        source_sessions_sha256=source_sessions_sha,
+        source_labels_sha256=source_labels_sha,
         events_sha256=sha256_file(events_path),
         items_sha256=sha256_file(items_path),
-        labels_sha256=sha256_file(labels_path),
+        labels_sha256=sha256_file(labels_output_path),
         examples_sha256=sha256_file(examples_path),
         elapsed_seconds=elapsed,
     )
@@ -639,9 +590,10 @@ def build_ranking_training_cache(
             "event": "ranking_training_cache_complete",
             "stage": "ranking_training_cache",
             "status": "passed",
-            "sessions": examples,
+            "sessions": sessions,
             "events": event_rows,
-            "label_rows": label_rows,
+            "labels": label_rows,
+            "folds": folds,
             "elapsed_seconds": elapsed,
         },
     )
