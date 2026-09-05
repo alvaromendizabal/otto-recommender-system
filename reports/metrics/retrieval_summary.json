@@ -1,0 +1,7 @@
+{
+  "baseline_weighted_recall_at_20": 0.4852562837513772,
+  "covisit_high_budget_weighted_recall": 0.7064299196837418,
+  "covisit_plus_item2vec_k800_weighted_recall": 0.7322027450134556,
+  "note": "These values summarize different retrieval experiments/budgets. The notebook labels them explicitly rather than implying all are Recall@20.",
+  "revisit_time_weighted_recall_at_20": 0.5496439613546905
+}

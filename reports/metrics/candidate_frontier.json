@@ -1,0 +1,61 @@
+{
+  "interpretation": "Item2Vec continued to add recall through the largest tested discovery depth, but marginal efficiency declined. k=800 is therefore used as a hard-negative discovery pool rather than treated as a final serving budget.",
+  "objective_union_recall_at_800": {
+    "carts": 0.6271803245106131,
+    "clicks": 0.7650322186678693,
+    "orders": 0.7792423763224747
+  },
+  "points": [
+    {
+      "item2vec_k": 0,
+      "weighted_item2vec_marginal": 0.0,
+      "weighted_union_recall": 0.7064299196837418
+    },
+    {
+      "item2vec_k": 20,
+      "weighted_item2vec_marginal": 0.001693891480759841,
+      "weighted_union_recall": 0.7081238111645016
+    },
+    {
+      "item2vec_k": 50,
+      "weighted_item2vec_marginal": 0.003793957590792423,
+      "weighted_union_recall": 0.7102238772745342
+    },
+    {
+      "item2vec_k": 100,
+      "weighted_item2vec_marginal": 0.006397619234741467,
+      "weighted_union_recall": 0.7128275389184833
+    },
+    {
+      "item2vec_k": 150,
+      "weighted_item2vec_marginal": 0.008950535911949501,
+      "weighted_union_recall": 0.7153804555956913
+    },
+    {
+      "item2vec_k": 200,
+      "weighted_item2vec_marginal": 0.010953602013551396,
+      "weighted_union_recall": 0.7173835216972932
+    },
+    {
+      "item2vec_k": 300,
+      "weighted_item2vec_marginal": 0.014406659869350132,
+      "weighted_union_recall": 0.7208365795530919
+    },
+    {
+      "item2vec_k": 400,
+      "weighted_item2vec_marginal": 0.017351268425841025,
+      "weighted_union_recall": 0.7237811881095828
+    },
+    {
+      "item2vec_k": 600,
+      "weighted_item2vec_marginal": 0.021985605548888076,
+      "weighted_union_recall": 0.7284155252326299
+    },
+    {
+      "item2vec_k": 800,
+      "weighted_item2vec_marginal": 0.02577282532971389,
+      "weighted_union_recall": 0.7322027450134556
+    }
+  ],
+  "weighted_covisit_recall_ceiling": 0.7064299196837418
+}

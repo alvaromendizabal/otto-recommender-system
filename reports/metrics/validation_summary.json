@@ -1,0 +1,13 @@
+{
+  "cart_label_items": 165973,
+  "click_labels": 501107,
+  "order_label_items": 98017,
+  "sessions": 515702,
+  "split_timestamp_ms": 1661551199984,
+  "validation_manifest_id": "b79c7a1bdcdb243b1cb58b3f1b60a99bd42cb81c158e56ae8bdeaf39cfc8b848",
+  "weighted_metric": {
+    "carts": 0.3,
+    "clicks": 0.1,
+    "orders": 0.6
+  }
+}

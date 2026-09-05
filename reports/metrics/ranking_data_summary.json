@@ -1,0 +1,27 @@
+{
+  "completed_buckets": 32,
+  "event_rows": 2096788,
+  "false_negative_count": 0,
+  "fold_mismatch_count": 0,
+  "fold_session_counts": [
+    103468,
+    102891,
+    102866,
+    103491,
+    102986
+  ],
+  "hard_negative_config": {
+    "ef_search": 1024,
+    "hard_negatives": 64,
+    "item2vec_k": 800,
+    "source_k": 1200,
+    "threads": 4
+  },
+  "hard_negative_family_sha256": "a1a3178a7898557c4475e8c9af160a86e5c5d627c5121312ab93fa6f4b66ca47",
+  "hard_negatives_per_positive": 64,
+  "label_rows": 765097,
+  "mining_elapsed_seconds": 5250.311,
+  "rows_with_duplicate_negatives": 0,
+  "sessions": 515702,
+  "total_hard_negatives": 48966208
+}
