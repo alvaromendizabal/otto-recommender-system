@@ -7,6 +7,7 @@ from pathlib import Path
 
 from evaluate_incremental_recall import resource_preflight
 
+from otto_recsys.cloud.comparison_checkpoints import S3ComparisonCheckpoints
 from otto_recsys.logging_utils import configure_logging
 from otto_recsys.retrieval.neural_evaluation import evaluate_neural_retrieval, write_json
 from otto_recsys.runtime import Heartbeat
@@ -25,10 +26,17 @@ def main() -> int:
     parser.add_argument("--memory-limit", default="8GB")
     parser.add_argument("--heartbeat-seconds", type=float, default=30)
     parser.add_argument("--publish-report", action="store_true")
+    parser.add_argument("--checkpoint-uri", help="S3 prefix for recovery on another workspace")
+    parser.add_argument("--region", default="us-west-2")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     resource_preflight(args.output_dir)
-    logger = configure_logging("two_tower_comparison")
+    logger = configure_logging("two_tower_comparison", log_dir=args.output_dir / "logs")
+    checkpoint_store = (
+        S3ComparisonCheckpoints(args.checkpoint_uri, region=args.region, logger=logger)
+        if args.checkpoint_uri
+        else None
+    )
     started = time.perf_counter()
     try:
         with Heartbeat(logger, stage="comparison_total", interval_seconds=args.heartbeat_seconds):
@@ -46,6 +54,7 @@ def main() -> int:
                 threads=args.threads,
                 memory_limit=args.memory_limit,
                 heartbeat_seconds=args.heartbeat_seconds,
+                checkpoint_store=checkpoint_store,
             )
         if args.publish_report:
             write_json(
@@ -63,6 +72,11 @@ def main() -> int:
             "comparison_complete",
             extra={"elapsed_seconds": round(time.perf_counter() - started, 3)},
         )
+        if checkpoint_store is not None:
+            try:
+                checkpoint_store.publish_logs(args.output_dir)
+            except Exception:
+                logger.exception("comparison_log_upload_failed")
 
 
 if __name__ == "__main__":
