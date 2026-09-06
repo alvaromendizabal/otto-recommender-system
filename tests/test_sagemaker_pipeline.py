@@ -83,3 +83,22 @@ def test_pipeline_uses_frozen_s3_channels() -> None:
         by_name["items"]["DataSource"]["S3DataSource"]["S3Uri"]
         == "s3://otto-test-bucket/retrieval/two-tower/items/"
     )
+
+def test_retry_policies_use_current_service_exception_type_shape() -> None:
+    definition = build_pipeline_definition(
+        role_arn="arn:aws:iam::123456789012:role/SageMakerRole",
+        image_uri="123456789012.dkr.ecr.us-west-2.amazonaws.com/pytorch:test",
+        source_uri="s3://otto-test-bucket/source/source.tar.gz",
+        commit="b" * 40,
+        run_id="c" * 64,
+        config=_config(),
+    )
+
+    for step in definition["Steps"]:
+        policies = step["RetryPolicies"]
+        assert policies
+        for policy in policies:
+            exception_types = policy["ExceptionType"]
+            assert isinstance(exception_types, list)
+            assert exception_types
+            assert all(isinstance(value, str) for value in exception_types)

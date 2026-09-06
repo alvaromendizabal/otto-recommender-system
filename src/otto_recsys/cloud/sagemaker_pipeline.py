@@ -267,21 +267,28 @@ def training_arguments(
 
 
 def retry_policies() -> list[dict[str, Any]]:
+    """Return retry policies using the current SageMaker Pipelines JSON shape.
+
+    SageMaker's current service contract represents ``ExceptionType`` as an
+    array, even when a policy covers only one exception type. Keeping each
+    exception in its own policy preserves independent backoff intervals while
+    matching the service-side parser used by ``CreatePipeline``.
+    """
     return [
         {
-            "ExceptionType": "SageMaker.CAPACITY_ERROR",
+            "ExceptionType": ["SageMaker.CAPACITY_ERROR"],
             "IntervalSeconds": 60,
             "BackoffRate": 2.0,
             "MaxAttempts": 3,
         },
         {
-            "ExceptionType": "Step.SERVICE_FAULT",
+            "ExceptionType": ["Step.SERVICE_FAULT"],
             "IntervalSeconds": 30,
             "BackoffRate": 2.0,
             "MaxAttempts": 3,
         },
         {
-            "ExceptionType": "SageMaker.JOB_INTERNAL_ERROR",
+            "ExceptionType": ["SageMaker.JOB_INTERNAL_ERROR"],
             "IntervalSeconds": 30,
             "BackoffRate": 2.0,
             "MaxAttempts": 3,

@@ -67,3 +67,7 @@ The status command reads the durable S3 run pointer and SageMaker Pipeline execu
 ## Cost discipline
 
 Registration creates/updates the pipeline definition but starts no GPU compute. The paid run uses bounded GPU steps purely to prove checkpoint recovery before a complete fold is authorized.
+
+## Registration contract
+
+The launcher emits retry policies using the current SageMaker Pipelines service shape, where each policy stores `ExceptionType` as an array. Registration itself is a no-GPU live service validation: the pipeline must be accepted by `CreatePipeline` or `UpdatePipeline` before any execution can be started.
