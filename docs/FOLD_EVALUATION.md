@@ -5,6 +5,13 @@ steps, 324.385 seconds in the trainer, and 621 billable instance seconds. The
 best validation loss was 4.544512 at epoch 1. The existing model is the input to
 this workflow. Training does not need to be repeated.
 
+The first evaluation attempt failed during argument parsing, before inference:
+SageMaker serialized the hyperparameter `k` as `-k`, while the worker accepted
+only `--k`. AWS recorded 160 billable seconds and no evaluation checkpoint
+objects. The saved training model was unaffected. The pipeline now uses
+`candidate-depth`; the worker also accepts the original `-k` and `--k` spellings.
+The existing files are updated in place.
+
 ## 1. Integrate and validate
 
 Merge the reviewed evaluation PR after both CI jobs pass. If Studio has the
@@ -36,6 +43,13 @@ PyTorch 2.13.0 CPU wheels and the managed container's NumPy/PyArrow versions.
 Those tests exercise the actual model and retrieval code; they do not certify
 GPU throughput or CUDA behavior.
 
+The launch contract is now tested across the production pipeline builder,
+the pinned AWS training toolkit's actual argument serializer, and a subprocess
+running `evaluate.py` with real saved model weights on a small CPU fixture.
+The subprocess restarts with a missing completion marker and a corrupt part;
+tests verify that valid parts and the saved weights are unchanged, the damaged
+part is regenerated, and UTC heartbeats and attempt totals are recorded.
+
 ## 2. Export exact full-catalogue predictions
 
 Set `OTTO_BUCKET` to the existing project bucket. From a clean checkout matching
@@ -51,11 +65,21 @@ run's proven image, role, and instance type. The default per-attempt limit is
 7,200 seconds. Automatic paid retries are disabled. Source compilation, lint,
 typing, CPU-safe preflight, archive checks, and an S3 download/hash comparison
 precede launch. The full neural CPU test suite is an additional CI gate.
+Before any upload or pipeline mutation, the launcher passes the exact generated
+hyperparameters to the packaged worker parser in a dependency-free subprocess.
+Unknown arguments, invalid search sizes, and nonfinite heartbeat intervals fail
+locally. `evaluation_launch_contract_complete status=passed` confirms this gate.
 
 Without `--start` or `--watch`, the command only registers the pipeline and
 prints `OTTO_TWO_TOWER_EVALUATION_REGISTERED_NO_GPU_STARTED`. A repeated start
 retains an executing or successful run. A failed execution can be deliberately
 retried with the same command and the same source/configuration.
+
+For the argument-parsing failure described above, merge the launch-contract PR,
+pull and validate as in section 1, then use `--start --watch --download` above.
+The changed source creates a new evaluation identity and uses the same trained
+weights. The failed attempt has no prediction parts to recover. Do not use
+watch-only mode to start recovery: it reconnects to the last tracked execution.
 
 The worker validates the original training manifest identities and input file
 checksums, loads `best_model.pt` with strict state-dictionary matching, and
@@ -72,6 +96,11 @@ part that had not finished uploading. It does not require retraining.
 
 Terminal heartbeats show UTC time, objective, bucket, progress, elapsed time,
 and available GPU telemetry. JSONL logs persist alongside the artifacts.
+Before inference starts, the monitor reports the worker's AWS secondary status
+(for example, starting or downloading). On failure it prints the training-job
+failure reason and billable seconds. A retry can reuse only parts that were
+successfully uploaded and pass their checksums; a failure message does not claim
+that such parts exist.
 Closing the monitor does not stop the managed worker. Reconnect with:
 
 ```bash

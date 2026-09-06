@@ -53,7 +53,7 @@ def evaluation_definition(
         "expected-items-id": input_manifests["items"],
         "training-input-id": training_manifest["input_id"],
         "code-commit": commit,
-        "k": "800",
+        "candidate-depth": "800",
         "batch-size": str(batch_size),
         "heartbeat-seconds": "30",
     }

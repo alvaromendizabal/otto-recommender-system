@@ -29,6 +29,7 @@ from otto_recsys.cloud.sagemaker_pipeline import (
 )
 from otto_recsys.cloud.source_preflight import (
     run_exact_source_preflight,
+    validate_evaluation_launch,
     verify_uploaded_source_roundtrip,
 )
 from otto_recsys.cloud.two_tower_evaluation import evaluation_definition
@@ -56,17 +57,38 @@ def watch(pointer: dict[str, Any], *, bucket: str, download: bool, max_wait: flo
                 pointer["pipeline_execution_arn"],
             ]
         )["PipelineExecutionSteps"]
+        job_states: list[str] = []
         for step in steps:
             job = step.get("Metadata", {}).get("TrainingJob", {}).get("Arn")
             if job:
                 name = job.rsplit("/", 1)[-1]
+                details = aws_json(
+                    ["sagemaker", "describe-training-job", "--training-job-name", name]
+                )
+                job_states.append(str(details.get("SecondaryStatus", details["TrainingJobStatus"])))
+                if status in {"Failed", "Stopped"}:
+                    print(
+                        json.dumps(
+                            {
+                                "timestamp": utc_now(),
+                                "event": "evaluation_job_terminal",
+                                "job": name,
+                                "status": details["TrainingJobStatus"],
+                                "failure_reason": details.get("FailureReason"),
+                                "billable_seconds": details.get("BillableTimeInSeconds"),
+                            },
+                            sort_keys=True,
+                        ),
+                        flush=True,
+                    )
                 for line in training_logs(name, limit=40):
                     if line not in seen_logs:
                         print(line, flush=True)
                         seen_logs.add(line)
         elapsed = time.perf_counter() - started
         print(
-            f"[{utc_now()}] evaluation_heartbeat status={status} elapsed_seconds={elapsed:.3f}",
+            f"[{utc_now()}] evaluation_heartbeat status={status} "
+            f"worker_status={','.join(job_states) or 'Pending'} elapsed_seconds={elapsed:.3f}",
             flush=True,
         )
         if status == "Succeeded":
@@ -101,7 +123,12 @@ def watch(pointer: dict[str, Any], *, bucket: str, download: bool, max_wait: flo
             return 0
         if status in {"Failed", "Stopped"}:
             print(json.dumps(execution, indent=2))
-            print("OTTO_TWO_TOWER_EVALUATION_FAILED_RESUME_AVAILABLE", flush=True)
+            print("OTTO_TWO_TOWER_EVALUATION_FAILED_CHECK_DIAGNOSTICS", flush=True)
+            print(
+                "Saved training weights are unchanged. A retry with the same source and "
+                "configuration reuses verified evaluation parts if any were uploaded.",
+                flush=True,
+            )
             return 1
         if elapsed >= max_wait:
             print("OTTO_EVALUATION_MONITOR_DETACHED_REMOTE_JOB_CONTINUES", flush=True)
@@ -165,8 +192,6 @@ def main() -> int:
     source_sha = create_deterministic_source_archive(source, archive)
     verify_source_archive(source, archive)
     uri = source_s3_uri(args.bucket, commit, source_sha)
-    run_command(["aws", "s3", "cp", str(archive), uri, "--only-show-errors"], check=True)
-    verify_uploaded_source_roundtrip(source_root=source, source_uri=uri, expected_sha256=source_sha)
     contract = {
         "training_run_id": training_run,
         "training_input_id": manifest["input_id"],
@@ -191,6 +216,9 @@ def main() -> int:
         max_runtime_seconds=args.max_runtime_seconds,
         batch_size=args.batch_size,
     )
+    validate_evaluation_launch(source, new_definition)
+    run_command(["aws", "s3", "cp", str(archive), uri, "--only-show-errors"], check=True)
+    verify_uploaded_source_roundtrip(source_root=source, source_uri=uri, expected_sha256=source_sha)
     root = Path("artifacts/two_tower_evaluation") / run_id
     path = root / "pipeline_definition.json"
     write_json_atomic(path, new_definition)
