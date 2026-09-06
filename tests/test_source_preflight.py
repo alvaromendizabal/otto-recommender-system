@@ -43,6 +43,7 @@ def test_cpu_safe_source_preflight_excludes_torch_checkpoint_test() -> None:
         "tests/test_resume_contract.py",
         "tests/test_sagemaker_entrypoint.py",
         "tests/test_evaluation_cli.py",
+        "tests/test_ann_cli.py",
     )
     assert "tests/test_checkpoint.py" not in CPU_SAFE_TESTS
 

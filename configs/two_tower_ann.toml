@@ -1,0 +1,17 @@
+# Frozen search experiment; changing this file produces a new run identity.
+[benchmark]
+sample_sessions = 4096
+nlist = 1024
+train_items = 65536
+train_iterations = 20
+probes = [32, 64, 128, 256]
+candidate_depth = 800
+target_overlap = 0.98
+threads = 4
+batch_size = 128
+index_shard_rows = 262144
+latency_queries = 128
+latency_repeats = 3
+warmup_queries = 32
+seed = 20260906
+export_fold_predictions = true

@@ -373,7 +373,8 @@ def evaluate_neural_retrieval(
         "generalization": (
             "Fold used for checkpoint selection; exploratory validation, not an untouched test set."
         ),
-        "ann_serving_benchmark": "pending; neural predictions use exhaustive FP32 search",
+        "prediction_search": prediction["search"],
+        "ann_serving_benchmark": "Latency is evaluated separately by the ANN benchmark.",
     }
     write_json(output_dir / "metrics.json", result)
     if checkpoint_store is not None:

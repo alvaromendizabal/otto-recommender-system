@@ -36,7 +36,10 @@ def test_missing_objective_is_not_silently_scored_zero() -> None:
         summarize_counts(np.zeros((10, 3, 5)), depths=(20,))
 
 
-def test_comparison_runs_real_baseline_and_resumes_verified_parts(tmp_path, monkeypatch) -> None:
+@pytest.mark.parametrize("search_method", ["exhaustive_inner_product", "faiss_ivfflat"])
+def test_comparison_runs_real_baseline_and_resumes_verified_parts(
+    tmp_path, monkeypatch, search_method
+) -> None:
     import json
     import logging
 
@@ -120,7 +123,7 @@ def test_comparison_runs_real_baseline_and_resumes_verified_parts(tmp_path, monk
             {
                 "status": "passed",
                 "ranking_manifest": manifest,
-                "search": {"k": 800},
+                "search": {"k": 800, "method": search_method},
                 "validation_fold": 0,
                 "input_id": "prediction",
                 "sessions": 2,
@@ -164,6 +167,7 @@ def test_comparison_runs_real_baseline_and_resumes_verified_parts(tmp_path, monk
         checkpoint_store=checkpoint_store,
     )
     assert result["sessions"] == 2
+    assert result["prediction_search"]["method"] == search_method
     assert result["points"][0]["weighted_base_ceiling"] == 0
     assert result["points"][0]["weighted_union_ceiling"] == 1
     receipt_time = (output / "parts/part-000.npz").stat().st_mtime_ns

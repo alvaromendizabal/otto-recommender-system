@@ -97,12 +97,16 @@ class PackedSessionStore:
         *,
         max_seq_len: int,
         time_buckets: int,
+        selected_sessions: np.ndarray | None = None,
     ) -> PackedSessionStore:
         import pyarrow.parquet as pq
 
         events = pq.read_table(
             cache_dir / "events.parquet",
             columns=["session", "aid", "ts", "event_type", "event_index"],
+            filters=[("session", "in", selected_sessions.tolist())]
+            if selected_sessions is not None
+            else None,
         )
         event_session = (
             events.column("session").to_numpy(zero_copy_only=False).astype(np.int64)

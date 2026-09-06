@@ -19,6 +19,7 @@ CPU_SAFE_TESTS = (
     "tests/test_resume_contract.py",
     "tests/test_sagemaker_entrypoint.py",
     "tests/test_evaluation_cli.py",
+    "tests/test_ann_cli.py",
 )
 
 
@@ -75,6 +76,26 @@ def validate_evaluation_launch(source_root: Path, definition: dict[str, Any]) ->
     if completed.returncode:
         raise RuntimeError(f"evaluation launch contract rejected: {completed.stderr.strip()}")
     print(completed.stdout.rstrip(), flush=True)
+
+
+def validate_ann_launch(source_root: Path, definition: dict[str, Any]) -> None:
+    """Validate the exact managed argument list before uploads or pipeline writes."""
+    started = time.perf_counter()
+    print(f"[{utc_now()}] ann_launch_contract_start", flush=True)
+    parameters = definition["Steps"][0]["Arguments"]["HyperParameters"]
+    completed = run_command(
+        [sys.executable, "-m", "otto_two_tower.ann_cli"],
+        cwd=source_root.resolve(),
+        env={"PYTHONPATH": str(source_root.resolve())},
+        input_text=json.dumps(parameters),
+    )
+    if completed.returncode:
+        raise RuntimeError(f"ANN launch contract rejected: {completed.stderr.strip()}")
+    print(
+        f"[{utc_now()}] ann_launch_contract_complete status=passed "
+        f"elapsed_seconds={time.perf_counter() - started:.3f}",
+        flush=True,
+    )
 
 
 def load_pinned_quality_toolchain(source_root: Path) -> dict[str, str]:
@@ -204,6 +225,7 @@ def run_exact_source_preflight(source_root: Path) -> None:
                 "otto_two_tower",
                 "train.py",
                 "evaluate.py",
+                "benchmark.py",
                 "prepare.py",
                 "runtime_validation.py",
                 "sagemaker_entrypoint.py",
