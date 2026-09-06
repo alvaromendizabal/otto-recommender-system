@@ -15,8 +15,15 @@ SageMaker JSON-decodes hyperparameter strings before constructing the command:
 the API value `"true"` became the CLI value `True`. The original parser accepted
 only lowercase values. AWS recorded 306 billable seconds and zero ANN checkpoint
 objects; the saved model and all 369 exact-export objects remain available.
-The [launch evidence](../reports/metrics/two_tower_fold0_ann_launch.json) records
-this failed attempt without presenting it as a model evaluation.
+The next attempt passed argument parsing and saved all 96 reference-count parts,
+then stopped at an incorrect requirement that catalogue IDs be sorted. AWS
+recorded 205 billable seconds and 198 checkpoint objects. The actual catalogue
+has 1,852,162 unique IDs in its trained vocabulary order; its inverse map is valid.
+Sorting the IDs alone would misalign items and vectors. Search and score replay
+now use the validated inverse map while preserving all original embedding rows.
+The [execution evidence](../reports/metrics/two_tower_fold0_ann_launch.json)
+preserves both failed attempts; the [catalogue audit](../reports/metrics/two_tower_fold0_catalogue.json)
+records checks against actual S3 inputs. Neither is an ANN quality measurement.
 
 The shared preflight now reproduces JSON decoding before CLI conversion, and the
 ANN parser canonicalizes both boolean spellings. Regression tests load the
@@ -79,8 +86,7 @@ The full-fold aggregate also includes the ANN tuning sessions.
 
 ## 1. Update and validate in Studio
 
-Your last recorded root quality gate passed with 196 tests. Pull this addition
-from the existing project directory; generated benchmark output stays under
+Pull the reviewed changes from the existing project directory; generated benchmark output stays under
 ignored `artifacts/`, so the launcher does not overwrite published reports.
 
 ```bash
@@ -106,6 +112,7 @@ Run from the clean checkout matching `origin/main`:
 OTTO_BUCKET=otto-recsys-560403859723-us-west-2
 .venv/bin/python scripts/launch_two_tower_ann.py \
   --bucket "$OTTO_BUCKET" --region us-west-2 --fold 0 \
+  --reuse-reference-run 2734f718f9ef0db5c4957365a0720c376497da361f890eead7518f89d95a8b76 \
   --start --watch --download
 ```
 
@@ -115,7 +122,19 @@ training/export provenance, runs pinned source checks, and tests the exact
 worker argument list before any cloud write. It verifies the staged archive
 and its S3 round trip before starting compute. Arguments are tested against the
 AWS training toolkit's actual JSON loading, framework-parameter filtering, and
-CLI serialization, including boolean values.
+CLI serialization, including boolean values. The launcher also downloads only
+the catalogue manifest and its two small lookup arrays (about 15 MB), checks
+their hashes against the frozen exact-export contract, and executes the same
+lookup validator used by the packaged worker before any paid start.
+
+The recovery flag above verifies the previous run contract and source archive,
+requires identical reference inputs and metric derivation code, and validates
+each committed reference-count part. It transfers eligible data before issuing
+new receipts that record the original run, checksum, completion time and compute
+time. An interrupted transfer can be retried. Existing valid destination parts
+are retained; conflicts are rejected. Indexes, queries, timings and selections
+are never imported through this reference-only path. Omit the flag when there
+is no previous compatible reference work to recover.
 
 The startup marker is `OTTO_ANN_TRACKED_SAFE_TO_DISCONNECT`. SageMaker owns the
 job after launch: closing the terminal or Studio does not stop it. Initially
@@ -148,6 +167,12 @@ A failed or runtime-limited worker can be deliberately retried with the same
 repeated start retains an active or successful run, preventing duplicate work.
 Changing source, runtime contract, or parameters creates a separate identity.
 Resume never accepts an incompatible checkpoint silently.
+
+Across code revisions, use `--reuse-reference-run` only for reference counts
+whose provenance and derivation still match. The launcher writes its audit to
+`control/reference_reuse.json` in the new run's S3 prefix. The worker logs
+`artifact_restored` or `artifact_reused` as it consumes those parts. Catalogue
+preflight evidence is recorded in `control/catalogue_preflight.json`.
 
 ## Durable progress and evidence
 
@@ -242,4 +267,12 @@ active/completed-run reuse, terminal status, official capped denominators,
 ranking diagnostics, paired uncertainty, real model/index execution, full-fold
 export integrity, process restart, corrupt prediction recovery, unchanged good
 index shards, S3 restoration, interrupted receipt publication, mismatched
-identities, denied access, and UTC heartbeat/elapsed-time events.
+identities, denied access, and UTC heartbeat/elapsed-time events. Catalogue tests
+cover shuffled and sparse IDs, duplicate IDs, stray inverse-map rows, missing
+neighbors, deterministic tie ordering, and exact-score alignment. The real-model
+fixture uses shuffled sparse IDs through export, ANN search, and process recovery.
+Production-input preflight tests reject bad hashes and mappings before cloud
+writes. Cross-revision recovery tests reject changed data, changed metric code,
+invalid arrays and corrupt receipts; verify data-before-receipt publication; and
+prove that reference recovery completes before a paid start without modifying an
+already active worker.

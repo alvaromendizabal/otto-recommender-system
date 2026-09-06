@@ -9,6 +9,7 @@ from types import ModuleType
 import pytest
 
 from otto_recsys.cloud.sagemaker_pipeline import (
+    canonical_sha256,
     create_deterministic_source_archive,
     verify_source_archive,
 )
@@ -100,6 +101,7 @@ def launcher(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> ModuleType:
     )
     monkeypatch.setattr(module, "ensure_committed_remote_state", lambda: "a" * 40)
     monkeypatch.setattr(module, "run_exact_source_preflight", lambda _: None)
+    monkeypatch.setattr(module, "validate_ann_catalogue", lambda *a: {"status": "passed"})
     monkeypatch.setattr(module, "create_deterministic_source_archive", lambda *a: "b" * 64)
     monkeypatch.setattr(module, "verify_source_archive", lambda *a: {})
     monkeypatch.setattr(module, "verify_uploaded_source_roundtrip", lambda **kw: {})
@@ -123,9 +125,11 @@ def launcher(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> ModuleType:
             return training_definition()
         if key.endswith("run_manifest.json"):
             return {"input_manifests": {"ranking": "ranking", "items": "items"}}
+        if key.endswith("evaluation_contract.json"):
+            return {"item_manifest": {}}
         if key.endswith("prediction_manifest.json"):
             return {
-                "input_id": "reference",
+                "input_id": canonical_sha256({"item_manifest": {}}),
                 "training_input_id": "trained",
                 "status": "passed",
                 "sessions": 103468,
@@ -198,6 +202,62 @@ def test_unknown_worker_argument_blocks_all_cloud_writes(
     monkeypatch.setattr(launcher, "put_json_s3", reject)
     with pytest.raises(RuntimeError, match="bad-option"):
         launcher.main()
+
+
+def test_invalid_production_catalogue_blocks_uploads_and_paid_start(
+    launcher: ModuleType, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(sys, "argv", ["ann", "--bucket", "bucket", "--start"])
+    monkeypatch.setattr(launcher, "aws_json", lambda _: {"PipelineExecutionStatus": "Succeeded"})
+
+    def invalid(*args: object) -> None:
+        raise ValueError("catalogue preflight failed")
+
+    def forbidden(*args: object, **kwargs: object) -> None:
+        pytest.fail("cloud write occurred before catalogue validation")
+
+    monkeypatch.setattr(launcher, "validate_ann_catalogue", invalid)
+    monkeypatch.setattr(launcher, "run_command", forbidden)
+    monkeypatch.setattr(launcher, "put_json_s3", forbidden)
+    with pytest.raises(ValueError, match="catalogue preflight failed"):
+        launcher.main()
+
+
+@pytest.mark.parametrize("active", [False, True])
+def test_reference_recovery_commits_before_start_and_preserves_active_workers(
+    launcher: ModuleType, monkeypatch: pytest.MonkeyPatch, active: bool
+) -> None:
+    monkeypatch.setattr(
+        sys, "argv", ["ann", "--bucket", "bucket", "--start", "--reuse-reference-run", "d" * 64]
+    )
+    events = []
+
+    def prepare(**kwargs: object) -> list:
+        events.append("verified")
+        return [object()]
+
+    def publish(**kwargs: object) -> dict:
+        events.append("durable")
+        return {"status": "passed"}
+
+    def aws(arguments: list[str]) -> dict:
+        if arguments[1] == "start-pipeline-execution":
+            events.append("started")
+        return {"PipelineExecutionStatus": "Succeeded", "PipelineExecutionArn": "new/ann"}
+
+    monkeypatch.setattr(launcher, "prepare_reference_reuse", prepare)
+    monkeypatch.setattr(launcher, "publish_reference_reuse", publish)
+    monkeypatch.setattr(launcher, "aws_json", aws)
+    if active:
+        monkeypatch.setattr(
+            launcher,
+            "pipeline_executions",
+            lambda _: [
+                {"PipelineExecutionStatus": "Executing", "PipelineExecutionArn": "active/ann"}
+            ],
+        )
+    assert launcher.main() == 0
+    assert events == (["verified"] if active else ["verified", "durable", "started"])
 
 
 @pytest.mark.parametrize("state,expected", [("Succeeded", 0), ("Failed", 1), ("Stopped", 1)])

@@ -16,6 +16,7 @@ import torch
 
 from .ann_search import build_index, search, write_npz
 from .benchmark_artifacts import BenchmarkArtifacts
+from .catalogue import Catalogue
 from .config import ModelConfig
 from .data import ItemVocabulary, PackedSessionStore, writable_vectors
 from .evaluation import read_json
@@ -56,7 +57,7 @@ def export_fold(
     args: argparse.Namespace,
     reference: dict[str, Any],
     sessions: np.ndarray,
-    item_ids: np.ndarray,
+    catalogue: Catalogue,
     chosen: int,
     truth: dict[str, dict[int, set[int]]],
     artifacts: BenchmarkArtifacts,
@@ -70,7 +71,7 @@ def export_fold(
     started = time.perf_counter()
     for objective_id, objective in enumerate(OBJECTIVES):
         vectors = load_vectors(objective)
-        index, _ = build_index(vectors, item_ids, args, artifacts, objective)
+        index, _ = build_index(vectors, catalogue.item_ids, args, artifacts, objective)
         index.nprobe = chosen
         for bucket in range(buckets):
             subset = sessions[sessions % buckets == bucket]
@@ -102,7 +103,9 @@ def export_fold(
                             .cpu()
                             .numpy()
                         )
-                        scores, aids = search(index, query, vectors, item_ids, args.candidate_depth)
+                        scores, aids = search(
+                            index, query, vectors, catalogue, args.candidate_depth
+                        )
                         predictions.extend(aids.astype(np.int32).tolist())
                         similarities.extend(scores.tolist())
                         progress.update(examples=begin + len(batch))
@@ -165,7 +168,7 @@ def export_fold(
             "ranking_manifest": reference["ranking_manifest"],
             "reference_input_id": reference["input_id"],
             "sessions": len(sessions),
-            "catalogue_items": len(item_ids),
+            "catalogue_items": len(catalogue.item_ids),
             "parts": receipts,
             "search": {
                 "method": "faiss_ivfflat",

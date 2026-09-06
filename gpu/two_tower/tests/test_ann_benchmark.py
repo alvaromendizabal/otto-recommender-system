@@ -34,10 +34,13 @@ def fixture(tmp_path: Path) -> argparse.Namespace:
         path.mkdir()
     rng = np.random.default_rng(27)
     vectors = rng.normal(size=(160, 8)).astype(np.float32)
+    item_ids = (rng.permutation(160) * 3 + 5).astype(np.int32)
+    inverse = np.full(int(item_ids.max()) + 1, -1, dtype=np.int32)
+    inverse[item_ids] = np.arange(160, dtype=np.int32)
     for name, value in {
-        "item_ids": np.arange(160, dtype=np.int32),
+        "item_ids": item_ids,
         "item_vectors": vectors,
-        "aid_to_index": np.arange(160, dtype=np.int32),
+        "aid_to_index": inverse,
     }.items():
         np.save(items / (name + ".npy"), value)
     item_manifest = {
@@ -56,7 +59,7 @@ def fixture(tmp_path: Path) -> argparse.Namespace:
             {
                 "session": sessions,
                 "fold": folds,
-                "aid": sessions % 160,
+                "aid": item_ids[sessions % 160],
                 "ts": np.full(24, 1000),
                 "event_type": np.zeros(24, dtype=int),
                 "event_index": np.zeros(24, dtype=int),
@@ -65,7 +68,7 @@ def fixture(tmp_path: Path) -> argparse.Namespace:
         ranking / "events.parquet",
     )
     labels = [
-        {"session": int(s), "fold": int(s % 2), "objective": o, "aid": int((s + i) % 160)}
+        {"session": int(s), "fold": int(s % 2), "objective": o, "aid": int(item_ids[(s + i) % 160])}
         for s in sessions
         for i, o in enumerate(("clicks", "carts", "orders"))
     ]
@@ -165,6 +168,8 @@ def test_real_model_index_metrics_and_process_restart(
     tmp_path: Path, toolkit_argv: Callable[[dict[str, str]], list[str]]
 ) -> None:
     args = fixture(tmp_path)
+    ids = np.load(args.item_data / "item_ids.npy")
+    assert np.any(np.diff(ids) < 0) and np.min(np.diff(np.sort(ids))) > 1
     parameters = {
         key.replace("_", "-"): str(value)
         for key, value in vars(args).items()
