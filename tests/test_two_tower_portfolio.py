@@ -26,3 +26,21 @@ def test_two_tower_notebook_is_committed_as_executed_evidence() -> None:
     notebook_text = json.dumps(payload)
     assert "two_tower_resume_proof.json" in notebook_text
     assert "Fold 0 experimental contract" in notebook_text
+
+
+def test_completed_fold_training_evidence_is_consistent_and_public() -> None:
+    path = Path("reports/metrics/two_tower_fold0_training.json")
+    payload = json.loads(path.read_text())
+    assert payload["status"] == "passed"
+    assert payload["global_step"] == 9600
+    assert payload["completed_epochs"] == len(payload["history"]) == 4
+    assert payload["best_valid_loss"] == min(row["valid"]["loss"] for row in payload["history"])
+    assert payload["billable_seconds"] == 621
+    assert "arn:aws" not in path.read_text()
+    assert "560403859723" not in path.read_text()
+    notebook = json.loads(Path("notebooks/05_two_tower_results.ipynb").read_text())
+    for cell in notebook["cells"]:
+        if cell["cell_type"] == "code":
+            assert cell["execution_count"] is not None
+            assert not any(output["output_type"] == "error" for output in cell["outputs"])
+    assert Path("reports/figures/two_tower_learning_curves.png").stat().st_size > 1000

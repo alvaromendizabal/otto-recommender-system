@@ -1,0 +1,6 @@
+# CPU contract-test environment mirrors the managed container's supporting libraries.
+# Install torch==2.13.0 from the official CPU wheel index separately.
+-r requirements-dev.txt
+numpy==2.4.3
+pyarrow==23.0.1
+psutil==7.2.2

@@ -11,7 +11,7 @@ until Fold 0 produces complementary retrieval evidence.
 
 ## Leakage contract
 
-Fold 0 is held out for all reported Fold 0 neural metrics. Training consumes
+Fold 0 is excluded from gradient updates and used for checkpoint selection. Its metrics are exploratory validation evidence, not an untouched test estimate. Training consumes
 only rows assigned to folds 1-4. The frozen ranking cache, hard-negative family,
 and Item2Vec initialization are identified by immutable manifests and become
 part of the run ID. Source code is hashed, archived deterministically, uploaded
@@ -26,7 +26,7 @@ the cross-worker resume proof:
 - model state;
 - dense and sparse optimizer state;
 - scheduler state;
-- Python/NumPy/PyTorch RNG state;
+- NumPy/PyTorch CPU and CUDA RNG state;
 - epoch, next batch, and global step;
 - immutable input ID and configuration.
 
@@ -98,3 +98,5 @@ CPU development and ML dependency graph is recreated. It verifies that
 checks Ruff/mypy against the GPU package's exact pins, and runs the GPU pytest
 contract in an isolated exact-version environment without installing Torch into
 the CPU control plane. Only a clean-room pass permits application to the real tree.
+
+The first retrieval pass uses exhaustive FP32 inner-product search with ascending-item-ID tie breaks. This establishes a reference without ANN approximation. A separate ANN fidelity and serving-latency benchmark remains required before scaling. See [FOLD_EVALUATION.md](FOLD_EVALUATION.md).

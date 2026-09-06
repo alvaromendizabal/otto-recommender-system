@@ -181,6 +181,7 @@ def run_exact_source_preflight(source_root: Path) -> None:
                 "3.13",
                 "otto_two_tower",
                 "train.py",
+                "evaluate.py",
                 "prepare.py",
                 "runtime_validation.py",
                 "sagemaker_entrypoint.py",

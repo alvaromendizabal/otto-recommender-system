@@ -1,7 +1,7 @@
 # Fold 0 training and evidence
 
-The next experiment trains the objective-conditioned two-tower retriever on folds 1–4
-and holds out Fold 0. Run from the SageMaker Studio terminal in the repository root.
+The completed September 6 run trained the objective-conditioned two-tower retriever on folds 1–4
+and held out Fold 0. It passed after four epochs; do not relaunch training to evaluate it. Continue with [FOLD_EVALUATION.md](FOLD_EVALUATION.md). The commands below reproduce the training workflow. Run from the SageMaker Studio terminal in the repository root.
 Set `OTTO_BUCKET` to the existing project bucket before launching or monitoring.
 Only one `ml.g6.xlarge` worker is requested. The configured limit is eight epochs and
 21,600 seconds **per training attempt**. Capacity/service retries can extend total

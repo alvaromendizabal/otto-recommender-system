@@ -308,3 +308,8 @@ class HardNegativeBatchStream:
                 )
                 logical_batch += 1
                 emitted_rows += int(selection.size)
+
+
+def writable_vectors(vectors: np.ndarray) -> torch.Tensor:
+    """Own NumPy storage before exposing it to a mutable tensor."""
+    return torch.from_numpy(np.array(vectors, dtype=np.float32, copy=True))

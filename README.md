@@ -86,7 +86,7 @@ The notebooks are intentionally **analysis layers**, not the source of productio
 2. [`notebooks/02_retrieval_benchmarks.ipynb`](notebooks/02_retrieval_benchmarks.ipynb) — retrieval evidence and ablations.
 3. [`notebooks/03_candidate_frontier.ipynb`](notebooks/03_candidate_frontier.ipynb) — candidate-depth trade-offs.
 4. [`notebooks/04_hard_negative_quality.ipynb`](notebooks/04_hard_negative_quality.ipynb) — OOF and hard-negative integrity.
-5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed resume evidence and the Fold 0 experiment contract; neural quality results remain pending.
+5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed resume evidence, completed Fold 0 learning curves, and the evaluation contract.
 
 ## Repository layout
 
@@ -163,7 +163,11 @@ The proof is source-addressed, input-addressed, and server-managed. Closing Stud
 
 ## Current modeling stage
 
-The cross-worker resume proof and Fold 0 definition registration have passed. Full Fold 0 training and retrieval evaluation remain pending. The next experiment is **one full OOF Fold 0 neural-retrieval run** using `scripts/launch_two_tower_fold.py`.
+**Fold 0 training completed successfully on September 6, 2026.** The run completed four epochs and 9,600 optimizer steps before early stopping. Training took 324.385 seconds; AWS recorded 621 billable instance seconds. The lowest validation loss was 4.544512 at epoch 1.
+
+![Fold 0 learning curves](reports/figures/two_tower_learning_curves.png)
+
+Validation loss rose after epoch 1 while training loss fell. The next experiment evaluates the saved best checkpoint with exhaustive full-catalogue retrieval and a paired comparison against the frozen base pool. Neural retrieval quality and ANN serving performance remain unmeasured. See [the evaluation workflow](docs/FOLD_EVALUATION.md).
 
 Fold 0 is trained on folds 1–4, writes durable resumable checkpoints, and publishes a compact training report. The learned retriever is then evaluated at candidate depths 20/50/100/200/400/800 for standalone recall, incremental recall over the frozen co-visitation + Item2Vec system, and neural-only positive hits.
 
