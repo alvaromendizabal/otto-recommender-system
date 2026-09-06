@@ -1,21 +1,55 @@
 {
-  "ann_checkpoint_bytes": 981632,
-  "ann_checkpoint_objects": 198,
-  "benchmark_elapsed_seconds": 5.689,
-  "billable_seconds": 306,
-  "cause": "StreamingBody.__enter__ returned its raw HTTPResponse, which has no iter_chunks method. The previous test double returned itself and concealed this SDK behavior.",
-  "code_commit": "07fc036ad0e2a1248bf20fd6758888ff6e27e4e0",
+  "ann_checkpoint_bytes": 7718588158,
+  "ann_checkpoint_objects": 1176,
+  "benchmark_elapsed_seconds": 2710.048,
+  "billable_seconds": 3002,
+  "cause": "The managed ANN benchmark completed after restoring all 96 compatible reference-count parts.",
+  "checkpoint_groups": {
+    "confirmation": {
+      "bytes": 33261520,
+      "objects": 102
+    },
+    "indices": {
+      "bytes": 5794706501,
+      "objects": 66
+    },
+    "logs": {
+      "bytes": 800590,
+      "objects": 2
+    },
+    "prediction_export": {
+      "bytes": 1749577197,
+      "objects": 386
+    },
+    "queries": {
+      "bytes": 5868279,
+      "objects": 6
+    },
+    "reference": {
+      "bytes": 946842,
+      "objects": 198
+    },
+    "tuning": {
+      "bytes": 133105569,
+      "objects": 408
+    }
+  },
+  "code_commit": "0ed61691cfd48d19ee86c1c526dc95cb8642c46c",
+  "committed_prediction_parts": 96,
   "committed_reference_parts": 96,
   "container_warning": {
     "fatal_exception": false,
     "message": "ERROR: ld.so: object '/libchangehostname.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.",
     "observed_before": "ann_worker_start",
+    "observed_messages_in_completed_job": 10,
     "source": "AWS image startup script sets LD_PRELOAD; the saved job environment does not.",
     "source_url": "https://github.com/aws/deep-learning-containers/blob/main/scripts/docker/pytorch/start_with_right_hostname.sh",
-    "status": "unresolved in managed image"
+    "status": "unresolved in managed image",
+    "verification": "Live CloudWatch FilterLogEvents for libchangehostname.so returned 10 startup loader messages. Worker JSON logs contain no WARNING or ERROR records."
   },
-  "interpretation": "Catalogue preflight passed and all 96 compatible reference parts were imported. Restoration stopped before ANN indexing or evaluation. No full-scale ANN quality or latency was measured.",
-  "phase": "reference_artifact_restore",
+  "interpretation": "The confirmation fidelity gate passed at nprobe=256. All 96 full-fold prediction parts and final metrics are durable. ANN incremental gain beyond the frozen baseline remains unmeasured.",
+  "phase": "full_fold_ann_export_and_metrics",
+  "prediction_export_bytes": 1749577197,
   "preserved_best_model_bytes": 949613446,
   "preserved_exact_export_bytes": 4594673647,
   "preserved_exact_export_objects": 369,
@@ -57,49 +91,87 @@
       "verification": "Live ListPipelineExecutionSteps, DescribeTrainingJob and ListObjectsV2. Actual item IDs and inverse-map arrays were downloaded and checked against their saved SHA-256 hashes. Preserved training/exact-export sizes were verified during the preceding attempt.",
       "verified_at_utc": "2026-09-06T21:39:44.630752+00:00",
       "worker_exit_code": 1
+    },
+    {
+      "ann_checkpoint_bytes": 981632,
+      "ann_checkpoint_objects": 198,
+      "benchmark_elapsed_seconds": 5.689,
+      "billable_seconds": 306,
+      "cause": "StreamingBody.__enter__ returned its raw HTTPResponse, which has no iter_chunks method. The previous test double returned itself and concealed this SDK behavior.",
+      "code_commit": "07fc036ad0e2a1248bf20fd6758888ff6e27e4e0",
+      "committed_reference_parts": 96,
+      "container_warning": {
+        "fatal_exception": false,
+        "message": "ERROR: ld.so: object '/libchangehostname.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.",
+        "observed_before": "ann_worker_start",
+        "source": "AWS image startup script sets LD_PRELOAD; the saved job environment does not.",
+        "source_url": "https://github.com/aws/deep-learning-containers/blob/main/scripts/docker/pytorch/start_with_right_hostname.sh",
+        "status": "unresolved in managed image"
+      },
+      "interpretation": "Catalogue preflight passed and all 96 compatible reference parts were imported. Restoration stopped before ANN indexing or evaluation. No full-scale ANN quality or latency was measured.",
+      "phase": "reference_artifact_restore",
+      "preserved_best_model_bytes": 949613446,
+      "preserved_exact_export_bytes": 4594673647,
+      "preserved_exact_export_objects": 369,
+      "recovery_validation": {
+        "checks": [
+          "compile",
+          "Ruff",
+          "mypy",
+          "pytest",
+          "root smoke test"
+        ],
+        "integration_scope": "Real small-model CPU benchmark restored through boto3 HTTP responses into a fresh directory. Completed reference counts, queries, indices, tuning, confirmation and prediction export were reused; only final metrics and logs were written.",
+        "limitations": "Local HTTP fixture uses single-part uploads. Full-catalogue CUDA execution and AWS container startup are not certified by these tests.",
+        "production_s3_restore": {
+          "artifact": "reference/clicks/part-000.npz",
+          "bytes": 10205,
+          "elapsed_seconds": 6.96813,
+          "recomputed": false,
+          "response_types": [
+            "StreamingBody",
+            "StreamingBody"
+          ],
+          "scope": "One production receipt and artifact; the separate HTTP integration test covers all small-model benchmark stages.",
+          "sha256": "2866ba410f59968c16bebadc10c425dd6b0315fc4c0cd0e33a620469f1f2d380",
+          "source_run_id": "d964beae9572c5b03e3bb146d1c8b578cd6d1329b02fd1a37f650f5042b3f7b8",
+          "status": "passed",
+          "transport": "Actual boto3 HTTP parser and StreamingBody using read-only presigned S3 URLs; signing is supplied by those URLs, not by local AWS credentials.",
+          "verified_at_utc": "2026-09-06T22:13:44.171+00:00"
+        },
+        "root_quality_gate_seconds": 11.167,
+        "root_tests_passed": 229,
+        "status": "passed",
+        "worker_python_warnings": "errors in pytest configuration",
+        "worker_quality_gate_seconds": 37.967,
+        "worker_tests_passed": 126
+      },
+      "run_id": "d964beae9572c5b03e3bb146d1c8b578cd6d1329b02fd1a37f650f5042b3f7b8",
+      "schema_version": 3,
+      "status": "failed",
+      "training_ended_at_utc": "2026-09-06T21:59:54.147+00:00",
+      "training_job_name": "pipelines-4psqder2gb35-BenchmarkANN-KJvJH3DuaC",
+      "training_started_at_utc": "2026-09-06T21:54:48.483+00:00",
+      "verification": "Live DescribeTrainingJob and ListObjectsV2 succeeded. The supplied CloudWatch transcript records the exception and worker timings. Preserved training and exact-export sizes were verified in preceding attempts.",
+      "verified_at_utc": "2026-09-06T22:14:10.313415+00:00",
+      "worker_elapsed_seconds": 7.13137,
+      "worker_exit_code": 1
     }
   ],
-  "recovery_validation": {
-    "checks": [
-      "compile",
-      "Ruff",
-      "mypy",
-      "pytest",
-      "root smoke test"
-    ],
-    "integration_scope": "Real small-model CPU benchmark restored through boto3 HTTP responses into a fresh directory. Completed reference counts, queries, indices, tuning, confirmation and prediction export were reused; only final metrics and logs were written.",
-    "limitations": "Local HTTP fixture uses single-part uploads. Full-catalogue CUDA execution and AWS container startup are not certified by these tests.",
-    "production_s3_restore": {
-      "artifact": "reference/clicks/part-000.npz",
-      "bytes": 10205,
-      "elapsed_seconds": 6.96813,
-      "recomputed": false,
-      "response_types": [
-        "StreamingBody",
-        "StreamingBody"
-      ],
-      "scope": "One production receipt and artifact; the separate HTTP integration test covers all small-model benchmark stages.",
-      "sha256": "2866ba410f59968c16bebadc10c425dd6b0315fc4c0cd0e33a620469f1f2d380",
-      "source_run_id": "d964beae9572c5b03e3bb146d1c8b578cd6d1329b02fd1a37f650f5042b3f7b8",
-      "status": "passed",
-      "transport": "Actual boto3 HTTP parser and StreamingBody using read-only presigned S3 URLs; signing is supplied by those URLs, not by local AWS credentials.",
-      "verified_at_utc": "2026-09-06T22:13:44.171+00:00"
-    },
-    "root_quality_gate_seconds": 11.167,
-    "root_tests_passed": 229,
-    "status": "passed",
-    "worker_python_warnings": "errors in pytest configuration",
-    "worker_quality_gate_seconds": 37.967,
-    "worker_tests_passed": 126
-  },
-  "run_id": "d964beae9572c5b03e3bb146d1c8b578cd6d1329b02fd1a37f650f5042b3f7b8",
-  "schema_version": 3,
-  "status": "failed",
-  "training_ended_at_utc": "2026-09-06T21:59:54.147+00:00",
-  "training_job_name": "pipelines-4psqder2gb35-BenchmarkANN-KJvJH3DuaC",
-  "training_started_at_utc": "2026-09-06T21:54:48.483+00:00",
-  "verification": "Live DescribeTrainingJob and ListObjectsV2 succeeded. The supplied CloudWatch transcript records the exception and worker timings. Preserved training and exact-export sizes were verified in preceding attempts.",
-  "verified_at_utc": "2026-09-06T22:14:10.313415+00:00",
-  "worker_elapsed_seconds": 7.13137,
-  "worker_exit_code": 1
+  "restored_reference_parts": 96,
+  "run_id": "0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9",
+  "schema_version": 4,
+  "status": "completed",
+  "training_ended_at_utc": "2026-09-06T23:22:45.806000+00:00",
+  "training_job_name": "pipelines-vrys5oj1kzkp-BenchmarkANN-F8QAg9xVCV",
+  "training_started_at_utc": "2026-09-06T22:32:43.600000+00:00",
+  "verification": "Live ListPipelineExecutions, ListPipelineExecutionSteps, DescribeTrainingJob and complete per-stage ListObjectsV2 inventories. Downloaded report and count receipts checked by the independent auditor. S3 worker logs record 96 successful reference restorations.",
+  "verified_at_utc": "2026-09-06T23:25:48.630437+00:00",
+  "worker_elapsed_seconds": 2711.490357,
+  "worker_exit_code": 0,
+  "worker_resource_config": {
+    "InstanceCount": 1,
+    "InstanceType": "ml.g6.xlarge",
+    "VolumeSizeInGB": 100
+  }
 }
