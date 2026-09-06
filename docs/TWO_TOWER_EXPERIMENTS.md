@@ -6,8 +6,8 @@ The two-tower retriever is retained only if it contributes measurable held-out
 recall beyond the frozen non-neural retrieval system. Neural complexity is not
 counted as a success by itself.
 
-The first authorized experiment is **OOF Fold 0 only**. Folds 1-4 remain blocked
-until Fold 0 produces complementary retrieval evidence.
+The first authorized experiment is **OOF Fold 0 only**. Fold 0 has now produced complementary retrieval evidence. Folds 1–4 remain
+blocked until ANN fidelity and resource-use measurements justify scaling.
 
 ## Leakage contract
 
@@ -72,9 +72,47 @@ Do not run folds 1-4 simply because Fold 0 completed. Continue to full OOF only
 when the learned source contributes non-trivial complementary positives and the
 incremental gain is stable enough to justify the additional compute.
 
-If Fold 0 is complementary, the next milestone is five-fold OOF candidate
-generation followed by objective-specific learning-to-rank. If it is not, tune
-or replace the neural retriever before scaling.
+Fold 0 is complementary: neural top 800 raises the fixed baseline ceiling from
+0.731544 to 0.741835 (+0.010291; paired 95% interval 0.009311–0.011198). Neural
+ordered Recall@20 is 0.218670. Retain it as an additional source. These metrics
+do not demonstrate final ranked quality or model-selection-independent
+performance. The independently verified report is
+`reports/metrics/two_tower_fold0_retrieval.json`.
+
+### Next experiment: ANN fidelity and latency
+
+Reuse the existing model, catalogue embeddings, and exact top-800 reference.
+Freeze the query cohort before tuning ANN parameters and retain a separate
+query subset for confirming the selected configuration. Store its session IDs,
+selection seed, embedding hashes, prediction identity, index parameters,
+software versions, thread count, and hardware in the benchmark contract.
+
+Compare an exact inner-product reference with an approximate index. FAISS
+[documents exact Flat search as the reference for approximate indexes](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index)
+and [the memory/search trade-offs of HNSW](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
+Do not interpret exact export batch time as serving latency.
+
+Required measurements, separately for clicks/carts/orders and depths 400/800:
+
+- overlap with the saved exact top-K and score-tie handling;
+- downstream positive coverage and retained incremental gain over the same base;
+- cold index load/build time, serialized bytes, and peak process memory;
+- warmed batch-1 p50/p95/p99 latency and separately labeled batch throughput;
+- repeated timing measurements with disclosed hardware, threads, warm-up, and
+  sample counts; search time and full request time labeled separately.
+
+Any numeric acceptance thresholds are prospective design decisions, not
+measured results. Select a configuration using the fidelity/latency frontier
+and confirm it on the reserved query subset before scheduling the other folds.
+The benchmark implementation must checkpoint indexes and query-result parts
+atomically to S3, validate receipts on resume, record UTC progress/heartbeats,
+and test interruption, corruption, input mismatch, and score/ID alignment.
+
+After that gate, generate five-fold OOF candidates and train objective-specific
+rankers. Compare base-only and base-plus-neural inputs at identical final
+ranking budgets. Use nested training-only checkpoint selection for OOF features;
+a held-out fold must not select the checkpoint that creates its ranker-training
+features. Preserve an untouched temporal evaluation for the final comparison.
 
 ## Employer-visible evidence
 
