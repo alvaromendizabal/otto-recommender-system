@@ -12,15 +12,6 @@ class Stage:
     command: tuple[str, ...]
 
 
-PYTHON_TARGETS = (
-    "otto_two_tower",
-    "tests",
-    "train.py",
-    "prepare.py",
-    "runtime_validation.py",
-    "sagemaker_entrypoint.py",
-)
-
 STAGES = (
     Stage(
         "compile",
@@ -29,7 +20,12 @@ STAGES = (
             "-m",
             "compileall",
             "-q",
-            *PYTHON_TARGETS,
+            "otto_two_tower",
+            "tests",
+            "train.py",
+            "prepare.py",
+            "runtime_validation.py",
+            "sagemaker_entrypoint.py",
         ),
     ),
     Stage(
@@ -39,7 +35,12 @@ STAGES = (
             "-m",
             "ruff",
             "check",
-            *PYTHON_TARGETS,
+            "otto_two_tower",
+            "tests",
+            "train.py",
+            "prepare.py",
+            "runtime_validation.py",
+            "sagemaker_entrypoint.py",
         ),
     ),
     Stage(
@@ -68,10 +69,7 @@ def main() -> int:
         completed = subprocess.run(stage.command, check=False)
         elapsed = time.perf_counter() - stage_started
         status = "PASS" if completed.returncode == 0 else "FAIL"
-        print(
-            f"STAGE_COMPLETE name={stage.name} status={status} "
-            f"elapsed_seconds={elapsed:.3f}"
-        )
+        print(f"STAGE_COMPLETE name={stage.name} status={status} elapsed_seconds={elapsed:.3f}")
         if completed.returncode != 0:
             print(f"OTTO_TWO_TOWER_QUALITY_GATE_FAILED stage={stage.name}")
             return completed.returncode

@@ -4,10 +4,12 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
 import time
+from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -32,9 +34,23 @@ def utc_now() -> str:
 
 
 def run_command(
-    command: list[str], *, check: bool = False
+    command: list[str],
+    *,
+    check: bool = False,
+    cwd: Path | None = None,
+    env: Mapping[str, str] | None = None,
 ) -> subprocess.CompletedProcess[str]:
-    completed = subprocess.run(command, check=False, capture_output=True, text=True)
+    process_env = os.environ.copy()
+    if env is not None:
+        process_env.update(env)
+    completed = subprocess.run(
+        command,
+        check=False,
+        capture_output=True,
+        text=True,
+        cwd=cwd,
+        env=process_env,
+    )
     if check and completed.returncode != 0:
         detail = completed.stderr.strip() or completed.stdout.strip()
         raise RuntimeError(
@@ -83,10 +99,92 @@ def ensure_committed_remote_state() -> str:
     return head
 
 
-def _run_preflight_stage(name: str, command: list[str]) -> None:
+def _load_pinned_quality_toolchain(source_root: Path) -> dict[str, str]:
+    requirements_path = source_root / "requirements-dev.txt"
+    if not requirements_path.is_file():
+        raise RuntimeError(f"missing GPU quality-tool requirements: {requirements_path}")
+
+    required_tools = {"ruff", "mypy", "pytest"}
+    versions: dict[str, str] = {}
+    for raw_line in requirements_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or line.startswith("-r "):
+            continue
+        if "==" not in line:
+            name = (
+                line.split("[", maxsplit=1)[0]
+                .split("<", maxsplit=1)[0]
+                .split(">", maxsplit=1)[0]
+            )
+            if name in required_tools:
+                raise RuntimeError(
+                    f"quality tool must be exactly pinned in {requirements_path}: {line}"
+                )
+            continue
+        name, version = line.split("==", maxsplit=1)
+        name = name.strip()
+        version = version.strip()
+        if name in required_tools:
+            if not version:
+                raise RuntimeError(f"empty quality-tool version for {name}")
+            versions[name] = version
+
+    missing = sorted(required_tools - versions.keys())
+    if missing:
+        raise RuntimeError(
+            f"missing exact quality-tool pins in {requirements_path}: {missing}"
+        )
+    return versions
+
+
+def _isolated_tool_command(
+    *, distribution: str, version: str, executable: str, arguments: list[str]
+) -> list[str]:
+    if shutil.which("uvx"):
+        runner = ["uvx"]
+    elif shutil.which("uv"):
+        runner = ["uv", "tool", "run"]
+    else:
+        raise RuntimeError("uv/uvx is required for the pinned source-quality toolchain")
+    return [
+        *runner,
+        "--from",
+        f"{distribution}=={version}",
+        executable,
+        *arguments,
+    ]
+
+
+def _isolated_python_module_command(
+    *, distribution: str, version: str, module: str, arguments: list[str]
+) -> list[str]:
+    """Run an exactly pinned Python module while preserving the source CWD on sys.path."""
+    if not shutil.which("uv"):
+        raise RuntimeError("uv is required for pinned Python-module source checks")
+    return [
+        "uv",
+        "run",
+        "--isolated",
+        "--no-project",
+        "--with",
+        f"{distribution}=={version}",
+        "python",
+        "-m",
+        module,
+        *arguments,
+    ]
+
+
+def _run_preflight_stage(
+    name: str,
+    command: list[str],
+    *,
+    cwd: Path,
+    env: Mapping[str, str] | None = None,
+) -> None:
     started = time.perf_counter()
     print(f"[{utc_now()}] source_preflight_stage_start name={name}", flush=True)
-    completed = run_command(command)
+    completed = run_command(command, cwd=cwd, env=env)
     elapsed = time.perf_counter() - started
     if completed.stdout.strip():
         print(completed.stdout.rstrip(), flush=True)
@@ -104,57 +202,73 @@ def _run_preflight_stage(name: str, command: list[str]) -> None:
 
 
 def run_exact_source_preflight(source_root: Path) -> None:
-    """Gate the exact GPU source tree before any SageMaker work is submitted."""
+    """Gate the exact GPU source tree with one pinned static-analysis toolchain."""
     started = time.perf_counter()
+    source_root = source_root.resolve()
     config_path = source_root / "pyproject.toml"
     if not config_path.is_file():
         raise RuntimeError(f"missing GPU package config: {config_path}")
 
+    toolchain = _load_pinned_quality_toolchain(source_root)
+    inherited_pythonpath = os.environ.get("PYTHONPATH")
+    source_pythonpath = str(source_root)
+    if inherited_pythonpath:
+        source_pythonpath = f"{source_pythonpath}{os.pathsep}{inherited_pythonpath}"
+    print(
+        f"[{utc_now()}] source_preflight_toolchain "
+        f"ruff={toolchain['ruff']} mypy={toolchain['mypy']} pytest={toolchain['pytest']}",
+        flush=True,
+    )
+
     _run_preflight_stage(
         "compile",
-        [sys.executable, "-m", "compileall", "-q", str(source_root)],
+        [sys.executable, "-m", "compileall", "-q", "."],
+        cwd=source_root,
     )
     _run_preflight_stage(
         "ruff",
-        [
-            "uv",
-            "run",
-            "ruff",
-            "check",
-            "--config",
-            str(config_path),
-            str(source_root),
-        ],
+        _isolated_tool_command(
+            distribution="ruff",
+            version=toolchain["ruff"],
+            executable="ruff",
+            arguments=["check", "--config", "pyproject.toml", "."],
+        ),
+        cwd=source_root,
     )
     _run_preflight_stage(
         "mypy",
-        [
-            "uv",
-            "run",
-            "mypy",
-            "--config-file",
-            str(config_path),
-            "--python-version",
-            "3.13",
-            str(source_root / "otto_two_tower"),
-            str(source_root / "train.py"),
-            str(source_root / "prepare.py"),
-            str(source_root / "runtime_validation.py"),
-            str(source_root / "sagemaker_entrypoint.py"),
-        ],
+        _isolated_tool_command(
+            distribution="mypy",
+            version=toolchain["mypy"],
+            executable="mypy",
+            arguments=[
+                "--config-file",
+                "pyproject.toml",
+                "--python-version",
+                "3.13",
+                "otto_two_tower",
+                "train.py",
+                "prepare.py",
+                "runtime_validation.py",
+                "sagemaker_entrypoint.py",
+            ],
+        ),
+        cwd=source_root,
     )
     _run_preflight_stage(
         "cpu_safe_contract_tests",
-        [
-            "env",
-            f"PYTHONPATH={source_root}",
-            "uv",
-            "run",
-            "pytest",
-            "-q",
-            str(source_root / "tests/test_resume_contract.py"),
-            str(source_root / "tests/test_sagemaker_entrypoint.py"),
-        ],
+        _isolated_python_module_command(
+            distribution="pytest",
+            version=toolchain["pytest"],
+            module="pytest",
+            arguments=[
+                "-q",
+                "tests/test_resume_contract.py",
+                "tests/test_sagemaker_entrypoint.py",
+            ],
+        ),
+        cwd=source_root,
+        env={"PYTHONPATH": source_pythonpath},
     )
     elapsed = time.perf_counter() - started
     print(

@@ -11,7 +11,7 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 ignore = []
 
 [tool.ruff.lint.isort]
-known-first-party = ["otto_two_tower"]
+known-first-party = ["otto_two_tower", "sagemaker_entrypoint"]
 
 [tool.mypy]
 python_version = "3.13"

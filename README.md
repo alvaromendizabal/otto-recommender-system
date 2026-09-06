@@ -22,6 +22,7 @@ The system predicts the next **click**, **cart**, and **order** actions from ano
 - atomic checkpoints containing model, optimizers, schedulers, RNG state, epoch, batch, and global step;
 - S3-backed checkpoint recovery across fresh SageMaker GPU jobs;
 - exact-source archive verification with file-level hashes and S3 round-trip parity before paid GPU execution;
+- one exactly pinned CPU quality toolchain for Ruff, mypy, and pytest, with paid GPU workers reserved for runtime validation and training;
 - stage-aware persisted failure diagnostics for SageMaker training jobs;
 - structured UTC logging, elapsed-time reporting, CPU/RAM telemetry, GPU/VRAM telemetry, and periodic heartbeats;
 - Ruff, mypy, pytest, smoke tests, dependency checks, and repository hygiene gates.
@@ -135,3 +136,4 @@ See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md), [`docs/DURABILITY.md`]
 The CPU retrieval and hard-negative data pipeline is frozen. The current milestone is proving managed cross-job checkpoint recovery for the objective-conditioned two-tower retriever, followed by one complete OOF fold and incremental Recall@K evaluation against the frozen co-visitation + Item2Vec candidate system.
 
 Additional neural folds are only justified if the learned retriever contributes genuinely new positives beyond the existing retrieval union.
+Pinned test execution uses `python -m pytest` inside the isolated `uv` environment so the exact GPU source directory remains on Python's import path.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import gzip
 import tarfile
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -89,3 +90,45 @@ def test_source_archive_rejects_symlinked_source(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="may not contain symlinks"):
         verify_source_archive(source, archive)
+
+
+def test_gpu_quality_toolchain_is_exactly_pinned() -> None:
+    requirements = Path("gpu/two_tower/requirements-dev.txt").read_text(encoding="utf-8")
+
+    assert "ruff==0.16.6" in requirements
+    assert "mypy==2.3.1" in requirements
+    assert "pytest==9.0.3" in requirements
+    assert "ruff>=" not in requirements
+    assert "mypy>=" not in requirements
+    assert "pytest>=" not in requirements
+
+
+def test_gpu_ruff_classifies_entrypoint_as_first_party() -> None:
+    payload = tomllib.loads(
+        Path("gpu/two_tower/pyproject.toml").read_text(encoding="utf-8")
+    )
+    known = payload["tool"]["ruff"]["lint"]["isort"]["known-first-party"]
+
+    assert "otto_two_tower" in known
+    assert "sagemaker_entrypoint" in known
+
+
+def test_pinned_pytest_preflight_uses_python_module_invocation() -> None:
+    launcher = Path("scripts/launch_two_tower_pipeline.py").read_text(encoding="utf-8")
+
+    assert 'module="pytest"' in launcher
+    assert '"python",\n        "-m",\n        module' in launcher
+    assert 'executable="pytest"' not in launcher
+    assert 'env={"PYTHONPATH": source_pythonpath}' in launcher
+
+
+def test_changed_python_sources_have_single_terminal_newline() -> None:
+    paths = [
+        Path("gpu/two_tower/tests/test_sagemaker_entrypoint.py"),
+        Path("tests/test_sagemaker_pipeline_launcher.py"),
+    ]
+
+    for path in paths:
+        payload = path.read_bytes()
+        assert payload.endswith(b"\n")
+        assert not payload.endswith(b"\n\n")

@@ -222,6 +222,41 @@ def _run_or_record_failure(
     return return_code
 
 
+def _runtime_bootstrap_commands() -> tuple[tuple[str, list[str]], ...]:
+    return (
+        (
+            "dependencies",
+            [
+                sys.executable,
+                "-m",
+                "pip",
+                "install",
+                "--disable-pip-version-check",
+                "-r",
+                "requirements.txt",
+            ],
+        ),
+        (
+            "source_runtime_compile",
+            [
+                sys.executable,
+                "-m",
+                "compileall",
+                "-q",
+                "otto_two_tower",
+                "train.py",
+                "prepare.py",
+                "runtime_validation.py",
+                "sagemaker_entrypoint.py",
+            ],
+        ),
+        (
+            "gpu_runtime_validation",
+            [sys.executable, "runtime_validation.py"],
+        ),
+    )
+
+
 def main() -> int:
     args = _parse_args()
     overall_started = time.perf_counter()
@@ -243,46 +278,15 @@ def main() -> int:
     )
 
     try:
-        current_stage = "dependencies"
-        install_command = [
-            sys.executable,
-            "-m",
-            "pip",
-            "install",
-            "--disable-pip-version-check",
-            "-r",
-            "requirements-dev.txt",
-        ]
-        install_rc = _run_or_record_failure(
-            stage=current_stage,
-            command=install_command,
-            heartbeat_seconds=args.heartbeat_seconds,
-            code_commit=args.code_commit,
-        )
-        if install_rc != 0:
-            return install_rc
-
-        current_stage = "gpu_package_quality_gate"
-        gate_command = [sys.executable, "run_quality_gate.py"]
-        gate_rc = _run_or_record_failure(
-            stage=current_stage,
-            command=gate_command,
-            heartbeat_seconds=args.heartbeat_seconds,
-            code_commit=args.code_commit,
-        )
-        if gate_rc != 0:
-            return gate_rc
-
-        current_stage = "gpu_runtime_validation"
-        runtime_command = [sys.executable, "runtime_validation.py"]
-        runtime_rc = _run_or_record_failure(
-            stage=current_stage,
-            command=runtime_command,
-            heartbeat_seconds=args.heartbeat_seconds,
-            code_commit=args.code_commit,
-        )
-        if runtime_rc != 0:
-            return runtime_rc
+        for current_stage, bootstrap_command in _runtime_bootstrap_commands():
+            bootstrap_rc = _run_or_record_failure(
+                stage=current_stage,
+                command=bootstrap_command,
+                heartbeat_seconds=args.heartbeat_seconds,
+                code_commit=args.code_commit,
+            )
+            if bootstrap_rc != 0:
+                return bootstrap_rc
 
         train_command = [
             sys.executable,

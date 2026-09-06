@@ -86,9 +86,19 @@ fails closed on the exact `gpu/two_tower/` source tree. It runs:
 7. an S3 upload/download round trip followed by the same byte/content parity
    verification.
 
-The pipeline is not submitted if any of those checks fail. This prevents a
-locally approved tree from diverging from the exact source bytes SageMaker
-executes.
+The pipeline is not submitted if any of those checks fail. The static-analysis
+toolchain is exactly pinned (`ruff==0.16.6`, `mypy==2.3.1`, `pytest==9.0.3`) and
+the launcher executes those exact versions in an isolated `uvx`/`uv tool run` environment from inside the GPU source
+root. Ruff also has explicit first-party classification for both
+`otto_two_tower` and `sagemaker_entrypoint`, eliminating environment-dependent
+import sorting. This prevents a locally approved tree from diverging from the
+exact source bytes SageMaker executes.
+
+The paid GPU worker does **not** reinstall the developer lint/type-check stack or
+repeat static analysis. It installs only `requirements.txt`, compiles the runtime
+source with the container's Python interpreter, validates CUDA/GPU availability,
+and then trains. Static analysis belongs on the CPU control plane; GPU time is
+reserved for runtime validation and model execution.
 
 The run manifest records the source archive SHA-256 plus local and S3-roundtrip
 verification metadata, making the training source independently auditable.
@@ -113,3 +123,4 @@ object counts, the failed SageMaker training job, instance type, billable time,
 and native failure reason. When a persisted `failure.json` is available in the
 training output artifact, the status command surfaces its stage and message.
 Use `--show-logs` only when the recent CloudWatch tail is needed.
+Pinned test execution uses `python -m pytest` inside the isolated `uv` environment so the exact GPU source directory remains on Python's import path.

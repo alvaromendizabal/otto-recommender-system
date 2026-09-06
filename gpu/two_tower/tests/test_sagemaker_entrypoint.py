@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import pytest
+
 import sagemaker_entrypoint as entrypoint
 
 
@@ -57,3 +58,16 @@ def test_failure_artifacts_persist_stage_and_message(
     failure_text = (output_dir / "failure").read_text(encoding="utf-8")
     assert "stage=gpu_package_quality_gate" in failure_text
     assert "return_code=1" in failure_text
+
+
+def test_runtime_bootstrap_uses_runtime_requirements_only() -> None:
+    stages = dict(entrypoint._runtime_bootstrap_commands())
+
+    assert list(stages) == [
+        "dependencies",
+        "source_runtime_compile",
+        "gpu_runtime_validation",
+    ]
+    assert stages["dependencies"][-1] == "requirements.txt"
+    assert "requirements-dev.txt" not in stages["dependencies"]
+    assert all("run_quality_gate.py" not in command for command in stages.values())
