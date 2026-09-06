@@ -8,6 +8,7 @@ import sys
 from collections.abc import Callable
 from dataclasses import asdict
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pyarrow as pa
@@ -18,10 +19,12 @@ import torch
 from evaluate import export_predictions
 from otto_two_tower.ann_benchmark import _check_inputs
 from otto_two_tower.ann_cli import hyperparameters_to_argv, parse_args
+from otto_two_tower.benchmark_artifacts import BenchmarkArtifacts
 from otto_two_tower.checkpoint import write_json_atomic
 from otto_two_tower.config import ModelConfig
 from otto_two_tower.data import ItemVocabulary, PackedSessionStore
 from otto_two_tower.evaluation import identity, sha256_file
+from otto_two_tower.logging_utils import configure_logging
 from otto_two_tower.model import TwoTowerModel
 from otto_two_tower.ranking_metrics import summarize_ranking
 
@@ -267,4 +270,64 @@ def test_selected_session_loading_matches_full_store(tmp_path: Path) -> None:
     assert torch.equal(
         full.batch(selected, torch.device("cpu")).item_indices,
         subset.batch(selected, torch.device("cpu")).item_indices,
+    )
+
+
+def test_real_model_resumes_all_stages_through_boto3_http_transport(
+    tmp_path: Path, s3_http: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import faiss
+
+    from otto_two_tower import ann_benchmark
+
+    args = fixture(tmp_path)
+    logger = configure_logging("two_tower_ann", args.output_dir / "logs")
+    local = BenchmarkArtifacts(args.output_dir, args.run_id, logger)
+    expected = ann_benchmark.run_benchmark(args, local, logger, {})
+    for path in args.output_dir.rglob("*"):
+        if path.is_file():
+            name = path.relative_to(args.output_dir).as_posix()
+            if name not in {"metrics.json", "metrics.json.json"}:
+                s3_http.objects["benchmark/run/" + name] = path.read_bytes()
+
+    def forbidden(*args: object, **kwargs: object) -> None:
+        pytest.fail("completed reference counts, query embeddings or centroids were recomputed")
+
+    monkeypatch.setattr(ann_benchmark, "ranking_counts", forbidden)
+    monkeypatch.setattr(ann_benchmark, "load_encoder", forbidden)
+    monkeypatch.setattr(faiss.IndexIVFFlat, "train", forbidden)
+    args.output_dir = tmp_path / "fresh-worker"
+    logger = configure_logging("two_tower_ann", args.output_dir / "logs")
+    restored = BenchmarkArtifacts(
+        args.output_dir,
+        args.run_id,
+        logger,
+        uri="s3://test-bucket/benchmark/run",
+        client=s3_http.client,
+    )
+    actual = ann_benchmark.run_benchmark(args, restored, logger, {})
+    assert actual["full_ann_ranking"] == expected["full_ann_ranking"]
+    assert actual["selected_nprobe"] == expected["selected_nprobe"]
+    assert actual["confirmation_fidelity_passed"] is True
+    for prefix in (
+        "reference/",
+        "queries/",
+        "indices/",
+        "tuning/",
+        "confirmation/",
+        "prediction_export/",
+    ):
+        assert any(key.startswith("benchmark/run/" + prefix) for key in s3_http.reads)
+    assert [key for key in s3_http.writes if "/logs/" not in key] == [
+        "benchmark/run/metrics.json",
+        "benchmark/run/metrics.json.json",
+    ]
+    rows = [
+        json.loads(line)
+        for line in (args.output_dir / "logs/two_tower_ann.jsonl").read_text().splitlines()
+    ]
+    completed = [row for row in rows if row["message"] == "artifact_restored"]
+    assert len(completed) > 30
+    assert all(
+        row["elapsed_seconds"] >= 0 and row["timestamp"].endswith("+00:00") for row in completed
     )

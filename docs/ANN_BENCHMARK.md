@@ -21,8 +21,17 @@ recorded 205 billable seconds and 198 checkpoint objects. The actual catalogue
 has 1,852,162 unique IDs in its trained vocabulary order; its inverse map is valid.
 Sorting the IDs alone would misalign items and vectors. Search and score replay
 now use the validated inverse map while preserving all original embedding rows.
+The third attempt passed catalogue validation and imported those 96 parts, then
+failed while restoring the first part from S3. Entering a botocore `StreamingBody`
+directly as a context manager returned the raw `HTTPResponse`, which has no
+`iter_chunks` method. The former in-memory test response did not reproduce that
+SDK behavior. Both receipt and artifact reads now use `contextlib.closing` to
+retain the SDK wrapper, including its content-length and checksum validation.
+Interrupted downloads are closed and partial files are removed before retry.
+AWS recorded 306 billable seconds; all 96 imported reference parts remain durable.
+
 The [execution evidence](../reports/metrics/two_tower_fold0_ann_launch.json)
-preserves both failed attempts; the [catalogue audit](../reports/metrics/two_tower_fold0_catalogue.json)
+preserves all three failed attempts; the [catalogue audit](../reports/metrics/two_tower_fold0_catalogue.json)
 records checks against actual S3 inputs. Neither is an ANN quality measurement.
 
 The shared preflight now reproduces JSON decoding before CLI conversion, and the
@@ -32,6 +41,24 @@ framework-parameter split, and serializer. The real-model subprocess test uses
 that complete path before testing export and recovery. Startup errors also emit
 UTC start/completion records with exit code and total time to CloudWatch, even
 when argument parsing fails before the benchmark logger is initialized.
+
+Recovery tests now exercise actual botocore streaming/checksum response classes,
+the boto3 HTTP stack against a local S3 protocol fixture, and a complete small
+model benchmark restored into a fresh directory. They cover multi-chunk reads,
+truncation, checksum errors, timeouts, stream closure, receipt order, and reuse
+of all completed stages. The worker test suite treats Python warnings as errors.
+A production S3 reference part was also restored through the corrected reader
+and its recorded SHA-256 verified without recomputation. The HTTP fixture does
+not simulate multipart uploads or certify AWS IAM, CUDA, or full-catalogue scale.
+
+**Container warning:** the recorded `LD_PRELOAD=/libchangehostname.so` loader
+message originates before `ann_worker_start`. AWS's
+[image startup script](https://github.com/aws/deep-learning-containers/blob/main/scripts/docker/pytorch/start_with_right_hostname.sh)
+sets that variable for its hostname workaround. The saved job definition does
+not set it. This warning is separate from the fatal S3 exception and remains
+unresolved in the managed image; no blanket warning filter or untested container
+entrypoint override has been added. Passing Python warning checks does not imply
+a warning-free AWS bootstrap.
 
 ## Experiment and metrics
 
@@ -100,7 +127,9 @@ uv pip check --python .venv/bin/python
 Require `OTTO_QUALITY_GATE_PASSED` before launching. Keep the existing locked CPU
 environment. The GPU package has a separate exact dependency profile including
 FAISS 1.15.0, NumPy 2.4.3, PyArrow 23.0.1, and boto3 1.43.89. Staging chooses that
-profile without editing the training requirements. PyTorch comes from the
+profile without editing the training requirements. Botocore 1.43.89,
+s3transfer 0.19.2, and urllib3 2.7.0 are also pinned in the ANN and test profiles
+so CI and the worker use the same S3 streaming stack. PyTorch comes from the
 previously successful managed image. The small real-model tests run against
 PyTorch 2.13.0 CPU wheels in CI; they do not certify full-scale CUDA behavior.
 

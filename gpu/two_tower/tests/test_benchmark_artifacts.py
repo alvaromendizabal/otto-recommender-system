@@ -1,19 +1,20 @@
 from __future__ import annotations
 
+import base64
+import hashlib
 import io
 import logging
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from botocore.exceptions import FlexibleChecksumError, IncompleteReadError, ReadTimeoutError
+from botocore.httpchecksum import Sha256Checksum, StreamingChecksumBody
+from botocore.response import StreamingBody
+from urllib3.exceptions import ReadTimeoutError as HTTPReadTimeoutError
+from urllib3.response import HTTPResponse
 
 from otto_two_tower.benchmark_artifacts import BenchmarkArtifacts
-
-
-class Body(io.BytesIO):
-    def iter_chunks(self, chunk_size: int):
-        while chunk := self.read(chunk_size):
-            yield chunk
 
 
 class MemoryS3:
@@ -25,13 +26,36 @@ class MemoryS3:
         self.objects = {}
         self.fail_receipt = False
         self.denied = False
+        self.streams = []
+        self.damage_key = None
+        self.damage = None
 
     def get_object(self, *, Bucket: str, Key: str) -> dict:
         if self.denied:
             raise PermissionError("AccessDenied")
         if Key not in self.objects:
             raise self.NoSuchKey(Key)
-        return {"Body": Body(self.objects[Key])}
+        payload = self.objects[Key]
+        raw = HTTPResponse(body=io.BytesIO(payload), preload_content=False)
+        length = len(payload)
+        if Key == self.damage_key and self.damage == "length":
+            length += 1
+        if Key == self.damage_key and self.damage == "timeout":
+
+            class Interrupted(io.BytesIO):
+                def read(self, amount: int | None = None) -> bytes:
+                    if self.tell() or amount is None:
+                        raise HTTPReadTimeoutError(None, None, "interrupted stream")
+                    return super().read(amount)
+
+            raw = HTTPResponse(body=Interrupted(payload), preload_content=False)
+        if Key == self.damage_key and self.damage == "checksum":
+            expected = base64.b64encode(hashlib.sha256(b"different content").digest()).decode()
+            body = StreamingChecksumBody(raw, length, Sha256Checksum(), expected)
+        else:
+            body = StreamingBody(raw, length)
+        self.streams.append(raw)
+        return {"Body": body}
 
     def put_object(self, *, Bucket: str, Key: str, Body: bytes) -> None:
         if self.fail_receipt:
@@ -66,6 +90,7 @@ def test_fresh_workspace_restores_committed_artifact_without_recomputation(tmp_p
     assert path.read_bytes() == b"verified-index"
     second.produce("index.faiss", forbidden)
     assert path.stat().st_mtime_ns == before
+    assert all(stream.closed for stream in remote.streams)
 
 
 def test_receipt_interruption_resends_local_work_without_recomputing(tmp_path: Path) -> None:
@@ -101,3 +126,26 @@ def test_corruption_is_recomputed_and_wrong_identity_fails_closed(tmp_path: Path
 def test_artifact_paths_cannot_escape_root(tmp_path: Path, name: str) -> None:
     with pytest.raises(ValueError):
         store(tmp_path, MemoryS3()).get(name)
+
+
+@pytest.mark.parametrize("part", ["receipt", "blob"])
+@pytest.mark.parametrize("damage", ["length", "checksum", "timeout"])
+def test_sdk_validation_and_stream_cleanup_survive_failed_transfers(
+    tmp_path: Path, part: str, damage: str
+) -> None:
+    remote = MemoryS3()
+    payload = b"x" * (8 * 1024**2 + 31)
+    store(tmp_path / "first", remote).produce("index.faiss", lambda p: p.write_bytes(payload))
+    remote.damage_key = "benchmark/run/index.faiss" + (".json" if part == "receipt" else "")
+    remote.damage = damage
+    second = store(tmp_path / "second", remote)
+    with pytest.raises((IncompleteReadError, FlexibleChecksumError, ReadTimeoutError)):
+        second.get("index.faiss")
+    assert not (second.root / "index.faiss").exists()
+    assert not (second.root / "index.faiss.json").exists()
+    assert not (second.root / "index.faiss.tmp").exists()
+    assert all(stream.closed for stream in remote.streams)
+    remote.damage = None
+    path = second.produce("index.faiss", lambda _: pytest.fail("valid remote work was recomputed"))
+    assert path.read_bytes() == payload
+    assert all(stream.closed for stream in remote.streams)
