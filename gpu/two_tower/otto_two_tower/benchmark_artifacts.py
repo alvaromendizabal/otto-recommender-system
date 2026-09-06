@@ -7,6 +7,7 @@ import logging
 import re
 import time
 from collections.abc import Callable
+from contextlib import closing
 from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import urlparse
@@ -69,7 +70,9 @@ class BenchmarkArtifacts:
             response = self.client.get_object(Bucket=self.bucket, Key=self.prefix + name)
         except self.client.exceptions.NoSuchKey:
             return None
-        with response["Body"] as body:
+        # StreamingBody.__enter__ returns its raw HTTPResponse, bypassing SDK
+        # content-length/checksum validation. closing preserves the wrapper.
+        with closing(response["Body"]) as body:
             return bytes(body.read())
 
     def _receipt(self, value: dict[str, Any]) -> None:
@@ -135,17 +138,32 @@ class BenchmarkArtifacts:
         except self.client.exceptions.NoSuchKey:
             self.logger.warning("artifact_blob_missing", extra={"file": name})
             return None
-        with response["Body"] as body, temporary.open("wb") as handle:
-            for block in body.iter_chunks(chunk_size=8 * 1024**2):
-                handle.write(block)
-        if sha256_file(temporary) != remote["sha256"]:
-            temporary.unlink()
-            self.logger.warning("artifact_checksum_rejected", extra={"file": name})
-            return None
-        temporary.replace(path)
-        write_json_atomic(remote, receipt_path)
+        started = time.perf_counter()
+        self.logger.info("artifact_restore_start", extra={"file": name, "bytes": remote["bytes"]})
+        try:
+            with closing(response["Body"]) as body, temporary.open("wb") as handle:
+                for block in body.iter_chunks(chunk_size=8 * 1024**2):
+                    handle.write(block)
+            if (
+                temporary.stat().st_size != remote["bytes"]
+                or sha256_file(temporary) != remote["sha256"]
+            ):
+                self.logger.warning("artifact_checksum_rejected", extra={"file": name})
+                return None
+            temporary.replace(path)
+            write_json_atomic(remote, receipt_path)
+        finally:
+            # A partial transfer is never mistaken for a committed artifact.
+            temporary.unlink(missing_ok=True)
         self.used[name] = remote
-        self.logger.info("artifact_restored", extra={"file": name})
+        self.logger.info(
+            "artifact_restored",
+            extra={
+                "file": name,
+                "bytes": remote["bytes"],
+                "elapsed_seconds": round(time.perf_counter() - started, 6),
+            },
+        )
         return path
 
     def produce(self, name: str, writer: Callable[[Path], None]) -> Path:
