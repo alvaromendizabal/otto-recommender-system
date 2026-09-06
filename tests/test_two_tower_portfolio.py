@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 
 def test_resume_proof_public_artifact_is_sanitized_and_passed() -> None:
     path = Path("reports/metrics/two_tower_resume_proof.json")
@@ -17,9 +19,7 @@ def test_resume_proof_public_artifact_is_sanitized_and_passed() -> None:
 
 
 def test_two_tower_notebook_is_committed_as_executed_evidence() -> None:
-    payload = json.loads(
-        Path("notebooks/05_two_tower_results.ipynb").read_text(encoding="utf-8")
-    )
+    payload = json.loads(Path("notebooks/05_two_tower_results.ipynb").read_text(encoding="utf-8"))
     code_cells = [cell for cell in payload["cells"] if cell["cell_type"] == "code"]
     assert code_cells
     assert any(cell.get("execution_count") is not None for cell in code_cells)
@@ -44,3 +44,22 @@ def test_completed_fold_training_evidence_is_consistent_and_public() -> None:
             assert cell["execution_count"] is not None
             assert not any(output["output_type"] == "error" for output in cell["outputs"])
     assert Path("reports/figures/two_tower_learning_curves.png").stat().st_size > 1000
+
+
+def test_export_evidence_covers_every_objective_without_claiming_quality() -> None:
+    path = Path("reports/metrics/two_tower_fold0_export.json")
+    payload = json.loads(path.read_text())
+    assert payload["status"] == "passed"
+    assert payload["sessions"] == 103468
+    assert payload["catalogue_items"] == 1852162
+    assert payload["billable_seconds"] == 627
+    assert payload["prediction_parts"] == sum(
+        row["parts"] for row in payload["objectives"].values()
+    )
+    assert payload["completed_retrieval_seconds"] == pytest.approx(
+        sum(sum(row["bucket_seconds"]) for row in payload["objectives"].values())
+    )
+    assert all(row["sessions"] == payload["sessions"] for row in payload["objectives"].values())
+    assert "pending" in payload["quality_evaluation"]
+    assert "560403859723" not in path.read_text()
+    assert Path("reports/figures/two_tower_export.png").stat().st_size > 1000

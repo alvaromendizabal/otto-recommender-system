@@ -5,6 +5,13 @@ steps, 324.385 seconds in the trainer, and 621 billable instance seconds. The
 best validation loss was 4.544512 at epoch 1. The existing model is the input to
 this workflow. Training does not need to be repeated.
 
+**Full-catalogue export is also complete.** On September 6, 2026, the saved model
+exported all 103,468 held-out sessions across three objectives and 1,852,162
+catalogue items. All 96 prediction parts and their receipts are in S3. Export
+took 323.287 seconds; AWS recorded 627 billable instance seconds. The current
+next step is section 3, the paired quality comparison. Do not restart the GPU
+export to run that comparison.
+
 The first evaluation attempt failed during argument parsing, before inference:
 SageMaker serialized the hyperparameter `k` as `-k`, while the worker accepted
 only `--k`. AWS recorded 160 billable seconds and no evaluation checkpoint
@@ -147,18 +154,46 @@ OTTO_PREDICTIONS="$(.venv/bin/python -c \
   --vectors models/item2vec/item_vectors.kv \
   --index models/faiss/item.index \
   --output-dir data/interim/two_tower_comparison/fold-0 \
+  --checkpoint-uri "s3://$OTTO_BUCKET/retrieval/two-tower/comparisons/fold-0" \
+  --region us-west-2 \
   --source-k 1200 --ann-k 800 --ef-search 1024 \
   --threads 4 --memory-limit 8GB --publish-report
 ```
 
 Wait for `OTTO_TWO_TOWER_RETRIEVAL_EVALUATION_PASSED`. Repeating the command
-reuses verified comparison parts. The current CPU comparison runs in the
-Studio terminal; reconnect and rerun after a terminal/process interruption.
-Keep the prediction, input, and comparison directories to retain progress.
+reuses verified comparison parts. With `--checkpoint-uri`, the evaluator adds
+its immutable comparison identity to the S3 prefix, restores verified remote
+parts, and checks write access before loading the baseline. It uploads each
+new count file before its checksum receipt, and reports
+`comparison_part_durable` only after both transfers succeed. JSONL logs are
+uploaded after every committed part; final metrics are uploaded before success
+is printed. A failed upload stops computation and leaves the local part intact.
+Malformed or corrupt remote parts are rejected and recomputed.
+
+The current CPU comparison runs on the Studio host. Closing its terminal or
+stopping the host may interrupt computation; reconnect and rerun the same
+command to restore completed parts. It can recover on another workspace after
+the frozen inputs and predictions are downloaded again. A part interrupted
+before its remote receipt is committed may need to be recomputed. Changing
+source, input contents, runtime versions, or comparison settings creates a
+different identity and cannot silently reuse old results.
+
+For a browser-independent process while Studio remains running, prefix the
+comparison command with `nohup` and append
+`> data/interim/two_tower_comparison/fold-0/console.log 2>&1 < /dev/null &`.
+Create the output directory first, and monitor with
+`tail -f data/interim/two_tower_comparison/fold-0/console.log`.
+This does not keep the process alive if the Studio host itself stops; S3
+checkpoints preserve verified progress for the next attempt.
+
+The metrics distinguish `elapsed_seconds_this_attempt` from
+`completed_bucket_compute_seconds`, which sums the retained per-bucket timings
+across attempts. Local JSONL logs are under the comparison output's `logs/`.
 
 The public result is `reports/metrics/two_tower_fold0_retrieval.json`. Record it
 in Git and refresh the results notebook after examining the actual output.
-The notebook currently contains the completed training evidence.
+The notebook currently contains completed training and export evidence. Export
+timings and coverage must not be presented as recommendation quality.
 
 ## Interpretation and next decision
 

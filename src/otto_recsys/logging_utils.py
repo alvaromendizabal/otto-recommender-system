@@ -64,6 +64,10 @@ class ConsoleFormatter(logging.Formatter):
         for key in (
             "stage",
             "status",
+            "bucket",
+            "buckets",
+            "restored_parts",
+            "uri",
             "elapsed_seconds",
             "rss_mb",
             "cpu_percent",

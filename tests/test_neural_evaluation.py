@@ -44,7 +44,9 @@ def test_comparison_runs_real_baseline_and_resumes_verified_parts(tmp_path, monk
     import pyarrow as pa
     import pyarrow.parquet as pq
     from gensim.models import KeyedVectors
+    from test_comparison_checkpoints import LocalS3
 
+    from otto_recsys.cloud.comparison_checkpoints import S3ComparisonCheckpoints
     from otto_recsys.experiments.manifest import sha256_file
     from otto_recsys.retrieval import neural_evaluation as module
 
@@ -147,6 +149,11 @@ def test_comparison_runs_real_baseline_and_resumes_verified_parts(tmp_path, monk
     for path in (vectors_dir, index_dir):
         (path / "manifest.json").write_text("{}")
     arguments = (ranking, predictions, graphs, vectors_path, index_path, output)
+    remote = LocalS3(tmp_path / "remote")
+    monkeypatch.setattr("otto_recsys.cloud.comparison_checkpoints.subprocess.run", remote.run)
+    checkpoint_store = S3ComparisonCheckpoints(
+        "s3://bucket/comparison", region="us-west-2", logger=logging.getLogger("test")
+    )
     result = module.evaluate_neural_retrieval(
         *arguments,
         logger=logging.getLogger("test"),
@@ -154,6 +161,7 @@ def test_comparison_runs_real_baseline_and_resumes_verified_parts(tmp_path, monk
         source_k=5,
         iterations=10,
         memory_limit="256MB",
+        checkpoint_store=checkpoint_store,
     )
     assert result["sessions"] == 2
     assert result["points"][0]["weighted_base_ceiling"] == 0
@@ -164,15 +172,23 @@ def test_comparison_runs_real_baseline_and_resumes_verified_parts(tmp_path, monk
         raise AssertionError("completed baseline recomputed")
 
     monkeypatch.setattr(module, "create_covisit_source_candidates", no_recomputation)
+    # A different local output directory must recover from S3 without rebuilding
+    # any already completed baseline bucket, including an empty bucket.
+    recovered = tmp_path / "recovered"
     second = module.evaluate_neural_retrieval(
-        *arguments,
+        *arguments[:-1],
+        recovered,
         logger=logging.getLogger("test"),
         ann_k=5,
         source_k=5,
         iterations=10,
         memory_limit="256MB",
+        checkpoint_store=checkpoint_store,
     )
     assert second["points"] == result["points"]
+    assert sha256_file(recovered / "parts/part-000.npz") == sha256_file(
+        output / "parts/part-000.npz"
+    )
     assert (output / "parts/part-000.npz").stat().st_mtime_ns == receipt_time
     (predictions / parts[0]["path"]).write_bytes(b"corrupt")
     with pytest.raises(ValueError, match="checksum"):

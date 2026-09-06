@@ -14,6 +14,7 @@ import numpy as np
 import pyarrow.parquet as pq
 from gensim.models import KeyedVectors  # type: ignore[import-untyped]
 
+from otto_recsys.cloud.comparison_checkpoints import S3ComparisonCheckpoints
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
 from otto_recsys.retrieval.candidate_union import (
     append_item2vec_candidates,
@@ -140,6 +141,7 @@ def evaluate_neural_retrieval(
     heartbeat_seconds: float = 30.0,
     iterations: int = 500,
     seed: int = 20260906,
+    checkpoint_store: S3ComparisonCheckpoints | None = None,
 ) -> dict[str, Any]:
     if min(source_k, ann_k, ef_search, threads) <= 0 or iterations < 2:
         raise ValueError("invalid evaluation settings")
@@ -229,6 +231,8 @@ def evaluate_neural_retrieval(
     )
     if len(sessions) != prediction["sessions"] or len(np.unique(sessions)) != len(sessions):
         raise ValueError("held-out session coverage mismatch")
+    if checkpoint_store is not None:
+        checkpoint_store.restore(output_dir, input_id)
     # Shared baseline code now reads only this held-out cohort.
     items_path = output_dir / "items.parquet"
     labels_path = output_dir / "labels.parquet"
@@ -334,6 +338,8 @@ def evaluate_neural_retrieval(
                         "elapsed_seconds": time.perf_counter() - bucket_started,
                     },
                 )
+            if checkpoint_store is not None:
+                checkpoint_store.publish_part(output_dir, bucket, input_id)
             all_counts[np.searchsorted(sessions, subset)] = counts
             progress["bucket"] = bucket + 1
             logger.info(
@@ -356,6 +362,10 @@ def evaluate_neural_retrieval(
         "contract": contract,
         **summary,
         "elapsed_seconds_this_attempt": round(time.perf_counter() - started, 3),
+        "completed_bucket_compute_seconds": sum(
+            read_json(output_dir / "parts" / f"part-{bucket:03d}.json")["elapsed_seconds"]
+            for bucket in range(buckets)
+        ),
         "interpretation": (
             "Fixed base discovery pool plus neural top-K; "
             "union is an ideal top-20 ceiling, not ranked Recall@20."
@@ -366,6 +376,8 @@ def evaluate_neural_retrieval(
         "ann_serving_benchmark": "pending; neural predictions use exhaustive FP32 search",
     }
     write_json(output_dir / "metrics.json", result)
+    if checkpoint_store is not None:
+        checkpoint_store.publish_metrics(output_dir)
     logger.info(
         "neural_comparison_complete",
         extra={"elapsed_seconds": result["elapsed_seconds_this_attempt"]},

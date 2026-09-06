@@ -86,7 +86,7 @@ The notebooks are intentionally **analysis layers**, not the source of productio
 2. [`notebooks/02_retrieval_benchmarks.ipynb`](notebooks/02_retrieval_benchmarks.ipynb) — retrieval evidence and ablations.
 3. [`notebooks/03_candidate_frontier.ipynb`](notebooks/03_candidate_frontier.ipynb) — candidate-depth trade-offs.
 4. [`notebooks/04_hard_negative_quality.ipynb`](notebooks/04_hard_negative_quality.ipynb) — OOF and hard-negative integrity.
-5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed resume evidence, completed Fold 0 learning curves, and the evaluation contract.
+5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed resume evidence, Fold 0 learning curves, and completed full-catalogue export coverage and timing.
 
 ## Repository layout
 
@@ -167,7 +167,11 @@ The proof is source-addressed, input-addressed, and server-managed. Closing Stud
 
 ![Fold 0 learning curves](reports/figures/two_tower_learning_curves.png)
 
-Validation loss rose after epoch 1 while training loss fell. The next experiment evaluates the saved best checkpoint with exhaustive full-catalogue retrieval and a paired comparison against the frozen base pool. Neural retrieval quality and ANN serving performance remain unmeasured. See [the evaluation workflow](docs/FOLD_EVALUATION.md).
+Validation loss rose after epoch 1 while training loss fell. The saved best checkpoint has now completed exhaustive full-catalogue export: **103,468 held-out sessions, 1,852,162 catalogue items, and 96 prediction parts**, with 800 candidates per objective. Export took 323.287 seconds; AWS recorded 627 billable instance seconds. Prediction files and checksum receipts are stored in S3.
+
+![Full-catalogue export](reports/figures/two_tower_export.png)
+
+The next measurement is a paired comparison against the frozen base pool. Neural retrieval quality and ANN serving performance remain unmeasured. The CPU comparator can restore verified count parts from S3 on another workspace using `--checkpoint-uri`; it uploads each part before recording completion. See [the evaluation workflow](docs/FOLD_EVALUATION.md).
 
 Fold 0 is trained on folds 1–4, writes durable resumable checkpoints, and publishes a compact training report. The learned retriever is then evaluated at candidate depths 20/50/100/200/400/800 for standalone recall, incremental recall over the frozen co-visitation + Item2Vec system, and neural-only positive hits.
 
