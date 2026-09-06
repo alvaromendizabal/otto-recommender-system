@@ -3,20 +3,26 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 import tempfile
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from otto_recsys.cloud.sagemaker_pipeline import (
+    canonical_sha256,
     create_deterministic_source_archive,
     official_pytorch_image,
     source_s3_uri,
+    validate_pipeline_metadata,
     verify_source_archive,
 )
 from otto_recsys.cloud.sagemaker_two_tower import derive_role_name_from_sts_arn
 from otto_recsys.cloud.source_preflight import (
-    run_command,
+    run_command as execute_command,
+)
+from otto_recsys.cloud.source_preflight import (
     run_exact_source_preflight,
     verify_uploaded_source_roundtrip,
 )
@@ -29,10 +35,35 @@ from otto_recsys.cloud.two_tower_fold import (
     load_fold_config,
     write_json_atomic,
 )
+from otto_recsys.logging_utils import configure_logging
+from otto_recsys.runtime import Heartbeat
 
 
 def utc_now() -> str:
     return datetime.now(UTC).isoformat(timespec="seconds")
+
+
+def run_command(command: list[str], *, check: bool = False) -> subprocess.CompletedProcess[str]:
+    """Record every control-plane stage while preserving captured JSON output."""
+    logger = configure_logging("two_tower_fold_launch")
+    stage = " ".join(command[:3])
+    started = time.perf_counter()
+    logger.info("stage_start", extra={"event": "stage_start", "stage": stage})
+    with Heartbeat(logger, stage=stage, interval_seconds=15.0):
+        completed = execute_command(command, check=False)
+    elapsed = round(time.perf_counter() - started, 3)
+    logger.info(
+        "stage_complete",
+        extra={
+            "event": "stage_complete",
+            "stage": stage,
+            "status": "passed" if completed.returncode == 0 else "failed",
+            "elapsed_seconds": elapsed,
+        },
+    )
+    if check and completed.returncode != 0:
+        raise RuntimeError(completed.stderr.strip() or completed.stdout.strip())
+    return completed
 
 
 def aws_json(arguments: list[str]) -> dict[str, Any]:
@@ -62,12 +93,8 @@ def resolve_role_arn(explicit: str | None) -> str:
     arn = str(caller["Arn"])
     role_name = derive_role_name_from_sts_arn(arn)
     if role_name is None:
-        raise RuntimeError(
-            "could not derive SageMaker execution role; pass --role-arn explicitly"
-        )
-    role = run_command(
-        ["aws", "iam", "get-role", "--role-name", role_name, "--output", "json"]
-    )
+        raise RuntimeError("could not derive SageMaker execution role; pass --role-arn explicitly")
+    role = run_command(["aws", "iam", "get-role", "--role-name", role_name, "--output", "json"])
     if role.returncode == 0:
         payload = json.loads(role.stdout)
         return str(payload["Role"]["Arn"])
@@ -134,6 +161,7 @@ def pipeline_exists(name: str) -> bool:
 def register_pipeline(
     *, name: str, role_arn: str, definition_path: Path, run_id: str, commit: str, fold: int
 ) -> dict[str, Any]:
+    validate_pipeline_metadata(json.loads(definition_path.read_text(encoding="utf-8")))
     common = [
         "--pipeline-name",
         name,
@@ -162,27 +190,29 @@ def register_pipeline(
     )
 
 
-def active_execution(name: str) -> dict[str, Any] | None:
+def pipeline_executions(name: str) -> list[dict[str, Any]]:
     payload = aws_json(
         [
             "sagemaker",
             "list-pipeline-executions",
             "--pipeline-name",
             name,
-            "--max-results",
-            "20",
         ]
     )
     summaries = payload.get("PipelineExecutionSummaries", [])
     if not isinstance(summaries, list):
-        return None
-    for summary in summaries:
-        if isinstance(summary, dict) and summary.get("PipelineExecutionStatus") in {
-            "Executing",
-            "Stopping",
-        }:
-            return summary
-    return None
+        raise RuntimeError("invalid pipeline execution summaries")
+    return [row for row in summaries if isinstance(row, dict)]
+
+
+def execution_token(run_id: str, executions: list[dict[str, Any]]) -> str:
+    """Concurrent invocations seeing the same history share one start token."""
+    return canonical_sha256(
+        {
+            "run_id": run_id,
+            "previous_executions": sorted(str(row["PipelineExecutionArn"]) for row in executions),
+        }
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -213,6 +243,8 @@ def main() -> int:
             instance_type=args.instance_type or config.instance_type,
         )
     config.validate()
+    os.environ["AWS_DEFAULT_REGION"] = config.region
+    os.environ["AWS_REGION"] = config.region
 
     commit = ensure_committed_remote_state()
     role_arn = resolve_role_arn(args.role_arn)
@@ -252,8 +284,7 @@ def main() -> int:
         "items": "retrieval/two-tower/items/manifest.json",
     }
     input_manifests = {
-        name: manifest_identity(s3_json(config.bucket, key))
-        for name, key in manifest_keys.items()
+        name: manifest_identity(s3_json(config.bucket, key)) for name, key in manifest_keys.items()
     }
 
     contract = fold_run_contract(
@@ -276,14 +307,6 @@ def main() -> int:
         f"retrieval/two-tower/runs/folds/fold-{config.validation_fold}/{run_id}/"
         "checkpoints/training_manifest.json"
     )
-
-    existing_manifest_head = head_s3(config.bucket, training_manifest_key)
-    if existing_manifest_head is not None and not args.force:
-        existing_manifest = s3_json(config.bucket, training_manifest_key)
-        if existing_manifest.get("global_step", 0):
-            print(json.dumps(existing_manifest, indent=2, sort_keys=True))
-            print("OTTO_TWO_TOWER_FOLD_ALREADY_TRAINED")
-            return 0
 
     definition = build_fold_pipeline_definition(
         role_arn=role_arn,
@@ -340,6 +363,7 @@ def main() -> int:
     )
 
     latest = {
+        "region": config.region,
         "pipeline_name": name,
         "run_id": run_id,
         "validation_fold": config.validation_fold,
@@ -348,24 +372,57 @@ def main() -> int:
         "run_manifest_s3_uri": f"s3://{config.bucket}/{control_prefix}/run_manifest.json",
     }
     latest_key = f"retrieval/two-tower/pipelines/folds/fold-{config.validation_fold}/latest.json"
-    put_json_s3(latest, bucket=config.bucket, key=latest_key)
-    write_json_atomic(Path("artifacts/two_tower_fold/latest.json"), latest)
-
-    if not args.start:
-        print(json.dumps(latest, indent=2, sort_keys=True))
-        print("OTTO_TWO_TOWER_FOLD_REGISTERED_NO_GPU_STARTED")
+    executions = pipeline_executions(name)
+    current = next(
+        (
+            row
+            for row in executions
+            if row.get("PipelineExecutionStatus")
+            in {
+                "Executing",
+                "Stopping",
+            }
+        ),
+        None,
+    )
+    succeeded = next(
+        (row for row in executions if row.get("PipelineExecutionStatus") == "Succeeded"), None
+    )
+    # Recover tracking from AWS before writing latest.json. A repeated launch must
+    # never erase the active execution ARN, including when --force is supplied.
+    retained = current or (succeeded if not args.force or not args.start else None)
+    if retained is not None:
+        arn = str(retained["PipelineExecutionArn"])
+        tracked = {
+            **latest,
+            "pipeline_execution_arn": arn,
+            "pipeline_execution_id": arn.rsplit("/", maxsplit=1)[-1],
+            "status": retained["PipelineExecutionStatus"],
+        }
+        put_json_s3(tracked, bucket=config.bucket, key=latest_key)
+        write_json_atomic(Path("artifacts/two_tower_fold/latest.json"), tracked)
+        print(json.dumps(tracked, indent=2, sort_keys=True))
+        if current is not None:
+            print("OTTO_TWO_TOWER_FOLD_ALREADY_RUNNING_SAFE_TO_DISCONNECT")
+        elif head_s3(config.bucket, training_manifest_key) is not None:
+            print("OTTO_TWO_TOWER_FOLD_ALREADY_TRAINED")
+        else:
+            raise RuntimeError("pipeline succeeded but training manifest is missing")
         return 0
 
-    current = active_execution(name)
-    if current is not None and not args.force:
-        print(json.dumps(current, indent=2, sort_keys=True))
-        print("OTTO_TWO_TOWER_FOLD_ALREADY_RUNNING_SAFE_TO_DISCONNECT")
+    if not args.start:
+        put_json_s3(latest, bucket=config.bucket, key=latest_key)
+        write_json_atomic(Path("artifacts/two_tower_fold/latest.json"), latest)
+        print(json.dumps(latest, indent=2, sort_keys=True))
+        print("OTTO_TWO_TOWER_FOLD_REGISTERED_NO_GPU_STARTED")
         return 0
 
     execution = aws_json(
         [
             "sagemaker",
             "start-pipeline-execution",
+            "--client-request-token",
+            execution_token(run_id, executions),
             "--pipeline-name",
             name,
             "--pipeline-execution-display-name",
@@ -381,6 +438,7 @@ def main() -> int:
         "status": "Executing",
     }
     write_json_atomic(local_root / "execution.json", started)
+    write_json_atomic(Path("artifacts/two_tower_fold/latest.json"), started)
     put_json_s3(started, bucket=config.bucket, key=f"{control_prefix}/execution.json")
     put_json_s3(started, bucket=config.bucket, key=latest_key)
     print(json.dumps(started, indent=2, sort_keys=True))
@@ -388,5 +446,29 @@ def main() -> int:
     return 0
 
 
+def run_launcher() -> int:
+    started = time.perf_counter()
+    status = "failed"
+    try:
+        result = main()
+        status = "passed" if result == 0 else "failed"
+        return result
+    except SystemExit as exc:
+        status = "passed" if exc.code in (None, 0) else "failed"
+        raise
+    except (RuntimeError, ValueError) as exc:
+        print(f"[{utc_now()}] OTTO_TWO_TOWER_FOLD_LAUNCH_FAILED error={exc}", flush=True)
+        return 1
+    finally:
+        configure_logging("two_tower_fold_launch").info(
+            "launch_complete",
+            extra={
+                "event": "launch_complete",
+                "status": status,
+                "elapsed_seconds": round(time.perf_counter() - started, 3),
+            },
+        )
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(run_launcher())

@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import subprocess
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -28,9 +29,7 @@ def aws_json(arguments: list[str]) -> dict[str, Any]:
 
 
 def s3_json(bucket: str, key: str) -> dict[str, Any] | None:
-    completed = run(
-        ["aws", "s3", "cp", f"s3://{bucket}/{key}", "-", "--only-show-errors"]
-    )
+    completed = run(["aws", "s3", "cp", f"s3://{bucket}/{key}", "-", "--only-show-errors"])
     if completed.returncode != 0:
         return None
     payload = json.loads(completed.stdout)
@@ -77,17 +76,15 @@ def training_logs(job_name: str, *, limit: int = 120) -> list[str]:
                 "/aws/sagemaker/TrainingJobs",
                 "--log-stream-name",
                 str(stream["logStreamName"]),
-                "--start-from-head",
+                "--no-start-from-head",
                 "--limit",
-                "10000",
+                str(limit),
             ]
         )
         events = payload.get("events", [])
         if isinstance(events, list):
             output.extend(
-                str(event.get("message", ""))
-                for event in events
-                if isinstance(event, dict)
+                str(event.get("message", "")) for event in events if isinstance(event, dict)
             )
     return output[-limit:]
 
@@ -95,9 +92,7 @@ def training_logs(job_name: str, *, limit: int = 120) -> list[str]:
 def write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(
-        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     temporary.replace(path)
 
 
@@ -107,11 +102,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fold", type=int, default=0)
     parser.add_argument("--show-logs", action="store_true")
     parser.add_argument("--publish-report", action="store_true")
+    parser.add_argument("--region")
+    parser.add_argument("--watch", action="store_true")
+    parser.add_argument("--interval-seconds", type=float, default=30.0)
+    parser.add_argument("--max-wait-seconds", type=float, default=21600.0)
     return parser.parse_args()
 
 
-def main() -> int:
-    args = parse_args()
+def report_status(args: argparse.Namespace) -> tuple[int, bool]:
     if not args.bucket:
         raise RuntimeError("--bucket or OTTO_BUCKET is required")
     if not 0 <= args.fold < 5:
@@ -121,8 +119,11 @@ def main() -> int:
     latest = s3_json(args.bucket, latest_key)
     if latest is None:
         print("OTTO_TWO_TOWER_FOLD_NOT_STARTED")
-        return 0
+        return 0, True
 
+    region = args.region or str(latest.get("region", "us-west-2"))
+    os.environ["AWS_DEFAULT_REGION"] = region
+    os.environ["AWS_REGION"] = region
     execution_arn = latest.get("pipeline_execution_arn")
     print("=" * 72)
     print("OTTO TWO-TOWER FOLD STATUS")
@@ -136,7 +137,7 @@ def main() -> int:
     if not execution_arn:
         print("execution_status=RegisteredNotStarted")
         print("OTTO_TWO_TOWER_FOLD_REGISTERED_NO_GPU_STARTED")
-        return 0
+        return 0, True
 
     execution = aws_json(
         [
@@ -177,9 +178,7 @@ def main() -> int:
             if isinstance(metadata, dict):
                 training_metadata = metadata.get("TrainingJob", {})
                 if isinstance(training_metadata, dict) and training_metadata.get("Arn"):
-                    training_job_name = str(training_metadata["Arn"]).rsplit(
-                        "/", maxsplit=1
-                    )[-1]
+                    training_job_name = str(training_metadata["Arn"]).rsplit("/", maxsplit=1)[-1]
             if step.get("FailureReason"):
                 print(f"step_failure_reason={step['FailureReason']}")
 
@@ -262,14 +261,50 @@ def main() -> int:
             write_json_atomic(path, report)
             print(f"public_report={path}")
         print("OTTO_TWO_TOWER_FOLD_TRAINING_PASSED")
-        return 0
+        return 0, True
 
-    if status == "Failed":
-        print("OTTO_TWO_TOWER_FOLD_FAILED")
-        return 1
+    if status == "Succeeded":
+        print("OTTO_TWO_TOWER_FOLD_REPORT_MISSING: training manifest has not been found")
+        return 1, True
+    if status in {"Failed", "Stopped"}:
+        print(f"OTTO_TWO_TOWER_FOLD_{status.upper()}")
+        return 1, True
 
     print("OTTO_TWO_TOWER_FOLD_IN_PROGRESS_OR_NOT_STARTED")
-    return 0
+    return 0, False
+
+
+def main() -> int:
+    args = parse_args()
+    if not 5 <= args.interval_seconds <= 60:
+        raise ValueError("--interval-seconds must be between 5 and 60")
+    if args.max_wait_seconds <= 0:
+        raise ValueError("--max-wait-seconds must be positive")
+    # Bootstrap the S3 read in the requested/default project region. The durable
+    # pointer then supplies the training region unless explicitly overridden.
+    region = args.region or os.environ.get("AWS_DEFAULT_REGION", "us-west-2")
+    os.environ["AWS_DEFAULT_REGION"] = region
+    os.environ["AWS_REGION"] = region
+    started = time.perf_counter()
+    try:
+        while True:
+            code, terminal = report_status(args)
+            elapsed = time.perf_counter() - started
+            print(f"[{utc_now()}] monitor_heartbeat elapsed_seconds={elapsed:.3f}", flush=True)
+            if not args.watch or terminal:
+                return code
+            if elapsed >= args.max_wait_seconds:
+                print("OTTO_MONITOR_TIMEOUT: monitoring ended; remote job was not stopped")
+                return 2
+            time.sleep(min(args.interval_seconds, args.max_wait_seconds - elapsed))
+    except KeyboardInterrupt:
+        print("OTTO_MONITOR_DETACHED: remote job was not stopped", flush=True)
+        return 0
+    finally:
+        print(
+            f"[{utc_now()}] monitor_complete elapsed_seconds={time.perf_counter() - started:.3f}",
+            flush=True,
+        )
 
 
 if __name__ == "__main__":

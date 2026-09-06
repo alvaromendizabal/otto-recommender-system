@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from otto_recsys.cloud.two_tower_fold import (
     FoldTrainingConfig,
     build_fold_pipeline_definition,
@@ -99,3 +101,22 @@ def test_fold_run_id_changes_with_source_or_config() -> None:
     changed["source_sha256"] = "e" * 64
     assert fold_run_id(base) != fold_run_id(changed)
     assert fold_run_id(base) == fold_run_id(dict(base))
+
+
+@pytest.mark.parametrize("fold", range(5))
+def test_fold_metadata_survives_json_wire_contract(fold: int) -> None:
+    import json
+
+    definition = build_fold_pipeline_definition(
+        role_arn="arn:aws:iam::123456789012:role/SageMakerRole",
+        image_uri="image",
+        source_uri="s3://otto-test-bucket/source/source.tar.gz",
+        commit="b" * 40,
+        run_id="c" * 64,
+        config=FoldTrainingConfig(bucket="otto-test-bucket", validation_fold=fold),
+    )
+    wire = json.loads(json.dumps(definition))
+    # AWS schema: Metadata.patternProperties values have type=string, maxLength=1024.
+    assert wire["Metadata"]["ValidationFold"] == str(fold)
+    assert all(isinstance(value, str) for value in wire["Metadata"].values())
+    assert wire["Steps"][0]["Arguments"]["ResourceConfig"]["InstanceCount"] == 1

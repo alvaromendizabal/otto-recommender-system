@@ -17,6 +17,24 @@ CHECKPOINT_LOCAL_PATH = "/opt/ml/checkpoints"
 PIPELINE_VERSION = "2020-12-01"
 
 _PIPELINE_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,255}$")
+_METADATA_KEY_PATTERN = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
+
+
+def validate_pipeline_metadata(definition: dict[str, Any]) -> None:
+    """Validate the metadata wire contract before calling SageMaker.
+
+    AWS's pipeline-definition JSON schema requires string metadata values,
+    including numeric identifiers such as fold numbers. This is a focused
+    metadata check; registration still validates the complete service schema.
+    """
+    metadata = definition.get("Metadata", {})
+    if not isinstance(metadata, dict):
+        raise ValueError("Metadata must be an object")
+    for key, value in metadata.items():
+        if not isinstance(key, str) or not _METADATA_KEY_PATTERN.fullmatch(key):
+            raise ValueError(f"invalid Metadata key: {key!r}")
+        if not isinstance(value, str) or len(value) > 1024:
+            raise ValueError(f"Metadata.{key} must be a string of at most 1024 characters")
 
 
 _SOURCE_ARCHIVE_IGNORED_DIRS = {
@@ -418,7 +436,7 @@ def build_pipeline_definition(
         resume_if_available=False,
         stop_after_step=config.job_b_stop_step,
     )
-    return {
+    definition = {
         "Version": PIPELINE_VERSION,
         "Metadata": {
             "Project": "otto-recommender-system",
@@ -447,6 +465,8 @@ def build_pipeline_definition(
             },
         ],
     }
+    validate_pipeline_metadata(definition)
+    return definition
 
 
 def run_contract_payload(

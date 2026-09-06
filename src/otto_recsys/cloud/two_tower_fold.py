@@ -12,6 +12,7 @@ from otto_recsys.cloud.sagemaker_pipeline import (
     canonical_sha256,
     channel_uris,
     retry_policies,
+    validate_pipeline_metadata,
 )
 
 _PIPELINE_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,255}$")
@@ -183,14 +184,14 @@ def build_fold_pipeline_definition(
         ],
     }
 
-    return {
+    definition = {
         "Version": PIPELINE_VERSION,
         "Metadata": {
             "Project": "otto-recommender-system",
             "Purpose": "two-tower-fold-training",
             "RunId": run_id,
             "CodeCommit": commit,
-            "ValidationFold": config.validation_fold,
+            "ValidationFold": str(config.validation_fold),
         },
         "Parameters": [],
         "PipelineExperimentConfig": {
@@ -206,6 +207,8 @@ def build_fold_pipeline_definition(
             }
         ],
     }
+    validate_pipeline_metadata(definition)
+    return definition
 
 
 def fold_run_contract(
