@@ -25,6 +25,7 @@ The system predicts the next **click**, **cart**, and **order** actions from ano
 - a lockfile-governed CPU dev + ML environment plus exact GPU-package toolchain parity checks, with paid GPU workers reserved for runtime validation and training;
 - stage-aware persisted failure diagnostics for SageMaker training jobs;
 - structured UTC logging, elapsed-time reporting, CPU/RAM telemetry, GPU/VRAM telemetry, and periodic heartbeats;
+- a resumable full-catalogue ANN benchmark with frozen tuning/confirmation queries, official Recall@20, ranking diagnostics, and measured latency;
 - Ruff, mypy, pytest, smoke tests, dependency checks, and repository hygiene gates.
 
 ## Measured retrieval evidence
@@ -87,6 +88,7 @@ The notebooks are intentionally **analysis layers**, not the source of productio
 3. [`notebooks/03_candidate_frontier.ipynb`](notebooks/03_candidate_frontier.ipynb) — candidate-depth trade-offs.
 4. [`notebooks/04_hard_negative_quality.ipynb`](notebooks/04_hard_negative_quality.ipynb) — OOF and hard-negative integrity.
 5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed training and resume evidence, exact export, paired retrieval gains with confidence intervals, and the independent count audit.
+6. [`notebooks/06_ann_benchmark.ipynb`](notebooks/06_ann_benchmark.ipynb) — ANN experiment contract and report reader, with an explicit pending state until managed measurements exist; official ranking quality, fidelity, latency, and resources remain separately labeled.
 
 ## Repository layout
 
@@ -190,4 +192,6 @@ The independent auditor verifies all count receipts and session partitions, then
 
 **Decision:** retain the neural model as an additional source. The next experiment is ANN fidelity and latency against the saved exact reference. After that gate, generate the remaining OOF candidates and compare objective-specific rankers at the same final top-20 budget. An untouched temporal evaluation is still required before a generalization claim. No additional folds are launched by publishing these results.
 
-See [the evaluation and audit commands](docs/FOLD_EVALUATION.md), [the next experiment contract](docs/TWO_TOWER_EXPERIMENTS.md), and [training operations](docs/FOLD_TRAINING.md).
+**Ready to launch:** the managed ANN workflow now builds three IVFFlat indexes from the saved embeddings, tests four probe counts on a frozen tuning cohort, confirms the selected setting separately, and exports full-fold ANN predictions when the fidelity target passes. Index shards, query results, metrics, and logs are committed to S3 with checksum receipts. Real-model CPU tests cover interrupted work and recovery; full-scale managed ANN results have not yet been measured.
+
+Start with [the ANN launch and monitoring guide](docs/ANN_BENCHMARK.md). Also see [the completed evaluation and audit](docs/FOLD_EVALUATION.md), [the modeling contract](docs/TWO_TOWER_EXPERIMENTS.md), and [training operations](docs/FOLD_TRAINING.md).

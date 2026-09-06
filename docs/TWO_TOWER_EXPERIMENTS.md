@@ -87,10 +87,15 @@ query subset for confirming the selected configuration. Store its session IDs,
 selection seed, embedding hashes, prediction identity, index parameters,
 software versions, thread count, and hardware in the benchmark contract.
 
-Compare an exact inner-product reference with an approximate index. FAISS
-[documents exact Flat search as the reference for approximate indexes](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index)
-and [the memory/search trade-offs of HNSW](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
-Do not interpret exact export batch time as serving latency.
+The implemented workflow uses objective-specific FAISS IVFFlat indexes and the
+saved exhaustive inner-product reference. It tunes `nprobe` over 32/64/128/256
+using 2,048 seeded sessions and reserves another 2,048 for confirmation. The
+prospective selection rule requires at least 98% mean top-800 ID overlap for
+each objective. See [the canonical configuration](../configs/two_tower_ann.toml)
+and [launch/recovery guide](ANN_BENCHMARK.md). FAISS documents the
+[IVF fidelity/search trade-off](https://github.com/facebookresearch/faiss/wiki/Faster-search).
+Do not interpret exact export batch time as serving latency. This benchmark
+measures warm CPU search plus reranking, excluding encoding and network time.
 
 Required measurements, separately for clicks/carts/orders and depths 400/800:
 
@@ -104,9 +109,14 @@ Required measurements, separately for clicks/carts/orders and depths 400/800:
 Any numeric acceptance thresholds are prospective design decisions, not
 measured results. Select a configuration using the fidelity/latency frontier
 and confirm it on the reserved query subset before scheduling the other folds.
-The benchmark implementation must checkpoint indexes and query-result parts
-atomically to S3, validate receipts on resume, record UTC progress/heartbeats,
-and test interruption, corruption, input mismatch, and score/ID alignment.
+The benchmark checkpoints trained centroids, index shards and query-result parts
+to S3, validates receipts on resume, and records UTC progress/heartbeats. Its
+tests exercise interruption, corruption, input mismatch, and score/ID alignment.
+After confirmation passes, it exports all 103,468 held-out sessions and reports
+official weighted Recall@20 plus per-objective NDCG@20, MRR@20, hit rate and
+precision. These full-cohort results include ANN tuning sessions. The existing
+CPU comparator then measures retained incremental gain over the frozen base;
+ANN neighbor overlap alone cannot establish that gain.
 
 After that gate, generate five-fold OOF candidates and train objective-specific
 rankers. Compare base-only and base-plus-neural inputs at identical final
@@ -123,6 +133,7 @@ the experiment without AWS access:
 - deterministic configuration under `configs/`;
 - typed source and tests;
 - `notebooks/05_two_tower_results.ipynb` as an executed analytical narrative;
+- `notebooks/06_ann_benchmark.ipynb` for the prospective ANN contract and actual reports when available;
 - README tables summarizing measured results and decision rationale.
 
 ## Hermetic source-integration gate
