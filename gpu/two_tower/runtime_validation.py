@@ -7,7 +7,12 @@ from pathlib import Path
 
 import torch
 
-from otto_two_tower.checkpoint import TrainingState, load_checkpoint, save_checkpoint
+from otto_two_tower.checkpoint import (
+    CHECKPOINT_FORMAT_VERSION,
+    TrainingState,
+    load_checkpoint,
+    save_checkpoint,
+)
 from otto_two_tower.config import ModelConfig
 from otto_two_tower.data import SequenceBatch
 from otto_two_tower.loss import objective_conditioned_contrastive_loss
@@ -126,6 +131,11 @@ def main() -> int:
     )
     if loaded.global_step != 1 or loaded.next_batch != 2:
         raise RuntimeError("checkpoint round-trip did not preserve progress")
+    print(
+        "CHECKPOINT_RNG_ROUNDTRIP_PASSED "
+        f"checkpoint_format_version={CHECKPOINT_FORMAT_VERSION} map_location={device.type}",
+        flush=True,
+    )
 
     elapsed = time.perf_counter() - started
     print(f"OTTO_GPU_RUNTIME_VALIDATION_PASSED total_seconds={elapsed:.3f}", flush=True)
