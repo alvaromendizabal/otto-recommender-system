@@ -100,6 +100,55 @@ def validate_ann_launch(source_root: Path, definition: dict[str, Any]) -> None:
         raise RuntimeError(f"ANN launch contract rejected: {completed.stderr.strip()}")
 
 
+def validate_ann_catalogue(
+    source_root: Path,
+    definition: dict[str, Any],
+    expected_manifest: dict[str, Any],
+    cache_root: Path,
+) -> dict[str, Any]:
+    """Run the packaged lookup contract on actual S3 inputs before paid compute."""
+    started = time.perf_counter()
+    channel = next(
+        row
+        for row in definition["Steps"][0]["Arguments"]["InputDataConfig"]
+        if row["ChannelName"] == "items"
+    )
+    uri = channel["DataSource"]["S3DataSource"]["S3Uri"].rstrip("/")
+    cache_root.mkdir(parents=True, exist_ok=True)
+    print(f"[{utc_now()}] ann_catalogue_preflight_start", flush=True)
+    for name in ("manifest.json", "item_ids.npy", "aid_to_index.npy"):
+        destination = cache_root / name
+        temporary = destination.with_suffix(destination.suffix + ".tmp")
+        run_command(
+            ["aws", "s3", "cp", uri + "/" + name, str(temporary), "--only-show-errors"],
+            check=True,
+        )
+        temporary.replace(destination)
+        print(
+            f"[{utc_now()}] ann_catalogue_input_downloaded file={name} "
+            f"elapsed_seconds={time.perf_counter() - started:.3f}",
+            flush=True,
+        )
+    if json.loads((cache_root / "manifest.json").read_text()) != expected_manifest:
+        raise ValueError("catalogue manifest differs from the frozen exact export")
+    completed = run_command(
+        [
+            sys.executable,
+            "-m",
+            "otto_two_tower.catalogue",
+            "--item-data",
+            str(cache_root.resolve()),
+        ],
+        cwd=source_root.resolve(),
+        env={"PYTHONPATH": str(source_root.resolve())},
+        check=True,
+    )
+    report: dict[str, Any] = json.loads(completed.stdout)
+    report.update(verified_at_utc=utc_now(), elapsed_seconds=time.perf_counter() - started)
+    print(f"[{utc_now()}] ann_catalogue_preflight_complete {json.dumps(report)}", flush=True)
+    return report
+
+
 def load_pinned_quality_toolchain(source_root: Path) -> dict[str, str]:
     requirements_path = source_root / "requirements-dev.txt"
     if not requirements_path.is_file():

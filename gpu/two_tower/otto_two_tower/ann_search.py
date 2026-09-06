@@ -11,6 +11,7 @@ import faiss
 import numpy as np
 
 from .benchmark_artifacts import BenchmarkArtifacts
+from .catalogue import Catalogue
 from .ranking_metrics import ranking_counts
 
 
@@ -105,7 +106,7 @@ def search(
     index: Any,
     queries: np.ndarray,
     vectors: np.ndarray,
-    item_ids: np.ndarray,
+    catalogue: Catalogue,
     k: int,
     *,
     positional: bool = False,
@@ -121,12 +122,10 @@ def search(
         found = found[found >= 0]
         if len(found) < k or len(np.unique(found)) != len(found):
             raise ValueError("ANN search returned insufficient or duplicate neighbours")
-        positions = found if positional else np.searchsorted(item_ids, found)
-        if np.any(positions >= len(item_ids)) or (
-            not positional and not np.array_equal(item_ids[positions], found)
-        ):
+        positions = found if positional else catalogue.rows(found)
+        if np.any(positions >= len(catalogue.item_ids)):
             raise ValueError("ANN index returned unknown catalogue IDs")
-        aids = item_ids[positions]
+        aids = catalogue.item_ids[positions]
         scores = np.einsum("nd,d->n", vectors[positions], query, optimize=False)
         order = np.lexsort((aids, -scores))[:k]
         output_ids.append(aids[order])
@@ -138,7 +137,7 @@ def latency(
     index: Any,
     queries: np.ndarray,
     vectors: np.ndarray,
-    item_ids: np.ndarray,
+    catalogue: Catalogue,
     args: argparse.Namespace,
     *,
     positional: bool = False,
@@ -149,7 +148,7 @@ def latency(
             index,
             subset[j % len(subset) : j % len(subset) + 1],
             vectors,
-            item_ids,
+            catalogue,
             args.candidate_depth,
             positional=positional,
         )
@@ -162,7 +161,7 @@ def latency(
                 index,
                 subset[j : j + 1],
                 vectors,
-                item_ids,
+                catalogue,
                 args.candidate_depth,
                 positional=positional,
             )
@@ -183,7 +182,7 @@ def latency(
 def evaluate_queries(
     index: Any,
     vectors: np.ndarray,
-    item_ids: np.ndarray,
+    catalogue: Catalogue,
     sessions: np.ndarray,
     queries: np.ndarray,
     exact_ids: np.ndarray,
@@ -199,7 +198,9 @@ def evaluate_queries(
 
         def write(path: Path, start: int = start, end: int = end) -> None:
             begin = time.perf_counter()
-            scores, ids = search(index, queries[start:end], vectors, item_ids, args.candidate_depth)
+            scores, ids = search(
+                index, queries[start:end], vectors, catalogue, args.candidate_depth
+            )
             duration = time.perf_counter() - begin
             write_npz(
                 path,
@@ -239,7 +240,7 @@ def evaluate_queries(
             recovered / reference_hits if reference_hits else None
         )
     timing = artifacts.json(
-        prefix + "/latency.json", lambda: latency(index, queries, vectors, item_ids, args)
+        prefix + "/latency.json", lambda: latency(index, queries, vectors, catalogue, args)
     )
     seconds = sum(float(a["search_seconds"]) for a in arrays)
     return {

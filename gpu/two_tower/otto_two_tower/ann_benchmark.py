@@ -20,6 +20,7 @@ import torch
 from .ann_export import export_fold, load_encoder
 from .ann_search import build_index, evaluate_queries, latency, write_npz
 from .benchmark_artifacts import BenchmarkArtifacts
+from .catalogue import Catalogue
 from .data import ItemVocabulary
 from .evaluation import identity, read_json, sha256_file, verified_part
 from .ranking_metrics import OBJECTIVES, paired_recall_interval, ranking_counts, summarize_ranking
@@ -167,6 +168,10 @@ def run_benchmark(
     torch.set_float32_matmul_precision("highest")
     torch.backends.cuda.matmul.allow_tf32 = False
     reference = _check_inputs(args, progress)
+    vocabulary = ItemVocabulary.load(args.item_data)
+    catalogue = Catalogue(vocabulary.item_ids, vocabulary.aid_to_index)
+    item_ids = catalogue.item_ids
+    logger.info("catalogue_validated", extra={"examples": len(item_ids)})
     fold = reference["validation_fold"]
     table = pq.read_table(
         args.ranking_cache / "examples.parquet", filters=[("fold", "=", fold)], columns=["session"]
@@ -237,10 +242,6 @@ def run_benchmark(
     # Fail before indexing if the frozen random sample cannot support every metric.
     summarize_ranking(exact_counts[:half])
     summarize_ranking(exact_counts[half:])
-    vocabulary = ItemVocabulary.load(args.item_data)
-    item_ids = np.asarray(vocabulary.item_ids, dtype=np.int64)
-    if np.any(item_ids[1:] <= item_ids[:-1]):
-        raise ValueError("benchmark requires unique sorted catalogue IDs")
     query_paths = {o: artifacts.get(f"queries/{o}.npz") for o in OBJECTIVES}
     if any(path is None for path in query_paths.values()):
         model, store, device = load_encoder(args, selected)
@@ -284,11 +285,7 @@ def run_benchmark(
             queries = payload["embeddings"]
         if queries.shape != (len(selected), vectors.shape[1]) or not np.isfinite(queries).all():
             raise ValueError("invalid query embeddings")
-        positions = np.searchsorted(item_ids, exact_ids[objective][:, :20])
-        if np.any(positions >= len(item_ids)) or not np.array_equal(
-            item_ids[positions], exact_ids[objective][:, :20]
-        ):
-            raise ValueError("reference catalogue ID mismatch")
+        positions = catalogue.rows(exact_ids[objective][:, :20])
         replay = np.einsum("nd,nkd->nk", queries, vectors[positions], optimize=False)
         if not np.allclose(replay, exact_scores[objective], atol=2e-5, rtol=0):
             raise ValueError("query/candidate scores do not reproduce the saved exact reference")
@@ -300,7 +297,7 @@ def run_benchmark(
         ) -> dict[str, Any]:
             flat = faiss.IndexFlatIP(vectors.shape[1])
             flat.add(vectors)
-            return latency(flat, queries[:half], vectors, item_ids, args, positional=True)
+            return latency(flat, queries[:half], vectors, catalogue, args, positional=True)
 
         exact_latency[objective] = artifacts.json(
             f"reference/{objective}/cpu_latency.json", exact_timing
@@ -311,7 +308,7 @@ def run_benchmark(
             tuning[probe][objective] = evaluate_queries(
                 index,
                 vectors,
-                item_ids,
+                catalogue,
                 tune,
                 queries[:half],
                 exact_ids[objective][:half],
@@ -356,7 +353,7 @@ def run_benchmark(
             confirmation[objective] = evaluate_queries(
                 index,
                 vectors,
-                item_ids,
+                catalogue,
                 confirm,
                 queries,
                 exact_ids[objective][half:],
@@ -391,7 +388,7 @@ def run_benchmark(
             args,
             reference,
             sessions,
-            item_ids,
+            catalogue,
             chosen,
             truth,
             artifacts,

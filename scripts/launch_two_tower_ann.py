@@ -7,6 +7,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import tempfile
 import time
 from pathlib import Path
@@ -24,6 +25,7 @@ from launch_two_tower_fold import (
 )
 from two_tower_fold_status import training_logs
 
+from otto_recsys.cloud.ann_recovery import prepare_reference_reuse, publish_reference_reuse
 from otto_recsys.cloud.sagemaker_pipeline import (
     canonical_sha256,
     create_deterministic_source_archive,
@@ -32,12 +34,31 @@ from otto_recsys.cloud.sagemaker_pipeline import (
 )
 from otto_recsys.cloud.source_preflight import (
     run_exact_source_preflight,
+    validate_ann_catalogue,
     validate_ann_launch,
     verify_uploaded_source_roundtrip,
 )
 from otto_recsys.cloud.two_tower_ann import ann_definition, load_ann_parameters, stage_ann_source
 from otto_recsys.cloud.two_tower_fold import write_json_atomic
 from otto_recsys.experiments.manifest import sha256_file
+
+
+def download(uri: str, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    run_command(["aws", "s3", "cp", uri, str(path), "--only-show-errors"], check=True)
+
+
+def upload(path: Path, uri: str) -> None:
+    run_command(["aws", "s3", "cp", str(path), uri, "--only-show-errors"], check=True)
+
+
+def object_keys(bucket: str, prefix: str) -> set[str]:
+    return {
+        row["Key"]
+        for row in aws_json(
+            ["s3api", "list-objects-v2", "--bucket", bucket, "--prefix", prefix]
+        ).get("Contents", [])
+    }
 
 
 def watch(pointer: dict[str, Any], *, bucket: str, download: bool, max_wait: float) -> int:
@@ -168,9 +189,14 @@ def main() -> int:
     parser.add_argument("--config", type=Path, default=Path("configs/two_tower_ann.toml"))
     parser.add_argument("--max-runtime-seconds", type=int, default=7200)
     parser.add_argument("--max-wait-seconds", type=float, default=10800)
+    parser.add_argument(
+        "--reuse-reference-run", help="Prior ANN run whose verified reference counts may be reused"
+    )
     for name in ("start", "watch", "download"):
         parser.add_argument("--" + name, action="store_true")
     args = parser.parse_args()
+    if args.reuse_reference_run and not re.fullmatch(r"[a-f0-9]{64}", args.reuse_reference_run):
+        raise ValueError("--reuse-reference-run must be a complete 64-character run ID")
     parameters = load_ann_parameters(args.config)
     if args.sample_sessions is None:
         args.sample_sessions = int(parameters["sample-sessions"])
@@ -212,6 +238,9 @@ def main() -> int:
     original = s3_json(args.bucket, training_key + "control/run_manifest.json")
     definition = s3_json(args.bucket, training_key + "control/pipeline_definition.json")
     reference = s3_json(args.bucket, export["checkpoint_key"] + "prediction_manifest.json")
+    export_contract = s3_json(args.bucket, export["checkpoint_key"] + "evaluation_contract.json")
+    if canonical_sha256(export_contract) != reference["input_id"]:
+        raise ValueError("frozen exact export contract identity mismatch")
     if (
         reference["training_input_id"] != training["input_id"]
         or reference["status"] != "passed"
@@ -263,6 +292,56 @@ def main() -> int:
             region=args.region,
         )
         validate_ann_launch(staged, new_definition)
+        catalogue_report = validate_ann_catalogue(
+            staged,
+            new_definition,
+            export_contract["item_manifest"],
+            Path("artifacts/two_tower_ann/catalogue"),
+        )
+        recovered_parts = []
+        if args.reuse_reference_run:
+            previous_prefix = (
+                f"retrieval/two-tower/ann/fold-{args.fold}/{args.reuse_reference_run}/"
+            )
+            previous_contract = s3_json(args.bucket, previous_prefix + "control/run_manifest.json")
+            previous_keys = object_keys(args.bucket, previous_prefix + "checkpoints/")
+            workspace = Path("artifacts/two_tower_ann/recovery") / args.reuse_reference_run
+            workspace.mkdir(parents=True, exist_ok=True)
+            previous_uri = f"s3://{args.bucket}/{previous_prefix}checkpoints/"
+            print(f"[{utc_now()}] reference_reuse_download_start", flush=True)
+            run_command(
+                [
+                    "aws",
+                    "s3",
+                    "sync",
+                    previous_uri,
+                    str(workspace),
+                    "--exclude",
+                    "*",
+                    "--include",
+                    "reference/*/part-*.npz*",
+                    "--only-show-errors",
+                ],
+                check=True,
+            )
+
+            def download_previous(uri: str, path: Path) -> None:
+                if uri.startswith(previous_uri) and path.is_file():
+                    return  # Bulk transfer above; every byte is verified below.
+                download(uri, path)
+
+            recovered_parts = prepare_reference_reuse(
+                bucket=args.bucket,
+                fold=args.fold,
+                previous_run_id=args.reuse_reference_run,
+                previous_contract=previous_contract,
+                contract=contract,
+                reference=reference,
+                source_root=staged,
+                workspace=workspace,
+                keys=previous_keys,
+                download=download_previous,
+            )
         run_command(["aws", "s3", "cp", str(archive), uri, "--only-show-errors"], check=True)
         verify_uploaded_source_roundtrip(
             source_root=staged, source_uri=uri, expected_sha256=source_sha
@@ -273,6 +352,9 @@ def main() -> int:
     write_json_atomic(path, new_definition)
     put_json_s3(contract, bucket=args.bucket, key=prefix + "control/run_manifest.json")
     put_json_s3(new_definition, bucket=args.bucket, key=prefix + "control/pipeline_definition.json")
+    put_json_s3(
+        catalogue_report, bucket=args.bucket, key=prefix + "control/catalogue_preflight.json"
+    )
     existing = run_command(["aws", "sagemaker", "describe-pipeline", "--pipeline-name", name])
     aws_json(
         [
@@ -299,6 +381,18 @@ def main() -> int:
         print(f"pipeline_name={name}\nOTTO_ANN_REGISTERED_NO_COMPUTE_STARTED")
         return 0
     if retained is None:
+        if recovered_parts:
+            reuse_report = publish_reference_reuse(
+                parts=recovered_parts,
+                run_id=run_id,
+                checkpoint_uri=f"s3://{args.bucket}/{prefix}checkpoints/",
+                existing_keys=object_keys(args.bucket, prefix + "checkpoints/"),
+                download=download,
+                upload=upload,
+            )
+            put_json_s3(
+                reuse_report, bucket=args.bucket, key=prefix + "control/reference_reuse.json"
+            )
         retained = aws_json(
             [
                 "sagemaker",
