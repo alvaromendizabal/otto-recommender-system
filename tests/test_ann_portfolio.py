@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import ast
+import base64
+import hashlib
 import json
 from pathlib import Path
 
@@ -18,11 +20,29 @@ def test_ann_notebook_has_executed_code_and_no_error_outputs() -> None:
     assert "notebook_complete" in str(cells[-1]["outputs"])
 
 
-def test_ann_notebook_distinguishes_measured_evidence_and_pending_results() -> None:
+def test_ann_notebook_discloses_scope_and_matches_published_evidence() -> None:
     notebook = json.loads(Path("notebooks/06_ann_benchmark.ipynb").read_text())
     text = "\n".join("".join(cell["source"]) for cell in notebook["cells"])
     assert "official OTTO weights" in text
     assert "end-to-end serving latency" in text
     assert "Unknown catalogue positives remain misses" in text
-    assert "ANN measurements are pending" in text
+    assert "exploratory validation" in text
+    assert "increment beyond the baseline is still unmeasured" in text
     assert "sha256(report_path.read_bytes())" in text
+    report_path = Path("reports/metrics/two_tower_fold0_ann.json")
+    report = json.loads(report_path.read_text())
+    receipt = json.loads(Path(str(report_path) + ".json").read_text())
+    audit = json.loads(Path("reports/metrics/two_tower_fold0_ann_audit.json").read_text())
+    assert report["status"] == audit["status"] == "passed"
+    assert report["input_id"] == receipt["input_id"] == audit["input_id"]
+    assert hashlib.sha256(report_path.read_bytes()).hexdigest() == receipt["sha256"]
+    assert receipt["sha256"] == audit["metrics_sha256"]
+    assert audit["verified_count_parts"] == 2 * report["prediction_export"]["parts"]
+    images = [
+        base64.b64decode(output["data"]["image/png"])
+        for cell in notebook["cells"]
+        for output in cell.get("outputs", [])
+        if "image/png" in output.get("data", {})
+    ]
+    for name in ("two_tower_ann.png", "two_tower_ann_quality.png"):
+        assert (Path("reports/figures") / name).read_bytes() in images
