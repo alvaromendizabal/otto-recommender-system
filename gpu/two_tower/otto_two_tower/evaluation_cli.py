@@ -9,6 +9,8 @@ import sys
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
+from .sagemaker_args import worker_arguments
+
 
 def positive_int(value: str) -> int:
     number = int(value)
@@ -48,22 +50,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 
 def hyperparameters_to_argv(hyperparameters: Mapping[str, str]) -> list[str]:
-    """Serialize this pipeline's scalar values using SageMaker's option convention.
-
-    CI checks this adapter against sagemaker_training.mapping.to_cmd_args.
-    Framework control parameters never reach the user's entrypoint.
-    """
-    if hyperparameters.get("sagemaker_program") != "evaluate.py":
-        raise ValueError("evaluation entrypoint must be evaluate.py")
-    arguments: list[str] = []
-    for name, value in sorted(hyperparameters.items()):
-        if name in {"sagemaker_program", "sagemaker_submit_directory"}:
-            continue
-        if not name or not isinstance(value, str):
-            raise ValueError("evaluation hyperparameters must be named string values")
-        prefix = "--" if len(name) > 1 else "-"
-        arguments.extend((prefix + name, value))
-    return arguments
+    """Apply the toolkit's JSON decoding and scalar command-line conversion."""
+    return worker_arguments(hyperparameters, program="evaluate.py")
 
 
 def main() -> int:

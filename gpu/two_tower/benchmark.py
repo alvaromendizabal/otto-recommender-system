@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+import json
 import time
 
-from otto_two_tower.ann_benchmark import run_benchmark
 from otto_two_tower.ann_cli import parse_args
-from otto_two_tower.benchmark_artifacts import BenchmarkArtifacts
 from otto_two_tower.logging_utils import configure_logging, utc_now_iso
-from otto_two_tower.telemetry import TrainingHeartbeat
 
 
 def main() -> int:
     args = parse_args()
+    from otto_two_tower.ann_benchmark import run_benchmark
+    from otto_two_tower.benchmark_artifacts import BenchmarkArtifacts
+    from otto_two_tower.telemetry import TrainingHeartbeat
+
     logger = configure_logging("two_tower_ann", args.output_dir / "logs")
     progress = {"stage": "initialization"}
     started = time.perf_counter()
@@ -62,5 +64,29 @@ def main() -> int:
                 raise
 
 
+def entrypoint() -> int:
+    """Record bootstrap failures even before heavy imports or S3 initialization."""
+    started, exit_code = time.perf_counter(), 1
+    print(json.dumps({"timestamp": utc_now_iso(), "message": "ann_worker_start"}), flush=True)
+    try:
+        exit_code = main()
+        return exit_code
+    except SystemExit as error:
+        exit_code = error.code if isinstance(error.code, int) else 1
+        raise
+    finally:
+        print(
+            json.dumps(
+                {
+                    "timestamp": utc_now_iso(),
+                    "message": "ann_worker_complete",
+                    "exit_code": exit_code,
+                    "elapsed_seconds": round(time.perf_counter() - started, 6),
+                }
+            ),
+            flush=True,
+        )
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(entrypoint())

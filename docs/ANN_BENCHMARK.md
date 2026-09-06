@@ -6,9 +6,25 @@ ceiling. This workflow measures how much quality an approximate index preserves
 and what search latency it achieves. It does not retrain the model.
 
 **Implementation status:** the real-model CPU contract suite and recovery tests
-pass. Full-catalogue managed ANN measurements are pending the first launch.
+pass. Full-catalogue managed ANN measurements remain pending a completed run.
 The executed [benchmark notebook](../notebooks/06_ann_benchmark.ipynb) clearly
 shows that pending state and renders measured results when they are available.
+
+The first managed attempt on September 6, 2026 stopped during argument parsing.
+SageMaker JSON-decodes hyperparameter strings before constructing the command:
+the API value `"true"` became the CLI value `True`. The original parser accepted
+only lowercase values. AWS recorded 306 billable seconds and zero ANN checkpoint
+objects; the saved model and all 369 exact-export objects remain available.
+The [launch evidence](../reports/metrics/two_tower_fold0_ann_launch.json) records
+this failed attempt without presenting it as a model evaluation.
+
+The shared preflight now reproduces JSON decoding before CLI conversion, and the
+ANN parser canonicalizes both boolean spellings. Regression tests load the
+captured launch through the pinned AWS toolkit's real hyperparameter reader,
+framework-parameter split, and serializer. The real-model subprocess test uses
+that complete path before testing export and recovery. Startup errors also emit
+UTC start/completion records with exit code and total time to CloudWatch, even
+when argument parsing fails before the benchmark logger is initialized.
 
 ## Experiment and metrics
 
@@ -97,8 +113,9 @@ This starts **one paid managed worker**. The launcher reuses the successful
 training run's image, role, and instance configuration, validates completed
 training/export provenance, runs pinned source checks, and tests the exact
 worker argument list before any cloud write. It verifies the staged archive
-and its S3 round trip before starting compute. Argument names are tested against
-the AWS training toolkit's actual serializer.
+and its S3 round trip before starting compute. Arguments are tested against the
+AWS training toolkit's actual JSON loading, framework-parameter filtering, and
+CLI serialization, including boolean values.
 
 The startup marker is `OTTO_ANN_TRACKED_SAFE_TO_DISCONNECT`. SageMaker owns the
 job after launch: closing the terminal or Studio does not stop it. Initially
@@ -218,7 +235,9 @@ alone.
 ## Tests
 
 CI runs the root and isolated neural quality gates. Tests cover exact launch
-serialization, no-cloud-write argument rejection, canonical archive staging,
+JSON decoding and serialization, the captured managed invocation, boolean
+normalization/rejection, bootstrap failure totals, no-cloud-write argument
+rejection, canonical archive staging,
 active/completed-run reuse, terminal status, official capped denominators,
 ranking diagnostics, paired uncertainty, real model/index execution, full-fold
 export integrity, process restart, corrupt prediction recovery, unchanged good

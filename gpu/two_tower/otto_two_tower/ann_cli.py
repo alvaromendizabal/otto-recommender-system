@@ -10,6 +10,7 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 
 from .evaluation_cli import positive_int, positive_seconds
+from .sagemaker_args import worker_arguments
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -42,7 +43,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     ):
         parser.add_argument("--" + name, type=positive_int, default=default)
     parser.add_argument("--probes", default="32,64,128,256")
-    parser.add_argument("--export-fold-predictions", choices=("true", "false"), default="true")
+    parser.add_argument(
+        "--export-fold-predictions", type=str.lower, choices=("true", "false"), default="true"
+    )
     parser.add_argument("--target-overlap", type=float, default=0.98)
     parser.add_argument("--heartbeat-seconds", type=positive_seconds, default=30)
     parser.add_argument("--allow-cpu", action="store_true")
@@ -70,24 +73,20 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 
 def hyperparameters_to_argv(parameters: Mapping[str, str]) -> list[str]:
-    if parameters.get("sagemaker_program") != "benchmark.py":
-        raise ValueError("ANN entrypoint must be benchmark.py")
-    return [
-        token
-        for key, value in sorted(parameters.items())
-        if not key.startswith("sagemaker_")
-        for token in ("--" + key, value)
-    ]
+    return worker_arguments(parameters, program="benchmark.py")
 
 
 def main() -> int:
-    args = parse_args(hyperparameters_to_argv(json.load(sys.stdin)))
+    argv = hyperparameters_to_argv(json.load(sys.stdin))
+    args = parse_args(argv)
     if args.allow_cpu or not args.checkpoint_uri:
         raise ValueError("managed benchmark requires a GPU encoder and durable S3 output")
     print(
         json.dumps(
             {
                 "status": "passed",
+                "argv": argv,
+                "export_fold_predictions": args.export_fold_predictions,
                 "nlist": args.nlist,
                 "probes": args.probes,
                 "sample_sessions": args.sample_sessions,

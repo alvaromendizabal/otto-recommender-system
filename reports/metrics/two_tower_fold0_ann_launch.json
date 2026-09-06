@@ -1,0 +1,18 @@
+{
+  "ann_checkpoint_objects": 0,
+  "billable_seconds": 306,
+  "cause": "SageMaker JSON-decoded the API string true into boolean True, then serialized it as the CLI string True. The parser accepted lowercase only.",
+  "code_commit": "454377827c1c46941c5bcb5aa689243ef1e49fca",
+  "interpretation": "No ANN indexing or evaluation completed in this attempt. This is launch evidence, not model-quality evidence.",
+  "phase": "managed_argument_parsing",
+  "preserved_best_model_bytes": 949613446,
+  "preserved_exact_export_bytes": 4594673647,
+  "preserved_exact_export_objects": 369,
+  "run_id": "a2cb5a83457e314826581e0f9b1db235d97e96f5281e83b5ce4719786c857d53",
+  "schema_version": 1,
+  "status": "failed",
+  "training_job_name": "pipelines-zesjdij16ftq-BenchmarkANN-hrbJbTX8pt",
+  "verification": "Live DescribeTrainingJob, ListObjectsV2 for both output prefixes, and HeadObject for the saved best model.",
+  "verified_at_utc": "2026-09-06T21:06:55.435933+00:00",
+  "worker_exit_code": 2
+}

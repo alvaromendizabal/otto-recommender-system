@@ -194,4 +194,6 @@ The independent auditor verifies all count receipts and session partitions, then
 
 **Ready to launch:** the managed ANN workflow now builds three IVFFlat indexes from the saved embeddings, tests four probe counts on a frozen tuning cohort, confirms the selected setting separately, and exports full-fold ANN predictions when the fidelity target passes. Index shards, query results, metrics, and logs are committed to S3 with checksum receipts. Real-model CPU tests cover interrupted work and recovery; full-scale managed ANN results have not yet been measured.
 
+The first ANN attempt stopped before indexing because SageMaker decoded `true` into the CLI value `True`. The shared preflight and parser now handle that conversion, with regression tests using the actual toolkit loader and the captured invocation. [Launch evidence](reports/metrics/two_tower_fold0_ann_launch.json) records 306 billable seconds, zero ANN checkpoint objects, and the preserved model/exact-export artifacts.
+
 Start with [the ANN launch and monitoring guide](docs/ANN_BENCHMARK.md). Also see [the completed evaluation and audit](docs/FOLD_EVALUATION.md), [the modeling contract](docs/TWO_TOWER_EXPERIMENTS.md), and [training operations](docs/FOLD_TRAINING.md).

@@ -6,11 +6,11 @@ import json
 import os
 import subprocess
 import sys
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
 
 import pytest
-from sagemaker_training.mapping import to_cmd_args
 from test_evaluation import fixture_inputs
 
 from otto_two_tower.evaluation_cli import hyperparameters_to_argv, parse_args
@@ -18,7 +18,10 @@ from otto_two_tower.evaluation_cli import hyperparameters_to_argv, parse_args
 
 @pytest.mark.parametrize("depth_parameter", ["candidate-depth", "k"])
 def test_pipeline_to_worker_and_process_restart(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, depth_parameter: str
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    depth_parameter: str,
+    toolkit_argv: Callable[[dict[str, str]], list[str]],
 ) -> None:
     repository = Path(__file__).resolve().parents[3]
     monkeypatch.syspath_prepend(str(repository / "src"))
@@ -45,9 +48,7 @@ def test_pipeline_to_worker_and_process_restart(
         input_manifests={"ranking": inputs.expected_ranking_id, "items": inputs.expected_items_id},
     )
     hyperparameters = definition["Steps"][0]["Arguments"]["HyperParameters"]
-    production_argv = to_cmd_args(
-        {key: value for key, value in hyperparameters.items() if not key.startswith("sagemaker_")}
-    )
+    production_argv = toolkit_argv(hyperparameters)
     assert hyperparameters_to_argv(hyperparameters) == production_argv
     assert parse_args(production_argv).k == 800
 
@@ -57,9 +58,7 @@ def test_pipeline_to_worker_and_process_restart(
     for name in ("ranking_cache", "item_data", "model_dir", "output_dir"):
         hyperparameters[name.replace("_", "-")] = str(getattr(inputs, name))
     hyperparameters.update({"batch-size": "1", "chunk-size": "5", "heartbeat-seconds": "0.01"})
-    argv = to_cmd_args(
-        {key: value for key, value in hyperparameters.items() if not key.startswith("sagemaker_")}
-    )
+    argv = toolkit_argv(hyperparameters)
     assert hyperparameters_to_argv(hyperparameters) == argv
     command = [sys.executable, "evaluate.py", *argv, "--allow-cpu"]
     env = {
