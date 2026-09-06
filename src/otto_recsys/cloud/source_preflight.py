@@ -20,6 +20,7 @@ CPU_SAFE_TESTS = (
     "tests/test_sagemaker_entrypoint.py",
     "tests/test_evaluation_cli.py",
     "tests/test_ann_cli.py",
+    "tests/test_sagemaker_args.py",
 )
 
 
@@ -89,13 +90,14 @@ def validate_ann_launch(source_root: Path, definition: dict[str, Any]) -> None:
         env={"PYTHONPATH": str(source_root.resolve())},
         input_text=json.dumps(parameters),
     )
-    if completed.returncode:
-        raise RuntimeError(f"ANN launch contract rejected: {completed.stderr.strip()}")
+    status = "failed" if completed.returncode else "passed"
     print(
-        f"[{utc_now()}] ann_launch_contract_complete status=passed "
+        f"[{utc_now()}] ann_launch_contract_complete status={status} "
         f"elapsed_seconds={time.perf_counter() - started:.3f}",
         flush=True,
     )
+    if completed.returncode:
+        raise RuntimeError(f"ANN launch contract rejected: {completed.stderr.strip()}")
 
 
 def load_pinned_quality_toolchain(source_root: Path) -> dict[str, str]:

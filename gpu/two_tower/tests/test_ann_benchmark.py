@@ -5,6 +5,7 @@ import json
 import os
 import subprocess
 import sys
+from collections.abc import Callable
 from dataclasses import asdict
 from pathlib import Path
 
@@ -13,7 +14,6 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import pytest
 import torch
-from sagemaker_training.mapping import to_cmd_args
 
 from evaluate import export_predictions
 from otto_two_tower.ann_benchmark import _check_inputs
@@ -161,7 +161,9 @@ def fixture(tmp_path: Path) -> argparse.Namespace:
     )
 
 
-def test_real_model_index_metrics_and_process_restart(tmp_path: Path) -> None:
+def test_real_model_index_metrics_and_process_restart(
+    tmp_path: Path, toolkit_argv: Callable[[dict[str, str]], list[str]]
+) -> None:
     args = fixture(tmp_path)
     parameters = {
         key.replace("_", "-"): str(value)
@@ -169,7 +171,8 @@ def test_real_model_index_metrics_and_process_restart(tmp_path: Path) -> None:
         if key not in {"allow_cpu", "probes", "checkpoint_uri"}
     }
     parameters["probes"] = ",".join(str(p) for p in args.probes)
-    argv = to_cmd_args(parameters)
+    argv = toolkit_argv(parameters)
+    assert argv[argv.index("--export-fold-predictions") + 1] == "True"
     assert hyperparameters_to_argv({**parameters, "sagemaker_program": "benchmark.py"}) == argv
     command = [sys.executable, "benchmark.py", *argv, "--allow-cpu"]
 
