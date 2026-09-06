@@ -8,7 +8,7 @@ import os
 import re
 import tarfile
 from dataclasses import asdict, dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 DLC_ACCOUNT_ID = "763104351884"
@@ -63,6 +63,90 @@ def create_deterministic_source_archive(source_root: Path, destination: Path) ->
     temporary.write_bytes(payload)
     os.replace(temporary, destination)
     return hashlib.sha256(payload).hexdigest()
+
+
+def _manifest_sha256(manifest: dict[str, dict[str, Any]]) -> str:
+    encoded = json.dumps(
+        manifest, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def source_tree_manifest(source_root: Path) -> dict[str, dict[str, Any]]:
+    """Return a deterministic content manifest for the source tree.
+
+    Symlinks are rejected so the bytes sent to SageMaker cannot silently depend
+    on files outside the committed source tree.
+    """
+    manifest: dict[str, dict[str, Any]] = {}
+    for path in _source_files(source_root):
+        if path.is_symlink():
+            raise ValueError(f"source archive may not contain symlinks: {path}")
+        relative = path.relative_to(source_root).as_posix()
+        payload = path.read_bytes()
+        manifest[relative] = {
+            "bytes": len(payload),
+            "sha256": hashlib.sha256(payload).hexdigest(),
+        }
+    if not manifest:
+        raise ValueError(f"source tree is empty: {source_root}")
+    return manifest
+
+
+def source_archive_manifest(archive_path: Path) -> dict[str, dict[str, Any]]:
+    """Inspect a source tarball without extracting it to the filesystem."""
+    manifest: dict[str, dict[str, Any]] = {}
+    with gzip.open(archive_path, "rb") as compressed, tarfile.open(
+        fileobj=compressed, mode="r:"
+    ) as archive:
+        for member in archive.getmembers():
+            if not member.isfile():
+                raise ValueError(
+                    f"source archive contains non-regular member: {member.name}"
+                )
+            name = PurePosixPath(member.name)
+            if name.is_absolute() or ".." in name.parts:
+                raise ValueError(f"unsafe source archive path: {member.name}")
+            normalized = name.as_posix()
+            if normalized in manifest:
+                raise ValueError(f"duplicate source archive member: {normalized}")
+            handle = archive.extractfile(member)
+            if handle is None:
+                raise ValueError(f"could not read source archive member: {normalized}")
+            payload = handle.read()
+            manifest[normalized] = {
+                "bytes": len(payload),
+                "sha256": hashlib.sha256(payload).hexdigest(),
+            }
+    if not manifest:
+        raise ValueError(f"source archive is empty: {archive_path}")
+    return manifest
+
+
+def verify_source_archive(source_root: Path, archive_path: Path) -> dict[str, Any]:
+    """Fail closed unless archive contents exactly match the source tree."""
+    expected = source_tree_manifest(source_root)
+    observed = source_archive_manifest(archive_path)
+    if expected != observed:
+        expected_names = set(expected)
+        observed_names = set(observed)
+        missing = sorted(expected_names - observed_names)
+        extra = sorted(observed_names - expected_names)
+        changed = sorted(
+            name
+            for name in expected_names & observed_names
+            if expected[name] != observed[name]
+        )
+        raise ValueError(
+            "source archive differs from source tree: "
+            f"missing={missing} extra={extra} changed={changed}"
+        )
+    manifest_sha256 = _manifest_sha256(expected)
+    return {
+        "files": len(expected),
+        "manifest_sha256": manifest_sha256,
+        "status": "passed",
+    }
 
 
 @dataclass(frozen=True)

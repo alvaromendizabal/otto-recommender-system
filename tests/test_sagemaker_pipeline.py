@@ -84,6 +84,7 @@ def test_pipeline_uses_frozen_s3_channels() -> None:
         == "s3://otto-test-bucket/retrieval/two-tower/items/"
     )
 
+
 def test_retry_policies_use_current_service_exception_type_shape() -> None:
     definition = build_pipeline_definition(
         role_arn="arn:aws:iam::123456789012:role/SageMakerRole",

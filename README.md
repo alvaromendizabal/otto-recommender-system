@@ -21,6 +21,8 @@ The system predicts the next **click**, **cart**, and **order** actions from ano
 - an objective-conditioned two-tower neural retriever;
 - atomic checkpoints containing model, optimizers, schedulers, RNG state, epoch, batch, and global step;
 - S3-backed checkpoint recovery across fresh SageMaker GPU jobs;
+- exact-source archive verification with file-level hashes and S3 round-trip parity before paid GPU execution;
+- stage-aware persisted failure diagnostics for SageMaker training jobs;
 - structured UTC logging, elapsed-time reporting, CPU/RAM telemetry, GPU/VRAM telemetry, and periodic heartbeats;
 - Ruff, mypy, pytest, smoke tests, dependency checks, and repository hygiene gates.
 

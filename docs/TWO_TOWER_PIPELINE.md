@@ -71,3 +71,45 @@ Registration creates/updates the pipeline definition but starts no GPU compute. 
 ## Registration contract
 
 The launcher emits retry policies using the current SageMaker Pipelines service shape, where each policy stores `ExceptionType` as an array. Registration itself is a no-GPU live service validation: the pipeline must be accepted by `CreatePipeline` or `UpdatePipeline` before any execution can be started.
+
+## Exact-source preflight
+
+Before a managed GPU execution can be registered or started, the launcher now
+fails closed on the exact `gpu/two_tower/` source tree. It runs:
+
+1. Python compilation;
+2. Ruff using the GPU package configuration;
+3. mypy against the GPU package and entry points;
+4. CPU-safe resume/entrypoint contract tests;
+5. deterministic source-archive creation;
+6. file-by-file SHA-256 parity between the working tree and the tarball;
+7. an S3 upload/download round trip followed by the same byte/content parity
+   verification.
+
+The pipeline is not submitted if any of those checks fail. This prevents a
+locally approved tree from diverging from the exact source bytes SageMaker
+executes.
+
+The run manifest records the source archive SHA-256 plus local and S3-roundtrip
+verification metadata, making the training source independently auditable.
+
+## Failure observability
+
+The SageMaker entrypoint records stage-aware failures in two places before it
+returns a nonzero exit code:
+
+```text
+/opt/ml/output/failure
+/opt/ml/output/data/failure.json
+```
+
+`failure.json` contains the failed stage, return code, command, elapsed time,
+Git commit, run ID, Python/runtime metadata, and GPU information when available.
+Unexpected exceptions also include a traceback. Successful jobs write
+`entrypoint_summary.json` to `/opt/ml/output/data`.
+
+`scripts/two_tower_pipeline_status.py` now reports pipeline steps, checkpoint
+object counts, the failed SageMaker training job, instance type, billable time,
+and native failure reason. When a persisted `failure.json` is available in the
+training output artifact, the status command surfaces its stage and message.
+Use `--show-logs` only when the recent CloudWatch tail is needed.

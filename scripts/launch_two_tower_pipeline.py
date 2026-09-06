@@ -5,7 +5,9 @@ import hashlib
 import json
 import os
 import subprocess
+import sys
 import tempfile
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -20,6 +22,7 @@ from otto_recsys.cloud.sagemaker_pipeline import (
     run_contract_payload,
     run_s3_prefix,
     source_s3_uri,
+    verify_source_archive,
 )
 from otto_recsys.cloud.sagemaker_two_tower import derive_role_name_from_sts_arn
 
@@ -79,6 +82,118 @@ def ensure_committed_remote_state() -> str:
         raise RuntimeError("HEAD must exactly match origin/main before managed GPU execution")
     return head
 
+
+def _run_preflight_stage(name: str, command: list[str]) -> None:
+    started = time.perf_counter()
+    print(f"[{utc_now()}] source_preflight_stage_start name={name}", flush=True)
+    completed = run_command(command)
+    elapsed = time.perf_counter() - started
+    if completed.stdout.strip():
+        print(completed.stdout.rstrip(), flush=True)
+    if completed.stderr.strip():
+        print(completed.stderr.rstrip(), file=sys.stderr, flush=True)
+    if completed.returncode != 0:
+        raise RuntimeError(
+            f"source preflight stage failed: {name} rc={completed.returncode}"
+        )
+    print(
+        f"[{utc_now()}] source_preflight_stage_complete "
+        f"name={name} status=passed elapsed_seconds={elapsed:.3f}",
+        flush=True,
+    )
+
+
+def run_exact_source_preflight(source_root: Path) -> None:
+    """Gate the exact GPU source tree before any SageMaker work is submitted."""
+    started = time.perf_counter()
+    config_path = source_root / "pyproject.toml"
+    if not config_path.is_file():
+        raise RuntimeError(f"missing GPU package config: {config_path}")
+
+    _run_preflight_stage(
+        "compile",
+        [sys.executable, "-m", "compileall", "-q", str(source_root)],
+    )
+    _run_preflight_stage(
+        "ruff",
+        [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "--config",
+            str(config_path),
+            str(source_root),
+        ],
+    )
+    _run_preflight_stage(
+        "mypy",
+        [
+            "uv",
+            "run",
+            "mypy",
+            "--config-file",
+            str(config_path),
+            "--python-version",
+            "3.13",
+            str(source_root / "otto_two_tower"),
+            str(source_root / "train.py"),
+            str(source_root / "prepare.py"),
+            str(source_root / "runtime_validation.py"),
+            str(source_root / "sagemaker_entrypoint.py"),
+        ],
+    )
+    _run_preflight_stage(
+        "cpu_safe_contract_tests",
+        [
+            "env",
+            f"PYTHONPATH={source_root}",
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            str(source_root / "tests/test_resume_contract.py"),
+            str(source_root / "tests/test_sagemaker_entrypoint.py"),
+        ],
+    )
+    elapsed = time.perf_counter() - started
+    print(
+        f"[{utc_now()}] source_preflight_complete status=passed "
+        f"elapsed_seconds={elapsed:.3f}",
+        flush=True,
+    )
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def verify_uploaded_source_roundtrip(
+    *, source_root: Path, source_uri: str, expected_sha256: str
+) -> dict[str, Any]:
+    """Download the exact S3 source object and prove byte/content parity."""
+    with tempfile.TemporaryDirectory(prefix="otto-source-roundtrip-") as tmpdir:
+        downloaded = Path(tmpdir) / "source.tar.gz"
+        run_command(
+            ["aws", "s3", "cp", source_uri, str(downloaded), "--only-show-errors"],
+            check=True,
+        )
+        observed_sha256 = _sha256_file(downloaded)
+        if observed_sha256 != expected_sha256:
+            raise RuntimeError(
+                "S3 source round-trip SHA-256 mismatch: "
+                f"expected={expected_sha256} observed={observed_sha256}"
+            )
+        verification = verify_source_archive(source_root, downloaded)
+    return {
+        **verification,
+        "archive_sha256": observed_sha256,
+        "s3_roundtrip": "passed",
+    }
 
 
 def head_s3(bucket: str, key: str) -> dict[str, Any] | None:
@@ -244,8 +359,18 @@ def main() -> int:
     image_uri = official_pytorch_image(config.region)
 
     source_root = Path("gpu/two_tower")
+    run_exact_source_preflight(source_root)
+
     source_archive = Path("artifacts/two_tower_pipeline/source.tar.gz")
     source_sha = create_deterministic_source_archive(source_root, source_archive)
+    local_source_verification = verify_source_archive(source_root, source_archive)
+    print(
+        f"[{utc_now()}] source_archive_verified files={local_source_verification['files']} "
+        f"manifest_sha256={local_source_verification['manifest_sha256']} "
+        f"archive_sha256={source_sha}",
+        flush=True,
+    )
+
     source_uri = source_s3_uri(config.bucket, commit, source_sha)
     run_command(
         ["aws", "s3", "cp", str(source_archive), source_uri, "--only-show-errors"],
@@ -256,6 +381,18 @@ def main() -> int:
     source_head = head_s3(config.bucket, source_key)
     if source_head is None or int(source_head.get("ContentLength", 0)) <= 0:
         raise RuntimeError("deterministic source archive was not durably verified in S3")
+
+    remote_source_verification = verify_uploaded_source_roundtrip(
+        source_root=source_root,
+        source_uri=source_uri,
+        expected_sha256=source_sha,
+    )
+    print(
+        f"[{utc_now()}] source_s3_roundtrip_verified "
+        f"files={remote_source_verification['files']} "
+        f"archive_sha256={remote_source_verification['archive_sha256']}",
+        flush=True,
+    )
 
     manifest_keys = {
         "ranking": "candidates/ranking-training-cache/manifest.json",
@@ -319,6 +456,10 @@ def main() -> int:
         "code_commit": commit,
         "source_sha256": source_sha,
         "source_s3_uri": source_uri,
+        "source_verification": {
+            "local": local_source_verification,
+            "s3_roundtrip": remote_source_verification,
+        },
         "checkpoint_s3_uri": f"{run_prefix}checkpoints/",
         "pipeline_definition_s3_uri": (
             f"s3://{config.bucket}/{control_key_prefix}/pipeline_definition.json"

@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import shutil
 import subprocess
 import sys
 import threading
 import time
+import traceback
 from pathlib import Path
+from typing import Any
 
 
 def _parse_bool(value: str | bool) -> bool:
@@ -54,7 +57,116 @@ def _utc_stamp() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 
-def _run_stage(name: str, command: list[str], heartbeat_seconds: float) -> int:
+def _write_text_atomic(path: Path, payload: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(payload, encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def _write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
+    _write_text_atomic(
+        path,
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+    )
+
+
+def _runtime_snapshot() -> dict[str, Any]:
+    snapshot: dict[str, Any] = {
+        "captured_at": _utc_stamp(),
+        "job_name": os.environ.get("TRAINING_JOB_NAME")
+        or os.environ.get("SM_TRAINING_JOB_NAME"),
+        "instance_type": os.environ.get("SM_CURRENT_INSTANCE_TYPE"),
+        "num_cpus": os.environ.get("SM_NUM_CPUS"),
+        "num_gpus": os.environ.get("SM_NUM_GPUS"),
+        "run_id": os.environ.get("OTTO_RUN_ID"),
+        "python": sys.version,
+    }
+    try:
+        import torch
+
+        snapshot["torch"] = {
+            "version": torch.__version__,
+            "cuda_available": torch.cuda.is_available(),
+            "cuda_version": torch.version.cuda,
+            "device_count": torch.cuda.device_count(),
+        }
+        if torch.cuda.is_available() and torch.cuda.device_count() > 0:
+            snapshot["torch"]["device_name"] = torch.cuda.get_device_name(0)
+    except Exception as exc:  # pragma: no cover - defensive diagnostics
+        snapshot["torch_error"] = repr(exc)
+
+    nvidia = subprocess.run(
+        [
+            "nvidia-smi",
+            "--query-gpu=name,driver_version,memory.total",
+            "--format=csv,noheader,nounits",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if nvidia.returncode == 0:
+        snapshot["nvidia_smi"] = [
+            line.strip() for line in nvidia.stdout.splitlines() if line.strip()
+        ]
+    else:
+        snapshot["nvidia_smi_error"] = nvidia.stderr.strip()
+    return snapshot
+
+
+def _write_failure_artifacts(
+    *,
+    stage: str,
+    message: str,
+    code_commit: str,
+    return_code: int | None = None,
+    command: list[str] | None = None,
+    traceback_text: str | None = None,
+    elapsed_seconds: float | None = None,
+) -> None:
+    output_dir = Path(os.environ.get("SM_OUTPUT_DIR", "/opt/ml/output"))
+    output_data_dir = Path(
+        os.environ.get("SM_OUTPUT_DATA_DIR", "/opt/ml/output/data")
+    )
+    payload: dict[str, Any] = {
+        "status": "failed",
+        "failed_at": _utc_stamp(),
+        "stage": stage,
+        "message": message,
+        "code_commit": code_commit,
+        "return_code": return_code,
+        "command": command,
+        "elapsed_seconds": elapsed_seconds,
+        "runtime": _runtime_snapshot(),
+    }
+    if traceback_text:
+        payload["traceback"] = traceback_text
+
+    try:
+        _write_json_atomic(output_data_dir / "failure.json", payload)
+        concise = (
+            f"OTTO failure stage={stage} return_code={return_code} "
+            f"message={message} code_commit={code_commit}"
+        )
+        _write_text_atomic(output_dir / "failure", concise[:1023] + "\n")
+        print(
+            f"[{_utc_stamp()}] FAILURE_ARTIFACT_WRITTEN stage={stage} "
+            f"path={output_data_dir / 'failure.json'}",
+            flush=True,
+        )
+    except Exception as exc:  # pragma: no cover - diagnostics must not mask failure
+        print(
+            f"[{_utc_stamp()}] FAILURE_ARTIFACT_WRITE_FAILED "
+            f"stage={stage} error={exc!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+
+
+def _run_stage(
+    name: str, command: list[str], heartbeat_seconds: float
+) -> tuple[int, float]:
     started = time.perf_counter()
     print(f"[{_utc_stamp()}] STAGE_START name={name}", flush=True)
     process = subprocess.Popen(command)
@@ -83,30 +195,56 @@ def _run_stage(name: str, command: list[str], heartbeat_seconds: float) -> int:
         f"elapsed_seconds={elapsed:.3f}",
         flush=True,
     )
-    return return_code
+    return return_code, elapsed
 
 
 def _channel(name: str, default: str) -> str:
     return os.environ.get(f"SM_CHANNEL_{name.upper().replace('-', '_')}", default)
 
 
+def _run_or_record_failure(
+    *,
+    stage: str,
+    command: list[str],
+    heartbeat_seconds: float,
+    code_commit: str,
+) -> int:
+    return_code, elapsed = _run_stage(stage, command, heartbeat_seconds)
+    if return_code != 0:
+        _write_failure_artifacts(
+            stage=stage,
+            message=f"stage command exited with return code {return_code}",
+            code_commit=code_commit,
+            return_code=return_code,
+            command=command,
+            elapsed_seconds=elapsed,
+        )
+    return return_code
+
+
 def main() -> int:
     args = _parse_args()
     overall_started = time.perf_counter()
+    current_stage = "bootstrap"
     checkpoint_dir = Path("/opt/ml/checkpoints")
     model_dir = Path(os.environ.get("SM_MODEL_DIR", "/opt/ml/model"))
+    output_data_dir = Path(
+        os.environ.get("SM_OUTPUT_DATA_DIR", "/opt/ml/output/data")
+    )
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     model_dir.mkdir(parents=True, exist_ok=True)
+    output_data_dir.mkdir(parents=True, exist_ok=True)
 
     print(
         f"[{_utc_stamp()}] OTTO_SAGEMAKER_ENTRYPOINT_START "
-        f"code_commit={args.code_commit} resume={args.resume}",
+        f"code_commit={args.code_commit} resume={args.resume} "
+        f"resume_if_available={args.resume_if_available}",
         flush=True,
     )
 
-    install_rc = _run_stage(
-        "dependencies",
-        [
+    try:
+        current_stage = "dependencies"
+        install_command = [
             sys.executable,
             "-m",
             "pip",
@@ -114,90 +252,130 @@ def main() -> int:
             "--disable-pip-version-check",
             "-r",
             "requirements-dev.txt",
-        ],
-        args.heartbeat_seconds,
-    )
-    if install_rc != 0:
-        return install_rc
+        ]
+        install_rc = _run_or_record_failure(
+            stage=current_stage,
+            command=install_command,
+            heartbeat_seconds=args.heartbeat_seconds,
+            code_commit=args.code_commit,
+        )
+        if install_rc != 0:
+            return install_rc
 
-    gate_rc = _run_stage(
-        "gpu_package_quality_gate",
-        [sys.executable, "run_quality_gate.py"],
-        args.heartbeat_seconds,
-    )
-    if gate_rc != 0:
-        return gate_rc
+        current_stage = "gpu_package_quality_gate"
+        gate_command = [sys.executable, "run_quality_gate.py"]
+        gate_rc = _run_or_record_failure(
+            stage=current_stage,
+            command=gate_command,
+            heartbeat_seconds=args.heartbeat_seconds,
+            code_commit=args.code_commit,
+        )
+        if gate_rc != 0:
+            return gate_rc
 
-    runtime_rc = _run_stage(
-        "gpu_runtime_validation",
-        [sys.executable, "runtime_validation.py"],
-        args.heartbeat_seconds,
-    )
-    if runtime_rc != 0:
-        return runtime_rc
+        current_stage = "gpu_runtime_validation"
+        runtime_command = [sys.executable, "runtime_validation.py"]
+        runtime_rc = _run_or_record_failure(
+            stage=current_stage,
+            command=runtime_command,
+            heartbeat_seconds=args.heartbeat_seconds,
+            code_commit=args.code_commit,
+        )
+        if runtime_rc != 0:
+            return runtime_rc
 
-    train_command = [
-        sys.executable,
-        "-u",
-        "train.py",
-        "--ranking-cache",
-        _channel("ranking", "/opt/ml/input/data/ranking"),
-        "--hard-negatives",
-        _channel("hard-negatives", "/opt/ml/input/data/hard-negatives"),
-        "--item-data",
-        _channel("items", "/opt/ml/input/data/items"),
-        "--output-dir",
-        str(checkpoint_dir),
-        "--validation-fold",
-        str(args.validation_fold),
-        "--epochs",
-        str(args.epochs),
-        "--batch-size",
-        str(args.batch_size),
-        "--max-seq-len",
-        str(args.max_seq_len),
-        "--train-rows",
-        str(args.train_rows),
-        "--valid-rows",
-        str(args.valid_rows),
-        "--checkpoint-steps",
-        str(args.checkpoint_steps),
-        "--heartbeat-seconds",
-        str(args.heartbeat_seconds),
-        "--code-commit",
-        args.code_commit,
-    ]
-    if args.stop_after_step is not None:
-        train_command.extend(["--stop-after-step", str(args.stop_after_step)])
-    if args.resume:
-        train_command.append("--resume")
-    if args.resume_if_available:
-        train_command.append("--resume-if-available")
+        train_command = [
+            sys.executable,
+            "-u",
+            "train.py",
+            "--ranking-cache",
+            _channel("ranking", "/opt/ml/input/data/ranking"),
+            "--hard-negatives",
+            _channel("hard-negatives", "/opt/ml/input/data/hard-negatives"),
+            "--item-data",
+            _channel("items", "/opt/ml/input/data/items"),
+            "--output-dir",
+            str(checkpoint_dir),
+            "--validation-fold",
+            str(args.validation_fold),
+            "--epochs",
+            str(args.epochs),
+            "--batch-size",
+            str(args.batch_size),
+            "--max-seq-len",
+            str(args.max_seq_len),
+            "--train-rows",
+            str(args.train_rows),
+            "--valid-rows",
+            str(args.valid_rows),
+            "--checkpoint-steps",
+            str(args.checkpoint_steps),
+            "--heartbeat-seconds",
+            str(args.heartbeat_seconds),
+            "--code-commit",
+            args.code_commit,
+        ]
+        if args.stop_after_step is not None:
+            train_command.extend(["--stop-after-step", str(args.stop_after_step)])
+        if args.resume:
+            train_command.append("--resume")
+        if args.resume_if_available:
+            train_command.append("--resume-if-available")
 
-    train_rc = _run_stage("training", train_command, args.heartbeat_seconds)
-    if train_rc != 0:
-        return train_rc
+        current_stage = "training"
+        train_rc = _run_or_record_failure(
+            stage=current_stage,
+            command=train_command,
+            heartbeat_seconds=args.heartbeat_seconds,
+            code_commit=args.code_commit,
+        )
+        if train_rc != 0:
+            return train_rc
 
-    for filename in (
-        "best_model.pt",
-        "metrics.json",
-        "training_manifest.json",
-        "run_contract.json",
-        "progress.json",
-        "resume_event.json",
-        "resume_proof.json",
-    ):
-        source = checkpoint_dir / filename
-        if source.is_file():
-            shutil.copy2(source, model_dir / filename)
+        current_stage = "publish_outputs"
+        for filename in (
+            "best_model.pt",
+            "metrics.json",
+            "training_manifest.json",
+            "run_contract.json",
+            "progress.json",
+            "resume_event.json",
+            "resume_proof.json",
+        ):
+            source = checkpoint_dir / filename
+            if source.is_file():
+                shutil.copy2(source, model_dir / filename)
 
-    elapsed = time.perf_counter() - overall_started
-    print(
-        f"[{_utc_stamp()}] OTTO_SAGEMAKER_ENTRYPOINT_PASSED "
-        f"total_seconds={elapsed:.3f}",
-        flush=True,
-    )
-    return 0
+        elapsed = time.perf_counter() - overall_started
+        summary = {
+            "status": "passed",
+            "completed_at": _utc_stamp(),
+            "total_seconds": elapsed,
+            "code_commit": args.code_commit,
+            "run_id": os.environ.get("OTTO_RUN_ID"),
+            "resume": args.resume,
+            "resume_if_available": args.resume_if_available,
+            "runtime": _runtime_snapshot(),
+        }
+        _write_json_atomic(output_data_dir / "entrypoint_summary.json", summary)
+        print(
+            f"[{_utc_stamp()}] OTTO_SAGEMAKER_ENTRYPOINT_PASSED "
+            f"total_seconds={elapsed:.3f}",
+            flush=True,
+        )
+        return 0
+    except Exception as exc:
+        traceback_text = traceback.format_exc()
+        print(traceback_text, file=sys.stderr, flush=True)
+        _write_failure_artifacts(
+            stage=current_stage,
+            message=str(exc) or exc.__class__.__name__,
+            code_commit=args.code_commit,
+            return_code=1,
+            traceback_text=traceback_text,
+            elapsed_seconds=time.perf_counter() - overall_started,
+        )
+        return 1
 
 
 if __name__ == "__main__":
