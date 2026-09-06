@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import shutil
 import subprocess
@@ -10,12 +11,14 @@ import time
 from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 from otto_recsys.cloud.sagemaker_pipeline import verify_source_archive
 
 CPU_SAFE_TESTS = (
     "tests/test_resume_contract.py",
     "tests/test_sagemaker_entrypoint.py",
+    "tests/test_evaluation_cli.py",
 )
 
 
@@ -29,6 +32,7 @@ def run_command(
     check: bool = False,
     cwd: Path | None = None,
     env: Mapping[str, str] | None = None,
+    input_text: str | None = None,
 ) -> subprocess.CompletedProcess[str]:
     process_env = os.environ.copy()
     if env is not None:
@@ -40,6 +44,7 @@ def run_command(
         text=True,
         cwd=cwd,
         env=process_env,
+        input=input_text,
     )
     if check and completed.returncode != 0:
         detail = completed.stderr.strip() or completed.stdout.strip()
@@ -49,12 +54,33 @@ def run_command(
     return completed
 
 
+def validate_evaluation_launch(source_root: Path, definition: dict[str, Any]) -> None:
+    """Check the actual pipeline parameters against its packaged worker parser."""
+    started = time.perf_counter()
+    print(f"[{utc_now()}] evaluation_launch_contract_start", flush=True)
+    parameters = definition["Steps"][0]["Arguments"]["HyperParameters"]
+    completed = run_command(
+        [sys.executable, "-m", "otto_two_tower.evaluation_cli"],
+        cwd=source_root.resolve(),
+        env={"PYTHONPATH": str(source_root.resolve())},
+        input_text=json.dumps(parameters),
+    )
+    elapsed = time.perf_counter() - started
+    status = "passed" if completed.returncode == 0 else "failed"
+    print(
+        f"[{utc_now()}] evaluation_launch_contract_complete "
+        f"status={status} elapsed_seconds={elapsed:.3f}",
+        flush=True,
+    )
+    if completed.returncode:
+        raise RuntimeError(f"evaluation launch contract rejected: {completed.stderr.strip()}")
+    print(completed.stdout.rstrip(), flush=True)
+
+
 def load_pinned_quality_toolchain(source_root: Path) -> dict[str, str]:
     requirements_path = source_root / "requirements-dev.txt"
     if not requirements_path.is_file():
-        raise RuntimeError(
-            f"missing GPU quality-tool requirements: {requirements_path}"
-        )
+        raise RuntimeError(f"missing GPU quality-tool requirements: {requirements_path}")
 
     required_tools = {"ruff", "mypy", "pytest"}
     versions: dict[str, str] = {}
@@ -70,9 +96,7 @@ def load_pinned_quality_toolchain(source_root: Path) -> dict[str, str]:
 
     missing = sorted(required_tools - versions.keys())
     if missing:
-        raise RuntimeError(
-            f"missing exact quality-tool pins in {requirements_path}: {missing}"
-        )
+        raise RuntimeError(f"missing exact quality-tool pins in {requirements_path}: {missing}")
     return versions
 
 
@@ -129,9 +153,7 @@ def _run_stage(
     if completed.stderr.strip():
         print(completed.stderr.rstrip(), file=sys.stderr, flush=True)
     if completed.returncode != 0:
-        raise RuntimeError(
-            f"source preflight stage failed: {name} rc={completed.returncode}"
-        )
+        raise RuntimeError(f"source preflight stage failed: {name} rc={completed.returncode}")
     print(
         f"[{utc_now()}] source_preflight_stage_complete "
         f"name={name} status=passed elapsed_seconds={elapsed:.3f}",

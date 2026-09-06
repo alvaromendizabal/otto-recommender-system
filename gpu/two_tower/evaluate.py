@@ -25,27 +25,10 @@ from otto_two_tower.evaluation import (
     sha256_file,
     verified_part,
 )
+from otto_two_tower.evaluation_cli import parse_args
 from otto_two_tower.logging_utils import configure_logging
 from otto_two_tower.model import TwoTowerModel
 from otto_two_tower.telemetry import TrainingHeartbeat
-
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--ranking-cache", type=Path, default=Path("/opt/ml/input/data/ranking"))
-    parser.add_argument("--item-data", type=Path, default=Path("/opt/ml/input/data/items"))
-    parser.add_argument("--model-dir", type=Path, default=Path("/opt/ml/input/data/trained"))
-    parser.add_argument("--output-dir", type=Path, default=Path("/opt/ml/checkpoints"))
-    parser.add_argument("--expected-ranking-id", required=True)
-    parser.add_argument("--expected-items-id", required=True)
-    parser.add_argument("--training-input-id", required=True)
-    parser.add_argument("--code-commit", required=True)
-    parser.add_argument("--k", type=int, default=800)
-    parser.add_argument("--batch-size", type=int, default=128)
-    parser.add_argument("--chunk-size", type=int, default=65536)
-    parser.add_argument("--heartbeat-seconds", type=float, default=30.0)
-    parser.add_argument("--allow-cpu", action="store_true")
-    return parser.parse_args()
 
 
 def export_predictions(args: argparse.Namespace, progress: dict[str, Any]) -> dict[str, Any]:
