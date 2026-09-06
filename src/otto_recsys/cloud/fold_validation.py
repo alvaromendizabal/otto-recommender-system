@@ -26,6 +26,7 @@ GPU_TESTS = (
     "tests/test_resume_contract.py",
     "tests/test_sagemaker_entrypoint.py",
 )
+TEXT_HYGIENE_SUFFIXES = {".py", ".toml", ".json", ".md", ".yml", ".yaml"}
 
 
 @dataclass(frozen=True)
@@ -80,6 +81,8 @@ def safe_archive_members(archive_path: Path) -> tuple[str, ...]:
 
     if not members:
         raise RuntimeError("bundle is empty")
+    if len(members) != len(set(members)):
+        raise RuntimeError("bundle contains duplicate archive members")
 
     forbidden_parts = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
     for member in members:
@@ -89,6 +92,36 @@ def safe_archive_members(archive_path: Path) -> tuple[str, ...]:
         if path.suffix == ".pyc" or forbidden_parts.intersection(path.parts):
             raise RuntimeError(f"generated cache is forbidden in bundle: {member}")
     return members
+
+
+def validate_archive_text_hygiene(archive_path: Path) -> None:
+    """Fail before environment bootstrap on malformed source text."""
+    with zipfile.ZipFile(archive_path) as archive:
+        for info in archive.infolist():
+            member = Path(info.filename)
+            if info.is_dir() or member.suffix.lower() not in TEXT_HYGIENE_SUFFIXES:
+                continue
+            raw = archive.read(info)
+            try:
+                text = raw.decode("utf-8")
+            except UnicodeDecodeError as exc:
+                raise RuntimeError(
+                    f"bundle text is not UTF-8: {info.filename}"
+                ) from exc
+            if "\r" in text:
+                raise RuntimeError(
+                    f"CRLF/CR line endings are forbidden: {info.filename}"
+                )
+            if not text.endswith("\n") or text.endswith("\n\n"):
+                raise RuntimeError(
+                    f"bundle text must end with exactly one newline: {info.filename}"
+                )
+            for line_number, line in enumerate(text.splitlines(), start=1):
+                if line.endswith((" ", "\t")):
+                    raise RuntimeError(
+                        "trailing whitespace in bundle: "
+                        f"{info.filename}:{line_number}"
+                    )
 
 
 def run_stage(
@@ -179,6 +212,15 @@ def exact_static_tool_probe(python_path: Path, pins: dict[str, str]) -> list[str
 
 def phase_test_command(python_path: Path) -> list[str]:
     return [str(python_path), "-m", "pytest", "-q", *PHASE_TESTS]
+
+
+def exact_source_preflight_command(python_path: Path) -> list[str]:
+    program = (
+        "from pathlib import Path; "
+        "from otto_recsys.cloud.source_preflight import run_exact_source_preflight; "
+        "run_exact_source_preflight(Path('gpu/two_tower'))"
+    )
+    return [str(python_path), "-c", program]
 
 
 def gpu_ruff_command(python_path: Path) -> list[str]:
@@ -327,6 +369,13 @@ def validate_stage(stage_root: Path, pins: dict[str, str]) -> None:
     assert_success(
         run_stage("phase6a_tests", phase_test_command(python_path), cwd=stage_root)
     )
+    assert_success(
+        run_stage(
+            "exact_launcher_source_preflight",
+            exact_source_preflight_command(python_path),
+            cwd=stage_root,
+        )
+    )
 
     # Root validation is governed by the project's frozen dev+ml extras.
     # GPU package validation is deliberately isolated: Ruff/mypy must match
@@ -386,6 +435,7 @@ def validate_clean_worktree(
     assert_repo_baseline(repo, expected_head)
     observed_sha = validate_archive_sha(archive_path, expected_sha256)
     members = safe_archive_members(archive_path)
+    validate_archive_text_hygiene(archive_path)
     stage_root = make_stage_path(repo)
     print(
         f"[{utc_now()}] FOLD_VALIDATION_WORKTREE_CREATE path={stage_root}",
@@ -400,6 +450,13 @@ def validate_clean_worktree(
             )
         )
         extract_bundle(archive_path, stage_root)
+        assert_success(
+            run_stage(
+                "worktree_whitespace_preflight",
+                ["git", "diff", "--check"],
+                cwd=stage_root,
+            )
+        )
         pins = load_quality_pins(
             stage_root / "gpu" / "two_tower" / "requirements-dev.txt"
         )

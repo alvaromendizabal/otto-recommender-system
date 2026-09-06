@@ -13,6 +13,11 @@ from pathlib import Path
 
 from otto_recsys.cloud.sagemaker_pipeline import verify_source_archive
 
+CPU_SAFE_TESTS = (
+    "tests/test_resume_contract.py",
+    "tests/test_sagemaker_entrypoint.py",
+)
+
 
 def utc_now() -> str:
     return datetime.now(UTC).isoformat(timespec="seconds")
@@ -47,7 +52,9 @@ def run_command(
 def load_pinned_quality_toolchain(source_root: Path) -> dict[str, str]:
     requirements_path = source_root / "requirements-dev.txt"
     if not requirements_path.is_file():
-        raise RuntimeError(f"missing GPU quality-tool requirements: {requirements_path}")
+        raise RuntimeError(
+            f"missing GPU quality-tool requirements: {requirements_path}"
+        )
 
     required_tools = {"ruff", "mypy", "pytest"}
     versions: dict[str, str] = {}
@@ -142,7 +149,8 @@ def run_exact_source_preflight(source_root: Path) -> None:
 
     print(
         f"[{utc_now()}] source_preflight_toolchain "
-        f"ruff={toolchain['ruff']} mypy={toolchain['mypy']} pytest={toolchain['pytest']}",
+        f"ruff={toolchain['ruff']} mypy={toolchain['mypy']} "
+        f"pytest={toolchain['pytest']}",
         flush=True,
     )
     _run_stage(
@@ -186,12 +194,7 @@ def run_exact_source_preflight(source_root: Path) -> None:
             distribution="pytest",
             version=toolchain["pytest"],
             module="pytest",
-            arguments=[
-                "-q",
-                "tests/test_checkpoint.py",
-                "tests/test_resume_contract.py",
-                "tests/test_sagemaker_entrypoint.py",
-            ],
+            arguments=["-q", *CPU_SAFE_TESTS],
         ),
         cwd=source_root,
         env={"PYTHONPATH": source_pythonpath},

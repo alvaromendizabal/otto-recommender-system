@@ -7,12 +7,14 @@ import pytest
 
 from otto_recsys.cloud.fold_validation import (
     QUALITY_TOOLS,
+    exact_source_preflight_command,
     gpu_mypy_command,
     gpu_pytest_command,
     gpu_ruff_command,
     load_quality_pins,
     root_sync_command,
     safe_archive_members,
+    validate_archive_text_hygiene,
 )
 
 
@@ -90,3 +92,50 @@ def test_validator_uses_locked_complete_environment() -> None:
     assert '"--frozen", "--extra", "dev", "--extra", "ml"' in validator
     assert "real_install_pinned_quality_toolchain" not in validator
     assert '"uv", "pip", "install"' not in validator
+
+
+def test_archive_text_hygiene_rejects_extra_eof_blank_line(tmp_path: Path) -> None:
+    archive_path = tmp_path / "bundle.zip"
+    with zipfile.ZipFile(archive_path, "w") as archive:
+        archive.writestr("tests/test_example.py", "def test_ok():\n    assert True\n\n")
+    with pytest.raises(RuntimeError, match="exactly one newline"):
+        validate_archive_text_hygiene(archive_path)
+
+
+def test_archive_text_hygiene_rejects_trailing_whitespace(tmp_path: Path) -> None:
+    archive_path = tmp_path / "bundle.zip"
+    with zipfile.ZipFile(archive_path, "w") as archive:
+        archive.writestr("src/example.py", "value = 1 \n")
+    with pytest.raises(RuntimeError, match="trailing whitespace"):
+        validate_archive_text_hygiene(archive_path)
+
+
+def test_archive_text_hygiene_accepts_canonical_text(tmp_path: Path) -> None:
+    archive_path = tmp_path / "bundle.zip"
+    with zipfile.ZipFile(archive_path, "w") as archive:
+        archive.writestr("src/example.py", "value = 1\n")
+    validate_archive_text_hygiene(archive_path)
+
+
+def test_validator_checks_whitespace_before_environment_bootstrap() -> None:
+    source = Path("src/otto_recsys/cloud/fold_validation.py").read_text(
+        encoding="utf-8"
+    )
+    whitespace = source.index('"worktree_whitespace_preflight"')
+    bootstrap = source.index("bootstrap_stage(stage_root)")
+    assert whitespace < bootstrap
+
+def test_exact_source_preflight_command_calls_launcher_preflight(tmp_path: Path) -> None:
+    python_path = tmp_path / ".venv" / "bin" / "python"
+    command = exact_source_preflight_command(python_path)
+    assert command[:2] == [str(python_path), "-c"]
+    assert "run_exact_source_preflight" in command[2]
+    assert "gpu/two_tower" in command[2]
+
+
+def test_validator_executes_exact_launcher_source_preflight() -> None:
+    source = Path("src/otto_recsys/cloud/fold_validation.py").read_text(
+        encoding="utf-8"
+    )
+    assert '"exact_launcher_source_preflight"' in source
+    assert "exact_source_preflight_command(python_path)" in source
