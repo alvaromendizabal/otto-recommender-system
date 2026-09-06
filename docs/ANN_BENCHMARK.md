@@ -5,10 +5,38 @@ audited comparison found **+1.029 percentage points** of complementary candidate
 ceiling. This workflow measures how much quality an approximate index preserves
 and what search latency it achieves. It does not retrain the model.
 
-**Implementation status:** the real-model CPU contract suite and recovery tests
-pass. Full-catalogue managed ANN measurements remain pending a completed run.
-The executed [benchmark notebook](../notebooks/06_ann_benchmark.ipynb) clearly
-shows that pending state and renders measured results when they are available.
+**Measured result, September 6, 2026:** the full-catalogue managed ANN benchmark
+completed. The fourth attempt restored all 96 compatible reference-count parts,
+passed confirmation at `nprobe=256`, and exported all 96 full-fold prediction parts.
+The executed [benchmark notebook](../notebooks/06_ann_benchmark.ipynb) contains the
+quality, fidelity, latency, runtime, and independent audit evidence.
+
+| Measurement | Observed result |
+|---|---:|
+| Full-fold sessions / catalogue items | 103,468 / 1,852,162 |
+| Exact neural official weighted Recall@20 | 0.218670 |
+| ANN official weighted Recall@20 | 0.217494 |
+| ANN minus exact | −0.118 percentage points |
+| Paired 95% interval for that difference | [−0.155, −0.087] percentage points |
+| Confirmation mean top-800 overlap | 99.16–99.42% across objectives |
+| Median search speedup on matched tuning queries | 5.35–5.63× |
+| Exact / selected ANN p95 CPU search | 72.30–73.35 ms / 13.86–14.43 ms |
+| AWS billable time | 3,002 seconds (50 minutes 2 seconds) |
+| Peak worker process RSS | 6,291.8 MiB |
+
+Search timings include warm batch-1 CPU search and FP32 reranking, with query
+encoding, networking, and index loading excluded. The paired interval describes
+this exploratory Fold 0 evaluation; it does not account for model selection.
+The quality decrease is measurable and must be disclosed with the speedup.
+
+The [raw managed report](../reports/metrics/two_tower_fold0_ann.json) is published
+byte-for-byte with its receipt. The [independent audit](../reports/metrics/two_tower_fold0_ann_audit.json)
+verified 192 count parts, all full-fold ranking metrics, 500 paired bootstrap draws,
+the selection rule, and 18 groups of latency observations. It audits saved counts
+and summaries rather than replaying raw-label retrieval or neighbor sets.
+
+**Next step:** run the [frozen-baseline comparison](#next-decision-retained-gain-over-the-base).
+The completed ANN benchmark should not be relaunched to generate this evidence.
 
 The first managed attempt on September 6, 2026 stopped during argument parsing.
 SageMaker JSON-decodes hyperparameter strings before constructing the command:
@@ -31,8 +59,9 @@ Interrupted downloads are closed and partial files are removed before retry.
 AWS recorded 306 billable seconds; all 96 imported reference parts remain durable.
 
 The [execution evidence](../reports/metrics/two_tower_fold0_ann_launch.json)
-preserves all three failed attempts; the [catalogue audit](../reports/metrics/two_tower_fold0_catalogue.json)
-records checks against actual S3 inputs. Neither is an ANN quality measurement.
+preserves all three failed attempts and the completed fourth attempt; the
+[catalogue audit](../reports/metrics/two_tower_fold0_catalogue.json) records checks
+against actual S3 inputs. Operational checks remain separate from model quality.
 
 The shared preflight now reproduces JSON decoding before CLI conversion, and the
 ANN parser canonicalizes both boolean spellings. Regression tests load the
@@ -58,7 +87,9 @@ sets that variable for its hostname workaround. The saved job definition does
 not set it. This warning is separate from the fatal S3 exception and remains
 unresolved in the managed image; no blanket warning filter or untested container
 entrypoint override has been added. Passing Python warning checks does not imply
-a warning-free AWS bootstrap.
+a warning-free AWS bootstrap. Live CloudWatch inspection found ten occurrences
+in the completed fourth job; the structured worker log contains no warning or
+error records. This limitation remains visible in the execution record.
 
 ## Experiment and metrics
 
@@ -248,18 +279,23 @@ positives. After a successful full-fold export, run the existing resumable
 CPU comparison against the same frozen baseline. This is a separate step;
 it does not overwrite the already audited exact-search comparison.
 
+The measured fidelity/speed trade-off supports this comparison, but does not
+yet justify scheduling the remaining folds. The accepted run is
+`0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9`.
+The command below pins this accepted run explicitly, so it also works in a new
+workspace without a local launcher pointer. Keep the comparison's source and
+configuration unchanged while it is in progress so its resume identity remains
+stable.
+
 First ensure the frozen CPU inputs are present using the downloads and resource
 preflight in [FOLD_EVALUATION.md](FOLD_EVALUATION.md#3-compare-with-frozen-retrieval).
 Then fetch only the accepted ANN predictions:
 
 ```bash
 OTTO_BUCKET=otto-recsys-560403859723-us-west-2
-OTTO_ANN_KEY="$(.venv/bin/python -c \
-  'import json; p=json.load(open("artifacts/two_tower_ann/latest.json")); print(p["checkpoint_key"])')" &&
-OTTO_ANN_RUN="$(.venv/bin/python -c \
-  'import json; p=json.load(open("artifacts/two_tower_ann/latest.json")); print(p["run_id"])')" &&
+OTTO_ANN_RUN=0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9
 aws s3 sync \
-  "s3://$OTTO_BUCKET/${OTTO_ANN_KEY}prediction_export/" \
+  "s3://$OTTO_BUCKET/retrieval/two-tower/ann/fold-0/$OTTO_ANN_RUN/checkpoints/prediction_export/" \
   "artifacts/two_tower_ann/$OTTO_ANN_RUN/prediction_export/" \
   --exclude 'counts/*' --region us-west-2 --only-show-errors &&
 .venv/bin/python scripts/evaluate_two_tower_retrieval.py \
@@ -285,6 +321,33 @@ increment are acceptable should the remaining OOF folds be scheduled. Ranker
 training needs checkpoint selection nested inside its training folds and an
 untouched temporal final evaluation. No SOTA claim follows from this benchmark
 alone.
+
+## Reproduce the published count audit
+
+This audit needs only compact reports, receipts, and count arrays. It does not
+download the model, embedding arrays, indexes, or Parquet predictions. S3 sync
+retains unchanged local files; the audit revalidates them before reporting success.
+
+```bash
+OTTO_ANN_RUN=0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9
+aws s3 sync \
+  "s3://otto-recsys-560403859723-us-west-2/retrieval/two-tower/ann/fold-0/$OTTO_ANN_RUN/checkpoints/" \
+  "artifacts/two_tower_ann/$OTTO_ANN_RUN/audit/" \
+  --exclude '*' --include 'metrics.json*' --include 'contract.json*' \
+  --include 'cohort.json*' --include 'selection.json*' \
+  --include 'reference/*/part-*.npz*' --include 'prediction_export/counts/*' \
+  --include 'prediction_export/prediction_manifest.json*' \
+  --region us-west-2 --only-show-errors &&
+.venv/bin/python scripts/audit_two_tower_ann.py \
+  --benchmark-dir "artifacts/two_tower_ann/$OTTO_ANN_RUN/audit" \
+  --expected-run-id "$OTTO_ANN_RUN" \
+  --report "artifacts/two_tower_ann/$OTTO_ANN_RUN/audit.json"
+```
+
+The audit emits UTC progress records, a 15-second heartbeat for long work, and
+total elapsed time. Tests reject altered metrics and intervals, invalid latency
+summaries, corrupted or incomplete parts, invalid count invariants, mismatched
+session/label coverage, and overlapping tuning/confirmation cohorts.
 
 ## Tests
 
