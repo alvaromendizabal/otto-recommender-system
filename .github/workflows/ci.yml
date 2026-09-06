@@ -35,7 +35,7 @@ jobs:
           cache-suffix: neural-contracts
       - name: Create isolated PyTorch contract environment
         run: |
-          uv venv /tmp/otto-neural-tests --python 3.12.13
+          uv venv /tmp/otto-neural-tests --python 3.12.13 --no-project
           uv pip install --python /tmp/otto-neural-tests/bin/python torch==2.13.0 --index-url https://download.pytorch.org/whl/cpu
           CC=gcc uv pip install --python /tmp/otto-neural-tests/bin/python -r gpu/two_tower/requirements-test.txt
       - name: Neural quality gate and resume contracts
