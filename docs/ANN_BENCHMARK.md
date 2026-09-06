@@ -282,9 +282,10 @@ it does not overwrite the already audited exact-search comparison.
 The measured fidelity/speed trade-off supports this comparison, but does not
 yet justify scheduling the remaining folds. The accepted run is
 `0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9`.
-The launcher's existing `artifacts/two_tower_ann/latest.json` points to it in the
-Studio workspace that completed the run. Keep its source/configuration unchanged
-while a comparison is in progress so its resume identity remains stable.
+The command below pins this accepted run explicitly, so it also works in a new
+workspace without a local launcher pointer. Keep the comparison's source and
+configuration unchanged while it is in progress so its resume identity remains
+stable.
 
 First ensure the frozen CPU inputs are present using the downloads and resource
 preflight in [FOLD_EVALUATION.md](FOLD_EVALUATION.md#3-compare-with-frozen-retrieval).
@@ -292,12 +293,9 @@ Then fetch only the accepted ANN predictions:
 
 ```bash
 OTTO_BUCKET=otto-recsys-560403859723-us-west-2
-OTTO_ANN_KEY="$(.venv/bin/python -c \
-  'import json; p=json.load(open("artifacts/two_tower_ann/latest.json")); print(p["checkpoint_key"])')" &&
-OTTO_ANN_RUN="$(.venv/bin/python -c \
-  'import json; p=json.load(open("artifacts/two_tower_ann/latest.json")); print(p["run_id"])')" &&
+OTTO_ANN_RUN=0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9
 aws s3 sync \
-  "s3://$OTTO_BUCKET/${OTTO_ANN_KEY}prediction_export/" \
+  "s3://$OTTO_BUCKET/retrieval/two-tower/ann/fold-0/$OTTO_ANN_RUN/checkpoints/prediction_export/" \
   "artifacts/two_tower_ann/$OTTO_ANN_RUN/prediction_export/" \
   --exclude 'counts/*' --region us-west-2 --only-show-errors &&
 .venv/bin/python scripts/evaluate_two_tower_retrieval.py \

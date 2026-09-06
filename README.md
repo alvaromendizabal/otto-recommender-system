@@ -88,7 +88,7 @@ The notebooks are intentionally **analysis layers**, not the source of productio
 3. [`notebooks/03_candidate_frontier.ipynb`](notebooks/03_candidate_frontier.ipynb) — candidate-depth trade-offs.
 4. [`notebooks/04_hard_negative_quality.ipynb`](notebooks/04_hard_negative_quality.ipynb) — OOF and hard-negative integrity.
 5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed training and resume evidence, exact export, paired retrieval gains with confidence intervals, and the independent count audit.
-6. [`notebooks/06_ann_benchmark.ipynb`](notebooks/06_ann_benchmark.ipynb) — ANN experiment contract and report reader, with an explicit pending state until managed measurements exist; official ranking quality, fidelity, latency, and resources remain separately labeled.
+6. [`notebooks/06_ann_benchmark.ipynb`](notebooks/06_ann_benchmark.ipynb) — executed ANN quality and latency analysis, independently audited metrics, paired confidence intervals, and measured resource use.
 
 ## Repository layout
 
