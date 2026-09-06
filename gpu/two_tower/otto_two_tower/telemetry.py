@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import logging
+import os
 import subprocess
 import threading
 import time
 from collections.abc import Callable
+from contextlib import suppress
+from pathlib import Path
 from typing import Any
 
 import psutil
@@ -78,7 +81,10 @@ class TrainingHeartbeat:
             self._thread.join(timeout=self._interval_seconds + 6.0)
 
     def _run(self) -> None:
-        process = psutil.Process()
+        try:
+            process = psutil.Process()
+        except psutil.Error:
+            process = None
         while not self._stop.wait(self._interval_seconds):
             gpu = _gpu_snapshot()
             progress = self._progress_provider()
@@ -92,12 +98,25 @@ class TrainingHeartbeat:
                     f"heartbeat gpu_util={util:.0f}% "
                     f"vram={used / 1024:.1f}/{total / 1024:.1f}GiB"
                 )
+            rss_mb = None
+            cpu_percent = None
+            try:
+                # /proc/self remains correct across nested PID namespaces.
+                pages = int(Path("/proc/self/statm").read_text().split()[1])
+                rss_mb = round(pages * os.sysconf("SC_PAGE_SIZE") / (1024**2), 1)
+            except (OSError, ValueError, IndexError):
+                if process is not None:
+                    with suppress(psutil.Error):
+                        rss_mb = round(process.memory_info().rss / (1024**2), 1)
+            if process is not None:
+                with suppress(psutil.Error):
+                    cpu_percent = process.cpu_percent(interval=None)
             extra: dict[str, Any] = {
                 "event": event,
                 "stage": self._stage,
                 "elapsed_seconds": round(time.perf_counter() - self._started, 1),
-                "rss_mb": round(process.memory_info().rss / (1024**2), 1),
-                "cpu_percent": process.cpu_percent(interval=None),
+                "rss_mb": rss_mb,
+                "cpu_percent": cpu_percent,
                 **gpu,
                 **progress,
             }

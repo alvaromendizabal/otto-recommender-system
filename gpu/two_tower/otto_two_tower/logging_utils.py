@@ -55,6 +55,10 @@ class _ConsoleFormatter(logging.Formatter):
         details: list[str] = []
         for key in (
             "stage",
+            "status",
+            "objective",
+            "bucket",
+            "file",
             "epoch",
             "step",
             "examples",

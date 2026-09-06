@@ -21,7 +21,12 @@ from otto_two_tower.checkpoint import (
     write_json_atomic,
 )
 from otto_two_tower.config import DataConfig, ModelConfig, TrainConfig, config_payload
-from otto_two_tower.data import HardNegativeBatchStream, ItemVocabulary, PackedSessionStore
+from otto_two_tower.data import (
+    HardNegativeBatchStream,
+    ItemVocabulary,
+    PackedSessionStore,
+    writable_vectors,
+)
 from otto_two_tower.logging_utils import configure_logging
 from otto_two_tower.model import TwoTowerModel
 from otto_two_tower.resume_contract import resume_proof_payload
@@ -152,7 +157,7 @@ def main() -> int:
         validation_fold=data_config.validation_fold,
         seed=data_config.seed,
     )
-    pretrained = torch.from_numpy(np.asarray(vocabulary.vectors, dtype=np.float32))
+    pretrained = writable_vectors(vocabulary.vectors)
     model = TwoTowerModel(
         pretrained,
         padding_index=vocabulary.padding_index,

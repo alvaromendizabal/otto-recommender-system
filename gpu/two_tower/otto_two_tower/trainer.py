@@ -38,7 +38,7 @@ def cosine_warmup_lambda(step: int, *, total_steps: int, warmup_steps: int) -> f
     return 0.5 * (1.0 + math.cos(math.pi * progress))
 
 
-def clip_sparse_gradient_(parameter: torch.nn.Parameter, max_norm: float) -> None:
+def clip_sparse_gradient_(parameter: torch.Tensor, max_norm: float) -> None:
     gradient = parameter.grad
     if gradient is None or not gradient.is_sparse:
         return

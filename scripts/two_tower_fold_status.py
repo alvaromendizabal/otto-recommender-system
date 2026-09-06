@@ -252,6 +252,8 @@ def report_status(args: argparse.Namespace) -> tuple[int, bool]:
                 if isinstance(training_manifest.get("history"), list)
                 else 0
             ),
+            "history": training_manifest.get("history", []),
+            "config": training_manifest.get("config", {}),
             "input_id": training_manifest.get("input_id"),
             "validation_manifest_id": training_manifest.get("validation_manifest_id"),
             "recorded_at": utc_now(),
