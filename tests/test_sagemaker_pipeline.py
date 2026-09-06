@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import pytest
+
 from otto_recsys.cloud.sagemaker_pipeline import (
     ManagedResumeProofConfig,
     build_pipeline_definition,
     pipeline_name,
+    validate_pipeline_metadata,
 )
 
 
@@ -103,3 +106,21 @@ def test_retry_policies_use_current_service_exception_type_shape() -> None:
             assert isinstance(exception_types, list)
             assert exception_types
             assert all(isinstance(value, str) for value in exception_types)
+
+
+@pytest.mark.parametrize("value", [0, 1.0, True, None, [], {}, "x" * 1025])
+def test_metadata_rejects_non_string_or_oversized_values(value: object) -> None:
+    with pytest.raises(ValueError, match=r"Metadata.ValidationFold must be a string"):
+        validate_pipeline_metadata({"Metadata": {"ValidationFold": value}})
+
+
+@pytest.mark.parametrize("key", ["", "bad.key", "x" * 129])
+def test_metadata_rejects_invalid_keys(key: str) -> None:
+    with pytest.raises(ValueError, match="invalid Metadata key"):
+        validate_pipeline_metadata({"Metadata": {key: "0"}})
+
+
+def test_metadata_accepts_string_boundaries_and_rejects_non_object() -> None:
+    validate_pipeline_metadata({"Metadata": {"a": "", "b": "x" * 1024}})
+    with pytest.raises(ValueError, match="Metadata must be an object"):
+        validate_pipeline_metadata({"Metadata": []})

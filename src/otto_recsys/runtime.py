@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import logging
+import os
 import threading
 import time
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
 import psutil
@@ -11,6 +13,16 @@ import psutil
 
 def process_rss_mb(pid: int | None = None) -> float:
     """Return process RSS in MiB."""
+    # /proc/self follows the caller even when a container exposes host process
+    # IDs in /proc. Looking up os.getpid() there can fail or identify another
+    # process. Use this live RSS counter for self on Linux; retain psutil for
+    # other platforms and explicitly requested processes.
+    if pid is None:
+        try:
+            resident_pages = int(Path("/proc/self/statm").read_text().split()[1])
+            return float(round(resident_pages * os.sysconf("SC_PAGE_SIZE") / (1024**2), 1))
+        except (OSError, ValueError, IndexError, AttributeError):
+            pass
     process = psutil.Process(pid) if pid is not None else psutil.Process()
     return float(round(process.memory_info().rss / (1024**2), 1))
 

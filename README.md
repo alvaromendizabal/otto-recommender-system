@@ -38,6 +38,10 @@ The system predicts the next **click**, **cart**, and **order** actions from ano
 
 The `k=800` embedding depth is not treated as a final serving budget. Frontier experiments show increasing recall with declining marginal efficiency, so the deep pool is used for discovery and hard-negative mining before learned candidate compression/ranking.
 
+![Measured retrieval evidence](reports/figures/retrieval_evidence.png)
+
+The left panel reports final top-20 quality. The right panel reports candidate-pool coverage at larger discovery depths; these are separate measurements. Neural Fold 0 quality is pending.
+
 ## Frozen neural-training corpus
 
 The current neural-retrieval dataset contains:
@@ -82,7 +86,7 @@ The notebooks are intentionally **analysis layers**, not the source of productio
 2. [`notebooks/02_retrieval_benchmarks.ipynb`](notebooks/02_retrieval_benchmarks.ipynb) — retrieval evidence and ablations.
 3. [`notebooks/03_candidate_frontier.ipynb`](notebooks/03_candidate_frontier.ipynb) — candidate-depth trade-offs.
 4. [`notebooks/04_hard_negative_quality.ipynb`](notebooks/04_hard_negative_quality.ipynb) — OOF and hard-negative integrity.
-5. `notebooks/05_two_tower_results.ipynb` — added after neural retrieval evaluation is complete.
+5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed resume evidence and the Fold 0 experiment contract; neural quality results remain pending.
 
 ## Repository layout
 
@@ -114,8 +118,9 @@ dependencies or import-path assumptions.
 ## Quality gate
 
 ```bash
-uv run python scripts/run_quality_gate.py
-uv pip check
+uv sync --frozen --extra dev --extra ml
+.venv/bin/python scripts/run_quality_gate.py
+uv pip check --python .venv/bin/python
 git diff --check
 ```
 
@@ -158,8 +163,8 @@ The proof is source-addressed, input-addressed, and server-managed. Closing Stud
 
 ## Current modeling stage
 
-Infrastructure validation is complete. The next authorized experiment is **one full OOF Fold 0 neural-retrieval run** using `scripts/launch_two_tower_fold.py`.
+The cross-worker resume proof and Fold 0 definition registration have passed. Full Fold 0 training and retrieval evaluation remain pending. The next experiment is **one full OOF Fold 0 neural-retrieval run** using `scripts/launch_two_tower_fold.py`.
 
 Fold 0 is trained on folds 1–4, writes durable resumable checkpoints, and publishes a compact training report. The learned retriever is then evaluated at candidate depths 20/50/100/200/400/800 for standalone recall, incremental recall over the frozen co-visitation + Item2Vec system, and neural-only positive hits.
 
-Additional neural folds are blocked until Fold 0 demonstrates complementary held-out value. See `docs/TWO_TOWER_EXPERIMENTS.md`.
+Additional neural folds are blocked until Fold 0 demonstrates complementary held-out value. See [`docs/FOLD_TRAINING.md`](docs/FOLD_TRAINING.md) for launch, monitoring, and result-publication commands, and `docs/TWO_TOWER_EXPERIMENTS.md` for the evaluation decision.
