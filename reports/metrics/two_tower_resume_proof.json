@@ -1,0 +1,18 @@
+{
+  "advanced_steps": 40,
+  "checkpoint_bytes": 2848858963,
+  "checkpoint_objects": 7,
+  "code_commit": "a775bb71a99153db01f4b1072bb649ed30260845",
+  "completed_at": "2026-09-06T03:53:48.041000+00:00",
+  "final_step": 80,
+  "instance_type": "ml.g6.xlarge",
+  "pipeline_elapsed_seconds": 817.041,
+  "pipeline_execution_id": "0swnqfpbm8gm",
+  "resumed_from_step": 40,
+  "run_id": "2721648604a7764c6e2000f140eb1cdc18225b572848a8e891e5f2f0e132532c",
+  "schema_version": 1,
+  "source_archive_sha256": "fd90b5878761a0c1ad941c96252ab2dea15b8d2963d8ec39e53c4e37b0d50517",
+  "source_manifest_sha256": "2c0371abafed95e992d0408ebed326a37153cf6dc609dcb17878d61e14cb3bac",
+  "started_at": "2026-09-06T03:40:11+00:00",
+  "status": "passed"
+}

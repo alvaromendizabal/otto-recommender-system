@@ -71,3 +71,51 @@ def test_runtime_bootstrap_uses_runtime_requirements_only() -> None:
     assert stages["dependencies"][-1] == "requirements.txt"
     assert "requirements-dev.txt" not in stages["dependencies"]
     assert all("run_quality_gate.py" not in command for command in stages.values())
+
+
+def test_full_fold_train_command_omits_row_caps() -> None:
+    args = argparse.Namespace(
+        code_commit="abc123",
+        validation_fold=0,
+        epochs=8,
+        batch_size=256,
+        max_seq_len=50,
+        train_rows=None,
+        valid_rows=None,
+        seed=20260905,
+        checkpoint_steps=4000,
+        heartbeat_seconds=30.0,
+        stop_after_step=None,
+        resume=False,
+        resume_if_available=True,
+    )
+    command = entrypoint._build_train_command(args, Path("/opt/ml/checkpoints"))
+
+    assert "--train-rows" not in command
+    assert "--valid-rows" not in command
+    assert "--stop-after-step" not in command
+    assert "--resume-if-available" in command
+    assert command[command.index("--seed") + 1] == "20260905"
+
+
+def test_bounded_resume_proof_train_command_keeps_row_caps() -> None:
+    args = argparse.Namespace(
+        code_commit="abc123",
+        validation_fold=0,
+        epochs=8,
+        batch_size=256,
+        max_seq_len=50,
+        train_rows=100_000,
+        valid_rows=10_000,
+        seed=20260905,
+        checkpoint_steps=20,
+        heartbeat_seconds=30.0,
+        stop_after_step=40,
+        resume=False,
+        resume_if_available=True,
+    )
+    command = entrypoint._build_train_command(args, Path("/opt/ml/checkpoints"))
+
+    assert command[command.index("--train-rows") + 1] == "100000"
+    assert command[command.index("--valid-rows") + 1] == "10000"
+    assert command[command.index("--stop-after-step") + 1] == "40"

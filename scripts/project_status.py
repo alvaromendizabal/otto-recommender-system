@@ -48,4 +48,18 @@ if pipeline:
     print(f"two_tower_pipeline={pipeline.get('pipeline_name')}")
     print(f"two_tower_pipeline_run_id={pipeline.get('run_id')}")
 
+resume_proof = load("reports/metrics/two_tower_resume_proof.json")
+if resume_proof:
+    print(f"two_tower_resume_proof={resume_proof.get('status')}")
+    print(f"two_tower_resumed_from_step={resume_proof.get('resumed_from_step')}")
+    print(f"two_tower_resume_final_step={resume_proof.get('final_step')}")
+
+fold0 = load("reports/metrics/two_tower_fold0_training.json")
+if fold0:
+    print(f"two_tower_fold0_training={fold0.get('status')}")
+    print(f"two_tower_fold0_global_step={fold0.get('global_step')}")
+    print(f"two_tower_fold0_best_valid_loss={fold0.get('best_valid_loss')}")
+else:
+    print("two_tower_fold0_training=pending")
+
 print("OTTO_PROJECT_STATUS_COMPLETE")

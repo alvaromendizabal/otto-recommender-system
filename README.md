@@ -22,7 +22,7 @@ The system predicts the next **click**, **cart**, and **order** actions from ano
 - atomic checkpoints containing model, optimizers, schedulers, RNG state, epoch, batch, and global step;
 - S3-backed checkpoint recovery across fresh SageMaker GPU jobs;
 - exact-source archive verification with file-level hashes and S3 round-trip parity before paid GPU execution;
-- one exactly pinned CPU quality toolchain for Ruff, mypy, and pytest, with paid GPU workers reserved for runtime validation and training;
+- a lockfile-governed CPU dev + ML environment plus exact GPU-package toolchain parity checks, with paid GPU workers reserved for runtime validation and training;
 - stage-aware persisted failure diagnostics for SageMaker training jobs;
 - structured UTC logging, elapsed-time reporting, CPU/RAM telemetry, GPU/VRAM telemetry, and periodic heartbeats;
 - Ruff, mypy, pytest, smoke tests, dependency checks, and repository hygiene gates.
@@ -54,29 +54,24 @@ Large artifacts are not committed to Git. They are frozen in S3 with manifests a
 
 ## Architecture
 
-```text
-session events
-    │
-    ├── revisit / recency retrieval
-    ├── time co-visitation
-    ├── type-aware co-visitation
-    ├── buy-to-buy co-visitation
-    └── Item2Vec + FAISS
-            │
-            ▼
-    candidate union + provenance
-            │
-            ├── recall / marginal-recall diagnostics
-            └── false-negative-safe hard-negative mining
-                    │
-                    ▼
-      objective-conditioned two-tower retriever
-                    │
-                    ▼
-       learned candidate compression / reranking
-                    │
-                    ▼
-       objective-specific ranking + OOF blending
+```mermaid
+flowchart LR
+    A[Session events] --> B1[Revisit + recency]
+    A --> B2[Time co-visitation]
+    A --> B3[Type-aware co-visitation]
+    A --> B4[Buy co-visitation]
+    A --> B5[Item2Vec + FAISS]
+    B1 --> C[Candidate union + provenance]
+    B2 --> C
+    B3 --> C
+    B4 --> C
+    B5 --> C
+    C --> D[False-negative-safe hard-negative mining]
+    D --> E[Objective-conditioned two-tower retriever]
+    E --> F[Learned retrieval candidate source]
+    F --> G[OOF incremental-recall evaluation]
+    G --> H[Objective-specific learning-to-rank]
+    H --> I[Top-20 clicks / carts / orders]
 ```
 
 ## Portfolio notebooks
@@ -101,6 +96,20 @@ docs/                   methodology, architecture, durability, reproducibility
 reports/metrics/         compact committed experiment summaries
 artifacts/               local recomputable artifacts (not source of truth)
 ```
+
+## Hermetic Fold 0 integration
+
+Before the Fold 0 source can be committed or any GPU job can be registered,
+`scripts/validate_two_tower_fold.py` creates a detached Git worktree and runs
+`uv sync --frozen --extra dev --extra ml`, reproducing the complete source-controlled
+CPU quality/ML environment instead of a base-only environment. It proves package
+provenance, runs the full root gate, verifies the exact GPU-package Ruff/mypy pins,
+runs the GPU pytest contract in an isolated exact-version environment, checks
+dependency consistency and whitespace, and deletes the worktree. The real
+repository is modified only after that clean-room proof passes.
+
+This prevents a configured Studio environment from masking missing development
+dependencies or import-path assumptions.
 
 ## Quality gate
 
@@ -131,9 +140,26 @@ Neural training writes checkpoints to `/opt/ml/checkpoints`, which SageMaker syn
 
 See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md), [`docs/DURABILITY.md`](docs/DURABILITY.md), and [`docs/TWO_TOWER_PIPELINE.md`](docs/TWO_TOWER_PIPELINE.md).
 
+## Proven managed resume result
+
+The cross-worker resume proof is complete and committed as a compact public artifact at `reports/metrics/two_tower_resume_proof.json`.
+
+| Resume-proof invariant | Result |
+|---|---:|
+| Job A durable checkpoint | **PASS** |
+| Fresh-worker restore | **PASS** |
+| Resumed global step | **40** |
+| Final global step | **80** |
+| Advanced after restore | **40 steps** |
+| Durable checkpoint objects | **7** |
+| Durable checkpoint bytes | **2,848,858,963** |
+
+The proof is source-addressed, input-addressed, and server-managed. Closing Studio does not terminate the execution.
+
 ## Current modeling stage
 
-The CPU retrieval and hard-negative data pipeline is frozen. The current milestone is proving managed cross-job checkpoint recovery for the objective-conditioned two-tower retriever, followed by one complete OOF fold and incremental Recall@K evaluation against the frozen co-visitation + Item2Vec candidate system.
+Infrastructure validation is complete. The next authorized experiment is **one full OOF Fold 0 neural-retrieval run** using `scripts/launch_two_tower_fold.py`.
 
-Additional neural folds are only justified if the learned retriever contributes genuinely new positives beyond the existing retrieval union.
-Pinned test execution uses `python -m pytest` inside the isolated `uv` environment so the exact GPU source directory remains on Python's import path.
+Fold 0 is trained on folds 1–4, writes durable resumable checkpoints, and publishes a compact training report. The learned retriever is then evaluated at candidate depths 20/50/100/200/400/800 for standalone recall, incremental recall over the frozen co-visitation + Item2Vec system, and neural-only positive hits.
+
+Additional neural folds are blocked until Fold 0 demonstrates complementary held-out value. See `docs/TWO_TOWER_EXPERIMENTS.md`.

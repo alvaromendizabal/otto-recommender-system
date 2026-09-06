@@ -1,0 +1,25 @@
+[fold0]
+validation_fold = 0
+instance_type = "ml.g6.xlarge"
+volume_size_gb = 100
+epochs = 8
+batch_size = 256
+max_seq_len = 50
+checkpoint_steps = 4000
+heartbeat_seconds = 30.0
+max_runtime_seconds = 21600
+seed = 20260905
+
+[fold0.evaluation]
+candidate_depths = [20, 50, 100, 200, 400, 800]
+bootstrap_iterations = 500
+bootstrap_seed = 20260906
+
+[fold0.acceptance]
+require_training_success = true
+require_checkpoint_resume_capability = true
+require_exact_source_provenance = true
+require_incremental_recall_report = true
+require_unique_hit_report = true
+require_ann_quality_report = true
+require_public_notebook = true

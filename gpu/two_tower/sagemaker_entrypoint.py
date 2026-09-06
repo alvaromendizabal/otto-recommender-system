@@ -31,8 +31,9 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--epochs", type=int, default=8)
     parser.add_argument("--batch-size", type=int, default=256)
     parser.add_argument("--max-seq-len", type=int, default=50)
-    parser.add_argument("--train-rows", type=int, required=True)
-    parser.add_argument("--valid-rows", type=int, required=True)
+    parser.add_argument("--train-rows", type=int)
+    parser.add_argument("--valid-rows", type=int)
+    parser.add_argument("--seed", type=int, default=20260905)
     parser.add_argument("--checkpoint-steps", type=int, default=20)
     parser.add_argument("--heartbeat-seconds", type=float, default=30.0)
     parser.add_argument("--stop-after-step", type=int)
@@ -222,6 +223,49 @@ def _run_or_record_failure(
     return return_code
 
 
+def _build_train_command(args: argparse.Namespace, checkpoint_dir: Path) -> list[str]:
+    command = [
+        sys.executable,
+        "-u",
+        "train.py",
+        "--ranking-cache",
+        _channel("ranking", "/opt/ml/input/data/ranking"),
+        "--hard-negatives",
+        _channel("hard-negatives", "/opt/ml/input/data/hard-negatives"),
+        "--item-data",
+        _channel("items", "/opt/ml/input/data/items"),
+        "--output-dir",
+        str(checkpoint_dir),
+        "--validation-fold",
+        str(args.validation_fold),
+        "--epochs",
+        str(args.epochs),
+        "--batch-size",
+        str(args.batch_size),
+        "--max-seq-len",
+        str(args.max_seq_len),
+        "--checkpoint-steps",
+        str(args.checkpoint_steps),
+        "--heartbeat-seconds",
+        str(args.heartbeat_seconds),
+        "--code-commit",
+        args.code_commit,
+        "--seed",
+        str(args.seed),
+    ]
+    if args.train_rows is not None:
+        command.extend(["--train-rows", str(args.train_rows)])
+    if args.valid_rows is not None:
+        command.extend(["--valid-rows", str(args.valid_rows)])
+    if args.stop_after_step is not None:
+        command.extend(["--stop-after-step", str(args.stop_after_step)])
+    if args.resume:
+        command.append("--resume")
+    if args.resume_if_available:
+        command.append("--resume-if-available")
+    return command
+
+
 def _runtime_bootstrap_commands() -> tuple[tuple[str, list[str]], ...]:
     return (
         (
@@ -288,43 +332,7 @@ def main() -> int:
             if bootstrap_rc != 0:
                 return bootstrap_rc
 
-        train_command = [
-            sys.executable,
-            "-u",
-            "train.py",
-            "--ranking-cache",
-            _channel("ranking", "/opt/ml/input/data/ranking"),
-            "--hard-negatives",
-            _channel("hard-negatives", "/opt/ml/input/data/hard-negatives"),
-            "--item-data",
-            _channel("items", "/opt/ml/input/data/items"),
-            "--output-dir",
-            str(checkpoint_dir),
-            "--validation-fold",
-            str(args.validation_fold),
-            "--epochs",
-            str(args.epochs),
-            "--batch-size",
-            str(args.batch_size),
-            "--max-seq-len",
-            str(args.max_seq_len),
-            "--train-rows",
-            str(args.train_rows),
-            "--valid-rows",
-            str(args.valid_rows),
-            "--checkpoint-steps",
-            str(args.checkpoint_steps),
-            "--heartbeat-seconds",
-            str(args.heartbeat_seconds),
-            "--code-commit",
-            args.code_commit,
-        ]
-        if args.stop_after_step is not None:
-            train_command.extend(["--stop-after-step", str(args.stop_after_step)])
-        if args.resume:
-            train_command.append("--resume")
-        if args.resume_if_available:
-            train_command.append("--resume-if-available")
+        train_command = _build_train_command(args, checkpoint_dir)
 
         current_stage = "training"
         train_rc = _run_or_record_failure(

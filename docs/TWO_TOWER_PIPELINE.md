@@ -124,3 +124,21 @@ and native failure reason. When a persisted `failure.json` is available in the
 training output artifact, the status command surfaces its stage and message.
 Use `--show-logs` only when the recent CloudWatch tail is needed.
 Pinned test execution uses `python -m pytest` inside the isolated `uv` environment so the exact GPU source directory remains on Python's import path.
+
+## Proven result
+
+The managed resume contract passed on `ml.g6.xlarge` at commit `a775bb7`:
+
+```text
+CreateDurableCheckpoint  Succeeded
+ResumeAndAdvance         Succeeded
+resumed_from_step        40
+final_step               80
+advanced_steps           40
+resume_proof              passed
+```
+
+The compact, public, account-sanitized evidence is committed at
+`reports/metrics/two_tower_resume_proof.json`. The resume-proof pipeline is now
+frozen as infrastructure evidence; the active modeling workflow is the OOF fold
+trainer described in `docs/TWO_TOWER_EXPERIMENTS.md`.
