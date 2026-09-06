@@ -40,7 +40,7 @@ The `k=800` embedding depth is not treated as a final serving budget. Frontier e
 
 ![Measured retrieval evidence](reports/figures/retrieval_evidence.png)
 
-The left panel reports final top-20 quality. The right panel reports candidate-pool coverage at larger discovery depths; these are separate measurements. Neural Fold 0 quality is pending.
+The left panel reports final top-20 quality. The right panel reports candidate-pool coverage at larger discovery depths; these are separate measurements. The independently audited neural Fold 0 comparison appears below; its cohort differs from these earlier all-fold measurements.
 
 ## Frozen neural-training corpus
 
@@ -86,7 +86,7 @@ The notebooks are intentionally **analysis layers**, not the source of productio
 2. [`notebooks/02_retrieval_benchmarks.ipynb`](notebooks/02_retrieval_benchmarks.ipynb) — retrieval evidence and ablations.
 3. [`notebooks/03_candidate_frontier.ipynb`](notebooks/03_candidate_frontier.ipynb) — candidate-depth trade-offs.
 4. [`notebooks/04_hard_negative_quality.ipynb`](notebooks/04_hard_negative_quality.ipynb) — OOF and hard-negative integrity.
-5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed resume evidence, Fold 0 learning curves, and completed full-catalogue export coverage and timing.
+5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed training and resume evidence, exact export, paired retrieval gains with confidence intervals, and the independent count audit.
 
 ## Repository layout
 
@@ -171,8 +171,23 @@ Validation loss rose after epoch 1 while training loss fell. The saved best chec
 
 ![Full-catalogue export](reports/figures/two_tower_export.png)
 
-The next measurement is a paired comparison against the frozen base pool. Neural retrieval quality and ANN serving performance remain unmeasured. The CPU comparator can restore verified count parts from S3 on another workspace using `--checkpoint-uri`; it uploads each part before recording completion. See [the evaluation workflow](docs/FOLD_EVALUATION.md).
+**The paired Fold 0 comparison is complete and independently audited.** All 32 count checkpoints, final metrics, and timestamped logs are durable in S3. The comparator completed in 399.170 seconds, including 331.975 seconds of retained bucket computation.
 
-Fold 0 is trained on folds 1–4, writes durable resumable checkpoints, and publishes a compact training report. The learned retriever is then evaluated at candidate depths 20/50/100/200/400/800 for standalone recall, incremental recall over the frozen co-visitation + Item2Vec system, and neural-only positive hits.
+| Fold 0 measurement | Result |
+|---|---:|
+| Neural ordered Recall@20 | **21.867%** |
+| Frozen baseline candidate-recall ceiling | **73.154%** |
+| Baseline + neural top-800 candidate-recall ceiling | **74.184%** |
+| Incremental weighted ceiling | **+1.029 percentage points** |
+| Paired 95% interval for the increment | **+0.931 to +1.120 percentage points** |
+| Additional click / cart / order positive hits | **2,385 / 430 / 138** |
 
-Additional neural folds are blocked until Fold 0 demonstrates complementary held-out value. See [`docs/FOLD_TRAINING.md`](docs/FOLD_TRAINING.md) for launch, monitoring, and result-publication commands, and `docs/TWO_TOWER_EXPERIMENTS.md` for the evaluation decision.
+![Paired neural retrieval evidence](reports/figures/two_tower_retrieval.png)
+
+Candidate ceilings measure the maximum top-20 recall an ideal ranker could recover from a larger pool. The union is not a scored or budget-matched top-20 list. Only the neural depth-20 row above is ordered Recall@20. The bootstrap resamples complete sessions, preserving correlations across objectives; it does not account for using Fold 0 to select the checkpoint.
+
+The independent auditor verifies all count receipts and session partitions, then reproduces every point estimate and all 500 paired-bootstrap intervals with a separate aggregation method. Its compact [audit](reports/metrics/two_tower_fold0_audit.json), [UTC log](reports/logs/two_tower_fold0_audit.jsonl), and [original metrics](reports/metrics/two_tower_fold0_retrieval.json) are public. The audit validates saved counts, not a second execution of retrieval from raw labels.
+
+**Decision:** retain the neural model as an additional source. The next experiment is ANN fidelity and latency against the saved exact reference. After that gate, generate the remaining OOF candidates and compare objective-specific rankers at the same final top-20 budget. An untouched temporal evaluation is still required before a generalization claim. No additional folds are launched by publishing these results.
+
+See [the evaluation and audit commands](docs/FOLD_EVALUATION.md), [the next experiment contract](docs/TWO_TOWER_EXPERIMENTS.md), and [training operations](docs/FOLD_TRAINING.md).

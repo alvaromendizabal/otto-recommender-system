@@ -5,6 +5,8 @@ from pathlib import Path
 
 import pytest
 
+from otto_recsys.experiments.manifest import sha256_file
+
 
 def test_resume_proof_public_artifact_is_sanitized_and_passed() -> None:
     path = Path("reports/metrics/two_tower_resume_proof.json")
@@ -60,6 +62,50 @@ def test_export_evidence_covers_every_objective_without_claiming_quality() -> No
         sum(sum(row["bucket_seconds"]) for row in payload["objectives"].values())
     )
     assert all(row["sessions"] == payload["sessions"] for row in payload["objectives"].values())
-    assert "pending" in payload["quality_evaluation"]
+    assert "completed" in payload["quality_evaluation"]
     assert "560403859723" not in path.read_text()
     assert Path("reports/figures/two_tower_export.png").stat().st_size > 1000
+
+
+def test_published_retrieval_report_matches_independently_audited_counts() -> None:
+    path = Path("reports/metrics/two_tower_fold0_retrieval.json")
+    result = json.loads(path.read_text())
+    audit = json.loads(Path("reports/metrics/two_tower_fold0_audit.json").read_text())
+    assert sha256_file(path) == audit["metrics_sha256"]
+    assert result["input_id"] == audit["input_id"]
+    assert result["status"] == audit["status"] == "passed"
+    assert audit["verified_parts"] == len(audit["receipts"]) == 32
+    assert result["sessions"] == audit["sessions"] == 103468
+    assert result["bootstrap"]["iterations"] == audit["bootstrap_iterations_verified"] == 500
+    for j, point in enumerate(result["points"]):
+        weighted = 0.0
+        for objective, counts, weight in zip(
+            audit["objective_order"], audit["aggregate_counts"], (0.1, 0.3, 0.6), strict=True
+        ):
+            values = point["objectives"][objective]
+            assert values["denominator"] == counts[0]
+            assert values["base_ceiling"] == pytest.approx(counts[1] / counts[0])
+            assert values["neural_ceiling"] == pytest.approx(counts[2 + 3 * j] / counts[0])
+            assert values["union_ceiling"] == pytest.approx(counts[3 + 3 * j] / counts[0])
+            assert values["neural_only_positive_hits"] == counts[4 + 3 * j]
+            weighted += weight * (counts[3 + 3 * j] - counts[1]) / counts[0]
+        assert point["weighted_incremental_ceiling"] == pytest.approx(weighted)
+    assert "arn:aws" not in path.read_text()
+    assert "560403859723" not in path.read_text()
+    assert Path("reports/figures/two_tower_retrieval.png").stat().st_size > 1000
+
+
+def test_published_audit_log_covers_parts_bootstrap_and_total_time() -> None:
+    from datetime import datetime
+
+    path = Path("reports/logs/two_tower_fold0_audit.jsonl")
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    parts = [row["bucket"] for row in rows if row["message"] == "audit_part_verified"]
+    assert parts == list(range(32))
+    assert any(row.get("stage") == "bootstrap 500/500" for row in rows)
+    assert all(
+        datetime.fromisoformat(row["timestamp"]).utcoffset().total_seconds() == 0 for row in rows
+    )
+    assert rows[-1]["message"] == "comparison_audit_complete"
+    assert rows[-1]["status"] == "passed"
+    assert rows[-1]["elapsed_seconds"] > 0
