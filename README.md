@@ -28,6 +28,18 @@ The system predicts the next **click**, **cart**, and **order** actions from ano
 - a resumable full-catalogue ANN benchmark with frozen tuning/confirmation queries, official Recall@20, ranking diagnostics, and measured latency;
 - Ruff, mypy, pytest, smoke tests, dependency checks, and repository hygiene gates.
 
+## Current completion status
+
+Retrieval and its ANN comparison are complete. Observed ranking features and
+nested session assignments have also been prepared for all 515,702 sessions,
+with an independent full-data audit and verified resume. Open
+[notebook 07](notebooks/07_ranking_features.ipynb) for the executed results.
+
+The first learned ranker, evaluation under the frozen split protocol, and a
+validated Kaggle submission remain unfinished. Existing Fold 0 neural results
+are exploratory. See [the ranking workflow](docs/RANKING.md) for the precise
+boundaries and next modeling milestone.
+
 ## Measured retrieval evidence
 
 | Experiment | Measured result |
@@ -89,6 +101,8 @@ The notebooks are intentionally **analysis layers**, not the source of productio
 4. [`notebooks/04_hard_negative_quality.ipynb`](notebooks/04_hard_negative_quality.ipynb) — OOF and hard-negative integrity.
 5. [`notebooks/05_two_tower_results.ipynb`](notebooks/05_two_tower_results.ipynb) — executed training and resume evidence, exact export, paired retrieval gains with confidence intervals, and the independent count audit.
 6. [`notebooks/06_ann_benchmark.ipynb`](notebooks/06_ann_benchmark.ipynb) — executed ANN quality and latency analysis, independently audited metrics, paired confidence intervals, and measured resource use.
+
+7. [`notebooks/07_ranking_features.ipynb`](notebooks/07_ranking_features.ipynb) — executed full-data feature audit, nested session assignments, feature meanings, and verified resume evidence.
 
 ## Repository layout
 
@@ -190,7 +204,7 @@ Candidate ceilings measure the maximum top-20 recall an ideal ranker could recov
 
 The independent auditor verifies all count receipts and session partitions, then reproduces every point estimate and all 500 paired-bootstrap intervals with a separate aggregation method. Its compact [audit](reports/metrics/two_tower_fold0_audit.json), [UTC log](reports/logs/two_tower_fold0_audit.jsonl), and [original metrics](reports/metrics/two_tower_fold0_retrieval.json) are public. The audit validates saved counts, not a second execution of retrieval from raw labels.
 
-**Decision:** retain the neural model as an additional source. The ANN fidelity and latency benchmark is now complete. The ANN baseline comparison is also complete. Next, implement nested validation and the ranking candidate/feature pipeline, then compare objective-specific rankers at the same final top-20 budget. An untouched temporal evaluation is still required before a generalization claim. No additional folds are launched by publishing these results.
+**Decision:** retain the neural model as an additional source. The ANN fidelity and latency benchmark is now complete. The ANN baseline comparison is also complete. Observed ranking features and explicit inner/outer session assignments are now prepared. Next, materialize candidate features and compare objective-specific rankers at the same final top-20 budget, enforcing split provenance for learned retrieval sources. An untouched temporal evaluation is still required before a generalization claim. No additional folds are launched by publishing these results.
 
 **Measured ANN result:** three IVFFlat indexes cover 1,852,162 items. `nprobe=256` retained **99.16–99.42%** of exact top-800 neighbors on 2,048 reserved confirmation sessions. Full-fold official weighted Recall@20 was **0.217494**, versus **0.218670** for exact neural retrieval: **−0.118 percentage points**, with a paired 95% interval of **[−0.155, −0.087]** points. Median warm CPU search plus reranking was **5.35–5.63× faster** on matched tuning queries; encoder, network, and loading time are excluded. The run used 3,002 billable seconds and committed all 96 full-fold prediction parts. [Raw report](reports/metrics/two_tower_fold0_ann.json) · [Independent count audit](reports/metrics/two_tower_fold0_ann_audit.json) · [Executed notebook](notebooks/06_ann_benchmark.ipynb).
 
@@ -209,6 +223,6 @@ Training, exact export, ANN benchmarking, and the Fold 0 baseline comparisons ar
 .venv/bin/python scripts/project_status.py
 ```
 
-[Notebook 06](notebooks/06_ann_benchmark.ipynb) now includes the audited ANN candidate-budget frontier and objective-level gains. [The ranking plan](docs/RANKING.md) describes the next modeling implementation and its validation gates. Its training pipeline has not been implemented or measured yet.
+[Notebook 06](notebooks/06_ann_benchmark.ipynb) now includes the audited ANN candidate-budget frontier and objective-level gains. [Notebook 07](notebooks/07_ranking_features.ipynb) presents the completed feature preparation and split assignments. [The ranking workflow](docs/RANKING.md) describes the next candidate materialization and model-training implementation; ranker training and evaluation remain pending.
 
 An additional ANN job repeated unchanged worker bytes after a reporting commit. The execution history preserves that 3,040-second cost. Matching source archives, inputs, and settings now reuse the durable existing run across repository commits; the original provenance and checkpoint namespace stay intact. CPU heartbeats measure accumulated CPU time between samples (100% means one occupied core), including after a child process changes.

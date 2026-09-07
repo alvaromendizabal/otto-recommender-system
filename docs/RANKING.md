@@ -1,6 +1,7 @@
 # From audited retrieval to learned ranking
 
-Status: **implementation plan; no ranker has been trained or evaluated yet.**
+Status: **observed feature preparation and explicit nested session assignments implemented
+and executed; no ranker has been trained or evaluated yet.**
 The retriever, full-catalogue exports, ANN fidelity/search-cost benchmark, and
 Fold 0 baseline comparisons are complete. Reuse their saved artifacts.
 
@@ -108,12 +109,77 @@ limits, ablations, and compact metrics through a documented PR with passing CI.
 Keep large data and model weights in durable artifact storage. A generated
 submission file and an accepted Kaggle submission are separate milestones.
 
-## Current command
+## Completed feature preparation
 
-```bash
-.venv/bin/python scripts/project_status.py
+The full frozen cache has been prepared and independently reconciled:
+
+| Artifact | Rows |
+|---|---:|
+| Observed session features | 515,702 |
+| Observed session/item features | 1,544,172 |
+| Evaluation query ledger | 1,547,106 |
+
+There are 32 checksum-committed buckets and 28.53 MiB of Parquet data.
+The full preparation took 10.279 seconds in the recorded CPU environment;
+a local verified resume reused all 32 buckets in 2.623 seconds. These exclude
+initial input download and S3 publication. The independent DuckDB audit found
+zero session, item, query, or duplicate-key mismatches. Notebook 07 is executed
+and includes the exact split counts, observed-prefix distribution and timings.
+
+`ranking/features.py` provides observed feature aggregation, a full query ledger,
+and a label-blind candidate join preserving each source's presence/rank/score.
+It never inserts label items into candidate membership. `ranking/splits.py`
+assigns independent inner partitions and resolves disjoint fit/inner/outer roles.
+The feature manifest explicitly records that future-label timestamps are missing
+from the existing cache and that retriever fit provenance is not yet certified.
+This is not an untouched temporal holdout or a completed nested-model evaluation.
+
+`ranking/feature_cache.py` verifies input content hashes and frozen fold/bucket
+assignments, writes bounded bucket files, commits checksum receipts last, rejects
+incompatible contracts, and locks against concurrent writers in one workspace.
+The AWS checkpoint adapter uploads data before receipts and restores verified
+parts into fresh workspaces. Missing/corrupt buckets are rebuilt; intact buckets
+retain their computation. Use one writer per remote experiment namespace.
+Feature code, input hashes, split seeds and runtime versions define the identity;
+report-only Git commits do not invalidate saved feature work.
+
+The complete artifacts live at:
+
+```text
+s3://otto-recsys-560403859723-us-west-2/ranking/features/82e8eac76c63d4d8a34b611bca0f3ae329623ff5cd80e18ca8bc238ddbd65795/
 ```
 
-This reports the completed evidence and the next implementation task. It does
-not start cloud compute. There is no ranking launcher to run yet; implementing
-the frozen split and candidate/feature pipeline is the next development task.
+## What to do now
+
+Open `notebooks/07_ranking_features.ipynb` to view the executed outputs and run
+`scripts/project_status.py` to check the published milestones. Preparation is
+already complete; there is no need to repeat ANN benchmarks or training.
+
+Next development: materialize the baseline candidate pool using these features,
+then train/evaluate the first objective-specific LambdaRank models. Add neural
+features with enforced retriever fit/checkpoint-selection provenance; the
+existing exploratory Fold 0 checkpoint cannot be relabeled as independently
+selected. Full-test prediction and submission remain later milestones.
+
+## Reproduce or restore the feature preparation
+
+From the locked project environment with the existing frozen ranking cache:
+
+```bash
+.venv/bin/python scripts/build_ranking_features.py \
+  --checkpoint-uri s3://otto-recsys-560403859723-us-west-2/ranking/features
+.venv/bin/python scripts/audit_ranking_features.py
+```
+
+The first command restores compatible S3 buckets before doing computation.
+The CLI requires a durable S3 destination and emits UTC start, bucket progress,
+CPU/RAM heartbeats, failure and total-time events. Output defaults to
+`data/interim/ranking_features`; logs are in its `logs/ranking_features.jsonl`.
+A changed contract requires a separate experiment output directory, preserving
+previous results. The audit uses independent DuckDB aggregations of all frozen
+events and labels. The analytical notebook reads the compact committed evidence
+and does not require downloading feature data or starting cloud jobs.
+
+LightGBM expects contiguous groups whose sizes sum to the training row count;
+keep `(objective, session)` groups complete when materializing ranked candidates.
+See the [official LGBMRanker documentation](https://lightgbm.readthedocs.io/en/stable/pythonapi/lightgbm.LGBMRanker.html).

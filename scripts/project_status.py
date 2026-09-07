@@ -30,6 +30,23 @@ def project_status(root: Path) -> dict[str, Any]:
     ann = read_report(root, "two_tower_fold0_ann.json")
     comparison = read_report(root, "two_tower_fold0_ann_comparison.json")
     audit = read_report(root, "two_tower_fold0_ann_comparison_audit.json")
+    features = read_report(root, "ranking_features.json")
+    feature_audit = read_report(root, "ranking_features_audit.json")
+    features_complete = False
+    if features is not None:
+        if (
+            feature_audit is None
+            or features.get("status") != "passed"
+            or feature_audit.get("status") != "passed"
+            or features.get("input_id") != feature_audit.get("input_id")
+            or features.get("parts_sha256") != feature_audit.get("parts_sha256")
+            or features.get("contract_sha256") != feature_audit.get("feature_contract_sha256")
+            or any(feature_audit.get("mismatches", {"missing": 1}).values())
+            or sha256_file(root / "reports/metrics/ranking_feature_contract.json")
+            != features.get("contract_sha256")
+        ):
+            raise ValueError("Published ranking feature evidence does not match its audit")
+        features_complete = True
     completed = False
     if comparison is not None:
         if (
@@ -58,6 +75,12 @@ def project_status(root: Path) -> dict[str, Any]:
         "kaggle_submission": "not yet generated",
         "paid_compute_started": False,
     }
+    result["observed_ranking_features"] = "passed" if features_complete else "pending"
+    if features_complete:
+        result["next_task"] = (
+            "Materialize baseline candidate features and train/evaluate LambdaRank "
+            "under nested validation."
+        )
     if completed and comparison is not None:
         point = next(row for row in comparison["points"] if row["neural_k"] == 800)
         result["ann_comparison_run_id"] = comparison["input_id"]
@@ -97,6 +120,7 @@ def main() -> int:
             "exact_comparison",
             "ann_benchmark",
             "ann_comparison",
+            "observed_ranking_features",
             "ranking_evaluation",
             "kaggle_submission",
         ):
