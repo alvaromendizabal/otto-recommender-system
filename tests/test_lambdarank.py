@@ -6,7 +6,11 @@ import numpy as np
 import pytest
 
 from otto_recsys.ranking.lambdarank import (
-    QueryBatch, RankerConfig, aggregate_official, evaluate, fit_ranker,
+    QueryBatch,
+    RankerConfig,
+    aggregate_official,
+    evaluate,
+    fit_ranker,
 )
 
 
