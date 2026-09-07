@@ -11,6 +11,7 @@ from typing import Any
 
 from otto_recsys.experiments.manifest import sha256_file
 from otto_recsys.logging_utils import utc_now_iso
+from otto_recsys.ranking.reporting import validate_report
 
 
 def read_report(root: Path, name: str) -> dict[str, Any] | None:
@@ -32,6 +33,7 @@ def project_status(root: Path) -> dict[str, Any]:
     audit = read_report(root, "two_tower_fold0_ann_comparison_audit.json")
     features = read_report(root, "ranking_features.json")
     feature_audit = read_report(root, "ranking_features_audit.json")
+    ranking = read_report(root, "ranking_evaluation.json")
     features_complete = False
     if features is not None:
         if (
@@ -78,8 +80,19 @@ def project_status(root: Path) -> dict[str, Any]:
     result["observed_ranking_features"] = "passed" if features_complete else "pending"
     if features_complete:
         result["next_task"] = (
-            "Materialize baseline candidate features and train/evaluate LambdaRank "
-            "under nested validation."
+            "Run scripts/run_ranking.py to materialize candidates and train/evaluate "
+            "LambdaRank under exploratory nested validation; see docs/RANKING.md."
+        )
+    if ranking is not None:
+        validate_report(ranking)
+        result.update(
+            ranking_evaluation="measured (exploratory)",
+            ranking_run_id=ranking["run_id"],
+            ranking_weighted_recall_at_20=ranking["learned"]["weighted_recall_at_20"],
+            ranking_baseline_recall_at_20=ranking["baseline"]["weighted_recall_at_20"],
+            ranking_validation_scope=ranking["validation_scope"],
+            next_task=("Compare ablations and certified neural sources under nested validation; "
+                       "then implement full-test prediction and validate a Kaggle submission."),
         )
     if completed and comparison is not None:
         point = next(row for row in comparison["points"] if row["neural_k"] == 800)
@@ -125,6 +138,11 @@ def main() -> int:
             "kaggle_submission",
         ):
             print(f"{key}={result[key]}")
+        if "ranking_weighted_recall_at_20" in result:
+            print(
+                f"Ranked weighted Recall@20: {result['ranking_weighted_recall_at_20']:.6f}; "
+                f"matched baseline={result['ranking_baseline_recall_at_20']:.6f}"
+            )
         if "candidate_ceiling_k800" in result:
             value = result["candidate_ceiling_k800"]
             print(

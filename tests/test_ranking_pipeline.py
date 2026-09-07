@@ -5,17 +5,23 @@ import fnmatch
 import json
 import logging
 import shutil
+import subprocess
+import sys
 from dataclasses import replace
 from pathlib import Path
 
 import duckdb
+import faiss
+import numpy as np
 import polars as pl
 import pytest
+from gensim.models import KeyedVectors
 
 from otto_recsys.cloud.ranking_stage import S3CandidateCheckpoints, S3ModelCheckpoints
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
 from otto_recsys.ranking.candidates import (
     CandidateConfig,
+    build_candidates,
     compress_sources,
     valid_part,
     write_candidate_parts,
@@ -34,6 +40,7 @@ from otto_recsys.ranking.pipeline import (
     run_ranking,
     training_memory_guard,
 )
+from otto_recsys.ranking.reporting import validate_report, write_ranking_notebook
 
 LOGGER = logging.getLogger("ranking_integration")
 
@@ -215,6 +222,23 @@ def test_rankers_execute_and_reuse_all_three_objectives(tmp_path, monkeypatch):
     report = run_ranking(cache, output, outer_folds=(0,), config=config,
                          logger=LOGGER, max_memory_gib=1)
     assert report["status"] == "passed"
+    notebook = tmp_path / "08_ranking_evaluation.ipynb"
+    write_ranking_notebook(report, notebook)
+    cells = json.loads(notebook.read_text())["cells"]
+    assert len(cells) == 8
+    for cell in cells:
+        if cell["cell_type"] == "code":
+            compile("".join(cell["source"]), str(notebook), "exec")
+    invalid = json.loads(json.dumps(report))
+    invalid["learned"]["weighted_recall_at_20"] = float("nan")
+    with pytest.raises(ValueError, match="official aggregation"):
+        validate_report(invalid)
+    write_json(tmp_path / "reports/metrics/ranking_evaluation.json", report)
+    status = subprocess.run(
+        [sys.executable, "scripts/project_status.py", "--root", str(tmp_path), "--json"],
+        capture_output=True, text=True, check=True, timeout=15,
+    )
+    assert json.loads(status.stdout)["ranking_evaluation"] == "measured (exploratory)"
     assert report["untouched_temporal_holdout"] is False
     assert report["learned"]["objectives"]["orders"]["denominator"] == 30
     assert report["folds"][0]["objectives"]["orders"]["learned"]["all_queries"] == 30
@@ -333,3 +357,90 @@ def test_model_s3_roundtrip_reuses_models_without_retraining(tmp_path, monkeypat
                            logger=LOGGER, checkpoints=ModelStore(store.remote), max_memory_gib=1)
     assert restored["learned"] == result["learned"]
     assert len(list((tmp_path / "fresh").glob("fold-*/*/model.txt"))) == 3
+
+
+def test_full_candidate_builder_uses_real_retrievers_and_reuses_buckets(tmp_path, monkeypatch):
+    examples, events, labels, _ = fixture_frames()
+    cache, observed, covisit = (tmp_path / name for name in ("cache", "features", "covisit"))
+    for path in (cache, observed, covisit):
+        path.mkdir()
+    events.with_columns(pl.lit(1).alias("recency_rank")).write_parquet(cache / "items.parquet")
+    examples.write_parquet(cache / "examples.parquet")
+    labels.write_parquet(cache / "labels.parquet")
+    ranking = {"input_id": "0" * 64, "validation_manifest_id": "1" * 64}
+    ranking.update({f"{name}_sha256": sha256_file(cache / f"{name}.parquet")
+                    for name in ("items", "examples", "labels")})
+    write_json(cache / "manifest.json", ranking)
+    feature_contract = {"training_cache_input_id": ranking["input_id"],
+                        "validation_manifest_id": ranking["validation_manifest_id"],
+                        "buckets": 2, "folds": 3}
+    write_json(observed / "feature_contract.json", feature_contract)
+    feature_id = canonical_json_sha256(feature_contract)
+    for bucket in range(2):
+        root = observed / "parts" / f"part-{bucket:03d}"
+        write_observed(root, examples.filter(pl.col("bucket") == bucket),
+                       events.filter(pl.col("bucket") == bucket),
+                       labels.filter(pl.col("bucket") == bucket))
+        write_json(root.with_suffix(".json"), {"input_id": feature_id, "bucket": bucket,
+            "files": {name: {"sha256": sha256_file(root / f"{name}.parquet"),
+                              "bytes": (root / f"{name}.parquet").stat().st_size,
+                              "rows": pl.read_parquet(root / f"{name}.parquet").height}
+                      for name in ("sessions", "items", "queries")}})
+    for family in ("time", "type", "buy"):
+        matrix = pl.DataFrame({"source_aid": list(range(30)),
+                               "target_aid": [(aid + 1) % 30 for aid in range(30)],
+                               "score": [1.0] * 30}).join(
+            pl.DataFrame({"objective": ["all"] if family == "time" else list(OBJECTIVES)}),
+            how="cross",
+        )
+        matrix.write_parquet(covisit / f"{family}.parquet")
+        write_json(covisit / f"{family}.json", {"synthetic": True})
+    vector_path = tmp_path / "vectors/item_vectors.kv"
+    index_path = tmp_path / "index/item.index"
+    vector_path.parent.mkdir()
+    index_path.parent.mkdir()
+    values = np.random.default_rng(7).normal(size=(30, 8)).astype(np.float32)
+    faiss.normalize_L2(values)
+    vectors = KeyedVectors(vector_size=8)
+    vectors.add_vectors(list(range(30)), values)
+    vectors.save(str(vector_path))
+    index = faiss.IndexIDMap2(faiss.IndexHNSWFlat(8, 8, faiss.METRIC_INNER_PRODUCT))
+    index.add_with_ids(values, np.arange(30, dtype=np.int64))
+    faiss.write_index(index, str(index_path))
+    write_json(vector_path.parent / "manifest.json",
+               {"validation_manifest_id": ranking["validation_manifest_id"]})
+    write_json(index_path.parent / "manifest.json", {"synthetic": True})
+    config = CandidateConfig(source_k=10, item2vec_k=25, ef_search=32,
+                             candidate_k=25, batch_sessions=7, threads=1, memory_limit="128MB")
+    output = tmp_path / "output"
+    result = build_candidates(cache, observed, covisit, vector_path, index_path, output,
+                              config=config, logger=LOGGER)
+    assert result["completed_buckets"] == 2
+    assert result["reused_buckets"] == 0
+    assert result["rows"]["queries"] == 270
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("valid candidate buckets must not repeat source generation")
+
+    monkeypatch.setattr(
+        "otto_recsys.ranking.candidates.create_covisit_source_candidates", forbidden
+    )
+    resumed = build_candidates(cache, observed, covisit, vector_path, index_path, output,
+                               config=config, logger=LOGGER)
+    assert resumed["reused_buckets"] == 2
+    assert resumed["rows"] == result["rows"]
+
+
+def test_cli_help_and_notebook_preconditions():
+    help_result = subprocess.run(
+        [sys.executable, "scripts/run_ranking.py", "--help"],
+        capture_output=True, text=True, check=True, timeout=15,
+    )
+    assert "--execute-notebooks" in help_result.stdout
+    invalid = subprocess.run(
+        [sys.executable, "scripts/run_ranking.py", "--checkpoint-uri", "s3://otto-test/ranking",
+         "--stage", "candidates", "--execute-notebooks"],
+        capture_output=True, text=True, check=False, timeout=15,
+    )
+    assert invalid.returncode == 2
+    assert "requires --publish-report and a ranking stage" in invalid.stderr

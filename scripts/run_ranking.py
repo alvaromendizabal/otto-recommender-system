@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
+import subprocess
 import time
 from pathlib import Path
 
@@ -12,6 +14,8 @@ from otto_recsys.ranking.candidates import CandidateConfig, build_candidates
 from otto_recsys.ranking.feature_cache import write_json
 from otto_recsys.ranking.lambdarank import RankerConfig
 from otto_recsys.ranking.pipeline import run_ranking
+from otto_recsys.ranking.reporting import write_ranking_notebook
+from otto_recsys.runtime import Heartbeat
 
 
 def main() -> int:
@@ -42,7 +46,10 @@ def main() -> int:
     parser.add_argument("--outer-folds", type=int, nargs="+", default=[0])
     parser.add_argument("--rounds", type=int, default=300)
     parser.add_argument("--publish-report", action="store_true")
+    parser.add_argument("--execute-notebooks", action="store_true")
     args = parser.parse_args()
+    if args.execute_notebooks and (not args.publish_report or args.stage == "candidates"):
+        parser.error("--execute-notebooks requires --publish-report and a ranking stage")
     started = time.perf_counter()
     logger = configure_logging("ranking", log_dir=args.output_dir / "logs")
     candidate_store = S3CandidateCheckpoints(args.checkpoint_uri.rstrip("/") + "/candidates",
@@ -74,6 +81,28 @@ def main() -> int:
             )
             if args.publish_report:
                 write_json(Path("reports/metrics/ranking_evaluation.json"), result)
+                notebook = Path("notebooks/08_ranking_evaluation.ipynb")
+                write_ranking_notebook(result, notebook)
+                if args.execute_notebooks:
+                    environment = Path("artifacts/analysis_environment")
+                    interpreter = environment / "bin/python"
+                    commands = []
+                    if not interpreter.is_file():
+                        commands.append(["uv", "venv", str(environment),
+                                         "--python", "3.12.13", "--no-project"])
+                    commands.extend([
+                        ["uv", "pip", "install", "--python", str(interpreter),
+                         "-r", "notebooks/requirements.txt"],
+                        [str(interpreter), "scripts/execute_notebooks.py"],
+                    ])
+                    with Heartbeat(logger, stage="ranking_notebooks", interval_seconds=15):
+                        for command in commands:
+                            subprocess.run(command, check=True)
+                    executed = Path("artifacts/notebooks") / notebook.name
+                    shutil.copyfile(executed, notebook)
+                    model_store.upload(notebook, "notebooks/" + notebook.name)
+                    model_store.upload(executed.with_suffix(".json"),
+                                       "notebooks/" + executed.with_suffix(".json").name)
             print(json.dumps(result, indent=2), flush=True)
         succeeded = True
     except BaseException:

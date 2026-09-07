@@ -167,6 +167,8 @@ def write_candidate_parts(
                 JOIN feature_sessions f USING (session)
             """).to_arrow_table())
             connection.unregister("feature_sessions")
+            if not isinstance(sources, pl.DataFrame):
+                raise TypeError("candidate query must return an Arrow table")
             features = candidate_features(
                 sources, subset, items.join(ids, on="session", how="semi"),
                 labels.join(ids, on="session", how="semi"),
@@ -176,7 +178,7 @@ def write_candidate_parts(
             )
             features = features.join(
                 subset.select("session", "fold", "inner_partition"), on="session"
-            )
+            ).sort(["objective", "session", "aid"])
             for objective in OBJECTIVES:
                 table = features.filter(pl.col("objective") == objective).to_arrow()
                 if objective not in writers:
@@ -303,6 +305,8 @@ def build_candidates(
                     # No labels or vlabels table exist during candidate generation/compression.
                     create_covisit_source_candidates(connection, covisit_dir=covisit,
                                                      source_k=config.source_k)
+                    if search_index is None:
+                        raise RuntimeError("candidate search index was not initialized")
                     append_item2vec_candidates(
                         connection, items_path=cache / "items.parquet", vectors=embedding,
                         index=search_index, bucket=bucket, ann_k=config.item2vec_k,

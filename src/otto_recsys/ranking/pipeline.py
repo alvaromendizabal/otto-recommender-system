@@ -177,7 +177,7 @@ def run_ranking(
         ledger = pl.read_parquet(query_paths)
         if ledger.select("session", "objective").is_duplicated().any():
             raise ValueError("duplicate full-query ledger entries")
-        folds = []
+        folds: list[dict[str, Any]] = []
         for outer in outer_folds:
             results = {}
             for objective in OBJECTIVES:
@@ -215,6 +215,7 @@ def run_ranking(
                     fit, inner, outer_sessions=outer_ids, objective=objective,
                     directory=directory, config=config, logger=logger, publish=publish_model,
                 )
+                model.free_dataset()
                 del fit, inner
                 temporary_model = directory / "model.txt.tmp"
                 model.save_model(str(temporary_model), num_iteration=state["best_iteration"])
