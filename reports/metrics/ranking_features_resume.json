@@ -1,0 +1,72 @@
+{
+  "all_roles_nonempty": true,
+  "attempt_elapsed_seconds": 2.623497843997029,
+  "bytes": 29913902,
+  "completed_at_utc": "2026-09-07T02:00:27.972+00:00",
+  "completed_buckets": 32,
+  "contract_sha256": "ed85d0ca570a7e68de19b8fa043126e9b4125fd8e61f401d77b01a835e912810",
+  "input_id": "82e8eac76c63d4d8a34b611bca0f3ae329623ff5cd80e18ca8bc238ddbd65795",
+  "official_denominators": [
+    {
+      "labeled_queries": 88042,
+      "objective": "carts",
+      "recall_denominator": 165116,
+      "true_items": 165973
+    },
+    {
+      "labeled_queries": 501107,
+      "objective": "clicks",
+      "recall_denominator": 501107,
+      "true_items": 501107
+    },
+    {
+      "labeled_queries": 45691,
+      "objective": "orders",
+      "recall_denominator": 97828,
+      "true_items": 98017
+    }
+  ],
+  "parts_sha256": "aa5968c8d67f4c555d1262efd28d63f39b2f2fcbb2eebc50cb3cbad2b31fa2a5",
+  "ranking_model_trained": false,
+  "retained_compute_seconds": 7.409946000967466,
+  "reused_buckets": 32,
+  "rows": {
+    "items": 1544172,
+    "queries": 1547106,
+    "sessions": 515702
+  },
+  "split_counts": [
+    {
+      "fit": 329808,
+      "inner": 82426,
+      "outer": 103468,
+      "outer_fold": 0
+    },
+    {
+      "fit": 330159,
+      "inner": 82652,
+      "outer": 102891,
+      "outer_fold": 1
+    },
+    {
+      "fit": 330253,
+      "inner": 82583,
+      "outer": 102866,
+      "outer_fold": 2
+    },
+    {
+      "fit": 329422,
+      "inner": 82789,
+      "outer": 103491,
+      "outer_fold": 3
+    },
+    {
+      "fit": 330282,
+      "inner": 82434,
+      "outer": 102986,
+      "outer_fold": 4
+    }
+  ],
+  "status": "passed",
+  "untouched_temporal_holdout": false
+}

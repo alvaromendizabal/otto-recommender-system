@@ -1,0 +1,9 @@
+{
+  "bytes": 29953852,
+  "input_id": "82e8eac76c63d4d8a34b611bca0f3ae329623ff5cd80e18ca8bc238ddbd65795",
+  "objects": 131,
+  "status": "passed",
+  "timestamp": "2026-09-07T02:08:26.951Z",
+  "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/features/82e8eac76c63d4d8a34b611bca0f3ae329623ff5cd80e18ca8bc238ddbd65795/",
+  "verification": "Authenticated S3 inventory matched all expected object keys and byte sizes; completed manifest read back."
+}
