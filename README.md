@@ -95,6 +95,27 @@ These commands check the code and published milestones; they do not start paid
 training. The status command does not query live AWS jobs. Existing artifacts
 should be restored and verified rather than recomputed because a report changed.
 
+### Run the notebooks
+
+From the repository root in SageMaker Studio or Linux, use the separate analysis
+kernel rather than changing the model-training environment:
+
+```bash
+uv venv "$HOME/.venvs/otto-notebooks" --python 3.12.13 --no-project
+uv pip install --python "$HOME/.venvs/otto-notebooks/bin/python" -r notebooks/requirements.txt
+"$HOME/.venvs/otto-notebooks/bin/python" scripts/execute_notebooks.py
+```
+
+The last command executes all seven notebooks with their committed evidence,
+without fetching training data or starting cloud jobs. Results keep their
+canonical filenames under `artifacts/notebooks/`; the committed originals remain
+unchanged. Repeating the last command verifies and reuses successful outputs.
+UTC logs, per-notebook receipts, and the final manifest are in the same directory.
+CI runs this workflow and its reuse check on every change. Private filesystem
+sockets keep the local kernels off TCP; notebook and kernel warnings fail the
+execution gate rather than being hidden. CI output archives expire after 30 days;
+the canonical notebooks and compact evidence remain versioned in the repository.
+
 ## Remaining modeling work
 
 Materialize complete, label-blind baseline candidate features; connect the

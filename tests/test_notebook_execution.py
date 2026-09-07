@@ -41,3 +41,28 @@ def test_notebook_outputs_reject_incomplete_or_noisy_results(mutation: str) -> N
         cell["source"] = [""]
     with pytest.raises(ValueError):
         EXECUTOR["validate_outputs"](value)
+
+
+def test_configuration_is_copied_and_hashed(tmp_path: Path) -> None:
+    root, workspace = tmp_path / "source", tmp_path / "workspace"
+    for name in ("reports", "configs"):
+        (root / name).mkdir(parents=True)
+    config = root / "configs/two_tower_ann.toml"
+    config.write_text("[benchmark]\nk = 800\n")
+    initial = EXECUTOR["input_checksums"](root)
+    EXECUTOR["prepare_workspace"](root, workspace)
+    assert (workspace / "configs/two_tower_ann.toml").read_bytes() == config.read_bytes()
+    assert (workspace / "notebooks").is_dir()
+    config.write_text("[benchmark]\nk = 400\n")
+    assert initial != EXECUTOR["input_checksums"](root)
+    assert "800" in (workspace / "configs/two_tower_ann.toml").read_text()
+
+
+@pytest.mark.parametrize("message", [
+    "[IPKernelApp] WARNING | Kernel is running over TCP without encryption.",
+    "FutureWarning: obsolete API",
+])
+def test_kernel_startup_warnings_fail(message: str) -> None:
+    with pytest.raises(ValueError, match="kernel emitted a warning"):
+        EXECUTOR["validate_kernel_log"](message)
+    EXECUTOR["validate_kernel_log"]("")

@@ -15,11 +15,12 @@ import tempfile
 import threading
 import time
 from datetime import UTC, datetime
-from importlib.metadata import version
+from importlib.metadata import distributions
 from pathlib import Path
 from typing import Any
 
-WARNING = re.compile(r"\b(?:\w*Warning):")
+WARNING = re.compile(r"\b(?:\w*Warning):|\bWARNING\s*[|:]")
+INPUT_DIRECTORIES = ("reports", "configs")
 
 
 def sha256(path: Path) -> str:
@@ -68,6 +69,32 @@ def valid_receipt(output: Path, input_id: str) -> dict[str, Any] | None:
         return None
 
 
+def input_checksums(root: Path) -> dict[str, str]:
+    """Hash the same evidence/configuration trees copied into execution workspaces."""
+    checksums = {}
+    for name in INPUT_DIRECTORIES:
+        directory = root / name
+        if not directory.is_dir():
+            raise FileNotFoundError(directory)
+        for path in sorted(directory.rglob("*")):
+            if path.is_file():
+                checksums[str(path.relative_to(root))] = sha256(path)
+    return checksums
+
+
+def prepare_workspace(root: Path, workspace: Path) -> None:
+    """Copy compact inputs, not training data; notebook writes stay isolated."""
+    for name in INPUT_DIRECTORIES:
+        shutil.copytree(root / name, workspace / name)
+    (workspace / "notebooks").mkdir()
+
+
+def validate_kernel_log(text: str) -> None:
+    """Kernel startup warnings live outside notebook output and must also fail."""
+    if WARNING.search(text):
+        raise ValueError(f"kernel emitted a warning: {text.strip()}")
+
+
 def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
     """Keep source/evidence untouched; commit each successful notebook independently."""
     if timeout <= 0:
@@ -88,12 +115,10 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
     nbformat = importlib.import_module("nbformat")
     nbclient = importlib.import_module("nbclient")
     manager = importlib.import_module("jupyter_client")
-    runtime = {name: version(name) for name in (
-        "nbformat", "nbclient", "ipykernel", "numpy", "pandas", "matplotlib", "ipython",
-    )}
+    runtime = {distribution.metadata["Name"]: distribution.version
+               for distribution in distributions()}
     runtime["python"] = sys.version
-    dependencies = {str(p.relative_to(root)): sha256(p)
-                    for p in sorted((root / "reports").rglob("*")) if p.is_file()}
+    dependencies = input_checksums(root)
     dependencies["notebooks/requirements.txt"] = sha256(root / "notebooks/requirements.txt")
     dependencies["executor"] = sha256(Path(__file__))
     sources = sorted((root / "notebooks").glob("[0-9][0-9]_*.ipynb"))
@@ -131,10 +156,12 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
         try:
             with tempfile.TemporaryDirectory(prefix="otto-notebooks-") as temporary:
                 workspace = Path(temporary)
-                shutil.copytree(root / "reports", workspace / "reports")
-                (workspace / "notebooks").mkdir()
+                prepare_workspace(root, workspace)
                 # Bind the kernel to this exact analysis interpreter, not a user's default kernel.
-                kernel = manager.KernelManager(kernel_name="python3")
+                # Private filesystem sockets avoid exposing local outputs over plaintext TCP.
+                kernel = manager.KernelManager(
+                    kernel_name="python3", transport="ipc", ip=str(workspace / "kernel"),
+                )
                 kernel.kernel_spec.argv = [
                     sys.executable, "-Xfrozen_modules=off", "-m", "ipykernel_launcher",
                     "-f", "{connection_file}",
@@ -144,7 +171,15 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
                     force_raise_errors=True, ipython_hist_file=":memory:",
                     resources={"metadata": {"path": str(workspace / "notebooks")}},
                 )
-                result = client.execute(cleanup_kc=True)
+                kernel_log = workspace / "kernel.log"
+                try:
+                    with kernel_log.open("w", encoding="utf-8") as kernel_stderr:
+                        result = client.execute(cleanup_kc=True, stderr=kernel_stderr)
+                finally:
+                    startup = kernel_log.read_text()
+                    if startup.strip():
+                        emit("kernel_stderr", notebook=source.name, text=startup)
+                validate_kernel_log(startup)
                 cells = validate_outputs(result)
                 atomic_json(destination, result)
                 receipt = {
@@ -178,7 +213,7 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
 def execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
     """Prevent concurrent writers and accidental modification of input evidence."""
     root, output = root.resolve(), output.resolve()
-    if any(output.is_relative_to(root / name) for name in ("notebooks", "reports")):
+    if any(output.is_relative_to(root / name) for name in ("notebooks", *INPUT_DIRECTORIES)):
         raise ValueError("execution outputs must be separate from source notebooks and evidence")
     output.mkdir(parents=True, exist_ok=True)
     with (output / ".lock").open("a") as handle:
