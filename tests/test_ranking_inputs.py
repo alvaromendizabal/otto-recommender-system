@@ -145,7 +145,9 @@ def test_absent_cache_restored_without_feature_computation(stored):
     assert result["feature_computation_performed"] is False
     assert result["parts_sha256"] == stored.report["parts_sha256"]
     assert all(valid_part(stored.observed, bucket, stored.identity) for bucket in range(2))
-    assert sha256_file(stored.observed / "feature_contract.json") == stored.report["contract_sha256"]
+    assert (
+        sha256_file(stored.observed / "feature_contract.json") == stored.report["contract_sha256"]
+    )
 
 
 def test_complete_cache_reuse_needs_no_network_and_preserves_bytes_mtimes(stored):
@@ -228,7 +230,7 @@ def test_bad_remote_evidence_never_commits_a_bucket(stored, artifact):
     else:
         path = stored.remote / "parts/part-000/queries.parquet"
         raw = bytearray(path.read_bytes())
-        raw[len(raw) // 2] ^= 1  # Same byte size does not satisfy SHA-256.
+        raw[len(raw) // 2] ^= 1
         path.write_bytes(raw)
     with pytest.raises(ValueError):
         restore(stored)
@@ -292,7 +294,9 @@ def test_preflight_reports_all_missing_upstream_paths_together(stored):
 
 
 def load_cli():
-    spec = importlib.util.spec_from_file_location("ranking_cli_regression", ROOT / "scripts/run_ranking.py")
+    spec = importlib.util.spec_from_file_location(
+        "ranking_cli_regression", ROOT / "scripts/run_ranking.py"
+    )
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

@@ -157,7 +157,9 @@ def restore_observed_features(
 
                 remote_contract = download("feature_contract.json")
                 if sha256_file(remote_contract) != report["contract_sha256"]:
-                    raise ValueError("Remote feature contract checksum differs from published audit")
+                    raise ValueError(
+                        "Remote feature contract checksum differs from published audit"
+                    )
                 receipts = [_json(download(f"parts/part-{bucket:03d}.json"))
                             for bucket in range(contract["buckets"])]
                 _verify_receipts(receipts, report)
@@ -176,7 +178,9 @@ def restore_observed_features(
                             continue
                         incoming = download(relative)
                         if not _matches(incoming, expected):
-                            raise ValueError(f"Restored feature file failed checksum/row checks: {relative}")
+                            raise ValueError(
+                                f"Restored feature file failed checksum/row checks: {relative}"
+                            )
                         target.parent.mkdir(parents=True, exist_ok=True)
                         incoming.replace(target)
                         progress["downloaded_files"] += 1
@@ -188,7 +192,9 @@ def restore_observed_features(
                     relative_receipt = f"parts/part-{bucket:03d}.json"
                     _copy_atomic(staging / relative_receipt, directory / relative_receipt)
                     if valid_part(directory, bucket, identity) is None:
-                        raise ValueError(f"Restored feature bucket {bucket} failed final verification")
+                        raise ValueError(
+                            f"Restored feature bucket {bucket} failed final verification"
+                        )
                     restored += 1
                     logger.info("ranking_input_bucket_restored", extra={"bucket": bucket})
         # Missing metadata alone never requires rebuilding or downloading valid feature data.

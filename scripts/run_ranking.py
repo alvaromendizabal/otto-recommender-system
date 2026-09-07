@@ -21,7 +21,9 @@ from otto_recsys.runtime import Heartbeat
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", choices=("preflight", "candidates", "train", "all"), default="all")
+    parser.add_argument(
+        "--stage", choices=("preflight", "candidates", "train", "all"), default="all"
+    )
     parser.add_argument(
         "--ranking-cache", type=Path, default=Path("data/interim/ranking_training_cache")
     )
@@ -54,7 +56,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--publish-report", action="store_true")
     parser.add_argument("--execute-notebooks", action="store_true")
     args = parser.parse_args(argv)
-    if args.execute_notebooks and (not args.publish_report or args.stage in {"candidates", "preflight"}):
+    if args.execute_notebooks and (
+        not args.publish_report or args.stage in {"candidates", "preflight"}
+    ):
         parser.error("--execute-notebooks requires --publish-report and a ranking stage")
     started = time.perf_counter()
     logger = configure_logging("ranking", log_dir=args.output_dir / "logs")
