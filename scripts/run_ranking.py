@@ -8,6 +8,7 @@ import subprocess
 import time
 from pathlib import Path
 
+from otto_recsys.cloud.ranking_inputs import prepare_ranking_inputs
 from otto_recsys.cloud.ranking_stage import S3CandidateCheckpoints, S3ModelCheckpoints
 from otto_recsys.logging_utils import configure_logging
 from otto_recsys.ranking.candidates import CandidateConfig, build_candidates
@@ -18,14 +19,19 @@ from otto_recsys.ranking.reporting import write_ranking_notebook
 from otto_recsys.runtime import Heartbeat
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", choices=("candidates", "train", "all"), default="all")
+    parser.add_argument("--stage", choices=("preflight", "candidates", "train", "all"), default="all")
     parser.add_argument(
         "--ranking-cache", type=Path, default=Path("data/interim/ranking_training_cache")
     )
     parser.add_argument(
         "--observed-features", type=Path, default=Path("data/interim/ranking_features")
+    )
+    parser.add_argument(
+        "--feature-evidence", type=Path,
+        default=Path(__file__).resolve().parents[1] / "reports/metrics",
+        help="Committed feature publication, contract, summary and independent audit directory",
     )
     parser.add_argument("--covisit-dir", type=Path, default=Path("data/interim/covisit"))
     parser.add_argument("--vectors", type=Path, default=Path("models/item2vec/item_vectors.kv"))
@@ -47,8 +53,8 @@ def main() -> int:
     parser.add_argument("--rounds", type=int, default=300)
     parser.add_argument("--publish-report", action="store_true")
     parser.add_argument("--execute-notebooks", action="store_true")
-    args = parser.parse_args()
-    if args.execute_notebooks and (not args.publish_report or args.stage == "candidates"):
+    args = parser.parse_args(argv)
+    if args.execute_notebooks and (not args.publish_report or args.stage in {"candidates", "preflight"}):
         parser.error("--execute-notebooks requires --publish-report and a ranking stage")
     started = time.perf_counter()
     logger = configure_logging("ranking", log_dir=args.output_dir / "logs")
@@ -59,6 +65,14 @@ def main() -> int:
     succeeded = False
     try:
         logger.info("ranking_pipeline_start", extra={"stage": args.stage})
+        if args.stage in {"preflight", "candidates", "all"}:
+            readiness = prepare_ranking_inputs(
+                args.ranking_cache, args.observed_features, args.covisit_dir,
+                args.vectors, args.index, evidence=args.feature_evidence,
+                region=args.region, logger=logger,
+            )
+            write_json(args.output_dir / "input_readiness.json", readiness)
+            print(json.dumps(readiness, indent=2), flush=True)
         if args.stage in {"candidates", "all"}:
             candidate_logger = configure_logging(
                 "ranking_candidates", log_dir=args.candidate_dir / "logs"
@@ -72,6 +86,7 @@ def main() -> int:
                                        memory_limit=args.memory_limit),
                 logger=candidate_logger, checkpoints=candidate_store,
             )
+            candidate_store.upload(args.output_dir / "input_readiness.json", "input_readiness.json")
             print(json.dumps(candidates, indent=2), flush=True)
         if args.stage in {"train", "all"}:
             result = run_ranking(
@@ -105,14 +120,15 @@ def main() -> int:
                                        "notebooks/" + executed.with_suffix(".json").name)
             print(json.dumps(result, indent=2), flush=True)
         succeeded = True
-    except BaseException:
-        logger.exception("ranking_pipeline_failed", extra={
+    except BaseException as error:
+        logger.exception("ranking_pipeline_failed: %s", error, extra={
             "elapsed_seconds": round(time.perf_counter() - started, 3)
         })
         raise
     finally:
         logger.info("ranking_pipeline_complete", extra={
-            "elapsed_seconds": round(time.perf_counter() - started, 3)
+            "status": "passed" if succeeded else "failed",
+            "elapsed_seconds": round(time.perf_counter() - started, 3),
         })
         try:
             if candidate_store.uri is not None:
@@ -123,7 +139,8 @@ def main() -> int:
             logger.exception("ranking_final_publication_failed")
             if succeeded:
                 raise
-    print("OTTO_RANKING_PIPELINE_PASSED", flush=True)
+    print("OTTO_RANKING_PREFLIGHT_PASSED" if args.stage == "preflight"
+          else "OTTO_RANKING_PIPELINE_PASSED", flush=True)
     return 0
 
 
