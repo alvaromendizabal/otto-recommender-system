@@ -1,0 +1,367 @@
+{
+  "ann_serving_benchmark": "Latency is evaluated separately by the ANN benchmark.",
+  "bootstrap": {
+    "confidence": 0.95,
+    "iterations": 500,
+    "method": "paired percentile",
+    "seed": 20260906,
+    "unit": "session"
+  },
+  "completed_bucket_compute_seconds": 332.71825573899696,
+  "contract": {
+    "ann_k": 800,
+    "baseline_checksums": [
+      "d65aa5c536bf377562cd0ed469f69c4841f566c3c0981f8e88b08428d5061e80",
+      "9b64f0630e091d686766dfdb361ac1f3f46e3d0340e377d1b0fb2562f02fad13",
+      "0b36767556d1ff71d67065a5999eb3477153450099605471f08aae7fd9d2474f",
+      "9593a47361d0cfa1ef16a909f1a1760ac0abd05699fc5ef39fcd6ff46816f37b",
+      "325363e8fd05ecb67fd5e8b4c9ffdddf45ade3cd1fd606dfe4dd292f381a78a8",
+      "244e18058c82c1a108d4b042103de09216c5d53bfaba3efce5a93f9dda81a7b9",
+      "d4ebbc3fd915e6988e44e5df67778135fc7e2d2a4ab33da80639005ea5d6af36",
+      "226b4316b2f3c539e18635fbf6548b2c819fa9124425a32c63adfd1d75f7b377",
+      "293b7c882bd27fcad6e7a662be1e77fbdb9252cb98c1f7899466c090733146fb",
+      "9ef461e842ffb55b5ebe4daacb81c857519c1cec4b78dc7e733a9d69c9f1572f",
+      "930c45aa89b9675d6046af705786e28935a2908cbdcdf5d861e8a3d138441f91",
+      "9083575013d03c0bee4930a785346f49fcd23f3640971741f5cd654bee15f5cc",
+      "a260fbda128a99a4a92cc9924055ee59f9fc72b8a5f90f1d000bfe751cf4a468",
+      "0b0d137aaad8520d84c60b851288f79dafbae25df0818dbaf23fdeb60ddf6774"
+    ],
+    "baseline_source_sha256": "f0791f6e716f2e3cf745005de3edba25e9a805e008b93cdee15994de9066fc2c",
+    "bootstrap_iterations": 500,
+    "bootstrap_seed": 20260906,
+    "comparison_source_sha256": "b4f0193adcf34486263a5ac05a0b178ad622e5a2dd578125ccc8c4e59d561414",
+    "depths": [
+      20,
+      50,
+      100,
+      200,
+      400,
+      800
+    ],
+    "ef_search": 1024,
+    "metric": "per-session hits and denominators capped at 20",
+    "prediction_input_id": "0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9",
+    "runtime": {
+      "duckdb": "1.5.5",
+      "faiss": "1.15.0",
+      "memory_limit": "4GB",
+      "numpy": "2.5.2",
+      "threads": 4
+    },
+    "schema_version": 1,
+    "source_k": 1200
+  },
+  "elapsed_seconds_this_attempt": 399.952,
+  "generalization": "Fold used for checkpoint selection; exploratory validation, not an untouched test set.",
+  "input_id": "f9a921f625ca76d5b614df78ac8625b8dfafd3b67829fb6a213322b5f6ac1832",
+  "interpretation": "Fixed base discovery pool plus neural top-K; union is an ideal top-20 ceiling, not ranked Recall@20.",
+  "points": [
+    {
+      "neural_k": 20,
+      "objectives": {
+        "carts": {
+          "base_ceiling": 0.6258787540077065,
+          "denominator": 33997,
+          "incremental_ceiling": 0.0010000882430802882,
+          "incremental_ci95": [
+            0.00067183186354441,
+            0.0013112656772193093
+          ],
+          "neural_ceiling": 0.21087154748948436,
+          "neural_only_positive_hits": 34,
+          "union_ceiling": 0.6268788422507868
+        },
+        "clicks": {
+          "base_ceiling": 0.7670521783231734,
+          "denominator": 100559,
+          "incremental_ceiling": 0.004186596923199337,
+          "incremental_ci95": [
+            0.0037823736311270893,
+            0.004576122056662932
+          ],
+          "neural_ceiling": 0.3332372040294752,
+          "neural_only_positive_hits": 421,
+          "union_ceiling": 0.7712387752463727
+        },
+        "orders": {
+          "base_ceiling": 0.7784586260150451,
+          "denominator": 20073,
+          "incremental_ceiling": 0.0004981816370248637,
+          "incremental_ci95": [
+            0.000197734461791718,
+            0.0008005078229822128
+          ],
+          "neural_ceiling": 0.20151447217655558,
+          "neural_only_positive_hits": 10,
+          "union_ceiling": 0.77895680765207
+        }
+      },
+      "weighted_base_ceiling": 0.7315440196436563,
+      "weighted_incremental_ceiling": 0.0010175951474589383,
+      "weighted_incremental_ci95": [
+        0.0007686198294320341,
+        0.0012435545076927416
+      ],
+      "weighted_neural_ceiling": 0.21749386795572617,
+      "weighted_union_ceiling": 0.7325616147911154
+    },
+    {
+      "neural_k": 50,
+      "objectives": {
+        "carts": {
+          "base_ceiling": 0.6258787540077065,
+          "denominator": 33997,
+          "incremental_ceiling": 0.002147248286613501,
+          "incremental_ci95": [
+            0.0016568672631946523,
+            0.002617437821431075
+          ],
+          "neural_ceiling": 0.23452069300232373,
+          "neural_only_positive_hits": 73,
+          "union_ceiling": 0.62802600229432
+        },
+        "clicks": {
+          "base_ceiling": 0.7670521783231734,
+          "denominator": 100559,
+          "incremental_ceiling": 0.005906979981901261,
+          "incremental_ci95": [
+            0.005450471093650909,
+            0.006354281471924654
+          ],
+          "neural_ceiling": 0.38210403842520313,
+          "neural_only_positive_hits": 594,
+          "union_ceiling": 0.7729591583050747
+        },
+        "orders": {
+          "base_ceiling": 0.7784586260150451,
+          "denominator": 20073,
+          "incremental_ceiling": 0.0008469087829422461,
+          "incremental_ci95": [
+            0.0004502409193350732,
+            0.0013014602993096241
+          ],
+          "neural_ceiling": 0.22766900812036067,
+          "neural_only_positive_hits": 17,
+          "union_ceiling": 0.7793055347979874
+        }
+      },
+      "weighted_base_ceiling": 0.7315440196436563,
+      "weighted_incremental_ceiling": 0.0017430177539395242,
+      "weighted_incremental_ci95": [
+        0.001436077386262722,
+        0.0020701107515348283
+      ],
+      "weighted_neural_ceiling": 0.24516801661543383,
+      "weighted_union_ceiling": 0.7332870373975959
+    },
+    {
+      "neural_k": 100,
+      "objectives": {
+        "carts": {
+          "base_ceiling": 0.6258787540077065,
+          "denominator": 33997,
+          "incremental_ceiling": 0.0030885078095126417,
+          "incremental_ci95": [
+            0.002499524973645531,
+            0.003668801804317946
+          ],
+          "neural_ceiling": 0.2549930876253787,
+          "neural_only_positive_hits": 105,
+          "union_ceiling": 0.6289672618172192
+        },
+        "clicks": {
+          "base_ceiling": 0.7670521783231734,
+          "denominator": 100559,
+          "incremental_ceiling": 0.00809475034556828,
+          "incremental_ci95": [
+            0.007586143975573969,
+            0.008666859399908725
+          ],
+          "neural_ceiling": 0.4218319593472489,
+          "neural_only_positive_hits": 814,
+          "union_ceiling": 0.7751469286687417
+        },
+        "orders": {
+          "base_ceiling": 0.7784586260150451,
+          "denominator": 20073,
+          "incremental_ceiling": 0.0014447267473720604,
+          "incremental_ci95": [
+            0.0009072232415994452,
+            0.0020844767651342294
+          ],
+          "neural_ceiling": 0.24948936382204953,
+          "neural_only_positive_hits": 29,
+          "union_ceiling": 0.7799033527624172
+        }
+      },
+      "weighted_base_ceiling": 0.7315440196436563,
+      "weighted_incremental_ceiling": 0.002602863425833857,
+      "weighted_incremental_ci95": [
+        0.0021907043054538453,
+        0.0030674705536080653
+      ],
+      "weighted_neural_ceiling": 0.2683747405155682,
+      "weighted_union_ceiling": 0.7341468830694902
+    },
+    {
+      "neural_k": 200,
+      "objectives": {
+        "carts": {
+          "base_ceiling": 0.6258787540077065,
+          "denominator": 33997,
+          "incremental_ceiling": 0.005441656616760326,
+          "incremental_ci95": [
+            0.004699988344062127,
+            0.006165386589048176
+          ],
+          "neural_ceiling": 0.27911286289966764,
+          "neural_only_positive_hits": 185,
+          "union_ceiling": 0.6313204106244669
+        },
+        "clicks": {
+          "base_ceiling": 0.7670521783231734,
+          "denominator": 100559,
+          "incremental_ceiling": 0.011257072962141734,
+          "incremental_ci95": [
+            0.01059373419350773,
+            0.011914524955023984
+          ],
+          "neural_ceiling": 0.4641752602949512,
+          "neural_only_positive_hits": 1132,
+          "union_ceiling": 0.7783092512853151
+        },
+        "orders": {
+          "base_ceiling": 0.7784586260150451,
+          "denominator": 20073,
+          "incremental_ceiling": 0.0024909081851242076,
+          "incremental_ci95": [
+            0.0017684613407534056,
+            0.003305928550445569
+          ],
+          "neural_ceiling": 0.2756438997658546,
+          "neural_only_positive_hits": 50,
+          "union_ceiling": 0.7809495342001693
+        }
+      },
+      "weighted_base_ceiling": 0.7315440196436563,
+      "weighted_incremental_ceiling": 0.004252749192316796,
+      "weighted_incremental_ci95": [
+        0.003644798846937091,
+        0.0048461816138334265
+      ],
+      "weighted_neural_ceiling": 0.29553772475890816,
+      "weighted_union_ceiling": 0.7357967688359731
+    },
+    {
+      "neural_k": 400,
+      "objectives": {
+        "carts": {
+          "base_ceiling": 0.6258787540077065,
+          "denominator": 33997,
+          "incremental_ceiling": 0.008559578786363486,
+          "incremental_ci95": [
+            0.007505437326288377,
+            0.009498677935336501
+          ],
+          "neural_ceiling": 0.3075859634673648,
+          "neural_only_positive_hits": 291,
+          "union_ceiling": 0.63443833279407
+        },
+        "clicks": {
+          "base_ceiling": 0.7670521783231734,
+          "denominator": 100559,
+          "incremental_ceiling": 0.016527610656430602,
+          "incremental_ci95": [
+            0.015700343787942106,
+            0.01733034069670844
+          ],
+          "neural_ceiling": 0.5106355472906453,
+          "neural_only_positive_hits": 1662,
+          "union_ceiling": 0.783579788979604
+        },
+        "orders": {
+          "base_ceiling": 0.7784586260150451,
+          "denominator": 20073,
+          "incremental_ceiling": 0.003985453096198799,
+          "incremental_ci95": [
+            0.003131268662017698,
+            0.004844826577723713
+          ],
+          "neural_ceiling": 0.3020475265281722,
+          "neural_only_positive_hits": 80,
+          "union_ceiling": 0.7824440791112439
+        }
+      },
+      "weighted_base_ceiling": 0.7315440196436563,
+      "weighted_incremental_ceiling": 0.006611906559271385,
+      "weighted_incremental_ci95": [
+        0.005871373468225267,
+        0.007276024498496324
+      ],
+      "weighted_neural_ceiling": 0.32456785968617724,
+      "weighted_union_ceiling": 0.7381559262029278
+    },
+    {
+      "neural_k": 800,
+      "objectives": {
+        "carts": {
+          "base_ceiling": 0.6258787540077065,
+          "denominator": 33997,
+          "incremental_ceiling": 0.012618760478865787,
+          "incremental_ci95": [
+            0.011291927508019627,
+            0.01394284006061889
+          ],
+          "neural_ceiling": 0.3401476600876548,
+          "neural_only_positive_hits": 429,
+          "union_ceiling": 0.6384975144865723
+        },
+        "clicks": {
+          "base_ceiling": 0.7670521783231734,
+          "denominator": 100559,
+          "incremental_ceiling": 0.02354836464165322,
+          "incremental_ci95": [
+            0.022614767088465805,
+            0.024494247854936896
+          ],
+          "neural_ceiling": 0.5592239381855428,
+          "neural_only_positive_hits": 2368,
+          "union_ceiling": 0.7906005429648266
+        },
+        "orders": {
+          "base_ceiling": 0.7784586260150451,
+          "denominator": 20073,
+          "incremental_ceiling": 0.006874906590943031,
+          "incremental_ci95": [
+            0.005744922219703057,
+            0.008032394003005058
+          ],
+          "neural_ceiling": 0.3317391520948538,
+          "neural_only_positive_hits": 138,
+          "union_ceiling": 0.7853335326059881
+        }
+      },
+      "weighted_base_ceiling": 0.7315440196436563,
+      "weighted_incremental_ceiling": 0.010265408562390875,
+      "weighted_incremental_ci95": [
+        0.009283128871508544,
+        0.011173475051778691
+      ],
+      "weighted_neural_ceiling": 0.35701018310176297,
+      "weighted_union_ceiling": 0.7418094282060472
+    }
+  ],
+  "prediction_input_id": "0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9",
+  "prediction_search": {
+    "dtype": "float32",
+    "k": 800,
+    "method": "faiss_ivfflat",
+    "nlist": 1024,
+    "nprobe": 256,
+    "tie_break": "ascending aid within returned candidate pool"
+  },
+  "schema_version": 1,
+  "sessions": 103468,
+  "status": "passed",
+  "validation_fold": 0
+}

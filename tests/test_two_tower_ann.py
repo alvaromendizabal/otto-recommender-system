@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import copy
 import importlib.util
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -306,3 +308,121 @@ def test_monitor_reports_terminal_status_and_billable_time(
         == expected
     )
     assert '"billable_seconds": 10' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("state", ["Executing", "Stopping", "Succeeded", "Failed", "Stopped"])
+@pytest.mark.parametrize("start", [False, True])
+def test_reporting_commit_reuses_durable_run_without_rebuilding(
+    launcher: ModuleType,
+    monkeypatch: pytest.MonkeyPatch,
+    state: str,
+    start: bool,
+) -> None:
+    monkeypatch.setattr(sys, "argv", ["ann", "--bucket", "bucket"] + (["--start"] if start else []))
+    original_s3, original_match = launcher.s3_json, launcher.matching_run
+    saved, writes, starts = {}, [], []
+
+    def matching(**kwargs: object) -> dict | None:
+        previous = copy.deepcopy(kwargs["contract"])
+        previous["code_commit"] = "d" * 40
+        identity = canonical_sha256(previous)
+        saved.update(
+            contract=previous,
+            pointer={
+                "run_id": identity,
+                "validation_fold": 0,
+                "region": "us-west-2",
+                "pipeline_name": f"otto-ann-fold-0-{identity[:24]}",
+                "checkpoint_key": f"retrieval/two-tower/ann/fold-0/{identity}/checkpoints/",
+                "pipeline_execution_arn": "existing/ann",
+            },
+        )
+        return original_match(**kwargs)
+
+    def s3(bucket: str, key: str) -> dict:
+        if key == "retrieval/two-tower/ann/fold-0/latest.json":
+            return saved["pointer"]
+        if "/ann/fold-0/" in key and key.endswith("control/run_manifest.json"):
+            return saved["contract"]
+        return original_s3(bucket, key)
+
+    def aws(arguments: list[str]) -> dict:
+        if arguments[1] == "start-pipeline-execution":
+            starts.append(arguments)
+            return {"PipelineExecutionArn": "retry/ann"}
+        assert arguments[1] == "describe-pipeline-execution"
+        return {"PipelineExecutionStatus": "Succeeded"}
+
+    def no_rebuild(*args: object, **kwargs: object) -> None:
+        pytest.fail("matching worker must not upload, rebuild, or update its pipeline")
+
+    monkeypatch.setattr(launcher, "matching_run", matching)
+    monkeypatch.setattr(launcher, "s3_json", s3)
+    monkeypatch.setattr(launcher, "object_keys", lambda bucket, prefix: {prefix})
+    monkeypatch.setattr(launcher, "aws_json", aws)
+    monkeypatch.setattr(launcher, "run_command", no_rebuild)
+    monkeypatch.setattr(launcher, "validate_ann_catalogue", no_rebuild)
+    monkeypatch.setattr(launcher, "put_json_s3", lambda *a, **k: writes.append((a, k)))
+    monkeypatch.setattr(
+        launcher,
+        "pipeline_executions",
+        lambda name: [{"PipelineExecutionStatus": state, "PipelineExecutionArn": "existing/ann"}],
+    )
+    assert launcher.main() == 0
+    retry = start and state in {"Failed", "Stopped"}
+    assert len(starts) == len(writes) == int(retry)
+    if retry:
+        assert starts[0][3] == saved["pointer"]["pipeline_name"]
+    if start or state in {"Executing", "Stopping", "Succeeded"}:
+        local = json.loads(Path("artifacts/two_tower_ann/latest.json").read_text())
+        assert local["run_id"] == saved["pointer"]["run_id"]
+        assert local["checkpoint_key"] == saved["pointer"]["checkpoint_key"]
+
+
+@pytest.mark.parametrize("changed", ["source_sha256", "parameters", "reference_input_id"])
+def test_matching_run_rejects_changed_experiment_inputs(
+    launcher: ModuleType,
+    monkeypatch: pytest.MonkeyPatch,
+    changed: str,
+) -> None:
+    previous = {
+        "code_commit": "a" * 40,
+        "source_sha256": "b" * 64,
+        "training_run_id": "training",
+        "reference_run_id": "reference",
+        "reference_input_id": "input",
+        "reference_manifest_sha256": "hash",
+        "training_definition": {},
+        "max_runtime_seconds": 7200,
+        "sample_sessions": 4096,
+        "parameters": {"threads": "4"},
+    }
+    identity = canonical_sha256(previous)
+    pointer = {
+        "run_id": identity,
+        "validation_fold": 0,
+        "region": "us-west-2",
+        "pipeline_name": f"otto-ann-fold-0-{identity[:24]}",
+        "checkpoint_key": f"retrieval/two-tower/ann/fold-0/{identity}/checkpoints/",
+    }
+    monkeypatch.setattr(launcher, "object_keys", lambda bucket, prefix: {prefix})
+    monkeypatch.setattr(
+        launcher,
+        "s3_json",
+        lambda bucket, key: pointer if key.endswith("latest.json") else previous,
+    )
+    current = copy.deepcopy(previous)
+    current[changed] = {"threads": "8"} if changed == "parameters" else "c" * 64
+    assert (
+        launcher.matching_run(bucket="bucket", fold=0, region="us-west-2", contract=current) is None
+    )
+    pointer["run_id"] = "e" * 64
+    with pytest.raises(ValueError, match="pointer"):
+        launcher.matching_run(bucket="bucket", fold=0, region="us-west-2", contract=current)
+
+
+def test_same_experiment_requires_complete_content_contract() -> None:
+    from otto_recsys.cloud.two_tower_ann import same_ann_experiment
+
+    with pytest.raises(ValueError, match="incomplete"):
+        same_ann_experiment({"code_commit": "old"}, {"code_commit": "new"})
