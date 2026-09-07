@@ -38,7 +38,12 @@ from otto_recsys.cloud.source_preflight import (
     validate_ann_launch,
     verify_uploaded_source_roundtrip,
 )
-from otto_recsys.cloud.two_tower_ann import ann_definition, load_ann_parameters, stage_ann_source
+from otto_recsys.cloud.two_tower_ann import (
+    ann_definition,
+    load_ann_parameters,
+    same_ann_experiment,
+    stage_ann_source,
+)
 from otto_recsys.cloud.two_tower_fold import write_json_atomic
 from otto_recsys.experiments.manifest import sha256_file
 
@@ -59,6 +64,81 @@ def object_keys(bucket: str, prefix: str) -> set[str]:
             ["s3api", "list-objects-v2", "--bucket", bucket, "--prefix", prefix]
         ).get("Contents", [])
     }
+
+
+def matching_run(
+    *, bucket: str, fold: int, region: str, contract: dict[str, Any]
+) -> dict[str, Any] | None:
+    """Resolve the durable pointer; never depend on local workspace state."""
+    key = f"retrieval/two-tower/ann/fold-{fold}/latest.json"
+    if key not in object_keys(bucket, key):
+        return None
+    pointer = s3_json(bucket, key)
+    run_id = str(pointer.get("run_id", ""))
+    prefix = f"retrieval/two-tower/ann/fold-{fold}/{run_id}/"
+    if (
+        not re.fullmatch(r"[a-f0-9]{64}", run_id)
+        or pointer.get("validation_fold") != fold
+        or pointer.get("region") != region
+        or pointer.get("checkpoint_key") != prefix + "checkpoints/"
+        or pointer.get("pipeline_name") != f"otto-ann-fold-{fold}-{run_id[:24]}"
+    ):
+        raise ValueError("invalid saved ANN pointer; no new compute started")
+    previous = s3_json(bucket, prefix + "control/run_manifest.json")
+    if canonical_sha256(previous) != run_id:
+        raise ValueError("saved ANN contract checksum mismatch; no new compute started")
+    if not same_ann_experiment(previous, contract):
+        return None
+    print(
+        f"[{utc_now()}] ann_matching_experiment run_id={run_id} "
+        f"original_commit={previous['code_commit']} requested_commit={contract['code_commit']}",
+        flush=True,
+    )
+    return pointer
+
+
+def reuse_run(pointer: dict[str, Any], *, args: argparse.Namespace) -> int:
+    """Retain successful/active work or explicitly retry the original pipeline."""
+    executions = pipeline_executions(pointer["pipeline_name"])
+    retained = next(
+        (row for row in executions if row["PipelineExecutionStatus"] in {"Executing", "Stopping"}),
+        None,
+    )
+    if retained is None:
+        retained = next(
+            (row for row in executions if row["PipelineExecutionStatus"] == "Succeeded"), None
+        )
+    if retained is None and not args.start:
+        print("OTTO_ANN_RETRY_AVAILABLE_NO_COMPUTE_STARTED", flush=True)
+        return 0
+    if retained is None:
+        retained = aws_json(
+            [
+                "sagemaker",
+                "start-pipeline-execution",
+                "--pipeline-name",
+                pointer["pipeline_name"],
+                "--client-request-token",
+                execution_token(pointer["run_id"], executions),
+            ]
+        )
+        pointer = {**pointer, "pipeline_execution_arn": retained["PipelineExecutionArn"]}
+        put_json_s3(
+            pointer,
+            bucket=args.bucket,
+            key=f"retrieval/two-tower/ann/fold-{args.fold}/latest.json",
+        )
+        print("OTTO_ANN_RETRY_USES_EXISTING_CHECKPOINTS", flush=True)
+    else:
+        pointer = {**pointer, "pipeline_execution_arn": retained["PipelineExecutionArn"]}
+        print("OTTO_ANN_EXISTING_RUN_RETAINED_NO_COMPUTE_STARTED", flush=True)
+    write_json_atomic(Path("artifacts/two_tower_ann/latest.json"), pointer)
+    print(json.dumps(pointer, indent=2), flush=True)
+    return (
+        watch(pointer, bucket=args.bucket, download=args.download, max_wait=args.max_wait_seconds)
+        if args.watch
+        else 0
+    )
 
 
 def watch(pointer: dict[str, Any], *, bucket: str, download: bool, max_wait: float) -> int:
@@ -292,6 +372,11 @@ def main() -> int:
             region=args.region,
         )
         validate_ann_launch(staged, new_definition)
+        existing_run = matching_run(
+            bucket=args.bucket, fold=args.fold, region=args.region, contract=contract
+        )
+        if existing_run is not None:
+            return reuse_run(existing_run, args=args)
         catalogue_report = validate_ann_catalogue(
             staged,
             new_definition,

@@ -1,4 +1,25 @@
 {
+  "additional_completed_attempts": [
+    {
+      "billable_seconds": 3040,
+      "cause": "Repository commit changed, while the complete worker source archive, input contracts, and settings were unchanged.",
+      "code_commit": "b9c0daebe4849e5d7af2e1abfd498be4de743ae0",
+      "committed_prediction_parts": 96,
+      "committed_reference_parts": 96,
+      "container_startup_messages": 10,
+      "phase": "repeated_unchanged_ann_benchmark",
+      "pipeline_execution_arn": "arn:aws:sagemaker:us-west-2:560403859723:pipeline/otto-ann-fold-0-85985bfeca1b119df1119e1f/execution/dugp0oh4crfy",
+      "ranking_metrics_match_published_run": true,
+      "run_id": "85985bfeca1b119df1119e1ff09d1bee4e7640720275980d7b8e27c1407d8fcd",
+      "source_sha256": "8d700d18b79c6c19702e044d4d1971c4e2f136b254656d6b53621828e8c14a67",
+      "status": "completed",
+      "training_ended_at_utc": "2026-09-07T00:55:20.224000+00:00",
+      "training_job_name": "pipelines-dugp0oh4crfy-BenchmarkANN-GBIBDOKuxY",
+      "training_started_at_utc": "2026-09-07T00:04:40.915000+00:00",
+      "verification": "Live DescribeTrainingJob and GetObject for the run contract and metrics; CloudWatch returned 10 libchangehostname.so loader messages. GetObject of control/reference_reuse.json records 96 published reference parts.",
+      "worker_exit_code": 0
+    }
+  ],
   "ann_checkpoint_bytes": 7718588158,
   "ann_checkpoint_objects": 1176,
   "benchmark_elapsed_seconds": 2710.048,
@@ -47,7 +68,7 @@
     "status": "unresolved in managed image",
     "verification": "Live CloudWatch FilterLogEvents for libchangehostname.so returned 10 startup loader messages. Worker JSON logs contain no WARNING or ERROR records."
   },
-  "interpretation": "The confirmation fidelity gate passed at nprobe=256. All 96 full-fold prediction parts and final metrics are durable. ANN incremental gain beyond the frozen baseline remains unmeasured.",
+  "interpretation": "The accepted benchmark and its frozen-baseline comparison are complete. At K=800, ANN adds 1.02654 percentage points of candidate ceiling; this is not final ranked Recall@20.",
   "phase": "full_fold_ann_export_and_metrics",
   "prediction_export_bytes": 1749577197,
   "preserved_best_model_bytes": 949613446,

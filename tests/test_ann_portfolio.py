@@ -27,7 +27,8 @@ def test_ann_notebook_discloses_scope_and_matches_published_evidence() -> None:
     assert "end-to-end serving latency" in text
     assert "Unknown catalogue positives remain misses" in text
     assert "exploratory validation" in text
-    assert "increment beyond the baseline is still unmeasured" in text
+    assert "baseline comparison is complete" in text
+    assert "final learned-ranker quality remains unmeasured" in text
     assert "sha256(report_path.read_bytes())" in text
     report_path = Path("reports/metrics/two_tower_fold0_ann.json")
     report = json.loads(report_path.read_text())
@@ -44,5 +45,23 @@ def test_ann_notebook_discloses_scope_and_matches_published_evidence() -> None:
         for output in cell.get("outputs", [])
         if "image/png" in output.get("data", {})
     ]
-    for name in ("two_tower_ann.png", "two_tower_ann_quality.png"):
+    for name in ("two_tower_ann.png", "two_tower_ann_quality.png", "two_tower_ann_comparison.png"):
         assert (Path("reports/figures") / name).read_bytes() in images
+
+
+def test_published_ann_comparison_is_audited_and_uses_the_frozen_base() -> None:
+    path = Path("reports/metrics/two_tower_fold0_ann_comparison.json")
+    report = json.loads(path.read_text())
+    audit = json.loads(
+        Path("reports/metrics/two_tower_fold0_ann_comparison_audit.json").read_text()
+    )
+    exact = json.loads(Path("reports/metrics/two_tower_fold0_retrieval.json").read_text())
+    ann = json.loads(Path("reports/metrics/two_tower_fold0_ann.json").read_text())
+    assert report["status"] == audit["status"] == "passed"
+    assert report["input_id"] == audit["input_id"]
+    assert report["prediction_input_id"] == ann["input_id"]
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == audit["metrics_sha256"]
+    assert report["contract"]["baseline_checksums"] == exact["contract"]["baseline_checksums"]
+    assert report["sessions"] == exact["sessions"] == audit["sessions"]
+    assert audit["verified_parts"] == 32
+    assert "not ranked Recall@20" in report["interpretation"]

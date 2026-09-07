@@ -35,8 +35,15 @@ verified 192 count parts, all full-fold ranking metrics, 500 paired bootstrap dr
 the selection rule, and 18 groups of latency observations. It audits saved counts
 and summaries rather than replaying raw-label retrieval or neighbor sets.
 
-**Next step:** run the [frozen-baseline comparison](#next-decision-retained-gain-over-the-base).
-The completed ANN benchmark should not be relaunched to generate this evidence.
+**Current status, September 7, 2026:** the frozen-baseline ANN comparison is also
+complete and independently audited. At K=800 it adds **+1.027 pp** candidate
+ceiling (95% paired interval **+0.928 to +1.117 pp**), versus +1.029 pp for exact
+search. Baseline and ANN-union ceilings are **73.154%** and **74.181%**.
+
+**Next action:** run `python scripts/project_status.py` in the locked environment,
+review notebook 06, and proceed to the [ranking implementation plan](RANKING.md).
+The launch and comparison commands below are operational reproduction reference;
+they are not a sequence to rerun after every Git pull.
 
 The first managed attempt on September 6, 2026 stopped during argument parsing.
 SageMaker JSON-decodes hyperparameter strings before constructing the command:
@@ -59,7 +66,7 @@ Interrupted downloads are closed and partial files are removed before retry.
 AWS recorded 306 billable seconds; all 96 imported reference parts remain durable.
 
 The [execution evidence](../reports/metrics/two_tower_fold0_ann_launch.json)
-preserves all three failed attempts and the completed fourth attempt; the
+preserves all three failed attempts and both completed attempts; the
 [catalogue audit](../reports/metrics/two_tower_fold0_catalogue.json) records checks
 against actual S3 inputs. Operational checks remain separate from model quality.
 
@@ -225,8 +232,14 @@ The monitor's time limit or Ctrl-C detaches it; the remote worker continues.
 A failed or runtime-limited worker can be deliberately retried with the same
 `--start --watch --download` command and unchanged source/configuration. A
 repeated start retains an active or successful run, preventing duplicate work.
-Changing source, runtime contract, or parameters creates a separate identity.
-Resume never accepts an incompatible checkpoint silently.
+Changing worker bytes, runtime contract, model/reference inputs, or parameters
+creates a separate experiment. An enclosing repository commit alone now reuses
+the S3-tracked run when the complete remaining contract matches. The launch
+records the original and requested commits, retains the original run identity,
+and does not overwrite its source or checkpoint provenance. Active and successful
+runs start no compute; `--start` explicitly retries a failed/stopped matching
+pipeline using its existing checkpoints. Invalid saved pointers/contracts fail
+before a new job starts. This lookup uses S3, including in a fresh workspace.
 
 Across code revisions, use `--reuse-reference-run` only for reference counts
 whose provenance and derivation still match. The launcher writes its audit to
@@ -272,15 +285,19 @@ and predictions remain in S3. Review actual results before committing the
 compact report as `reports/metrics/two_tower_fold0_ann.json` and re-executing
 the notebook. That publication is a normal documented PR.
 
-## Next decision: retained gain over the base
+## Completed decision: retained gain over the base
 
-ANN fidelity alone does not prove preservation of the model's complementary
-positives. After a successful full-fold export, run the existing resumable
-CPU comparison against the same frozen baseline. This is a separate step;
-it does not overwrite the already audited exact-search comparison.
+The accepted ANN comparison completed in **400.735 seconds** including control
+work, and saved all **32 count parts**. The independent audit verified their
+checksums, session coverage, count invariants, all six candidate depths, and
+500 paired bootstrap draws. These are candidate ceilings rather than a final
+ranker's official Recall@20.
 
-The measured fidelity/speed trade-off supports this comparison, but does not
-yet justify scheduling the remaining folds. The accepted run is
+The following commands reproduce or resume that completed comparison. They do
+not overwrite the audited exact-search comparison.
+
+The completed evidence supports a ranking experiment under the nested validation
+plan, before a generalization claim or final submission. The accepted ANN run is
 `0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9`.
 The command below pins this accepted run explicitly, so it also works in a new
 workspace without a local launcher pointer. Keep the comparison's source and
@@ -368,3 +385,26 @@ writes. Cross-revision recovery tests reject changed data, changed metric code,
 invalid arrays and corrupt receipts; verify data-before-receipt publication; and
 prove that reference recovery completes before a paid start without modifying an
 already active worker.
+
+
+## Reproduce the completed baseline-comparison audit
+
+Download only its compact saved counts and reports, then run the existing auditor:
+
+```bash
+OTTO_COMPARISON_RUN=f9a921f625ca76d5b614df78ac8625b8dfafd3b67829fb6a213322b5f6ac1832
+aws s3 sync \
+  "s3://otto-recsys-560403859723-us-west-2/retrieval/two-tower/ann-comparisons/fold-0/$OTTO_COMPARISON_RUN/" \
+  "artifacts/ann_comparison/$OTTO_COMPARISON_RUN/" \
+  --region us-west-2 --only-show-errors &&
+.venv/bin/python scripts/audit_two_tower_comparison.py \
+  --comparison-dir "artifacts/ann_comparison/$OTTO_COMPARISON_RUN" \
+  --expected-input-id "$OTTO_COMPARISON_RUN" --buckets 32 \
+  --report "artifacts/ann_comparison/$OTTO_COMPARISON_RUN/audit.json"
+```
+
+This rechecks saved evidence without training, searching the catalogue, or
+rebuilding baseline candidates. The source count audit does not replay raw labels.
+The repeated benchmark under run `85985bfeca1b119df1119e1ff09d1bee4e7640720275980d7b8e27c1407d8fcd`
+completed with the same official ranking metrics and 3,040 billable seconds;
+it is recorded as repeated work, not an additional independent validation fold.

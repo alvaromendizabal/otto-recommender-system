@@ -190,12 +190,25 @@ Candidate ceilings measure the maximum top-20 recall an ideal ranker could recov
 
 The independent auditor verifies all count receipts and session partitions, then reproduces every point estimate and all 500 paired-bootstrap intervals with a separate aggregation method. Its compact [audit](reports/metrics/two_tower_fold0_audit.json), [UTC log](reports/logs/two_tower_fold0_audit.jsonl), and [original metrics](reports/metrics/two_tower_fold0_retrieval.json) are public. The audit validates saved counts, not a second execution of retrieval from raw labels.
 
-**Decision:** retain the neural model as an additional source. The ANN fidelity and latency benchmark is now complete. Next, measure retained incremental candidate value against the frozen baseline before generating remaining OOF candidates and comparing objective-specific rankers at the same final top-20 budget. An untouched temporal evaluation is still required before a generalization claim. No additional folds are launched by publishing these results.
+**Decision:** retain the neural model as an additional source. The ANN fidelity and latency benchmark is now complete. The ANN baseline comparison is also complete. Next, implement nested validation and the ranking candidate/feature pipeline, then compare objective-specific rankers at the same final top-20 budget. An untouched temporal evaluation is still required before a generalization claim. No additional folds are launched by publishing these results.
 
 **Measured ANN result:** three IVFFlat indexes cover 1,852,162 items. `nprobe=256` retained **99.16–99.42%** of exact top-800 neighbors on 2,048 reserved confirmation sessions. Full-fold official weighted Recall@20 was **0.217494**, versus **0.218670** for exact neural retrieval: **−0.118 percentage points**, with a paired 95% interval of **[−0.155, −0.087]** points. Median warm CPU search plus reranking was **5.35–5.63× faster** on matched tuning queries; encoder, network, and loading time are excluded. The run used 3,002 billable seconds and committed all 96 full-fold prediction parts. [Raw report](reports/metrics/two_tower_fold0_ann.json) · [Independent count audit](reports/metrics/two_tower_fold0_ann_audit.json) · [Executed notebook](notebooks/06_ann_benchmark.ipynb).
 
 ![Measured ANN quality and search cost](reports/figures/two_tower_ann_quality.png)
 
-The fourth managed attempt completed after restoring all 96 compatible reference parts. [Execution evidence](reports/metrics/two_tower_fold0_ann_launch.json) retains the three earlier failures and their causes. Recovery tests use actual boto3 HTTP responses and restore a complete small-model benchmark into a fresh directory; Python warnings fail the worker test suite. The independent production audit verifies 192 count parts, full-fold ranking metrics, the 500-draw paired interval, selection logic, and 18 latency groups. A separate AWS image startup loader warning remains documented. Full-fold ANN incremental gain beyond the baseline is the next measurement.
+The fourth managed attempt completed after restoring all 96 compatible reference parts. [Execution evidence](reports/metrics/two_tower_fold0_ann_launch.json) retains the three earlier failures and their causes. Recovery tests use actual boto3 HTTP responses and restore a complete small-model benchmark into a fresh directory; Python warnings fail the worker test suite. The independent production audit verifies 192 count parts, full-fold ranking metrics, the 500-draw paired interval, selection logic, and 18 latency groups. A separate AWS image startup loader warning remains documented. The independently audited ANN comparison adds **+1.027 pp** candidate ceiling at K=800 (95% paired interval **+0.928 to +1.117 pp**), versus +1.029 pp for exact search. This raises the fixed baseline ceiling from **73.154% to 74.181%**; it is not a final ranked Recall@20 score.
 
 Start with [the ANN launch and monitoring guide](docs/ANN_BENCHMARK.md). Also see [the completed evaluation and audit](docs/FOLD_EVALUATION.md), [the modeling contract](docs/TWO_TOWER_EXPERIMENTS.md), and [training operations](docs/FOLD_TRAINING.md).
+
+
+## Current action
+
+Training, exact export, ANN benchmarking, and the Fold 0 baseline comparisons are complete. View their versioned evidence without downloading the dataset or starting cloud jobs:
+
+```bash
+.venv/bin/python scripts/project_status.py
+```
+
+[Notebook 06](notebooks/06_ann_benchmark.ipynb) now includes the audited ANN candidate-budget frontier and objective-level gains. [The ranking plan](docs/RANKING.md) describes the next modeling implementation and its validation gates. Its training pipeline has not been implemented or measured yet.
+
+An additional ANN job repeated unchanged worker bytes after a reporting commit. The execution history preserves that 3,040-second cost. Matching source archives, inputs, and settings now reuse the durable existing run across repository commits; the original provenance and checkpoint namespace stay intact. CPU heartbeats measure accumulated CPU time between samples (100% means one occupied core), including after a child process changes.

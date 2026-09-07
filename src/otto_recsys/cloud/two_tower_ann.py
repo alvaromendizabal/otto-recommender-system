@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import shutil
 import tomllib
 from pathlib import Path
@@ -9,6 +10,35 @@ from typing import Any
 
 from otto_recsys.cloud.sagemaker_pipeline import source_tree_manifest, validate_pipeline_metadata
 from otto_recsys.cloud.two_tower_evaluation import evaluation_definition
+
+
+def same_ann_experiment(previous: dict[str, Any], current: dict[str, Any]) -> bool:
+    """Allow a reporting commit to reuse identical worker bytes and inputs.
+
+    The original run identity and commit stay intact. Every contract field other
+    than the enclosing repository commit must match, including the full source
+    archive hash, trained model, exact reference, runtime, and search settings.
+    """
+    required = {
+        "code_commit",
+        "source_sha256",
+        "training_run_id",
+        "reference_run_id",
+        "reference_input_id",
+        "reference_manifest_sha256",
+        "training_definition",
+        "max_runtime_seconds",
+        "sample_sessions",
+        "parameters",
+    }
+    for contract in (previous, current):
+        if not required <= contract.keys():
+            raise ValueError("incomplete ANN experiment contract")
+        if not re.fullmatch(r"[a-f0-9]{64}", str(contract["source_sha256"])):
+            raise ValueError("invalid ANN source archive checksum")
+    return {k: v for k, v in previous.items() if k != "code_commit"} == {
+        k: v for k, v in current.items() if k != "code_commit"
+    }
 
 
 def load_ann_parameters(path: Path) -> dict[str, str]:
