@@ -108,9 +108,8 @@ def test_real_other_process_is_detected_without_deletion(tmp_path, name):
     with held_lock(path):
         inode = path.stat().st_ino
         assert lock_status(path)["held"] is True
-        with pytest.raises(RankingBusy):
-            with launch_guard(tmp_path):
-                raise AssertionError("must not reach work")
+        with pytest.raises(RankingBusy), launch_guard(tmp_path):
+            raise AssertionError("must not reach work")
         assert path.stat().st_ino == inode
         assert read_progress(tmp_path)["writer_active"] is True
     assert lock_status(path)["held"] is False
@@ -119,9 +118,8 @@ def test_real_other_process_is_detected_without_deletion(tmp_path, name):
 
 
 def test_guard_releases_on_exception_without_unlinking(tmp_path):
-    with pytest.raises(ValueError):
-        with launch_guard(tmp_path):
-            raise ValueError("interrupted work")
+    with pytest.raises(ValueError), launch_guard(tmp_path):
+        raise ValueError("interrupted work")
     assert (tmp_path / ".launch.lock").is_file()
     with launch_guard(tmp_path):
         pass
