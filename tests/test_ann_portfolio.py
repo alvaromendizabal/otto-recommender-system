@@ -28,7 +28,8 @@ def test_ann_notebook_discloses_scope_and_matches_published_evidence() -> None:
     assert "Unknown catalogue positives remain misses" in text
     assert "exploratory validation" in text
     assert "baseline comparison is complete" in text
-    assert "final learned-ranker quality remains unmeasured" in text
+    assert "certified neural-source ranking remains unmeasured" in text
+    assert "08_ranking_evaluation.ipynb" in text
     assert "sha256(report_path.read_bytes())" in text
     report_path = Path("reports/metrics/two_tower_fold0_ann.json")
     report = json.loads(report_path.read_text())
