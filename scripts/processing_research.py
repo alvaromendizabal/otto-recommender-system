@@ -58,6 +58,23 @@ def assemble(directory: Path, output: Path, manifest_sha256: str) -> None:
         raise ValueError("assembled bundle has an incorrect length")
 
 
+def stage_events(inputs: Path, project: Path, files: list[dict[str, Any]], *, role: str) -> None:
+    """Verify existing account-owned S3 inputs staged directly by SageMaker."""
+    if role not in {"train", "test"} or not files:
+        raise ValueError("competition inference requires a verified test inventory")
+    destination = project / "artifacts" / role
+    destination.mkdir(parents=True, exist_ok=True)
+    for entry in files:
+        name = entry["path"]
+        if Path(name).name != name or Path(name).suffix not in {".json", ".parquet"}:
+            raise ValueError("test inventory contains a noncanonical filename")
+        source = inputs / role / name
+        verified(source, entry["sha256"])
+        if source.stat().st_size != entry["bytes"]:
+            raise ValueError("staged competition input has an incorrect length")
+        shutil.copyfile(source, destination / name)
+
+
 def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     source = inputs / "source/source.tar.gz"
     verified(source, launch["source_sha256"])
@@ -81,6 +98,9 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     models = inputs / "model/model_inputs.tar"
     verified(models, launch["model_inputs_sha256"])
     extract(models, root)
+    if launch.get("task", "study") == "delivery":
+        for role in ("train", "test"):
+            stage_events(inputs, project, launch[f"{role}_files"], role=role)
     return project
 
 
@@ -91,6 +111,9 @@ def main() -> int:
     args = parser.parse_args()
     launch_path = args.inputs / "launch/launch.json"
     launch = json.loads(launch_path.read_text())
+    task = launch.get("task", "study")
+    if task not in {"study", "delivery"}:
+        raise ValueError("processing task must be study or delivery")
     print(
         json.dumps({"timestamp": datetime.now(UTC).isoformat(), "stage": "verify_inputs"}),
         flush=True,
@@ -121,11 +144,36 @@ def main() -> int:
         env=environment,
         check=True,
     )
+    if task == "delivery":
+        analysis = project.parent / "analysis"
+        subprocess.run(
+            [*command, "venv", str(analysis), "--python", "3.12.13", "--no-project"],
+            cwd=project,
+            env=environment,
+            check=True,
+        )
+        subprocess.run(
+            [
+                *command,
+                "pip",
+                "install",
+                "--python",
+                str(analysis / "bin/python"),
+                "--require-hashes",
+                "-r",
+                "notebooks/requirements.txt",
+            ],
+            cwd=project,
+            env=environment,
+            check=True,
+        )
     subprocess.run(
         [
             str(project / ".venv/bin/python"),
             "-m",
-            "otto_recsys.cloud.research_job",
+            "otto_recsys.cloud.research_job"
+            if task == "study"
+            else "otto_recsys.cloud.delivery_job",
             str(launch_path),
         ],
         cwd=project,

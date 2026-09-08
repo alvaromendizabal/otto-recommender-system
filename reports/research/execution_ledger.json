@@ -1,0 +1,35 @@
+{
+  "cost_scope": "Estimate from reported processing start/end times; not a billing statement; excludes storage, requests and transfer",
+  "deployment": "Completed; 1671803 sessions, 5015409 rows; full notebook and S3 receipts independently checked.",
+  "estimated_instance_compute_usd": 4.898991048,
+  "jobs": [
+    {
+      "elapsed_seconds": 189.641,
+      "end": "2026-09-08T05:22:39.458+00:00",
+      "estimated_instance_compute_usd": 0.180538232,
+      "name": "otto-temporal-545e08ced019165b",
+      "scope": "bootstrap failed before model fitting; inherited virtual-environment path corrected in PR 21",
+      "start": "2026-09-08T05:19:29.817+00:00",
+      "status": "Failed"
+    },
+    {
+      "elapsed_seconds": 2135.336,
+      "end": "2026-09-08T06:05:10.514+00:00",
+      "estimated_instance_compute_usd": 2.032839872,
+      "name": "otto-temporal-cc4acc5a7fcad37c",
+      "scope": "24 native models, pre-evaluation selection seal, 432492 evaluation sessions",
+      "start": "2026-09-08T05:29:35.178+00:00",
+      "status": "Completed"
+    },
+    {
+      "elapsed_seconds": 2821.022,
+      "end": "2026-09-08T07:18:01.256000+00:00",
+      "estimated_instance_compute_usd": 2.685612944,
+      "name": "otto-delivery-f9c2c07590a24e66",
+      "scope": "TreeSHAP/permutation/cost diagnostics, full-history retrieval refresh, full Notebook 10 inference and validated compact replay",
+      "start": "2026-09-08T06:31:00.234000+00:00",
+      "status": "Completed"
+    }
+  ],
+  "price_basis": "ml.c7i.16xlarge-Processing, us-west-2; USD 3.4272/hour, price effective 2026-09-01"
+}

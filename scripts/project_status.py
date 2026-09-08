@@ -24,6 +24,76 @@ def read_report(root: Path, name: str) -> dict[str, Any] | None:
     return report
 
 
+def research_status(root: Path) -> dict[str, Any]:
+    directory = root / "reports/research"
+    manifest_path = directory / "manifest.json"
+    if not manifest_path.is_file():
+        return {"controlled_research": "pending", "competition_prediction": "pending"}
+    manifest = json.loads(manifest_path.read_text())
+    for name, expected in manifest["files"].items():
+        path = directory / name
+        if path.name != name or not path.is_file() or sha256_file(path) != expected:
+            raise ValueError("Published controlled research checksum mismatch")
+    evaluation = json.loads((directory / "evaluation.json").read_text())
+    audit = json.loads((directory / "audit.json").read_text())
+    if (
+        manifest["status"] != evaluation["status"]
+        or audit["status"] != "passed"
+        or evaluation["status"] != "passed"
+        or manifest["seal_id"] != evaluation["seal_id"]
+        or audit["seal_id"] != manifest["seal_id"]
+        or audit["evaluation_report_sha256"] != sha256_file(directory / "evaluation.json")
+    ):
+        raise ValueError("Published controlled research does not match its audit")
+    result: dict[str, Any] = {
+        "controlled_research": "passed",
+        "research_evaluation_sessions": evaluation["sessions"],
+        "research_weighted_recall_at_20": evaluation["scores"]["selected"]["weighted_recall_at_20"],
+        "research_features": manifest["features"],
+        "competition_prediction": "pending",
+        "notebook_publication": "pending",
+        "next_task": "Complete the full inference notebook and publish its verified replay bundle.",
+    }
+    replay_path = directory / "inference_replay/manifest.json"
+    if replay_path.is_file():
+        replay = json.loads(replay_path.read_text())
+        if replay["status"] != "passed" or replay["seal_id"] != manifest["seal_id"]:
+            raise ValueError("Published inference replay has a different model seal")
+        for name, expected in replay["files"].items():
+            path = replay_path.parent / name
+            if path.name != name or not path.is_file() or sha256_file(path) != expected:
+                raise ValueError("Published inference replay checksum mismatch")
+        full = replay["full_prediction"]
+        if full["sessions"] <= 0 or full["rows"] != full["sessions"] * 3:
+            raise ValueError("Published competition prediction coverage is incomplete")
+        result.update(
+            competition_prediction="format and coverage validated",
+            prediction_sessions=full["sessions"],
+            prediction_rows=full["rows"],
+            prediction_sha256=full["sha256"],
+            kaggle_submission="local format validated; no Kaggle upload or score claimed",
+            next_task="Publish verified canonical notebook outputs and execution receipts.",
+        )
+    receipts = root / "notebooks/execution.json"
+    if receipts.is_file():
+        record = json.loads(receipts.read_text())
+        notebooks = sorted((root / "notebooks").glob("[0-9][0-9]_*.ipynb"))
+        if record["status"] != "passed" or record["notebooks"] != len(notebooks):
+            raise ValueError("Published notebook inventory is incomplete")
+        if {r["notebook"] for r in record["receipts"]} != {p.name for p in notebooks}:
+            raise ValueError("Published notebook receipts do not cover the canonical inventory")
+        for receipt in record["receipts"]:
+            if sha256_file(root / "notebooks" / receipt["notebook"]) != receipt["sha256"]:
+                raise ValueError("Published notebook bytes differ from the execution receipt")
+        result["notebook_publication"] = "passed"
+        if result["competition_prediction"] != "pending":
+            result["next_task"] = (
+                "Completed research and batch inference release. Review notebooks 09 and 10; "
+                "additional seeds/cohorts or online evaluation are optional new studies."
+            )
+    return result
+
+
 def project_status(root: Path) -> dict[str, Any]:
     """Use versioned evidence, so status works without local data or pointers."""
     training = read_report(root, "two_tower_fold0_training.json")
@@ -91,8 +161,10 @@ def project_status(root: Path) -> dict[str, Any]:
             ranking_weighted_recall_at_20=ranking["learned"]["weighted_recall_at_20"],
             ranking_baseline_recall_at_20=ranking["baseline"]["weighted_recall_at_20"],
             ranking_validation_scope=ranking["validation_scope"],
-            next_task=("Compare ablations and certified neural sources under nested validation; "
-                       "then implement full-test prediction and validate a Kaggle submission."),
+            next_task=(
+                "Compare ablations and certified neural sources under nested validation; "
+                "then implement full-test prediction and validate a Kaggle submission."
+            ),
         )
     if completed and comparison is not None:
         point = next(row for row in comparison["points"] if row["neural_k"] == 800)
@@ -105,6 +177,7 @@ def project_status(root: Path) -> dict[str, Any]:
             "gain": point["weighted_incremental_ceiling"],
             "gain_ci95": point["weighted_incremental_ci95"],
         }
+    result.update(research_status(root))
     return result
 
 
@@ -136,12 +209,19 @@ def main() -> int:
             "observed_ranking_features",
             "ranking_evaluation",
             "kaggle_submission",
+            "controlled_research",
+            "competition_prediction",
         ):
             print(f"{key}={result[key]}")
         if "ranking_weighted_recall_at_20" in result:
             print(
                 f"Ranked weighted Recall@20: {result['ranking_weighted_recall_at_20']:.6f}; "
                 f"matched baseline={result['ranking_baseline_recall_at_20']:.6f}"
+            )
+        if "research_weighted_recall_at_20" in result:
+            print(
+                f"Controlled weighted Recall@20: {result['research_weighted_recall_at_20']:.6f}; "
+                f"evaluation sessions={result['research_evaluation_sessions']:,}"
             )
         if "candidate_ceiling_k800" in result:
             value = result["candidate_ceiling_k800"]

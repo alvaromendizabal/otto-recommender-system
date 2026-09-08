@@ -1,0 +1,104 @@
+{
+  "benchmark_scope": "Single-process warm candidate generation plus features, same selection prefixes and 400-item budget; no network or serving latency claim.",
+  "candidate_rows": 400000,
+  "elapsed_seconds": 41.87807362299998,
+  "feature_benchmark": {
+    "broad_catalog": {
+      "features": 1482,
+      "measured_queries": 64,
+      "p50_ms": 17.210778499958224,
+      "p95_ms": 22.10315175000801
+    },
+    "screened": {
+      "features": 128,
+      "measured_queries": 64,
+      "p50_ms": 5.991074500002469,
+      "p95_ms": 6.576392700006294
+    },
+    "selected_models": {
+      "features": 102,
+      "measured_queries": 64,
+      "p50_ms": 5.8260975000052895,
+      "p95_ms": 6.424658700044006
+    }
+  },
+  "files": {
+    "feature_importance.parquet": "1cf188524ba1fe2409866ee0aaa0f2d6a4b682f1aef336b09251685ad2292021"
+  },
+  "group_permutation": {
+    "context": {
+      "mean_weighted_recall_drop": 0.0003621725740780568,
+      "repeat_drops": [
+        -0.000933113415379716,
+        0.0016574585635358297
+      ]
+    },
+    "graph": {
+      "mean_weighted_recall_drop": 0.026645924405125754,
+      "repeat_drops": [
+        0.030277165826595454,
+        0.023014682983656054
+      ]
+    },
+    "history": {
+      "mean_weighted_recall_drop": 0.021860113726801855,
+      "repeat_drops": [
+        0.028391907634459423,
+        0.015328319819144287
+      ]
+    },
+    "interaction": {
+      "mean_weighted_recall_drop": 0.02105041580641065,
+      "repeat_drops": [
+        0.0226034902363349,
+        0.0194973413764864
+      ]
+    },
+    "repeat": {
+      "mean_weighted_recall_drop": 0.06507745187372402,
+      "repeat_drops": [
+        0.07170728612786764,
+        0.058447617619580394
+      ]
+    }
+  },
+  "hardware": {
+    "logical_cpus": 64,
+    "memory_gib": 123.79077529907227,
+    "model_threads": 32,
+    "system": "Linux-5.10.258-257.1043.amzn2.x86_64-x86_64-with-glibc2.34"
+  },
+  "input_id": "4a21f8464b3914ee3de77dd27df0a7e737bf495a8dbd311eeec9860286f9069d",
+  "permutation_method": "Two whole-query block shuffles per family preserve within-family relationships; candidate/feature dependencies can still be broken. Diagnostic, not a causal effect.",
+  "sample_score": {
+    "objectives": {
+      "carts": {
+        "denominator": 362,
+        "hits": 144,
+        "recall_at_20": 0.39779005524861877
+      },
+      "clicks": {
+        "denominator": 958,
+        "hits": 500,
+        "recall_at_20": 0.5219206680584552
+      },
+      "orders": {
+        "denominator": 181,
+        "hits": 117,
+        "recall_at_20": 0.6464088397790055
+      }
+    },
+    "weighted_recall_at_20": 0.5593743872478344
+  },
+  "scope": "post-selection interpretation; no model tuning or evaluation-label access",
+  "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e",
+  "selection_sessions": 1000,
+  "shap_additivity_max_abs_error": {
+    "carts": 4.884981308350689e-15,
+    "clicks": 3.552713678800501e-15,
+    "orders": 5.551115123125783e-15
+  },
+  "shap_method": "Native LightGBM TreeSHAP on deterministic selection candidate rows; contributions explain ranking scores, not calibrated probabilities.",
+  "shap_rows": 4096,
+  "status": "passed"
+}

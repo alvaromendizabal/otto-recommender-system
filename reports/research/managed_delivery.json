@@ -1,0 +1,21 @@
+{
+  "elapsed_seconds": 2649.909961783,
+  "finished_at": "2026-09-08T07:17:48.221+00:00",
+  "interpretation_id": "4a21f8464b3914ee3de77dd27df0a7e737bf495a8dbd311eeec9860286f9069d",
+  "prediction_id": "2b001d27dedaa6b684675cfc0facb65dc5c2ef85b07758016239f9d71b48ebe8",
+  "prediction_sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
+  "resources": {
+    "feature_workers": 16,
+    "history_memory_gib": 64,
+    "history_threads": 16,
+    "hourly_compute_usd": 3.4272,
+    "instance_type": "ml.c7i.16xlarge",
+    "maximum_runtime_seconds": 14400,
+    "volume_gib": 100
+  },
+  "source_commit": "565ed1f15c9786a905a0cff70ac0a58ed8b1261c",
+  "source_sha256": "f9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37",
+  "stage": "complete",
+  "started_at": "2026-09-08T06:33:38.311+00:00",
+  "status": "passed"
+}

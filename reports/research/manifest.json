@@ -1,0 +1,66 @@
+{
+  "audit_id": "5e3a177008f2431d2c989045dc3a10b6bc51ed5bfdb04c2317bb2d20925afb61",
+  "features": {
+    "engineered": 1482,
+    "families": {
+      "context": {
+        "engineered": 24,
+        "final": 19,
+        "screened": 19
+      },
+      "graph": {
+        "engineered": 1152,
+        "final": 5,
+        "screened": 5
+      },
+      "history": {
+        "engineered": 99,
+        "final": 57,
+        "screened": 57
+      },
+      "interaction": {
+        "engineered": 11,
+        "final": 4,
+        "screened": 4
+      },
+      "repeat": {
+        "engineered": 160,
+        "final": 17,
+        "screened": 17
+      },
+      "source": {
+        "engineered": 36,
+        "final": 0,
+        "screened": 26
+      }
+    },
+    "final": 102,
+    "screened": 128
+  },
+  "files": {
+    "ablation_models.csv": "dcda65ab66ff988653a5f7ee3e4b690b7c92ab66e1622268602208156105f328",
+    "ablations.json": "6d8d63c35fa1a6ce894c500bf7096e98ba641137c82fc385436b66f83df94252",
+    "audit.json": "25a03ee2a7d4cf156fbb4a09dd81fb8ad7a3f660866617bcb5681a9f0a6fd2cc",
+    "competition_cloud_verification.json": "73cfd394713d6f204aea13d6cf0049b639e2dee4fea29f6afccc51a7ed55deee",
+    "competition_notebook_execution.json": "4f8ea92b4f610d56a5b8e36026c669cb43d97c93b20767c48dc62fb2c5185419",
+    "competition_prediction.json": "e2b1a2708953ce47cd9318cc8fa0ef2345cb7b2dabce1e3c24a7977a06e0a362",
+    "competition_prediction_contract.json": "79b0534c6e795990d51746817a89d74604d25bff2ff1d129d5b7b0d4d344c556",
+    "deployment_history.json": "837cc2895ccd26a6e31d0356a074a91441a5ec5c946c0d0475612f5309ca1cd7",
+    "deployment_retrieval.json": "eeff653f1d86e41908dd4d031f8b5c9450ffb000b09c63988d4e0cc7871618a6",
+    "evaluation.json": "3765e11e9c77ef60a3209a4783fc61d6a480e7b4211d5379e3e6157201b9863a",
+    "evaluation_seal.json": "3a4f0c824b1eff12376c6c3c016fd3791b64267246504cba2a42da1f4755f7e0",
+    "execution_ledger.json": "78e8edfced7919f45c31e4a7037a618ff9a814614eb09590ce8c0d60f7cf0eb4",
+    "feature_catalog.csv": "6a64efd0832a36e13cef2c9d51fc271e74ecfa692b3326371c9e9a4448da7a68",
+    "feature_families.csv": "f0d6b990080d59d8319b6c89d4a5b901747f4ed87c8878ddab6c81083ce64f34",
+    "feature_importance.csv": "feb887aa64fc5349618431d77ad39f4631affa3f76ee5b8246c5d09b2c4e195c",
+    "interpretation.json": "ab8be9d77e47afc9fc86bb4ce070f943bf964c140b5e9d5e768e54fd163b4a48",
+    "managed_delivery.json": "2dba293cfbfb4ff1d18ef2de7995fd697b138da2c81d6764e421f4391602dd21",
+    "managed_study.json": "4b4bf065d068cd96a45ccd5fed8e49502a8b45886a8dc8b8c153dceb7792d0ed",
+    "screening.json": "20333be081731fcad33bacf8547012430a82361f5e8cea2ab9ab734a568da929",
+    "temporal_contract.json": "5a50f09ac6457698d87f129a1cccbc11b1c3e69ddebd5f84ac19a852723db5ab",
+    "temporal_manifest.json": "6fa9e23bc9d254bf4534fd02b995b8ca92bdb4d6fa9229426b50432fe5c20b68"
+  },
+  "scope": "audited temporal study and post-selection diagnostics; no Kaggle score",
+  "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e",
+  "status": "passed"
+}
