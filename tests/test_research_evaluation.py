@@ -15,7 +15,7 @@ from otto_recsys.research.retrievers import build_retrievers
 from otto_recsys.research.study import run_ablations
 
 
-def test_raw_event_pipeline_keeps_unseen_truth_and_recovers_evaluation_parts(tmp_path):
+def build_evaluated_study(tmp_path):
     logger = logging.getLogger("evaluation-test")
     source = tmp_path / "source"
     source.mkdir()
@@ -79,6 +79,12 @@ def test_raw_event_pipeline_keeps_unseen_truth_and_recovers_evaluation_parts(tmp
     report = run_evaluation(
         tmp_path, seed=4, workers=1, threads=1, logger=logger, bootstrap_replicates=100
     )
+    return report
+
+
+def test_raw_event_pipeline_keeps_unseen_truth_and_recovers_evaluation_parts(tmp_path):
+    logger = logging.getLogger("evaluation-test")
+    report = build_evaluated_study(tmp_path)
     assert report["sessions"] == 80
     for model in ("selected", "core", "fusion"):
         orders = report["scores"][model]["objectives"]["orders"]

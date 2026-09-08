@@ -150,14 +150,15 @@ def test_managed_job_failure_publishes_status_and_preserves_original_error(tmp_p
     assert tmp_path / "logs/managed_research.jsonl" in published
 
 
-def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypatch):
+@pytest.mark.parametrize("task", ["study", "delivery"])
+def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypatch, task):
     path = Path(__file__).resolve().parents[1] / "scripts/processing_research.py"
     spec = importlib.util.spec_from_file_location("processing_research", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     launch = tmp_path / "input/launch/launch.json"
     launch.parent.mkdir(parents=True)
-    launch.write_text("{}")
+    launch.write_text(json.dumps({"task": task}))
     project = tmp_path / "project"
     project.mkdir()
     calls = []
@@ -171,8 +172,64 @@ def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypat
         [str(path), "--inputs", str(tmp_path / "input"), "--workspace", str(tmp_path / "work")],
     )
     assert module.main() == 0
-    assert len(calls) == 3
+    assert len(calls) == (3 if task == "study" else 5)
     for _, kwargs in calls:
         assert kwargs["env"]["UV_PROJECT_ENVIRONMENT"] == str(project / ".venv")
         assert "VIRTUAL_ENV" not in kwargs["env"]
     assert calls[-1][0][0] == str(project / ".venv/bin/python")
+    assert (
+        calls[-1][0][2] == f"otto_recsys.cloud.{'research' if task == 'study' else 'delivery'}_job"
+    )
+
+
+@pytest.mark.parametrize("fail_prediction", [False, True])
+def test_delivery_orders_restore_explanation_and_prediction_and_publishes_status(
+    tmp_path, monkeypatch, fail_prediction
+):
+    from otto_recsys.cloud import delivery_job
+
+    actions = []
+
+    class Checkpoints:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def restore(self):
+            actions.append("restore")
+
+        def publish(self, path):
+            assert path.is_file()
+
+    def explain(*args, **kwargs):
+        actions.append("explain")
+        return {"input_id": "explanation"}
+
+    def predict(*args, **kwargs):
+        actions.append("predict")
+        if fail_prediction:
+            raise ValueError("invalid prediction input")
+        return {"input_id": "prediction", "sha256": "fixture"}
+
+    monkeypatch.setattr(delivery_job, "ResearchCheckpoints", Checkpoints)
+    monkeypatch.setattr(delivery_job, "explain", explain)
+    monkeypatch.setattr(delivery_job, "notebook_prediction", predict)
+    monkeypatch.setattr(delivery_job, "export_replay", lambda *args, **kwargs: None)
+    launch = {
+        "region": "us-west-2",
+        "owner_account": "123456789012",
+        "study_checkpoint_uri": "s3://bucket/study",
+        "checkpoint_uri": "s3://bucket/research",
+        "prediction_checkpoint_uri": "s3://bucket/inference",
+        "source_commit": "fixture",
+        "source_sha256": "fixture",
+        "training": {"seed": 4, "threads": 1},
+        "resources": {"feature_workers": 1},
+    }
+    if fail_prediction:
+        with pytest.raises(ValueError, match="invalid prediction"):
+            delivery_job.run(launch, tmp_path)
+    else:
+        assert delivery_job.run(launch, tmp_path)["status"] == "passed"
+    assert actions == ["restore", "restore", "restore", "explain", "predict"]
+    status = json.loads((tmp_path / "delivery_status.json").read_text())
+    assert status["status"] == ("failed" if fail_prediction else "passed")

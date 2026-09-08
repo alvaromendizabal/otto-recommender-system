@@ -12,7 +12,7 @@ from urllib.parse import urlsplit
 
 from otto_recsys.experiments.manifest import sha256_file
 
-ARTIFACT_SUFFIXES = {".json", ".jsonl", ".parquet", ".txt", ".npz", ".csv", ".gz"}
+ARTIFACT_SUFFIXES = {".json", ".jsonl", ".parquet", ".txt", ".npz", ".csv", ".gz", ".ipynb"}
 
 
 class ResearchCheckpoints:

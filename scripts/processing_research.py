@@ -81,6 +81,10 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     models = inputs / "model/model_inputs.tar"
     verified(models, launch["model_inputs_sha256"])
     extract(models, root)
+    if launch.get("task", "study") == "delivery":
+        delivery = inputs / "delivery/delivery.tar"
+        verified(delivery, launch["delivery_sha256"])
+        extract(delivery, project / "artifacts")
     return project
 
 
@@ -91,6 +95,9 @@ def main() -> int:
     args = parser.parse_args()
     launch_path = args.inputs / "launch/launch.json"
     launch = json.loads(launch_path.read_text())
+    task = launch.get("task", "study")
+    if task not in {"study", "delivery"}:
+        raise ValueError("processing task must be study or delivery")
     print(
         json.dumps({"timestamp": datetime.now(UTC).isoformat(), "stage": "verify_inputs"}),
         flush=True,
@@ -121,11 +128,36 @@ def main() -> int:
         env=environment,
         check=True,
     )
+    if task == "delivery":
+        analysis = project.parent / "analysis"
+        subprocess.run(
+            [*command, "venv", str(analysis), "--python", "3.12.13", "--no-project"],
+            cwd=project,
+            env=environment,
+            check=True,
+        )
+        subprocess.run(
+            [
+                *command,
+                "pip",
+                "install",
+                "--python",
+                str(analysis / "bin/python"),
+                "--require-hashes",
+                "-r",
+                "notebooks/requirements.txt",
+            ],
+            cwd=project,
+            env=environment,
+            check=True,
+        )
     subprocess.run(
         [
             str(project / ".venv/bin/python"),
             "-m",
-            "otto_recsys.cloud.research_job",
+            "otto_recsys.cloud.research_job"
+            if task == "study"
+            else "otto_recsys.cloud.delivery_job",
             str(launch_path),
         ],
         cwd=project,
