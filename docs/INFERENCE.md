@@ -12,6 +12,23 @@ binds the notebook kernel to that interpreter, and invokes the locked Python
 heartbeats expose elapsed time and the number of prediction-part receipts.
 The notebook execution and final prediction manifest have separate receipts.
 
+## Recorded full execution
+
+The managed run completed on September 8, 2026. Notebook 10 executed all four code
+cells in full mode in **2,439.492 seconds** and generated **5,015,409 rows** for
+**1,671,803 sessions**. All 1,633 prediction parts and receipts are durable in S3.
+The full gzip output is 296,087,864 bytes; its digest matches the notebook validator
+and S3 metadata. The default replay reproduces 24 rows from eight actual test sessions.
+
+[Full notebook receipt](../reports/research/competition_notebook_execution.json) ·
+[Prediction manifest](../reports/research/competition_prediction.json) ·
+[Cloud verification and object locations](../reports/research/competition_cloud_verification.json)
+
+The receipt identifies the notebook bytes at source commit
+`565ed1f15c9786a905a0cff70ac0a58ed8b1261c`; later canonical output publication preserves
+those source cells. The complete executed full-mode notebook remains at the recorded
+S3 object, separately from the convenient default-mode render committed in Git.
+
 ## Availability boundaries
 
 The chronological research study fixes historical retrieval before its fitting
@@ -29,18 +46,27 @@ remain limitations of the deployment result.
 
 ## Full workflow
 
-With verified official event partitions and the completed research artifacts:
+With the completed research artifacts in `artifacts/research`, verified training
+partitions in `artifacts/train`, and verified test partitions in `artifacts/test`:
 
 ```bash
-.venv/bin/python scripts/run_inference.py --stage prepare
-.venv/bin/python scripts/run_inference.py --stage retrieval --threads 1 --memory-gib 16
-.venv/bin/python scripts/run_inference.py --stage predict
+.venv/bin/python scripts/run_inference.py --stage prepare \
+  --train artifacts/train --test artifacts/test --threads 16 --memory-gib 64
+.venv/bin/python scripts/run_inference.py --stage retrieval --threads 16 --memory-gib 64
+/tmp/otto-analysis/bin/python scripts/execute_inference_notebook.py
 ```
 
-The inference CLI uses canonical `part-*.parquet` event inputs. Resource settings
-are explicit; changing thread or memory limits preserves compatible history
-and graph receipts. The full-data historical aggregation was run with one
-thread to avoid excessive spill storage in a constrained local workspace.
+Create the isolated analysis environment using [Reproducibility](REPRODUCIBILITY.md)
+before the last command. That command executes full mode of the actual notebook,
+including inference, full validation, preview and execution receipt. The managed
+delivery launcher stages these verified inputs and invokes this sequence automatically.
+
+The inference CLI uses canonical `part-*.parquet` event inputs. The recorded managed
+run uses a 128 GiB host, 16 history threads and a 64 GiB aggregation memory limit.
+A constrained local graph build also completed with one thread and a 16 GiB limit.
+Changing resource limits preserves compatible history and graph receipts. For direct
+CLI operation with a different verified test directory, pass `--test` explicitly to
+`--stage predict`; the notebook's managed layout expects `artifacts/test`.
 
 In the managed delivery environment, `OTTO_FULL_INFERENCE=1` enables the full
 notebook mode. The launcher supplies the model thread count, feature worker

@@ -45,9 +45,9 @@
     },
     "variants": 8
   },
-  "audit_code_sha256": "b590d42794aec05fe9a8f09b83d05b1f1de247615a83abb5676ec919b049f49a",
-  "audit_id": "b7f67cb933a6593e6de62ceb33efe00bcc23f2d9c15cd68f781803dcfe70517a",
-  "elapsed_seconds": 49.957485859999,
+  "audit_code_sha256": "3e82301426ac688e96fdd15e9b7d10b2f084abcd093552933716506780d1973b",
+  "audit_id": "5e3a177008f2431d2c989045dc3a10b6bc51ed5bfdb04c2317bb2d20925afb61",
+  "elapsed_seconds": 58.57952299200042,
   "evaluation_id": "adff5d8966b06ba568de08e84646061c42a2d87899fc5d1ba1577f1783cc1114",
   "evaluation_report_sha256": "3765e11e9c77ef60a3209a4783fc61d6a480e7b4211d5379e3e6157201b9863a",
   "native_replay": {
@@ -56,7 +56,8 @@
     "scope": "independent metric/set arithmetic; shared frozen feature implementation",
     "seed": 20260908,
     "session_ids_sha256": "4cf12c12854d69cc512732ed24888449c1b3cf79c7449a376727aa83e1d49c1a",
-    "sessions": 256
+    "sessions": 256,
+    "supporting_metric_comparisons": 6912
   },
   "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e",
   "source": {
@@ -146,17 +147,26 @@
         "objectives": {
           "carts": {
             "denominator": 124783,
+            "hit_rate": 0.6384870979144575,
             "hits": 50952,
+            "mrr": 0.4999309374197338,
+            "ndcg": 0.4705687457054712,
             "recall_at_20": 0.408324851942973
           },
           "clicks": {
             "denominator": 419197,
+            "hit_rate": 0.45755814092181,
             "hits": 191807,
+            "mrr": 0.30218070876754394,
+            "ndcg": 0.3383182010798922,
             "recall_at_20": 0.45755814092181
           },
           "orders": {
             "denominator": 69333,
+            "hit_rate": 0.8443489568609713,
             "hits": 45835,
+            "mrr": 0.7257826917636837,
+            "ndcg": 0.6826626593643046,
             "recall_at_20": 0.6610849090620629
           }
         },
@@ -166,17 +176,26 @@
         "objectives": {
           "carts": {
             "denominator": 124783,
+            "hit_rate": 0.6611523506539413,
             "hits": 53683,
+            "mrr": 0.18877217842611047,
+            "ndcg": 0.255509480654775,
             "recall_at_20": 0.43021084602870585
           },
           "clicks": {
             "denominator": 419197,
+            "hit_rate": 0.5267809645584296,
             "hits": 220825,
+            "mrr": 0.17598294058288527,
+            "ndcg": 0.2559401789372012,
             "recall_at_20": 0.5267809645584296
           },
           "orders": {
             "denominator": 69333,
+            "hit_rate": 0.8319104426980268,
             "hits": 40849,
+            "mrr": 0.26406881388332254,
+            "ndcg": 0.33523889588190825,
             "recall_at_20": 0.5891711017841432
           }
         },
@@ -186,17 +205,26 @@
         "objectives": {
           "carts": {
             "denominator": 124783,
+            "hit_rate": 0.6620148462354188,
             "hits": 53397,
+            "mrr": 0.502083634795128,
+            "ndcg": 0.47713625196157006,
             "recall_at_20": 0.4279188671533783
           },
           "clicks": {
             "denominator": 419197,
+            "hit_rate": 0.5056453171182046,
             "hits": 211965,
+            "mrr": 0.32044956026994637,
+            "ndcg": 0.36270563233224823,
             "recall_at_20": 0.5056453171182046
           },
           "orders": {
             "denominator": 69333,
+            "hit_rate": 0.8559676598631764,
             "hits": 46852,
+            "mrr": 0.7375141223925613,
+            "ndcg": 0.6943428171729555,
             "recall_at_20": 0.6757532488136963
           }
         },

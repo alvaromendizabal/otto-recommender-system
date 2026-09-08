@@ -190,6 +190,20 @@ def audit_statistics(root: Path, report: dict[str, Any]) -> tuple[pl.DataFrame, 
             total = int(hits.sum())
             score = total / denominator if denominator else 0.0
             result = {"hits": total, "denominator": denominator, "recall_at_20": score}
+            eligible = frame[f"{name}_{objective}_eligible"].to_numpy()
+            require(
+                np.array_equal(eligible, denominators > 0), "supporting metric eligibility differs"
+            )
+            for metric in ("ndcg", "mrr", "hit_rate"):
+                values = frame[f"{name}_{objective}_{metric}"].to_numpy()
+                require(
+                    # Different summation orders can put an exact unit NDCG a few ulps above 1.
+                    bool((np.isfinite(values) & (values >= -1e-12) & (values <= 1 + 1e-12)).all()),
+                    "invalid supporting metric value",
+                )
+                if metric == "hit_rate":
+                    require(np.array_equal(values, hits > 0), "hit rate differs from hit count")
+                result[metric] = float(values.sum()) / max(1, int(eligible.sum()))
             original = report["scores"][name]["objectives"][objective]
             require(
                 all(
@@ -348,6 +362,7 @@ def replay_models(root: Path, frame: pl.DataFrame, *, sessions: int, seed: int) 
         ).iter_rows(named=True)
     }
     comparisons = 0
+    supporting_comparisons = 0
     for i in order:
         prefix = queries.prefix(i)
         pool = engine.candidates(prefix, 400)
@@ -389,6 +404,21 @@ def replay_models(root: Path, frame: pl.DataFrame, *, sessions: int, seed: int) 
                 hits = len(truth.intersection(aid for aid, _ in top))
                 require(hits == row[f"{label}_{objective}_hits"], "native model replay differs")
                 comparisons += 1
+                positions = [rank for rank, (aid, _) in enumerate(top, 1) if aid in truth]
+                ideal = sum(1 / math.log2(rank + 1) for rank in range(1, min(20, len(truth)) + 1))
+                support = {
+                    "ndcg": sum(1 / math.log2(rank + 1) for rank in positions) / ideal
+                    if ideal else 0.0,
+                    "mrr": 1 / positions[0] if positions else 0.0,
+                    "hit_rate": float(bool(positions)),
+                }
+                for metric, value in support.items():
+                    require(
+                        math.isclose(value, row[f"{label}_{objective}_{metric}"],
+                                     abs_tol=1e-12, rel_tol=0),
+                        "native supporting metric replay differs",
+                    )
+                    supporting_comparisons += 1
             for budget in (100, 200, 400):
                 hits = min(20, len(truth.intersection(map(int, pool.aid[:budget]))))
                 require(
@@ -398,6 +428,7 @@ def replay_models(root: Path, frame: pl.DataFrame, *, sessions: int, seed: int) 
     return {
         "sessions": len(order),
         "comparisons": comparisons,
+        "supporting_metric_comparisons": supporting_comparisons,
         "mismatches": 0,
         "seed": seed,
         "session_ids_sha256": canonical_json_sha256([int(queries.session[i]) for i in order]),

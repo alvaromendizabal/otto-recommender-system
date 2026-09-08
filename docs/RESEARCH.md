@@ -6,13 +6,35 @@ protocol is frozen in `configs/research.toml` before feature screening or model
 selection. Original OTTO data has appeared in earlier experiments; this study
 does **not** claim that the underlying dataset has never been inspected.
 
+## Measured outcome
+
+[Notebook 09](../notebooks/09_controlled_feature_study.ipynb) contains the executed
+analysis. Eight configurations produced 24 native models. Selection chose the
+102-feature `without_source` variant for clicks, carts and orders. Graph and intent
+interactions still encode retrieval information; this ablation isolates the direct
+source-feature family.
+
+On all 432,492 reserved evaluation sessions, weighted Recall@20 is **0.584392** versus
+**0.564904** for the 28-feature core and **0.535244** for fixed fusion. The paired 95%
+gain intervals are [0.018399, 0.020645] and [0.046972, 0.051363], respectively. Fusion
+still wins click and cart recall; orders explain the weighted gain. The evaluation
+and source audit are published under [reports/research](../reports/research).
+
+The independent auditor reconstructs all 788,883 labels and every observed prefix
+from the 217 original Parquet event partitions, with zero differences in either
+direction. It verifies all 24 native models, recomputes the scores from complete
+query counts, and matches 4,608 sampled model/candidate checks. Native TreeSHAP,
+family permutation and matched feature costs use selection queries after the model
+is frozen. The selected schema's warm feature-computation p95 is 6.42 ms, versus
+22.10 ms for the broad catalog; this is not an online serving measurement.
+
 ## Availability and evaluation
 
 | Component | Available data, UTC | Selection rule |
 |---|---|---|
 | Historical retrieval and item statistics | Events before 2022-08-20 22:00 | No query labels |
 | Ranker fitting and feature screening | Sessions starting August 20 22:00–August 23 22:00 | 100,000 deterministic session hashes |
-| Model and candidate-budget selection | Sessions starting August 23 22:00–August 24 22:00 | 20,000 deterministic session hashes |
+| Model selection and candidate coverage diagnostics | Sessions starting August 23 22:00–August 24 22:00 | 20,000 deterministic session hashes |
 | Reserved temporal evaluation | Sessions starting August 24 22:00–August 26 22:00 | All eligible sessions |
 
 Intervals are left inclusive and right exclusive. A session belongs to the
@@ -140,12 +162,11 @@ An interrupted job resumes under the identical source and experiment contract.
 SageMaker's job name and maximum runtime bound the managed execution; no
 persistent serving endpoint is required.
 
-The research phase closes when the repository contains measured candidate-budget
-coverage, a generated feature catalog, training-only screening with rejection
-reasons, matched family ablations, a sealed final model choice, complete temporal
-evaluation with paired uncertainty, cost/latency measurements, and an executed
-analysis explaining both gains and limitations. Feature count alone is not a
-quality result. No unfinished experiment is presented as measured evidence.
+The research completion evidence is now published: candidate-budget coverage, the
+full feature catalog and rejection reasons, matched ablations, the model-selection
+seal, complete temporal evaluation with paired uncertainty, interpretation, measured
+feature cost and an independently audited analytical notebook. The separate batch
+inference workflow is documented in [INFERENCE.md](INFERENCE.md).
 
 The design draws on the official [OTTO task and evaluation specification](https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md)
 and the documented [third-place feature approach](https://github.com/TheoViel/kaggle_otto_rs).

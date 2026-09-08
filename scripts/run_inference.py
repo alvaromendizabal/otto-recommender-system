@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import argparse
 import json
-import tomllib
 from pathlib import Path
 
 from otto_recsys.cloud.research_checkpoints import ResearchCheckpoints
 from otto_recsys.logging_utils import configure_logging
+from otto_recsys.research.configuration import read_config
 from otto_recsys.research.deployment import prepare_history
 from otto_recsys.research.inference import run_prediction
 from otto_recsys.research.retrievers import build_retrievers
@@ -29,8 +29,10 @@ def main() -> int:
     parser.add_argument("--owner-account", default=None)
     parser.add_argument("--region", default="us-west-2")
     args = parser.parse_args()
-    config = tomllib.loads(args.config.read_text())
+    config = read_config(args.config)
     if args.memory_gib is not None:
+        if args.memory_gib < 1:
+            raise ValueError("memory limit must be positive")
         config["resources"]["memory_gib"] = args.memory_gib
     logger = configure_logging("competition_inference", log_dir=args.output / "logs")
     publish = None

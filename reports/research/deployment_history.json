@@ -1,0 +1,16 @@
+{
+  "elapsed_seconds": 5.926813422999999,
+  "files": {
+    "history.parquet": "7ef396b202a9c44534ae6fbd4f2d3275ccf6b74cdf417420065f6f75f3cf4b93"
+  },
+  "history_events": 216716096,
+  "history_max_ts": 1661723999984,
+  "input_id": "3ba2ee6ee28ae3094f0e8ba4f6e4d5ea4ca792d6e7dd8c640853ebb9e7086a9d",
+  "overlapping_sessions": 0,
+  "protocol": {
+    "history_end": 1661724000278
+  },
+  "scope": "post-evaluation competition inference; frozen model weights",
+  "status": "passed",
+  "test_sessions": 1671803
+}

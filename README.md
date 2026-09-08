@@ -1,97 +1,118 @@
 # OTTO Multi-Objective Recommender System
 
-Session-based recommendations for the next **click**, **cart**, and **order**.
-Co-visitation and Item2Vec feed a task-specific LambdaRank baseline; a separate
-objective-conditioned two-tower experiment evaluates neural candidate discovery
-and FAISS search.
+A reproducible machine learning project for predicting the next **click**, **cart**,
+and **order** in an anonymous shopping session. It covers large-scale event processing,
+co-visitation and neural retrieval, approximate nearest-neighbor search, controlled
+feature research, task-specific ranking, and checkpointed SageMaker execution.
 
-**Measured baseline:** weighted Recall@20 **0.497317**, versus **0.373086** for
-source-agreement/reciprocal-rank fusion on the same 100-candidate pool and 103,468
-outer sessions. All three rankers and the results notebook completed in SageMaker
-on 2026-09-08 UTC. This is **exploratory Fold 0 validation**, not an untouched
-holdout, leaderboard result, or state-of-the-art claim. Broad feature research
-and Kaggle submission remain unfinished.
+**Measured result:** a selected **102-feature LambdaRank model** achieves **0.58439
+weighted Recall@20** across **432,492 temporal evaluation sessions**, compared with
+**0.53524** for candidate fusion and **0.56490** for a compact ranker. The gain over
+fusion is **4.915 percentage points**, with a paired 95% interval of **4.697–5.136**.
 
-## Start here
+The study engineered **1,482 features**, screened them using fitting sessions only,
+and compared **24 task-specific model fits**. Removing source-score features produced
+the winning configuration. An independent audit reconstructed **788,883 target
+records from 217 original event partitions with zero discrepancies**.
 
-| Review | Executed notebook | Evidence |
-|---|---|---|
-| Ranking quality and next decision | [08 — Ranking evaluation](notebooks/08_ranking_evaluation.ipynb) | Matched scores, candidate ceilings, selection iterations and compute cost |
-| Neural search trade-offs | [06 — ANN benchmark](notebooks/06_ann_benchmark.ipynb) | Exact/approximate fidelity, paired intervals, latency and source coverage |
-| Feature and split integrity | [07 — Ranking features](notebooks/07_ranking_features.ipynb) | Observed-only features, complete query denominators, independent audit and resume proof |
+These are local temporal-validation results. The original OTTO dataset had earlier
+exploratory exposure; this study refits every retrieval component before its permitted
+cutoff and reserves a later evaluation cohort before selection. No leaderboard score,
+state-of-the-art performance, or online business lift is claimed.
 
-No dataset download, AWS account or model run is needed to review the notebooks.
-Supporting analyses cover [validation](notebooks/01_validation_protocol.ipynb),
-[retrieval benchmarks](notebooks/02_retrieval_benchmarks.ipynb),
-[candidate budgets](notebooks/03_candidate_frontier.ipynb),
-[hard negatives](notebooks/04_hard_negative_quality.ipynb), and
-[two-tower results](notebooks/05_two_tower_results.ipynb).
+**Full notebook inference completed:** **1,671,803 competition sessions**, **5,015,409
+validated rows**, and 1,633 durable prediction parts. [Execution evidence](reports/research/competition_notebook_execution.json)
+and a compact native-model replay are included.
 
-## Actual matched results
+## Review the project in five minutes
 
-The official metric is `0.10*Recall@20(clicks) + 0.30*Recall@20(carts) +
-0.60*Recall@20(orders)`. Pool per-session hits and true-item denominators capped
-at 20 within each objective, then apply the weights. Queries with no candidates
-are not dropped from the denominator.
+| Start with | What it demonstrates |
+|---|---|
+| [09 — Controlled feature study](notebooks/09_controlled_feature_study.ipynb) | Research question, temporal protocol, 1,482 → 102 feature selection, matched ablations, uncertainty, explanations, cost and failure analysis |
+| [10 — Competition inference](notebooks/10_competition_inference.ipynb) | Run the saved native models, reproduce example predictions, and generate the full test output through the notebook |
+| [06 — Neural ANN benchmark](notebooks/06_ann_benchmark.ipynb) | Neural retrieval, exact/approximate search, candidate coverage, latency and the limits of the earlier experiment |
+| [Model card](docs/MODEL_CARD.md) | Intended use, training scope, metrics, limitations and artifact lineage |
 
-| Objective | Matched baseline | LambdaRank | Candidate ceiling |
-|---|---:|---:|---:|
-| Clicks | 0.378017 | **0.520709** | 0.655426 |
-| Carts | 0.267818 | **0.374504** | 0.463247 |
-| Orders | 0.424899 | **0.554825** | 0.605341 |
-| Weighted | 0.373086 | **0.497317** | 0.567721 |
+Committed notebook outputs and compact evidence support review without downloading
+the dataset or accessing AWS. The default inference notebook uses a small native-model
+replay; full-data mode invokes the same production inference CLI.
 
-The absolute improvement is **12.423 percentage points** on this matched
-comparison. Candidate ceilings describe recoverable items, not achieved ranked
-quality. The first model uses **30 features**: source evidence, source agreement,
-observed session context and observed item repeat/recency signals. The schema's
-three absent neural-source columns were excluded; no broad learned screening or
-feature-family ablation is claimed.
+## What improved—and what did not
 
-[Measured report](reports/metrics/ranking_evaluation.json) ·
-[Source receipts and verification scope](reports/metrics/ranking_evaluation_provenance.json)
+All results below use the **same 400-candidate pools and complete evaluation queries**.
+The metric is `0.10 × clicks + 0.30 × carts + 0.60 × orders`, using pooled Recall@20
+within each objective. Unretrievable targets remain in the denominator.
 
-The earlier all-fold revisit/time benchmark (0.549644) uses a different cohort
-and candidate policy and is not a matched comparison with this result. Likewise,
-the earlier **0.731544 → 0.741809** uncompressed ANN candidate-ceiling experiment
-is not the coverage or ranked score of this compressed pool. Notebook 06 retains
-those original measurements and their qualifications.
+| Objective | Candidate fusion | Compact ranker · 28 features | Selected ranker · 102 features | Candidate ceiling |
+|---|---:|---:|---:|---:|
+| Clicks | **0.526781** | 0.457558 | 0.505645 | 0.648149 |
+| Carts | **0.430211** | 0.408325 | 0.427919 | 0.569020 |
+| Orders | 0.589171 | 0.661085 | **0.675753** | 0.752383 |
+| **Weighted** | **0.535244** | **0.564904** | **0.584392** | **0.686951** |
 
-## Engineering evidence
+Orders drive the overall improvement. Fusion still wins click and cart recall; no
+post-evaluation hybrid was selected to erase those losses. The selected model's gain
+over the compact control is **1.949 points** (paired 95% interval **1.840–2.065**).
+Intervals are conditional on the frozen models and cohort, not training-seed uncertainty.
+A candidate ceiling measures recoverable targets, not an achieved ranking score.
 
-The observed-feature cache covers **515,702 sessions**, **1,544,172 session/item
-rows**, and **1,547,106 queries**, with 32 independently audited feature buckets.
-Candidate materialization produced **51,570,200 rows per objective**, also in 32
-resumable buckets. The uploaded restart logs reused all feature and candidate
-buckets without recomputing them.
+[Audited results](reports/research/evaluation.json) ·
+[All 24 model comparisons](reports/research/ablation_models.csv) ·
+[Independent audit](reports/research/audit.json)
 
-The ranker enforces disjoint fit/inner/outer session IDs, complete query groups,
-explicit feature order, deterministic ties, inner-only checkpoint selection and
-checksum-verified iteration recovery. Objective models and evaluation receipts
-remain in S3. The completed run retained **3,145.965 seconds** of fitting; its
-end-to-end pipeline took **8,102.398 seconds**, including candidate preparation
-and publication. These are not serving-latency measurements.
+## Research decisions backed by evidence
 
-UTC logs, stage/total timing and resource heartbeats expose progress. A duplicate
-CLI request is rejected before shared-log or candidate writes; it does not delete
-a lock or displace an active model. Tests include real process-lock ownership,
-corruption, absent-workspace restoration and verified reuse. The code lives in
-`src/otto_recsys/` and `gpu/two_tower/`; notebooks are analytical views.
+- **Availability before accuracy.** Historical retrieval ends on August 20, 2022;
+  ranker fitting, model selection and evaluation use successive session-disjoint
+  periods. Future-label timestamps and indices are retained and independently checked.
+- **Broad engineering with explicit rejection.** The catalog covers graph affinity,
+  recurrence, historical trends, source evidence, context and intent. Quality and
+  fitting-only screening retain 128 of 1,482 formulas; selection rejects another 26
+  source-family columns. Every formula, diagnostic and rejection reason is published.
+- **Matched experiments.** Eight configurations share 100,000 fitting sessions,
+  identical candidate pools and fitting negatives, and 20,000 full-pool selection
+  sessions. All three model choices are sealed before evaluation labels are opened.
+- **Explanations and cost.** Native TreeSHAP passes additivity checks. Group permutation
+  diagnoses family dependence on selection queries. Warm feature-computation p95 falls
+  from **22.10 ms** for the broad catalog to **6.42 ms** for the selected features on
+  identical queries and hardware; this excludes model prediction and network latency.
+- **Independent verification.** All published scores recompute from complete per-query
+  counts. A separate auditor rebuilds every observed prefix and target from the original
+  Parquet partitions and reproduces **4,608** sampled native-model/candidate checks, plus **6,912** supporting
+  ranking-metric checks.
 
-## Observe without restarting
+[Feature catalog](reports/research/feature_catalog.csv) ·
+[Methods and protocol](docs/RESEARCH.md) ·
+[Interpretation and benchmark](reports/research/interpretation.json)
 
-From an existing Studio checkout:
+## From events to a frozen experiment
 
-```bash
-.venv/bin/python scripts/run_ranking.py --stage status
+```mermaid
+flowchart TD
+    E["216.7M training events"] --> H["Historical graph and item statistics"]
+    E --> Q["Chronological prefix / future queries"]
+    H --> C["Common 400-item candidate pool"]
+    Q --> C
+    C --> F["Fit-only feature screening"]
+    C --> B["Compact and fusion controls"]
+    F --> S["24 fits; selection seal"]
+    S --> V["432,492-session evaluation"]
+    B --> V
+    V --> A["Independent event and prediction audit"]
 ```
 
-Add `--watch-seconds 300` for bounded read-only observation. This command does
-not start training or call AWS. A lock filename alone does not imply an active
-writer; the status code probes the kernel lock and verifies saved evidence.
-The completed baseline does not need another training launch.
+The implementation lives in typed modules under `src/otto_recsys/` and the isolated
+neural package `gpu/two_tower/`. Notebooks explain results and call reusable code.
+The competition inference workflow refreshes historical aggregates after evaluation
+while keeping the selected ranking weights frozen; its data contract is separate.
 
-## Reproduce and publish notebook outputs
+## Engineering and reproducibility
+
+SageMaker jobs run independently of a terminal session. Atomic partition receipts,
+native model checkpoints, expected S3 bucket ownership, SHA-256 verification and
+workspace locks protect recovery. UTC logs and resource heartbeats expose stage and
+total elapsed time. Corruption, interrupted writes, duplicate writers, missing
+partitions, and resumed predictions have executable contract tests.
 
 ```bash
 uv sync --frozen --extra dev --extra ml
@@ -99,34 +120,24 @@ uv sync --frozen --extra dev --extra ml
 .venv/bin/python scripts/project_status.py
 ```
 
-CI executes every canonical notebook in its pinned, isolated analysis kernel
-and checks reuse. On `results/` branches only, after all quality jobs pass, a
-restricted publication job verifies source cells, input/runtime fingerprints
-and output checksums, then commits only canonical notebook outputs and
-`notebooks/execution.json`. It refuses to overwrite a concurrently advanced
-branch. A results PR must still pass checks before merging into `main`.
-Executed notebooks are therefore versioned in Git rather than available only
-in an expiring CI archive. No model training occurs during notebook replay.
+For notebook replay, full experiment commands, required resources and exact dependency
+locks, see [Reproducibility](docs/REPRODUCIBILITY.md). CI executes the canonical notebooks
+in isolated kernels and proves verified reuse. The guarded `results/` publication
+workflow commits actual notebook outputs and execution receipts after all gates pass.
 
-## Next research phase
+[Inference workflow](docs/INFERENCE.md) · [Durability](docs/DURABILITY.md) ·
+[Experiment ledger](docs/EXPERIMENT_LEDGER.md) · [Portfolio guide](docs/PORTFOLIO.md)
 
-The 100-item pool limits this baseline to a weighted ceiling of 0.567721.
-Additional ranking features cannot recover excluded candidates. Test candidate
-budgets and source coverage together with broad, domain-informed feature
-engineering: recency/repeat intent, action-conditioned transitions, source-score
-normalization and interactions, and historical context with certified cutoffs.
-Stream candidate features; screen only on training sessions; validate selected
-families through controlled ablations. Hundreds or thousands of generated
-features are not evidence of utility without that selection and evaluation.
+## Earlier experiments remain available
 
-The frozen label cache lacks future-label timestamps and certified upstream
-retriever fit provenance. The existing neural checkpoint was selected on Fold 0.
-The current results must remain exploratory. Paired ranker uncertainty, broad
-feature discovery/screening, certified neural-source comparisons, an untouched
-temporal evaluation, full-test prediction, submission validation and Kaggle
-acceptance are separate uncompleted milestones.
+Notebooks [01–04](notebooks/01_validation_protocol.ipynb) document validation,
+retrieval sources, candidate budgets and hard-negative construction. The
+[objective-conditioned two-tower study](notebooks/05_two_tower_results.ipynb) and
+[ANN benchmark](notebooks/06_ann_benchmark.ipynb) preserve their original evidence.
+[07–08](notebooks/08_ranking_evaluation.ipynb) cover the earlier 30-feature,
+100-candidate exploratory Fold 0 ranker: **0.373086 → 0.497317** on 103,468 sessions.
+Those scores use a different cohort and are not a matched comparison with the new study.
 
-[Ranking methodology and execution](docs/RANKING.md) ·
-[Reproducibility](docs/REPRODUCIBILITY.md) ·
-[Durability](docs/DURABILITY.md) ·
-[Managed training](docs/TWO_TOWER_PIPELINE.md)
+The current research result is one fixed-seed, bounded fitting experiment on one newly
+reserved temporal cohort. Repeated seeds, additional temporal cohorts, certified neural
+sources in the new protocol, and online evaluation are extensions—not measured claims.

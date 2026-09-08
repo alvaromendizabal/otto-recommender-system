@@ -40,6 +40,24 @@ def test_status_with_no_published_evidence_stays_pending(tmp_path: Path) -> None
     assert json.loads(result.stdout)["ann_comparison"] == "pending"
 
 
+def test_controlled_status_uses_audited_reports_and_rejects_changed_metrics(tmp_path: Path) -> None:
+    target = tmp_path / "reports/research"
+    shutil.copytree("reports/research", target)
+    result = run_status(tmp_path)
+    assert result.returncode == 0, result.stderr
+    status = json.loads(result.stdout)
+    assert status["controlled_research"] == "passed"
+    assert status["research_evaluation_sessions"] == 432492
+    assert status["research_features"]["final"] == 102
+    report = target / "evaluation.json"
+    value = json.loads(report.read_text())
+    value["scores"]["selected"]["weighted_recall_at_20"] = 0.99
+    report.write_text(json.dumps(value))
+    result = run_status(tmp_path)
+    assert result.returncode != 0
+    assert "controlled research checksum mismatch" in result.stderr
+
+
 @pytest.mark.parametrize("change", ["metric", "identity", "missing_audit"])
 def test_status_cannot_certify_altered_or_missing_audit(tmp_path: Path, change: str) -> None:
     target = tmp_path / "reports/metrics"

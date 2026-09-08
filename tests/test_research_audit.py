@@ -22,12 +22,17 @@ def test_independent_audit_reconstructs_truth_and_detects_tampered_claims(tmp_pa
         logger=logging.getLogger("audit-test"),
     )
     assert audited["native_replay"]["comparisons"] == 80 * 18
+    assert audited["native_replay"]["supporting_metric_comparisons"] == 80 * 27
     assert audited["native_replay"]["mismatches"] == 0
     assert audited["source"]["roles"] == {"evaluation": 80, "fit": 80, "selection": 80}
     false_claim = copy.deepcopy(report)
     false_claim["scores"]["selected"]["weighted_recall_at_20"] += 0.01
     with pytest.raises(ValueError, match="weighted metric"):
         audit_statistics(tmp_path, false_claim)
+    false_support = copy.deepcopy(report)
+    false_support["scores"]["selected"]["objectives"]["clicks"]["ndcg"] += 0.01
+    with pytest.raises(ValueError, match="published metric"):
+        audit_statistics(tmp_path, false_support)
     (tmp_path / "source/part-0000.parquet").write_bytes(b"tampered source")
     with pytest.raises(ValueError, match="source partition checksum"):
         audit_source(tmp_path, tmp_path / "source", threads=1, memory_gib=1)

@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import argparse
 import json
-import tomllib
 from datetime import datetime
 from pathlib import Path
 
 from otto_recsys.logging_utils import configure_logging
+from otto_recsys.research.configuration import read_config
 from otto_recsys.research.dataset import build_cache
 from otto_recsys.research.evaluation import run_evaluation
 from otto_recsys.research.features import feature_catalog
@@ -20,7 +20,7 @@ from otto_recsys.research.study import run_ablations
 
 
 def load_protocol(path: Path) -> tuple[TemporalProtocol, dict]:
-    config = tomllib.loads(path.read_text())
+    config = read_config(path)
     values = dict(config["protocol"])
     for name in ("history_end", "fit_end", "selection_end", "evaluation_end"):
         timestamp = datetime.fromisoformat(values[name])
@@ -48,13 +48,20 @@ def main() -> int:
     parser.add_argument("--role", choices=["fit", "selection"], default="fit")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--threads", type=int, default=None)
+    parser.add_argument("--memory-gib", type=int, default=None)
     parser.add_argument("--config", type=Path, default=Path("configs/research.toml"))
     parser.add_argument("--source", type=Path, default=Path("data/source_audit/processed/train"))
     parser.add_argument("--output", type=Path, default=Path("artifacts/research"))
     args = parser.parse_args()
     protocol, config = load_protocol(args.config)
     if args.threads is not None:
+        if args.threads < 1:
+            raise ValueError("thread limit must be positive")
         config["training"]["threads"] = args.threads
+    if args.memory_gib is not None:
+        if args.memory_gib < 1:
+            raise ValueError("memory limit must be positive")
+        config["resources"]["memory_gib"] = args.memory_gib
     args.output.mkdir(parents=True, exist_ok=True)
     logger = configure_logging("research", log_dir=args.output / "logs")
     if args.stage == "prepare":
