@@ -78,12 +78,67 @@ columns. Three session-grouped fitting folds train separate objective pilots;
 every eligible feature is considered. Weighted gain and fold stability guide
 selection, followed by correlation pruning and a cap of 128 retained columns.
 All rejection reasons and pilot diagnostics are recorded. These pilot diagnostics
-use sampled fitting negatives and are not final ranking results.
+use pointwise binary LightGBM models and sampled fitting negatives; they are
+inexpensive training-only utility diagnostics, not final ranking results.
+
+The completed screen retained 128 features and rejected 1,354: 54 constants,
+5 near-constants, 146 exact duplicates, 31 highly correlated columns and 1,118
+columns below the retention budget. The retained families contain 57 historical,
+26 source, 19 context, 17 repeat, 5 graph and 4 interaction features. Selection
+considers every eligible column; a predeclared compact core remains available
+as a matched control. The full fitting cache has 6,083,582 rows over 100,000
+sessions. The selection cache contains every one of the 400 candidates for each
+of 20,000 sessions: 8,000,000 rows.
 
 ```bash
 .venv/bin/python scripts/run_research.py --stage features
 .venv/bin/python scripts/run_research.py --stage screen
+.venv/bin/python scripts/run_research.py --stage model_features --role fit
+.venv/bin/python scripts/run_research.py --stage model_features --role selection
+.venv/bin/python scripts/run_research.py --stage ablate
+.venv/bin/python scripts/run_research.py --stage evaluate
 ```
+
+## Matched comparisons and final evaluation
+
+Eight feature configurations use the same fitting queries, candidates,
+negative sample, LightGBM settings and stopping rule: the 28-feature core,
+all 128 retained features, and six leave-one-family-out ablations. Each fits
+separate click, cart and order LambdaRank models. The training limit is 400
+boosting iterations with 40-iteration patience. Complete selection Recall@20
+is evaluated at iteration 1 and every 5 iterations thereafter. The first
+measured maximum wins ties. Native models and their full experiment contracts
+are checkpointed every 25 iterations and at completion.
+
+Model selection chooses the best measured selection Recall@20 separately for
+each objective, breaking exact ties by fewer features and then the variant
+name. An immutable seal records these models, native model SHA-256 digests,
+feature order, retrieval identity and the corpus identity before evaluation
+labels are opened. The candidate budget is fixed at 400 for these comparisons;
+100/200/400 candidate ceilings characterize coverage and are not separately
+trained budget comparisons.
+
+Reserved evaluation streams all eligible queries without negative sampling.
+It reports the official weighted Recall@20, per-objective recall, NDCG@20,
+MRR@20, hit rate, candidate ceilings and observed-prefix slices. Paired session
+bootstrap intervals compare the selected models against the core and fixed
+source fusion. They quantify sampling variation conditional on the frozen
+models and this cohort; they do not quantify training-seed variation or remove
+the possibility of temporal drift. Native checkpoint recovery and missing
+evaluation-part recovery are exercised by tests on actual trained models.
+
+## Managed execution
+
+`scripts/processing_research.py` verifies every staged corpus object, split
+input bundle, assembled archive and source bundle before installing the locked
+Python stack. `otto_recsys.cloud.research_job` restores checkpoints through the
+AWS execution role, runs the ablations, seals the choice and runs evaluation.
+The selected execution configuration and source commit are recorded in the
+job status. Each upload includes an expected bucket owner and SHA-256 metadata;
+each restored file is independently hashed. Data arrives before its receipt.
+An interrupted job resumes under the identical source and experiment contract.
+SageMaker's job name and maximum runtime bound the managed execution; no
+persistent serving endpoint is required.
 
 The research phase closes when the repository contains measured candidate-budget
 coverage, a generated feature catalog, training-only screening with rejection
