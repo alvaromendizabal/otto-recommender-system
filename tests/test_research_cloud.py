@@ -111,6 +111,24 @@ def test_bootstrap_rejects_corrupt_parts_and_unsafe_archives(tmp_path):
     assert not (tmp_path / "escape.txt").exists()
 
 
+def test_existing_competition_inputs_are_verified_before_staging(tmp_path):
+    path = Path(__file__).resolve().parents[1] / "scripts/processing_research.py"
+    spec = importlib.util.spec_from_file_location("processing_research", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    source = tmp_path / "inputs/test/part-0000.parquet"
+    source.parent.mkdir(parents=True)
+    source.write_bytes(b"verified fixture input")
+    inventory = [
+        {"path": source.name, "bytes": source.stat().st_size, "sha256": module.digest(source)}
+    ]
+    module.stage_test(tmp_path / "inputs", tmp_path / "project", inventory)
+    assert (tmp_path / "project/artifacts/test" / source.name).read_bytes() == source.read_bytes()
+    source.write_bytes(b"truncated")
+    with pytest.raises(ValueError, match="checksum"):
+        module.stage_test(tmp_path / "inputs", tmp_path / "project", inventory)
+
+
 def test_managed_job_failure_publishes_status_and_preserves_original_error(tmp_path, monkeypatch):
     from otto_recsys.cloud import research_job
 

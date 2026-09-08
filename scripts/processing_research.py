@@ -58,6 +58,23 @@ def assemble(directory: Path, output: Path, manifest_sha256: str) -> None:
         raise ValueError("assembled bundle has an incorrect length")
 
 
+def stage_test(inputs: Path, project: Path, files: list[dict[str, Any]]) -> None:
+    """Verify existing account-owned S3 inputs staged directly by SageMaker."""
+    if not files:
+        raise ValueError("competition inference requires a verified test inventory")
+    destination = project / "artifacts/test"
+    destination.mkdir(parents=True, exist_ok=True)
+    for entry in files:
+        name = entry["path"]
+        if Path(name).name != name or Path(name).suffix not in {".json", ".parquet"}:
+            raise ValueError("test inventory contains a noncanonical filename")
+        source = inputs / "test" / name
+        verified(source, entry["sha256"])
+        if source.stat().st_size != entry["bytes"]:
+            raise ValueError("staged competition input has an incorrect length")
+        shutil.copyfile(source, destination / name)
+
+
 def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     source = inputs / "source/source.tar.gz"
     verified(source, launch["source_sha256"])
@@ -85,6 +102,7 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
         delivery = inputs / "delivery/delivery.tar"
         verified(delivery, launch["delivery_sha256"])
         extract(delivery, project / "artifacts")
+        stage_test(inputs, project, launch["test_files"])
     return project
 
 
