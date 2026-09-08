@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import shutil
 import subprocess
 import time
@@ -15,6 +16,7 @@ from otto_recsys.ranking.candidates import CandidateConfig, build_candidates
 from otto_recsys.ranking.feature_cache import write_json
 from otto_recsys.ranking.lambdarank import RankerConfig
 from otto_recsys.ranking.pipeline import run_ranking
+from otto_recsys.ranking.progress import RankingBusy, launch_guard, read_progress
 from otto_recsys.ranking.reporting import write_ranking_notebook
 from otto_recsys.runtime import Heartbeat
 
@@ -22,7 +24,7 @@ from otto_recsys.runtime import Heartbeat
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--stage", choices=("preflight", "candidates", "train", "all"), default="all"
+        "--stage", choices=("status", "preflight", "candidates", "train", "all"), default="all"
     )
     parser.add_argument(
         "--ranking-cache", type=Path, default=Path("data/interim/ranking_training_cache")
@@ -43,7 +45,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--output-dir", type=Path, default=Path("artifacts/ranking"))
     parser.add_argument(
-        "--checkpoint-uri", required=True, help="Existing durable S3 project prefix"
+        "--checkpoint-uri", help="Durable S3 prefix; not needed for read-only status"
     )
     parser.add_argument("--region", default="us-west-2")
     parser.add_argument("--candidate-k", type=int, default=100)
@@ -55,11 +57,43 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--rounds", type=int, default=300)
     parser.add_argument("--publish-report", action="store_true")
     parser.add_argument("--execute-notebooks", action="store_true")
+    parser.add_argument("--watch-seconds", type=float, default=0,
+                        help="Bounded read-only status watch; never launches or restarts a job")
+    parser.add_argument("--poll-seconds", type=float, default=15)
     args = parser.parse_args(argv)
     if args.execute_notebooks and (
-        not args.publish_report or args.stage in {"candidates", "preflight"}
+        not args.publish_report or args.stage in {"status", "candidates", "preflight"}
     ):
         parser.error("--execute-notebooks requires --publish-report and a ranking stage")
+    if (not math.isfinite(args.watch_seconds) or not 0 <= args.watch_seconds <= 86400
+            or not math.isfinite(args.poll_seconds) or args.poll_seconds < 1):
+        parser.error("watch duration must be 0..86400 seconds and poll interval at least 1 second")
+    if args.stage == "status":
+        started = time.perf_counter()
+        while True:
+            print(json.dumps(read_progress(args.output_dir), indent=2), flush=True)
+            remaining = args.watch_seconds - (time.perf_counter() - started)
+            if remaining <= 0:
+                return 0
+            time.sleep(min(args.poll_seconds, remaining))
+    if args.watch_seconds:
+        parser.error("--watch-seconds requires --stage status")
+    if not args.checkpoint_uri:
+        parser.error("--checkpoint-uri is required except for --stage status")
+    try:
+        # No logger, input readiness file, candidate transfer or S3 write precedes admission.
+        with launch_guard(args.output_dir):
+            return _run(args)
+    except RankingBusy:
+        print("OTTO_RANKING_ALREADY_RUNNING: existing work preserved; no second run started.",
+              flush=True)
+        print(json.dumps(read_progress(args.output_dir), indent=2), flush=True)
+        print("Use --stage status to observe it. Do not delete lock files or relaunch training.",
+              flush=True)
+        return 75  # Temporary contention, explicitly not model-training success.
+
+
+def _run(args: argparse.Namespace) -> int:
     started = time.perf_counter()
     logger = configure_logging("ranking", log_dir=args.output_dir / "logs")
     candidate_store = S3CandidateCheckpoints(args.checkpoint_uri.rstrip("/") + "/candidates",
