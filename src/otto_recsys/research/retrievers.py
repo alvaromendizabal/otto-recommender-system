@@ -17,6 +17,35 @@ from otto_recsys.runtime import Heartbeat
 
 HISTORY_HOURS = (1, 6, 12, 24, 72, 168, 336)
 CHANNELS = ("time", "cart", "order")
+INITIAL_CODE_SHA256 = "38e11b3c148028ae591b6e7e62caac021619aea51d547e2fcb2d32c8c85a82d1"
+
+
+def migrate_statistics(output: Path, previous: dict[str, Any], current: dict[str, Any]) -> None:
+    """Retain the unchanged, verified aggregate from the initial partial run.
+
+    The initial global tail sort exceeded its memory budget. Only this exact
+    implementation and an incomplete run may migrate; history/config changes
+    and completed fitted graphs still require a separate directory.
+    """
+
+    def comparable(value: dict[str, Any]) -> dict[str, Any]:
+        return {k: v for k, v in value.items() if k != "code_sha256"}
+
+    if (
+        previous.get("code_sha256") != INITIAL_CODE_SHA256
+        or comparable(previous) != comparable(current)
+        or (output / "manifest.json").exists()
+        or (output / "history_tail.parquet").exists()
+    ):
+        raise ValueError("retriever directory has a different fitted-history contract")
+    statistics = output / "history_statistics.parquet"
+    if verified_file(statistics, canonical_json_sha256(previous)):
+        receipt_path = statistics.with_suffix(".json")
+        receipt = json.loads(receipt_path.read_text())
+        receipt["origin_contract"] = previous
+        receipt["migration"] = "Identical statistics formula; contiguous-index tail implementation"
+        receipt["input_id"] = canonical_json_sha256(current)
+        atomic_json(receipt_path, receipt)
 
 
 def verified_file(path: Path, input_id: str) -> bool:
@@ -75,7 +104,7 @@ def build_retrievers(
         input_id = canonical_json_sha256(contract)
         contract_path = output / "contract.json"
         if contract_path.exists() and json.loads(contract_path.read_text()) != contract:
-            raise ValueError("retriever directory has a different fitted-history contract")
+            migrate_statistics(output, json.loads(contract_path.read_text()), contract)
         atomic_json(contract_path, contract)
         connection = duckdb.connect()
         connection.execute(f"SET threads={threads}")
@@ -127,11 +156,22 @@ def build_retrievers(
                     thin_start = time.perf_counter()
                     temporary = thin.with_suffix(".parquet.tmp")
                     temporary.unlink(missing_ok=True)
+                    # Historical truncation preserves a contiguous prefix of event indices.
+                    # Prove that invariant before using max-index distance for the exact tail.
+                    connection.execute(f"""CREATE TEMP TABLE session_bounds AS
+                        SELECT session, max(event_index)::INTEGER last_index,
+                          min(event_index)::INTEGER first_index, count(*) event_count
+                        FROM read_parquet({sql_path(history)}) GROUP BY session""")
+                    invalid = connection.execute("""SELECT count(*) FROM session_bounds
+                        WHERE first_index<>0 OR last_index+1<>event_count""").fetchone()
+                    if invalid is None or invalid[0]:
+                        raise ValueError("historical session indices are not contiguous prefixes")
                     connection.execute(f"""COPY (
-                        SELECT * FROM read_parquet({sql_path(history)})
-                        QUALIFY row_number() OVER
-                          (PARTITION BY session ORDER BY event_index DESC) <= {tail}
+                        SELECT events.* FROM read_parquet({sql_path(history)}) events
+                        JOIN session_bounds USING (session)
+                        WHERE events.event_index::INTEGER > last_index - {tail}
                         ) TO {sql_path(temporary)} (FORMAT PARQUET, COMPRESSION ZSTD)""")
+                    connection.execute("DROP TABLE session_bounds")
                     temporary.replace(thin)
                     commit_file(thin, input_id, time.perf_counter() - thin_start)
                 parts = output / "parts"

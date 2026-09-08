@@ -56,6 +56,35 @@ plus the entire available history. All windows end at the fixed history cutoff.
 
 ## Completion contract
 
+The implemented catalog contains **1,482 candidate features**:
+
+| Family | Candidate features | Mechanism |
+|---|---:|---|
+| Historical graph affinity | 1,152 | Three action channels, four observed action filters, six prefix lengths, four weighting rules and four aggregates |
+| Candidate repeat intent | 160 | Recurrence, observed position, spans, ages and time decay |
+| Historical item context | 99 | Counts, window shares, rate trends, action ratios and availability |
+| Retrieval evidence | 36 | Source scores/ranks, agreement, dispersion and normalized interactions |
+| Session context | 24 | Activity, diversity, duration, gaps and cyclical time |
+| Intent interactions | 11 | Candidate affinity combined with session intent and historical conversion |
+
+The first broad matrix contains 514,013 candidate rows from 8,448 fitting
+sessions. The 500,000-row screening budget is exceeded only to preserve complete
+query batches. All discovered positives and a deterministic mixture of hard and
+random negatives are retained for fitting. Evaluation uses complete candidate
+pools. Normalized features are computed before fitting rows are sampled.
+
+Quality screening rejects constant, near-constant, duplicated and target-equivalent
+columns. Three session-grouped fitting folds train separate objective pilots;
+every eligible feature is considered. Weighted gain and fold stability guide
+selection, followed by correlation pruning and a cap of 128 retained columns.
+All rejection reasons and pilot diagnostics are recorded. These pilot diagnostics
+use sampled fitting negatives and are not final ranking results.
+
+```bash
+.venv/bin/python scripts/run_research.py --stage features
+.venv/bin/python scripts/run_research.py --stage screen
+```
+
 The research phase closes when the repository contains measured candidate-budget
 coverage, a generated feature catalog, training-only screening with rejection
 reasons, matched family ablations, a sealed final model choice, complete temporal
