@@ -7,14 +7,44 @@ import json
 import os
 import subprocess
 import time
+import tomllib
 from pathlib import Path
 from typing import Any
 
 from otto_recsys.cloud.research_checkpoints import ResearchCheckpoints
 from otto_recsys.logging_utils import configure_logging, utc_now_iso
+from otto_recsys.research.deployment import prepare_history
 from otto_recsys.research.inference import export_replay
 from otto_recsys.research.interpretation import explain
 from otto_recsys.research.protocol import atomic_json
+from otto_recsys.research.retrievers import build_retrievers
+
+
+def refresh_history(launch: dict[str, Any], root: Path, storage: ResearchCheckpoints) -> None:
+    """Compute deployment aggregates inside the account from existing S3 inputs."""
+    config = tomllib.loads(Path("configs/research.toml").read_text())
+    deployment = root.parent / "inference"
+    resources = launch["resources"]
+    prepare_history(
+        root.parent / "train",
+        root.parent / "test",
+        deployment / "corpus",
+        logger=storage.logger,
+        threads=resources["history_threads"],
+        memory_gib=resources["history_memory_gib"],
+    )
+    build_retrievers(
+        deployment / "corpus",
+        deployment / "retrieval",
+        config["retrieval"],
+        logger=storage.logger,
+        threads=resources["history_threads"],
+        memory_gib=resources["history_memory_gib"],
+    )
+    for directory in ("corpus", "retrieval"):
+        for path in sorted((deployment / directory).rglob("*")):
+            if path.is_file() and path.suffix in {".parquet", ".json"}:
+                storage.publish(path)
 
 
 def notebook_prediction(launch: dict[str, Any], root: Path) -> dict[str, Any]:
@@ -74,7 +104,11 @@ def run(launch: dict[str, Any], root: Path) -> dict[str, Any]:
             logger=logger,
             publish=research.publish,
         )
-        status.update(stage="competition_prediction", interpretation_id=interpretation["input_id"])
+        status.update(stage="deployment_history", interpretation_id=interpretation["input_id"])
+        atomic_json(root / "delivery_status.json", status)
+        research.publish(root / "delivery_status.json")
+        refresh_history(launch, root, predictions)
+        status["stage"] = "competition_prediction"
         atomic_json(root / "delivery_status.json", status)
         research.publish(root / "delivery_status.json")
         prediction = notebook_prediction(launch, root)

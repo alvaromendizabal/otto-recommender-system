@@ -111,22 +111,23 @@ def test_bootstrap_rejects_corrupt_parts_and_unsafe_archives(tmp_path):
     assert not (tmp_path / "escape.txt").exists()
 
 
-def test_existing_competition_inputs_are_verified_before_staging(tmp_path):
+@pytest.mark.parametrize("role", ["train", "test"])
+def test_existing_competition_inputs_are_verified_before_staging(tmp_path, role):
     path = Path(__file__).resolve().parents[1] / "scripts/processing_research.py"
     spec = importlib.util.spec_from_file_location("processing_research", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    source = tmp_path / "inputs/test/part-0000.parquet"
+    source = tmp_path / "inputs" / role / "part-0000.parquet"
     source.parent.mkdir(parents=True)
     source.write_bytes(b"verified fixture input")
     inventory = [
         {"path": source.name, "bytes": source.stat().st_size, "sha256": module.digest(source)}
     ]
-    module.stage_test(tmp_path / "inputs", tmp_path / "project", inventory)
-    assert (tmp_path / "project/artifacts/test" / source.name).read_bytes() == source.read_bytes()
+    module.stage_events(tmp_path / "inputs", tmp_path / "project", inventory, role=role)
+    assert (tmp_path / "project/artifacts" / role / source.name).read_bytes() == source.read_bytes()
     source.write_bytes(b"truncated")
     with pytest.raises(ValueError, match="checksum"):
-        module.stage_test(tmp_path / "inputs", tmp_path / "project", inventory)
+        module.stage_events(tmp_path / "inputs", tmp_path / "project", inventory, role=role)
 
 
 def test_managed_job_failure_publishes_status_and_preserves_original_error(tmp_path, monkeypatch):
@@ -230,6 +231,7 @@ def test_delivery_orders_restore_explanation_and_prediction_and_publishes_status
 
     monkeypatch.setattr(delivery_job, "ResearchCheckpoints", Checkpoints)
     monkeypatch.setattr(delivery_job, "explain", explain)
+    monkeypatch.setattr(delivery_job, "refresh_history", lambda *args: actions.append("refresh"))
     monkeypatch.setattr(delivery_job, "notebook_prediction", predict)
     monkeypatch.setattr(delivery_job, "export_replay", lambda *args, **kwargs: None)
     launch = {
@@ -248,6 +250,6 @@ def test_delivery_orders_restore_explanation_and_prediction_and_publishes_status
             delivery_job.run(launch, tmp_path)
     else:
         assert delivery_job.run(launch, tmp_path)["status"] == "passed"
-    assert actions == ["restore", "restore", "restore", "explain", "predict"]
+    assert actions == ["restore", "restore", "restore", "explain", "refresh", "predict"]
     status = json.loads((tmp_path / "delivery_status.json").read_text())
     assert status["status"] == ("failed" if fail_prediction else "passed")

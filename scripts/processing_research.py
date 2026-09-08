@@ -58,17 +58,17 @@ def assemble(directory: Path, output: Path, manifest_sha256: str) -> None:
         raise ValueError("assembled bundle has an incorrect length")
 
 
-def stage_test(inputs: Path, project: Path, files: list[dict[str, Any]]) -> None:
+def stage_events(inputs: Path, project: Path, files: list[dict[str, Any]], *, role: str) -> None:
     """Verify existing account-owned S3 inputs staged directly by SageMaker."""
-    if not files:
+    if role not in {"train", "test"} or not files:
         raise ValueError("competition inference requires a verified test inventory")
-    destination = project / "artifacts/test"
+    destination = project / "artifacts" / role
     destination.mkdir(parents=True, exist_ok=True)
     for entry in files:
         name = entry["path"]
         if Path(name).name != name or Path(name).suffix not in {".json", ".parquet"}:
             raise ValueError("test inventory contains a noncanonical filename")
-        source = inputs / "test" / name
+        source = inputs / role / name
         verified(source, entry["sha256"])
         if source.stat().st_size != entry["bytes"]:
             raise ValueError("staged competition input has an incorrect length")
@@ -99,10 +99,8 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     verified(models, launch["model_inputs_sha256"])
     extract(models, root)
     if launch.get("task", "study") == "delivery":
-        delivery = inputs / "delivery/delivery.tar"
-        verified(delivery, launch["delivery_sha256"])
-        extract(delivery, project / "artifacts")
-        stage_test(inputs, project, launch["test_files"])
+        for role in ("train", "test"):
+            stage_events(inputs, project, launch[f"{role}_files"], role=role)
     return project
 
 
