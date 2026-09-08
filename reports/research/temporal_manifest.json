@@ -1,0 +1,50 @@
+{
+  "elapsed_seconds": 42.75058384999829,
+  "files": {
+    "history.parquet": "e02868ba218685e041bf4850cd3369ced1b994eb3baa872e0f700bf967549699",
+    "labels.parquet": "cea9221f240c8ab970eca5d6f0522f270c5cb61283668cb3950a485deeb9925f",
+    "observed.parquet": "d8a1ece9d8d418312e03a35c61056061c6eac587446f27c607e6c722b4a9c53e",
+    "queries.parquet": "f706acdad8badc24fbc2c6967816e4079cc8407a85f0c537ce220ec95a27dfe9"
+  },
+  "input_id": "55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754",
+  "protocol": {
+    "boundaries": "left inclusive, right exclusive; whole session roles use first event",
+    "catalog": "no label-based filtering of unseen items",
+    "evaluation_end": 1661551200000,
+    "evaluation_sampling": "all eligible sessions; no query or negative downsampling",
+    "fit_end": 1661292000000,
+    "fit_sessions": 100000,
+    "history_end": 1661032800000,
+    "labels": "next click, unique carts/orders; future timestamps and indices retained",
+    "prior_exposure": "Original data previously used by exploratory retrieval experiments. All learned components in this experiment must be refitted before history_end. This is a newly reserved temporal evaluation, not a claim of never-seen data.",
+    "query_sampling": "deterministic session hash; labels never used for inclusion",
+    "seed": 20260908,
+    "selection_end": 1661378400000,
+    "selection_sessions": 20000
+  },
+  "roles": {
+    "evaluation": {
+      "exclusive_label_end": 1661551200000,
+      "first_query_event": 1661378400034,
+      "last_observed_event": 1661551188947,
+      "pooled_denominator": 613313,
+      "sessions": 432492
+    },
+    "fit": {
+      "exclusive_label_end": 1661292000000,
+      "first_query_event": 1661032800316,
+      "last_observed_event": 1661291963363,
+      "pooled_denominator": 146039,
+      "sessions": 100000
+    },
+    "selection": {
+      "exclusive_label_end": 1661378400000,
+      "first_query_event": 1661292000489,
+      "last_observed_event": 1661378388561,
+      "pooled_denominator": 28520,
+      "sessions": 20000
+    }
+  },
+  "source_rows": 216716096,
+  "status": "passed"
+}

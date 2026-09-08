@@ -25,7 +25,7 @@ jobs:
       - name: Prepare verified executed notebooks for portfolio tests
         run: |
           uv venv /tmp/otto-analysis --python 3.12.13 --no-project
-          uv pip install --python /tmp/otto-analysis/bin/python -r notebooks/requirements.txt
+          uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/publish_notebooks.py
@@ -73,7 +73,7 @@ jobs:
       - name: Install isolated analysis kernel
         run: |
           uv venv /tmp/otto-analysis --python 3.12.13 --no-project
-          uv pip install --python /tmp/otto-analysis/bin/python -r notebooks/requirements.txt
+          uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
       - name: Execute canonical notebooks and prove reuse
         run: |
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
@@ -117,7 +117,7 @@ jobs:
       - name: Execute and verify publication inputs
         run: |
           uv venv /tmp/otto-analysis --python 3.12.13 --no-project
-          uv pip install --python /tmp/otto-analysis/bin/python -r notebooks/requirements.txt
+          uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/publish_notebooks.py

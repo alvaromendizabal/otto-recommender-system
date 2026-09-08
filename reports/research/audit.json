@@ -1,0 +1,209 @@
+{
+  "ablations": {
+    "chosen": {
+      "carts": "without_source",
+      "clicks": "without_source",
+      "orders": "without_source"
+    },
+    "native_model_sha256": {
+      "models/core/carts/model.txt": "c9bf8cd5f048d9a00fe896d7a324abd09087bf1e86e9d272daa4414b33b5e360",
+      "models/core/clicks/model.txt": "55d5539dfd72755b567b6a6de01bd9ad454fe304a0ea4d5396c2ecb4750a5e2e",
+      "models/core/orders/model.txt": "2382ec7e2e0852bd85553402894993569a1bdfd437f3fd2b410a01eca80ed295",
+      "models/full/carts/model.txt": "fc21c90584cba171ebe85aee18f00da4074d5d1c398ffaf48de8178b76df8671",
+      "models/full/clicks/model.txt": "eb3cead55d3d783d37dfa75fab27c058efefe7019e11eee986e606e04d041a79",
+      "models/full/orders/model.txt": "874b8eb5a6a3d76f69b90d3ab12acc666bc16df7610b131a199f0f003c8b4606",
+      "models/without_context/carts/model.txt": "542328bbc32cf0d6492ecdd05ffd73a39191a37126cff8f0ac187865528632c4",
+      "models/without_context/clicks/model.txt": "3c480d3684e1f483ac1a7b8fb2d366797b4f2d932b5da6a04b8af54fb0b2d8ba",
+      "models/without_context/orders/model.txt": "c770e2fc633ca40510b697c669199f201b17a61a5ec3a0bf4d5e1e17a3ec0b64",
+      "models/without_graph/carts/model.txt": "d164659331fa3b865f42ed5962fbcbf5b676addeb22f4b366bef876c802c01c5",
+      "models/without_graph/clicks/model.txt": "247bcaaccf18a1481165d37d4ebe0e25b8df9cf48c6aa60cd84750124acf159a",
+      "models/without_graph/orders/model.txt": "c0d3367966985121427f91b0f74d94c208d7c7aabb6f5d9151d14caf56f8d128",
+      "models/without_history/carts/model.txt": "a34e65c0ea24fef2ad69a0d57afcad0e548b0ee294e7480bd36c742b374f7c02",
+      "models/without_history/clicks/model.txt": "2333cafc5c7701c2674839d67c2549922aaf357795025acc8fcb226bc7d914ae",
+      "models/without_history/orders/model.txt": "0978d02f0dfa26f962aacaa4cbc47a904cd4df3ca15eee88ba8d4f3cc9ff7bb2",
+      "models/without_interaction/carts/model.txt": "e6ea9044c752344689e4c0e249365d4330013159d861672247af564ebdfcb6b6",
+      "models/without_interaction/clicks/model.txt": "08e8a4b0238b7d7b072b22eca26522b3bf0e830cd34c4541a4edeb8c76458691",
+      "models/without_interaction/orders/model.txt": "a4644c1961131f0646b2323c9d43295a12cd62051d4686a6556eaa7acac4045e",
+      "models/without_repeat/carts/model.txt": "c2757bcd9deea9a6431d5f0bb4ba669d53cceabc5e34853590024c4198ac85a7",
+      "models/without_repeat/clicks/model.txt": "5aa5d773871129d4f4024d7a89eb76908e32343e8304590a93abde6f21c63e6e",
+      "models/without_repeat/orders/model.txt": "04998c4e81231ac85d22b9e371280b2a44352377fd6d544c34ac36467906f083",
+      "models/without_source/carts/model.txt": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f",
+      "models/without_source/clicks/model.txt": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85",
+      "models/without_source/orders/model.txt": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3"
+    },
+    "native_models": 24,
+    "selection_sessions": 20000,
+    "selection_statistic_sha256": {
+      "core": "f8beee2d72001723bf14469f13434e783fbe5bc91b67351e50ebb39adf3e0d16",
+      "full": "d3ef4bc2f8254a2715d45a42294297fd3685ec79b152907741fcde8bf731bff5",
+      "without_context": "ac9add0a64e3b52dec0a741d589bb56f22027e7f873e275a2652a505557e0209",
+      "without_graph": "db056ff234e41023d588a0361e9228beb3c39a6e30af89e34b5f16c02b9a895b",
+      "without_history": "f6df571deecda88d712414035a9d5e9735456df0ee731def81666f997d243369",
+      "without_interaction": "28defb5643c4868d656841a895a1e7052e5b03728f5a3b73d21f788f28488c21",
+      "without_repeat": "6e8ccc17bb202c0a7867cece8d2255379e40a1a3f11d1d1a0f52929795d6f2f9",
+      "without_source": "f39a8493e4bd2166d67fbb4015b46c41bfa9dfd7610214349e9be43b173494c4"
+    },
+    "variants": 8
+  },
+  "audit_code_sha256": "b590d42794aec05fe9a8f09b83d05b1f1de247615a83abb5676ec919b049f49a",
+  "audit_id": "b7f67cb933a6593e6de62ceb33efe00bcc23f2d9c15cd68f781803dcfe70517a",
+  "elapsed_seconds": 49.957485859999,
+  "evaluation_id": "adff5d8966b06ba568de08e84646061c42a2d87899fc5d1ba1577f1783cc1114",
+  "evaluation_report_sha256": "3765e11e9c77ef60a3209a4783fc61d6a480e7b4211d5379e3e6157201b9863a",
+  "native_replay": {
+    "comparisons": 4608,
+    "mismatches": 0,
+    "scope": "independent metric/set arithmetic; shared frozen feature implementation",
+    "seed": 20260908,
+    "session_ids_sha256": "4cf12c12854d69cc512732ed24888449c1b3cf79c7449a376727aa83e1d49c1a",
+    "sessions": 256
+  },
+  "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e",
+  "source": {
+    "differences": {
+      "labels_rebuilt_minus_stored": 0,
+      "labels_stored_minus_rebuilt": 0,
+      "prefixes_rebuilt_minus_stored": 0,
+      "prefixes_stored_minus_rebuilt": 0
+    },
+    "reconstructed_labels": 788883,
+    "roles": {
+      "evaluation": 432492,
+      "fit": 100000,
+      "selection": 20000
+    },
+    "scope": "exact original Parquet bytes; original raw JSONL conversion not replayed",
+    "source_identity_sha256": "93f21c23777be3e342567df6371c2793fc07fb2e70ec6628a2855ea91833ccfb",
+    "source_partitions": 217
+  },
+  "statistics": {
+    "candidate_frontier": {
+      "100": {
+        "objectives": {
+          "carts": {
+            "denominator": 124783,
+            "hits": 65679,
+            "recall_at_20": 0.5263457361980398
+          },
+          "clicks": {
+            "denominator": 419197,
+            "hits": 259590,
+            "recall_at_20": 0.6192553858925517
+          },
+          "orders": {
+            "denominator": 69333,
+            "hits": 50405,
+            "recall_at_20": 0.7269986874936899
+          }
+        },
+        "weighted_recall_at_20": 0.656028471944881
+      },
+      "200": {
+        "objectives": {
+          "carts": {
+            "denominator": 124783,
+            "hits": 68891,
+            "recall_at_20": 0.5520864220286418
+          },
+          "clicks": {
+            "denominator": 419197,
+            "hits": 267553,
+            "recall_at_20": 0.6382512279429481
+          },
+          "orders": {
+            "denominator": 69333,
+            "hits": 51482,
+            "recall_at_20": 0.7425324160212309
+          }
+        },
+        "weighted_recall_at_20": 0.6749704990156259
+      },
+      "400": {
+        "objectives": {
+          "carts": {
+            "denominator": 124783,
+            "hits": 71004,
+            "recall_at_20": 0.5690198184047507
+          },
+          "clicks": {
+            "denominator": 419197,
+            "hits": 271702,
+            "recall_at_20": 0.6481487224383762
+          },
+          "orders": {
+            "denominator": 69333,
+            "hits": 52165,
+            "recall_at_20": 0.7523834249203121
+          }
+        },
+        "weighted_recall_at_20": 0.68695087271745
+      }
+    },
+    "label_boundary_violations": 0,
+    "parts": 423,
+    "scores": {
+      "core": {
+        "objectives": {
+          "carts": {
+            "denominator": 124783,
+            "hits": 50952,
+            "recall_at_20": 0.408324851942973
+          },
+          "clicks": {
+            "denominator": 419197,
+            "hits": 191807,
+            "recall_at_20": 0.45755814092181
+          },
+          "orders": {
+            "denominator": 69333,
+            "hits": 45835,
+            "recall_at_20": 0.6610849090620629
+          }
+        },
+        "weighted_recall_at_20": 0.5649042151123107
+      },
+      "fusion": {
+        "objectives": {
+          "carts": {
+            "denominator": 124783,
+            "hits": 53683,
+            "recall_at_20": 0.43021084602870585
+          },
+          "clicks": {
+            "denominator": 419197,
+            "hits": 220825,
+            "recall_at_20": 0.5267809645584296
+          },
+          "orders": {
+            "denominator": 69333,
+            "hits": 40849,
+            "recall_at_20": 0.5891711017841432
+          }
+        },
+        "weighted_recall_at_20": 0.5352440113349406
+      },
+      "selected": {
+        "objectives": {
+          "carts": {
+            "denominator": 124783,
+            "hits": 53397,
+            "recall_at_20": 0.4279188671533783
+          },
+          "clicks": {
+            "denominator": 419197,
+            "hits": 211965,
+            "recall_at_20": 0.5056453171182046
+          },
+          "orders": {
+            "denominator": 69333,
+            "hits": 46852,
+            "recall_at_20": 0.6757532488136963
+          }
+        },
+        "weighted_recall_at_20": 0.5843921411460518
+      }
+    },
+    "sessions": 432492
+  },
+  "status": "passed"
+}
