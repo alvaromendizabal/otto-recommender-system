@@ -16,11 +16,16 @@ def forbidden_project_filenames(root: str | Path) -> list[str]:
     violations: list[str] = []
 
     for path in base.rglob("*"):
+        relative = path.relative_to(base)
+        # Downloaded data, checkpoints and isolated analysis dependencies are
+        # generated workspaces, not project source filenames.
+        if relative.parts[0] in {"artifacts", "data", "models"}:
+            continue
         if not path.is_file():
             continue
         if any(part in ignored_parts for part in path.parts):
             continue
         if FORBIDDEN_FILENAME_PATTERN.search(path.name):
-            violations.append(str(path.relative_to(base)))
+            violations.append(str(relative))
 
     return sorted(violations)
