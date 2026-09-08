@@ -148,3 +148,31 @@ def test_managed_job_failure_publishes_status_and_preserves_original_error(tmp_p
     assert status["elapsed_seconds"] >= 0
     assert tmp_path / "job_status.json" in published
     assert tmp_path / "logs/managed_research.jsonl" in published
+
+
+def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypatch):
+    path = Path(__file__).resolve().parents[1] / "scripts/processing_research.py"
+    spec = importlib.util.spec_from_file_location("processing_research", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    launch = tmp_path / "input/launch/launch.json"
+    launch.parent.mkdir(parents=True)
+    launch.write_text("{}")
+    project = tmp_path / "project"
+    project.mkdir()
+    calls = []
+    monkeypatch.setenv("UV_PROJECT_ENVIRONMENT", "/opt/venv")
+    monkeypatch.setenv("VIRTUAL_ENV", "/opt/venv")
+    monkeypatch.setattr(module, "prepare", lambda *args: project)
+    monkeypatch.setattr(module.subprocess, "run", lambda command, **kw: calls.append((command, kw)))
+    monkeypatch.setattr(
+        module.sys,
+        "argv",
+        [str(path), "--inputs", str(tmp_path / "input"), "--workspace", str(tmp_path / "work")],
+    )
+    assert module.main() == 0
+    assert len(calls) == 3
+    for _, kwargs in calls:
+        assert kwargs["env"]["UV_PROJECT_ENVIRONMENT"] == str(project / ".venv")
+        assert "VIRTUAL_ENV" not in kwargs["env"]
+    assert calls[-1][0][0] == str(project / ".venv/bin/python")

@@ -101,12 +101,14 @@ def main() -> int:
     environment.update(
         UV_PYTHON_INSTALL_DIR=str(args.workspace / "python"),
         UV_CACHE_DIR=str(args.workspace / "uv_cache"),
+        UV_PROJECT_ENVIRONMENT=str(project / ".venv"),
         PIP_ROOT_USER_ACTION="ignore",
         PYTHONUNBUFFERED="1",
         POLARS_MAX_THREADS="1",
         OPENBLAS_NUM_THREADS="1",
         OMP_NUM_THREADS="1",
     )
+    environment.pop("VIRTUAL_ENV", None)
     subprocess.run(
         [sys.executable, "-m", "pip", "install", "--disable-pip-version-check", "uv==0.12.10"],
         check=True,
