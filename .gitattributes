@@ -1,0 +1,4 @@
+# Keep generated evidence inspectable without dominating source-language statistics.
+reports/** linguist-generated=true
+notebooks/execution.json linguist-generated=true
+uv.lock linguist-generated=true

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "run_id": "b2804b2a1495d60f7e9286dda93dd9c493eafd982bed7c41af6b08b7e904e220",
+  "candidate_id": "9bd6ecee61ea322e14f4beefc142306683c65f7d12452db30f67ccdebed39548",
+  "source_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/models/b2804b2a1495d60f7e9286dda93dd9c493eafd982bed7c41af6b08b7e904e220/",
+  "metrics_sha256": "e54dc722e26770839425724c669ac4642f5a5fbc382e79364ddd03efc2006acd",
+  "verification": "Authenticated S3 evaluation JSON readback; exact evaluation bytes, receipt identities and pooled metric arithmetic independently checked. No full prediction replay.",
+  "native_model_sha256_independently_verified": false,
+  "source_notebook_receipt_sha256": "8c2b8cb7a3d41e36999fb6ccdbae1c531884182ade7000231869345b8380b2af",
+  "source_notebook_code_cells": 4,
+  "source_notebook_completed_at_utc": "2026-09-08T02:16:04.390692+00:00",
+  "pipeline_completed_at_utc": "2026-09-08T02:16:05.707+00:00",
+  "pipeline_elapsed_seconds": 8102.398,
+  "candidate_compute_seconds": 4417.438995298999,
+  "candidate_schema_feature_count": 33,
+  "model_feature_count": 30,
+  "excluded_absent_neural_columns": 3,
+  "broad_feature_screening_performed": false,
+  "feature_family_ablations_performed": false,
+  "paired_ranker_confidence_intervals_measured": false,
+  "untouched_temporal_holdout": false,
+  "evaluation_receipts": {
+    "clicks": {
+      "files": {
+        "evaluation.json": "c26ce55c5d9c64d85667f64b42c4b8b1f9bde28fdb8b9487d832bb372800c5ba",
+        "model.txt": "3e48c52a300064c0d4e850a844e9f73bd62a3d3ab22585016098d2955b4bc42c"
+      },
+      "input_id": "a286c3a838d6465fefe5cc4cd9cb205a1ac5625232d3e206cf8b44115dc847a0"
+    },
+    "carts": {
+      "files": {
+        "evaluation.json": "553e1b0c6999243733a3eddaf1bb3369cc4c68ecd4f8d53f75e37c8e0f466b36",
+        "model.txt": "4b9bf8894bd69351d153f221f11a5f3c8da91186165e9cb42106d49d1ef6db37"
+      },
+      "input_id": "c90a5aae2790c8295b882575e3c4c7a8df62c499c8a6441ab0807e43c391a1a1"
+    },
+    "orders": {
+      "files": {
+        "evaluation.json": "4a96d717047141b8acf62bfe532c95ed5368e4f727704a1e32b8865f99a3378d",
+        "model.txt": "54c3a2b9a2ddcf4d136959cdbf5120ce21f22d1ace5b75ad93a9a9ab1ff91b6b"
+      },
+      "input_id": "84d0b00fff18ee015659b78ecd997f9ec8ea92375f0e31954bc139e5e653a715"
+    }
+  }
+}

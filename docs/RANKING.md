@@ -1,13 +1,99 @@
-# From audited retrieval to learned ranking
+# Ranking evidence and research protocol
 
-**Status:** observed feature preparation is complete and independently audited.
-The integrated candidate/ranker pipeline and measured-results notebook publisher
-are implemented. Full-data LambdaRank evaluation and Kaggle submission remain
-unmeasured. Synthetic integration results are engineering tests, not OTTO scores.
+## Completed baseline
 
-## Run the next experiment
+The existing Studio run completed all three objective fits, full outer-query
+evaluations and notebook publication on **2026-09-08 at 02:16:05 UTC**. Run identity:
 
-From the existing SageMaker Studio checkout and locked CPU environment:
+```text
+b2804b2a1495d60f7e9286dda93dd9c493eafd982bed7c41af6b08b7e904e220
+```
+
+The matched weighted Recall@20 increased from **0.3730864841** to
+**0.4973169468** on 103,468 Fold 0 outer sessions. The 100-candidate pool's
+weighted coverage ceiling is **0.5677209482**. Notebook 08 contains scores,
+NDCG/MRR, per-objective ceilings, selection iterations, timings and limitations.
+The native models and original executed notebook remain in the durable S3 run.
+
+The publication independently checks saved evaluation JSON bytes against source
+receipts, receipt identities, the combined report hash, and pooled score
+arithmetic. Native model checksums are recorded from the source receipts;
+publication is not a fresh full-data inference replay or independent byte hash
+of every native model. See `reports/metrics/ranking_evaluation_provenance.json`.
+
+This is a **30-feature exploratory baseline**, not a completed exhaustive feature
+study, certified untouched holdout or Kaggle submission. The earlier all-fold
+retrieval score and larger-pool ANN ceilings are different experiments.
+
+## What the repeated lock errors meant
+
+The uploaded attempts reused all 32 observed-feature buckets and all 32 candidate
+buckets, then encountered the ranker's output lock. Another run was already
+advancing. Its S3 checkpoints progressed through clicks, carts and orders, and
+its final log reported `ranking_pipeline_complete` with status `passed`.
+
+Never remove a lock file or kill a process simply because a duplicate launch was
+rejected. A filename is not proof of lock ownership, and unlinking a held lock
+can permit concurrent writers against different inodes.
+
+The canonical CLI now probes existing ownership before initializing shared logs,
+restoring inputs or publishing candidates. A separate admission lock protects
+new CLI instances through notebook publication; the unchanged ranker lock still
+protects direct and older writers. This is local admission, not a distributed
+S3 lease. A legacy writer starting after the probe is still checked at the
+ranker's own final lock.
+
+```bash
+.venv/bin/python scripts/run_ranking.py --stage status
+```
+
+For a bounded observation period, add `--watch-seconds 300`. Status is read-only,
+needs no AWS credentials and does not create output folders or logs. It reports
+kernel ownership when observable, checksum-verified checkpoint/evaluation state
+and the latest meaningful progress record. A partial objective result is not
+reported as a final weighted score. Unknown lock permissions remain unknown,
+not idle. Duplicate execution returns exit 75 and `OTTO_RANKING_ALREADY_RUNNING`,
+not a model-success marker.
+
+## Frozen inputs and durable artifacts
+
+| Default path | Purpose |
+|---|---|
+| `data/interim/ranking_training_cache` | Frozen manifest, examples, observed items and labels |
+| `data/interim/ranking_features` | Audited observed features and complete query ledger |
+| `data/interim/covisit` | Saved time/type/buy matrices and manifests |
+| `models/item2vec/item_vectors.kv` | Item2Vec vectors, sidecars and manifest |
+| `models/faiss/item.index` | Frozen baseline ANN index and manifest |
+| `data/interim/ranking_candidates` | Complete candidate features and receipts |
+| `artifacts/ranking` | Local contracts, model snapshots, evaluations and logs |
+
+The unchanged feature identity is
+`82e8eac76c63d4d8a34b611bca0f3ae329623ff5cd80e18ca8bc238ddbd65795`.
+It covers 515,702 sessions, 1,544,172 session/item rows and 1,547,106 queries.
+The candidate identity is
+`9bd6ecee61ea322e14f4beefc142306683c65f7d12452db30f67ccdebed39548`,
+with 51,570,200 candidate rows per objective in 32 buckets.
+
+All namespaces use the existing project bucket:
+
+```text
+s3://otto-recsys-560403859723-us-west-2/ranking/features/<feature-id>/
+s3://otto-recsys-560403859723-us-west-2/ranking/candidates/<candidate-id>/
+s3://otto-recsys-560403859723-us-west-2/ranking/models/<run-id>/
+```
+
+The normal CLI preflight restores missing observed features from the exact
+published contract/summary/audit/URI, not a guessed latest run. It verifies
+receipt inventories, SHA-256, bytes and Parquet row counts. Data is installed
+before completion receipts. Correct files and their modification times survive
+an interrupted restoration. Original feature computation and manifests are not
+regenerated. Other missing upstream paths are reported together rather than
+silently rebuilt.
+
+## Reproduction, not a required rerun
+
+The following command reproduces or resumes the existing configuration from
+verified artifacts; it is not necessary merely to view the completed baseline:
 
 ```bash
 .venv/bin/python scripts/run_ranking.py \
@@ -15,164 +101,82 @@ From the existing SageMaker Studio checkout and locked CPU environment:
   --publish-report --execute-notebooks
 ```
 
-The canonical command first checks the frozen upstream files and restores the
-published observed-feature cache automatically when it is missing or incomplete.
-It then prepares candidates, trains the click/cart/order rankers, evaluates their
-complete outer queries, saves metrics and generates/executes
-`notebooks/08_ranking_evaluation.ipynb`. Notebook 08 is created only when a measured
-ranking report exists, never as a placeholder or synthetic performance claim.
-Its executed output and receipt are uploaded with the model run.
+`--stage preflight` verifies/restores inputs only; `--stage candidates` stops after
+candidate preparation; `--stage train` uses an already verified candidate cache.
+Changed candidate budgets require a separate `--candidate-dir`; changed input,
+feature, model or fold contracts require a separate output directory. Preserve
+old content identities rather than replace valid experiments.
 
-To check and restore prerequisites without starting candidate work or training:
+Defaults use 100 candidates, complete 128-session join batches, four CPU threads,
+4 GB DuckDB memory and a 20 GiB estimated training budget, further bounded by
+available RAM. The estimate is not a guaranteed native-memory maximum. Oversized
+fits are rejected before allocation and no rows are silently sampled. Native
+training datasets are released before outer evaluation.
 
-```bash
-.venv/bin/python scripts/run_ranking.py --stage preflight \
-  --checkpoint-uri s3://otto-recsys-560403859723-us-west-2/ranking
-```
+## Validation and feature boundaries
 
-The command uses the already-running CPU workspace and existing S3 storage. It
-creates no new SageMaker job, instance, endpoint or IAM resource. Ordinary
-workspace and S3 charges apply. Do not repeat completed retriever training,
-ANN benchmarking or observed-feature computation to resolve a missing local file.
+Candidates use revisit, time/type/buy co-visitation and Item2Vec, without inserting
+future positive items. Source agreement, reciprocal-rank sum, Item2Vec score and
+ascending item ID define the fixed compression baseline. Score/rank absence
+remains explicit missingness. Baseline fitting excludes the schema's three
+absent neural columns, IDs, targets, query identities and split assignments.
 
-## Published evidence versus local readiness
+For each outer fold, other-fold sessions outside inner partition zero fit the
+model. Inner partition zero selects stopping iterations. Outer sessions enter
+neither ranker fitting nor ranker checkpoint selection. Complete query ledgers
+preserve zero-candidate misses. Learned and matched baseline rankings use the
+same candidates and full denominators.
 
-`project_status.py` describes versioned experimental evidence. A published stage
-can be complete even when its large files are absent from a particular workspace.
-`run_ranking.py` now checks readiness separately, before candidate materialization.
+The official metric pools capped per-session hits and denominators within each
+objective, then applies weights **0.10 clicks / 0.30 carts / 0.60 orders**. Across
+folds, pool counts rather than equally average fold scores. NDCG/MRR/hit-rate
+average over labeled queries. Candidate ceilings and fit/evaluation durations
+are separate diagnostics, not substitutes for ranked quality or serving latency.
 
-The earlier startup failure for
-`data/interim/ranking_features/feature_contract.json` was a missing prerequisite
-restoration step, not a failed model fit. The published contract, summary,
-independent audit and exact S3 URI are read from `reports/metrics`. Together they
-pin the content identity and checksum inventory; the runner never guesses a
-latest run or rebuilds features to match a different environment.
+The frozen cache does not preserve future-label timestamps or certified upstream
+retriever fit provenance. Its window has already been explored. The existing
+neural checkpoint was selected on Fold 0. New ranker inner partitions do not
+retroactively certify that upstream fit or create an untouched temporal test.
+The current baseline therefore does not include two-tower scores as independent
+features. These limits remain visible in the report and notebooks.
 
-Recovery uses authenticated S3 reads only for the source feature namespace.
-All receipt hashes must match the audited aggregate before data installation.
-Every downloaded Parquet file is checked for SHA-256, byte size and row count;
-its bucket receipt is installed last. Correct existing files retain their bytes
-and modification times. A fully restored cache needs no further S3 reads.
-Interrupted transfers retain previously verified buckets and files. An incompatible
-local experiment is rejected without replacing it. Original feature manifests,
-code dependency hashes and completed calculation times remain unchanged.
+## Notebook publication
 
-UTC start/progress/15-second heartbeat/completion events expose restoration and
-checksum verification. `artifacts/ranking/input_readiness.json` records the source
-identity, verified/reused/restored buckets, downloaded files/bytes, timings and
-`feature_computation_performed=false`. Candidate runs publish this receipt with
-their outputs. A preflight-only run retains the receipt locally.
+CI executes all canonical analytical notebooks and proves reuse. For pushes to
+`results/` branches only, a publication job waits for every quality job, executes
+and verifies the notebooks in the isolated kernel, and copies outputs back to
+the same filenames. The publisher verifies source cells, input/runtime identity,
+receipt checksums, complete execution and absence of notebook error/warning
+outputs before any source replacement. It writes `notebooks/execution.json`
+last, outside the input evidence tree to avoid self-invalidating identities.
 
-## Required frozen upstream inputs
+Only canonical notebook paths and that execution receipt may be staged. A
+concurrent remote branch advance aborts the push; there is no force push. A
+results PR subsequently validates the exact rendered commit before merge. This
+retains employer-viewable outputs in Git, not only a 30-day CI download.
 
-| Default location | Required artifact |
-|---|---|
-| `data/interim/ranking_training_cache` | Manifest, examples, observed items and labels |
-| `data/interim/covisit` | Time/type/buy matrices and their manifests |
-| `models/item2vec/item_vectors.kv` | Item2Vec vectors, sidecars and manifest |
-| `models/faiss/item.index` | Baseline ANN index and manifest |
-| `data/interim/ranking_features` | Restored automatically from the audited publication |
+## Next research decisions
 
-The preflight reports all absent upstream paths together. Large retriever inputs
-are not silently regenerated or downloaded from guessed locations; supply their
-explicit CLI paths when using a different existing layout. Checksums tie the
-training examples and labels to the published observed-feature contract.
-`--feature-evidence` selects another explicit publication directory; it must
-contain a mutually consistent contract, summary, audit and publication receipt.
+The first baseline establishes a measured comparison, not feature exhaustion.
+Thirty features were used; broad training-only screening and feature-family
+ablations have not been performed. Candidate coverage is the immediate ceiling:
+more ranking features cannot recover an item discarded by retrieval/compression.
 
-The unchanged observed-feature publication contains 515,702 sessions,
-1,544,172 session/item rows and 1,547,106 queries in 32 committed buckets.
-Notebook 07 includes the independent zero-mismatch audit. The exact S3 location is:
+Compare candidate budgets and sources together with broad, domain-informed
+families: repeated intent and recency decay, action-conditioned sequential
+transitions, score normalization and query-relative ranks, source interactions,
+and historical item trends with verifiable availability cutoffs. About 45.15%
+of the audited prefixes contain one event, so short-prefix diagnostics are
+important alongside longer-sequence representations.
 
-```text
-s3://otto-recsys-560403859723-us-west-2/ranking/features/82e8eac76c63d4d8a34b611bca0f3ae329623ff5cd80e18ca8bc238ddbd65795/
-```
+Generate candidates broadly, then stream training-only schema/finite/missingness,
+constant/duplicate/redundancy and utility checks before constructing a selected
+matrix. Record catalog definitions, fit cutoffs, candidate/retained/rejected
+counts and reasons. Evaluate feature groups through controlled inner-selection
+ablations and fixed outer comparisons with paired session uncertainty. Do not
+claim utility from feature count or split/gain importance alone.
 
-## Candidate and model protocol
-
-Revisit, time/type/buy co-visitation and Item2Vec supply candidates without using
-future labels to select membership. Deduplicate by session/objective/item and
-retain each source's presence, rank and score. The first baseline compresses to
-100 candidates using source agreement, reciprocal-rank sum, Item2Vec score and
-ascending item ID. This budget is fixed, not selected as an optimum; its coverage
-must be measured rather than borrowed from an uncompressed pool.
-
-Complete 128-session groups stream through the observed-feature join into float32
-objective Parquet parts. Features include source evidence, session event counts
-and duration, repeat/type counts, observed item recency and event share. Missing
-scores/ranks and unseen-item recency remain explicit missing values. IDs, targets,
-folds and inner assignments are excluded from the feature matrix. The full query
-ledger retains zero-candidate queries; missing positives remain misses.
-
-Default execution evaluates outer Fold 0. Fits use other-fold sessions outside
-inner partition 0; early stopping uses only inner partition 0 in those other
-folds. Outer sessions enter neither fitting nor checkpoint selection. Learned and
-source-agreement/RRF baseline rankings use the identical candidate pool and
-complete denominators. `--outer-folds 0 1 2 3 4` fits all five outer folds.
-
-The official metric is `0.10*Recall@20(clicks) + 0.30*Recall@20(carts) +
-0.60*Recall@20(orders)`. Cap each session's hits and true-item denominator at 20,
-pool objective numerators/denominators across folds, then apply the weights.
-Report NDCG@20, MRR@20, hit rate, candidate ceiling and timing separately.
-Outer evaluation time includes I/O, prediction, sorting and metrics, not serving
-latency. The report publisher checks aggregate scores against their fold counts.
-
-**Evaluation limits:** the frozen cache lacks future-label timestamps and
-certified upstream fit provenance. This is exploratory nested session validation,
-not an untouched temporal test or fully certified nested retrieval/ranking.
-The earlier Fold 0 neural checkpoint was selected on that fold; this baseline
-runner refuses neural-candidate contracts rather than relabeling it independent.
-
-## Resources and recovery
-
-Defaults use four CPU threads, 4 GB DuckDB memory and a 20 GiB estimated training
-budget, also bounded by available RAM. The estimate is not a guaranteed maximum
-for native allocations. Oversized fits fail before allocation; rows are never
-silently sampled. Native training datasets are released before outer evaluation.
-
-`--stage candidates` stops after preparation; `--stage train` uses a verified
-local candidate cache. Changed inputs/features/model settings or outer folds
-require a separate output directory. A changed candidate budget also requires
-a separate `--candidate-dir`. Preserve old experiments rather than overwrite them.
-
-Candidate data is uploaded before completion receipts. Ranker checkpoints and
-completed objective model/evaluation receipts are verified on reuse. An interrupted
-active bucket, uncommitted training interval or unfinished objective evaluation
-may repeat, but verified completed work survives. Use one writer per remote run;
-workspace filesystem locks do not claim to implement distributed S3 leases.
-
-| Evidence | Location |
-|---|---|
-| Input readiness | `artifacts/ranking/input_readiness.json` |
-| Candidate buckets | `data/interim/ranking_candidates/parts` |
-| Candidate progress | `data/interim/ranking_candidates/logs/ranking_candidates.jsonl` |
-| Model/checkpoints/metrics | `artifacts/ranking` |
-| Overall progress and restoration | `artifacts/ranking/logs/ranking.jsonl` |
-| Compact measured ranking report | `reports/metrics/ranking_evaluation.json` |
-| Executed ranking notebook | `notebooks/08_ranking_evaluation.ipynb` |
-| Durable outputs | `<checkpoint-uri>/candidates/<id>` and `/models/<id>` |
-
-Generated results are local and in S3 until reviewed and committed through a
-results PR. Neither a model score nor a completed submission is inferred from
-passing engineering tests.
-
-## Next modeling decisions
-
-The saved feature audit shows 232,838 one-event prefixes out of 515,702 sessions.
-Prioritize short-prefix diagnostics and reliable item/source context rather than
-assuming a longer sequence model helps every query. Test recency and repeat intent,
-objective-conditioned transitions, source-score normalization and interactions,
-and time-windowed item trends only when their fit cutoffs can be certified.
-These are candidate feature families, not demonstrated performance improvements.
-
-First measure the matched ranker baseline. Then compare candidate budgets and
-feature/source ablations using inner validation, plus paired session uncertainty
-on fixed outer predictions. Certify neural-source fitting and checkpoint selection
-before adding those sources to an independently evaluated ranker. More features
-or a more complicated model are not evidence of better recommendations.
-
-The earlier ANN K=800 experiment increased an uncompressed candidate ceiling from
-0.731544 to 0.741809, not achieved ranked Recall@20. Preserve this distinction.
-Full-test candidate generation/prediction, complete submission validation and
-current Kaggle submission availability must be checked separately. Generating a
-submission file and obtaining an accepted Kaggle submission are distinct milestones.
+Certified neural-source fitting, an untouched temporal evaluation, full-test
+candidate generation/prediction, submission-format validation and current Kaggle
+acceptance remain separate milestones. No submission or final competition
+performance is claimed by the completed baseline.
