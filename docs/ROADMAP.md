@@ -1,91 +1,41 @@
 # Project scope and completion
 
-The reference experiment is complete. The first full batch output is invalidated
-because its source included future test events; replacement inference is required. The project is
-now in **temporal validation and release preparation**. The active work repeats
-the frozen research procedure, then delivers a traceable submission collection
-and a final employer-facing release.
+**All nine frozen temporal validation cells are complete and independently audited.** Full inference on the official competition prefixes is also complete, and the downloaded gzip passed the exact session/action ledger, every top-20 list and full-file checksum validation.
 
-The [research progress snapshot](../reports/robustness/progress.json) and
-[verified comparison](../reports/robustness/comparison.json) are the sources for
-completion counts. A launched job, generated model, or attractive chart does
-not count as a verified research result.
-
-| Milestone | Evidence |
+| Milestone | Current verified result |
 |---|---|
-| Event processing and temporal protocol | 216.7M training events; 217 verified partitions; disjoint chronological roles |
-| Retrieval baselines | Executed notebooks 02–03 and published source/budget measurements |
-| Neural retrieval and ANN | Executed notebooks 05–06 with original scope and exact/approximate comparisons |
-| Exploratory task-specific ranking | Executed notebook 08; matched Fold 0 baseline and recovery evidence |
-| Broad feature engineering | 1,482 explicit formulas and fitting-only screening diagnostics |
-| Controlled feature comparisons | Eight configurations, 24 model fits, immutable pre-evaluation model selection |
-| Reserved temporal evaluation | 432,492 sessions; complete denominators; paired intervals and failure slices |
-| Independent audit | Exact event reconstruction, native model hashes and 4,608 sampled replay checks |
-| Interpretation and feature cost | TreeSHAP, grouped permutation, matched warm computation measurements |
-| Employer-facing research narrative | Notebook 09, README, model card, catalog and experiment ledger |
-| Full competition prediction | Historical execution is retained as incident evidence; official-prefix replacement is pending |
-| Notebook publication | CI commits verified executed outputs and a matching execution manifest |
+| Event processing and temporal protocol | 216.7M training events; 217 partitions; chronological role contracts |
+| Retrieval and neural/ANN benchmarks | Executed notebooks 02–06, with their original scope preserved |
+| Feature research | 1,482 explicit formulas; fitting-only screening; eight ablations per cell |
+| Robustness | **9/9 audited** across three windows and three model seeds |
+| Matched feature gain | **+1.791 to +2.180 percentage points** over compact controls |
+| Original reference model | **0.584392** weighted Recall@20; remains frozen for submission |
+| Highest observed offline score | **0.590759**, middle seed 20260908; a different evaluation cohort |
+| Official-prefix full prediction | **1 verified file**, 1,671,803 sessions and 5,015,409 rows |
+| Kaggle delivery | File uploaded; final Submit action blocked by automatic approval review |
+| Corrected Kaggle score | **Pending**; no value inferred from the offline study |
+| Employer-facing publication | Canonical notebooks, model card, complete comparison and Plotly report |
+| Earlier 50-file collection | **Not executed**; one full file is verified, not 50 |
 
-## Remaining release work
+## Remaining closeout
 
-| Workstream | Current evidence | Completion requirement |
-|---|---|---|
-| Frozen robustness study | Five of nine cells audited: all reference seeds and early seeds 20260908/20260909 | All nine planned window/seed cells audited, with every outcome retained |
-| Valid Kaggle submission | First score invalidated by confirmed test-target contamination | Regenerate using official truncated prefixes, validate, submit and record the replacement score |
-| Submission collection | Zero valid competition files after source invalidation | 50 distinct validated files, each linked to its model or ensemble recipe and content hash |
-| Research narrative | Executed notebooks, Plotly figures, reference model card and case study | Update conclusions using the completed temporal comparisons and show the remaining limitations |
-| Final release | Passing CI and a reproducible reference pipeline | Publish an identified release with consistent executed notebooks, artifact index, reproduction commands and a concise review path |
+The remaining immediate action is to submit the prepared file to Kaggle, verify its accepted status and score, and record that outcome in the canonical receipt and narrative. The first 0.93583 private score is invalidated because its input contained future events. It is retained as incident evidence, not as a performance claim.
 
-The early window's **seed 20260908 is complete and audited**. Early seed
-20260909 started at 20:17 UTC on September 9, completed training and evaluation
-at 21:00 UTC, and passed its separate audit at 21:13 UTC. At 20:36 UTC the managed remaining
-queue started early seed 20260910 and middle seed 20260908 concurrently. The
-other middle seeds depend on the first middle seed's independent audit; each
-training run has its own audit step. Shared preparation is reused without
-simultaneous writers. A cloud completion counts only after its audit is checked.
+The broader previously requested 50-file collection remains unfulfilled and must not be described as complete. It would require distinct model or ensemble recipes chosen on fitting/selection evidence, cache reuse, and content deduplication. The present delivery prioritizes the single corrected submission requested for closeout; it does not start additional training or manufacture renamed copies.
 
-### Concurrency and terminal monitoring
+## Runtime and monitoring
 
-The user requested concurrent execution on September 9. This operational
-amendment permits three simultaneous pipeline steps, within the verified AWS
-quota of five instances. It leaves the frozen data, feature, model, selection,
-seed and evaluation contracts unchanged. The original early job and replacement
-inference are separate bounded jobs. The [saved execution](../reports/robustness/batch/execution.json)
-and [plan](../reports/robustness/batch/plan.json) identify the actual queue.
-
-From an updated clone with the project AWS credentials configured:
+The managed remaining queue ran from **20:36 to 22:26 UTC on September 9**. Its final two training runs executed concurrently, and both audits succeeded. Corrected full inference completed at **21:43 UTC**. No validation or inference jobs remain in progress for this batch.
 
 ```bash
-uv run --frozen --extra cloud python scripts/robustness_status.py --watch
+cd "$HOME/otto-recommender-system" &&
+uv run --frozen --extra cloud python scripts/robustness_status.py
 ```
 
-The command is read-only, reports actual SageMaker job names, and refreshes every
-30 seconds. It does not launch duplicate jobs. To inspect the saved observation
-offline, use `--snapshot reports/robustness/batch/execution.json`.
+This read-only command reports actual SageMaker job names. An offline saved view is available with `--snapshot reports/robustness/batch/execution.json`. The queue used up to three simultaneous steps under the authorized scheduling amendment while preserving the frozen data, feature and evaluation protocol.
 
-### Remaining time and bounded execution
+[Complete results](ROBUSTNESS.md) · [Submission and source audit](INFERENCE.md) · [Model card](MODEL_CARD.md)
 
-The remaining five validation cells were estimated at **5–7 hours sequentially**.
-The managed queue should reduce the remaining validation and audit work to
-approximately **2–3 hours from its 20:36 UTC start**, allowing for the middle
-window preparation dependency. This is an estimate based on completed runs,
-not a completion guarantee. Source-corrected inference started at 20:55 UTC and should take roughly
-**45–60 minutes once launched**, based on the previous full execution, and can
-run alongside validation. Notebook publication and release checks add time.
+## Further research
 
-The original 0.93583 private score cannot measure competitiveness: its queries
-contained future events. [The source audit and replacement workflow](INFERENCE.md)
-explain the correction. None of the validated training-only research changes.
-
-The 50-file collection has no measured end-to-end runtime yet. Its next bounded
-step is a small distinct-output pilot, followed by a measured batch estimate. The
-existing full inference took about 41 minutes; multiplying that by 50 would ignore
-the intended reuse of retrieval and feature work. Completion of the current product
-scope means nine audited cells, 50 distinct validated files, and a tagged release
-with consistent executed notebooks and artifact links.
-
-## Optional work after the release
-
-New neural sources within this protocol, sequence models, alternative rankers,
-new blending studies and online experiments remain possible extensions. They
-are not required to finish the currently defined research and delivery scope.
+Certified neural retrieval within the same cutoffs, new sequence models, additional rankers, blending studies and online experiments are extensions. Current evidence supports repeatable offline feature gains on this historical dataset; it does not claim state-of-the-art performance or online lift.

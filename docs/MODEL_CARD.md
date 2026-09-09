@@ -3,7 +3,7 @@
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Replacement inference uses the attested official truncated test.
+performance. Corrected inference is complete and verified on the attested official truncated test; Kaggle scoring is pending.
 See [the source audit](../reports/submissions/data_provenance_audit.json).
 
 ## Purpose and intended use
@@ -114,22 +114,15 @@ historical graph refreshed from all permitted training events. Training history 
 precede test observations and have disjoint session IDs. This operational refresh does
 not change or retroactively replace the research evaluation.
 
-Historical Notebook 10 inference generated 5,015,409 rows from full test sessions;
-that input is invalid for competition evaluation. The default notebook replays eight
-historical sessions as a software check. Replacement inference requires the official
-truncated prefixes and reuses the frozen native models. [Execution and coverage evidence](../reports/research/competition_cloud_verification.json)
-records all part receipts and the final output identity.
+Notebook 10 now replays eight official-prefix sessions from the corrected full output. The managed run completed on September 9 and generated 5,015,409 task rows in a 289,541,110-byte gzip. All rows, exact session coverage, recommendation lists and the downloaded SHA-256 were independently checked. [Execution and coverage evidence](../reports/research/competition_cloud_verification.json). The final Kaggle Submit action is awaiting confirmation; no corrected score is claimed.
 
 ## Limits and appropriate conclusions
 
-The headline result uses one fixed training seed and a bounded 100,000-session fitting
-sample. The [frozen replication study](ROBUSTNESS.md) now verifies all three planned
-seeds on the same reference cohort: selected-minus-compact gains are +1.949, +2.022
-and +2.031 percentage points. All select the same 102-feature configuration. The first early-window seed is also audited: 0.566897 selected versus 0.545094
-compact on 562,504 reserved sessions. Its second seed also passed audit: 0.566784 selected versus 0.545668 compact,
-a +2.112-point gain (paired 95% interval +2.013 to +2.212). Four cells remain
-in audit or queued. These comparisons do not establish robustness
-to every period, seed, market or catalog. The dataset is historical and anonymized;
+The selected feature procedure beats the matched compact ranker in **all nine audited runs**. Gains range from **+1.791 to +2.180 percentage points**, with all paired 95% session-bootstrap intervals above zero. Every window and seed chooses the variant without direct source-score features for all three actions.
+
+The highest absolute offline score is **0.590759**, middle window seed **20260908**. On the reference cohort, seed **20260910** is highest at **0.584988**. Different windows use different sessions, so these are descriptive maxima. The original reference seed **20260908** remains the submission model, with **0.584392** on its reserved evaluation; no new seed is chosen using evaluation results.
+
+The headline model uses a bounded 100,000-session fitting sample. All nine cells are complete, but repeated seeds share the same cohort within each window and histories overlap across periods. This does not establish robustness to every period, seed, market or catalog. The dataset is historical and anonymized;
 protected-group fairness and individual-level outcomes cannot be evaluated from these
 inputs. The task is offline recommendation, with no online exploration or exposure-bias
 correction. The multi-objective metric is a prescribed weighted aggregate, not a learned

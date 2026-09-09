@@ -1,21 +1,21 @@
 {
-  "elapsed_seconds": 2649.909961783,
-  "finished_at": "2026-09-08T07:17:48.221+00:00",
+  "elapsed_seconds": 2648.922104296,
+  "finished_at": "2026-09-09T21:42:59.681+00:00",
   "interpretation_id": "4a21f8464b3914ee3de77dd27df0a7e737bf495a8dbd311eeec9860286f9069d",
-  "prediction_id": "2b001d27dedaa6b684675cfc0facb65dc5c2ef85b07758016239f9d71b48ebe8",
-  "prediction_sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
+  "prediction_id": "0dafdd7d6ee7a3680a1b89d0166eccd09a84b35dc68b5119cfde0b996b65813f",
+  "prediction_sha256": "49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2",
   "resources": {
     "feature_workers": 16,
     "history_memory_gib": 64,
     "history_threads": 16,
     "hourly_compute_usd": 3.4272,
     "instance_type": "ml.c7i.16xlarge",
-    "maximum_runtime_seconds": 14400,
+    "maximum_runtime_seconds": 7200,
     "volume_gib": 100
   },
-  "source_commit": "565ed1f15c9786a905a0cff70ac0a58ed8b1261c",
-  "source_sha256": "f9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37",
+  "source_commit": "1fb654831a47cfddf1c47d5b51030d04f2746841",
+  "source_sha256": "90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8",
   "stage": "complete",
-  "started_at": "2026-09-08T06:33:38.311+00:00",
+  "started_at": "2026-09-09T20:58:50.759+00:00",
   "status": "passed"
 }

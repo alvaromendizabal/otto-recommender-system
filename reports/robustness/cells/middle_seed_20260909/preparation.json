@@ -1,0 +1,23 @@
+{
+  "cohort_seed": 20260908,
+  "files": {
+    "corpus/contract.json": "5fca31f8153b3df21a30fab203a41d45a8c49eb76c07d4866534215bc587fd1a",
+    "corpus/manifest.json": "56d46a29105fa7a4796d7e6fed053ceecc7be8a991ddefb2235767fe810f88c3",
+    "fit_cache/contract.json": "787b60a849b2c7fe38b71b19d709dae35505d41c26126337c9f1dd0d39d3fd2e",
+    "fit_cache/manifest.json": "58b3668c122e0ad89a8b7841ba080622f3667654617e574824242cdea5867558",
+    "retrieval/contract.json": "591bc0197b80c73a2ab1f4e5adf954664e23c5e9522df0d4fec83e427e2625b6",
+    "retrieval/manifest.json": "a4a320a3e97b39794751b2dc8ad8ac116a02ee08864df2aa84e109ac09aa5ef0",
+    "screening/contract.json": "fe8bcf6098233833fe65cf8fe32f9430d6c10afaf50efcc59349636de6900314",
+    "screening/selection.json": "07d0a4da855f0e2271530447068ee4bb67f588c5f4d826619ed2b50eb3eea331",
+    "screening_cache/contract.json": "2cf80a0676488099029b5eaef741fa1c3c61f033b8d0d490c0dddf0f88298fb1",
+    "screening_cache/manifest.json": "c2e5024c15ec9493bc89be31b471999435f27af269d9f06b49ef920ab1a9520c",
+    "selection_cache/contract.json": "a263021ffbded63589d19960dd39f07cd41260c7c5280dcfbc6d25a0408ea513",
+    "selection_cache/manifest.json": "63ff495d09a88f78273b34eaa9620f023a1563bc9ea854e8c97b5dfa0b5d1d85"
+  },
+  "input_id": "e56a2e58e7cafd105b3fb912eabb285e590e41cf64bceb0eb796ef33ef370df4",
+  "prepared_at": "2026-09-09T20:50:12.818+00:00",
+  "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+  "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
+  "status": "passed",
+  "window": "middle"
+}

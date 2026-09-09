@@ -41,14 +41,41 @@ def test_status_with_no_published_evidence_stays_pending(tmp_path: Path) -> None
 
 
 def test_status_does_not_treat_contaminated_predictions_as_a_completed_release(tmp_path):
+    from otto_recsys.research.robustness import fingerprint
+
     shutil.copytree("reports/research", tmp_path / "reports/research")
     shutil.copytree("reports/submissions", tmp_path / "reports/submissions")
+    receipt = tmp_path / "reports/submissions/kaggle_submission.json"
+    value = json.loads(receipt.read_text())
+    value["valid_competition_evaluation"] = False
+    value["receipt_id"] = fingerprint({k: v for k, v in value.items() if k != "receipt_id"})
+    receipt.write_text(json.dumps(value))
     result = run_status(tmp_path)
     assert result.returncode == 0, result.stderr
     status = json.loads(result.stdout)
     assert status["competition_prediction"].startswith("invalidated:")
     assert "initial score invalidated" in status["kaggle_submission"]
     assert "replacement inference" in status["next_task"]
+
+
+def test_prepared_submission_does_not_claim_a_kaggle_score(tmp_path: Path) -> None:
+    from otto_recsys.research.robustness import fingerprint
+
+    shutil.copytree("reports/research", tmp_path / "reports/research")
+    shutil.copytree("reports/submissions", tmp_path / "reports/submissions")
+    result = run_status(tmp_path)
+    assert result.returncode == 0, result.stderr
+    status = json.loads(result.stdout)
+    assert "awaiting confirmation" in status["kaggle_submission"]
+    assert "kaggle_scores" not in status
+    receipt = tmp_path / "reports/submissions/kaggle_submission.json"
+    value = json.loads(receipt.read_text())
+    value["displayed_scores"]["private"] = "0.99"
+    value["receipt_id"] = fingerprint({k: v for k, v in value.items() if k != "receipt_id"})
+    receipt.write_text(json.dumps(value))
+    result = run_status(tmp_path)
+    assert result.returncode != 0
+    assert "cannot have a Kaggle score" in result.stderr
 
 
 def test_controlled_status_uses_audited_reports_and_rejects_changed_metrics(tmp_path: Path) -> None:

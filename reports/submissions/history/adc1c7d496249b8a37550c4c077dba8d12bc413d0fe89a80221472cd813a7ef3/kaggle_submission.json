@@ -1,0 +1,59 @@
+{
+  "account": "alvaromendizabal",
+  "competition": "otto-recommender-system",
+  "description": "OTTO frozen research model | reference seed 20260908 | 1,671,803 sessions / 5,015,409 rows | full Notebook 10 inference 2026-09-08 | SHA256 adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3 | github.com/alvaromendizabal/otto-recommender-system",
+  "displayed_scores": {
+    "private": "0.93583",
+    "public": "0.93554"
+  },
+  "interpretation": [
+    "Accepted and scored by Kaggle, but invalid as a competition evaluation: predictions used full post-competition test sessions containing future events.",
+    "Preserved as an incident record; do not compare 0.93583 with the historical winner or cite it as model performance.",
+    "The frozen training-only temporal study is unaffected; inference must be regenerated from the official truncated test file."
+  ],
+  "invalidation_evidence": "reports/submissions/data_provenance_audit.json",
+  "observation": {
+    "displayed_filename": "submission.csv.gz",
+    "displayed_size": "282 MiB",
+    "final_score_selection_enabled": false,
+    "method": "authenticated Kaggle browser; submission list and Submission Details panel; screenshot visually checked",
+    "private_score_text": "Private score: 0.93583",
+    "public_score_text": "Score: 0.93554",
+    "status_text": "Complete (after deadline)",
+    "success_indicator": "Success"
+  },
+  "observed_at_utc": "2026-09-09T20:18:19.051Z",
+  "pre_upload_verification": {
+    "downloaded_bytes": 296087864,
+    "downloaded_full_file_sha256_checked": true,
+    "downloaded_sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
+    "s3_owner_account": "560403859723",
+    "s3_version_and_size_checked": true
+  },
+  "prediction": {
+    "bucket": "otto-recsys-560403859723-us-west-2",
+    "bytes": 296087864,
+    "filename": "submission.csv.gz",
+    "input_id": "2b001d27dedaa6b684675cfc0facb65dc5c2ef85b07758016239f9d71b48ebe8",
+    "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/f9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37/inference/prediction/submission.csv.gz",
+    "rows": 5015409,
+    "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e",
+    "sessions": 1671803,
+    "sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
+    "version_id": "92OnoNYLP2bOg5gso7CjMvV8sg9JtNmQ"
+  },
+  "receipt_id": "8c1b091f7ed15d5c8e4cda8428638ef8c48a3c9e453046df3a4d74b4b15c840f",
+  "schema_version": 1,
+  "source_files": {
+    "reports/research/competition_cloud_verification.json": "73cfd394713d6f204aea13d6cf0049b639e2dee4fea29f6afccc51a7ed55deee",
+    "reports/research/competition_notebook_execution.json": "4f8ea92b4f610d56a5b8e36026c669cb43d97c93b20767c48dc62fb2c5185419",
+    "reports/research/competition_prediction.json": "e2b1a2708953ce47cd9318cc8fa0ef2345cb7b2dabce1e3c24a7977a06e0a362",
+    "reports/research/competition_prediction_contract.json": "79b0534c6e795990d51746817a89d74604d25bff2ff1d129d5b7b0d4d344c556"
+  },
+  "status": "complete",
+  "submission_id": null,
+  "submission_id_note": "The inspected submission list and Submission Details panel did not expose a numeric ID.",
+  "submission_mode": "after_deadline",
+  "submission_url": "https://www.kaggle.com/competitions/otto-recommender-system/submissions",
+  "valid_competition_evaluation": false
+}

@@ -189,12 +189,19 @@ def project_status(root: Path) -> dict[str, Any]:
             f"{verified['verified_cells']}/{verified['planned_cells']} independently audited"
         )
         result["next_task"] = (
-            "Complete the queued temporal audits, publish the official-prefix prediction, "
-            "then complete the submission collection and final release."
+            "Submit the verified official-prefix prediction and record its Kaggle result."
+            if verified["verified_cells"] == verified["planned_cells"] else
+            "Complete the remaining temporal audits and publish their verified results."
         )
     submission_path = root / "reports/submissions/kaggle_submission.json"
     if submission_path.is_file():
         submission = json.loads(submission_path.read_text())
+        from otto_recsys.research.robustness import fingerprint
+
+        if submission["receipt_id"] != fingerprint(
+            {k: v for k, v in submission.items() if k != "receipt_id"}
+        ):
+            raise ValueError("Kaggle receipt checksum mismatch")
         if (submission.get("valid_competition_evaluation") is False
                 and result.get("prediction_sha256") == submission["prediction"]["sha256"]):
             result.update(
@@ -206,6 +213,36 @@ def project_status(root: Path) -> dict[str, Any]:
                     "The 50-file collection and release remain."
                 ),
             )
+        elif submission.get("valid_competition_input") is True:
+            for name, expected in submission["source_files"].items():
+                path = (root / name).resolve()
+                if not path.is_relative_to(root.resolve()) or sha256_file(path) != expected:
+                    raise ValueError("Kaggle receipt source checksum mismatch")
+            if result.get("prediction_sha256") != submission["prediction"]["sha256"]:
+                raise ValueError("Kaggle receipt and prediction differ")
+            contract = json.loads(
+                (root / "reports/research/competition_prediction_contract.json").read_text()
+            )
+            attestation = json.loads(
+                (root / "reports/submissions/competition_input.json").read_text()
+            )
+            if contract["competition_input"]["raw_sha256"] != attestation["raw_sha256"]:
+                raise ValueError("Kaggle receipt does not use the attested official input")
+            result["competition_prediction"] = (
+                "official input, full file and native replay verified"
+            )
+            if (submission["status"] == "complete"
+                    and submission.get("valid_competition_evaluation")):
+                result.update(kaggle_submission="complete (after deadline)",
+                              kaggle_scores=submission["displayed_scores"],
+                              next_task="Review the published results and release scope.")
+            else:
+                if any(v is not None for v in submission["displayed_scores"].values()):
+                    raise ValueError("Unsubmitted predictions cannot have a Kaggle score")
+                result.update(
+                    kaggle_submission="file uploaded; final Submit action awaiting confirmation",
+                    next_task="Confirm the prepared Kaggle submission; no training remains.",
+                )
     return result
 
 

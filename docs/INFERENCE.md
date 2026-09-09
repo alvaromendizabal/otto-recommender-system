@@ -20,11 +20,22 @@ The notebook execution and final prediction manifest have separate receipts.
 
 ## Download and submit the completed full run
 
-**The first output is invalidated. Replacement inference started at 20:55 UTC on September 9.**
-[Managed run and source receipt](../reports/submissions/competition_inference.json)
-Do not submit or reuse the original `submission.csv.gz` with SHA-256
-`adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3`.
-Its format checks passed, but its query data included future target events.
+**The corrected full run is complete and verified.** Its gzip contains 289,541,110 bytes and SHA-256 `49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2`. The file is uploaded to the Kaggle form; automatic approval review blocked the final Submit click. No corrected score is claimed.
+
+To download the exact verified artifact in the SageMaker project terminal:
+
+```bash
+cd "$HOME/otto-recommender-system" &&
+mkdir -p artifacts/competition &&
+aws s3api get-object --region us-west-2 \
+  --bucket otto-recsys-560403859723-us-west-2 \
+  --key ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/inference/prediction/submission.csv.gz \
+  --version-id i0gMnNzo7V1V.SpQoFqGW5XberD.8QcG \
+  artifacts/competition/submission.csv.gz &&
+sha256sum artifacts/competition/submission.csv.gz
+```
+
+Download the gzip from the Studio file browser to upload it manually. Its digest must match the value above. [Managed run](../reports/submissions/competition_inference.json) · [Current submission receipt](../reports/submissions/kaggle_submission.json).
 
 A valid submission contains the columns `session_type` and `labels`, with one
 row per session and action and 20 unique product IDs per list: **5,015,409 rows
@@ -48,9 +59,8 @@ uv run --frozen --extra ml python scripts/prepare_competition_input.py \
 ```
 
 The existing frozen models are reused. A new inference namespace prevents any
-old prediction part from being treated as compatible. The replacement file must
-pass source, coverage, content, and execution checks before publication and upload.
-No valid competition score is available until that process finishes.
+old prediction part from being treated as compatible. The replacement file passed source, coverage, content, and execution checks.
+No valid competition score is available until Kaggle accepts and scores it.
 
 The [50-file collection](ROBUSTNESS.md#path-to-50-submission-files) remains a
 separate milestone. Each file needs distinct predictions and a recorded model
@@ -58,6 +68,8 @@ or ensemble recipe. Repeating validation seeds does not automatically produce
 additional competition submissions.
 
 ## Recorded Kaggle result
+
+**Historical incident: the scores in this section are invalidated.**
 
 The signed-in submission page and its **Submission Details** panel both reported:
 
@@ -71,7 +83,7 @@ The signed-in submission page and its **Submission Details** panel both reported
 | Coverage | 1,671,803 sessions · 5,015,409 rows |
 
 [Open the account's submissions](https://www.kaggle.com/competitions/otto-recommender-system/submissions)
-· [Machine-readable receipt](../reports/submissions/kaggle_submission.json)
+· [Historical receipt](../reports/submissions/history/adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3/kaggle_submission.json)
 
 The receipt links the browser-observed status and displayed score precision to the
 full file's SHA-256, exact S3 version, prediction input identity and inference evidence.
@@ -92,22 +104,13 @@ The training-only **0.584392** reference evaluation and the frozen temporal stud
 are unaffected. No feature, seed, or model choice is being changed using the
 invalidated Kaggle score.
 
-## Historical full execution (invalidated input)
+## Verified full execution
 
-The managed run completed on September 8, 2026. Notebook 10 executed all four code
-cells in full mode in **2,439.492 seconds** and generated **5,015,409 rows** for
-**1,671,803 sessions**. All 1,633 prediction parts and receipts are durable in S3.
-The full gzip output is 296,087,864 bytes; its digest matches the notebook validator
-and S3 metadata. The default replay reproduces 24 rows from eight actual test sessions.
+The corrected managed run completed on **September 9, 2026 at 21:43 UTC**. Full Notebook 10 executed four code cells in **2,413.288 seconds**, generating all 5,015,409 task rows. The downloaded gzip was independently validated against the official session ledger in a further 23.118 seconds. The refreshed compact replay reproduces 24 rows from eight official-prefix sessions with the frozen native models.
 
-[Full notebook receipt](../reports/research/competition_notebook_execution.json) ·
-[Prediction manifest](../reports/research/competition_prediction.json) ·
-[Cloud verification and object locations](../reports/research/competition_cloud_verification.json)
+[Full notebook receipt](../reports/research/competition_notebook_execution.json) · [Prediction manifest](../reports/research/competition_prediction.json) · [Cloud verification](../reports/research/competition_cloud_verification.json)
 
-The receipt identifies the notebook bytes at source commit
-`565ed1f15c9786a905a0cff70ac0a58ed8b1261c`; the recorded execution remains tied to that source. Later notebook edits clarify
-the download and submission handoff without changing the recorded predictions. The complete executed full-mode notebook remains at the recorded
-S3 object, separately from the convenient default-mode render committed in Git.
+The full-mode notebook and execution receipt remain tied to source commit `1fb654831a47cfddf1c47d5b51030d04f2746841`. The later GitHub notebook is the convenient default-mode replay with the current delivery status. Historical inference receipts are retained beside the invalidated submission record; current receipts refer only to the official-prefix run.
 
 ## Availability boundaries
 

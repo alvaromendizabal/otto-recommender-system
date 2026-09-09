@@ -1,0 +1,40 @@
+{
+  "audit_id": "53c120330061639ce149925b368506445f19e65f8622e539fda03d3ce6256d14",
+  "elapsed_seconds": 420.774931441,
+  "evaluation_seed": 20260908,
+  "finished_at": "2026-09-09T21:34:25.586+00:00",
+  "lock_sha256": "267edb8e515981f7acf4dbbc2dba4276f7a5047609f2688d6c69d54be14ad5c5",
+  "python": "3.13.15",
+  "resources": {
+    "feature_workers": 16,
+    "hourly_compute_usd": 3.4272,
+    "instance_type": "ml.c7i.16xlarge",
+    "maximum_runtime_seconds": 1800,
+    "memory_gib": 64,
+    "volume_gib": 100
+  },
+  "robustness": {
+    "cell_id": "middle_seed_20260908",
+    "cohort_seed": 20260908,
+    "comparison": "repeat the frozen selection procedure; report all planned cells",
+    "model_seed": 20260908,
+    "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+    "reference_corpus_id": "55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754",
+    "reference_source_commit": "9256279d220f54f4194270aa9ef50dacfafb1234",
+    "window": "middle"
+  },
+  "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
+  "source_sha256": "d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a",
+  "stage": "complete",
+  "started_at": "2026-09-09T21:27:24.811+00:00",
+  "status": "passed",
+  "training": {
+    "evaluation_interval": 5,
+    "negative_budget": 60,
+    "patience": 40,
+    "rounds": 400,
+    "seed": 20260908,
+    "threads": 32
+  },
+  "training_source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323"
+}

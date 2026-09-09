@@ -1,23 +1,22 @@
 {
   "candidate_budget": 400,
-  "code_sha256": "a1e9efce3e8b0ba121ac13de6cf766c815e833330697d6c96f12e5d5b5cd90f1",
-  "retrieval_id": "92380ec2326ff2f8c14eee5293cff7ba6803f3382dba96c6a4dfb4a2002cc623",
+  "code_sha256": "2f90b7cefa007b19124efbecc55d0cdb4cae1971312628b045fd32bf9d5fc301",
+  "competition_input": {
+    "events": 6928123,
+    "raw_sha256": "8b46acddd68b46c83a474e809c21dbe681fed4c16304b0d0b6a907bd3e32790e",
+    "sessions": 1671803,
+    "source": "kaggle:competitions/otto-recommender-system/test.jsonl"
+  },
+  "retrieval_id": "f0cb6c3e4a40da42b5b1aa5dc81f24bac9e535c058aa4cee26f1fcc8c8229430",
   "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e",
   "test_files": {
-    "part-000000.parquet": "bd41816165eafbffe3c6e72d8e4c9179505d098d84837f1275414b83759b568d",
-    "part-000001.parquet": "d5bbea4f8b9b4b66783c2349585321fd09f39ca591cf65bd42e3cd64b32f3c7f",
-    "part-000002.parquet": "c7b4bc825769843cc4243417b94e067779f4d7bde206c5b9c31748b24de419c9",
-    "part-000003.parquet": "bbd359460d05c3e50c86dd83e716615d9e138fd7ef4ab4370ec22edaf0322d94",
-    "part-000004.parquet": "64c4ae77b76332c22bbe2c6b8eb9438287ecba2882a4a8bb9c0ddd9d4d2056ad",
-    "part-000005.parquet": "3f194b50a26c385f4d478a354d9720ec56a938e69f2e76c18f11eb072aace33e",
-    "part-000006.parquet": "fea9c01151b96223079cbeb62abc4eb8151c38b6ec55a8d9d0fe4570650bdec6",
-    "part-000007.parquet": "edf8de7f329a8f5bd55347347c85d37169b34f4234e59df1ff143d86b257094b",
-    "part-000008.parquet": "e4195d95f3f430378e4bfbea07f40fb668323052cc15a73d09f9ff5972b61026",
-    "part-000009.parquet": "054bb90f1d7bd7e192613ce52e4b9dbeba37cb9266d6e1ad964387522eeb4d60",
-    "part-000010.parquet": "0e1289eb2b26729f2faa3a90f3a0f533a7687cd0753c786f0743d02589a64aef",
-    "part-000011.parquet": "cb163cf914355847e5e05e1d1b22d921785cb8a03b964aac908e191b67a19607",
-    "part-000012.parquet": "ea167b0086eef9b55fbbd9b808194537b370ba59a4ddcf5e0c96b7c1ce5a6f11",
-    "part-000013.parquet": "6c3038a5d084bf3e3b18adf0eb0bcb91d0757df979fd61fba80f304df518c923"
+    "part-000000.parquet": "0471f6be213dba6c900ee02f722ecb80b241f1f25c0e42a5abd43556916059e0",
+    "part-000001.parquet": "93acaac63610918f094c03e5ad431cc4361e98bd073bab988759de208d6c6ac0",
+    "part-000002.parquet": "2b50b6d4bf0cf6a1183e0e9ecb1038de81a182eecb569168030a1d026a0fe7c6",
+    "part-000003.parquet": "046b13c4a737b2bece9cfbb89566c77dd190bc2b21a22816069ec4dbd7c0d2ab",
+    "part-000004.parquet": "87424f8b9a1df0e98ada9d52211b8531a971ee872b4de748b991f8966d970d2f",
+    "part-000005.parquet": "3e682b6f49337f2e013c5768d68600f27031e737d04082d6b0d227358ff463c7",
+    "part-000006.parquet": "cb8fc810ac074c714a30531cd1cb5439963ce0c8f87c990a5a2f4bfa1ecd9711"
   },
   "weights_refitted": false
 }

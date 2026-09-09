@@ -1,59 +1,58 @@
 {
   "account": "alvaromendizabal",
-  "competition": "otto-recommender-system",
-  "description": "OTTO frozen research model | reference seed 20260908 | 1,671,803 sessions / 5,015,409 rows | full Notebook 10 inference 2026-09-08 | SHA256 adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3 | github.com/alvaromendizabal/otto-recommender-system",
-  "displayed_scores": {
-    "private": "0.93583",
-    "public": "0.93554"
+  "approval_review": {
+    "action": "Kaggle Submit button",
+    "reason": "Automatic approval review requires a fresh action-time confirmation despite explicit submission approval.",
+    "status": "blocked"
   },
-  "interpretation": [
-    "Accepted and scored by Kaggle, but invalid as a competition evaluation: predictions used full post-competition test sessions containing future events.",
-    "Preserved as an incident record; do not compare 0.93583 with the historical winner or cite it as model performance.",
-    "The frozen training-only temporal study is unaffected; inference must be regenerated from the official truncated test file."
-  ],
-  "invalidation_evidence": "reports/submissions/data_provenance_audit.json",
+  "competition": "otto-recommender-system",
+  "description": "OTTO official competition test prefixes | frozen reference seed 20260908 | 1,671,803 sessions / 5,015,409 rows | SHA256 49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2 | replaces invalid full-test inference | github.com/alvaromendizabal/otto-recommender-system",
+  "displayed_scores": {
+    "private": null,
+    "public": null
+  },
+  "historical_invalidated_receipt": "reports/submissions/history/adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3/kaggle_submission.json",
   "observation": {
     "displayed_filename": "submission.csv.gz",
-    "displayed_size": "282 MiB",
-    "final_score_selection_enabled": false,
-    "method": "authenticated Kaggle browser; submission list and Submission Details panel; screenshot visually checked",
-    "private_score_text": "Private score: 0.93583",
-    "public_score_text": "Score: 0.93554",
-    "status_text": "Complete (after deadline)",
-    "success_indicator": "Success"
+    "displayed_size": "276 MiB",
+    "file_upload_completed": true,
+    "final_submit_clicked": false,
+    "method": "authenticated Kaggle browser",
+    "submit_button_enabled": true
   },
-  "observed_at_utc": "2026-09-09T20:18:19.051Z",
+  "observed_at_utc": "2026-09-09T23:16:55.584257+00:00",
   "pre_upload_verification": {
-    "downloaded_bytes": 296087864,
-    "downloaded_full_file_sha256_checked": true,
-    "downloaded_sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
-    "s3_owner_account": "560403859723",
-    "s3_version_and_size_checked": true
+    "bytes": 289541110,
+    "elapsed_seconds": 23.118083535999176,
+    "rows": 5015409,
+    "sessions": 1671803,
+    "sha256": "49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2",
+    "status": "passed"
   },
   "prediction": {
     "bucket": "otto-recsys-560403859723-us-west-2",
-    "bytes": 296087864,
+    "bytes": 289541110,
     "filename": "submission.csv.gz",
-    "input_id": "2b001d27dedaa6b684675cfc0facb65dc5c2ef85b07758016239f9d71b48ebe8",
-    "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/f9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37/inference/prediction/submission.csv.gz",
+    "input_id": "0dafdd7d6ee7a3680a1b89d0166eccd09a84b35dc68b5119cfde0b996b65813f",
+    "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/inference/prediction/submission.csv.gz",
     "rows": 5015409,
     "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e",
     "sessions": 1671803,
-    "sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
-    "version_id": "92OnoNYLP2bOg5gso7CjMvV8sg9JtNmQ"
+    "sha256": "49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2",
+    "version_id": "i0gMnNzo7V1V.SpQoFqGW5XberD.8QcG"
   },
-  "receipt_id": "8c1b091f7ed15d5c8e4cda8428638ef8c48a3c9e453046df3a4d74b4b15c840f",
+  "receipt_id": "a7bc22aaf92eb1bb560870af8f905138c77a9fe82b4e4b0a45b09f5b08b6beb2",
   "schema_version": 1,
   "source_files": {
-    "reports/research/competition_cloud_verification.json": "73cfd394713d6f204aea13d6cf0049b639e2dee4fea29f6afccc51a7ed55deee",
-    "reports/research/competition_notebook_execution.json": "4f8ea92b4f610d56a5b8e36026c669cb43d97c93b20767c48dc62fb2c5185419",
-    "reports/research/competition_prediction.json": "e2b1a2708953ce47cd9318cc8fa0ef2345cb7b2dabce1e3c24a7977a06e0a362",
-    "reports/research/competition_prediction_contract.json": "79b0534c6e795990d51746817a89d74604d25bff2ff1d129d5b7b0d4d344c556"
+    "reports/research/competition_cloud_verification.json": "6e899eaee0e49e27b57b5695b7e1647230d6e221f3ef1c7428981995ee613d00",
+    "reports/research/competition_notebook_execution.json": "72570b5f538aad74ebb83c2990c473a5858bfb93722339c3e5ec06909c0d0df5",
+    "reports/research/competition_prediction.json": "fb3d15d9169f4dddd14a5d299405de806bf7d15e68cfc9838d4d71424133c1c2",
+    "reports/research/competition_prediction_contract.json": "4d8169b2c2d0627c818b2837fb49b6281083b8701b832767c15c29a780e1799a"
   },
-  "status": "complete",
+  "status": "awaiting_final_submission",
   "submission_id": null,
-  "submission_id_note": "The inspected submission list and Submission Details panel did not expose a numeric ID.",
   "submission_mode": "after_deadline",
   "submission_url": "https://www.kaggle.com/competitions/otto-recommender-system/submissions",
-  "valid_competition_evaluation": false
+  "valid_competition_evaluation": null,
+  "valid_competition_input": true
 }

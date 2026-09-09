@@ -58,14 +58,7 @@
     "additional_jobs": [
       {
         "ProcessingJobName": "otto-delivery-90bb97d39ec49999",
-        "ProcessingJobStatus": "InProgress",
-        "ProcessingStartTime": "2026-09-09T20:55:53.791000+00:00"
-      },
-      {
-        "ProcessingEndTime": "2026-09-09T21:13:53.609000+00:00",
-        "ProcessingJobName": "otto-verify-early-20260909-d5c29663",
-        "ProcessingJobStatus": "Completed",
-        "ProcessingStartTime": "2026-09-09T21:03:47.462000+00:00"
+        "ProcessingJobStatus": "Completed"
       }
     ],
     "execution": {
@@ -82,27 +75,73 @@
           "PrincipalId": "AIDAYE6VMJEFUGSI5XGMZ"
         }
       },
-      "LastModifiedTime": "2026-09-09T20:36:21.978000+00:00",
+      "LastModifiedTime": "2026-09-09T22:26:47.681000+00:00",
       "ParallelismConfiguration": {
         "MaxParallelExecutionSteps": 3
       },
       "PipelineArn": "arn:aws:sagemaker:us-west-2:560403859723:pipeline/otto-robustness-1136d945b56c-remaining",
       "PipelineExecutionArn": "arn:aws:sagemaker:us-west-2:560403859723:pipeline/otto-robustness-1136d945b56c-remaining/execution/mwta9jt5e1nc",
       "PipelineExecutionDisplayName": "remaining-cells-20260909",
-      "PipelineExecutionStatus": "Executing",
+      "PipelineExecutionStatus": "Succeeded",
       "PipelineVersionId": 1
     },
     "existing_job": {
-      "ProcessingEndTime": "2026-09-09T21:00:57.370000+00:00",
       "ProcessingJobName": "otto-robust-early-20260909-d5c29663",
-      "ProcessingJobStatus": "Completed",
-      "ProcessingStartTime": "2026-09-09T20:18:23.208000+00:00"
+      "ProcessingJobStatus": "Completed"
     },
-    "observed_at_utc": "2026-09-09T21:26:52.980617+00:00",
     "steps": {
       "PipelineExecutionSteps": [
         {
           "AttemptCount": 1,
+          "EndTime": "2026-09-09T22:26:46.551000+00:00",
+          "Metadata": {
+            "ProcessingJob": {
+              "Arn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-batch-audit-middle-seed-20260909-d-mwta9jt5e1nc-9uI2CUlqgP"
+            }
+          },
+          "StartTime": "2026-09-09T22:14:12.267000+00:00",
+          "StepName": "Audit-middle-seed-20260909",
+          "StepStatus": "Succeeded"
+        },
+        {
+          "AttemptCount": 1,
+          "EndTime": "2026-09-09T22:26:47.170000+00:00",
+          "Metadata": {
+            "ProcessingJob": {
+              "Arn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-batch-audit-middle-seed-20260910-d-mwta9jt5e1nc-fLxIrQPspM"
+            }
+          },
+          "StartTime": "2026-09-09T22:14:12.267000+00:00",
+          "StepName": "Audit-middle-seed-20260910",
+          "StepStatus": "Succeeded"
+        },
+        {
+          "AttemptCount": 1,
+          "EndTime": "2026-09-09T22:14:11.992000+00:00",
+          "Metadata": {
+            "ProcessingJob": {
+              "Arn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-batch-train-middle-seed-20260910-d-mwta9jt5e1nc-hGd56MKhUI"
+            }
+          },
+          "StartTime": "2026-09-09T21:36:35.342000+00:00",
+          "StepName": "Train-middle-seed-20260910",
+          "StepStatus": "Succeeded"
+        },
+        {
+          "AttemptCount": 1,
+          "EndTime": "2026-09-09T22:14:11.604000+00:00",
+          "Metadata": {
+            "ProcessingJob": {
+              "Arn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-batch-train-middle-seed-20260909-d-mwta9jt5e1nc-oxCy4EbIH4"
+            }
+          },
+          "StartTime": "2026-09-09T21:36:35.342000+00:00",
+          "StepName": "Train-middle-seed-20260909",
+          "StepStatus": "Succeeded"
+        },
+        {
+          "AttemptCount": 1,
+          "EndTime": "2026-09-09T21:36:34.565000+00:00",
           "Metadata": {
             "ProcessingJob": {
               "Arn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-batch-audit-middle-seed-20260908-d-mwta9jt5e1nc-2XCpdz8cvH"
@@ -110,10 +149,11 @@
           },
           "StartTime": "2026-09-09T21:24:00.086000+00:00",
           "StepName": "Audit-middle-seed-20260908",
-          "StepStatus": "Executing"
+          "StepStatus": "Succeeded"
         },
         {
           "AttemptCount": 1,
+          "EndTime": "2026-09-09T21:34:05.327000+00:00",
           "Metadata": {
             "ProcessingJob": {
               "Arn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-batch-audit-early-seed-20260910-d5-mwta9jt5e1nc-tQenUaFH44"
@@ -121,7 +161,7 @@
           },
           "StartTime": "2026-09-09T21:21:31.238000+00:00",
           "StepName": "Audit-early-seed-20260910",
-          "StepStatus": "Executing"
+          "StepStatus": "Succeeded"
         },
         {
           "AttemptCount": 1,
@@ -150,6 +190,7 @@
       ]
     }
   },
+  "observed_at_utc": "2026-09-09T23:16:55.584257+00:00",
   "started": {
     "PipelineExecutionArn": "arn:aws:sagemaker:us-west-2:560403859723:pipeline/otto-robustness-1136d945b56c-remaining/execution/mwta9jt5e1nc"
   },

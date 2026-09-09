@@ -93,11 +93,27 @@ cohort and the same fitting-only preparation; only the model seed changes. The
 observed early-seed scores range from 0.566784 to 0.566897. Their intervals are
 conditional on each fitted model and should not be pooled as independent cohorts.
 
-These two early seeds and all three reference seeds are **five of nine planned
-cells**. The third early seed and first middle seed are being audited; the final
-two middle seeds are queued. The original reference model remains the headline
-model. The first competition score is invalidated separately because its input
-contained future events; official-prefix replacement inference is running.
+## Completed nine-cell comparison
+
+The selected feature procedure beats the matched compact ranker in **all nine audited runs**. Gains range from **+1.791 to +2.180 percentage points**, with all paired 95% session-bootstrap intervals above zero. Every window and seed chooses the variant without direct source-score features for all three actions.
+
+The highest absolute offline score is **0.590759**, middle window seed **20260908**. On the reference cohort, seed **20260910** is highest at **0.584988**. Different windows use different sessions, so these are descriptive maxima. The original reference seed **20260908** remains the submission model, with **0.584392** on its reserved evaluation; no new seed is chosen using evaluation results.
+
+| Window | Seed | Selected Recall@20 | Compact Recall@20 | Gain (pp) | Paired 95% interval (pp) |
+|---|---:|---:|---:|---:|---|
+| Early | 20260908 | 0.566897 | 0.545094 | +2.180 | +2.082 to +2.286 |
+| Early | 20260909 | 0.566784 | 0.545668 | +2.112 | +2.013 to +2.212 |
+| Early | 20260910 | 0.566465 | 0.547613 | +1.885 | +1.782 to +1.989 |
+| Middle | 20260908 | 0.590759 | 0.571302 | +1.946 | +1.839 to +2.061 |
+| Middle | 20260909 | 0.590745 | 0.572832 | +1.791 | +1.678 to +1.902 |
+| Middle | 20260910 | 0.590465 | 0.571880 | +1.858 | +1.748 to +1.969 |
+| Reference | 20260908 | 0.584392 | 0.564904 | +1.949 | +1.840 to +2.065 |
+| Reference | 20260909 | 0.584430 | 0.564207 | +2.022 | +1.913 to +2.135 |
+| Reference | 20260910 | 0.584988 | 0.564675 | +2.031 | +1.921 to +2.141 |
+
+The full comparison is independently checked against the archived audit payloads, metric counts and exact input hashes. All nine planned cells are retained. The third early seed scores 0.566465; the middle seeds range from 0.590465 to 0.590759. No training or audit jobs remain for this protocol.
+
+The original competition score was invalidated separately for future test events. Corrected official-prefix inference is complete; its full file and refreshed native replay are verified. Kaggle scoring remains pending final submission.
 
 ### How this window chose its features
 
@@ -314,22 +330,11 @@ uv run --frozen python scripts/publish_robustness_report.py --check
 This command checks the saved audit and input identities before extracting the
 metrics for Notebook 09. It does not substitute for the full managed verification.
 
-## Remaining milestones
+## Delivery state
 
-1. Run early-window seeds **20260909 and 20260910**, reusing the verified
-   window preparation after its contracts and bytes are checked. Audit each result
-   and end each delivery with committed evidence and passing GitHub checks.
-2. Build the middle window's own historical retrieval and fitting-only screen,
-   then run and audit its three frozen seeds. Its source reconstruction must be fresh.
-3. Publish the complete nine-cell comparison, including unfavorable outcomes,
-   per-objective tradeoffs, seed ranges and temporal differences. Update the
-   model card and portfolio conclusions to match the full evidence.
-4. Produce the distinct submission artifacts described below, then publish a
-   release with executed notebooks, reproduction commands and a concise review path.
+All nine planned training and independent audit jobs completed successfully. Their compact results, full metric arithmetic, feature choices and paired intervals are published together. Notebook 09 and the Plotly report include every outcome.
 
-The project already has an audited reference experiment and a complete batch
-submission. The robustness extension and 50-file submission collection are
-separate unfinished milestones. No portfolio rating substitutes for those checks.
+One official-prefix full submission has passed independent validation. The final Kaggle Submit action is awaiting the approval required by automatic review. A late score, when obtained, will be recorded independently of the offline evaluation.
 
 ## Path to 50 submission files
 
