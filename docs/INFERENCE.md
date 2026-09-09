@@ -12,6 +12,31 @@ binds the notebook kernel to that interpreter, and invokes the locked Python
 heartbeats expose elapsed time and the number of prediction-part receipts.
 The notebook execution and final prediction manifest have separate receipts.
 
+## Download and submit the completed full run
+
+**The code has already generated the full competition file. Kaggle upload is a separate action.**
+
+A submission is a CSV of recommended product IDs. It has the two columns `session_type`
+and `labels`: one row per session and action (clicks, carts, orders), with 20
+space-separated product IDs in each recommendation list.
+
+| File | Contents | Use |
+|---|---|---|
+| `submission.csv.gz` | 5,015,409 prediction rows for all 1,671,803 test sessions | Full competition submission |
+| `inference_replay.csv` | 24 rows for eight example sessions | Review example; do not upload to Kaggle |
+
+The full file was produced by this notebook in managed full mode on September 8, 2026.
+It is **296,087,864 bytes** (about 296 MB) and is stored durably in the project S3 bucket.
+Its SHA-256 is `adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3`.
+
+1. [Open the completed full file in AWS](https://s3.console.aws.amazon.com/s3/object/otto-recsys-560403859723-us-west-2?region=us-west-2&bucketType=general&prefix=ranking%2Fresearch%2F55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754%2Fdelivery%2Ff9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37%2Finference%2Fprediction%2Fsubmission.csv.gz), sign in to the project AWS account if needed, and choose **Download** for `submission.csv.gz`.
+2. Sign in to [the OTTO competition on Kaggle](https://www.kaggle.com/competitions/otto-recommender-system) and choose **Late Submission**. The competition's original deadline was January 31, 2023. Its public page displays the late-submission control; this control is disabled while signed out, so account-specific availability must be checked after sign-in.
+3. Select the full `submission.csv.gz` file and complete Kaggle's upload. Check Kaggle's processing result before recording any score. If the upload form requests an uncompressed CSV, extract the gzip file to `submission.csv`; renaming the extension does not decompress it.
+
+No retraining or full inference rerun is needed to use this already completed output.
+The local **0.584392** validation score is not a Kaggle submission score.
+The notebook does not log into Kaggle or submit automatically.
+
 ## Recorded full execution
 
 The managed run completed on September 8, 2026. Notebook 10 executed all four code
@@ -25,8 +50,8 @@ and S3 metadata. The default replay reproduces 24 rows from eight actual test se
 [Cloud verification and object locations](../reports/research/competition_cloud_verification.json)
 
 The receipt identifies the notebook bytes at source commit
-`565ed1f15c9786a905a0cff70ac0a58ed8b1261c`; later canonical output publication preserves
-those source cells. The complete executed full-mode notebook remains at the recorded
+`565ed1f15c9786a905a0cff70ac0a58ed8b1261c`; the recorded execution remains tied to that source. Later notebook edits clarify
+the download and submission handoff without changing the recorded predictions. The complete executed full-mode notebook remains at the recorded
 S3 object, separately from the convenient default-mode render committed in Git.
 
 ## Availability boundaries

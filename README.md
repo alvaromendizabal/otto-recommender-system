@@ -22,7 +22,10 @@ state-of-the-art performance, or online business lift is claimed.
 
 **Full notebook inference completed:** **1,671,803 competition sessions**, **5,015,409
 validated rows**, and 1,633 durable prediction parts. [Execution evidence](reports/research/competition_notebook_execution.json)
-and a compact native-model replay are included.
+and a compact native-model replay are included. To use the completed file, follow
+[Download and submit](docs/INFERENCE.md#download-and-submit-the-completed-full-run).
+The default notebook replay produces a 24-row review example; the full submission
+has 5,015,409 rows. Kaggle upload and scoring are separate steps.
 
 ## Review the project in five minutes
 
