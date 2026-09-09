@@ -1,4 +1,4 @@
-"""Prepare a guarded launch for one predeclared reference-window replication."""
+"""Prepare a guarded launch for one predeclared temporal replication or its audit."""
 
 from __future__ import annotations
 
@@ -7,10 +7,18 @@ import json
 from pathlib import Path
 
 from otto_recsys.research.robustness import (
+    cells,
+    load_plan,
     seed_launch,
     verification_launch,
     verify_seed_launch,
     verify_verification_launch,
+)
+from otto_recsys.research.temporal_robustness import (
+    verify_window_launch,
+    verify_window_verification,
+    window_launch,
+    window_verification_launch,
 )
 
 
@@ -25,18 +33,26 @@ def main() -> int:
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     if args.verify_launch:
-        launch = verification_launch(
+        training = json.loads(args.verify_launch.read_text())
+        earlier = training.get("task") == "window_study"
+        builder = window_verification_launch if earlier else verification_launch
+        launch = builder(
             root,
-            json.loads(args.verify_launch.read_text()),
+            training,
             source_commit=args.source_commit,
             source_sha256=args.source_sha256,
         )
-        verify_verification_launch(root, launch)
+        (verify_window_verification if earlier else verify_verification_launch)(root, launch)
     else:
-        launch = seed_launch(
+        plan, _ = load_plan(root)
+        matches = [cell for cell in cells(plan) if cell["cell_id"] == args.cell]
+        if len(matches) != 1:
+            parser.error("--cell must name a cell in configs/robustness.toml")
+        earlier = matches[0]["window"] != plan["reference_window"]
+        launch = (window_launch if earlier else seed_launch)(
             root, args.cell, source_commit=args.source_commit, source_sha256=args.source_sha256
         )
-        verify_seed_launch(root, launch)
+        (verify_window_launch if earlier else verify_seed_launch)(root, launch)
     payload = json.dumps(launch, sort_keys=True, indent=2) + "\n"
     if args.output.exists() and args.output.read_text() != payload:
         raise ValueError("launch output already contains a different immutable replication")

@@ -126,6 +126,9 @@ def comparison(root: Path) -> dict[str, Any]:
         else:
             launch = track(root / "reports/robustness/runs" / f"{cell['cell_id']}.launch.json")
             earlier = cell["window"] != plan["reference_window"]
+            if earlier:
+                track(reference / "temporal_contract.json")
+                track(root / "reports/robustness/source_inventory.json")
             (verify_window_launch if earlier else verify_seed_launch)(root, launch)
             verification = track(directory / "verification_launch.json")
             verifier = verify_window_verification if earlier else verify_verification_launch

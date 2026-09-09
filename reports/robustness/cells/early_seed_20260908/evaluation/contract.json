@@ -1,0 +1,12 @@
+{
+  "bootstrap_replicates": 1000,
+  "code": {
+    "evaluation.py": "511b183f22f2b27addf441cfac35a4640ef83ce92405a9e1fab499f48ce42b75",
+    "materialize.py": "f7f55ab8559840715612fa37548fd5c8bd01d172ecbe3d64fef161bde438e11e",
+    "metrics.py": "a09928b010937d54a08e3e5a922c61bff574f09a2252f80ad68fce541deb0392"
+  },
+  "cohort": "all eligible reserved temporal sessions",
+  "negative_sampling": false,
+  "seal_id": "124879a3dcbf3918d7e4dbbd8408b39136e0c37b7279971038cd0fcff586ccd6",
+  "seed": 20260908
+}
