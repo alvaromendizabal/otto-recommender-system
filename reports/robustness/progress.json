@@ -1,4 +1,5 @@
 {
+  "batch_evidence": "reports/robustness/batch/execution.json",
   "cells": [
     {
       "cell_id": "early_seed_20260908",
@@ -10,12 +11,14 @@
       "window": "early"
     },
     {
+      "audit_evidence": "reports/robustness/runs/early_seed_20260909.audit.json",
       "cell_id": "early_seed_20260909",
       "cohort_seed": 20260908,
       "model_seed": 20260909,
-      "reference_evidence": null,
-      "status": "planned",
-      "weighted_recall_at_20": null,
+      "reference_evidence": "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json",
+      "run_evidence": "reports/robustness/runs/early_seed_20260909.json",
+      "status": "verified",
+      "weighted_recall_at_20": 0.5667840516163981,
       "window": "early"
     },
     {
@@ -23,7 +26,8 @@
       "cohort_seed": 20260908,
       "model_seed": 20260910,
       "reference_evidence": null,
-      "status": "planned",
+      "run_evidence": "reports/robustness/batch/execution.json",
+      "status": "auditing",
       "weighted_recall_at_20": null,
       "window": "early"
     },
@@ -32,7 +36,8 @@
       "cohort_seed": 20260908,
       "model_seed": 20260908,
       "reference_evidence": null,
-      "status": "planned",
+      "run_evidence": "reports/robustness/batch/execution.json",
+      "status": "auditing",
       "weighted_recall_at_20": null,
       "window": "middle"
     },
@@ -41,7 +46,8 @@
       "cohort_seed": 20260908,
       "model_seed": 20260909,
       "reference_evidence": null,
-      "status": "planned",
+      "run_evidence": "reports/robustness/batch/execution.json",
+      "status": "queued",
       "weighted_recall_at_20": null,
       "window": "middle"
     },
@@ -50,7 +56,8 @@
       "cohort_seed": 20260908,
       "model_seed": 20260910,
       "reference_evidence": null,
-      "status": "planned",
+      "run_evidence": "reports/robustness/batch/execution.json",
+      "status": "queued",
       "weighted_recall_at_20": null,
       "window": "middle"
     },
@@ -82,13 +89,17 @@
       "window": "reference"
     }
   ],
-  "completed_new_replications": 3,
-  "observed_at_utc": "2026-09-09T19:29:34.641928+00:00",
+  "competition_inference_evidence": "reports/submissions/competition_inference.json",
+  "completed_new_replications": 4,
+  "kaggle_scored_submissions": 1,
+  "kaggle_submission_evidence": "reports/submissions/kaggle_submission.json",
+  "observed_at_utc": "2026-09-09T21:26:52.980617+00:00",
   "planned_total_cells": 9,
   "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
   "schema_version": 1,
-  "scope": "All three reference seeds and the first early-window seed are verified. Two early seeds and all three middle seeds remain pending; the submission collection remains one validated full file.",
+  "scope": "Five of nine training-only validation cells are audited. Early seed 20260910 and middle seed 20260908 have completed training and are being audited. The remaining two middle seeds are queued behind the first middle audit. Official-prefix replacement inference is running; the original Kaggle score is invalidated. The 50-file collection and final release remain.",
   "submission_target": 50,
-  "verified_full_submissions": 1,
+  "valid_kaggle_scored_submissions": 0,
+  "verified_full_submissions": 0,
   "verified_reference_cells": 1
 }

@@ -1,5 +1,11 @@
 # Competition inference and model replay
 
+**Source correction:** the initial Kaggle submission is invalidated because its
+input contained full post-competition test sessions, including future events.
+The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
+performance. Replacement inference uses the attested official truncated test.
+See [the source audit](../reports/submissions/data_provenance_audit.json).
+
 The canonical entry point is `notebooks/10_competition_inference.ipynb`.
 Its default mode applies the actual frozen native models to a compact,
 checksum-verified set of real competition candidate features and checks exact
@@ -14,43 +20,79 @@ The notebook execution and final prediction manifest have separate receipts.
 
 ## Download and submit the completed full run
 
-**The code has already generated the full competition file. Kaggle upload is a separate action.**
+**The first output is invalidated. Replacement inference started at 20:55 UTC on September 9.**
+[Managed run and source receipt](../reports/submissions/competition_inference.json)
+Do not submit or reuse the original `submission.csv.gz` with SHA-256
+`adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3`.
+Its format checks passed, but its query data included future target events.
 
-A submission is a CSV of recommended product IDs. It has the two columns `session_type`
-and `labels`: one row per session and action (clicks, carts, orders), with 20
-space-separated product IDs in each recommendation list.
-These are predictions for the unseen continuation of each test session, in the
-[organizer's submission format](https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md#submission-format).
+A valid submission contains the columns `session_type` and `labels`, with one
+row per session and action and 20 unique product IDs per list: **5,015,409 rows
+for 1,671,803 sessions**. The compact `inference_replay.csv` has only 24 rows and
+is a software review example, never a competition submission.
 
-| File | Contents | Use |
-|---|---|---|
-| `submission.csv.gz` | 5,015,409 prediction rows for all 1,671,803 test sessions | Full competition submission |
-| `inference_replay.csv` | 24 rows for eight example sessions | Review example; do not upload to Kaggle |
+The official truncated input has **6,928,123 events** and a raw-file size of
+**402,090,304 bytes**. The original full release had **13,851,293 events** and
+**750,426,722 bytes**. Both contain the same session IDs, so coverage checks
+alone cannot distinguish them. The new inference guard verifies the raw-source
+attestation, conversion manifest, and every Parquet partition hash before work
+begins. See [input attestation](../reports/submissions/competition_input.json).
 
-**Current delivery status:** one full file has been generated and validated. Its
-stored version and size were checked again on September 9, 2026 against the recorded
-full-run identity. Kaggle acceptance, submission ID and leaderboard score remain
-unrecorded. The offline research score does not answer how this file scores on Kaggle.
+To prepare these exact inputs after downloading `test.jsonl.zip` from the
+[competition Data page](https://www.kaggle.com/competitions/otto-recommender-system/data):
 
-The planned 50-file collection is a separate delivery milestone. Repeating research
-training seeds evaluates stability; it does not automatically create additional
-competition files. Each future file must contain distinct predictions, have a recorded
-model or ensemble recipe, and pass the same complete coverage and format checks.
-[Submission collection plan](ROBUSTNESS.md#path-to-50-submission-files)
+```bash
+python -m zipfile -e test.jsonl.zip data/competition/raw
+uv run --frozen --extra ml python scripts/prepare_competition_input.py \
+  --raw data/competition/raw/test.jsonl --output artifacts/test
+```
 
-The full file was produced by this notebook in managed full mode on September 8, 2026.
-It is **296,087,864 bytes** (about 296 MB) and is stored durably in the project S3 bucket.
-Its SHA-256 is `adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3`.
+The existing frozen models are reused. A new inference namespace prevents any
+old prediction part from being treated as compatible. The replacement file must
+pass source, coverage, content, and execution checks before publication and upload.
+No valid competition score is available until that process finishes.
 
-1. [Open the completed full file in AWS](https://s3.console.aws.amazon.com/s3/object/otto-recsys-560403859723-us-west-2?region=us-west-2&bucketType=general&prefix=ranking%2Fresearch%2F55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754%2Fdelivery%2Ff9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37%2Finference%2Fprediction%2Fsubmission.csv.gz), sign in to the project AWS account if needed, and choose **Download** for `submission.csv.gz`.
-2. Sign in to [the OTTO competition on Kaggle](https://www.kaggle.com/competitions/otto-recommender-system) and choose **Late Submission**. The competition's original deadline was January 31, 2023. Its public page displays the late-submission control; this control is disabled while signed out, so account-specific availability must be checked after sign-in.
-3. Select the full `submission.csv.gz` file and complete Kaggle's upload. Check Kaggle's processing result before recording any score. If the upload form requests an uncompressed CSV, extract the gzip file to `submission.csv`; renaming the extension does not decompress it.
+The [50-file collection](ROBUSTNESS.md#path-to-50-submission-files) remains a
+separate milestone. Each file needs distinct predictions and a recorded model
+or ensemble recipe. Repeating validation seeds does not automatically produce
+additional competition submissions.
 
-No retraining or full inference rerun is needed to use this already completed output.
-The local **0.584392** validation score is not a Kaggle submission score.
-The notebook does not log into Kaggle or submit automatically.
+## Recorded Kaggle result
 
-## Recorded full execution
+The signed-in submission page and its **Submission Details** panel both reported:
+
+| Evidence | Observed value |
+|---|---|
+| File | `submission.csv.gz` · 296,087,864 bytes |
+| Status | **Complete (after deadline)** · Success |
+| Public score | **0.93554** |
+| Private score | **0.93583** |
+| Observation time | September 9, 2026, 20:18:19 UTC |
+| Coverage | 1,671,803 sessions · 5,015,409 rows |
+
+[Open the account's submissions](https://www.kaggle.com/competitions/otto-recommender-system/submissions)
+· [Machine-readable receipt](../reports/submissions/kaggle_submission.json)
+
+The receipt links the browser-observed status and displayed score precision to the
+full file's SHA-256, exact S3 version, prediction input identity and inference evidence.
+The inspected interface did not expose a numeric submission ID; the receipt records
+that field as null rather than inventing one. The description includes the complete
+file digest so this submission can be identified in the account.
+
+**Interpretation: invalid evaluation.** The source audit confirmed that the
+first file used the full test sessions released after the competition. These
+include events that the official task withholds as targets. The organizer
+[documents the full release](https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md).
+For example, official session 12899779 has one observed click; the original input
+also supplied its next click. Thus **0.93583 cannot be compared with the historical
+winning 0.60503** or cited as model performance. Kaggle acceptance verifies neither
+input provenance nor freedom from leakage.
+
+The training-only **0.584392** reference evaluation and the frozen temporal study
+are unaffected. No feature, seed, or model choice is being changed using the
+invalidated Kaggle score.
+
+## Historical full execution (invalidated input)
 
 The managed run completed on September 8, 2026. Notebook 10 executed all four code
 cells in full mode in **2,439.492 seconds** and generated **5,015,409 rows** for
@@ -74,8 +116,9 @@ queries, selects task-specific model weights on the selection interval, and
 evaluates the sealed models on the reserved interval. Competition inference
 reuses those model weights. Its retrieval graph and historical item statistics
 are refreshed from **all official training events**, which must precede the
-observed competition sessions and have disjoint session IDs. No hidden test
-targets are accepted by the inference API.
+observed competition sessions and have disjoint session IDs. The inference API now rejects any test input whose bytes do not match the
+attested official prefixes. Training/test chronology alone did not detect the
+original within-session target contamination.
 
 This refresh is a deployment operation with its own identity and directory.
 It does not change the research evaluation or justify transferring an offline
@@ -90,7 +133,7 @@ partitions in `artifacts/train`, and verified test partitions in `artifacts/test
 ```bash
 .venv/bin/python scripts/run_inference.py --stage prepare \
   --train artifacts/train --test artifacts/test --threads 16 --memory-gib 64
-.venv/bin/python scripts/run_inference.py --stage retrieval --threads 16 --memory-gib 64
+.venv/bin/python scripts/run_inference.py --stage retrieval --test artifacts/test --threads 16 --memory-gib 64
 /tmp/otto-analysis/bin/python scripts/execute_inference_notebook.py
 ```
 

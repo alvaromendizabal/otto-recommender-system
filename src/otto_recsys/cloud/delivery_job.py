@@ -13,6 +13,7 @@ from typing import Any
 
 from otto_recsys.cloud.research_checkpoints import ResearchCheckpoints
 from otto_recsys.logging_utils import configure_logging, utc_now_iso
+from otto_recsys.research.competition_input import require_competition_input
 from otto_recsys.research.deployment import prepare_history
 from otto_recsys.research.inference import export_replay
 from otto_recsys.research.interpretation import explain
@@ -22,6 +23,7 @@ from otto_recsys.research.retrievers import build_retrievers
 
 def refresh_history(launch: dict[str, Any], root: Path, storage: ResearchCheckpoints) -> None:
     """Compute deployment aggregates inside the account from existing S3 inputs."""
+    require_competition_input(root.parent / "test")
     config = tomllib.loads(Path("configs/research.toml").read_text())
     deployment = root.parent / "inference"
     resources = launch["resources"]

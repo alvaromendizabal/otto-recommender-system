@@ -86,11 +86,18 @@ selected pipeline's overall advantage over fusion under the competition's
 0.1/0.3/0.6 action weights. These tradeoffs remain part of the result.
 
 The earlier score must not be compared directly with the reference score as if
-both used the same sessions. Each window has its own matched controls. Only one
-early seed is complete, so there is no early-window seed range yet. The three
-reference seeds and this first early seed are **four of nine planned cells**;
-two early seeds and all three middle seeds remain. The original reference model
-remains the headline model and the full-competition submission is unchanged.
+both used the same sessions. Each window has its own matched controls. Two early seeds are now independently audited. Seed 20260909 reaches
+**0.566784**, versus **0.545668** for its compact control, a **+2.112 percentage-point
+gain** (paired 95% interval **+2.013 to +2.212**). Both use the same 562,504-session
+cohort and the same fitting-only preparation; only the model seed changes. The
+observed early-seed scores range from 0.566784 to 0.566897. Their intervals are
+conditional on each fitted model and should not be pooled as independent cohorts.
+
+These two early seeds and all three reference seeds are **five of nine planned
+cells**. The third early seed and first middle seed are being audited; the final
+two middle seeds are queued. The original reference model remains the headline
+model. The first competition score is invalidated separately because its input
+contained future events; official-prefix replacement inference is running.
 
 ### How this window chose its features
 

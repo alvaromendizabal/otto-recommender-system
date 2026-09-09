@@ -8,6 +8,7 @@ from pathlib import Path
 
 from otto_recsys.cloud.research_checkpoints import ResearchCheckpoints
 from otto_recsys.logging_utils import configure_logging
+from otto_recsys.research.competition_input import require_competition_input
 from otto_recsys.research.configuration import read_config
 from otto_recsys.research.deployment import prepare_history
 from otto_recsys.research.inference import run_prediction
@@ -18,7 +19,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", choices=["prepare", "retrieval", "predict"], required=True)
     parser.add_argument("--train", type=Path, default=Path("data/source_audit/processed/train"))
-    parser.add_argument("--test", type=Path, default=Path("data/source_audit/processed/test"))
+    parser.add_argument("--test", type=Path, default=Path("data/competition/processed/test"))
     parser.add_argument("--models", type=Path, default=Path("artifacts/research"))
     parser.add_argument("--output", type=Path, default=Path("artifacts/inference"))
     parser.add_argument("--config", type=Path, default=Path("configs/research.toml"))
@@ -29,6 +30,7 @@ def main() -> int:
     parser.add_argument("--owner-account", default=None)
     parser.add_argument("--region", default="us-west-2")
     args = parser.parse_args()
+    require_competition_input(args.test)
     config = read_config(args.config)
     if args.memory_gib is not None:
         if args.memory_gib < 1:

@@ -28,6 +28,7 @@ data/raw/*
 data/interim/*
 data/processed/*
 data/source_audit/
+data/competition/
 !data/raw/.gitkeep
 !data/interim/.gitkeep
 !data/processed/.gitkeep

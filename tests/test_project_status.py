@@ -40,6 +40,17 @@ def test_status_with_no_published_evidence_stays_pending(tmp_path: Path) -> None
     assert json.loads(result.stdout)["ann_comparison"] == "pending"
 
 
+def test_status_does_not_treat_contaminated_predictions_as_a_completed_release(tmp_path):
+    shutil.copytree("reports/research", tmp_path / "reports/research")
+    shutil.copytree("reports/submissions", tmp_path / "reports/submissions")
+    result = run_status(tmp_path)
+    assert result.returncode == 0, result.stderr
+    status = json.loads(result.stdout)
+    assert status["competition_prediction"].startswith("invalidated:")
+    assert "initial score invalidated" in status["kaggle_submission"]
+    assert "replacement inference" in status["next_task"]
+
+
 def test_controlled_status_uses_audited_reports_and_rejects_changed_metrics(tmp_path: Path) -> None:
     target = tmp_path / "reports/research"
     shutil.copytree("reports/research", target)

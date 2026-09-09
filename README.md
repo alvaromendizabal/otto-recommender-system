@@ -1,5 +1,14 @@
 # OTTO · Session-based recommendation
 
+**Submission provenance correction (September 9, 2026):** the first displayed
+Kaggle scores, 0.93554 public / 0.93583 private, are invalidated. Its input came
+from the complete post-competition test release and included future events.
+[Source audit](reports/submissions/data_provenance_audit.json) proves the mismatch.
+The official truncated test has now been obtained and attested; replacement
+inference reuses the original frozen weights. The training-only temporal study
+is unaffected. Do not compare the invalidated score with the historical winner.
+
+
 **Predict what a shopper will click, add to cart, and order next.**
 
 A complete recommendation pipeline built around one research question:
@@ -24,7 +33,11 @@ controlled experiments, and reproducible cloud inference.
 **The result:** the selected ranker reaches **0.58439 weighted Recall@20**, improving
 on the compact ranker by **1.949 percentage points** and candidate fusion by **4.915 points**.
 The comparisons use the same candidate pools and evaluation sessions. These are
-**offline temporal-validation results**; a Kaggle leaderboard score has not been recorded.
+**offline temporal-validation results**.
+
+**Competition delivery:** the first Kaggle score is invalidated by the source
+audit above. Replacement inference started at 20:55 UTC using the official truncated test
+and the same frozen weights. [Evidence and current delivery state →](docs/INFERENCE.md)
 
 *Every chart is generated with Plotly from the committed, verified experiment reports.
 GitHub displays the SVG previews. For hover values, zoom, model toggles, and exact-value
@@ -192,10 +205,11 @@ tests, UTC progress logs, native model checkpoints, atomic partition receipts, a
 validation. Interrupted jobs reuse valid completed work. Tests cover corruption, partial
 writes, incompatible inputs, missing partitions, and duplicate writers.
 
-**Full inference has run:** Notebook 10 generated **5,015,409 validated rows** for
-**1,671,803 competition sessions**, with 1,633 recoverable prediction parts. The completed
-file is `submission.csv.gz`. Its default local replay produces only a **24-row review
-example**. [Download and submission instructions →](docs/INFERENCE.md#download-and-submit-the-completed-full-run)
+**Batch execution is demonstrated; valid competition delivery is pending.**
+The historical output has 5,015,409 rows and durable prediction parts, but used
+full test sessions. The default notebook replays that historical output as a
+software check and prominently records the invalidation.
+[Source correction and replacement workflow →](docs/INFERENCE.md)
 
 To run the repository's checks from a clone:
 
@@ -230,8 +244,8 @@ offline experiment and complete batch output; online business impact and state-o
 performance have not been measured.
 
 The active research extension repeats the frozen comparison across **three temporal
-windows and three model seeds**. **Four of nine planned cells are now verified:**
-all three reference seeds and the first early-window seed. The original headline
+windows and three model seeds**. **Five of nine planned cells are now verified:**
+all three reference seeds and two early-window seeds. The original headline
 result remains unchanged.
 
 The first earlier-period check evaluates **562,504 reserved sessions**. The selected
@@ -244,11 +258,13 @@ fitting-only feature screen.
 
 [Explore the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb)
 · [Read the method, tradeoffs and audit](docs/ROBUSTNESS.md#first-early-window-result).
-One early seed cannot establish that window's seed stability. The next steps are its
-two remaining seeds, then the three middle-window seeds; every planned outcome will
-be retained. The [completion roadmap](docs/ROADMAP.md) separates this research work
-from the remaining delivery work.
+Two early seeds now show gains of +2.180 and +2.112 percentage points; the third is being audited. The remaining
+runs now use a managed queue with up to three simultaneous steps. Later middle
+seeds wait for the first middle seed's preparation and independent audit.
+The [completion roadmap](docs/ROADMAP.md) records the scheduling amendment,
+monitor command, remaining deliverables, and measured runtime estimates.
 
-There is **one validated full submission file**. The
-[planned collection of 50 distinct files](docs/ROBUSTNESS.md#path-to-50-submission-files)
-and Kaggle scoring remain open delivery steps.
+There are **five of nine audited validation cells** and **zero valid full
+competition submissions** following the source invalidation. The remaining
+validation jobs, replacement inference, planned 50-file collection, and final
+release are separate milestones; launched work does not count as a result.

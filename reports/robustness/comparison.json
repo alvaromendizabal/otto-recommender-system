@@ -149,6 +149,152 @@
       "window": "early"
     },
     {
+      "audit_evidence": "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json",
+      "audit_id": "a9b445d03ddc6551d1921355b8042f3330470d89fa9205f2f0dac2a9c590c961",
+      "cell_id": "early_seed_20260909",
+      "chosen": {
+        "carts": "without_source",
+        "clicks": "without_source",
+        "orders": "without_source"
+      },
+      "cohort_seed": 20260908,
+      "model_seed": 20260909,
+      "paired_intervals": {
+        "core": {
+          "absolute_gain": 0.021116525220926663,
+          "gain_interval": [
+            0.020129592332123157,
+            0.02211944393836075
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5667840516163981,
+          "score_interval": [
+            0.5639139110749084,
+            0.5698335858307592
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        },
+        "fusion": {
+          "absolute_gain": 0.050355942314666335,
+          "gain_interval": [
+            0.048414065433412486,
+            0.05214127370748386
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5667840516163981,
+          "score_interval": [
+            0.5639139110749084,
+            0.5698335858307592
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        }
+      },
+      "prediction_comparison": null,
+      "scores": {
+        "core": {
+          "objectives": {
+            "carts": {
+              "denominator": 175072,
+              "hit_rate": 0.6310310945528239,
+              "hits": 69389,
+              "mrr": 0.49137667748767144,
+              "ndcg": 0.4615983775308794,
+              "recall_at_20": 0.39634550356424786
+            },
+            "clicks": {
+              "denominator": 542826,
+              "hit_rate": 0.45753887986205527,
+              "hits": 248364,
+              "mrr": 0.2965749401202549,
+              "ndcg": 0.3338361269878768,
+              "recall_at_20": 0.45753887986205527
+            },
+            "orders": {
+              "denominator": 106635,
+              "hit_rate": 0.8319852872182709,
+              "hits": 67715,
+              "mrr": 0.688586890413676,
+              "ndcg": 0.6495731670977949,
+              "recall_at_20": 0.6350166455666526
+            }
+          },
+          "weighted_recall_at_20": 0.5456675263954714
+        },
+        "fusion": {
+          "objectives": {
+            "carts": {
+              "denominator": 175072,
+              "hit_rate": 0.654725594153651,
+              "hits": 73257,
+              "mrr": 0.18881062221108513,
+              "ndcg": 0.2535529347469035,
+              "recall_at_20": 0.4184392707000548
+            },
+            "clicks": {
+              "denominator": 542826,
+              "hit_rate": 0.5269404929019612,
+              "hits": 286037,
+              "mrr": 0.1771623771566608,
+              "ndcg": 0.2568336933329196,
+              "recall_at_20": 0.5269404929019612
+            },
+            "orders": {
+              "denominator": 106635,
+              "hit_rate": 0.818736277140766,
+              "hits": 60107,
+              "mrr": 0.2593252706593291,
+              "ndcg": 0.32733866554616897,
+              "recall_at_20": 0.5636704646691987
+            }
+          },
+          "weighted_recall_at_20": 0.5164281093017318
+        },
+        "selected": {
+          "objectives": {
+            "carts": {
+              "denominator": 175072,
+              "hit_rate": 0.6524022026161184,
+              "hits": 72737,
+              "mrr": 0.4932302676989774,
+              "ndcg": 0.46781155911544814,
+              "recall_at_20": 0.41546906415646134
+            },
+            "clicks": {
+              "denominator": 542826,
+              "hit_rate": 0.5071275141573911,
+              "hits": 275282,
+              "mrr": 0.31482296795628434,
+              "ndcg": 0.3584385506071309,
+              "recall_at_20": 0.5071275141573911
+            },
+            "orders": {
+              "denominator": 106635,
+              "hit_rate": 0.8419126616247865,
+              "hits": 69567,
+              "mrr": 0.7155181780172338,
+              "ndcg": 0.671603124000631,
+              "recall_at_20": 0.6523843015895344
+            }
+          },
+          "weighted_recall_at_20": 0.5667840516163981
+        }
+      },
+      "selected_features": {
+        "carts": 101,
+        "clicks": 101,
+        "orders": 101
+      },
+      "sessions": 562504,
+      "status": "verified",
+      "window": "early"
+    },
+    {
       "audit_evidence": "reports/research/audit.json",
       "audit_id": "5e3a177008f2431d2c989045dc3a10b6bc51ed5bfdb04c2317bb2d20925afb61",
       "cell_id": "reference_seed_20260908",
@@ -669,6 +815,28 @@
     "reports/robustness/cells/early_seed_20260908/selection_cache/contract.json": "93e55a9bf2ca6abfc1313bf27f8fd65124123ceeb76f271eba112135853e0ad5",
     "reports/robustness/cells/early_seed_20260908/selection_cache/manifest.json": "7ea5dce4a71a454e01f7495501d90facf7e3462e031cb0cac3b8eb6cf66a0b23",
     "reports/robustness/cells/early_seed_20260908/verification_launch.json": "da3d04206d39f9bfc441e996cbf2d17f2712b54d756e674e33fce7537e49624e",
+    "reports/robustness/cells/early_seed_20260909/corpus/contract.json": "1b574cb19d052689533b4b31275ef8630de00df841c2083a2161fc4d32d4a554",
+    "reports/robustness/cells/early_seed_20260909/corpus/manifest.json": "8bcb4ac86757df13d0a7bfe89f74ef775bfb71c28d052b3b92490915d34a465a",
+    "reports/robustness/cells/early_seed_20260909/evaluation/contract.json": "c64e833dbefb962c555a0b236cd15df1bd55d6aa530f78d1360715c1ad5b4062",
+    "reports/robustness/cells/early_seed_20260909/evaluation/report.json": "76ab5dd0a6ca80d1c7a47406348705f0a1ee335a40dcb002c41576ae4ccb42e4",
+    "reports/robustness/cells/early_seed_20260909/evaluation_seal.json": "870110cc3a4db543a0b79c12e99140ab641341f24eba4ab549a85359f7ae799e",
+    "reports/robustness/cells/early_seed_20260909/fit_cache/contract.json": "9d742e143fec0b2d35f6cfc0b6ced7938f09d6b58765287ec05e6740e5c96d01",
+    "reports/robustness/cells/early_seed_20260909/fit_cache/manifest.json": "d6b8c3bef942302971fdf2966abdc93c6a7c264d79c58605712bd3eaca5d4cd3",
+    "reports/robustness/cells/early_seed_20260909/job_status.json": "2b287e3b4e8aa891861b9cfaec59f9f581b1c74b7f085f6d97c84256785efeae",
+    "reports/robustness/cells/early_seed_20260909/models/ablation_report.json": "90ad0f1f932ce281ceb538685ae5c4d02526e74bdae2c5bcbe5cf3615714b6e1",
+    "reports/robustness/cells/early_seed_20260909/models/study_contract.json": "ecc777604258d0c6ca06e1adf92dc68720b376629cc5d02592452806e8db369d",
+    "reports/robustness/cells/early_seed_20260909/preparation.json": "d042b8dc715e93072aa518b1393746845e9891fdeb3b3dc76fa457d9e2c788b8",
+    "reports/robustness/cells/early_seed_20260909/retrieval/contract.json": "a36faba8290ae4b29c261de4935a07fdf62f0fa3c6306a90aedaa871efebe235",
+    "reports/robustness/cells/early_seed_20260909/retrieval/manifest.json": "62a6f5bea81bde20c6b15b93e5cb1ee608031721d5b6633f79e2b23ecd75feab",
+    "reports/robustness/cells/early_seed_20260909/robustness_audit/job_status.json": "43f494ace2c0e5cbc090e73b80d1e1b43330d83e6e16682ce1864b1e27430c1b",
+    "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json": "f55919a531ed4d3922e190e23384d3bdf47d506f0ec20e2141c1ae11bd14239a",
+    "reports/robustness/cells/early_seed_20260909/screening/contract.json": "4967488cccdff296a65fa46e9dd96643daa468b7e62b1c20c76e14c406c0385d",
+    "reports/robustness/cells/early_seed_20260909/screening/selection.json": "bdb6761ce813d80daaa1d2469da83a260fdfe88d1ac2b03e1ff4e60e670d9011",
+    "reports/robustness/cells/early_seed_20260909/screening_cache/contract.json": "c1bd770ddc237315fea4f58807db264ee2ebff9146470b6f619d0f85e014c4ee",
+    "reports/robustness/cells/early_seed_20260909/screening_cache/manifest.json": "9add19e4cb384fb5f3b51c17ea4fea9932e2020b2a6e51866691a46cc1ccc6c8",
+    "reports/robustness/cells/early_seed_20260909/selection_cache/contract.json": "93e55a9bf2ca6abfc1313bf27f8fd65124123ceeb76f271eba112135853e0ad5",
+    "reports/robustness/cells/early_seed_20260909/selection_cache/manifest.json": "7ea5dce4a71a454e01f7495501d90facf7e3462e031cb0cac3b8eb6cf66a0b23",
+    "reports/robustness/cells/early_seed_20260909/verification_launch.json": "38099db4d134ace79bd174e1c70d449b7530e84b7900100c41e4317cf519a212",
     "reports/robustness/cells/reference_seed_20260909/evaluation/contract.json": "c0849006f35b7abdb912c7df660cb018790bf16bd5bcfa01400f8150387fa678",
     "reports/robustness/cells/reference_seed_20260909/evaluation/report.json": "16b7245d0de1f66eb7cea6437484da17d8a39a1fe62c397fe462c725fd2faf4d",
     "reports/robustness/cells/reference_seed_20260909/evaluation_seal.json": "260ce7053b2049f4c267c1425bc435067c634509bb200da8d5b79162bc3e3369",
@@ -688,10 +856,11 @@
     "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json": "05d35b652e51ebff91205cda6087678bbf22ca39d41d1b977c49883dc3277427",
     "reports/robustness/cells/reference_seed_20260910/verification_launch.json": "60808943d01a4a551186c9eb7dc72c9994a03ce1d6678fd8bc6b25b399a1dcda",
     "reports/robustness/runs/early_seed_20260908.launch.json": "bcc55315779fcdab633d62953192fd1ef444eb752a1878741141b51fcc644afc",
+    "reports/robustness/runs/early_seed_20260909.launch.json": "f6e08d553d5c105224227b896f57f28539cf78ec070f36589fafe327ed54585b",
     "reports/robustness/runs/reference_seed_20260909.launch.json": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
     "reports/robustness/runs/reference_seed_20260910.launch.json": "639c5aef78be81559525e0630d82edadd8a75fa7040b69460c9aba7cd4f2fe8a",
     "reports/robustness/source_inventory.json": "5fad30ecb3cfddd7b56b410750a6db380f235430461c2eee672c33ef7424f6d0"
   },
-  "verified_cells": 4,
+  "verified_cells": 5,
   "verified_windows": 2
 }

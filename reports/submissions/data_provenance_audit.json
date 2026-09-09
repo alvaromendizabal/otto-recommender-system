@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "confirmed_test_contamination",
+  "observed_at_utc": "2026-09-09T20:44:00Z",
+  "affected_submission": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
+  "displayed_scores": {
+    "public": "0.93554",
+    "private": "0.93583"
+  },
+  "valid_competition_evaluation": false,
+  "cause": "Inference read the post-competition complete test sessions from kaggle:otto/recsys-dataset. These include events occurring after the competition query cutoffs.",
+  "original_source_manifest": {
+    "created_at_utc": "2026-09-04T23:19:10.280+00:00",
+    "files": [
+      {
+        "name": "otto-recsys-test.jsonl",
+        "sha256": "ff413623d47ba0d0cfb9703accb9148ed32664a81c3930ffae8bd118b5741848",
+        "size_bytes": 750426722
+      },
+      {
+        "name": "otto-recsys-train.jsonl",
+        "sha256": "06716132f1ab1d500f1515ba2c16187d7b0e98066ca66d33b95f022f8c3a340d",
+        "size_bytes": 11307535945
+      }
+    ],
+    "manifest_id": "47245ba6ffb0b90d4a39f36cf38aa78eb24e126723c977d197f68c55ce672ef4",
+    "source": "kaggle:otto/recsys-dataset"
+  },
+  "official_competition": {
+    "url": "https://www.kaggle.com/competitions/otto-recommender-system/data?select=test.jsonl",
+    "bytes": 402090304,
+    "sha256": "8b46acddd68b46c83a474e809c21dbe681fed4c16304b0d0b6a907bd3e32790e",
+    "sessions": 1671803,
+    "events": 6928123
+  },
+  "post_competition_test": {
+    "bytes": 750426722,
+    "sessions": 1671803,
+    "events": 13851293
+  },
+  "first_session_probe": {
+    "session": 12899779,
+    "official_events": [
+      {
+        "aid": 59625,
+        "ts": 1661724000278,
+        "type": "clicks"
+      }
+    ],
+    "post_competition_events": [
+      {
+        "aid": 59625,
+        "ts": 1661724000278,
+        "type": "clicks"
+      },
+      {
+        "aid": 875854,
+        "ts": 1661724026702,
+        "type": "clicks"
+      }
+    ]
+  },
+  "primary_documentation": "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md",
+  "historical_leaderboard": {
+    "url": "https://www.kaggle.com/competitions/otto-recommender-system/leaderboard",
+    "private_winner": "mrkmakr",
+    "private_score": "0.60503"
+  },
+  "impact": "The reported 0.93583 score cannot support model quality or comparison with the historical winner. Frozen training-only temporal robustness experiments do not use the affected test input.",
+  "remediation": "Regenerate inference from the official truncated test with the original frozen model weights, verify exact input hashes, and preserve the invalidated submission receipt."
+}
