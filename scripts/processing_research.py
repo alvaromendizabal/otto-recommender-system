@@ -112,8 +112,8 @@ def main() -> int:
     launch_path = args.inputs / "launch/launch.json"
     launch = json.loads(launch_path.read_text())
     task = launch.get("task", "study")
-    if task not in {"study", "delivery"}:
-        raise ValueError("processing task must be study or delivery")
+    if task not in {"study", "delivery", "verification"}:
+        raise ValueError("processing task must be study, delivery or verification")
     print(
         json.dumps({"timestamp": datetime.now(UTC).isoformat(), "stage": "verify_inputs"}),
         flush=True,
@@ -171,9 +171,11 @@ def main() -> int:
         [
             str(project / ".venv/bin/python"),
             "-m",
-            "otto_recsys.cloud.research_job"
-            if task == "study"
-            else "otto_recsys.cloud.delivery_job",
+            {
+                "study": "otto_recsys.cloud.research_job",
+                "delivery": "otto_recsys.cloud.delivery_job",
+                "verification": "otto_recsys.cloud.robustness_verification",
+            }[task],
             str(launch_path),
         ],
         cwd=project,

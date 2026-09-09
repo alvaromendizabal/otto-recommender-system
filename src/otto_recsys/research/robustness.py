@@ -168,3 +168,28 @@ def verify_seed_launch(root: Path, launch: dict[str, Any]) -> dict[str, Any]:
     if launch != expected:
         raise ValueError("replication launch differs from its frozen inputs, settings or namespace")
     return dict(expected["robustness"])
+
+
+def verification_launch(
+    root: Path, training_launch: dict[str, Any], *, source_commit: str, source_sha256: str
+) -> dict[str, Any]:
+    """Use separate verifier code while retaining the exact completed training identity."""
+    cell = verify_seed_launch(root, training_launch)
+    launch = seed_launch(
+        root, cell["cell_id"], source_commit=source_commit, source_sha256=source_sha256
+    )
+    launch.update(task="verification", training_launch=copy.deepcopy(training_launch))
+    launch["resources"]["maximum_runtime_seconds"] = 1800
+    return launch
+
+
+def verify_verification_launch(root: Path, launch: dict[str, Any]) -> dict[str, Any]:
+    expected = verification_launch(
+        root,
+        launch["training_launch"],
+        source_commit=launch["source_commit"],
+        source_sha256=launch["source_sha256"],
+    )
+    if launch != expected:
+        raise ValueError("verification launch differs from its frozen training inputs")
+    return dict(expected["robustness"])

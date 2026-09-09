@@ -97,6 +97,27 @@ evaluation parts are verified before reuse. The previous study and submission
 remain intact. Job status must identify the source commit, protocol, cohort,
 model seed and output locations.
 
+## How a completed replication becomes a verified result
+
+`scripts/verify_robustness.py` checks the completed training identity, frozen data,
+all eight selection comparisons and all 24 native models. It recomputes the
+official metrics from every reserved-session statistic, replays 256 deterministic
+sessions, and reproduces both 1,000-sample paired bootstrap comparisons. A separate
+prediction probe compares actual top-20 item IDs with the original models;
+different model-file headers alone do not demonstrate prediction diversity.
+
+The original event reconstruction is reusable only because the reference corpus
+and historical retrieval identities remain unchanged. This verification records
+that reuse explicitly. Earlier temporal windows require their own source audit.
+An AWS verification job has a separate status receipt and a 30-minute runtime
+limit; it preserves the original training status. Verified evidence can be reused
+after its inputs and integrity are checked again.
+
+To prepare this managed verification, `scripts/prepare_robustness.py` accepts
+`--verify-launch` pointing to the completed training launch, plus the exact
+verifier source commit and archive checksum. The original model-source identity
+remains separately recorded inside the verification launch.
+
 ## Path to 50 submission files
 
 The existing full submission is one verified artifact. The target is eventually

@@ -112,6 +112,29 @@ class TestRobustnessProtocol(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "differs"):
             verify_seed_launch(ROOT, changed)
 
+    def test_verification_preserves_training_identity_and_cannot_change_inputs(self) -> None:
+        from otto_recsys.research.robustness import verification_launch, verify_verification_launch
+
+        training = self.launch()
+        audit = verification_launch(ROOT, training, source_commit="c" * 40, source_sha256="d" * 64)
+        self.assertEqual(audit["training_launch"], training)
+        self.assertEqual(audit["checkpoint_uri"], training["checkpoint_uri"])
+        self.assertEqual(audit["resources"]["maximum_runtime_seconds"], 1800)
+        self.assertEqual(verify_verification_launch(ROOT, audit), training["robustness"])
+        for mutate in ("namespace", "corpus", "training", "runtime"):
+            with self.subTest(mutate=mutate):
+                bad = copy.deepcopy(audit)
+                if mutate == "namespace":
+                    bad["checkpoint_uri"] += "/different"
+                elif mutate == "corpus":
+                    bad["corpus"][0]["sha256"] = "e" * 64
+                elif mutate == "training":
+                    bad["training_launch"]["training"]["rounds"] += 1
+                else:
+                    bad["resources"]["maximum_runtime_seconds"] = 7200
+                with self.assertRaisesRegex(ValueError, "differs"):
+                    verify_verification_launch(ROOT, bad)
+
     def test_reference_caches_cannot_be_used_for_earlier_windows(self) -> None:
         for cell in ("early_seed_20260909", "middle_seed_20260910", "reference_seed_20260908"):
             with self.subTest(cell=cell), self.assertRaisesRegex(ValueError, "own window inputs"):

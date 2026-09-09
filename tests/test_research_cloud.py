@@ -211,7 +211,7 @@ def test_replication_keeps_bootstrap_seed_separate_and_publishes_its_protocol(
     assert status["evaluation_seed"] == 20260908
 
 
-@pytest.mark.parametrize("task", ["study", "delivery"])
+@pytest.mark.parametrize("task", ["study", "delivery", "verification"])
 def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypatch, task):
     path = Path(__file__).resolve().parents[1] / "scripts/processing_research.py"
     spec = importlib.util.spec_from_file_location("processing_research", path)
@@ -233,14 +233,72 @@ def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypat
         [str(path), "--inputs", str(tmp_path / "input"), "--workspace", str(tmp_path / "work")],
     )
     assert module.main() == 0
-    assert len(calls) == (3 if task == "study" else 5)
+    assert len(calls) == (5 if task == "delivery" else 3)
     for _, kwargs in calls:
         assert kwargs["env"]["UV_PROJECT_ENVIRONMENT"] == str(project / ".venv")
         assert "VIRTUAL_ENV" not in kwargs["env"]
     assert calls[-1][0][0] == str(project / ".venv/bin/python")
     assert (
-        calls[-1][0][2] == f"otto_recsys.cloud.{'research' if task == 'study' else 'delivery'}_job"
+        calls[-1][0][2]
+        == {
+            "study": "otto_recsys.cloud.research_job",
+            "delivery": "otto_recsys.cloud.delivery_job",
+            "verification": "otto_recsys.cloud.robustness_verification",
+        }[task]
     )
+
+
+@pytest.mark.parametrize("fail_verification", [False, True])
+def test_replication_verification_preserves_training_status(
+    tmp_path, monkeypatch, fail_verification
+):
+    from otto_recsys.cloud import robustness_verification as worker
+    from otto_recsys.research.robustness import seed_launch, verification_launch
+
+    repository = Path(__file__).resolve().parents[1]
+    monkeypatch.chdir(repository)
+    training = seed_launch(
+        repository, "reference_seed_20260909", source_commit="a" * 40, source_sha256="b" * 64
+    )
+    launch = verification_launch(
+        repository, training, source_commit="c" * 40, source_sha256="d" * 64
+    )
+    original = tmp_path / "job_status.json"
+    original.write_text('{"status": "passed", "stage": "complete"}')
+    before = original.read_bytes()
+    published = []
+
+    class Checkpoints:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def restore(self):
+            return 0
+
+        def publish(self, path):
+            assert path.is_file()
+            published.append(path.relative_to(tmp_path).as_posix())
+
+    def verify(repo, root, actual_launch, **kwargs):
+        assert actual_launch == training and repo == repository and root == tmp_path
+        if fail_verification:
+            raise ValueError("corrupt replication fixture")
+        path = root / "robustness_audit/report.json"
+        path.write_text('{"audit_id": "verified-test-audit"}')
+        return {"audit_id": "verified-test-audit"}
+
+    monkeypatch.setattr(worker, "ResearchCheckpoints", Checkpoints)
+    monkeypatch.setattr(worker, "verify_replication", verify)
+    if fail_verification:
+        with pytest.raises(ValueError, match="corrupt replication"):
+            worker.run(launch, tmp_path)
+    else:
+        assert worker.run(launch, tmp_path)["status"] == "passed"
+    assert original.read_bytes() == before
+    assert "job_status.json" not in published
+    assert "robustness_audit/job_status.json" in published
+    state = json.loads((tmp_path / "robustness_audit/job_status.json").read_text())
+    assert state["status"] == ("failed" if fail_verification else "passed")
 
 
 @pytest.mark.parametrize("fail_prediction", [False, True])
