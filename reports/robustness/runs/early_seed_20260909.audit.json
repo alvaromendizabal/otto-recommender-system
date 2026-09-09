@@ -1,8 +1,9 @@
 {
-  "schema_version": 1,
   "created": {
     "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-verify-early-20260909-d5c29663"
   },
+  "launch_file": "early_seed_20260909.audit.launch.json",
+  "launch_sha256": "38099db4d134ace79bd174e1c70d449b7530e84b7900100c41e4317cf519a212",
   "note": "The atomic passed worker receipt follows publication of all evaluation outputs; audit may begin while the completed training container is being retired.",
   "observed": {
     "CreationTime": "2026-09-09T21:02:44.947000+00:00",
@@ -13,6 +14,9 @@
       "MaxRuntimeInSeconds": 1800
     }
   },
+  "request_file": "early_seed_20260909.audit.request.json",
+  "request_sha256": "bf9bf65398569ccf2870bfe8d7379d138ca831a92550817a6660b467c3d85599",
+  "schema_version": 1,
   "status": "audit_started",
   "training_completion": {
     "elapsed_seconds": 2398.624734842,

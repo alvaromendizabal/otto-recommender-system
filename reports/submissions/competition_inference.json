@@ -2,6 +2,8 @@
   "created": {
     "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-delivery-90bb97d39ec49999"
   },
+  "launch_file": "competition_inference.launch.json",
+  "launch_sha256": "53a7774361adddcd3ca27125265874734231af49fc5a4371e8d5b3fabf16cab8",
   "observed": {
     "CreationTime": "2026-09-09T20:55:04.517000+00:00",
     "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-delivery-90bb97d39ec49999",
@@ -13,6 +15,8 @@
   },
   "official_input_evidence": "reports/submissions/competition_input.json",
   "replacement_for": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
+  "request_file": "competition_inference.request.json",
+  "request_sha256": "fba8c00f7095dbc43e8eaf4ec98a52b1a9477ed84597b91cd7ac9666382bb13b",
   "schema_version": 1,
   "source_commit": "1fb654831a47cfddf1c47d5b51030d04f2746841",
   "source_objects": [

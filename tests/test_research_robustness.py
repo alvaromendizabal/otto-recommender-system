@@ -36,7 +36,11 @@ class TestRobustnessProtocol(unittest.TestCase):
         self.assertEqual(reference["training"]["seed"], 20260908)
 
     def test_published_progress_has_current_lineage_and_no_invented_pending_scores(self) -> None:
-        from otto_recsys.research.robustness import fingerprint
+        from otto_recsys.research.robustness import fingerprint, verify_verification_launch
+        from otto_recsys.research.temporal_robustness import (
+            verify_window_launch,
+            verify_window_verification,
+        )
 
         plan, _ = load_plan(ROOT)
         progress = json.loads((ROOT / "reports/robustness/progress.json").read_text())
@@ -46,17 +50,23 @@ class TestRobustnessProtocol(unittest.TestCase):
         )
         self.assertEqual(len(progress["cells"]), len(cells(plan)))
         for cell in progress["cells"]:
-            if cell["status"] in {"planned", "running"}:
+            self.assertIn(cell["status"], {
+                "planned", "queued", "running", "auditing", "verified", "verified_reference"
+            })
+            if not cell["status"].startswith("verified"):
                 self.assertIsNone(cell["weighted_recall_at_20"])
+        verifiers = {
+            "study": verify_seed_launch,
+            "window_study": verify_window_launch,
+            "verification": verify_verification_launch,
+            "window_verification": verify_window_verification,
+        }
         runs = ROOT / "reports/robustness/runs"
         for path in runs.glob("*.launch.json"):
             launch = json.loads(path.read_text())
-            if launch.get("task") == "window_study":
-                from otto_recsys.research.temporal_robustness import verify_window_launch
-
-                verify_window_launch(ROOT, launch)
-            else:
-                verify_seed_launch(ROOT, launch)
+            task = launch.get("task", "study")
+            self.assertIn(task, verifiers)
+            verifiers[task](ROOT, launch)
             receipt = json.loads(path.with_name(path.name.replace(".launch", "")).read_text())
             self.assertEqual(
                 receipt["launch_sha256"], hashlib.sha256(path.read_bytes()).hexdigest()
