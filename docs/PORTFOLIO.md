@@ -328,8 +328,13 @@ changed contracts, and exact reuse on real small model fits.
 
 ## What remains an open research question
 
-The strongest next study would repeat the frozen comparison across **additional temporal
-cohorts and training seeds**, then evaluate a predeclared action-specific hybrid on a fresh
+The [frozen robustness study](ROBUSTNESS.md) has verified all three reference-window
+seeds. The feature gain stays positive at **+1.949, +2.022 and +2.031 percentage points**;
+all three select the same 102-feature representation. This supports seed consistency
+on one period. The next bounded research work is to build and audit **the early temporal
+window**, then the middle window, each with its three planned seeds.
+
+After those comparisons, evaluate a predeclared action-specific hybrid on a fresh
 selection/evaluation split. Joint feature-family removals and neural retrieval certified to
 the same historical boundary are additional experiments, not completed results.
 

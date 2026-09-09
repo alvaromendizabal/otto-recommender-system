@@ -6,25 +6,28 @@ compact control. This extension tests how consistently that result repeats.
 The protocol is frozen in [configs/robustness.toml](../configs/robustness.toml)
 before any new replication is trained.
 
-## First verified replication
+## Three verified reference seeds
 
-Two of the nine planned cells are verified: the original reference and a new
-model seed on the same reference window. Each evaluates all **432,492 reserved
+Three of the nine planned cells are verified: the original reference and both
+planned new model seeds on the same reference window. Each evaluates all **432,492 reserved
 sessions**, after fitting eight feature configurations and three task rankers.
 
 | Model seed | Selected | Compact control | Candidate fusion | Gain over compact | Paired 95% interval |
 |---|---:|---:|---:|---:|---:|
 | 20260908 · original | 0.584392 | 0.564904 | 0.535244 | +1.949 pp | +1.840 to +2.065 pp |
 | 20260909 · replication | 0.584430 | 0.564207 | 0.535244 | +2.022 pp | +1.913 to +2.135 pp |
+| 20260910 · replication | 0.584988 | 0.564675 | 0.535244 | +2.031 pp | +1.921 to +2.141 pp |
 
 **What this means:** the feature gain remains positive when only the model seed
-changes. Both seeds select the 102-feature configuration that excludes direct
-source features for all three tasks. The selected model's absolute score changes
-by just 0.0038 percentage points. This is evidence of consistency on this time
-window; it does not establish stability across different periods.
+changes. All three seeds select the 102-feature configuration that excludes direct
+source features for all three tasks. The selected score ranges from 0.584392 to
+0.584988, a spread of **0.060 percentage points**. The feature gain ranges from
+**+1.949 to +2.031 percentage points**. These are descriptive ranges over the three
+planned seeds, not population confidence intervals. They support consistency on
+this time window; they do not establish stability across different periods.
 
 The intervals describe session-sampling uncertainty for each fitted model pair.
-They are not confidence intervals over training seeds. Both runs use the same
+They are not confidence intervals over training seeds. All three runs use the same
 reserved sessions, so their predictions must not be treated as independent
 observations. The original model remains the headline result; this comparison
 does not select a new model using evaluation labels.
@@ -32,22 +35,24 @@ does not select a new model using evaluation labels.
 [Notebook 09](../notebooks/09_controlled_feature_study.ipynb) plots the scores and
 paired gains in Plotly, reports all three objectives, and compares actual
 sampled top-20 predictions. The [comparison data](../reports/robustness/comparison.json)
-links every number to checked source files. The new seed's
-[verification receipt](../reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json)
-records the full metric audit, 24 native models, eight ablations, 256-session
+links every number to checked source files. Verification receipts for
+[seed 20260909](../reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json)
+and [seed 20260910](../reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json)
+each record the full metric audit, 24 native models, eight ablations, 256-session
 prediction replay and both reproduced 1,000-sample bootstrap comparisons.
-The probe found different ordered top-20 lists in all 256 sampled sessions for
-each task. The sets of recommended items changed in 242 click, 230 cart and
-243 order cases. Thus the similar aggregate scores do not imply identical
-recommendations. These counts describe the fixed probe sample.
+The notebook reports actual ordered top-20 prediction changes against the original
+model on the same fixed probe sample. Similar aggregate scores need not imply
+identical recommendations; sample-level changes are kept separate from full-cohort metrics.
 
 The [nine-cell progress snapshot](../reports/robustness/progress.json) records
 which jobs have finished verification and which scores remain unmeasured.
 Runtime, source commit, launch settings and durable artifact locations are saved
 in the [run receipts](../reports/robustness/runs).
-Seed 20260910 was launched after the first seed's verification job completed;
-its [execution receipt](../reports/robustness/runs/reference_seed_20260910.json)
-records the separate checkpoint namespace and two-hour runtime limit.
+The final reference seed's
+[execution receipt](../reports/robustness/runs/reference_seed_20260910.json)
+records completed training and the separate completed verification job. Verification
+reused the saved checkpoints without retraining. This closes the reference-seed
+milestone; the early and middle windows remain unmeasured.
 
 ## What stays fixed
 
@@ -82,11 +87,11 @@ All times are UTC. Boundaries are left inclusive and right exclusive.
 
 These dates are in 2022. Each window has three model seeds, giving nine cells
 and up to 216 native model fits: eight configurations times three objectives
-times nine cells. The 24 completed reference-seed models remain reusable after
+times nine cells. The 72 completed reference-window models remain reusable after
 their contracts and bytes are verified.
 
-The first batch repeats the reference window with two new seeds. Its existing
-corpus, retrieval artifacts and feature caches can be reused exactly. The
+The completed first batch repeats the reference window with two new seeds. Its existing
+corpus, retrieval artifacts and feature caches were reused exactly. The
 earlier windows require their own historical retrievers, training-only screens
 and feature caches. They must never reuse a retriever or feature screen fitted
 on a later window. The selected feature names and retained family counts may
@@ -164,10 +169,11 @@ metrics for Notebook 09. It does not substitute for the full managed verificatio
 
 ## Remaining milestones
 
-1. Complete and verify seed 20260910 on the reference window, giving three
-   reference seeds with fixed cohorts, candidates and screened features.
-2. Build historically valid corpus, retrieval and screening artifacts for the
-   early and middle windows. Run all three seeds on each, then audit every cell.
+1. Build historically valid corpus, retrieval and screening artifacts for the
+   early window. Start with seed 20260908 and audit it before the other two seeds.
+   Each delivery ends with its evidence committed and required GitHub checks passing.
+2. Complete the early window's remaining seeds, then repeat the same bounded
+   sequence for the middle window. Earlier windows require fresh source reconstruction.
 3. Publish the complete nine-cell comparison, including unfavorable outcomes,
    per-objective tradeoffs, seed ranges and temporal differences. Update the
    model card and portfolio conclusions to match the full evidence.

@@ -318,6 +318,177 @@
       "sessions": 432492,
       "status": "verified",
       "window": "reference"
+    },
+    {
+      "audit_evidence": "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json",
+      "audit_id": "7fc4e1610f7f14da1a2d99565f66715202283ccbad304e31253a34fa51c3bce4",
+      "cell_id": "reference_seed_20260910",
+      "chosen": {
+        "carts": "without_source",
+        "clicks": "without_source",
+        "orders": "without_source"
+      },
+      "cohort_seed": 20260908,
+      "model_seed": 20260910,
+      "paired_intervals": {
+        "core": {
+          "absolute_gain": 0.020312690831678637,
+          "gain_interval": [
+            0.019209805282889514,
+            0.02141339424852434
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5849880597495049,
+          "score_interval": [
+            0.5815788852387849,
+            0.5886477964970095
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        },
+        "fusion": {
+          "absolute_gain": 0.04974404841456426,
+          "gain_interval": [
+            0.04755568253716619,
+            0.05184868784868455
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5849880597495049,
+          "score_interval": [
+            0.5815788852387849,
+            0.5886477964970095
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        }
+      },
+      "prediction_comparison": {
+        "objectives": {
+          "carts": {
+            "ordered_top20_changed": 256,
+            "reference_ranking_sha256": "b770ed47b976d70328f91918bb4caa63f54a98453046352215c00aff6c15109a",
+            "replication_ranking_sha256": "e6814954facdb11dc195bdecf5aae72c06a0b1711b4e610c5ec1575191ef4816",
+            "top20_set_changed": 231
+          },
+          "clicks": {
+            "ordered_top20_changed": 256,
+            "reference_ranking_sha256": "88e2311d9aa00e190cba97bdcf0a866bd99744889ce2d847973fc3be7143783e",
+            "replication_ranking_sha256": "26fbcba2dedf4983dbcac5c1f1956bc734ac83b9d4c375eb4168759e7229ecea",
+            "top20_set_changed": 242
+          },
+          "orders": {
+            "ordered_top20_changed": 256,
+            "reference_ranking_sha256": "760c53e2f6d72855f2e38bf98eb29f1df1ccfa0ad525a0c0fe6b953b81eebb4e",
+            "replication_ranking_sha256": "00ed9cf745f115638e943017adace6f48b1188f52468e0a5b6c4907ccae58602",
+            "top20_set_changed": 255
+          }
+        },
+        "scope": "Deterministic sampled reserved sessions; equal sampled rankings do not prove global identity. No labels select the probe sessions.",
+        "seed": 20260908,
+        "session_ids_sha256": "4cf12c12854d69cc512732ed24888449c1b3cf79c7449a376727aa83e1d49c1a",
+        "sessions": 256
+      },
+      "scores": {
+        "core": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6372004241781548,
+              "hits": 50816,
+              "mrr": 0.4996224141659712,
+              "ndcg": 0.469982201171831,
+              "recall_at_20": 0.4072349598903697
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.45750088860368754,
+              "hits": 191783,
+              "mrr": 0.3021641601067523,
+              "ndcg": 0.3382922848116527,
+              "recall_at_20": 0.45750088860368754
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8443772262113417,
+              "hits": 45847,
+              "mrr": 0.7262776020283808,
+              "ndcg": 0.6829730175188025,
+              "recall_at_20": 0.6612579868172443
+            }
+          },
+          "weighted_recall_at_20": 0.5646753689178262
+        },
+        "fusion": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6611523506539413,
+              "hits": 53683,
+              "mrr": 0.18877217842611047,
+              "ndcg": 0.255509480654775,
+              "recall_at_20": 0.43021084602870585
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.5267809645584296,
+              "hits": 220825,
+              "mrr": 0.1759829405828853,
+              "ndcg": 0.2559401789372012,
+              "recall_at_20": 0.5267809645584296
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8319104426980268,
+              "hits": 40849,
+              "mrr": 0.26406881388332254,
+              "ndcg": 0.33523889588190825,
+              "recall_at_20": 0.5891711017841432
+            }
+          },
+          "weighted_recall_at_20": 0.5352440113349406
+        },
+        "selected": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6620289855072464,
+              "hits": 53456,
+              "mrr": 0.5022635430888717,
+              "ndcg": 0.4773984922686076,
+              "recall_at_20": 0.42839168797031646
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.5062917912103378,
+              "hits": 212236,
+              "mrr": 0.3201981161361562,
+              "ndcg": 0.36254737557570427,
+              "recall_at_20": 0.5062917912103378
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8560807372646576,
+              "hits": 46897,
+              "mrr": 0.7361011713621107,
+              "ndcg": 0.6932636935223963,
+              "recall_at_20": 0.6764022903956269
+            }
+          },
+          "weighted_recall_at_20": 0.5849880597495049
+        }
+      },
+      "selected_features": {
+        "carts": 102,
+        "clicks": 102,
+        "orders": 102
+      },
+      "sessions": 432492,
+      "status": "verified",
+      "window": "reference"
     }
   ],
   "schema_version": 1,
@@ -338,8 +509,18 @@
     "reports/robustness/cells/reference_seed_20260909/robustness_audit/job_status.json": "1a709ead80111b81032268512fe9264a11c6500eb84602e23069e68bc44199f9",
     "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json": "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda",
     "reports/robustness/cells/reference_seed_20260909/verification_launch.json": "4eac4c66a72bde87d0bd7d488c053f7217084d1b23855e13701c5b3dea58977d",
-    "reports/robustness/runs/reference_seed_20260909.launch.json": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c"
+    "reports/robustness/cells/reference_seed_20260910/evaluation/contract.json": "188fafb510a8baa81398cba65ee92b8246dea552db5f7c9abdeb65ee329253a8",
+    "reports/robustness/cells/reference_seed_20260910/evaluation/report.json": "b312081f441b1bd2031a6c7230146f002eb0949f59151022897655afeba777be",
+    "reports/robustness/cells/reference_seed_20260910/evaluation_seal.json": "537bb70dd98ecb76b2dd980ecc482a6ad9234a22b010eb2df6d2a5cf01ede656",
+    "reports/robustness/cells/reference_seed_20260910/job_status.json": "7181ac0c628d0b2d22bb99661cb9027f4ffb64e7d1b5a2b209aea53d112a1b41",
+    "reports/robustness/cells/reference_seed_20260910/models/ablation_report.json": "dcf8c3112e072faa4dbe03da17bdee309b889d3c9dc68e7f63e5f94cae90be87",
+    "reports/robustness/cells/reference_seed_20260910/models/study_contract.json": "53e62915d298384983fd858e43d64aee5fa6946a5f857af03f7d4841383b0515",
+    "reports/robustness/cells/reference_seed_20260910/robustness_audit/job_status.json": "3e4ffcba534accfc9b67c2d67124a090b77e8b164672adc3ee5b16875422d41a",
+    "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json": "05d35b652e51ebff91205cda6087678bbf22ca39d41d1b977c49883dc3277427",
+    "reports/robustness/cells/reference_seed_20260910/verification_launch.json": "60808943d01a4a551186c9eb7dc72c9994a03ce1d6678fd8bc6b25b399a1dcda",
+    "reports/robustness/runs/reference_seed_20260909.launch.json": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
+    "reports/robustness/runs/reference_seed_20260910.launch.json": "639c5aef78be81559525e0630d82edadd8a75fa7040b69460c9aba7cd4f2fe8a"
   },
-  "verified_cells": 2,
+  "verified_cells": 3,
   "verified_windows": 1
 }

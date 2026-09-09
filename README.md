@@ -213,7 +213,7 @@ Reading the saved notebooks and charts requires neither the full dataset nor AWS
 | Review path | What to inspect |
 |:---|:---|
 | **Understand the decisions** | [Research case study](docs/PORTFOLIO.md): worked metric example, leakage boundaries, feature hypotheses, ablations, explanations, and failure analysis |
-| **Inspect the executed research** | [09 · Controlled feature study](notebooks/09_controlled_feature_study.ipynb): analytical tables, seven Plotly figures, audit and model lineage |
+| **Inspect the executed research** | [09 · Controlled feature study](notebooks/09_controlled_feature_study.ipynb): analytical tables, eight Plotly figures, seed comparison, audit and model lineage |
 | **Inspect deep learning and ANN** | [05 · Two-tower results](notebooks/05_two_tower_results.ipynb) and [06 · ANN benchmark](notebooks/06_ann_benchmark.ipynb): objective conditioning, retrieval coverage, fidelity, and latency |
 | **Follow the foundations** | [01 · Validation](notebooks/01_validation_protocol.ipynb), [02 · Retrieval](notebooks/02_retrieval_benchmarks.ipynb), [03 · Candidate budget](notebooks/03_candidate_frontier.ipynb), [04 · Hard negatives](notebooks/04_hard_negative_quality.ipynb) |
 | **Inspect the earlier ranker** | [07 · Ranking features](notebooks/07_ranking_features.ipynb) and [08 · Ranking evaluation](notebooks/08_ranking_evaluation.ipynb), with their original exploratory cohort |
@@ -235,8 +235,12 @@ new selection/evaluation split. This would address stability and the observed cl
 tradeoffs without using the current evaluation cohort to choose a new winner.
 
 The [robustness protocol](docs/ROBUSTNESS.md) now freezes three temporal windows and
-three model seeds. **Two of nine cells are verified**: on the same reference window,
-the feature gain repeats at **+1.949 and +2.022 percentage points** over the matched
+three model seeds. **All three reference seeds are verified: three of nine planned cells.**
+On the same reference window, the feature gain repeats at **+1.949, +2.022 and +2.031
+percentage points** over the matched
 compact control. [See the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb).
+All three seeds select the same 102-feature configuration for all three tasks.
 Earlier-window comparisons remain pending; the headline above remains the original
-verified result.
+verified result. There is **one validated full submission file**; the
+[planned collection of 50 distinct files](docs/ROBUSTNESS.md#path-to-50-submission-files)
+and Kaggle scoring remain open delivery steps.
