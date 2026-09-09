@@ -11,7 +11,7 @@ controlled experiments, and reproducible cloud inference.
 
 [Research case study](docs/PORTFOLIO.md) ·
 [Executed notebooks](#explore-the-work) ·
-[Interactive Plotly report ↓](https://github.com/alvaromendizabal/otto-recommender-system/raw/refs/heads/main/reports/portfolio/index.html) ·
+[Interactive Plotly report · ZIP ↓](https://github.com/alvaromendizabal/otto-recommender-system/raw/refs/heads/main/reports/portfolio/otto-research-report.zip) ·
 [Reproduce the results](docs/REPRODUCIBILITY.md)
 
 | Data processed | Feature research | Evaluation | Batch inference |
@@ -27,9 +27,9 @@ The comparisons use the same candidate pools and evaluation sessions. These are
 **offline temporal-validation results**; a Kaggle leaderboard score has not been recorded.
 
 *Every chart is generated with Plotly from the committed, verified experiment reports.
-GitHub displays the SVG previews. Download the interactive report above and open it in a
-browser for hover values, zoom, model toggles, and exact-value tables. The report includes
-Plotly and works offline.*
+GitHub displays the SVG previews. For hover values, zoom, model toggles, and exact-value
+tables, download the ZIP above, extract it, and open `otto-research-report.html` in a browser.
+The report includes Plotly and works offline.*
 
 ## The problem, in plain language
 

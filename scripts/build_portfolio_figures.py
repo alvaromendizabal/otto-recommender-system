@@ -5,10 +5,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import importlib
+import io
 import json
 import math
 import os
 import time
+import zipfile
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from html import escape
@@ -531,6 +533,17 @@ def write(path: Path, content: bytes) -> None:
     temporary.replace(path)
 
 
+def report_archive(html: str) -> bytes:
+    """Package one offline report; fixed ZIP metadata avoids timestamp-only changes."""
+    buffer = io.BytesIO()
+    entry = zipfile.ZipInfo("otto-research-report.html")
+    entry.create_system = 3
+    entry.external_attr = 0o100644 << 16
+    with zipfile.ZipFile(buffer, "w") as archive:
+        archive.writestr(entry, html.encode(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
+    return buffer.getvalue()
+
+
 def build(root: Path, output: Path, *, check: bool = False, previews: Path | None = None) -> None:
     started = time.perf_counter()
     data = read_evidence(root)
@@ -546,7 +559,12 @@ def build(root: Path, output: Path, *, check: bool = False, previews: Path | Non
         receipt = json.loads((output / "manifest.json").read_text())
         if receipt["contract"] != contract:
             raise ValueError("Portfolio figures are stale: evidence, code or analysis lock changed")
-        expected_names = {"index.html", *specs, *(f"{c.name}.svg" for c in charts)}
+        expected_names = {
+            "index.html",
+            "otto-research-report.zip",
+            *specs,
+            *(f"{c.name}.svg" for c in charts),
+        }
         if set(receipt["files"]) != expected_names:
             raise ValueError("Portfolio receipt has an incomplete artifact set")
         for name, expected in receipt["files"].items():
@@ -556,6 +574,12 @@ def build(root: Path, output: Path, *, check: bool = False, previews: Path | Non
             raise ValueError("Committed chart values differ from verified research evidence")
         if (output / "index.html").read_text() != html_report(charts):
             raise ValueError("Interactive report differs from verified chart definitions")
+        with zipfile.ZipFile(output / "otto-research-report.zip") as archive:
+            if (
+                archive.namelist() != ["otto-research-report.html"]
+                or archive.read("otto-research-report.html") != (output / "index.html").read_bytes()
+            ):
+                raise ValueError("Download archive differs from the verified HTML report")
     else:
         for chart in charts:
             stage = time.perf_counter()
@@ -575,8 +599,15 @@ def build(root: Path, output: Path, *, check: bool = False, previews: Path | Non
                 ),
                 flush=True,
             )
-        write(output / "index.html", html_report(charts).encode())
-        names = ["index.html", *specs, *(f"{c.name}.svg" for c in charts)]
+        html = html_report(charts)
+        write(output / "index.html", html.encode())
+        write(output / "otto-research-report.zip", report_archive(html))
+        names = [
+            "index.html",
+            "otto-research-report.zip",
+            *specs,
+            *(f"{c.name}.svg" for c in charts),
+        ]
         receipt = {
             "contract": contract,
             "files": {n: digest(output / n) for n in sorted(names)},

@@ -10,10 +10,11 @@ sessions**, versus **0.564904** for a compact ranker and **0.535244** for fixed 
 
 [Project overview](../README.md) ·
 [Executed research notebook](../notebooks/09_controlled_feature_study.ipynb) ·
-[Interactive Plotly report ↓](https://github.com/alvaromendizabal/otto-recommender-system/raw/refs/heads/main/reports/portfolio/index.html) ·
+[Interactive Plotly report · ZIP ↓](https://github.com/alvaromendizabal/otto-recommender-system/raw/refs/heads/main/reports/portfolio/otto-research-report.zip) ·
 [Model card](MODEL_CARD.md)
 
-The downloadable HTML report includes Plotly and opens in a browser, including offline. The figures below are SVG exports of those same chart definitions.
+Download the ZIP above, extract it, and open `otto-research-report.html` in a browser.
+The report includes Plotly and works offline. The figures below are SVG exports of those same chart definitions.
 Their values come from the checked-in experiment reports, not manually entered chart data.
 
 ## What is being predicted?
