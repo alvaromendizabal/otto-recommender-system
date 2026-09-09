@@ -19,11 +19,24 @@ The notebook execution and final prediction manifest have separate receipts.
 A submission is a CSV of recommended product IDs. It has the two columns `session_type`
 and `labels`: one row per session and action (clicks, carts, orders), with 20
 space-separated product IDs in each recommendation list.
+These are predictions for the unseen continuation of each test session, in the
+[organizer's submission format](https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md#submission-format).
 
 | File | Contents | Use |
 |---|---|---|
 | `submission.csv.gz` | 5,015,409 prediction rows for all 1,671,803 test sessions | Full competition submission |
 | `inference_replay.csv` | 24 rows for eight example sessions | Review example; do not upload to Kaggle |
+
+**Current delivery status:** one full file has been generated and validated. Its
+stored version and size were checked again on September 9, 2026 against the recorded
+full-run identity. Kaggle acceptance, submission ID and leaderboard score remain
+unrecorded. The offline research score does not answer how this file scores on Kaggle.
+
+The planned 50-file collection is a separate delivery milestone. Repeating research
+training seeds evaluates stability; it does not automatically create additional
+competition files. Each future file must contain distinct predictions, have a recorded
+model or ensemble recipe, and pass the same complete coverage and format checks.
+[Submission collection plan](ROBUSTNESS.md#path-to-50-submission-files)
 
 The full file was produced by this notebook in managed full mode on September 8, 2026.
 It is **296,087,864 bytes** (about 296 MB) and is stored durably in the project S3 bucket.

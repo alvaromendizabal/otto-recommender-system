@@ -10,6 +10,7 @@
 | Matched model selection | Eight configurations × three objectives | `without_source` wins all tasks; 102 final features; [24 model records](../reports/research/ablation_models.csv) |
 | Reserved evaluation | Same complete 400-candidate pools and 432,492 sessions | Selected 0.584392, compact 0.564904, fusion 0.535244; [evaluation](../reports/research/evaluation.json) |
 | Independent reconstruction | All fit/selection/evaluation prefixes and targets | 788,883 labels, zero differences; 4,608 primary and 6,912 supporting metric checks match; [audit](../reports/research/audit.json) |
+| Frozen seed replications | Three model seeds; same reference cohort, candidates, screen and stopping rule | Selected-minus-compact gains +1.949 / +2.022 / +2.031 pp; all retain 102 features; [comparison and audit links](ROBUSTNESS.md#three-verified-reference-seeds) |
 | Interpretation and feature cost | 1,000 selection sessions; 4,096 SHAP rows; matched warm query timings | SHAP additivity passes; selected p95 6.42 ms versus broad 22.10 ms; [report](../reports/research/interpretation.json) |
 | Competition inference | Frozen selected weights, refreshed training history, actual full notebook execution | 1,671,803 sessions; 5,015,409 rows; 1,633 parts; [full notebook receipt](../reports/research/competition_notebook_execution.json) |
 

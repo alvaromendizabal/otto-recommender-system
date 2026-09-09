@@ -1,10 +1,62 @@
 {
   "cell_id": "reference_seed_20260910",
   "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260910/checkpoints",
+  "durable_training_evidence": {
+    "evaluation_parts": 423,
+    "evaluation_sessions": 432492,
+    "native_models": 24,
+    "scope": "Full audit verifies model bytes, selection statistics and every reserved-evaluation metric part.",
+    "variants": 8,
+    "verified_native_model_sha256": {
+      "models/core/carts/model.txt": "badf248bd653558c1f2fb12e7f2823c5dc2228b476ceb281febea0ea39b67046",
+      "models/core/clicks/model.txt": "e602ef3b4f74f8705e6810945a921977593410bec248c6e6b9d633dd09e6e7d9",
+      "models/core/orders/model.txt": "288943cd481a5d95f4900011a9fa190d7e93f36c7aadd585373ecee3be3e31bf",
+      "models/full/carts/model.txt": "a371cc3d75ea6de3edd74a638f8d2aa3d5a01325cc511dde40fc7a51b079e6c9",
+      "models/full/clicks/model.txt": "94bcb344660f5f02699d024ededf116019d48210d213e9f8667a9205ffa0766a",
+      "models/full/orders/model.txt": "5b8d069ef6fbaf203b17e886c6021add8b1b8f8d130a9d26664c83dbdc639902",
+      "models/without_context/carts/model.txt": "bc1f1d61069c4ba21cd6d449e09b866bb1501161e36754d3f26c7948f3fdcbc9",
+      "models/without_context/clicks/model.txt": "64391ecc3e976dbea9a37ab36972f776f549b79836640ba7df885a4d66381827",
+      "models/without_context/orders/model.txt": "fea94ea9c588ae00a60faaeb6054b3ef5e284ba22a0567f916b5d60303331a74",
+      "models/without_graph/carts/model.txt": "708c377970eee98e06222275eb174f617bd4ab0184f141bebc13e7cc85376edd",
+      "models/without_graph/clicks/model.txt": "228b05fb5e3334d085f9c5abe7908244c5e28922176e5ade4c5d269dca7685b9",
+      "models/without_graph/orders/model.txt": "4940a83a888335dae2b279371e61fc5d50b02835101b8a0b56f6e9b49a288dfb",
+      "models/without_history/carts/model.txt": "381906289b0cf8d524bab172e9e68d5804a7f4de8a6d9d97025d540bb8b2441c",
+      "models/without_history/clicks/model.txt": "312e236022a7a69c3e331eb21bf44e926bd1fa5fd84b867667cfdb96c34e14e7",
+      "models/without_history/orders/model.txt": "a16fa2e4fc29cc7a0ca1d502bb5c138c2371c71cf8947141f8487edd515557a8",
+      "models/without_interaction/carts/model.txt": "50b9ee65f774c458bab7f6b85021c7284ee63b02b7a2130576c4dd9f80082bcf",
+      "models/without_interaction/clicks/model.txt": "6d5085fbd3c033afa1497a504d82f2fdb397ffb5530186fbc3a8976a6114ac55",
+      "models/without_interaction/orders/model.txt": "b279456d8a0114ca5a14f6793e3298164c2cecf45907a51384285c6c1fd52a26",
+      "models/without_repeat/carts/model.txt": "617916e230ce6ffc852c17af58090c857f159d2bbbce6b495624207a56991fe3",
+      "models/without_repeat/clicks/model.txt": "3e9e368b27da09731e2377ad3e529237046ed76e58e2dd6885c7132cabf71b43",
+      "models/without_repeat/orders/model.txt": "f0a01d444e1a85632f5e72f6890c5b6dc7a742508bdc2bd3b47a9e10788b63ad",
+      "models/without_source/carts/model.txt": "0761ace4a2880d0575bb3227d9bb74f3351b624f01d63ade3b9502cffe78bc16",
+      "models/without_source/clicks/model.txt": "99966374683572edd46c24a8a88a6781ad1edb703535cac44d164e99371476f6",
+      "models/without_source/orders/model.txt": "6de4f3d8938adcffbe33654f04e5674fe89c1d9a8f7bf7f347fdebb9dca6384b"
+    }
+  },
+  "initial_training_observation": {
+    "job": {
+      "CreationTime": "2026-09-09T03:47:40.569000+00:00",
+      "ProcessingJobName": "otto-robust-reference-20260910-c96c90d0",
+      "ProcessingJobStatus": "InProgress",
+      "ProcessingResources": {
+        "ClusterConfig": {
+          "InstanceCount": 1,
+          "InstanceType": "ml.c7i.16xlarge",
+          "VolumeSizeInGB": 100
+        }
+      },
+      "StoppingCondition": {
+        "MaxRuntimeInSeconds": 7200
+      }
+    },
+    "observed_at_utc": "2026-09-09T03:48:22.014031+00:00"
+  },
   "job": {
     "CreationTime": "2026-09-09T03:47:40.569000+00:00",
+    "ProcessingEndTime": "2026-09-09T04:26:41.337000+00:00",
     "ProcessingJobName": "otto-robust-reference-20260910-c96c90d0",
-    "ProcessingJobStatus": "InProgress",
+    "ProcessingJobStatus": "Completed",
     "ProcessingResources": {
       "ClusterConfig": {
         "InstanceCount": 1,
@@ -12,19 +64,108 @@
         "VolumeSizeInGB": 100
       }
     },
+    "ProcessingStartTime": "2026-09-09T03:48:30.420000+00:00",
     "StoppingCondition": {
       "MaxRuntimeInSeconds": 7200
     }
   },
-  "job_observed_at_utc": "2026-09-09T03:48:22.014031+00:00",
+  "job_observed_at_utc": "2026-09-09T17:20:36.452992+00:00",
   "launch_sha256": "639c5aef78be81559525e0630d82edadd8a75fa7040b69460c9aba7cd4f2fe8a",
-  "observed_at_utc": "2026-09-09T03:48:22.014031+00:00",
+  "observed_at_utc": "2026-09-09T17:20:36.452992+00:00",
   "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
   "request_sha256": "4e2767f1aab2985c86a2a777c6dea9ae0fdfee041ba63fa0e3bda5d726833784",
   "schema_version": 1,
-  "scope": "Managed execution launched; evaluation and verification remain pending. Reuses the exact training archive and bootstrap from the previous reference seed.",
+  "scope": "Completed training and full replication verification. All three planned reference seeds are now audited; earlier temporal windows remain unmeasured.",
   "source_commit": "b63b547c9b86ed868e809c4059d62b858822da1a",
   "source_sha256": "c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da",
+  "verification": {
+    "audit_id": "7fc4e1610f7f14da1a2d99565f66715202283ccbad304e31253a34fa51c3bce4",
+    "audit_path": "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json",
+    "audit_sha256": "05d35b652e51ebff91205cda6087678bbf22ca39d41d1b977c49883dc3277427",
+    "job": {
+      "CreationTime": "2026-09-09T17:10:14.314000+00:00",
+      "ProcessingEndTime": "2026-09-09T17:19:11.732000+00:00",
+      "ProcessingJobName": "otto-verify-reference-20260910-a82c1e9a",
+      "ProcessingJobStatus": "Completed",
+      "ProcessingResources": {
+        "ClusterConfig": {
+          "InstanceCount": 1,
+          "InstanceType": "ml.c7i.16xlarge",
+          "VolumeSizeInGB": 100
+        }
+      },
+      "ProcessingStartTime": "2026-09-09T17:11:06.048000+00:00",
+      "StoppingCondition": {
+        "MaxRuntimeInSeconds": 1800
+      }
+    },
+    "launch_sha256": "60808943d01a4a551186c9eb7dc72c9994a03ce1d6678fd8bc6b25b399a1dcda",
+    "observed_at_utc": "2026-09-09T17:20:36.452992+00:00",
+    "request_sha256": "cac5a200545e2581930ada8ca0b599ad56d5959ebe305a24551251c5293e840a",
+    "status": "passed",
+    "verified_outputs": [
+      {
+        "head": {
+          "ChecksumSHA256": "BdNbZS5R6/+RIFzaYIdni78iyjnUHRuXfEmIPcMndCc=",
+          "ContentLength": 17124,
+          "Metadata": {
+            "sha256": "05d35b652e51ebff91205cda6087678bbf22ca39d41d1b977c49883dc3277427"
+          },
+          "VersionId": "9SeoapEJpmP_e0SaJToybI9N7lDmU4OL"
+        },
+        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260910/checkpoints/robustness_audit/report.json"
+      },
+      {
+        "head": {
+          "ChecksumSHA256": "Pk/8ulNKzPybZ8LWcSSgkLd+ixZGcq3D7lsWh1Qi1Bo=",
+          "ContentLength": 977,
+          "Metadata": {
+            "sha256": "3e4ffcba534accfc9b67c2d67124a090b77e8b164672adc3ee5b16875422d41a"
+          },
+          "VersionId": "460cTri48I5ZJW6ea_SOkrUn1.fKhGDt"
+        },
+        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260910/checkpoints/robustness_audit/job_status.json"
+      }
+    ],
+    "verified_uploads": [
+      {
+        "expected_bytes": 6997035,
+        "expected_checksum": "qCwemkJw6Yz5VXjDFG0oc5w41Jl286AJqvzUzVwqOCI=",
+        "head": {
+          "ChecksumSHA256": "qCwemkJw6Yz5VXjDFG0oc5w41Jl286AJqvzUzVwqOCI=",
+          "ContentLength": 6997035,
+          "Metadata": {},
+          "VersionId": "oS121I5PhCf2gxfIc_wEY2757sAxhrQm"
+        },
+        "name": "source.tar.gz",
+        "s3_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/verification/a82c1e9a4270e98cf95578c3146d28739c38d49976f3a009aafcd4cd5c2a3822/source.tar.gz"
+      },
+      {
+        "expected_bytes": 7080,
+        "expected_checksum": "ynfEJCrfjEeTJInJPE9PjATFJemxTOXwIFqiM7/A0yw=",
+        "head": {
+          "ChecksumSHA256": "ynfEJCrfjEeTJInJPE9PjATFJemxTOXwIFqiM7/A0yw=",
+          "ContentLength": 7080,
+          "Metadata": {},
+          "VersionId": "S15RAaBp.m5s7E4kp2xVEQ758nMwrODL"
+        },
+        "name": "processing_research.py",
+        "s3_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/verification/a82c1e9a4270e98cf95578c3146d28739c38d49976f3a009aafcd4cd5c2a3822/processing_research.py"
+      },
+      {
+        "expected_bytes": 6686,
+        "expected_checksum": "YICJQ9AaSlURhsnrfccsmZSgPOHWZ4/YvGsls5mh3No=",
+        "head": {
+          "ChecksumSHA256": "YICJQ9AaSlURhsnrfccsmZSgPOHWZ4/YvGsls5mh3No=",
+          "ContentLength": 6686,
+          "Metadata": {},
+          "VersionId": "NCHf7P_FdiC66H8maReHBPeuQoaWSNyx"
+        },
+        "name": "launch.json",
+        "s3_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260910/verification/a82c1e9a4270e98cf95578c3146d28739c38d49976f3a009aafcd4cd5c2a3822/launch.json"
+      }
+    ]
+  },
   "verified_uploads": [
     {
       "bytes": 6944,

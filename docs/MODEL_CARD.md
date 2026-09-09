@@ -113,14 +113,17 @@ records all part receipts and the final output identity.
 
 ## Limits and appropriate conclusions
 
-One fixed training seed, one newly reserved temporal cohort and a bounded 100,000-session
-fitting sample support a specific empirical comparison. They do not establish robustness
+The headline result uses one fixed training seed and a bounded 100,000-session fitting
+sample. The [frozen replication study](ROBUSTNESS.md) now verifies all three planned
+seeds on the same reference cohort: selected-minus-compact gains are +1.949, +2.022
+and +2.031 percentage points. All select the same 102-feature configuration. The
+two earlier temporal windows remain pending. These comparisons do not establish robustness
 to every period, seed, market or catalog. The dataset is historical and anonymized;
 protected-group fairness and individual-level outcomes cannot be evaluated from these
 inputs. The task is offline recommendation, with no online exploration or exposure-bias
 correction. The multi-objective metric is a prescribed weighted aggregate, not a learned
 Pareto frontier or a business-utility estimate.
 
-Additional seeds, further temporal cohorts, certified neural retrieval under the same
+Further temporal cohorts, certified neural retrieval under the same
 cutoffs and an online experiment would extend the evidence. Those are future research
 questions, not prerequisites for reproducing the completed experiment.
