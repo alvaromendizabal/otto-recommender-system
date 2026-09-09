@@ -56,7 +56,7 @@ The three pooled recalls are combined as:
 
 $$
 \text{Weighted Recall@20}
-= 0.10\,R_{\text{clicks}} + 0.30\,R_{\text{carts}} + 0.60\,R_{\text{orders}}.
+= 0.10 \times R_{\text{clicks}} + 0.30 \times R_{\text{carts}} + 0.60 \times R_{\text{orders}}.
 $$
 
 For the selected model, the measured recalls are 0.505645, 0.427919, and 0.675753. Applying
