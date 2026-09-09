@@ -20,7 +20,8 @@ The notebook execution and final prediction manifest have separate receipts.
 
 ## Download and submit the completed full run
 
-**The first output is invalidated. Replacement inference is being prepared.**
+**The first output is invalidated. Replacement inference started at 20:55 UTC on September 9.**
+[Managed run and source receipt](../reports/submissions/competition_inference.json)
 Do not submit or reuse the original `submission.csv.gz` with SHA-256
 `adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3`.
 Its format checks passed, but its query data included future target events.
@@ -41,7 +42,9 @@ To prepare these exact inputs after downloading `test.jsonl.zip` from the
 [competition Data page](https://www.kaggle.com/competitions/otto-recommender-system/data):
 
 ```bash
-uv run --frozen --extra ml python scripts/prepare_competition_input.py --help
+python -m zipfile -e test.jsonl.zip data/competition/raw
+uv run --frozen --extra ml python scripts/prepare_competition_input.py \
+  --raw data/competition/raw/test.jsonl --output artifacts/test
 ```
 
 The existing frozen models are reused. A new inference namespace prevents any

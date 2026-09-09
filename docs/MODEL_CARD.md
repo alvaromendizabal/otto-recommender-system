@@ -125,8 +125,9 @@ records all part receipts and the final output identity.
 The headline result uses one fixed training seed and a bounded 100,000-session fitting
 sample. The [frozen replication study](ROBUSTNESS.md) now verifies all three planned
 seeds on the same reference cohort: selected-minus-compact gains are +1.949, +2.022
-and +2.031 percentage points. All select the same 102-feature configuration. The
-two earlier temporal windows remain pending. These comparisons do not establish robustness
+and +2.031 percentage points. All select the same 102-feature configuration. The first early-window seed is also audited: 0.566897 selected versus 0.545094
+compact on 562,504 reserved sessions. Five window/seed cells remain running or
+queued. These comparisons do not establish robustness
 to every period, seed, market or catalog. The dataset is historical and anonymized;
 protected-group fairness and individual-level outcomes cannot be evaluated from these
 inputs. The task is offline recommendation, with no online exploration or exposure-bias

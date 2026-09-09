@@ -37,7 +37,8 @@ not count as a verified research result.
 | Final release | Passing CI and a reproducible reference pipeline | Publish an identified release with consistent executed notebooks, artifact index, reproduction commands and a concise review path |
 
 The early window's **seed 20260908 is complete and audited**. Early seed
-20260909 started at 20:17 UTC on September 9. At 20:36 UTC the managed remaining
+20260909 started at 20:17 UTC on September 9, completed training and evaluation
+at 21:00 UTC, and entered its separate audit at 21:02 UTC. At 20:36 UTC the managed remaining
 queue started early seed 20260910 and middle seed 20260908 concurrently. The
 other middle seeds depend on the first middle seed's independent audit; each
 training run has its own audit step. Shared preparation is reused without
@@ -68,7 +69,7 @@ The remaining five validation cells were estimated at **5–7 hours sequentially
 The managed queue should reduce the remaining validation and audit work to
 approximately **2–3 hours from its 20:36 UTC start**, allowing for the middle
 window preparation dependency. This is an estimate based on completed runs,
-not a completion guarantee. Source-corrected inference should take roughly
+not a completion guarantee. Source-corrected inference started at 20:55 UTC and should take roughly
 **45–60 minutes once launched**, based on the previous full execution, and can
 run alongside validation. Notebook publication and release checks add time.
 

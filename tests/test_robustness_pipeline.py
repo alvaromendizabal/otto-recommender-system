@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from otto_recsys.cloud.robustness_pipeline import REMAINING_CELLS, build_batch
-from scripts.robustness_status import rows
+from scripts.robustness_status import all_finished, rows
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -61,3 +61,14 @@ def test_monitor_uses_observed_job_names_and_keeps_waiting_steps() -> None:
     assert len(running) == 1
     assert running[0]["job"] == "actual-job-suffix"
     assert sum(r["status"] == "Waiting" for r in status) == 7
+
+
+def test_monitor_keeps_watching_inference_after_validation_finishes() -> None:
+    observed = {
+        "execution": {"PipelineExecutionStatus": "Succeeded"},
+        "existing_job": {"ProcessingJobStatus": "Completed"},
+        "additional_jobs": [{"ProcessingJobStatus": "InProgress"}],
+    }
+    assert not all_finished(observed)
+    observed["additional_jobs"][0]["ProcessingJobStatus"] = "Completed"
+    assert all_finished(observed)

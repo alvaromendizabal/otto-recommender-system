@@ -11,19 +11,36 @@ from pathlib import Path
 from typing import Any
 
 TERMINAL = {"Succeeded", "Failed", "Stopped"}
+PROCESSING_TERMINAL = {"Completed", "Failed", "Stopped"}
 
 
-def snapshot(client: Any, arn: str, existing_job: str) -> dict[str, Any]:
+def snapshot(
+    client: Any, arn: str, existing_job: str, additional_jobs: list[str] | None = None
+) -> dict[str, Any]:
     execution = client.describe_pipeline_execution(PipelineExecutionArn=arn)
     pages = client.get_paginator("list_pipeline_execution_steps").paginate(
         PipelineExecutionArn=arn
     )
     steps = [step for page in pages for step in page["PipelineExecutionSteps"]]
     previous = client.describe_processing_job(ProcessingJobName=existing_job)
+    additional = []
+    for name in additional_jobs or []:
+        job = client.describe_processing_job(ProcessingJobName=name)
+        additional.append({k: job.get(k) for k in (
+            "ProcessingJobName", "ProcessingJobStatus", "FailureReason"
+        )})
     return {"execution": execution, "steps": {"PipelineExecutionSteps": steps},
+            "additional_jobs": additional,
             "existing_job": {k: previous.get(k) for k in (
                 "ProcessingJobName", "ProcessingJobStatus", "FailureReason"
             )}}
+
+
+def all_finished(observed: dict[str, Any]) -> bool:
+    jobs = [observed.get("existing_job"), *observed.get("additional_jobs", [])]
+    return observed["execution"]["PipelineExecutionStatus"] in TERMINAL and all(
+        job["ProcessingJobStatus"] in PROCESSING_TERMINAL for job in jobs if job
+    )
 
 
 def rows(plan: dict[str, Any], observed: dict[str, Any]) -> list[dict[str, str]]:
@@ -56,6 +73,15 @@ def main() -> int:
     plan = json.loads((root / "plan.json").read_text())
     receipt = json.loads((root / "execution.json").read_text())
     arn = receipt["started"]["PipelineExecutionArn"]
+    repository = Path(__file__).resolve().parents[1]
+    additional_jobs = []
+    for path in (
+        repository / "reports/submissions/competition_inference.json",
+        repository / "reports/robustness/runs/early_seed_20260909.audit.json",
+    ):
+        if path.is_file():
+            saved = json.loads(path.read_text())
+            additional_jobs.append(saved["observed"]["ProcessingJobName"])
     client = None
     if not args.snapshot:
         sdk = importlib.import_module("boto3")
@@ -70,7 +96,7 @@ def main() -> int:
             saved = json.loads(args.snapshot.read_text())
             observed = saved.get("observation", saved)
         else:
-            observed = snapshot(client, arn, plan["existing_job"])
+            observed = snapshot(client, arn, plan["existing_job"], additional_jobs)
         state = observed["execution"]["PipelineExecutionStatus"]
         timestamp = datetime.now(UTC).isoformat(timespec="seconds")
         print(f"\n{timestamp} pipeline={state} monitor_elapsed={time.monotonic()-start:.0f}s")
@@ -79,13 +105,22 @@ def main() -> int:
         prior = observed.get("existing_job")
         if prior:
             print(f"early_seed_20260909 train {prior['ProcessingJobStatus']}")
+        for job in observed.get("additional_jobs", []):
+            print(f"{job['ProcessingJobName']} {job['ProcessingJobStatus']}")
+            if job.get("FailureReason"):
+                print(f"  failure={job['FailureReason']}")
         for row in rows(plan, observed):
             print(f"{row['cell']:<23} {row['phase']:<5} {row['status']:<10} {row['job']}")
             if row["failure"]:
                 print(f"  failure={row['failure']}")
         print("Cloud completion and publication of audited results are separate.", flush=True)
-        if not args.watch or state in TERMINAL:
-            return 1 if state in {"Failed", "Stopped"} else 0
+        if not args.watch or all_finished(observed):
+            standalone = [prior, *observed.get("additional_jobs", [])]
+            failed = state in {"Failed", "Stopped"} or any(
+                job["ProcessingJobStatus"] in {"Failed", "Stopped"}
+                for job in standalone if job
+            )
+            return int(failed)
         time.sleep(args.interval)
 
 

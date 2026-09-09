@@ -1,16 +1,17 @@
 {
-  "audit_status": "not_started",
+  "audit_run_evidence": "reports/robustness/runs/early_seed_20260909.audit.json",
+  "audit_status": "running",
   "cell_id": "early_seed_20260909",
   "counted_as_verified": false,
   "job": {
     "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-robust-early-20260909-d5c29663"
   },
   "latest_observation": {
-    "CreationTime": "2026-09-09T20:17:31.779000+00:00",
-    "MaxRuntimeInSeconds": 7200,
+    "ProcessingEndTime": "2026-09-09T21:00:57.370000+00:00",
     "ProcessingJobName": "otto-robust-early-20260909-d5c29663",
-    "ProcessingJobStatus": "InProgress",
-    "observed_at_utc": "2026-09-09T20:19:56.804346+00:00"
+    "ProcessingJobStatus": "Completed",
+    "ProcessingStartTime": "2026-09-09T20:18:23.208000+00:00",
+    "observed_at_utc": "2026-09-09T21:03:27.176716+00:00"
   },
   "launch_file": "early_seed_20260909.launch.json",
   "launch_sha256": "f6e08d553d5c105224227b896f57f28539cf78ec070f36589fafe327ed54585b",
@@ -26,7 +27,7 @@
   "schema_version": 1,
   "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
   "source_sha256": "d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a",
-  "status": "training_launched",
+  "status": "audit_running",
   "verified_uploads": [
     {
       "head": {

@@ -36,8 +36,8 @@ The comparisons use the same candidate pools and evaluation sessions. These are
 **offline temporal-validation results**.
 
 **Competition delivery:** the first Kaggle score is invalidated by the source
-audit above. Replacement inference uses the official truncated test and the same
-frozen weights. [Evidence and current delivery state →](docs/INFERENCE.md)
+audit above. Replacement inference started at 20:55 UTC using the official truncated test
+and the same frozen weights. [Evidence and current delivery state →](docs/INFERENCE.md)
 
 *Every chart is generated with Plotly from the committed, verified experiment reports.
 GitHub displays the SVG previews. For hover values, zoom, model toggles, and exact-value

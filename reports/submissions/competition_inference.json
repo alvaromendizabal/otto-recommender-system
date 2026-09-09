@@ -1,0 +1,37 @@
+{
+  "created": {
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-delivery-90bb97d39ec49999"
+  },
+  "observed": {
+    "CreationTime": "2026-09-09T20:55:04.517000+00:00",
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-delivery-90bb97d39ec49999",
+    "ProcessingJobName": "otto-delivery-90bb97d39ec49999",
+    "ProcessingJobStatus": "InProgress",
+    "StoppingCondition": {
+      "MaxRuntimeInSeconds": 7200
+    }
+  },
+  "official_input_evidence": "reports/submissions/competition_input.json",
+  "replacement_for": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
+  "schema_version": 1,
+  "source_commit": "1fb654831a47cfddf1c47d5b51030d04f2746841",
+  "source_objects": [
+    {
+      "bytes": 7062045,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/source/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/source.tar.gz",
+      "version_id": "_ytSBPKdiHOWQT_00ZN12WkOFAtOj6Fj"
+    },
+    {
+      "bytes": 8062,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/source/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/processing_research.py",
+      "version_id": "m7qdO73kSzRFZLGBKD5qxuzwoChYykzA"
+    },
+    {
+      "bytes": 38578,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/source/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/launch.json",
+      "sha256": "823eb6dca38ec52b4374eb91e8753fa5da1928309218beaa2361fa3005f35928",
+      "version_id": "jKThMaI6d7K3a6rCLF7yV.WsjYS2YhLy"
+    }
+  ],
+  "source_sha256": "90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8"
+}
