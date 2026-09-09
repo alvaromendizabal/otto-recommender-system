@@ -3,7 +3,7 @@
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Corrected inference is complete and verified on the attested official truncated test; Kaggle scoring is pending.
+performance. Corrected inference is complete on the attested official truncated test, with a verified Kaggle result of **0.56842 private / 0.56862 public**.
 See [the source audit](../reports/submissions/data_provenance_audit.json).
 
 **How do you turn anonymous shopping events into useful recommendations—and demonstrate
@@ -337,7 +337,7 @@ The first Kaggle upload exposed an input-provenance failure: the source dataset
 contained the full test sessions released after the competition. The displayed
 **0.93554 public / 0.93583 private** scores are invalidated. The remediation pins
 the official truncated file and every converted partition before inference,
-retains the incident evidence, and has regenerated and verified predictions with frozen weights. The file is uploaded to the Kaggle form; final submission and scoring are pending.
+retains the incident evidence, and has regenerated and verified predictions with frozen weights. Kaggle accepted the corrected file and returned **0.56842 private / 0.56862 public**, marked **Complete (after deadline)**. The receipt binds this result to the exact prediction digest and official input contract.
 The separate training-only feature study remains valid.
 [Source audit and replacement workflow](INFERENCE.md) ·
 [Inference notebook](../notebooks/10_competition_inference.ipynb)

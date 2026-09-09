@@ -86,11 +86,11 @@ selected pipeline's overall advantage over fusion under the competition's
 0.1/0.3/0.6 action weights. These tradeoffs remain part of the result.
 
 The earlier score must not be compared directly with the reference score as if
-both used the same sessions. Each window has its own matched controls. Two early seeds are now independently audited. Seed 20260909 reaches
+both used the same sessions. Each window has its own matched controls. All three early seeds are independently audited. Seed 20260909 reaches
 **0.566784**, versus **0.545668** for its compact control, a **+2.112 percentage-point
 gain** (paired 95% interval **+2.013 to +2.212**). Both use the same 562,504-session
 cohort and the same fitting-only preparation; only the model seed changes. The
-observed early-seed scores range from 0.566784 to 0.566897. Their intervals are
+observed early-seed scores range from 0.566465 to 0.566897. Their intervals are
 conditional on each fitted model and should not be pooled as independent cohorts.
 
 ## Completed nine-cell comparison
@@ -113,7 +113,7 @@ The highest absolute offline score is **0.590759**, middle window seed **2026090
 
 The full comparison is independently checked against the archived audit payloads, metric counts and exact input hashes. All nine planned cells are retained. The third early seed scores 0.566465; the middle seeds range from 0.590465 to 0.590759. No training or audit jobs remain for this protocol.
 
-The original competition score was invalidated separately for future test events. Corrected official-prefix inference is complete; its full file and refreshed native replay are verified. Kaggle scoring remains pending final submission.
+The original competition score was invalidated separately for future test events. Corrected official-prefix inference is complete; its full file and refreshed native replay are verified. Kaggle accepted the frozen reference model's file and returned **0.56842 private / 0.56862 public**. This separate competition evaluation does not change any temporal model-selection decision.
 
 ### How this window chose its features
 

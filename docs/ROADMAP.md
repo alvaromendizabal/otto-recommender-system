@@ -12,14 +12,14 @@
 | Original reference model | **0.584392** weighted Recall@20; remains frozen for submission |
 | Highest observed offline score | **0.590759**, middle seed 20260908; a different evaluation cohort |
 | Official-prefix full prediction | **1 verified file**, 1,671,803 sessions and 5,015,409 rows |
-| Kaggle delivery | File uploaded; final Submit action blocked by automatic approval review |
-| Corrected Kaggle score | **Pending**; no value inferred from the offline study |
+| Kaggle delivery | **Complete (after deadline)**; official-prefix artifact accepted and scored |
+| Corrected Kaggle score | **0.56842 private / 0.56862 public**; observed in the submission details |
 | Employer-facing publication | Canonical notebooks, model card, complete comparison and Plotly report |
 | Earlier 50-file collection | **Not executed**; one full file is verified, not 50 |
 
-## Remaining closeout
+## Completed closeout
 
-The remaining immediate action is to submit the prepared file to Kaggle, verify its accepted status and score, and record that outcome in the canonical receipt and narrative. The first 0.93583 private score is invalidated because its input contained future events. It is retained as incident evidence, not as a performance claim.
+The verified file was submitted to Kaggle after explicit final confirmation. Its accepted status and **0.56842 private / 0.56862 public** scores are recorded in the canonical receipt and Notebook 10. No further training, inference or user action is required for this release. The first 0.93583 private score is invalidated because its input contained future events. It is retained as incident evidence, not as a performance claim.
 
 The broader previously requested 50-file collection remains unfulfilled and must not be described as complete. It would require distinct model or ensemble recipes chosen on fitting/selection evidence, cache reuse, and content deduplication. The present delivery prioritizes the single corrected submission requested for closeout; it does not start additional training or manufacture renamed copies.
 
