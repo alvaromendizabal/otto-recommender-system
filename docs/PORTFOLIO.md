@@ -1,5 +1,11 @@
 # OTTO research case study
 
+**Source correction:** the initial Kaggle submission is invalidated because its
+input contained full post-competition test sessions, including future events.
+The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
+performance. Replacement inference uses the attested official truncated test.
+See [the source audit](../reports/submissions/data_provenance_audit.json).
+
 **How do you turn anonymous shopping events into useful recommendations—and demonstrate
 that the improvements are real?**
 
@@ -307,8 +313,14 @@ is a 24-row review example and is not the full submission.
 The final ranking weights stay frozen for deployment. Historical aggregates and graph
 connections are then refreshed from the permitted full training history. This is a separate
 deployment data contract, and its predictions are not assigned the earlier offline score.
-Kaggle upload and scoring remain separate from producing and validating the file.
-[Inference notebook](../notebooks/10_competition_inference.ipynb) · [Completed output](INFERENCE.md)
+The first Kaggle upload exposed an input-provenance failure: the source dataset
+contained the full test sessions released after the competition. The displayed
+**0.93554 public / 0.93583 private** scores are invalidated. The remediation pins
+the official truncated file and every converted partition before inference,
+retains the incident evidence, and regenerates predictions with frozen weights.
+The separate training-only feature study remains valid.
+[Source audit and replacement workflow](INFERENCE.md) ·
+[Inference notebook](../notebooks/10_competition_inference.ipynb)
 
 Long jobs run in SageMaker with UTC stage logs and heartbeats. Model checkpoints and
 partition receipts persist to S3. Restored objects must match their expected owner, input

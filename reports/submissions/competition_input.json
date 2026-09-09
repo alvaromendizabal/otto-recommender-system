@@ -1,0 +1,50 @@
+{
+  "conversion": {
+    "events_processed": 6928123,
+    "input_offset": 402090304,
+    "parts_written": 7,
+    "schema_version": 1,
+    "sessions_processed": 1671803,
+    "source_manifest_id": "26aed7541fb3e28c0904ed2fa051fc826369bfdbcf97e72e0a9faa6b8e1bd30a",
+    "source_name": "test.jsonl",
+    "source_sha256": "8b46acddd68b46c83a474e809c21dbe681fed4c16304b0d0b6a907bd3e32790e",
+    "source_size_bytes": 402090304,
+    "status": "complete"
+  },
+  "download_url": "https://www.kaggle.com/competitions/otto-recommender-system/data?select=test.jsonl",
+  "files": {
+    "part-000000.parquet": {
+      "bytes": 6878642,
+      "sha256": "0471f6be213dba6c900ee02f722ecb80b241f1f25c0e42a5abd43556916059e0"
+    },
+    "part-000001.parquet": {
+      "bytes": 6896598,
+      "sha256": "93acaac63610918f094c03e5ad431cc4361e98bd073bab988759de208d6c6ac0"
+    },
+    "part-000002.parquet": {
+      "bytes": 6934929,
+      "sha256": "2b50b6d4bf0cf6a1183e0e9ecb1038de81a182eecb569168030a1d026a0fe7c6"
+    },
+    "part-000003.parquet": {
+      "bytes": 6937274,
+      "sha256": "046b13c4a737b2bece9cfbb89566c77dd190bc2b21a22816069ec4dbd7c0d2ab"
+    },
+    "part-000004.parquet": {
+      "bytes": 6951850,
+      "sha256": "87424f8b9a1df0e98ada9d52211b8531a971ee872b4de748b991f8966d970d2f"
+    },
+    "part-000005.parquet": {
+      "bytes": 6966236,
+      "sha256": "3e682b6f49337f2e013c5768d68600f27031e737d04082d6b0d227358ff463c7"
+    },
+    "part-000006.parquet": {
+      "bytes": 6457849,
+      "sha256": "cb8fc810ac074c714a30531cd1cb5439963ce0c8f87c990a5a2f4bfa1ecd9711"
+    }
+  },
+  "raw_bytes": 402090304,
+  "raw_sha256": "8b46acddd68b46c83a474e809c21dbe681fed4c16304b0d0b6a907bd3e32790e",
+  "schema_version": 1,
+  "source": "kaggle:competitions/otto-recommender-system/test.jsonl",
+  "status": "passed"
+}

@@ -19,6 +19,7 @@ import polars as pl
 
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
 from otto_recsys.ranking.feature_cache import workspace_lock
+from otto_recsys.research.competition_input import require_competition_input
 from otto_recsys.research.dataset import OBJECTIVES
 from otto_recsys.research.deployment import source_identity
 from otto_recsys.research.evaluation import verify_seal
@@ -29,7 +30,7 @@ from otto_recsys.runtime import Heartbeat
 
 
 class ObservedQueries:
-    """Competition inputs have observed events only; no target-file API exists."""
+    """Read prefix events after the caller checks their competition provenance."""
 
     def __init__(self, directory: Path) -> None:
         frame = pl.read_parquet(directory / "part-*.parquet").sort("session", "event_index")
@@ -130,6 +131,7 @@ def run_prediction(
 ) -> dict[str, Any]:
     if not 1 <= workers <= 16 or threads < 1:
         raise ValueError("prediction requires 1-16 workers and positive model threads")
+    provenance = require_competition_input(test)
     seal = verify_seal(model_root)
     evaluated = json.loads((model_root / "evaluation/report.json").read_text())
     if evaluated["status"] != "passed" or evaluated["seal_id"] != seal["seal_id"]:
@@ -144,6 +146,7 @@ def run_prediction(
         "candidate_budget": 400,
         "code_sha256": sha256_file(Path(__file__)),
         "weights_refitted": False,
+        "competition_input": provenance,
     }
     input_id = canonical_json_sha256(contract)
     output.mkdir(parents=True, exist_ok=True)

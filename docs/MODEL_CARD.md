@@ -1,12 +1,20 @@
 # Model card: controlled OTTO ranker
 
+**Source correction:** the initial Kaggle submission is invalidated because its
+input contained full post-competition test sessions, including future events.
+The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
+performance. Replacement inference uses the attested official truncated test.
+See [the source audit](../reports/submissions/data_provenance_audit.json).
+
 ## Purpose and intended use
 
 Rank candidate products for the next click, cart and order in anonymous OTTO shopping
 sessions. This is an offline research and batch-inference demonstration for an employer
 portfolio. Outputs are ordered product IDs, not calibrated purchase probabilities.
-No online deployment, revenue lift, personalization across identified users, or Kaggle
-leaderboard result is claimed.
+No online deployment, revenue lift, or personalization across identified users is claimed.
+The initial late Kaggle submission is invalidated: its input included future
+test events from the post-competition release. No valid competition score is
+claimed. [Source evidence and remediation](INFERENCE.md#recorded-kaggle-result)
 
 ## Model and inputs
 
@@ -106,9 +114,10 @@ historical graph refreshed from all permitted training events. Training history 
 precede test observations and have disjoint session IDs. This operational refresh does
 not change or retroactively replace the research evaluation.
 
-Full Notebook 10 inference completed for 1,671,803 competition sessions and 5,015,409
-rows. The default notebook exactly replays eight of those sessions using the native
-models. [Execution and coverage evidence](../reports/research/competition_cloud_verification.json)
+Historical Notebook 10 inference generated 5,015,409 rows from full test sessions;
+that input is invalid for competition evaluation. The default notebook replays eight
+historical sessions as a software check. Replacement inference requires the official
+truncated prefixes and reuses the frozen native models. [Execution and coverage evidence](../reports/research/competition_cloud_verification.json)
 records all part receipts and the final output identity.
 
 ## Limits and appropriate conclusions

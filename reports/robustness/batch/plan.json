@@ -1,0 +1,138 @@
+{
+  "early_preparation_evidence": "reports/robustness/cells/early_seed_20260908/robustness_audit/report.json",
+  "existing_job": "otto-robust-early-20260909-d5c29663",
+  "jobs": [
+    {
+      "cell_id": "early_seed_20260910",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260910/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/early/inputs",
+      "job_name": "otto-batch-train-early-seed-20260910-d5c29663",
+      "maximum_runtime_seconds": 7200,
+      "phase": "train",
+      "step": "Train-early-seed-20260910"
+    },
+    {
+      "cell_id": "early_seed_20260910",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260910/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/early/inputs",
+      "job_name": "otto-batch-audit-early-seed-20260910-d5c29663",
+      "maximum_runtime_seconds": 1800,
+      "phase": "audit",
+      "step": "Audit-early-seed-20260910"
+    },
+    {
+      "cell_id": "middle_seed_20260908",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260908/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/middle/inputs",
+      "job_name": "otto-batch-train-middle-seed-20260908-d5c29663",
+      "maximum_runtime_seconds": 7200,
+      "phase": "train",
+      "step": "Train-middle-seed-20260908"
+    },
+    {
+      "cell_id": "middle_seed_20260908",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260908/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/middle/inputs",
+      "job_name": "otto-batch-audit-middle-seed-20260908-d5c29663",
+      "maximum_runtime_seconds": 1800,
+      "phase": "audit",
+      "step": "Audit-middle-seed-20260908"
+    },
+    {
+      "cell_id": "middle_seed_20260909",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260909/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/middle/inputs",
+      "job_name": "otto-batch-train-middle-seed-20260909-d5c29663",
+      "maximum_runtime_seconds": 7200,
+      "phase": "train",
+      "step": "Train-middle-seed-20260909"
+    },
+    {
+      "cell_id": "middle_seed_20260909",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260909/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/middle/inputs",
+      "job_name": "otto-batch-audit-middle-seed-20260909-d5c29663",
+      "maximum_runtime_seconds": 1800,
+      "phase": "audit",
+      "step": "Audit-middle-seed-20260909"
+    },
+    {
+      "cell_id": "middle_seed_20260910",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260910/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/middle/inputs",
+      "job_name": "otto-batch-train-middle-seed-20260910-d5c29663",
+      "maximum_runtime_seconds": 7200,
+      "phase": "train",
+      "step": "Train-middle-seed-20260910"
+    },
+    {
+      "cell_id": "middle_seed_20260910",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260910/checkpoints",
+      "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/middle/inputs",
+      "job_name": "otto-batch-audit-middle-seed-20260910-d5c29663",
+      "maximum_runtime_seconds": 1800,
+      "phase": "audit",
+      "step": "Audit-middle-seed-20260910"
+    }
+  ],
+  "launches": [
+    {
+      "cell_id": "early_seed_20260910",
+      "phase": "train",
+      "sha256": "a64ee5b71b524bf670aaa91f09c2e5003b230d5b178833b00da759be7289fcab",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+    },
+    {
+      "cell_id": "early_seed_20260910",
+      "phase": "audit",
+      "sha256": "10337d0393753d07201c0c980f589bbb85ee3cea56227a0c87dca75b568f1eb7",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+    },
+    {
+      "cell_id": "middle_seed_20260908",
+      "phase": "train",
+      "sha256": "f0ea228cd3258cf484ea1e78a4d2010396d2f8c9d9ca87a088e2d0d1643b8d73",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260908/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+    },
+    {
+      "cell_id": "middle_seed_20260908",
+      "phase": "audit",
+      "sha256": "44d8dd16a49957cebc199f4942f896783bc00772ff85478385d8de11194b94ed",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260908/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+    },
+    {
+      "cell_id": "middle_seed_20260909",
+      "phase": "train",
+      "sha256": "d3a3f6847f9340a74c7f19c7ba126e5a668dca4033a26ac92fd1125f8f456eb9",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260909/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+    },
+    {
+      "cell_id": "middle_seed_20260909",
+      "phase": "audit",
+      "sha256": "4343556e66fefb3318e6e7f18c64ac5b00022d6df334b13720d70a0b85f66ed1",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260909/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+    },
+    {
+      "cell_id": "middle_seed_20260910",
+      "phase": "train",
+      "sha256": "02a263328a0979cfa61158221f1fb41b2cab6fdf34c59bc8b64a15dce890d710",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+    },
+    {
+      "cell_id": "middle_seed_20260910",
+      "phase": "audit",
+      "sha256": "3d16b6febcd283316a050a010dd27b598cd0cb81fd9dfe871f5a2f6bfeced85c",
+      "uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+    }
+  ],
+  "maximum_parallel_steps": 3,
+  "owner_account": "560403859723",
+  "pipeline_name": "otto-robustness-1136d945b56c-remaining",
+  "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+  "region": "us-west-2",
+  "role_arn": "arn:aws:iam::560403859723:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
+  "scheduling_authorization": "User requested concurrent jobs on 2026-09-09. This operational amendment supersedes the original single-job cap without modifying the frozen protocol.",
+  "schema_version": 1,
+  "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
+  "source_sha256": "d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a"
+}

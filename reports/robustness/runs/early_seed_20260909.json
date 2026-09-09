@@ -1,0 +1,80 @@
+{
+  "audit_status": "not_started",
+  "cell_id": "early_seed_20260909",
+  "counted_as_verified": false,
+  "job": {
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-robust-early-20260909-d5c29663"
+  },
+  "latest_observation": {
+    "CreationTime": "2026-09-09T20:17:31.779000+00:00",
+    "MaxRuntimeInSeconds": 7200,
+    "ProcessingJobName": "otto-robust-early-20260909-d5c29663",
+    "ProcessingJobStatus": "InProgress",
+    "observed_at_utc": "2026-09-09T20:19:56.804346+00:00"
+  },
+  "launch_file": "early_seed_20260909.launch.json",
+  "launch_sha256": "f6e08d553d5c105224227b896f57f28539cf78ec070f36589fafe327ed54585b",
+  "observed_at_utc": "2026-09-09T20:17:32.027798+00:00",
+  "request_file": "early_seed_20260909.request.json",
+  "request_sha256": "11cfaeda494f1b9a2a8e93e00e55ba2550f4be253dbbe52e32de2ab3548a98d4",
+  "reused_preparation": {
+    "input_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/early/inputs",
+    "preparation_id": "49a84d88b6230239893cd9b7b5765dfe7c97a5ba99311cb8dd82a354ee776be0",
+    "validation": "Worker verifies all preparation contracts and content before reuse.",
+    "window": "early"
+  },
+  "schema_version": 1,
+  "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
+  "source_sha256": "d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a",
+  "status": "training_launched",
+  "verified_uploads": [
+    {
+      "head": {
+        "AcceptRanges": "bytes",
+        "ChecksumSHA256": "JhbpfZZ1f1HfWvrl0sTc57BrFtZv6mVzUeBDLxTokac=",
+        "ChecksumType": "FULL_OBJECT",
+        "ContentLength": 8062,
+        "ContentType": "text/x-python",
+        "ETag": "\"0257ccc70e23b338dcb14b2d70fedbb0\"",
+        "LastModified": "2026-09-09T18:18:51+00:00",
+        "Metadata": {},
+        "ServerSideEncryption": "AES256",
+        "VersionId": "iQ5mWUVOHIzoCPNVnOrNjWeKv5W6opan"
+      },
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py",
+      "name": "bootstrap"
+    },
+    {
+      "head": {
+        "AcceptRanges": "bytes",
+        "ChecksumSHA256": "9uCNVT1cEFIkInuJb1fyhTnPeOwHDzZYn6/jJ+1UWFs=",
+        "ChecksumType": "FULL_OBJECT",
+        "ContentLength": 37178,
+        "ContentType": "application/json",
+        "ETag": "\"d3777c26ca732a30db11ed49966b9bca\"",
+        "LastModified": "2026-09-09T20:16:49+00:00",
+        "Metadata": {},
+        "ServerSideEncryption": "AES256",
+        "VersionId": "ycb1Yl1crEPEVtxLmu1KeBDKAnn1_yEB"
+      },
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260909/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/launch.json",
+      "name": "launch"
+    },
+    {
+      "head": {
+        "AcceptRanges": "bytes",
+        "ChecksumSHA256": "1cKWYw2f/WWIKyIBl1QRJJ9zOUiicrNkFORDhk49PUo=",
+        "ChecksumType": "FULL_OBJECT",
+        "ContentLength": 7144900,
+        "ContentType": "application/gzip",
+        "ETag": "\"268e769492aba465f7667bf63c47fe37\"",
+        "LastModified": "2026-09-09T18:19:05+00:00",
+        "Metadata": {},
+        "ServerSideEncryption": "AES256",
+        "VersionId": "o1xFVSpxXEyes0JJeJs9.Q1LNDqEqddc"
+      },
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz",
+      "name": "source"
+    }
+  ]
+}

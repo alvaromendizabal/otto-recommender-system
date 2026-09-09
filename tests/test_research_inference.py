@@ -19,7 +19,14 @@ from otto_recsys.research.inference import (
 from otto_recsys.research.retrievers import build_retrievers
 
 
-def test_frozen_models_generate_complete_submission_and_recover_corrupt_parts(tmp_path):
+def test_frozen_models_generate_complete_submission_and_recover_corrupt_parts(
+    tmp_path, monkeypatch
+):
+    # Synthetic model/recovery fixture; real source rejection has separate tests.
+    monkeypatch.setattr(
+        "otto_recsys.research.inference.require_competition_input",
+        lambda _: {"source": "synthetic-recovery-test"},
+    )
     logger = logging.getLogger("inference-test")
     build_evaluated_study(tmp_path)
     test = tmp_path / "test"
