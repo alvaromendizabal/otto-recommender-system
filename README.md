@@ -237,6 +237,6 @@ tradeoffs without using the current evaluation cohort to choose a new winner.
 The [robustness protocol](docs/ROBUSTNESS.md) now freezes three temporal windows and
 three model seeds. **Two of nine cells are verified**: on the same reference window,
 the feature gain repeats at **+1.949 and +2.022 percentage points** over the matched
-compact control. [See the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb#Does-the-gain-repeat-when-only-the-training-seed-changes).
+compact control. [See the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb).
 Earlier-window comparisons remain pending; the headline above remains the original
 verified result.
