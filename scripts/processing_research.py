@@ -82,6 +82,18 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     extract(source, project)
     root = project / "artifacts/research"
     root.mkdir(parents=True, exist_ok=True)
+    if launch.get("task") in {"window_study", "window_verification"}:
+        # No reference corpus, retrieval or model bundle enters an earlier window.
+        # The full launch is checked again inside the locked project environment.
+        expected = {p["path"] for p in launch["train_files"]}
+        if {p.name for p in (inputs / "train").glob("part-*.parquet")} != expected:
+            raise ValueError("staged historical event inventory differs")
+        stage_events(inputs, project, launch["train_files"], role="train")
+        manifest = inputs / "train/manifest.json"
+        if json.loads(manifest.read_text()) != launch["conversion_manifest"]:
+            raise ValueError("original conversion manifest differs")
+        shutil.copyfile(manifest, project / "artifacts/train/manifest.json")
+        return project
     corpus = root / "corpus"
     corpus.mkdir(exist_ok=True)
     for entry in launch["corpus"]:
@@ -112,8 +124,8 @@ def main() -> int:
     launch_path = args.inputs / "launch/launch.json"
     launch = json.loads(launch_path.read_text())
     task = launch.get("task", "study")
-    if task not in {"study", "delivery", "verification"}:
-        raise ValueError("processing task must be study, delivery or verification")
+    if task not in {"study", "delivery", "verification", "window_study", "window_verification"}:
+        raise ValueError("unsupported research processing task")
     print(
         json.dumps({"timestamp": datetime.now(UTC).isoformat(), "stage": "verify_inputs"}),
         flush=True,
@@ -175,6 +187,8 @@ def main() -> int:
                 "study": "otto_recsys.cloud.research_job",
                 "delivery": "otto_recsys.cloud.delivery_job",
                 "verification": "otto_recsys.cloud.robustness_verification",
+                "window_study": "otto_recsys.cloud.window_job",
+                "window_verification": "otto_recsys.cloud.window_job",
             }[task],
             str(launch_path),
         ],

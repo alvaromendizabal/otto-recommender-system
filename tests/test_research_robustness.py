@@ -51,7 +51,12 @@ class TestRobustnessProtocol(unittest.TestCase):
         runs = ROOT / "reports/robustness/runs"
         for path in runs.glob("*.launch.json"):
             launch = json.loads(path.read_text())
-            verify_seed_launch(ROOT, launch)
+            if launch.get("task") == "window_study":
+                from otto_recsys.research.temporal_robustness import verify_window_launch
+
+                verify_window_launch(ROOT, launch)
+            else:
+                verify_seed_launch(ROOT, launch)
             receipt = json.loads(path.with_name(path.name.replace(".launch", "")).read_text())
             self.assertEqual(
                 receipt["launch_sha256"], hashlib.sha256(path.read_bytes()).hexdigest()
