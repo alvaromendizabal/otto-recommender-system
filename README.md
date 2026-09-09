@@ -223,7 +223,7 @@ Reading the saved notebooks and charts requires neither the full dataset nor AWS
 
 ## Limits and the next research question
 
-The controlled result comes from **one fixed training seed, one reserved temporal cohort,
+The original controlled result comes from **one fixed training seed, one reserved temporal cohort,
 and 100,000 fitting sessions**. Earlier neural and ranking scores use different protocols;
 they are not direct comparisons with the headline result. The work establishes an audited
 offline experiment and complete batch output; online business impact and state-of-the-art
@@ -235,5 +235,8 @@ new selection/evaluation split. This would address stability and the observed cl
 tradeoffs without using the current evaluation cohort to choose a new winner.
 
 The [robustness protocol](docs/ROBUSTNESS.md) now freezes three temporal windows and
-three model seeds. Replication results are pending; the headline score above remains
-the original verified result.
+three model seeds. **Two of nine cells are verified**: on the same reference window,
+the feature gain repeats at **+1.949 and +2.022 percentage points** over the matched
+compact control. [See the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb).
+Earlier-window comparisons remain pending; the headline above remains the original
+verified result.

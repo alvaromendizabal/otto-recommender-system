@@ -1,0 +1,73 @@
+{
+  "bootstrap_replicates": 1000,
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260910/checkpoints",
+  "corpus": [
+    {
+      "bytes": 22716,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/contract.json",
+      "sha256": "5a50f09ac6457698d87f129a1cccbc11b1c3e69ddebd5f84ac19a852723db5ab"
+    },
+    {
+      "bytes": 2117,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/manifest.json",
+      "sha256": "6fa9e23bc9d254bf4534fd02b995b8ca92bdb4d6fa9229426b50432fe5c20b68"
+    },
+    {
+      "bytes": 165,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/history.json",
+      "sha256": "f60fe68f0ea47e3d5142ecac8a54da250c7664cfe03ac758dbefa5824aef731c"
+    },
+    {
+      "bytes": 1053478569,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/history.parquet",
+      "sha256": "e02868ba218685e041bf4850cd3369ced1b994eb3baa872e0f700bf967549699"
+    },
+    {
+      "bytes": 14178692,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/observed.parquet",
+      "sha256": "d8a1ece9d8d418312e03a35c61056061c6eac587446f27c607e6c722b4a9c53e"
+    },
+    {
+      "bytes": 7109696,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/labels.parquet",
+      "sha256": "cea9221f240c8ab970eca5d6f0522f270c5cb61283668cb3950a485deeb9925f"
+    },
+    {
+      "bytes": 5023295,
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/queries.parquet",
+      "sha256": "f706acdad8badc24fbc2c6967816e4079cc8407a85f0c537ce220ec95a27dfe9"
+    }
+  ],
+  "evaluation_seed": 20260908,
+  "model_inputs_sha256": "2886a9b11170c1366b0bddf751b64621d678b9b756f2951ddebdfa78ce9ba1da",
+  "owner_account": "560403859723",
+  "region": "us-west-2",
+  "resources": {
+    "feature_workers": 16,
+    "hourly_compute_usd": 3.4272,
+    "instance_type": "ml.c7i.16xlarge",
+    "maximum_runtime_seconds": 7200,
+    "volume_gib": 100
+  },
+  "retrieval_manifest_sha256": "975d717be546d32f9000bcf4dcd2c26ee8aa4ef83968bf4c734228dd5fc0172d",
+  "robustness": {
+    "cell_id": "reference_seed_20260910",
+    "cohort_seed": 20260908,
+    "comparison": "repeat the frozen selection procedure; report all planned cells",
+    "model_seed": 20260910,
+    "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+    "reference_corpus_id": "55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754",
+    "reference_source_commit": "9256279d220f54f4194270aa9ef50dacfafb1234",
+    "window": "reference"
+  },
+  "source_commit": "b63b547c9b86ed868e809c4059d62b858822da1a",
+  "source_sha256": "c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da",
+  "training": {
+    "evaluation_interval": 5,
+    "negative_budget": 60,
+    "patience": 40,
+    "rounds": 400,
+    "seed": 20260910,
+    "threads": 32
+  }
+}
