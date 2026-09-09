@@ -136,6 +136,60 @@ evaluation parts are verified before reuse. The previous study and submission
 remain intact. Job status must identify the source commit, protocol, cohort,
 model seed and output locations.
 
+### Preparing an earlier window
+
+Earlier-window jobs start from the 217 original training Parquet files. The
+bootstrap checks every file's size and SHA-256 and verifies the retained
+conversion manifest. It does not accept the reference window's corpus,
+retrieval bundle, or selected features.
+
+For the early window, history ends on **August 16, 2022, at 22:00 UTC**. The
+runner then builds the query ledger, 32 historical graph partitions, the
+1,482-feature fitting cache, and nine grouped fitting-only screening pilots.
+It materializes the retained features for the fitting and selection cohorts
+before fitting the eight configurations and three task rankers. Evaluation
+starts after model selection has been sealed.
+
+Preparation is shared **within a window**. Model seeds get separate model and
+evaluation checkpoints. A later seed can reuse the preparation only after its
+contracts and all data hashes pass verification. Graph and feature-cache parts
+are uploaded after their receipts close; screening pilots are published when
+the screening stage finishes. The published preparation receipt is preserved
+on reuse, including its original creation time and source commit.
+
+Generate the launch from an exact committed source archive:
+
+```bash
+uv run --frozen python scripts/prepare_robustness.py \
+  --cell early_seed_20260908 \
+  --source-commit "$OTTO_SOURCE_COMMIT" \
+  --source-sha256 "$OTTO_SOURCE_ARCHIVE_SHA256" \
+  --output artifacts/early_launch/launch.json
+```
+
+The variables identify the Git commit and SHA-256 of its source archive. This
+command validates and writes a launch; it does not start a cloud job. The
+managed request uses one `ml.c7i.16xlarge` instance, a 100 GiB volume, and a
+7,200-second limit. Source, bootstrap, and launch uploads are checked before
+execution. Existing [run requests](../reports/robustness/runs) record the exact
+SageMaker inputs and role.
+
+The separate earlier-window verifier requires the original event directory:
+
+```bash
+uv run --frozen --extra ml python scripts/verify_robustness.py \
+  --root artifacts/research \
+  --launch artifacts/early_launch/launch.json \
+  --source artifacts/train
+```
+
+It rebuilds all fitting, selection, and evaluation prefixes and labels from
+those events, checks every prepared data part and screening pilot, verifies
+the 24 rankers and complete evaluation counts, replays 256 sessions, and
+reproduces both paired bootstrap comparisons. The original training receipt
+and training log remain separate from the audit receipt and log. The auditor
+cannot reuse the reference window's original-event reconstruction.
+
 ## How a completed replication becomes a verified result
 
 `scripts/verify_robustness.py` checks the completed training identity, frozen data,

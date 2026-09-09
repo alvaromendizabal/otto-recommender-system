@@ -5,7 +5,7 @@
       "cohort_seed": 20260908,
       "model_seed": 20260908,
       "reference_evidence": null,
-      "status": "planned",
+      "status": "running",
       "weighted_recall_at_20": null,
       "window": "early"
     },
@@ -83,11 +83,11 @@
     }
   ],
   "completed_new_replications": 2,
-  "observed_at_utc": "2026-09-09T17:20:36.452992+00:00",
+  "observed_at_utc": "2026-09-09T18:23:34.095754+00:00",
   "planned_total_cells": 9,
   "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
   "schema_version": 1,
-  "scope": "All three reference-window seeds are verified. The six earlier-window cells remain unmeasured; seed consistency does not establish temporal portability.",
+  "scope": "All three reference-window seeds are verified. The first early-window job is running; its score remains unmeasured until its audit passes.",
   "submission_target": 50,
   "verified_full_submissions": 1,
   "verified_reference_cells": 1
