@@ -97,9 +97,35 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  portfolio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: "3.12.13"
+          enable-cache: true
+          cache-suffix: notebooks
+      - name: Install locked Plotly export environment
+        run: |
+          uv venv /tmp/otto-analysis --python 3.12.13 --no-project
+          uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
+      - name: Render Plotly figures from verified research evidence
+        run: |
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --output-dir artifacts/portfolio --preview-dir artifacts/portfolio/previews
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --output-dir artifacts/portfolio --check
+      - name: Retain figures for visual review
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: portfolio-figures
+          path: artifacts/portfolio/
+          if-no-files-found: error
+          retention-days: 30
+
   publish-notebooks:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/results/')
-    needs: [quality, neural-contracts, notebooks]
+    needs: [quality, neural-contracts, notebooks, portfolio]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
