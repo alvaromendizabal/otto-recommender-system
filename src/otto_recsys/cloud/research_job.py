@@ -14,10 +14,12 @@ from otto_recsys.experiments.manifest import sha256_file
 from otto_recsys.logging_utils import configure_logging, utc_now_iso
 from otto_recsys.research.evaluation import run_evaluation
 from otto_recsys.research.protocol import atomic_json
+from otto_recsys.research.robustness import verify_seed_launch
 from otto_recsys.research.study import run_ablations
 
 
 def run(launch: dict[str, Any], root: Path) -> dict[str, Any]:
+    replication = verify_seed_launch(Path.cwd(), launch) if "robustness" in launch else None
     root.mkdir(parents=True, exist_ok=True)
     logger = configure_logging("managed_research", log_dir=root / "logs")
     storage = ResearchCheckpoints(
@@ -39,6 +41,9 @@ def run(launch: dict[str, Any], root: Path) -> dict[str, Any]:
         "stage": "restore",
         "status": "running",
     }
+    if replication is not None:
+        status["robustness"] = replication
+        status["evaluation_seed"] = launch["evaluation_seed"]
     try:
         storage.restore()
         logger = configure_logging("managed_research", log_dir=root / "logs")
@@ -52,11 +57,12 @@ def run(launch: dict[str, Any], root: Path) -> dict[str, Any]:
         storage.publish(root / "job_status.json")
         evaluation = run_evaluation(
             root,
-            seed=int(launch["training"]["seed"]),
+            seed=int(launch.get("evaluation_seed", launch["training"]["seed"])),
             workers=int(launch["resources"]["feature_workers"]),
             threads=int(launch["training"]["threads"]),
             logger=logger,
             publish=storage.publish,
+            bootstrap_replicates=int(launch.get("bootstrap_replicates", 1000)),
         )
         status.update(status="passed", stage="complete", evaluation_id=evaluation["input_id"])
     except BaseException as error:

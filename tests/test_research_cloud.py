@@ -169,6 +169,48 @@ def test_managed_job_failure_publishes_status_and_preserves_original_error(tmp_p
     assert tmp_path / "logs/managed_research.jsonl" in published
 
 
+def test_replication_keeps_bootstrap_seed_separate_and_publishes_its_protocol(
+    tmp_path, monkeypatch
+):
+    from otto_recsys.cloud import research_job
+    from otto_recsys.research.robustness import seed_launch
+
+    root = Path(__file__).resolve().parents[1]
+    monkeypatch.chdir(root)
+    launch = seed_launch(
+        root, "reference_seed_20260909", source_commit="a" * 40, source_sha256="b" * 64
+    )
+    calls = []
+
+    class Checkpoints:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def restore(self):
+            return 0
+
+        def publish(self, path):
+            assert path.is_file()
+
+    def train(_root, config, **kwargs):
+        calls.append(("train", config["seed"]))
+        return {"study_id": "test-study"}
+
+    def evaluate(_root, **kwargs):
+        calls.append(("evaluation", kwargs["seed"]))
+        assert kwargs["bootstrap_replicates"] == 1000
+        return {"input_id": "test-evaluation"}
+
+    monkeypatch.setattr(research_job, "ResearchCheckpoints", Checkpoints)
+    monkeypatch.setattr(research_job, "run_ablations", train)
+    monkeypatch.setattr(research_job, "run_evaluation", evaluate)
+    status = research_job.run(launch, tmp_path)
+    assert calls == [("train", 20260909), ("evaluation", 20260908)]
+    assert status["status"] == "passed"
+    assert status["robustness"] == launch["robustness"]
+    assert status["evaluation_seed"] == 20260908
+
+
 @pytest.mark.parametrize("task", ["study", "delivery"])
 def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypatch, task):
     path = Path(__file__).resolve().parents[1] / "scripts/processing_research.py"
