@@ -97,9 +97,43 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  portfolio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: "3.12.13"
+          enable-cache: true
+          cache-suffix: notebooks
+      - name: Install locked Plotly export environment
+        run: |
+          uv venv /tmp/otto-analysis --python 3.12.13 --no-project
+          uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
+      - name: Verify the committed portfolio presentation
+        shell: bash
+        run: |
+          if test "$GITHUB_EVENT_NAME" = push && [[ "$GITHUB_REF" == refs/heads/results/* ]]; then
+            echo "Fresh renders below validate source changes before guarded publication."
+          else
+            /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
+          fi
+      - name: Render Plotly figures from verified research evidence
+        run: |
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --output-dir artifacts/portfolio --preview-dir artifacts/portfolio/previews
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --output-dir artifacts/portfolio --check
+      - name: Retain figures for visual review
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: portfolio-figures
+          path: artifacts/portfolio/
+          if-no-files-found: error
+          retention-days: 30
+
   publish-notebooks:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/results/')
-    needs: [quality, neural-contracts, notebooks]
+    needs: [quality, neural-contracts, notebooks, portfolio]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -118,21 +152,30 @@ jobs:
         run: |
           uv venv /tmp/otto-analysis --python 3.12.13 --no-project
           uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/publish_notebooks.py
-      - name: Commit only verified canonical notebook outputs
+      - name: Commit only verified notebook and portfolio outputs
         env:
           RESULTS_BRANCH: ${{ github.ref_name }}
         run: |
           set -euo pipefail
           git add -- notebooks/[0-9][0-9]_*.ipynb notebooks/execution.json
+          git add -- reports/portfolio/*.svg reports/portfolio/*.json reports/portfolio/index.html
           python - <<'PY'
           import re
           import subprocess
           paths = subprocess.check_output(['git', 'diff', '--cached', '--name-only', '-z']).decode().split('\0')
+          figures = r'(results|objectives|feature_selection|ablations|feature_dependence|feature_cost|session_slices)'
           for path in filter(None, paths):
-              assert path == 'notebooks/execution.json' or re.fullmatch(r'notebooks/[0-9]{2}_[A-Za-z0-9_]+\.ipynb', path), path
+              allowed = (
+                  path in ('notebooks/execution.json', 'reports/portfolio/manifest.json', 'reports/portfolio/index.html')
+                  or re.fullmatch(r'notebooks/[0-9]{2}_[A-Za-z0-9_]+\.ipynb', path)
+                  or re.fullmatch(r'reports/portfolio/' + figures + r'\.(svg|json)', path)
+              )
+              assert allowed, path
           PY
           if git diff --cached --quiet; then
             echo "OTTO_NOTEBOOK_PUBLICATION_UNCHANGED"
@@ -142,6 +185,6 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "docs(notebooks): publish verified executed analysis and receipts"
+          git commit -m "docs(portfolio): publish verified figures, notebooks and receipts"
           git push origin "HEAD:refs/heads/$RESULTS_BRANCH"
           echo "OTTO_NOTEBOOK_PUBLICATION_COMMITTED"

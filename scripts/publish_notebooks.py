@@ -1,7 +1,8 @@
 """Publish verified execution copies to canonical paths without changing source cells.
 
 This command does not execute kernels or call Git. A results-branch workflow runs
-all quality gates and the executor before invoking it, then stages only notebooks.
+all quality gates and the executor before invoking it. This script publishes only
+notebooks; the workflow separately builds and verifies the portfolio figure bundle.
 """
 from __future__ import annotations
 
