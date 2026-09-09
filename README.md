@@ -1,6 +1,6 @@
 # OTTO · Session-based recommendation
 
-**Research complete: 9/9 temporal validation runs audited.** The selected representation improves every matched compact control. One full official-prefix prediction file is verified; it is uploaded to the Kaggle form and awaits the final Submit action. [Results and delivery status](docs/ROADMAP.md).
+**Complete: 9/9 temporal validation runs audited and the official-prefix submission scored by Kaggle.** The selected representation improves every matched compact control. The frozen reference model scores **0.56842 private / 0.56862 public** in late submission. [Results and delivery status](docs/ROADMAP.md).
 
 **Predict what a shopper will click, add to cart, and order next.**
 
@@ -28,9 +28,9 @@ on the compact ranker by **1.949 percentage points** and candidate fusion by **4
 The comparisons use the same candidate pools and evaluation sessions. These are
 **offline temporal-validation results**.
 
-**Competition delivery:** the first Kaggle score is invalidated by the source
-audit above. Replacement inference started at 20:55 UTC using the official truncated test
-and the same frozen weights. [Evidence and current delivery state →](docs/INFERENCE.md)
+**Competition delivery:** Kaggle accepted the verified official-prefix predictions and
+reported **0.56842 private / 0.56862 public**. The original 0.93583 private score is
+invalidated because its input included future events. [Accepted result and source audit →](docs/INFERENCE.md)
 
 *Every chart is generated with Plotly from the committed, verified experiment reports.
 GitHub displays the SVG previews. For hover values, zoom, model toggles, and exact-value
@@ -202,7 +202,7 @@ writes, incompatible inputs, missing partitions, and duplicate writers.
 The 289,541,110-byte gzip contains 5,015,409 rows covering all 1,671,803 sessions.
 Notebook 10 replays the corrected output. The original 0.93583 private Kaggle score
 is invalidated because that earlier input contained future events; it is not a
-performance claim. The replacement file has no Kaggle score until final submission.
+performance claim. The corrected file is accepted and scored at **0.56842 private / 0.56862 public**.
 [Source correction and replacement workflow →](docs/INFERENCE.md)
 
 To run the repository's checks from a clone:
@@ -251,16 +251,17 @@ The highest absolute offline score is **0.590759**, middle window seed **2026090
 
 [Explore the complete Plotly study](notebooks/09_controlled_feature_study.ipynb) · [Method and audit](docs/ROBUSTNESS.md) · [Submission notebook](notebooks/10_competition_inference.ipynb)
 
-## Scope and remaining delivery
+## Completed scope and extensions
 
-The validated research procedure and full batch inference are complete. The final Kaggle
-Submit click was blocked by automatic approval review; the prepared file is uploaded,
-and no corrected public/private score is claimed. The earlier 50-file collection has
-not been executed and is not represented as completed work.
+The validated research procedure, full batch inference and corrected Kaggle submission
+are complete. The submission is marked **Complete (after deadline)**, with its exact
+artifact and displayed scores recorded in the [submission receipt](reports/submissions/kaggle_submission.json).
+The earlier 50-file collection has not been executed; this release delivers one verified
+official-prefix submission.
 
 Training seeds share cohorts within windows, and historical windows overlap. The results
 support repeatable offline gains on this dataset; they do not establish online business
 impact, independent-dataset generalization or state-of-the-art performance. Neural
 retrieval and exploratory ranking use separately documented protocols.
 
-[Source-provenance incident](docs/INFERENCE.md#recorded-kaggle-result) · [Model card](docs/MODEL_CARD.md) · [Completion roadmap](docs/ROADMAP.md)
+[Source-provenance incident](docs/INFERENCE.md#historical-invalidated-submission) · [Model card](docs/MODEL_CARD.md) · [Completion roadmap](docs/ROADMAP.md)

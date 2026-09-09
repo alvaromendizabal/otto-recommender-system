@@ -2,25 +2,36 @@
   "account": "alvaromendizabal",
   "approval_review": {
     "action": "Kaggle Submit button",
-    "reason": "Automatic approval review requires a fresh action-time confirmation despite explicit submission approval.",
-    "status": "blocked"
+    "previous_status": "blocked",
+    "reason": "The user supplied fresh action-time confirmation for the verified file; the final Submit action succeeded.",
+    "status": "approved"
   },
   "competition": "otto-recommender-system",
   "description": "OTTO official competition test prefixes | frozen reference seed 20260908 | 1,671,803 sessions / 5,015,409 rows | SHA256 49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2 | replaces invalid full-test inference | github.com/alvaromendizabal/otto-recommender-system",
   "displayed_scores": {
-    "private": null,
-    "public": null
+    "private": "0.56842",
+    "public": "0.56862"
   },
   "historical_invalidated_receipt": "reports/submissions/history/adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3/kaggle_submission.json",
+  "interpretation": [
+    "Kaggle accepted and scored the exact verified official-prefix prediction file after the competition deadline.",
+    "The frozen reference seed 20260908 is unchanged; the separate temporal evaluation remains 0.5843921411460516.",
+    "The earlier 0.93583 private score remains invalidated because its input contained future test events.",
+    "This late submission does not establish an official leaderboard rank or state-of-the-art result."
+  ],
   "observation": {
     "displayed_filename": "submission.csv.gz",
     "displayed_size": "276 MiB",
     "file_upload_completed": true,
-    "final_submit_clicked": false,
-    "method": "authenticated Kaggle browser",
-    "submit_button_enabled": true
+    "final_score_selection_enabled": false,
+    "final_submit_clicked": true,
+    "method": "authenticated Kaggle browser; submission list and Submission Details panel; screenshot visually checked",
+    "private_score_text": "Private score: 0.56842",
+    "public_score_text": "Score: 0.56862",
+    "status_text": "Complete (after deadline)",
+    "success_indicator": "Success"
   },
-  "observed_at_utc": "2026-09-09T23:16:55.584257+00:00",
+  "observed_at_utc": "2026-09-09T23:49:34.868965+00:00",
   "pre_upload_verification": {
     "bytes": 289541110,
     "elapsed_seconds": 23.118083535999176,
@@ -41,7 +52,7 @@
     "sha256": "49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2",
     "version_id": "i0gMnNzo7V1V.SpQoFqGW5XberD.8QcG"
   },
-  "receipt_id": "a7bc22aaf92eb1bb560870af8f905138c77a9fe82b4e4b0a45b09f5b08b6beb2",
+  "receipt_id": "596a33ef8930c55b578d326f46c9b3083ca1da3225bd822ca74008b41ccc6499",
   "schema_version": 1,
   "source_files": {
     "reports/research/competition_cloud_verification.json": "6e899eaee0e49e27b57b5695b7e1647230d6e221f3ef1c7428981995ee613d00",
@@ -49,10 +60,11 @@
     "reports/research/competition_prediction.json": "fb3d15d9169f4dddd14a5d299405de806bf7d15e68cfc9838d4d71424133c1c2",
     "reports/research/competition_prediction_contract.json": "4d8169b2c2d0627c818b2837fb49b6281083b8701b832767c15c29a780e1799a"
   },
-  "status": "awaiting_final_submission",
+  "status": "complete",
   "submission_id": null,
+  "submission_id_note": "The inspected submission list and Submission Details panel did not expose a numeric ID.",
   "submission_mode": "after_deadline",
   "submission_url": "https://www.kaggle.com/competitions/otto-recommender-system/submissions",
-  "valid_competition_evaluation": null,
+  "valid_competition_evaluation": true,
   "valid_competition_input": true
 }

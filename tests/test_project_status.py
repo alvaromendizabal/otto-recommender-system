@@ -63,19 +63,38 @@ def test_prepared_submission_does_not_claim_a_kaggle_score(tmp_path: Path) -> No
 
     shutil.copytree("reports/research", tmp_path / "reports/research")
     shutil.copytree("reports/submissions", tmp_path / "reports/submissions")
+    receipt = tmp_path / "reports/submissions/kaggle_submission.json"
+    value = json.loads(receipt.read_text())
+    value["status"] = "awaiting_final_submission"
+    value["valid_competition_evaluation"] = None
+    value["displayed_scores"] = {"public": None, "private": None}
+    value["receipt_id"] = fingerprint({k: v for k, v in value.items() if k != "receipt_id"})
+    receipt.write_text(json.dumps(value))
     result = run_status(tmp_path)
     assert result.returncode == 0, result.stderr
     status = json.loads(result.stdout)
     assert "awaiting confirmation" in status["kaggle_submission"]
     assert "kaggle_scores" not in status
-    receipt = tmp_path / "reports/submissions/kaggle_submission.json"
-    value = json.loads(receipt.read_text())
     value["displayed_scores"]["private"] = "0.99"
     value["receipt_id"] = fingerprint({k: v for k, v in value.items() if k != "receipt_id"})
     receipt.write_text(json.dumps(value))
     result = run_status(tmp_path)
     assert result.returncode != 0
     assert "cannot have a Kaggle score" in result.stderr
+
+
+def test_accepted_submission_reports_verified_displayed_scores(tmp_path: Path) -> None:
+    shutil.copytree("reports/research", tmp_path / "reports/research")
+    shutil.copytree("reports/submissions", tmp_path / "reports/submissions")
+    result = run_status(tmp_path)
+    assert result.returncode == 0, result.stderr
+    status = json.loads(result.stdout)
+    assert status["kaggle_submission"] == "complete (after deadline)"
+    assert status["kaggle_scores"] == {"private": "0.56842", "public": "0.56862"}
+    assert status["competition_prediction"] == (
+        "official input, full file and native replay verified"
+    )
+    assert "Confirm" not in status["next_task"]
 
 
 def test_controlled_status_uses_audited_reports_and_rejects_changed_metrics(tmp_path: Path) -> None:

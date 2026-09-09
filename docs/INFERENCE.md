@@ -1,5 +1,7 @@
 # Competition inference and model replay
 
+**Accepted Kaggle result: 0.56842 private / 0.56862 public.** The frozen reference model used the verified official competition prefixes. Kaggle reports **Complete (after deadline)**.
+
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
@@ -20,7 +22,7 @@ The notebook execution and final prediction manifest have separate receipts.
 
 ## Download and submit the completed full run
 
-**The corrected full run is complete and verified.** Its gzip contains 289,541,110 bytes and SHA-256 `49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2`. The file is uploaded to the Kaggle form; automatic approval review blocked the final Submit click. No corrected score is claimed.
+**The corrected full run is complete and verified.** Its gzip contains 289,541,110 bytes and SHA-256 `49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2`. Kaggle accepted this exact file and scored it at **0.56842 private / 0.56862 public**. No further upload is needed for this release.
 
 To download the exact verified artifact in the SageMaker project terminal:
 
@@ -35,7 +37,7 @@ aws s3api get-object --region us-west-2 \
 sha256sum artifacts/competition/submission.csv.gz
 ```
 
-Download the gzip from the Studio file browser to upload it manually. Its digest must match the value above. [Managed run](../reports/submissions/competition_inference.json) · [Current submission receipt](../reports/submissions/kaggle_submission.json).
+The download is available for reproduction and inspection. Its digest must match the value above. [Managed run](../reports/submissions/competition_inference.json) · [Current submission receipt](../reports/submissions/kaggle_submission.json).
 
 A valid submission contains the columns `session_type` and `labels`, with one
 row per session and action and 20 unique product IDs per list: **5,015,409 rows
@@ -60,7 +62,7 @@ uv run --frozen --extra ml python scripts/prepare_competition_input.py \
 
 The existing frozen models are reused. A new inference namespace prevents any
 old prediction part from being treated as compatible. The replacement file passed source, coverage, content, and execution checks.
-No valid competition score is available until Kaggle accepts and scores it.
+The accepted Kaggle score is recorded below; it is distinct from the offline temporal study.
 
 The [50-file collection](ROBUSTNESS.md#path-to-50-submission-files) remains a
 separate milestone. Each file needs distinct predictions and a recorded model
@@ -68,6 +70,33 @@ or ensemble recipe. Repeating validation seeds does not automatically produce
 additional competition submissions.
 
 ## Recorded Kaggle result
+
+The submission list and **Submission Details** panel agree on the corrected result:
+
+| Evidence | Observed value |
+|---|---|
+| File | `submission.csv.gz` · 289,541,110 bytes |
+| Status | **Complete (after deadline)** · Success |
+| Public score | **0.56862** |
+| Private score | **0.56842** |
+| Observation time | 2026-09-09T23:49:34.868965+00:00 |
+| Coverage | 1,671,803 sessions · 5,015,409 rows |
+| Frozen model | Reference seed 20260908 · 102 selected features |
+
+[Open the account's submissions](https://www.kaggle.com/competitions/otto-recommender-system/submissions)
+· [Accepted submission receipt](../reports/submissions/kaggle_submission.json)
+
+The description includes the complete SHA-256 above. The receipt binds the browser-observed
+scores to the independently verified file, exact S3 version and official input attestation.
+The interface did not expose a numeric submission ID, so that field remains null.
+
+This is the valid competition result for the frozen reference model. Its earlier reserved
+**0.584392** score uses different sessions and must not be substituted for the Kaggle score.
+The highest observed temporal score, **0.590759** for middle seed 20260908, also uses a
+different cohort. No new model is selected using these evaluation outcomes. A late
+submission does not establish an official leaderboard rank or state-of-the-art performance.
+
+## Historical invalidated submission
 
 **Historical incident: the scores in this section are invalidated.**
 

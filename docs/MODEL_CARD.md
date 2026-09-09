@@ -1,9 +1,11 @@
 # Model card: controlled OTTO ranker
 
+**Competition result:** **0.56842 private / 0.56862 public**, accepted by Kaggle as a late submission using the frozen reference model and verified official test prefixes.
+
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Corrected inference is complete and verified on the attested official truncated test; Kaggle scoring is pending.
+performance. Corrected inference and Kaggle scoring are complete on the attested official truncated test.
 See [the source audit](../reports/submissions/data_provenance_audit.json).
 
 ## Purpose and intended use
@@ -12,9 +14,9 @@ Rank candidate products for the next click, cart and order in anonymous OTTO sho
 sessions. This is an offline research and batch-inference demonstration for an employer
 portfolio. Outputs are ordered product IDs, not calibrated purchase probabilities.
 No online deployment, revenue lift, or personalization across identified users is claimed.
-The initial late Kaggle submission is invalidated: its input included future
-test events from the post-competition release. No valid competition score is
-claimed. [Source evidence and remediation](INFERENCE.md#recorded-kaggle-result)
+The valid late submission scores **0.56842 private / 0.56862 public**. This is a
+historical competition evaluation and does not establish a leaderboard rank or
+state-of-the-art result. [Accepted result and source evidence](INFERENCE.md#recorded-kaggle-result)
 
 ## Model and inputs
 
@@ -114,7 +116,7 @@ historical graph refreshed from all permitted training events. Training history 
 precede test observations and have disjoint session IDs. This operational refresh does
 not change or retroactively replace the research evaluation.
 
-Notebook 10 now replays eight official-prefix sessions from the corrected full output. The managed run completed on September 9 and generated 5,015,409 task rows in a 289,541,110-byte gzip. All rows, exact session coverage, recommendation lists and the downloaded SHA-256 were independently checked. [Execution and coverage evidence](../reports/research/competition_cloud_verification.json). The final Kaggle Submit action is awaiting confirmation; no corrected score is claimed.
+Notebook 10 now replays eight official-prefix sessions from the corrected full output. The managed run completed on September 9 and generated 5,015,409 task rows in a 289,541,110-byte gzip. All rows, exact session coverage, recommendation lists and the downloaded SHA-256 were independently checked. [Execution and coverage evidence](../reports/research/competition_cloud_verification.json). Kaggle accepted and scored this artifact at **0.56842 private / 0.56862 public**; the notebook verifies the receipt and reports those displayed scores.
 
 ## Limits and appropriate conclusions
 
