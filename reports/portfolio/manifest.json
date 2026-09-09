@@ -8,23 +8,23 @@
   "figures": 7,
   "files": {
     "ablations.json": "47fb9e00d6af37c373a05635b3d366140a5f9a97309a65e5c07b26284982e2c3",
-    "ablations.svg": "c85ba4900c1c8345bf45378938bc6d784302a00dc58819c3dcd1ba220b58e669",
+    "ablations.svg": "19c60c14f196e8a528f68749195bdc4b8bb764941d057f896f6eed40d2051eb8",
     "feature_cost.json": "b72b2af5d8e037e1cef6ad9bc6fa89647ed4c5a3fd5122077fe2eb11e950afe7",
-    "feature_cost.svg": "8a4c9895810d8b9e9fbf02df3fe24ca85c181b734e75c962a44439c6bbdbc551",
+    "feature_cost.svg": "a8d5599af8d90d4ff1caa001658e798ae744663f0df083fa0466754327a2377a",
     "feature_dependence.json": "e5b99d1623dc4c74570f444fe3a39d6d332839c5db5550869246018e783e4be7",
-    "feature_dependence.svg": "9e8cfca4a08a26c75d50e860dc9128dc2eff63e21a0f5e9be45bd5a3b50f9aaf",
+    "feature_dependence.svg": "7bdf05d1fe1a06708b58bc24f64939d4540b4d6b770b151fcc47050b64193556",
     "feature_selection.json": "f3b785549490c6705295bcd487c17d3187b5e3593e19ae824e63aed304de7dfb",
-    "feature_selection.svg": "20df221b89f29fa8f1d9ca27707d24b9d10891b83f776491f2e81a2c404ed3a0",
+    "feature_selection.svg": "2b64c276540c3efaa8eef53cc1bd331b4e46ad57840dff065a41dfebda956f1f",
     "index.html": "bb350f53a06ca6143c9240ff581ab833292c472a296952ec3064e443c9c72fee",
     "objectives.json": "8068d7712dbe6c7e59b46dba22eb45c008cc7d97583425b9b3c155001417829a",
-    "objectives.svg": "bacdcb1e0d989c72152361ad791433dfe90659ea7d4a983c85557f4f0d617a62",
+    "objectives.svg": "afecbcd72ea042d4035a02a11d2eac609d7afee3a1cc29edc3f99faa2c982e2b",
     "otto-research-report.zip": "28f9d0180a0de7b2119d149487926ed0cff32a365758945bd07187450d13fef7",
     "results.json": "42314992769f903770c2b3e5d43548346bfae1968347654f0606d43983d826e7",
-    "results.svg": "01cb9dc23a5f94df407675d906e8d679ecbd4a7de82d39d945162d00e0d188fa",
+    "results.svg": "5519750062b95be6e45cde83069fb78c1d140efc1be387b47cd22a2474179191",
     "session_slices.json": "42783a2efefe49097d53437ecba6be3b4cc016859d1cca0cb85e35d25c057828",
-    "session_slices.svg": "48bf3b1c4e1c7d027849828201f2f202805848bac53017a4c84037460500603b"
+    "session_slices.svg": "4590ca14b93d94f66ebec49be5f8c457098fbb8d4cc64313953e992198944df3"
   },
-  "generated_at_utc": "2026-09-09T19:34:30.062169+00:00",
+  "generated_at_utc": "2026-09-09T20:55:31.999182+00:00",
   "plotly": "7.0.0",
   "status": "passed"
 }
