@@ -233,3 +233,7 @@ The highest-value research extension is to repeat the frozen comparison across *
 temporal cohorts and training seeds**, then test a predeclared action-specific hybrid on a
 new selection/evaluation split. This would address stability and the observed click/cart
 tradeoffs without using the current evaluation cohort to choose a new winner.
+
+The [robustness protocol](docs/ROBUSTNESS.md) now freezes three temporal windows and
+three model seeds. Replication results are pending; the headline score above remains
+the original verified result.

@@ -1,0 +1,66 @@
+# Frozen before any robustness replication is trained or evaluated.
+schema_version = 1
+model_seeds = [20260908, 20260909, 20260910]
+cohort_seed = 20260908
+reference_window = "reference"
+reference_source_commit = "9256279d220f54f4194270aa9ef50dacfafb1234"
+reference_corpus_id = "55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754"
+reference_launch_digest = "4092987a87b42a5a7030cd4887aa07cf76f36cec9e1ce4d92674f6660a6a3c4d"
+variants = ["core", "full", "without_graph", "without_history", "without_repeat", "without_context", "without_interaction", "without_source"]
+fit_sessions = 100000
+selection_sessions = 20000
+candidate_budget = 400
+bootstrap_seed = 20260908
+bootstrap_replicates = 1000
+
+[execution]
+initial_cells = ["reference_seed_20260909", "reference_seed_20260910"]
+maximum_concurrent_jobs = 1
+maximum_runtime_seconds = 7200
+submission_target = 50
+
+[[windows]]
+name = "early"
+history_end = "2022-08-16T22:00:00+00:00"
+fit_end = "2022-08-19T22:00:00+00:00"
+selection_end = "2022-08-20T22:00:00+00:00"
+evaluation_end = "2022-08-22T22:00:00+00:00"
+
+[[windows]]
+name = "middle"
+history_end = "2022-08-18T22:00:00+00:00"
+fit_end = "2022-08-21T22:00:00+00:00"
+selection_end = "2022-08-22T22:00:00+00:00"
+evaluation_end = "2022-08-24T22:00:00+00:00"
+
+[[windows]]
+name = "reference"
+history_end = "2022-08-20T22:00:00+00:00"
+fit_end = "2022-08-23T22:00:00+00:00"
+selection_end = "2022-08-24T22:00:00+00:00"
+evaluation_end = "2022-08-26T22:00:00+00:00"
+
+[training]
+threads = 32
+rounds = 400
+patience = 40
+evaluation_interval = 5
+negative_budget = 60
+
+[frozen_code]
+"protocol.py" = "8247fee6d62c9c3dc7a2164417e83655ffbe6d361b8cf0e310c1df59207c375b"
+"dataset.py" = "a32f2fa190efd618e04e156c09659e8cb6266a8c1129c57fb1df7cc962601f32"
+"retrievers.py" = "958e1ecbaa4d66191c33c2b96f40aa08418efb47ef82b56e035d172c2c5b61ea"
+"features.py" = "c2462f91b66b812875e382040de3d8f68beeeb61f0d321f34171c9e2e6dbf874"
+"screening.py" = "9ff1efee903741c4626e982bf03fb78d8d7d8b7d3c32c7ecafd8384286981beb"
+"materialize.py" = "f7f55ab8559840715612fa37548fd5c8bd01d172ecbe3d64fef161bde438e11e"
+"training.py" = "5f56205ae4a0502fe97e5c8b027a3f657a0f5ea4723cdcb8ef67e4541e4a4659"
+"study.py" = "f31c5b189bc540a7882593af7e2e3b573ca12f96afc89d74b5331071b5bb9d8a"
+"evaluation.py" = "511b183f22f2b27addf441cfac35a4640ef83ce92405a9e1fab499f48ce42b75"
+"metrics.py" = "a09928b010937d54a08e3e5a922c61bff574f09a2252f80ad68fce541deb0392"
+"configuration.py" = "55ebee0c7e2e9c0620a738846d7665e337a59e81f0ff6a99fd3509c41dc887f0"
+
+[frozen_files]
+"configs/research.toml" = "678d1b54d7f008f179741b4e2b87b0adec558afb6bba12763ffb98904b9e8ba5"
+"pyproject.toml" = "0d72a61b5c9afc59c08c12516659544d6d35abf49656f761511f521f93c22bb0"
+"uv.lock" = "267edb8e515981f7acf4dbbc2dba4276f7a5047609f2688d6c69d54be14ad5c5"
