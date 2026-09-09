@@ -15,6 +15,12 @@ from otto_recsys.research.robustness import (
     verify_seed_launch,
     verify_verification_launch,
 )
+from otto_recsys.research.temporal_robustness import (
+    INPUT_REPORTS,
+    original_source,
+    verify_window_launch,
+    verify_window_verification,
+)
 
 PAYLOADS = {
     "job_status.json",
@@ -119,9 +125,11 @@ def comparison(root: Path) -> dict[str, Any]:
             evidence = "reports/research/audit.json"
         else:
             launch = track(root / "reports/robustness/runs" / f"{cell['cell_id']}.launch.json")
-            verify_seed_launch(root, launch)
+            earlier = cell["window"] != plan["reference_window"]
+            (verify_window_launch if earlier else verify_seed_launch)(root, launch)
             verification = track(directory / "verification_launch.json")
-            verify_verification_launch(root, verification)
+            verifier = verify_window_verification if earlier else verify_verification_launch
+            verifier(root, verification)
             require(verification["training_launch"] == launch, "verification launch differs")
             audit = track(directory / "robustness_audit/report.json")
             status = track(directory / "robustness_audit/job_status.json")
@@ -148,6 +156,27 @@ def comparison(root: Path) -> dict[str, Any]:
                 "replication uses a different reference audit",
             )
             require(set(inputs["files"]) == PAYLOADS, "audit payload inventory differs")
+            if earlier:
+                require(
+                    set(inputs["window_inputs"]) == set(INPUT_REPORTS),
+                    "window input inventory differs",
+                )
+                for name, expected in inputs["window_inputs"].items():
+                    require(
+                        digest(directory / name) == expected, "window input checksum differs"
+                    )
+                    track(directory / name)
+                source = original_source(root)["parts"]
+                require(
+                    audit["source"]["source_identity_sha256"] == fingerprint(source)
+                    and audit["source"]["source_partitions"] == len(source)
+                    and all(v == 0 for v in audit["source"]["differences"].values()),
+                    "fresh original-event audit differs",
+                )
+                require(
+                    audit["preparation"]["files"] == inputs["window_inputs"],
+                    "audited window preparation differs",
+                )
             for name, expected in inputs["files"].items():
                 require(digest(directory / name) == expected, "audited payload checksum differs")
                 track(directory / name)
