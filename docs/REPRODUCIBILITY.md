@@ -36,6 +36,29 @@ three actual native LightGBM models, scores real example candidate features, wri
 own CSV and checks exact agreement with the full prediction run. This small replay does
 not rerun historical graph construction or prove full-dataset runtime by itself.
 
+## Rebuild the README and case-study figures
+
+The seven public figures use Plotly and the same locked analysis environment as the
+notebooks. They read the verified research reports; they do not fit models or rerun
+full inference. With the analysis environment above installed:
+
+```bash
+/tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py
+/tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
+```
+
+The builder writes SVG previews, Plotly JSON definitions, an interactive HTML report,
+and a checksum receipt under `reports/portfolio/`. The HTML report includes its Plotly library and
+works offline; it does not need Python or cloud access.
+`--check` verifies the evidence and generator identities, every output checksum,
+exact chart values, and the HTML report. It fails on stale or modified artifacts.
+
+The CI `portfolio` job uses the locked environment, verifies the committed report,
+and generates fresh SVG and PNG previews as a downloadable `portfolio-figures` artifact.
+The PNGs are review outputs; SVG and HTML are the published presentation formats.
+Generated reports are excluded from GitHub's source-language statistics through
+`.gitattributes`. Notebook and Python source remain ordinary source files.
+
 ## Rebuild the controlled study
 
 Obtain the official OTTO data and run the repository's streaming conversion workflow.
@@ -113,6 +136,7 @@ precede receipts; workspace locks reject duplicate writers. Tests exercise corru
 checkpoints, missing parts, interruption and exact reuse on real small fitted models.
 
 On `results/` branches, CI first passes the project, neural and notebook jobs. A restricted
-publisher reruns and verifies all notebooks, then commits only canonical notebook outputs
-and `notebooks/execution.json`. It refuses to overwrite a concurrently advanced branch.
+publisher builds and verifies the portfolio figures, then executes all notebooks against
+that exact published evidence. It stages only the canonical notebook outputs,
+`notebooks/execution.json`, and the explicitly allowed files under `reports/portfolio/`. It refuses to overwrite a concurrently advanced branch.
 The final results PR must pass checks at its published head before merging to `main`.

@@ -106,7 +106,12 @@ def style(fig: Any, title: str, subtitle: str, *, height: int = 470, left: int =
         template="plotly_white",
         width=1120,
         height=height,
-        title={"text": f"<b>{title}</b><br><sup>{subtitle}</sup>", "x": 0.03, "y": 0.96},
+        title={
+            "text": f"<b>{title}</b><br><sup>{subtitle}</sup>",
+            "x": 0.03,
+            "y": 0.96,
+            "yanchor": "top",
+        },
         font={"family": "Arial, sans-serif", "size": 17, "color": "#172B4D"},
         paper_bgcolor="white",
         plot_bgcolor="white",
@@ -414,7 +419,11 @@ def make_charts(data: dict[str, Any]) -> list[Chart]:
     fig = go.Figure(
         go.Scatter(
             x=values,
-            y=[f"{r['Observed events']} events · {r['Sessions']:,} sessions" for r in rows],
+            y=[
+                f"{r['Observed events']} {'event' if r['Observed events'] == '1' else 'events'}"
+                f" · {r['Sessions']:,} sessions"
+                for r in rows
+            ],
             mode="markers+text",
             marker={"color": COLORS["selected"], "size": 15},
             text=[f"{v:+.3f} pp" for v in values],
@@ -463,10 +472,11 @@ def html_report(charts: list[Chart]) -> str:
     sections = []
     for index, chart in enumerate(charts):
         fig = importlib.import_module("plotly.graph_objects").Figure(chart.figure)
-        fig.update_layout(width=None, autosize=True)
+        subtitle = str(fig.layout.title.text).split("<br>", 1)[1]
+        fig.update_layout(width=None, autosize=True, title={"text": subtitle}, margin={"t": 75})
         fragment = fig.to_html(
             full_html=False,
-            include_plotlyjs="cdn" if index == 0 else False,
+            include_plotlyjs=index == 0,
             div_id=f"otto-{chart.name}",
             config={"responsive": True, "displaylogo": False, "scrollZoom": False},
         )
@@ -500,7 +510,7 @@ and examine where the model helps. Hover for values, click a legend to compare m
 and use each chart's toolbar to zoom or export an image. Exact values are also available
 as accessible tables.</p><p><strong>Scope:</strong> 432,492 temporal evaluation sessions;
 selection and diagnostic cohorts are labeled separately. These are offline results.
-The report loads its versioned Plotly library from the internet; it needs no Python,
+The report includes its Plotly library; it needs no internet connection, Python,
 dataset download or AWS account.</p>""" + (
         f"<p><a href='{REPOSITORY}'>Repository</a> · "
         f"<a href='{REPOSITORY}/blob/main/docs/PORTFOLIO.md'>Full case study</a> · "
