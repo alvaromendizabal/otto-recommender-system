@@ -244,8 +244,8 @@ offline experiment and complete batch output; online business impact and state-o
 performance have not been measured.
 
 The active research extension repeats the frozen comparison across **three temporal
-windows and three model seeds**. **Four of nine planned cells are now verified:**
-all three reference seeds and the first early-window seed. The original headline
+windows and three model seeds**. **Five of nine planned cells are now verified:**
+all three reference seeds and two early-window seeds. The original headline
 result remains unchanged.
 
 The first earlier-period check evaluates **562,504 reserved sessions**. The selected
@@ -258,13 +258,13 @@ fitting-only feature screen.
 
 [Explore the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb)
 · [Read the method, tradeoffs and audit](docs/ROBUSTNESS.md#first-early-window-result).
-One early seed cannot establish that window's seed stability. The remaining
+Two early seeds now show gains of +2.180 and +2.112 percentage points; the third is being audited. The remaining
 runs now use a managed queue with up to three simultaneous steps. Later middle
 seeds wait for the first middle seed's preparation and independent audit.
 The [completion roadmap](docs/ROADMAP.md) records the scheduling amendment,
 monitor command, remaining deliverables, and measured runtime estimates.
 
-There are **four of nine audited validation cells** and **zero valid full
+There are **five of nine audited validation cells** and **zero valid full
 competition submissions** following the source invalidation. The remaining
 validation jobs, replacement inference, planned 50-file collection, and final
 release are separate milestones; launched work does not count as a result.

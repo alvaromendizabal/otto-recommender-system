@@ -1,0 +1,19 @@
+{
+  "code_sha256": "958e1ecbaa4d66191c33c2b96f40aa08418efb47ef82b56e035d172c2c5b61ea",
+  "config": {
+    "candidate_budgets": [
+      100,
+      200,
+      400
+    ],
+    "history_tail": 30,
+    "neighbors_per_score": 40,
+    "position_window": 3,
+    "source_partitions": 32,
+    "time_window_hours": 24
+  },
+  "duckdb": "1.5.5",
+  "history_end": 1660687200000,
+  "history_sha256": "44588667abbc33df019efa59cf650c9346364f90d52b660a56091b0626bc5c58",
+  "query_labels_used": false
+}

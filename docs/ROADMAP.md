@@ -30,7 +30,7 @@ not count as a verified research result.
 
 | Workstream | Current evidence | Completion requirement |
 |---|---|---|
-| Frozen robustness study | Four of nine cells audited: all reference seeds and early seed 20260908 | All nine planned window/seed cells audited, with every outcome retained |
+| Frozen robustness study | Five of nine cells audited: all reference seeds and early seeds 20260908/20260909 | All nine planned window/seed cells audited, with every outcome retained |
 | Valid Kaggle submission | First score invalidated by confirmed test-target contamination | Regenerate using official truncated prefixes, validate, submit and record the replacement score |
 | Submission collection | Zero valid competition files after source invalidation | 50 distinct validated files, each linked to its model or ensemble recipe and content hash |
 | Research narrative | Executed notebooks, Plotly figures, reference model card and case study | Update conclusions using the completed temporal comparisons and show the remaining limitations |
@@ -38,7 +38,7 @@ not count as a verified research result.
 
 The early window's **seed 20260908 is complete and audited**. Early seed
 20260909 started at 20:17 UTC on September 9, completed training and evaluation
-at 21:00 UTC, and entered its separate audit at 21:02 UTC. At 20:36 UTC the managed remaining
+at 21:00 UTC, and passed its separate audit at 21:13 UTC. At 20:36 UTC the managed remaining
 queue started early seed 20260910 and middle seed 20260908 concurrently. The
 other middle seeds depend on the first middle seed's independent audit; each
 training run has its own audit step. Shared preparation is reused without

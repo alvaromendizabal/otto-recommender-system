@@ -178,6 +178,34 @@ def project_status(root: Path) -> dict[str, Any]:
             "gain_ci95": point["weighted_incremental_ci95"],
         }
     result.update(research_status(root))
+    comparison_path = root / "reports/robustness/comparison.json"
+    if comparison_path.is_file():
+        from otto_recsys.research.robustness_report import comparison as verified_comparison
+
+        verified = verified_comparison(root)
+        if json.loads(comparison_path.read_text()) != verified:
+            raise ValueError("Published temporal comparison differs from audited evidence")
+        result["temporal_validation"] = (
+            f"{verified['verified_cells']}/{verified['planned_cells']} independently audited"
+        )
+        result["next_task"] = (
+            "Complete the queued temporal audits, publish the official-prefix prediction, "
+            "then complete the submission collection and final release."
+        )
+    submission_path = root / "reports/submissions/kaggle_submission.json"
+    if submission_path.is_file():
+        submission = json.loads(submission_path.read_text())
+        if (submission.get("valid_competition_evaluation") is False
+                and result.get("prediction_sha256") == submission["prediction"]["sha256"]):
+            result.update(
+                competition_prediction="invalidated: full test sessions included future events",
+                kaggle_submission="initial score invalidated; official-prefix replacement pending",
+                next_task=(
+                    "Finish the queued temporal audits and validate the replacement inference "
+                    "before submitting the corrected file. "
+                    "The 50-file collection and release remain."
+                ),
+            )
     return result
 
 
@@ -211,8 +239,10 @@ def main() -> int:
             "kaggle_submission",
             "controlled_research",
             "competition_prediction",
+            "temporal_validation",
         ):
-            print(f"{key}={result[key]}")
+            if key in result:
+                print(f"{key}={result[key]}")
         if "ranking_weighted_recall_at_20" in result:
             print(
                 f"Ranked weighted Recall@20: {result['ranking_weighted_recall_at_20']:.6f}; "

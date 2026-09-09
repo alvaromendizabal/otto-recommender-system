@@ -1,8 +1,9 @@
 {
+  "audit_evidence": "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json",
   "audit_run_evidence": "reports/robustness/runs/early_seed_20260909.audit.json",
-  "audit_status": "running",
+  "audit_status": "passed",
   "cell_id": "early_seed_20260909",
-  "counted_as_verified": false,
+  "counted_as_verified": true,
   "job": {
     "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-robust-early-20260909-d5c29663"
   },
@@ -27,7 +28,7 @@
   "schema_version": 1,
   "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
   "source_sha256": "d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a",
-  "status": "audit_running",
+  "status": "verified",
   "verified_uploads": [
     {
       "head": {
