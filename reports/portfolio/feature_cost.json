@@ -844,7 +844,7 @@
     "title": {
       "text": "<b>Compute only the features the selected model needs</b><br><sup>Matched warm benchmark · 64 queries · same process and hardware</sup>",
       "x": 0.03,
-      "y": 0.96,
+      "y": 0.9137254901960784,
       "yanchor": "top"
     },
     "width": 1120,

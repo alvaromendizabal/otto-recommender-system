@@ -838,7 +838,7 @@
     "title": {
       "text": "<b>The overall gain is uneven across shopping sessions</b><br><sup>Reserved evaluation · grouped by observed prefix length</sup>",
       "x": 0.03,
-      "y": 0.96,
+      "y": 0.9063829787234042,
       "yanchor": "top"
     },
     "width": 1120,
