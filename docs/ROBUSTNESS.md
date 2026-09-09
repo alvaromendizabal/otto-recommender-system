@@ -8,9 +8,9 @@ before any new replication is trained.
 
 ## Three verified reference seeds
 
-Three of the nine planned cells are verified: the original reference and both
-planned new model seeds on the same reference window. Each evaluates all **432,492 reserved
-sessions**, after fitting eight feature configurations and three task rankers.
+All three reference-window seeds are verified: the original and both planned
+new model seeds. Each evaluates all **432,492 reserved sessions**, after fitting
+eight feature configurations and three task rankers.
 
 | Model seed | Selected | Compact control | Candidate fusion | Gain over compact | Paired 95% interval |
 |---|---:|---:|---:|---:|---:|
@@ -52,7 +52,93 @@ The final reference seed's
 [execution receipt](../reports/robustness/runs/reference_seed_20260910.json)
 records completed training and the separate completed verification job. Verification
 reused the saved checkpoints without retraining. This closes the reference-seed
-milestone; the early and middle windows remain unmeasured.
+milestone. The first early-window result is described below.
+
+## First early-window result
+
+The early window evaluates **562,504 reserved sessions** from August 20–22, 2022
+(22:00 UTC boundaries), using history ending August 16 at 22:00 UTC. Its fitting
+and selection cohorts contain 100,000 and 20,000 sessions. The historical
+retrieval and fitting-only feature screen were rebuilt for this window.
+
+| Early window · seed 20260908 | Weighted Recall@20 | Gain over comparator | Paired 95% gain interval |
+|---|---:|---:|---:|
+| Selected representation | **0.566897** | — | — |
+| Compact control | 0.545094 | **+2.180 pp** | **+2.082 to +2.286 pp** |
+| Candidate fusion | 0.516428 | +5.047 pp | +4.848 to +5.234 pp |
+
+The gain is the selected model's score minus the comparator's score. For example,
+0.566897 − 0.545094 ≈ 0.021804, or **2.180 percentage points**. This is an offline
+recommendation metric; it does not estimate conversion or revenue lift.
+
+Per-action Recall@20 makes the tradeoff visible:
+
+| Action | Selected | Compact control | Candidate fusion | Selected minus compact | Selected minus fusion |
+|---|---:|---:|---:|---:|---:|
+| Clicks | 0.507496 | 0.455046 | 0.526940 | +5.245 pp | −1.944 pp |
+| Carts | 0.417017 | 0.396951 | 0.418439 | +2.007 pp | −0.142 pp |
+| Orders | 0.651737 | 0.634173 | 0.563670 | +1.756 pp | +8.807 pp |
+
+**What this means:** the feature gain also appears in this earlier period, and
+all three objectives improve against their matched compact controls. Candidate
+fusion retains higher click and cart recall. Stronger order recall drives the
+selected pipeline's overall advantage over fusion under the competition's
+0.1/0.3/0.6 action weights. These tradeoffs remain part of the result.
+
+The earlier score must not be compared directly with the reference score as if
+both used the same sessions. Each window has its own matched controls. Only one
+early seed is complete, so there is no early-window seed range yet. The three
+reference seeds and this first early seed are **four of nine planned cells**;
+two early seeds and all three middle seeds remain. The original reference model
+remains the headline model and the full-competition submission is unchanged.
+
+### How this window chose its features
+
+The screen evaluated all **1,482 candidate formulas** on **513,889 candidate rows
+from 8,448 fitting sessions**, using nine grouped fitting-only pilots. It retained
+128 features before the eight controlled ablations. Selection then chose
+`without_source` for clicks, carts and orders, using **101 features** for each.
+The compact control used 28 retained core features.
+
+| Family | Retained by the fitting-only screen | Used by the selected rankers |
+|---|---:|---:|
+| History | 50 | 50 |
+| Context | 19 | 19 |
+| Repeat behavior | 21 | 21 |
+| Graph structure | 7 | 7 |
+| Interactions | 4 | 4 |
+| Retrieval source signals | 27 | 0 |
+| **Total** | **128** | **101** |
+
+The reference window selected 102 features. This difference is expected: the
+protocol freezes the feature catalog and selection procedure, while each
+window's fitting data determines its retained schema. The source feature family
+is removed at ranking time; the historical retrieval sources still generate
+the candidate pool.
+
+| Selection-stage configuration | Features | Weighted Recall@20 on 20,000 selection sessions |
+|---|---:|---:|
+| Compact control | 28 | 0.546766 |
+| All screened features | 128 | 0.552680 |
+| Without context | 109 | 0.548917 |
+| Without graph | 121 | 0.551309 |
+| Without history | 78 | 0.546704 |
+| Without interactions | 124 | 0.551530 |
+| Without repeat behavior | 107 | 0.548005 |
+| **Without source signals** | **101** | **0.570206** |
+
+These are **selection scores**, kept separate from the reserved evaluation
+above. Model choice was sealed before evaluation labels were opened. All eight
+configurations and 24 native rankers are retained, including less successful
+ablations.
+
+The [early-window audit](../reports/robustness/cells/early_seed_20260908/robustness_audit/report.json)
+and [execution receipt](../reports/robustness/runs/early_seed_20260908.json) link
+the complete evaluation to its source bytes, feature screen, model selection and
+saved native models. The separate audit reconstructs prefixes and labels from
+all 217 original Parquet partitions, checks every evaluation part, replays 256
+sessions, and reproduces both 1,000-resample paired intervals. The original raw
+JSONL-to-Parquet conversion is not rerun by this audit.
 
 ## What stays fixed
 
@@ -195,13 +281,13 @@ cannot reuse the reference window's original-event reconstruction.
 `scripts/verify_robustness.py` checks the completed training identity, frozen data,
 all eight selection comparisons and all 24 native models. It recomputes the
 official metrics from every reserved-session statistic, replays 256 deterministic
-sessions, and reproduces both 1,000-sample paired bootstrap comparisons. A separate
+sessions, and reproduces both 1,000-sample paired bootstrap comparisons. For additional reference-window seeds, a separate
 prediction probe compares actual top-20 item IDs with the original models;
 different model-file headers alone do not demonstrate prediction diversity.
 
-The original event reconstruction is reusable only because the reference corpus
-and historical retrieval identities remain unchanged. This verification records
-that reuse explicitly. Earlier temporal windows require their own source audit.
+For the reference window, the original event reconstruction is reusable because
+its corpus and historical retrieval identities remain unchanged. Those verification
+receipts record that reuse explicitly. Earlier temporal windows require their own source audit.
 An AWS verification job has a separate status receipt and a 30-minute runtime
 limit; it preserves the original training status. Verified evidence can be reused
 after its inputs and integrity are checked again.
@@ -223,11 +309,11 @@ metrics for Notebook 09. It does not substitute for the full managed verificatio
 
 ## Remaining milestones
 
-1. Build historically valid corpus, retrieval and screening artifacts for the
-   early window. Start with seed 20260908 and audit it before the other two seeds.
-   Each delivery ends with its evidence committed and required GitHub checks passing.
-2. Complete the early window's remaining seeds, then repeat the same bounded
-   sequence for the middle window. Earlier windows require fresh source reconstruction.
+1. Run early-window seeds **20260909 and 20260910**, reusing the verified
+   window preparation after its contracts and bytes are checked. Audit each result
+   and end each delivery with committed evidence and passing GitHub checks.
+2. Build the middle window's own historical retrieval and fitting-only screen,
+   then run and audit its three frozen seeds. Its source reconstruction must be fresh.
 3. Publish the complete nine-cell comparison, including unfavorable outcomes,
    per-objective tradeoffs, seed ranges and temporal differences. Update the
    model card and portfolio conclusions to match the full evidence.

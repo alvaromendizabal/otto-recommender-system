@@ -3,6 +3,152 @@
   "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
   "rows": [
     {
+      "audit_evidence": "reports/robustness/cells/early_seed_20260908/robustness_audit/report.json",
+      "audit_id": "177a692d0b03a7f111125276686424e21e0617d76d9867b07e147656b83d66d1",
+      "cell_id": "early_seed_20260908",
+      "chosen": {
+        "carts": "without_source",
+        "clicks": "without_source",
+        "orders": "without_source"
+      },
+      "cohort_seed": 20260908,
+      "model_seed": 20260908,
+      "paired_intervals": {
+        "core": {
+          "absolute_gain": 0.021803521475114995,
+          "gain_interval": [
+            0.0208174117834677,
+            0.02285703109667492
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5668970359457486,
+          "score_interval": [
+            0.5639548281038034,
+            0.5699726038193114
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        },
+        "fusion": {
+          "absolute_gain": 0.05046892664401681,
+          "gain_interval": [
+            0.048482608094965476,
+            0.052344216523459774
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5668970359457486,
+          "score_interval": [
+            0.5639548281038034,
+            0.5699726038193114
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        }
+      },
+      "prediction_comparison": null,
+      "scores": {
+        "core": {
+          "objectives": {
+            "carts": {
+              "denominator": 175072,
+              "hit_rate": 0.6317168532885714,
+              "hits": 69495,
+              "mrr": 0.49143240161915064,
+              "ndcg": 0.4617783598480309,
+              "recall_at_20": 0.3969509687442881
+            },
+            "clicks": {
+              "denominator": 542826,
+              "hit_rate": 0.4550463684495584,
+              "hits": 247011,
+              "mrr": 0.2960302836953007,
+              "ndcg": 0.33282118704927893,
+              "recall_at_20": 0.4550463684495584
+            },
+            "orders": {
+              "denominator": 106635,
+              "hit_rate": 0.8281194287537298,
+              "hits": 67625,
+              "mrr": 0.7056479222653291,
+              "ndcg": 0.6601685113456236,
+              "recall_at_20": 0.6341726450039855
+            }
+          },
+          "weighted_recall_at_20": 0.5450935144706336
+        },
+        "fusion": {
+          "objectives": {
+            "carts": {
+              "denominator": 175072,
+              "hit_rate": 0.654725594153651,
+              "hits": 73257,
+              "mrr": 0.18881062221108513,
+              "ndcg": 0.2535529347469035,
+              "recall_at_20": 0.4184392707000548
+            },
+            "clicks": {
+              "denominator": 542826,
+              "hit_rate": 0.5269404929019612,
+              "hits": 286037,
+              "mrr": 0.1771623771566608,
+              "ndcg": 0.2568336933329196,
+              "recall_at_20": 0.5269404929019612
+            },
+            "orders": {
+              "denominator": 106635,
+              "hit_rate": 0.818736277140766,
+              "hits": 60107,
+              "mrr": 0.2593252706593291,
+              "ndcg": 0.32733866554616897,
+              "recall_at_20": 0.5636704646691987
+            }
+          },
+          "weighted_recall_at_20": 0.5164281093017318
+        },
+        "selected": {
+          "objectives": {
+            "carts": {
+              "denominator": 175072,
+              "hit_rate": 0.6543264211582158,
+              "hits": 73008,
+              "mrr": 0.49356516600397393,
+              "ndcg": 0.4686858507107755,
+              "recall_at_20": 0.4170169987205264
+            },
+            "clicks": {
+              "denominator": 542826,
+              "hit_rate": 0.5074959563469694,
+              "hits": 275482,
+              "mrr": 0.3146777974335998,
+              "ndcg": 0.3583962842091111,
+              "recall_at_20": 0.5074959563469694
+            },
+            "orders": {
+              "denominator": 106635,
+              "hit_rate": 0.8424381181151125,
+              "hits": 69498,
+              "mrr": 0.7206662960039775,
+              "ndcg": 0.6747800154613202,
+              "recall_at_20": 0.6517372344914897
+            }
+          },
+          "weighted_recall_at_20": 0.5668970359457486
+        }
+      },
+      "selected_features": {
+        "carts": 101,
+        "clicks": 101,
+        "orders": 101
+      },
+      "sessions": 562504,
+      "status": "verified",
+      "window": "early"
+    },
+    {
       "audit_evidence": "reports/research/audit.json",
       "audit_id": "5e3a177008f2431d2c989045dc3a10b6bc51ed5bfdb04c2317bb2d20925afb61",
       "cell_id": "reference_seed_20260908",
@@ -500,6 +646,29 @@
     "reports/research/evaluation.json": "3765e11e9c77ef60a3209a4783fc61d6a480e7b4211d5379e3e6157201b9863a",
     "reports/research/evaluation_seal.json": "3a4f0c824b1eff12376c6c3c016fd3791b64267246504cba2a42da1f4755f7e0",
     "reports/research/manifest.json": "8815c13397ce7bef1fb791dd6d2b37ad5efc348d24a34918d7f6f6c8f4d0f5df",
+    "reports/research/temporal_contract.json": "5a50f09ac6457698d87f129a1cccbc11b1c3e69ddebd5f84ac19a852723db5ab",
+    "reports/robustness/cells/early_seed_20260908/corpus/contract.json": "1b574cb19d052689533b4b31275ef8630de00df841c2083a2161fc4d32d4a554",
+    "reports/robustness/cells/early_seed_20260908/corpus/manifest.json": "8bcb4ac86757df13d0a7bfe89f74ef775bfb71c28d052b3b92490915d34a465a",
+    "reports/robustness/cells/early_seed_20260908/evaluation/contract.json": "60fc4555501948bcc209f657e04162177afcab7ad8aa6280471ccc28a3dccbfd",
+    "reports/robustness/cells/early_seed_20260908/evaluation/report.json": "40c6bc195901d034b0173e2bde0021c804bc0ef6f1bbb69f6a0154ed1d726728",
+    "reports/robustness/cells/early_seed_20260908/evaluation_seal.json": "fbeb5870a0d323c9bcfca4779808056e61dbc354e2e1297b61c361cdd1aac0e9",
+    "reports/robustness/cells/early_seed_20260908/fit_cache/contract.json": "9d742e143fec0b2d35f6cfc0b6ced7938f09d6b58765287ec05e6740e5c96d01",
+    "reports/robustness/cells/early_seed_20260908/fit_cache/manifest.json": "d6b8c3bef942302971fdf2966abdc93c6a7c264d79c58605712bd3eaca5d4cd3",
+    "reports/robustness/cells/early_seed_20260908/job_status.json": "c306342f3b918efa9cb6dec2c2dbefad25b1ddf44194e498f8cd463ea8abdf05",
+    "reports/robustness/cells/early_seed_20260908/models/ablation_report.json": "7187f73e549345499abb7b281b0896ffecc3fc7c0649d04208e45e553f4c6b90",
+    "reports/robustness/cells/early_seed_20260908/models/study_contract.json": "f89f6d70777afd0bd6c9fd23cb00c591d8c2a3263b2fa497b24f5f6bda0bed9a",
+    "reports/robustness/cells/early_seed_20260908/preparation.json": "d042b8dc715e93072aa518b1393746845e9891fdeb3b3dc76fa457d9e2c788b8",
+    "reports/robustness/cells/early_seed_20260908/retrieval/contract.json": "a36faba8290ae4b29c261de4935a07fdf62f0fa3c6306a90aedaa871efebe235",
+    "reports/robustness/cells/early_seed_20260908/retrieval/manifest.json": "62a6f5bea81bde20c6b15b93e5cb1ee608031721d5b6633f79e2b23ecd75feab",
+    "reports/robustness/cells/early_seed_20260908/robustness_audit/job_status.json": "d6812d3109f3e84207733a86c19a076c11cd5d4c75c3e52e8dbf421e1de2c3a7",
+    "reports/robustness/cells/early_seed_20260908/robustness_audit/report.json": "e344943bc6357867983d626bcca62338ee981a5108e519b4f214633dabbd4f08",
+    "reports/robustness/cells/early_seed_20260908/screening/contract.json": "4967488cccdff296a65fa46e9dd96643daa468b7e62b1c20c76e14c406c0385d",
+    "reports/robustness/cells/early_seed_20260908/screening/selection.json": "bdb6761ce813d80daaa1d2469da83a260fdfe88d1ac2b03e1ff4e60e670d9011",
+    "reports/robustness/cells/early_seed_20260908/screening_cache/contract.json": "c1bd770ddc237315fea4f58807db264ee2ebff9146470b6f619d0f85e014c4ee",
+    "reports/robustness/cells/early_seed_20260908/screening_cache/manifest.json": "9add19e4cb384fb5f3b51c17ea4fea9932e2020b2a6e51866691a46cc1ccc6c8",
+    "reports/robustness/cells/early_seed_20260908/selection_cache/contract.json": "93e55a9bf2ca6abfc1313bf27f8fd65124123ceeb76f271eba112135853e0ad5",
+    "reports/robustness/cells/early_seed_20260908/selection_cache/manifest.json": "7ea5dce4a71a454e01f7495501d90facf7e3462e031cb0cac3b8eb6cf66a0b23",
+    "reports/robustness/cells/early_seed_20260908/verification_launch.json": "da3d04206d39f9bfc441e996cbf2d17f2712b54d756e674e33fce7537e49624e",
     "reports/robustness/cells/reference_seed_20260909/evaluation/contract.json": "c0849006f35b7abdb912c7df660cb018790bf16bd5bcfa01400f8150387fa678",
     "reports/robustness/cells/reference_seed_20260909/evaluation/report.json": "16b7245d0de1f66eb7cea6437484da17d8a39a1fe62c397fe462c725fd2faf4d",
     "reports/robustness/cells/reference_seed_20260909/evaluation_seal.json": "260ce7053b2049f4c267c1425bc435067c634509bb200da8d5b79162bc3e3369",
@@ -518,9 +687,11 @@
     "reports/robustness/cells/reference_seed_20260910/robustness_audit/job_status.json": "3e4ffcba534accfc9b67c2d67124a090b77e8b164672adc3ee5b16875422d41a",
     "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json": "05d35b652e51ebff91205cda6087678bbf22ca39d41d1b977c49883dc3277427",
     "reports/robustness/cells/reference_seed_20260910/verification_launch.json": "60808943d01a4a551186c9eb7dc72c9994a03ce1d6678fd8bc6b25b399a1dcda",
+    "reports/robustness/runs/early_seed_20260908.launch.json": "bcc55315779fcdab633d62953192fd1ef444eb752a1878741141b51fcc644afc",
     "reports/robustness/runs/reference_seed_20260909.launch.json": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
-    "reports/robustness/runs/reference_seed_20260910.launch.json": "639c5aef78be81559525e0630d82edadd8a75fa7040b69460c9aba7cd4f2fe8a"
+    "reports/robustness/runs/reference_seed_20260910.launch.json": "639c5aef78be81559525e0630d82edadd8a75fa7040b69460c9aba7cd4f2fe8a",
+    "reports/robustness/source_inventory.json": "5fad30ecb3cfddd7b56b410750a6db380f235430461c2eee672c33ef7424f6d0"
   },
-  "verified_cells": 3,
-  "verified_windows": 1
+  "verified_cells": 4,
+  "verified_windows": 2
 }

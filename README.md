@@ -229,18 +229,26 @@ they are not direct comparisons with the headline result. The work establishes a
 offline experiment and complete batch output; online business impact and state-of-the-art
 performance have not been measured.
 
-The highest-value research extension is to repeat the frozen comparison across **additional
-temporal cohorts and training seeds**, then test a predeclared action-specific hybrid on a
-new selection/evaluation split. This would address stability and the observed click/cart
-tradeoffs without using the current evaluation cohort to choose a new winner.
+The active research extension repeats the frozen comparison across **three temporal
+windows and three model seeds**. **Four of nine planned cells are now verified:**
+all three reference seeds and the first early-window seed. The original headline
+result remains unchanged.
 
-The [robustness protocol](docs/ROBUSTNESS.md) now freezes three temporal windows and
-three model seeds. **All three reference seeds are verified: three of nine planned cells.**
-On the same reference window, the feature gain repeats at **+1.949, +2.022 and +2.031
-percentage points** over the matched
-compact control. [See the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb).
-All three seeds select the same 102-feature configuration for all three tasks.
-Earlier-window comparisons remain pending; the headline above remains the original
-verified result. There is **one validated full submission file**; the
+The first earlier-period check evaluates **562,504 reserved sessions**. The selected
+representation scores **0.566897**, versus **0.545094** for its matched compact control:
+a **+2.180 percentage-point gain**, with a paired 95% interval of **+2.082 to +2.286 points**.
+It improves all three actions against that control, while candidate fusion still has
+higher click and cart recall. The three reference-seed gains remain **+1.949, +2.022
+and +2.031 points**. Each temporal window uses its own historical retrieval and
+fitting-only feature screen.
+
+[Explore the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb)
+· [Read the method, tradeoffs and audit](docs/ROBUSTNESS.md#first-early-window-result).
+One early seed cannot establish that window's seed stability. The next steps are its
+two remaining seeds, then the three middle-window seeds; every planned outcome will
+be retained. The [completion roadmap](docs/ROADMAP.md) separates this research work
+from the remaining delivery work.
+
+There is **one validated full submission file**. The
 [planned collection of 50 distinct files](docs/ROBUSTNESS.md#path-to-50-submission-files)
 and Kaggle scoring remain open delivery steps.
