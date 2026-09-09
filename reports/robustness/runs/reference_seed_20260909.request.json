@@ -1,0 +1,106 @@
+{
+  "AppSpecification": {
+    "ContainerEntrypoint": [
+      "python3",
+      "/opt/ml/processing/input/bootstrap/processing_research.py"
+    ],
+    "ImageUri": "763104351884.dkr.ecr.us-west-2.amazonaws.com/pytorch:2.13.0-cu133-amzn2023-sagemaker"
+  },
+  "Environment": {
+    "PYTHONUNBUFFERED": "1"
+  },
+  "ProcessingInputs": [
+    {
+      "AppManaged": false,
+      "InputName": "bootstrap",
+      "S3Input": {
+        "LocalPath": "/opt/ml/processing/input/bootstrap",
+        "S3DataDistributionType": "FullyReplicated",
+        "S3DataType": "S3Prefix",
+        "S3InputMode": "File",
+        "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/source/c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da/processing_research.py"
+      }
+    },
+    {
+      "AppManaged": false,
+      "InputName": "launch",
+      "S3Input": {
+        "LocalPath": "/opt/ml/processing/input/launch",
+        "S3DataDistributionType": "FullyReplicated",
+        "S3DataType": "S3Prefix",
+        "S3InputMode": "File",
+        "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/source/c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da/launch.json"
+      }
+    },
+    {
+      "AppManaged": false,
+      "InputName": "source",
+      "S3Input": {
+        "LocalPath": "/opt/ml/processing/input/source",
+        "S3DataDistributionType": "FullyReplicated",
+        "S3DataType": "S3Prefix",
+        "S3InputMode": "File",
+        "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/source/c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da/source.tar.gz"
+      }
+    },
+    {
+      "AppManaged": false,
+      "InputName": "corpus",
+      "S3Input": {
+        "LocalPath": "/opt/ml/processing/input/corpus",
+        "S3DataDistributionType": "FullyReplicated",
+        "S3DataType": "S3Prefix",
+        "S3InputMode": "File",
+        "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/corpus/"
+      }
+    },
+    {
+      "AppManaged": false,
+      "InputName": "retrieval",
+      "S3Input": {
+        "LocalPath": "/opt/ml/processing/input/retrieval",
+        "S3DataDistributionType": "FullyReplicated",
+        "S3DataType": "S3Prefix",
+        "S3InputMode": "File",
+        "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/inputs/b97de51afbbb4c3645bd2338baa2c3b1bfa12aef3f8ad00d558b8f11ef4f6a3a/parts/"
+      }
+    },
+    {
+      "AppManaged": false,
+      "InputName": "model",
+      "S3Input": {
+        "LocalPath": "/opt/ml/processing/input/model",
+        "S3DataDistributionType": "FullyReplicated",
+        "S3DataType": "S3Prefix",
+        "S3InputMode": "File",
+        "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/model-inputs/2886a9b11170c1366b0bddf751b64621d678b9b756f2951ddebdfa78ce9ba1da/model_inputs.tar"
+      }
+    }
+  ],
+  "ProcessingJobName": "otto-robust-reference-20260909-c96c90d0",
+  "ProcessingResources": {
+    "ClusterConfig": {
+      "InstanceCount": 1,
+      "InstanceType": "ml.c7i.16xlarge",
+      "VolumeSizeInGB": 100
+    }
+  },
+  "RoleArn": "arn:aws:iam::560403859723:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
+  "StoppingCondition": {
+    "MaxRuntimeInSeconds": 7200
+  },
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "otto-recommender-system"
+    },
+    {
+      "Key": "ResearchProtocol",
+      "Value": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388"
+    },
+    {
+      "Key": "ResearchCell",
+      "Value": "reference_seed_20260909"
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import shutil
 import tempfile
@@ -33,6 +34,32 @@ class TestRobustnessProtocol(unittest.TestCase):
         self.assertEqual({c["cohort_seed"] for c in matrix}, {20260908})
         self.assertEqual(len(plan["variants"]), 8)
         self.assertEqual(reference["training"]["seed"], 20260908)
+
+    def test_published_progress_has_current_lineage_and_no_invented_pending_scores(self) -> None:
+        from otto_recsys.research.robustness import fingerprint
+
+        plan, _ = load_plan(ROOT)
+        progress = json.loads((ROOT / "reports/robustness/progress.json").read_text())
+        self.assertEqual(progress["protocol_id"], fingerprint(plan))
+        self.assertEqual(
+            {c["cell_id"] for c in progress["cells"]}, {c["cell_id"] for c in cells(plan)}
+        )
+        self.assertEqual(len(progress["cells"]), len(cells(plan)))
+        for cell in progress["cells"]:
+            if cell["status"] in {"planned", "running"}:
+                self.assertIsNone(cell["weighted_recall_at_20"])
+        runs = ROOT / "reports/robustness/runs"
+        for path in runs.glob("*.launch.json"):
+            launch = json.loads(path.read_text())
+            verify_seed_launch(ROOT, launch)
+            receipt = json.loads(path.with_name(path.name.replace(".launch", "")).read_text())
+            self.assertEqual(
+                receipt["launch_sha256"], hashlib.sha256(path.read_bytes()).hexdigest()
+            )
+            request = path.with_name(path.name.replace(".launch", ".request"))
+            self.assertEqual(
+                receipt["request_sha256"], hashlib.sha256(request.read_bytes()).hexdigest()
+            )
 
     def test_model_seed_changes_neither_cohorts_nor_negatives_nor_bootstrap(self) -> None:
         first, second = self.launch(), self.launch(20260910)

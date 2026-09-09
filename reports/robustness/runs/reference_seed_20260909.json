@@ -1,0 +1,93 @@
+{
+  "cell_id": "reference_seed_20260909",
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints",
+  "durable_training_evidence": {
+    "listed_objects": 76,
+    "listing_observed_at_utc": "2026-09-09T02:55:36.096025+00:00",
+    "observed_at_utc": "2026-09-09T02:56:11.393203+00:00",
+    "scope": "Intermediate training outputs observed with S3 HeadObject. Final selection and evaluation are still pending.",
+    "verified_native_models": [
+      {
+        "bytes": 7527,
+        "path": "models/core/carts/model.txt",
+        "sha256": "467c28930ac5c3f7b215324e527a3fbfbfa1f7576f7999ceafda8863c288411e",
+        "version_id": "iR.7IRH.zZkTjMcFBWlSpn7Zw5LaM20O"
+      },
+      {
+        "bytes": 7505,
+        "path": "models/core/clicks/model.txt",
+        "sha256": "9b6936d31384fcdfd38d72f80f5b4ae4ace676a6f22739066181f79e935e03b9",
+        "version_id": "qq41zSVvBex_HTHi3Y771mD09wbmrDoJ"
+      },
+      {
+        "bytes": 165485,
+        "path": "models/core/orders/model.txt",
+        "sha256": "daa79e416aec4a5eb1ad156c5fc4aa2a299c3e5e79fcbd1b88f076d535fcf4d2",
+        "version_id": "IwvUdMi2hPhSx4Nxm6ZBh8xaV1k3AxNi"
+      },
+      {
+        "bytes": 356568,
+        "path": "models/full/carts/model.txt",
+        "sha256": "097e9cd8cac3dc7eba6aa09e97568647932177a44a135cabb9ccc3b1672c5246",
+        "version_id": "9YG8y0h3vBCz5SqyHFBepsfE.JX6FYOH"
+      },
+      {
+        "bytes": 465006,
+        "path": "models/full/clicks/model.txt",
+        "sha256": "faaabe15f5a87ac01b5c51e5f491d255efb77f97079d2c390357fbebd76825a3",
+        "version_id": "5Horh1LmZ2HAkkDLUx99ea7oR0V1zDFs"
+      },
+      {
+        "bytes": 263607,
+        "path": "models/full/orders/model.txt",
+        "sha256": "6858c32f481315c4667f5713d5b34a447ffba41c6604c41c1bb75bcce9db4542",
+        "version_id": "fnNL_5_W9Y_ie7EPiAGdn4OolC.e8whg"
+      }
+    ]
+  },
+  "job": {
+    "CreationTime": "2026-09-09T02:47:30.752000+00:00",
+    "ProcessingJobName": "otto-robust-reference-20260909-c96c90d0",
+    "ProcessingJobStatus": "InProgress",
+    "ProcessingResources": {
+      "ClusterConfig": {
+        "InstanceCount": 1,
+        "InstanceType": "ml.c7i.16xlarge",
+        "VolumeSizeInGB": 100
+      }
+    },
+    "ProcessingStartTime": "2026-09-09T02:48:21.646000+00:00",
+    "StoppingCondition": {
+      "MaxRuntimeInSeconds": 7200
+    }
+  },
+  "job_observed_at_utc": "2026-09-09T02:55:10.026023+00:00",
+  "launch_sha256": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
+  "observed_at_utc": "2026-09-09T02:56:11.393203+00:00",
+  "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+  "request_sha256": "c35f841199fe28115f567de3e00751e638a405cdb1643485791a1c69f7cb5f8e",
+  "schema_version": 1,
+  "scope": "Point-in-time managed-job observation; this is not a completed evaluation.",
+  "source_commit": "b63b547c9b86ed868e809c4059d62b858822da1a",
+  "source_sha256": "c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da",
+  "verified_uploads": [
+    {
+      "bytes": 6986234,
+      "name": "source.tar.gz",
+      "sha256": "c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da",
+      "version_id": "RQn7wVJKOme4UOLfNihoYe1JSNITb9QJ"
+    },
+    {
+      "bytes": 6944,
+      "name": "processing_research.py",
+      "sha256": "9e723d3969473aaff815ad4e9e49b3d9f2a31f91781ff65d5f5c0ba6a36976c4",
+      "version_id": "DSyEjG2yPpoexvWelDtSTK3.ufSLtrCc"
+    },
+    {
+      "bytes": 3247,
+      "name": "launch.json",
+      "sha256": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
+      "version_id": "LSqxbCI.t8vxWspHOy3diO7JGRRtDdO1"
+    }
+  ]
+}

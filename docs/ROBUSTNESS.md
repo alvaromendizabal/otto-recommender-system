@@ -6,6 +6,15 @@ compact control. This extension tests how consistently that result repeats.
 The protocol is frozen in [configs/robustness.toml](../configs/robustness.toml)
 before any new replication is trained. **Replication results are pending.**
 
+The first reference-window replication was launched on 9 September 2026 using
+model seed 20260909. Its [saved job evidence](../reports/robustness/runs/reference_seed_20260909.json)
+records the verified source files, bounded resources and checkpoint destination.
+The [nine-cell progress snapshot](../reports/robustness/progress.json) distinguishes
+the completed original reference from running or planned replications. Notebook
+09 reads this snapshot and labels unmeasured scores as pending. Six completed
+native task models were already durable at the saved observation; the full
+eight-configuration comparison and reserved evaluation were still running.
+
 ## What stays fixed
 
 The comparison repeats the same research procedure: historical retrieval,
