@@ -100,6 +100,13 @@ def read_evidence(root: Path) -> dict[str, Any]:
         for stage in ("engineered", "screened", "final")
     ):
         raise ValueError("Feature family counts do not reconcile")
+    comparison = root / "reports/robustness/comparison.json"
+    if comparison.is_file():
+        data["robustness"] = json.loads(comparison.read_text())
+        for name, expected in data["robustness"]["source_files"].items():
+            path = (root / name).resolve()
+            if not path.is_relative_to(root.resolve()) or digest(path) != expected:
+                raise ValueError(f"Temporal comparison checksum mismatch: {name}")
     return data
 
 
@@ -458,6 +465,50 @@ def make_charts(data: dict[str, Any]) -> list[Chart]:
             rows,
         )
     )
+    if "robustness" in data:
+        replication = data["robustness"]
+        records = replication["rows"]
+        rows = []
+        for row in records:
+            interval = row["paired_intervals"]["core"]
+            rows.append({
+                "Window": row["window"].title(), "Seed": row["model_seed"],
+                "Sessions": row["sessions"],
+                "Selected Recall@20": row["scores"]["selected"]["weighted_recall_at_20"],
+                "Compact Recall@20": row["scores"]["core"]["weighted_recall_at_20"],
+                "Gain (pp)": 100 * interval["absolute_gain"],
+                "95% lower (pp)": 100 * interval["gain_interval"][0],
+                "95% upper (pp)": 100 * interval["gain_interval"][1],
+            })
+        fig = go.Figure()
+        for window, color in (("Early", "#3566C5"), ("Middle", "#087F73"),
+                              ("Reference", "#8B5FBF")):
+            subset = [r for r in rows if r["Window"] == window]
+            fig.add_scatter(
+                name=window, mode="markers", marker={"color": color, "size": 12},
+                y=[f"{r['Window']} · {r['Seed']}" for r in subset],
+                x=[r["Gain (pp)"] for r in subset],
+                error_x={"type": "data", "symmetric": False,
+                         "array": [r["95% upper (pp)"] - r["Gain (pp)"] for r in subset],
+                         "arrayminus": [r["Gain (pp)"] - r["95% lower (pp)"] for r in subset]},
+                hovertemplate=("%{y}<br>Selected minus compact: %{x:.3f} pp"
+                               "<extra>%{fullData.name}</extra>"),
+            )
+        fig.add_vline(x=0, line_dash="dot", line_color="#64748B")
+        fig.update_xaxes(title="Gain in weighted Recall@20 · percentage points", range=[0, 2.5])
+        fig.update_yaxes(autorange="reversed")
+        title = "Feature gains repeat across all nine audited runs"
+        charts.append(Chart(
+            "robustness", title,
+            "Three temporal windows and three model seeds. All nine selected rankers beat their "
+            "matched compact controls by 1.791 to 2.180 percentage points. Error bars are paired "
+            "95% session-bootstrap intervals conditional on each fitted pair. Seeds share a "
+            "cohort within each window; these are not nine independent datasets. The largest "
+            "absolute score is 0.590759 in the middle window, whose sessions differ from the "
+            "reference cohort. The original reference seed remains frozen for submission.",
+            style(fig, title, "All planned outcomes retained · frozen seed policy",
+                  height=710, left=250), rows,
+        ))
     return charts
 
 
@@ -510,8 +561,9 @@ th{background:#f4f6f9}.eyebrow{font-size:13px;letter-spacing:2px;font-weight:700
 <p>Explore the controlled feature study: compare ranking quality, inspect feature decisions,
 and examine where the model helps. Hover for values, click a legend to compare models,
 and use each chart's toolbar to zoom or export an image. Exact values are also available
-as accessible tables.</p><p><strong>Scope:</strong> 432,492 temporal evaluation sessions;
-selection and diagnostic cohorts are labeled separately. These are offline results.
+as accessible tables.</p><p><strong>Scope:</strong> the original 432,492-session reference
+evaluation plus all nine audited runs across three temporal windows. Selection,
+diagnostic and replication cohorts are labeled separately. These are offline results.
 The report includes its Plotly library; it needs no internet connection, Python,
 dataset download or AWS account.</p>""" + (
         f"<p><a href='{REPOSITORY}'>Repository</a> · "
@@ -552,6 +604,7 @@ def build(root: Path, output: Path, *, check: bool = False, previews: Path | Non
         "research_manifest_sha256": digest(root / "reports/research/manifest.json"),
         "generator_sha256": digest(Path(__file__)),
         "analysis_lock_sha256": digest(root / "notebooks/requirements.txt"),
+        "robustness_comparison_sha256": digest(root / "reports/robustness/comparison.json"),
         "seal_id": data["manifest"]["seal_id"],
     }
     specs = {f"{c.name}.json": canonical(json.loads(c.figure.to_json())) for c in charts}

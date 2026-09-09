@@ -3,7 +3,7 @@
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Replacement inference uses the attested official truncated test.
+performance. Corrected inference is complete and verified on the attested official truncated test; Kaggle scoring is pending.
 See [the source audit](../reports/submissions/data_provenance_audit.json).
 
 **How do you turn anonymous shopping events into useful recommendations—and demonstrate
@@ -303,6 +303,26 @@ and each output's checksum. CI checks committed figures against the current evid
 rerenders previews for inspection. [Generator](../scripts/build_portfolio_figures.py) ·
 [Auditor](../src/otto_recsys/research/audit.py) · [Reproduction guide](REPRODUCIBILITY.md)
 
+## Completed temporal validation
+
+The selected feature procedure beats the matched compact ranker in **all nine audited runs**. Gains range from **+1.791 to +2.180 percentage points**, with all paired 95% session-bootstrap intervals above zero. Every window and seed chooses the variant without direct source-score features for all three actions.
+
+The highest absolute offline score is **0.590759**, middle window seed **20260908**. On the reference cohort, seed **20260910** is highest at **0.584988**. Different windows use different sessions, so these are descriptive maxima. The original reference seed **20260908** remains the submission model, with **0.584392** on its reserved evaluation; no new seed is chosen using evaluation results.
+
+![All nine matched feature gains with paired 95% intervals.](../reports/portfolio/robustness.svg)
+
+| Window | Seed | Selected Recall@20 | Compact Recall@20 | Gain (pp) | Paired 95% interval (pp) |
+|---|---:|---:|---:|---:|---|
+| Early | 20260908 | 0.566897 | 0.545094 | +2.180 | +2.082 to +2.286 |
+| Early | 20260909 | 0.566784 | 0.545668 | +2.112 | +2.013 to +2.212 |
+| Early | 20260910 | 0.566465 | 0.547613 | +1.885 | +1.782 to +1.989 |
+| Middle | 20260908 | 0.590759 | 0.571302 | +1.946 | +1.839 to +2.061 |
+| Middle | 20260909 | 0.590745 | 0.572832 | +1.791 | +1.678 to +1.902 |
+| Middle | 20260910 | 0.590465 | 0.571880 | +1.858 | +1.748 to +1.969 |
+| Reference | 20260908 | 0.584392 | 0.564904 | +1.949 | +1.840 to +2.065 |
+| Reference | 20260909 | 0.584430 | 0.564207 | +2.022 | +1.913 to +2.135 |
+| Reference | 20260910 | 0.584988 | 0.564675 | +2.031 | +1.921 to +2.141 |
+
 ## What the engineering deliverable demonstrates
 
 The full batch workflow generated **5,015,409 validated rows** for **1,671,803 competition
@@ -317,7 +337,7 @@ The first Kaggle upload exposed an input-provenance failure: the source dataset
 contained the full test sessions released after the competition. The displayed
 **0.93554 public / 0.93583 private** scores are invalidated. The remediation pins
 the official truncated file and every converted partition before inference,
-retains the incident evidence, and regenerates predictions with frozen weights.
+retains the incident evidence, and has regenerated and verified predictions with frozen weights. The file is uploaded to the Kaggle form; final submission and scoring are pending.
 The separate training-only feature study remains valid.
 [Source audit and replacement workflow](INFERENCE.md) ·
 [Inference notebook](../notebooks/10_competition_inference.ipynb)

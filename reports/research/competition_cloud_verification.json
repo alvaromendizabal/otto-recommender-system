@@ -1,89 +1,12 @@
 {
   "account": "560403859723",
-  "completion_verified_at": "2026-09-08T07:21:22.848459+00:00",
-  "downloaded_and_sha256_verified": [
-    {
-      "bytes": 843,
-      "name": "research/delivery_status.json",
-      "sha256": "2dba293cfbfb4ff1d18ef2de7995fd697b138da2c81d6764e421f4391602dd21"
-    },
-    {
-      "bytes": 11724,
-      "name": "research/inference_replay/manifest.json",
-      "sha256": "353f839b9d7177d0bc2e18faae2762c92ab2f809c17e383f064a21943e8070e6"
-    },
-    {
-      "bytes": 464078,
-      "name": "research/inference_replay/features.parquet",
-      "sha256": "346d5b71c764552cc4e0a98d56cf053ad7760095d88f3e86773a6e3ab3e825d1"
-    },
-    {
-      "bytes": 3906,
-      "name": "research/inference_replay/expected.csv",
-      "sha256": "a3c3faa8e4f5ce4f5af13d17da4ce4ce1ec8dd2f8b9ccfc01095d8ddf9fa11a1"
-    },
-    {
-      "bytes": 152693,
-      "name": "research/inference_replay/clicks.txt",
-      "sha256": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85"
-    },
-    {
-      "bytes": 226719,
-      "name": "research/inference_replay/carts.txt",
-      "sha256": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f"
-    },
-    {
-      "bytes": 351933,
-      "name": "research/inference_replay/orders.txt",
-      "sha256": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3"
-    },
-    {
-      "bytes": 148792,
-      "name": "inference/prediction/manifest.json",
-      "sha256": "e2b1a2708953ce47cd9318cc8fa0ef2345cb7b2dabce1e3c24a7977a06e0a362"
-    },
-    {
-      "bytes": 1663,
-      "name": "inference/prediction/contract.json",
-      "sha256": "79b0534c6e795990d51746817a89d74604d25bff2ff1d129d5b7b0d4d344c556"
-    },
-    {
-      "bytes": 14097,
-      "name": "inference/notebooks/10_competition_inference.ipynb",
-      "sha256": "c10b9ce05eddb075d51b94d670090334175779e562d5b6058fd70310dce703bd"
-    },
-    {
-      "bytes": 594,
-      "name": "inference/notebooks/execution.json",
-      "sha256": "4f8ea92b4f610d56a5b8e36026c669cb43d97c93b20767c48dc62fb2c5185419"
-    },
-    {
-      "bytes": 506,
-      "name": "inference/corpus/manifest.json",
-      "sha256": "837cc2895ccd26a6e31d0356a074a91441a5ec5c946c0d0475612f5309ca1cd7"
-    },
-    {
-      "bytes": 22157,
-      "name": "inference/corpus/contract.json",
-      "sha256": "5ec2081f233e49291afdc886123ffceb5274cb9e13cd5911082af8ecdf04f9f3"
-    },
-    {
-      "bytes": 3645,
-      "name": "inference/retrieval/manifest.json",
-      "sha256": "eeff653f1d86e41908dd4d031f8b5c9450ffb000b09c63988d4e0cc7871618a6"
-    },
-    {
-      "bytes": 482,
-      "name": "inference/retrieval/contract.json",
-      "sha256": "a8119a3577a68ba9a9dc6f3ad7b415ea632b7493586aee88528c4307cfc637c5"
-    }
-  ],
-  "expected_part_objects": 3266,
-  "full_notebook_object": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/f9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37/inference/notebooks/10_competition_inference.ipynb",
-  "full_notebook_source_commit": "565ed1f15c9786a905a0cff70ac0a58ed8b1261c",
+  "full_notebook_object": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/inference/notebooks/10_competition_inference.ipynb",
+  "full_notebook_sha256": "c931b094b67cc4e2eba61f71aa47da0bfa82e596ed9a65e48199e66c53d16346",
+  "full_notebook_source_commit": "1fb654831a47cfddf1c47d5b51030d04f2746841",
+  "input_attestation": "reports/submissions/competition_input.json",
   "job": {
-    "ProcessingEndTime": "2026-09-08T07:18:01.256000+00:00",
-    "ProcessingJobName": "otto-delivery-f9c2c07590a24e66",
+    "ProcessingEndTime": "2026-09-09T21:43:15.584000+00:00",
+    "ProcessingJobName": "otto-delivery-90bb97d39ec49999",
     "ProcessingJobStatus": "Completed",
     "ProcessingResources": {
       "ClusterConfig": {
@@ -92,37 +15,24 @@
         "VolumeSizeInGB": 100
       }
     },
-    "ProcessingStartTime": "2026-09-08T06:31:00.234000+00:00"
+    "ProcessingStartTime": "2026-09-09T20:55:53.791000+00:00"
   },
-  "missing": [],
+  "local_full_file_validation": {
+    "bytes": 289541110,
+    "elapsed_seconds": 23.118083535999176,
+    "rows": 5015409,
+    "sessions": 1671803,
+    "sha256": "49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2",
+    "status": "passed"
+  },
   "output": {
-    "bytes": 296087864,
-    "etag": "\"f573073a30fa2687bcf640ffecbbc8cb-36\"",
-    "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/f9c2c07590a24e66d611b09d2c77352d690a9a0ea663155afce184b7fcd98d37/inference/prediction/submission.csv.gz",
-    "sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3"
+    "bytes": 289541110,
+    "etag": "\"a18048707bf06a91b27146ff8e2520a0-35\"",
+    "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/inference/prediction/submission.csv.gz",
+    "sha256": "49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2",
+    "version_id": "i0gMnNzo7V1V.SpQoFqGW5XberD.8QcG"
   },
-  "part_object_bytes": 821279301,
-  "prediction_part_objects": 3266,
-  "prefix_counts": [
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    200,
-    66
-  ],
-  "scope": "All 1633 prediction parts and receipts enumerated; complete output S3 metadata matches the full notebook validator; 15 compact artifacts downloaded and rehashed. Full CSV validated in the managed notebook.",
-  "unexpected": [],
-  "verified_at": "2026-09-08T07:19:08.572737+00:00"
+  "schema_version": 1,
+  "scope": "Completed full notebook, exact official test provenance, complete downloaded gzip SHA-256, all session/action rows and every top-20 list verified; eight-session native model replay refreshed. No Kaggle score yet.",
+  "verified_at": "2026-09-09T23:18:38.022691+00:00"
 }

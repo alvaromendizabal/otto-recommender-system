@@ -1,11 +1,11 @@
 {
-  "elapsed_seconds": 5.926813422999999,
+  "elapsed_seconds": 5.93975465799997,
   "files": {
-    "history.parquet": "7ef396b202a9c44534ae6fbd4f2d3275ccf6b74cdf417420065f6f75f3cf4b93"
+    "history.parquet": "2f354748b348931b57b8ddc4a0639a2169ef40277898baf4f209ba3c823d3744"
   },
   "history_events": 216716096,
   "history_max_ts": 1661723999984,
-  "input_id": "3ba2ee6ee28ae3094f0e8ba4f6e4d5ea4ca792d6e7dd8c640853ebb9e7086a9d",
+  "input_id": "29410092997973baf3fdf92a371c304302d63a655350c389567d35268705acfb",
   "overlapping_sessions": 0,
   "protocol": {
     "history_end": 1661724000278

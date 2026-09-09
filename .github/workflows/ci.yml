@@ -169,7 +169,7 @@ jobs:
           import re
           import subprocess
           paths = subprocess.check_output(['git', 'diff', '--cached', '--name-only', '-z']).decode().split('\0')
-          figures = r'(results|objectives|feature_selection|ablations|feature_dependence|feature_cost|session_slices)'
+          figures = r'(results|objectives|feature_selection|ablations|feature_dependence|feature_cost|session_slices|robustness)'
           for path in filter(None, paths):
               allowed = (
                   path in ('notebooks/execution.json', 'reports/portfolio/manifest.json',

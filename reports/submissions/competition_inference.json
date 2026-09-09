@@ -5,13 +5,10 @@
   "launch_file": "competition_inference.launch.json",
   "launch_sha256": "53a7774361adddcd3ca27125265874734231af49fc5a4371e8d5b3fabf16cab8",
   "observed": {
-    "CreationTime": "2026-09-09T20:55:04.517000+00:00",
-    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-delivery-90bb97d39ec49999",
+    "ProcessingEndTime": "2026-09-09T21:43:15.584000+00:00",
     "ProcessingJobName": "otto-delivery-90bb97d39ec49999",
-    "ProcessingJobStatus": "InProgress",
-    "StoppingCondition": {
-      "MaxRuntimeInSeconds": 7200
-    }
+    "ProcessingJobStatus": "Completed",
+    "ProcessingStartTime": "2026-09-09T20:55:53.791000+00:00"
   },
   "official_input_evidence": "reports/submissions/competition_input.json",
   "replacement_for": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
@@ -37,5 +34,7 @@
       "version_id": "jKThMaI6d7K3a6rCLF7yV.WsjYS2YhLy"
     }
   ],
-  "source_sha256": "90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8"
+  "source_sha256": "90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8",
+  "status": "verified",
+  "verification_evidence": "reports/research/competition_cloud_verification.json"
 }

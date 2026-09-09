@@ -1,0 +1,30 @@
+{
+  "audit_evidence": "reports/robustness/cells/middle_seed_20260910/robustness_audit/report.json",
+  "audit_id": "4ea9612f574f985b7b4ca00a41accdfb40f555b81dc54168500c4479f98e1aed",
+  "cell_id": "middle_seed_20260910",
+  "counted_as_verified": true,
+  "launch_file": "middle_seed_20260910.audit.launch.json",
+  "launch_sha256": "3d16b6febcd283316a050a010dd27b598cd0cb81fd9dfe871f5a2f6bfeced85c",
+  "observed_at_utc": "2026-09-09T23:16:55.584257+00:00",
+  "observed_step": {
+    "AttemptCount": 1,
+    "EndTime": "2026-09-09T22:26:47.170000+00:00",
+    "Metadata": {
+      "ProcessingJob": {
+        "Arn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-batch-audit-middle-seed-20260910-d-mwta9jt5e1nc-fLxIrQPspM"
+      }
+    },
+    "StartTime": "2026-09-09T22:14:12.267000+00:00",
+    "StepName": "Audit-middle-seed-20260910",
+    "StepStatus": "Succeeded"
+  },
+  "phase": "audit",
+  "pipeline_execution_arn": "arn:aws:sagemaker:us-west-2:560403859723:pipeline/otto-robustness-1136d945b56c-remaining/execution/mwta9jt5e1nc",
+  "request_file": "middle_seed_20260910.audit.request.json",
+  "request_scope": "Exact Processing step arguments from the launched pipeline definition; SageMaker appends an execution suffix to the actual job name.",
+  "request_sha256": "b73ad9a1ed0b6f3d6b9acc467255879c03166f20b7daaa41f5e17af6a9bec5c0",
+  "schema_version": 1,
+  "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
+  "source_sha256": "d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a",
+  "status": "verified"
+}

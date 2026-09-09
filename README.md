@@ -1,13 +1,6 @@
 # OTTO · Session-based recommendation
 
-**Submission provenance correction (September 9, 2026):** the first displayed
-Kaggle scores, 0.93554 public / 0.93583 private, are invalidated. Its input came
-from the complete post-competition test release and included future events.
-[Source audit](reports/submissions/data_provenance_audit.json) proves the mismatch.
-The official truncated test has now been obtained and attested; replacement
-inference reuses the original frozen weights. The training-only temporal study
-is unaffected. Do not compare the invalidated score with the historical winner.
-
+**Research complete: 9/9 temporal validation runs audited.** The selected representation improves every matched compact control. One full official-prefix prediction file is verified; it is uploaded to the Kaggle form and awaits the final Submit action. [Results and delivery status](docs/ROADMAP.md).
 
 **Predict what a shopper will click, add to cart, and order next.**
 
@@ -205,10 +198,11 @@ tests, UTC progress logs, native model checkpoints, atomic partition receipts, a
 validation. Interrupted jobs reuse valid completed work. Tests cover corruption, partial
 writes, incompatible inputs, missing partitions, and duplicate writers.
 
-**Batch execution is demonstrated; valid competition delivery is pending.**
-The historical output has 5,015,409 rows and durable prediction parts, but used
-full test sessions. The default notebook replays that historical output as a
-software check and prominently records the invalidation.
+**Full official-prefix inference is complete and independently verified.**
+The 289,541,110-byte gzip contains 5,015,409 rows covering all 1,671,803 sessions.
+Notebook 10 replays the corrected output. The original 0.93583 private Kaggle score
+is invalidated because that earlier input contained future events; it is not a
+performance claim. The replacement file has no Kaggle score until final submission.
 [Source correction and replacement workflow →](docs/INFERENCE.md)
 
 To run the repository's checks from a clone:
@@ -235,36 +229,38 @@ Reading the saved notebooks and charts requires neither the full dataset nor AWS
 | **Review engineering** | [Core Python](src/otto_recsys), [neural package](gpu/two_tower), [tests](tests), [durability](docs/DURABILITY.md), and [CI](.github/workflows/ci.yml) |
 | **Check the scope of claims** | [Model card](docs/MODEL_CARD.md) and [experiment ledger](docs/EXPERIMENT_LEDGER.md) |
 
-## Limits and the next research question
+## Which procedure performed best?
 
-The original controlled result comes from **one fixed training seed, one reserved temporal cohort,
-and 100,000 fitting sessions**. Earlier neural and ranking scores use different protocols;
-they are not direct comparisons with the headline result. The work establishes an audited
-offline experiment and complete batch output; online business impact and state-of-the-art
-performance have not been measured.
+The selected feature procedure beats the matched compact ranker in **all nine audited runs**. Gains range from **+1.791 to +2.180 percentage points**, with all paired 95% session-bootstrap intervals above zero. Every window and seed chooses the variant without direct source-score features for all three actions.
 
-The active research extension repeats the frozen comparison across **three temporal
-windows and three model seeds**. **Five of nine planned cells are now verified:**
-all three reference seeds and two early-window seeds. The original headline
-result remains unchanged.
+The highest absolute offline score is **0.590759**, middle window seed **20260908**. On the reference cohort, seed **20260910** is highest at **0.584988**. Different windows use different sessions, so these are descriptive maxima. The original reference seed **20260908** remains the submission model, with **0.584392** on its reserved evaluation; no new seed is chosen using evaluation results.
 
-The first earlier-period check evaluates **562,504 reserved sessions**. The selected
-representation scores **0.566897**, versus **0.545094** for its matched compact control:
-a **+2.180 percentage-point gain**, with a paired 95% interval of **+2.082 to +2.286 points**.
-It improves all three actions against that control, while candidate fusion still has
-higher click and cart recall. The three reference-seed gains remain **+1.949, +2.022
-and +2.031 points**. Each temporal window uses its own historical retrieval and
-fitting-only feature screen.
+![Matched feature gains across all nine audited temporal runs, with paired intervals.](reports/portfolio/robustness.svg)
 
-[Explore the Plotly comparison in Notebook 09](notebooks/09_controlled_feature_study.ipynb)
-· [Read the method, tradeoffs and audit](docs/ROBUSTNESS.md#first-early-window-result).
-Two early seeds now show gains of +2.180 and +2.112 percentage points; the third is being audited. The remaining
-runs now use a managed queue with up to three simultaneous steps. Later middle
-seeds wait for the first middle seed's preparation and independent audit.
-The [completion roadmap](docs/ROADMAP.md) records the scheduling amendment,
-monitor command, remaining deliverables, and measured runtime estimates.
+| Window | Seed | Selected Recall@20 | Compact Recall@20 | Gain (pp) | Paired 95% interval (pp) |
+|---|---:|---:|---:|---:|---|
+| Early | 20260908 | 0.566897 | 0.545094 | +2.180 | +2.082 to +2.286 |
+| Early | 20260909 | 0.566784 | 0.545668 | +2.112 | +2.013 to +2.212 |
+| Early | 20260910 | 0.566465 | 0.547613 | +1.885 | +1.782 to +1.989 |
+| Middle | 20260908 | 0.590759 | 0.571302 | +1.946 | +1.839 to +2.061 |
+| Middle | 20260909 | 0.590745 | 0.572832 | +1.791 | +1.678 to +1.902 |
+| Middle | 20260910 | 0.590465 | 0.571880 | +1.858 | +1.748 to +1.969 |
+| Reference | 20260908 | 0.584392 | 0.564904 | +1.949 | +1.840 to +2.065 |
+| Reference | 20260909 | 0.584430 | 0.564207 | +2.022 | +1.913 to +2.135 |
+| Reference | 20260910 | 0.584988 | 0.564675 | +2.031 | +1.921 to +2.141 |
 
-There are **five of nine audited validation cells** and **zero valid full
-competition submissions** following the source invalidation. The remaining
-validation jobs, replacement inference, planned 50-file collection, and final
-release are separate milestones; launched work does not count as a result.
+[Explore the complete Plotly study](notebooks/09_controlled_feature_study.ipynb) · [Method and audit](docs/ROBUSTNESS.md) · [Submission notebook](notebooks/10_competition_inference.ipynb)
+
+## Scope and remaining delivery
+
+The validated research procedure and full batch inference are complete. The final Kaggle
+Submit click was blocked by automatic approval review; the prepared file is uploaded,
+and no corrected public/private score is claimed. The earlier 50-file collection has
+not been executed and is not represented as completed work.
+
+Training seeds share cohorts within windows, and historical windows overlap. The results
+support repeatable offline gains on this dataset; they do not establish online business
+impact, independent-dataset generalization or state-of-the-art performance. Neural
+retrieval and exploratory ranking use separately documented protocols.
+
+[Source-provenance incident](docs/INFERENCE.md#recorded-kaggle-result) · [Model card](docs/MODEL_CARD.md) · [Completion roadmap](docs/ROADMAP.md)
