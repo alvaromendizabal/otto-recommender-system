@@ -4,16 +4,50 @@ The original study establishes a gain on one temporal cohort: weighted Recall@20
 is 0.584392 for the selected representation, compared with 0.564904 for the
 compact control. This extension tests how consistently that result repeats.
 The protocol is frozen in [configs/robustness.toml](../configs/robustness.toml)
-before any new replication is trained. **Replication results are pending.**
+before any new replication is trained.
 
-The first reference-window replication was launched on 9 September 2026 using
-model seed 20260909. Its [saved job evidence](../reports/robustness/runs/reference_seed_20260909.json)
-records the verified source files, bounded resources and checkpoint destination.
-The [nine-cell progress snapshot](../reports/robustness/progress.json) distinguishes
-the completed original reference from running or planned replications. Notebook
-09 reads this snapshot and labels unmeasured scores as pending. Six completed
-native task models were already durable at the saved observation; the full
-eight-configuration comparison and reserved evaluation were still running.
+## First verified replication
+
+Two of the nine planned cells are verified: the original reference and a new
+model seed on the same reference window. Each evaluates all **432,492 reserved
+sessions**, after fitting eight feature configurations and three task rankers.
+
+| Model seed | Selected | Compact control | Candidate fusion | Gain over compact | Paired 95% interval |
+|---|---:|---:|---:|---:|---:|
+| 20260908 · original | 0.584392 | 0.564904 | 0.535244 | +1.949 pp | +1.840 to +2.065 pp |
+| 20260909 · replication | 0.584430 | 0.564207 | 0.535244 | +2.022 pp | +1.913 to +2.135 pp |
+
+**What this means:** the feature gain remains positive when only the model seed
+changes. Both seeds select the 102-feature configuration that excludes direct
+source features for all three tasks. The selected model's absolute score changes
+by just 0.0038 percentage points. This is evidence of consistency on this time
+window; it does not establish stability across different periods.
+
+The intervals describe session-sampling uncertainty for each fitted model pair.
+They are not confidence intervals over training seeds. Both runs use the same
+reserved sessions, so their predictions must not be treated as independent
+observations. The original model remains the headline result; this comparison
+does not select a new model using evaluation labels.
+
+[Notebook 09](../notebooks/09_controlled_feature_study.ipynb) plots the scores and
+paired gains in Plotly, reports all three objectives, and compares actual
+sampled top-20 predictions. The [comparison data](../reports/robustness/comparison.json)
+links every number to checked source files. The new seed's
+[verification receipt](../reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json)
+records the full metric audit, 24 native models, eight ablations, 256-session
+prediction replay and both reproduced 1,000-sample bootstrap comparisons.
+The probe found different ordered top-20 lists in all 256 sampled sessions for
+each task. The sets of recommended items changed in 242 click, 230 cart and
+243 order cases. Thus the similar aggregate scores do not imply identical
+recommendations. These counts describe the fixed probe sample.
+
+The [nine-cell progress snapshot](../reports/robustness/progress.json) records
+which jobs have finished verification and which scores remain unmeasured.
+Runtime, source commit, launch settings and durable artifact locations are saved
+in the [run receipts](../reports/robustness/runs).
+Seed 20260910 was launched after the first seed's verification job completed;
+its [execution receipt](../reports/robustness/runs/reference_seed_20260910.json)
+records the separate checkpoint namespace and two-hour runtime limit.
 
 ## What stays fixed
 
@@ -117,6 +151,32 @@ To prepare this managed verification, `scripts/prepare_robustness.py` accepts
 `--verify-launch` pointing to the completed training launch, plus the exact
 verifier source commit and archive checksum. The original model-source identity
 remains separately recorded inside the verification launch.
+
+The compact comparison can be rebuilt without cloud access or model training:
+
+```bash
+uv run --frozen python scripts/publish_robustness_report.py
+uv run --frozen python scripts/publish_robustness_report.py --check
+```
+
+This command checks the saved audit and input identities before extracting the
+metrics for Notebook 09. It does not substitute for the full managed verification.
+
+## Remaining milestones
+
+1. Complete and verify seed 20260910 on the reference window, giving three
+   reference seeds with fixed cohorts, candidates and screened features.
+2. Build historically valid corpus, retrieval and screening artifacts for the
+   early and middle windows. Run all three seeds on each, then audit every cell.
+3. Publish the complete nine-cell comparison, including unfavorable outcomes,
+   per-objective tradeoffs, seed ranges and temporal differences. Update the
+   model card and portfolio conclusions to match the full evidence.
+4. Produce the distinct submission artifacts described below, then publish a
+   release with executed notebooks, reproduction commands and a concise review path.
+
+The project already has an audited reference experiment and a complete batch
+submission. The robustness extension and 50-file submission collection are
+separate unfinished milestones. No portfolio rating substitutes for those checks.
 
 ## Path to 50 submission files
 

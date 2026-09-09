@@ -2,6 +2,39 @@
   "cell_id": "reference_seed_20260909",
   "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints",
   "durable_training_evidence": {
+    "evaluation_parts": 423,
+    "evaluation_sessions": 432492,
+    "native_models": 24,
+    "scope": "Full audit verifies model bytes, selection statistics and every reserved-evaluation metric part.",
+    "variants": 8,
+    "verified_native_model_sha256": {
+      "models/core/carts/model.txt": "467c28930ac5c3f7b215324e527a3fbfbfa1f7576f7999ceafda8863c288411e",
+      "models/core/clicks/model.txt": "9b6936d31384fcdfd38d72f80f5b4ae4ace676a6f22739066181f79e935e03b9",
+      "models/core/orders/model.txt": "daa79e416aec4a5eb1ad156c5fc4aa2a299c3e5e79fcbd1b88f076d535fcf4d2",
+      "models/full/carts/model.txt": "097e9cd8cac3dc7eba6aa09e97568647932177a44a135cabb9ccc3b1672c5246",
+      "models/full/clicks/model.txt": "faaabe15f5a87ac01b5c51e5f491d255efb77f97079d2c390357fbebd76825a3",
+      "models/full/orders/model.txt": "6858c32f481315c4667f5713d5b34a447ffba41c6604c41c1bb75bcce9db4542",
+      "models/without_context/carts/model.txt": "d8abab9d2838797e3331118b80f9830a4a164822f061ca58c1fdb06e1e89eae4",
+      "models/without_context/clicks/model.txt": "fdf260b702aa7af614cae058c026b724457430980d6c9c947c6f09b244fd7d13",
+      "models/without_context/orders/model.txt": "d4c706e8b2edb417e5904a0db73bb046997d7697d8f871d3aa8d3e25a855939d",
+      "models/without_graph/carts/model.txt": "1ef0d831e4bb1e7f52b512646119b5d18189bd99236c5098b52f7e1fd076d91a",
+      "models/without_graph/clicks/model.txt": "f4af1b023c9443ff4d87bcd91a0d9d8d8bc326c0e7e8988ac59933398947383a",
+      "models/without_graph/orders/model.txt": "f0643a7251f1a8d39f2134bc769be5d21e74e445a1cd728b93cd03dc28dc84b7",
+      "models/without_history/carts/model.txt": "28295da4b76c4a1f52f2329fb62c74b79f14280b1c772d02bff352605fccd36b",
+      "models/without_history/clicks/model.txt": "d220197290e472058da5533c77c3da4788754b3b4913364beddaac50985db40e",
+      "models/without_history/orders/model.txt": "df9ee6c47109a0c6b92a7fa0fe98e7c27d7c175830f923802d2efdcf932add64",
+      "models/without_interaction/carts/model.txt": "12f9fc99f614943c4e218c8e715a898458c8f87de58525ec1c699c5139ff4be9",
+      "models/without_interaction/clicks/model.txt": "6fd565dbce5034b8490d0a1d13f2e58a9da331401834f35267b9d9a22b7b1ac2",
+      "models/without_interaction/orders/model.txt": "773b1dae51d4a0bfd6c8db38c2d3ff03668c3743771dedacafaa7ee7e1fb294b",
+      "models/without_repeat/carts/model.txt": "bf9b9fc45a30a765bd0df3f25714443d1d447bc6da18263dafd928354ba42b1c",
+      "models/without_repeat/clicks/model.txt": "20b9cce3b24bf55b8e64fa8046cf3e7c0d4e503f60e63b7f0e0bd4d91335e994",
+      "models/without_repeat/orders/model.txt": "66ac93cc5ce50943ea49a80f6dca6b12c55e91f73c0cff49a42e4f0c98f89c54",
+      "models/without_source/carts/model.txt": "a5fa5840ba9ccf5c17811632bb5c7ee2f949c769f50852156a3436fcd74a5fa0",
+      "models/without_source/clicks/model.txt": "9629d3564f216e130ffb4ced048b4fc61237306e826dcb9c3f8822522a7b2d38",
+      "models/without_source/orders/model.txt": "bd368bf4a2c516ec5ef2ed623903c5c8eeff21d1fc2979c66ccfa073018536de"
+    }
+  },
+  "initial_training_observation": {
     "listed_objects": 76,
     "listing_observed_at_utc": "2026-09-09T02:55:36.096025+00:00",
     "observed_at_utc": "2026-09-09T02:56:11.393203+00:00",
@@ -47,8 +80,9 @@
   },
   "job": {
     "CreationTime": "2026-09-09T02:47:30.752000+00:00",
+    "ProcessingEndTime": "2026-09-09T03:27:02.830000+00:00",
     "ProcessingJobName": "otto-robust-reference-20260909-c96c90d0",
-    "ProcessingJobStatus": "InProgress",
+    "ProcessingJobStatus": "Completed",
     "ProcessingResources": {
       "ClusterConfig": {
         "InstanceCount": 1,
@@ -61,15 +95,100 @@
       "MaxRuntimeInSeconds": 7200
     }
   },
-  "job_observed_at_utc": "2026-09-09T02:55:10.026023+00:00",
+  "job_observed_at_utc": "2026-09-09T03:45:04.572952+00:00",
   "launch_sha256": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
-  "observed_at_utc": "2026-09-09T02:56:11.393203+00:00",
+  "observed_at_utc": "2026-09-09T03:47:19.200920+00:00",
   "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
   "request_sha256": "c35f841199fe28115f567de3e00751e638a405cdb1643485791a1c69f7cb5f8e",
   "schema_version": 1,
-  "scope": "Point-in-time managed-job observation; this is not a completed evaluation.",
+  "scope": "Completed training and full replication verification. Metric values remain scoped to the reference temporal window.",
   "source_commit": "b63b547c9b86ed868e809c4059d62b858822da1a",
   "source_sha256": "c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da",
+  "verification": {
+    "audit_id": "31fc62bab554716dd24cb02cea888075db17aad373ebd0ec2f41fcc5452d13b4",
+    "audit_path": "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json",
+    "audit_sha256": "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda",
+    "job": {
+      "CreationTime": "2026-09-09T03:36:29.365000+00:00",
+      "ProcessingEndTime": "2026-09-09T03:44:02.787000+00:00",
+      "ProcessingJobName": "otto-verify-reference-20260909-a82c1e9a",
+      "ProcessingJobStatus": "Completed",
+      "ProcessingResources": {
+        "ClusterConfig": {
+          "InstanceCount": 1,
+          "InstanceType": "ml.c7i.16xlarge",
+          "VolumeSizeInGB": 100
+        }
+      },
+      "ProcessingStartTime": "2026-09-09T03:37:17.881000+00:00",
+      "StoppingCondition": {
+        "MaxRuntimeInSeconds": 1800
+      }
+    },
+    "launch_sha256": "4eac4c66a72bde87d0bd7d488c053f7217084d1b23855e13701c5b3dea58977d",
+    "observed_at_utc": "2026-09-09T03:47:19.200920+00:00",
+    "request_sha256": "815905deeea210995018285270c82ef2107f22c465e4f9e6af00da9702320203",
+    "status": "passed",
+    "verified_outputs": [
+      {
+        "head": {
+          "ChecksumSHA256": "PSt3oLqPsEo1DSU0YYKUCuv7asBG2Xi6EuPYpFnD3to=",
+          "ContentLength": 17120,
+          "Metadata": {
+            "sha256": "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda"
+          },
+          "VersionId": "ELH_ZPmOpQ9Y.YFcgvk2e1H71bGSZR3s"
+        },
+        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints/robustness_audit/report.json"
+      },
+      {
+        "head": {
+          "ChecksumSHA256": "GnCerYARG4EDImhRL+kmShHGUA64RgLiMGnmi8RBmfk=",
+          "ContentLength": 982,
+          "Metadata": {
+            "sha256": "1a709ead80111b81032268512fe9264a11c6500eb84602e23069e68bc44199f9"
+          },
+          "VersionId": "2yw3eanh53j8vZGyMMdd94Y.VbMM1Jw5"
+        },
+        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints/robustness_audit/job_status.json"
+      }
+    ],
+    "verified_uploads": [
+      {
+        "expected_bytes": 6997035,
+        "expected_checksum": "qCwemkJw6Yz5VXjDFG0oc5w41Jl286AJqvzUzVwqOCI=",
+        "head": {
+          "ChecksumSHA256": "qCwemkJw6Yz5VXjDFG0oc5w41Jl286AJqvzUzVwqOCI=",
+          "ContentLength": 6997035,
+          "Metadata": {},
+          "VersionId": "oS121I5PhCf2gxfIc_wEY2757sAxhrQm"
+        },
+        "name": "source.tar.gz"
+      },
+      {
+        "expected_bytes": 7080,
+        "expected_checksum": "ynfEJCrfjEeTJInJPE9PjATFJemxTOXwIFqiM7/A0yw=",
+        "head": {
+          "ChecksumSHA256": "ynfEJCrfjEeTJInJPE9PjATFJemxTOXwIFqiM7/A0yw=",
+          "ContentLength": 7080,
+          "Metadata": {},
+          "VersionId": "S15RAaBp.m5s7E4kp2xVEQ758nMwrODL"
+        },
+        "name": "processing_research.py"
+      },
+      {
+        "expected_bytes": 6686,
+        "expected_checksum": "TqxMZqcr3ofQvX1IjAU/chcITRsjhV4TcBxbPepYl30=",
+        "head": {
+          "ChecksumSHA256": "TqxMZqcr3ofQvX1IjAU/chcITRsjhV4TcBxbPepYl30=",
+          "ContentLength": 6686,
+          "Metadata": {},
+          "VersionId": "gB71Zw2ByugjF_tmtmzo1eaQN.3q1CgE"
+        },
+        "name": "launch.json"
+      }
+    ]
+  },
   "verified_uploads": [
     {
       "bytes": 6986234,

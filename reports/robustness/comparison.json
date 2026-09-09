@@ -1,0 +1,345 @@
+{
+  "planned_cells": 9,
+  "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+  "rows": [
+    {
+      "audit_evidence": "reports/research/audit.json",
+      "audit_id": "5e3a177008f2431d2c989045dc3a10b6bc51ed5bfdb04c2317bb2d20925afb61",
+      "cell_id": "reference_seed_20260908",
+      "chosen": {
+        "carts": "without_source",
+        "clicks": "without_source",
+        "orders": "without_source"
+      },
+      "cohort_seed": 20260908,
+      "model_seed": 20260908,
+      "paired_intervals": {
+        "core": {
+          "absolute_gain": 0.019487926033741054,
+          "gain_interval": [
+            0.01839895759246586,
+            0.02064521013559
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5843921411460516,
+          "score_interval": [
+            0.5809167600981558,
+            0.5879773914629209
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        },
+        "fusion": {
+          "absolute_gain": 0.04914812981111105,
+          "gain_interval": [
+            0.0469719955083513,
+            0.05136326236276722
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5843921411460516,
+          "score_interval": [
+            0.5809167600981558,
+            0.5879773914629209
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        }
+      },
+      "prediction_comparison": null,
+      "scores": {
+        "core": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6384870979144575,
+              "hits": 50952,
+              "mrr": 0.4999309374197337,
+              "ndcg": 0.47056874570547114,
+              "recall_at_20": 0.408324851942973
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.45755814092181,
+              "hits": 191807,
+              "mrr": 0.30218070876754394,
+              "ndcg": 0.3383182010798922,
+              "recall_at_20": 0.45755814092181
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8443489568609713,
+              "hits": 45835,
+              "mrr": 0.7257826917636836,
+              "ndcg": 0.6826626593643046,
+              "recall_at_20": 0.6610849090620629
+            }
+          },
+          "weighted_recall_at_20": 0.5649042151123106
+        },
+        "fusion": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6611523506539413,
+              "hits": 53683,
+              "mrr": 0.18877217842611047,
+              "ndcg": 0.255509480654775,
+              "recall_at_20": 0.43021084602870585
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.5267809645584296,
+              "hits": 220825,
+              "mrr": 0.1759829405828853,
+              "ndcg": 0.2559401789372012,
+              "recall_at_20": 0.5267809645584296
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8319104426980268,
+              "hits": 40849,
+              "mrr": 0.26406881388332254,
+              "ndcg": 0.33523889588190825,
+              "recall_at_20": 0.5891711017841432
+            }
+          },
+          "weighted_recall_at_20": 0.5352440113349406
+        },
+        "selected": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6620148462354188,
+              "hits": 53397,
+              "mrr": 0.502083634795128,
+              "ndcg": 0.47713625196157006,
+              "recall_at_20": 0.4279188671533783
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.5056453171182046,
+              "hits": 211965,
+              "mrr": 0.3204495602699464,
+              "ndcg": 0.3627056323322483,
+              "recall_at_20": 0.5056453171182046
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8559676598631764,
+              "hits": 46852,
+              "mrr": 0.7375141223925612,
+              "ndcg": 0.6943428171729557,
+              "recall_at_20": 0.6757532488136963
+            }
+          },
+          "weighted_recall_at_20": 0.5843921411460516
+        }
+      },
+      "selected_features": {
+        "carts": 102,
+        "clicks": 102,
+        "orders": 102
+      },
+      "sessions": 432492,
+      "status": "verified_reference",
+      "window": "reference"
+    },
+    {
+      "audit_evidence": "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json",
+      "audit_id": "31fc62bab554716dd24cb02cea888075db17aad373ebd0ec2f41fcc5452d13b4",
+      "cell_id": "reference_seed_20260909",
+      "chosen": {
+        "carts": "without_source",
+        "clicks": "without_source",
+        "orders": "without_source"
+      },
+      "cohort_seed": 20260908,
+      "model_seed": 20260909,
+      "paired_intervals": {
+        "core": {
+          "absolute_gain": 0.020223571663128492,
+          "gain_interval": [
+            0.019127329537011944,
+            0.0213542333843492
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5844303932778114,
+          "score_interval": [
+            0.5809840301093101,
+            0.5880156893752646
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        },
+        "fusion": {
+          "absolute_gain": 0.04918638194287084,
+          "gain_interval": [
+            0.04695928622639343,
+            0.051329662710338196
+          ],
+          "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+          "requested_replicates": 1000,
+          "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+          "score": 0.5844303932778114,
+          "score_interval": [
+            0.5809840301093101,
+            0.5880156893752646
+          ],
+          "seed": 20260908,
+          "valid_replicates": 1000
+        }
+      },
+      "prediction_comparison": {
+        "objectives": {
+          "carts": {
+            "ordered_top20_changed": 256,
+            "reference_ranking_sha256": "b770ed47b976d70328f91918bb4caa63f54a98453046352215c00aff6c15109a",
+            "replication_ranking_sha256": "342972bc3bdf5cd4a1aa911b92d5d4ef081f5a4b896411a389de3e986d87b0c6",
+            "top20_set_changed": 230
+          },
+          "clicks": {
+            "ordered_top20_changed": 256,
+            "reference_ranking_sha256": "88e2311d9aa00e190cba97bdcf0a866bd99744889ce2d847973fc3be7143783e",
+            "replication_ranking_sha256": "c5eef40ae73b7f09c7ad42b2062146d5273dc81f7d621b4122d6fea9d52c2279",
+            "top20_set_changed": 242
+          },
+          "orders": {
+            "ordered_top20_changed": 256,
+            "reference_ranking_sha256": "760c53e2f6d72855f2e38bf98eb29f1df1ccfa0ad525a0c0fe6b953b81eebb4e",
+            "replication_ranking_sha256": "6e3fd52850dfc19c3e61245c4050a5951b93c0d49c6620a32485aa20587152de",
+            "top20_set_changed": 243
+          }
+        },
+        "scope": "Deterministic sampled reserved sessions; equal sampled rankings do not prove global identity. No labels select the probe sessions.",
+        "seed": 20260908,
+        "session_ids_sha256": "4cf12c12854d69cc512732ed24888449c1b3cf79c7449a376727aa83e1d49c1a",
+        "sessions": 256
+      },
+      "scores": {
+        "core": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6376670201484623,
+              "hits": 50849,
+              "mrr": 0.4995195766370463,
+              "ndcg": 0.4700066690971939,
+              "recall_at_20": 0.407499418991369
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.4575605264350651,
+              "hits": 191808,
+              "mrr": 0.3021574850472051,
+              "ndcg": 0.33830067990061713,
+              "recall_at_20": 0.4575605264350651
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8437553005031945,
+              "hits": 45783,
+              "mrr": 0.7285539299916574,
+              "ndcg": 0.684385474519745,
+              "recall_at_20": 0.6603349054562763
+            }
+          },
+          "weighted_recall_at_20": 0.5642068216146829
+        },
+        "fusion": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6611523506539413,
+              "hits": 53683,
+              "mrr": 0.18877217842611047,
+              "ndcg": 0.255509480654775,
+              "recall_at_20": 0.43021084602870585
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.5267809645584296,
+              "hits": 220825,
+              "mrr": 0.1759829405828853,
+              "ndcg": 0.2559401789372012,
+              "recall_at_20": 0.5267809645584296
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8319104426980268,
+              "hits": 40849,
+              "mrr": 0.26406881388332254,
+              "ndcg": 0.33523889588190825,
+              "recall_at_20": 0.5891711017841432
+            }
+          },
+          "weighted_recall_at_20": 0.5352440113349406
+        },
+        "selected": {
+          "objectives": {
+            "carts": {
+              "denominator": 124783,
+              "hit_rate": 0.6613220219158713,
+              "hits": 53337,
+              "mrr": 0.5019395059885048,
+              "ndcg": 0.4769965917699844,
+              "recall_at_20": 0.42743803242428857
+            },
+            "clicks": {
+              "denominator": 419197,
+              "hit_rate": 0.5065184149695727,
+              "hits": 212331,
+              "mrr": 0.32052011725287094,
+              "ndcg": 0.3628823624690804,
+              "recall_at_20": 0.5065184149695727
+            },
+            "orders": {
+              "denominator": 69333,
+              "hit_rate": 0.8557132357098434,
+              "hits": 46863,
+              "mrr": 0.7376182174469408,
+              "ndcg": 0.6943161985083494,
+              "recall_at_20": 0.6759119034226126
+            }
+          },
+          "weighted_recall_at_20": 0.5844303932778114
+        }
+      },
+      "selected_features": {
+        "carts": 102,
+        "clicks": 102,
+        "orders": 102
+      },
+      "sessions": 432492,
+      "status": "verified",
+      "window": "reference"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "All verified planned cells are retained. Per-cell intervals condition on fitted models and the temporal cohort. Repeated seeds are not independent datasets.",
+  "source_files": {
+    "configs/robustness.toml": "6fcf430a65b7d5a51a07f20c39c20c65abe55c46c807cf966c63a7a92fa7d936",
+    "reports/research/ablations.json": "6d8d63c35fa1a6ce894c500bf7096e98ba641137c82fc385436b66f83df94252",
+    "reports/research/audit.json": "25a03ee2a7d4cf156fbb4a09dd81fb8ad7a3f660866617bcb5681a9f0a6fd2cc",
+    "reports/research/evaluation.json": "3765e11e9c77ef60a3209a4783fc61d6a480e7b4211d5379e3e6157201b9863a",
+    "reports/research/evaluation_seal.json": "3a4f0c824b1eff12376c6c3c016fd3791b64267246504cba2a42da1f4755f7e0",
+    "reports/research/manifest.json": "8815c13397ce7bef1fb791dd6d2b37ad5efc348d24a34918d7f6f6c8f4d0f5df",
+    "reports/robustness/cells/reference_seed_20260909/evaluation/contract.json": "c0849006f35b7abdb912c7df660cb018790bf16bd5bcfa01400f8150387fa678",
+    "reports/robustness/cells/reference_seed_20260909/evaluation/report.json": "16b7245d0de1f66eb7cea6437484da17d8a39a1fe62c397fe462c725fd2faf4d",
+    "reports/robustness/cells/reference_seed_20260909/evaluation_seal.json": "260ce7053b2049f4c267c1425bc435067c634509bb200da8d5b79162bc3e3369",
+    "reports/robustness/cells/reference_seed_20260909/job_status.json": "ac6e59ff3feda519f9418345287842843ccef1cc9850ed42c6c92d884d71f8b3",
+    "reports/robustness/cells/reference_seed_20260909/models/ablation_report.json": "11c9d2e55b798502e6fec8ef7328ee3f950e96a9109f24f050b0aabf11f17f69",
+    "reports/robustness/cells/reference_seed_20260909/models/study_contract.json": "f16a5f8d26020a78e5259525e32892895ab52a333fdf2862a1750267af2df9f1",
+    "reports/robustness/cells/reference_seed_20260909/robustness_audit/job_status.json": "1a709ead80111b81032268512fe9264a11c6500eb84602e23069e68bc44199f9",
+    "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json": "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda",
+    "reports/robustness/cells/reference_seed_20260909/verification_launch.json": "4eac4c66a72bde87d0bd7d488c053f7217084d1b23855e13701c5b3dea58977d",
+    "reports/robustness/runs/reference_seed_20260909.launch.json": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c"
+  },
+  "verified_cells": 2,
+  "verified_windows": 1
+}
