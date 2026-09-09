@@ -109,7 +109,7 @@ def style(fig: Any, title: str, subtitle: str, *, height: int = 470, left: int =
         title={
             "text": f"<b>{title}</b><br><sup>{subtitle}</sup>",
             "x": 0.03,
-            "y": 0.96,
+            "y": 1 - 44 / height,
             "yanchor": "top",
         },
         font={"family": "Arial, sans-serif", "size": 17, "color": "#172B4D"},

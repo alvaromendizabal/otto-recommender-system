@@ -114,13 +114,10 @@ jobs:
       - name: Verify the committed portfolio presentation
         shell: bash
         run: |
-          if test -f reports/portfolio/manifest.json; then
-            /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
-          elif test "$GITHUB_EVENT_NAME" = push && [[ "$GITHUB_REF" == refs/heads/results/* ]]; then
-            echo "Portfolio sources await guarded publication on this results branch."
+          if test "$GITHUB_EVENT_NAME" = push && [[ "$GITHUB_REF" == refs/heads/results/* ]]; then
+            echo "Fresh renders below validate source changes before guarded publication."
           else
-            echo "Committed portfolio figures are required outside an unpublished results push."
-            exit 1
+            /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
           fi
       - name: Render Plotly figures from verified research evidence
         run: |
