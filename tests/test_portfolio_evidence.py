@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 import runpy
 import shutil
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +28,15 @@ def replace_report(directory: Path, name: str, value: dict[str, Any]) -> None:
 
 
 class TestPortfolioEvidence(unittest.TestCase):
+    def test_download_archive_contains_one_portable_html(self) -> None:
+        html = "<!doctype html><html><body>OTTO · offline report</body></html>"
+        packaged = PORTFOLIO["report_archive"](html)
+        self.assertEqual(packaged, PORTFOLIO["report_archive"](html))
+        with zipfile.ZipFile(io.BytesIO(packaged)) as archive:
+            self.assertEqual(archive.namelist(), ["otto-research-report.html"])
+            self.assertIsNone(archive.testzip())
+            self.assertEqual(archive.read("otto-research-report.html").decode(), html)
+
     def test_committed_research_is_valid_for_public_figures(self) -> None:
         data = PORTFOLIO["read_evidence"](ROOT)
         self.assertEqual(data["evaluation"]["sessions"], data["audit"]["statistics"]["sessions"])

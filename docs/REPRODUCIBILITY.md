@@ -48,10 +48,10 @@ full inference. With the analysis environment above installed:
 ```
 
 The builder writes SVG previews, Plotly JSON definitions, an interactive HTML report,
-and a checksum receipt under `reports/portfolio/`. The HTML report includes its Plotly library and
+a ZIP download containing that report, and a checksum receipt under `reports/portfolio/`. The HTML report includes its Plotly library and
 works offline; it does not need Python or cloud access.
 `--check` verifies the evidence and generator identities, every output checksum,
-exact chart values, and the HTML report. It fails on stale or modified artifacts.
+exact chart values, the HTML report, and the ZIP contents. It fails on stale or modified artifacts.
 
 The CI `portfolio` job uses the locked environment, verifies the committed report,
 and generates fresh SVG and PNG previews as a downloadable `portfolio-figures` artifact.
