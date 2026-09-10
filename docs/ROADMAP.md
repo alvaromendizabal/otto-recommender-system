@@ -82,6 +82,19 @@ The first pilot has a two-hour compute ceiling plus provisioning/input setup. It
 checkpoint timing determine the next estimate. There is no evidence-based deadline or guarantee
 for reaching 0.60503; calendar age alone does not remove data, model or compute constraints.
 
+SageMaker accepted **`otto-representations-fe780ed36e9e`** at **00:18 UTC on September 10**.
+The [launch receipt](../reports/research/representation_run.json) pins the source commit,
+source archive, input contract, checkpoint destination and bounded resources. The saved status
+is an observation, not a live progress indicator. Monitor the running experiment with:
+
+```bash
+cd "$HOME/otto-recommender-system" &&
+uv run --frozen --extra cloud python scripts/representation_status.py --watch
+```
+
+The monitor prints the managed job status and recent CloudWatch heartbeats. It does not launch
+compute. This experiment is separate from the completed nine-cell robustness batch below.
+
 ## Verified baseline
 
 **All nine frozen temporal validation cells are complete and independently audited.** Full inference on the official competition prefixes is also complete, and the downloaded gzip passed the exact session/action ledger, every top-20 list and full-file checksum validation.

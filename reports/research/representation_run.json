@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "experiment": "learned-feature-pilot",
+  "scope": "development; no evaluation or Kaggle promotion",
+  "source_commit": "4fde6882eaad2ded89c62c93dd595a72e68c1ae6",
+  "source_sha256": "fe780ed36e9eeb10be34cacb37490cfd8b86d2aa446e3b5f54633ca5fbe2d680",
+  "region": "us-west-2",
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/fe780ed36e9eeb10be34cacb37490cfd8b86d2aa446e3b5f54633ca5fbe2d680/checkpoints",
+  "resources": {
+    "instance_type": "ml.c7i.16xlarge",
+    "maximum_runtime_seconds": 7200,
+    "volume_gib": 100
+  },
+  "created": {
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-representations-fe780ed36e9e"
+  },
+  "observed": {
+    "CreationTime": "2026-09-10T00:18:11.650000+00:00",
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-representations-fe780ed36e9e",
+    "ProcessingJobName": "otto-representations-fe780ed36e9e",
+    "ProcessingJobStatus": "InProgress",
+    "ProcessingResources": {
+      "ClusterConfig": {
+        "InstanceCount": 1,
+        "InstanceType": "ml.c7i.16xlarge",
+        "VolumeSizeInGB": 100
+      }
+    },
+    "StoppingCondition": {
+      "MaxRuntimeInSeconds": 7200
+    }
+  },
+  "source_archive_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/fe780ed36e9eeb10be34cacb37490cfd8b86d2aa446e3b5f54633ca5fbe2d680/source/source.tar.gz",
+  "launch_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/fe780ed36e9eeb10be34cacb37490cfd8b86d2aa446e3b5f54633ca5fbe2d680/source/launch.json",
+  "baseline_private_score": 0.56842,
+  "target_private_score": 0.60503,
+  "results_status": "pending"
+}
