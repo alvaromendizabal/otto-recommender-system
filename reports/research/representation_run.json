@@ -1,0 +1,68 @@
+{
+  "baseline_private_score": 0.56842,
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/d4aa725e8659fefa68a48a3b37a95750086a5ce2ec10a4ccf2ffd6ca57a4147b/checkpoints",
+  "created": {
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-representations-d4aa725e8659"
+  },
+  "experiment": "learned-feature-pilot",
+  "launch_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/d4aa725e8659fefa68a48a3b37a95750086a5ce2ec10a4ccf2ffd6ca57a4147b/source/launch.json",
+  "observed": {
+    "CreationTime": "2026-09-10T00:26:11.085000+00:00",
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-representations-d4aa725e8659",
+    "ProcessingJobName": "otto-representations-d4aa725e8659",
+    "ProcessingJobStatus": "InProgress",
+    "ProcessingResources": {
+      "ClusterConfig": {
+        "InstanceCount": 1,
+        "InstanceType": "ml.c7i.16xlarge",
+        "VolumeSizeInGB": 100
+      }
+    },
+    "StoppingCondition": {
+      "MaxRuntimeInSeconds": 7200
+    }
+  },
+  "region": "us-west-2",
+  "resources": {
+    "instance_type": "ml.c7i.16xlarge",
+    "maximum_runtime_seconds": 7200,
+    "volume_gib": 100
+  },
+  "results_status": "pending",
+  "schema_version": 1,
+  "scope": "development; no evaluation or Kaggle promotion",
+  "source_archive_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/d4aa725e8659fefa68a48a3b37a95750086a5ce2ec10a4ccf2ffd6ca57a4147b/source/source.tar.gz",
+  "source_commit": "236ddc426a0436d212900e5d705cf745ac8f5336",
+  "source_sha256": "d4aa725e8659fefa68a48a3b37a95750086a5ce2ec10a4ccf2ffd6ca57a4147b",
+  "target_private_score": 0.60503,
+  "previous_attempts": [
+    {
+      "observed": {
+        "CreationTime": "2026-09-10T00:18:11.650000+00:00",
+        "ProcessingEndTime": "2026-09-10T00:24:47.268000+00:00",
+        "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-representations-fe780ed36e9e",
+        "ProcessingJobName": "otto-representations-fe780ed36e9e",
+        "ProcessingJobStatus": "Stopped",
+        "ProcessingResources": {
+          "ClusterConfig": {
+            "InstanceCount": 1,
+            "InstanceType": "ml.c7i.16xlarge",
+            "VolumeSizeInGB": 100
+          }
+        },
+        "ProcessingStartTime": "2026-09-10T00:19:02.146000+00:00",
+        "StoppingCondition": {
+          "MaxRuntimeInSeconds": 7200
+        }
+      },
+      "source_commit": "4fde6882eaad2ded89c62c93dd595a72e68c1ae6",
+      "source_sha256": "fe780ed36e9eeb10be34cacb37490cfd8b86d2aa446e3b5f54633ca5fbe2d680",
+      "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/fe780ed36e9eeb10be34cacb37490cfd8b86d2aa446e3b5f54633ca5fbe2d680/checkpoints",
+      "failure_stage": "historical sequence preparation",
+      "diagnosis": "DuckDB global list aggregation exceeded its 32 GB memory limit before embedding training.",
+      "resolution": "External sort with an 8 GB limit and four threads, Arrow streaming, and at most 100 retained tokens per session/family. Independent embedding families train concurrently.",
+      "log_group": "/aws/sagemaker/ProcessingJobs",
+      "log_stream_prefix": "otto-representations-fe780ed36e9e"
+    }
+  ]
+}

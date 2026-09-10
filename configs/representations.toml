@@ -1,0 +1,22 @@
+# A feature-only development experiment. These settings are fixed before the first run.
+screening_rows = 100000
+
+[embedding]
+dimensions = 128
+window = 10
+negative = 10
+epochs = 3
+workers = 16
+seed = 20260910
+
+[training]
+rounds = 400
+patience = 40
+threads = 32
+seed = 20260908
+evaluation_interval = 5
+
+[resources]
+instance_type = "ml.c7i.16xlarge"
+maximum_runtime_seconds = 7200
+volume_gib = 100
