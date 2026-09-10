@@ -1,0 +1,284 @@
+{
+  "best_selection_variant_by_objective": {
+    "carts": "with_intent",
+    "clicks": "with_both",
+    "orders": "baseline"
+  },
+  "candidate_ceiling": {
+    "objectives": {
+      "carts": {
+        "denominator": 5931,
+        "hits": 3488,
+        "recall_at_20": 0.5880964424211769
+      },
+      "clicks": {
+        "denominator": 19219,
+        "hits": 12640,
+        "recall_at_20": 0.6576825016910349
+      },
+      "orders": {
+        "denominator": 3370,
+        "hits": 2556,
+        "recall_at_20": 0.7584569732937686
+      }
+    },
+    "weighted_recall_at_20": 0.6972713668717176
+  },
+  "elapsed_seconds": 2166.120542045,
+  "evaluation_access": false,
+  "fit_sessions": 100000,
+  "fusion": {
+    "objectives": {
+      "carts": {
+        "denominator": 5931,
+        "hits": 2698,
+        "recall_at_20": 0.454897993592986
+      },
+      "clicks": {
+        "denominator": 19219,
+        "hits": 10311,
+        "recall_at_20": 0.5365003382069826
+      },
+      "orders": {
+        "denominator": 3370,
+        "hits": 2017,
+        "recall_at_20": 0.5985163204747774
+      }
+    },
+    "weighted_recall_at_20": 0.5492292241834605
+  },
+  "kaggle_promotion": false,
+  "representations": {
+    "all": {
+      "dimensions": 128,
+      "epochs": 3,
+      "input_id": "3343122decf5ac0d04b1039f65299e149b99b9db86aff3d201c8fa3063262243",
+      "retained_seconds": 1215.1658436910002,
+      "sessions": 10747378,
+      "sha256": "bd747c712c6e749c256d0d05d03f79a0a0433dc661201822ed97f5bf510a0fad",
+      "status": "passed",
+      "tokens": 140731677,
+      "vocabulary": 1815191
+    },
+    "intent": {
+      "dimensions": 128,
+      "epochs": 3,
+      "input_id": "29132729df5ffc98729b649e3f6199eb0da639eba44435060185fed0d9610006",
+      "retained_seconds": 369.59469204600003,
+      "sessions": 2991023,
+      "sha256": "1cc311f9990e535b33345fcffe9abc1e5999e11e9817c9c66eddaedd55ce060f",
+      "status": "passed",
+      "tokens": 15605195,
+      "vocabulary": 1080694
+    }
+  },
+  "scope": "feature development on chronological selection data",
+  "selection_sessions": 20000,
+  "status": "passed",
+  "study_id": "5d2e2589bc446d1394014b3269ff40b8f603d9cc84666994bfbf21be757eb0e0",
+  "variants": {
+    "baseline": {
+      "features": 102,
+      "models": {
+        "carts": {
+          "best_iteration": 60,
+          "fit_seconds": 29.394076024000015,
+          "sha256": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f"
+        },
+        "clicks": {
+          "best_iteration": 40,
+          "fit_seconds": 25.032722995000086,
+          "sha256": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85"
+        },
+        "orders": {
+          "best_iteration": 95,
+          "fit_seconds": 36.817679436999924,
+          "sha256": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3"
+        }
+      },
+      "objectives": {
+        "carts": {
+          "denominator": 5931,
+          "hits": 2712,
+          "recall_at_20": 0.45725847243297923
+        },
+        "clicks": {
+          "denominator": 19219,
+          "hits": 9952,
+          "recall_at_20": 0.5178209063947136
+        },
+        "orders": {
+          "denominator": 3370,
+          "hits": 2306,
+          "recall_at_20": 0.684272997032641
+        }
+      },
+      "weighted_recall_at_20": 0.5995234305889497
+    },
+    "with_all": {
+      "features": 174,
+      "models": {
+        "carts": {
+          "best_iteration": 25,
+          "fit_seconds": 24.00794153700008,
+          "sha256": "bcf3a4c4d0368ac14a4aa078c451a13f432c6202a688c9a35cd70aee492c17d7"
+        },
+        "clicks": {
+          "best_iteration": 45,
+          "fit_seconds": 30.97665686900018,
+          "sha256": "f45bf66f1ead43e73bd42e467b2b0f0856a2608a43e86ac0b34d10f6b9e50bd2"
+        },
+        "orders": {
+          "best_iteration": 25,
+          "fit_seconds": 22.61759083899983,
+          "sha256": "db85bc54e915fb3446dc42563474b46afee3ff45b1b4fc7ba84512c505e67d16"
+        }
+      },
+      "objectives": {
+        "carts": {
+          "denominator": 5931,
+          "hits": 2701,
+          "recall_at_20": 0.4554038104872703
+        },
+        "clicks": {
+          "denominator": 19219,
+          "hits": 9970,
+          "recall_at_20": 0.5187574795775014
+        },
+        "orders": {
+          "denominator": 3370,
+          "hits": 2298,
+          "recall_at_20": 0.6818991097922849
+        }
+      },
+      "paired_selection_comparison": {
+        "absolute_gain": -0.0018870736096475715,
+        "gain_interval": [
+          -0.006069737658718109,
+          0.0018310999968673817
+        ],
+        "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+        "requested_replicates": 1000,
+        "scope": "exploratory selection-cohort comparison; selection optimism and multiple comparisons are not corrected",
+        "score": 0.5976363569793022,
+        "score_interval": [
+          0.5802404639335345,
+          0.6147404651901691
+        ],
+        "seed": 20260908,
+        "valid_replicates": 1000
+      },
+      "weighted_recall_at_20": 0.5976363569793022
+    },
+    "with_both": {
+      "features": 245,
+      "models": {
+        "carts": {
+          "best_iteration": 30,
+          "fit_seconds": 28.751921752999806,
+          "sha256": "72a7d5241418f8183d393c456b5952b753731d9b6046f20eaacc9be740a3cd49"
+        },
+        "clicks": {
+          "best_iteration": 50,
+          "fit_seconds": 36.26182453699994,
+          "sha256": "7f8244adbecdd4f1dac5894c361976525a2f175b2207f27dfa1970a055b0450f"
+        },
+        "orders": {
+          "best_iteration": 60,
+          "fit_seconds": 35.96101089099966,
+          "sha256": "09d6ae61772ab76e42928fec190b000195242d3e79cea56ac15ca9fb427fe753"
+        }
+      },
+      "objectives": {
+        "carts": {
+          "denominator": 5931,
+          "hits": 2698,
+          "recall_at_20": 0.454897993592986
+        },
+        "clicks": {
+          "denominator": 19219,
+          "hits": 9972,
+          "recall_at_20": 0.5188615432644779
+        },
+        "orders": {
+          "denominator": 3370,
+          "hits": 2297,
+          "recall_at_20": 0.6816023738872403
+        }
+      },
+      "paired_selection_comparison": {
+        "absolute_gain": -0.002206453852261925,
+        "gain_interval": [
+          -0.005869861971589694,
+          0.0013542709441148964
+        ],
+        "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+        "requested_replicates": 1000,
+        "scope": "exploratory selection-cohort comparison; selection optimism and multiple comparisons are not corrected",
+        "score": 0.5973169767366878,
+        "score_interval": [
+          0.5800663361931607,
+          0.6141512737655768
+        ],
+        "seed": 20260908,
+        "valid_replicates": 1000
+      },
+      "weighted_recall_at_20": 0.5973169767366878
+    },
+    "with_intent": {
+      "features": 173,
+      "models": {
+        "carts": {
+          "best_iteration": 45,
+          "fit_seconds": 29.812869896999928,
+          "sha256": "48578893b922df1677574605043fe11b5922fab864d7f47a618b169830af8346"
+        },
+        "clicks": {
+          "best_iteration": 80,
+          "fit_seconds": 40.74673973200015,
+          "sha256": "3c55a57cc28786d7baec8a5606ce9b766f8b75a7f36609a638b456241e92e3f7"
+        },
+        "orders": {
+          "best_iteration": 50,
+          "fit_seconds": 29.30701165599976,
+          "sha256": "7ecea65a64dc5d25728d2d8725be1b7abc7c9b216dd16582d8e134912a54b6cd"
+        }
+      },
+      "objectives": {
+        "carts": {
+          "denominator": 5931,
+          "hits": 2731,
+          "recall_at_20": 0.46046197943011297
+        },
+        "clicks": {
+          "denominator": 19219,
+          "hits": 9960,
+          "recall_at_20": 0.5182371611426193
+        },
+        "orders": {
+          "denominator": 3370,
+          "hits": 2301,
+          "recall_at_20": 0.6827893175074184
+        }
+      },
+      "paired_selection_comparison": {
+        "absolute_gain": 0.00011246985879709293,
+        "gain_interval": [
+          -0.002628275782799616,
+          0.002906917164433699
+        ],
+        "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+        "requested_replicates": 1000,
+        "scope": "exploratory selection-cohort comparison; selection optimism and multiple comparisons are not corrected",
+        "score": 0.5996359004477468,
+        "score_interval": [
+          0.5832261978120369,
+          0.6164276678773593
+        ],
+        "seed": 20260908,
+        "valid_replicates": 1000
+      },
+      "weighted_recall_at_20": 0.5996359004477468
+    }
+  }
+}
