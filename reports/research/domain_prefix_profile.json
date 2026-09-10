@@ -1,0 +1,65 @@
+{
+  "code_sha256": "407d8f24559097158b47f0f1b5cf546d4164be8765576f7da90e7484b7c5cddf",
+  "observed_sha256": "d8a1ece9d8d418312e03a35c61056061c6eac587446f27c607e6c722b4a9c53e",
+  "roles": {
+    "fit": {
+      "adjacent_timestamp_ties": 1522,
+      "events": 398469,
+      "gap_over_two_hours_sessions": 7645,
+      "multiple_actions_same_item_sessions": 14233,
+      "observed_cart_sessions": 15335,
+      "observed_order_sessions": 1916,
+      "prefix_length_quantiles": {
+        "0": 1.0,
+        "0.5": 2.0,
+        "0.9": 9.0,
+        "0.95": 14.0,
+        "0.99": 35.0,
+        "1": 324.0
+      },
+      "sessions": 100000,
+      "slice_sessions": {
+        "all_items_distinct": 68335,
+        "clicks_only": 84486,
+        "gap_at_most_30_minutes": 89253,
+        "gap_over_30_minutes": 10747,
+        "has_repeat_item": 31665,
+        "observed_cart_or_order": 15514,
+        "prefix_1": 45482,
+        "prefix_21_plus": 2839,
+        "prefix_2_to_5": 37253,
+        "prefix_6_to_20": 14426
+      }
+    },
+    "selection": {
+      "adjacent_timestamp_ties": 300,
+      "events": 71408,
+      "gap_over_two_hours_sessions": 729,
+      "multiple_actions_same_item_sessions": 2700,
+      "observed_cart_sessions": 2966,
+      "observed_order_sessions": 347,
+      "prefix_length_quantiles": {
+        "0": 1.0,
+        "0.5": 2.0,
+        "0.9": 8.0,
+        "0.95": 12.0,
+        "0.99": 29.0,
+        "1": 137.0
+      },
+      "sessions": 20000,
+      "slice_sessions": {
+        "all_items_distinct": 14066,
+        "clicks_only": 17003,
+        "gap_at_most_30_minutes": 18692,
+        "gap_over_30_minutes": 1308,
+        "has_repeat_item": 5934,
+        "observed_cart_or_order": 2997,
+        "prefix_1": 9396,
+        "prefix_21_plus": 409,
+        "prefix_2_to_5": 7540,
+        "prefix_6_to_20": 2655
+      }
+    }
+  },
+  "scope": "Verified observed development prefixes only; no labels or model selection"
+}

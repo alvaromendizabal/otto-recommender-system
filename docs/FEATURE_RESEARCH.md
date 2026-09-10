@@ -155,3 +155,263 @@ value or model prediction. Those limits remain explicit in the
 concerns useful subsets and normalization, not another claim that more raw columns
 will improve the result. Distinct sequence/funnel and learned retrieval questions
 also remain open.
+
+## Preregistered domain-feature comparison
+
+The next bounded experiment is specified in
+[domain_feature_study.json](../configs/domain_feature_study.json). It tests 172
+new formulas, with the original 102 baseline columns retained in every arm. This
+is a development comparison; the selection cohort was already used for baseline,
+embedding and graph decisions. A positive result would require separate temporal
+confirmation before changing the accepted competition system.
+
+### Domain basis and limits of the evidence
+
+The observed data support three different questions: what the shopper has done to
+this item, whether recent activity differs from earlier activity in the session,
+and whether historical associations reflect item-specific evidence or popularity.
+These questions differ from simply adding more transformations of the same raw
+co-visitation weights.
+
+| Evidence | Relevant observation | Testable adaptation here | Limit |
+|---|---|---|---|
+| Official OTTO specification | Click, cart and order records have different targets and weights | Preserve action order within each candidate's observed subsequence; measure all three objectives | A cart is an observed action, not proof of purchase intent or abandonment |
+| Third-place OTTO implementation | Item-to-session similarities are pooled with position, time and action information | Compare last item, recent distinct items and distinct cart/order items | Its much larger feature/model ensemble does not establish utility on this cohort |
+| NISER | Embedding norms can introduce popularity bias in neural session recommendation | Test normalized historical affinities with the same graph and seed pools as a raw control | Normalizing a sparse co-visitation graph is an extrapolation, not the paper's method |
+| MiaSRec | Frequency and multiple session interests can matter on session recommendation benchmarks | Use distinct-item pools and gap-defined recent activity before training another encoder | These fixed pools do not learn latent intents, and the reported benchmarks are not OTTO |
+
+Sources: [official OTTO task](https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md),
+[third-place implementation](https://github.com/TheoViel/kaggle_otto_rs),
+[NISER](https://arxiv.org/abs/1909.04276),
+[MiaSRec](https://arxiv.org/abs/2405.00986).
+
+The 30-minute and two-hour episode thresholds are prespecified sensitivity points,
+not inferred session boundaries, validated dwell times or claimed industry rules.
+They split only an already observed prefix. Anonymous IDs provide no evidence about
+product substitutes, complements, price, stock, returns, customer identity or
+demographics. No such semantics are imputed into these features.
+
+### Exact feature definitions
+
+All event timestamps are milliseconds. Durations are divided by 3,600,000 to obtain
+hours; episode thresholds in seconds are multiplied by 1,000. Action codes are
+click 0, cart 1 and order 2. Original event ordering breaks timestamp ties. The final
+observed event has no observed future gap, so no future dwell duration is imputed.
+
+For a prefix of length N and candidate a, its item subsequence retains every observed
+event for a in order, even when other items occur between them. The 40 funnel
+columns comprise:
+
+- Presence, count/N, number of distinct observed actions, reciprocal rank among
+  distinct items in reverse recency, log(1 + hours since last occurrence),
+  log(1 + number of events since last occurrence), and the item's observed time
+  span divided by max(1 millisecond, full-prefix span).
+- Whether the last cart is later than the last order; whether the last click is
+  later than the last cart or order; log counts of clicks after the last cart and
+  carts after the last order. A missing prerequisite yields zero. These describe
+  recorded action order and do not infer an unobserved purchase funnel.
+- The terminal consecutive run of a divided by N; full-prefix item entropy,
+  squared-share concentration, and the fraction of adjacent events switching item.
+  Context columns are broadcast across candidates and can support tree interactions;
+  alone they cannot change the ordering within one query.
+- Three indicators for the last action and three for the penultimate action in
+  the item's subsequence. The penultimate indicators are zero with one occurrence.
+- For each of the nine ordered action pairs, log(1 + observed transition count)
+  and log(1 + mean transition gap in hours). Empty transitions are zero. These are
+  successive events for that item, not necessarily adjacent full-prefix events.
+
+For each of the two gap thresholds, a new episode begins only when an adjacent
+observed gap is strictly greater than the threshold. The 12 columns per threshold
+are candidate presence, current-episode count share, distinct actions, last-cart
+without-later-order flag, previous-episode presence, log count of distinct earlier
+episodes containing the item, and log age within the current episode. Five query
+columns encode log event count, distinct-item count, duration in hours, episode
+count, and the gap opening the current episode. Every log uses log(1 + x). Candidate
+statistics with no supporting occurrence are zero. The query context remains
+available for unseen candidates. This contributes 24 episode columns.
+
+For each certified graph family (symmetric and forward) and score channel (time,
+cart and order), let w(s,a) be a retained edge weight, R(s) the sum of retained
+outgoing weights, and C(a) the sum of retained incoming weights. We compare raw
+w(s,a), row-normalized w(s,a)/(1 + R(s)), and degree-normalized
+w(s,a)/sqrt((1 + R(s))(1 + C(a))). The fixed additive support is one in the graph's
+score units. These are retained-graph scores; pruning means their marginals are
+not full interaction counts or calibrated probabilities. Lift/PMI and learned
+shrinkage remain separate, untested hypotheses.
+
+Each score is pooled by mean and maximum over three seed sets: the last item;
+the last 20 distinct items in reverse observed recency; and the last 20 distinct
+items with an observed cart/order action. Distinct pools avoid weighting a repeated
+item multiple times. Unknown items and empty pools contribute zero; the mean
+denominator includes every selected seed, including seeds without an edge. Both
+normalizations use marginals computed from the fixed historical graph, so changing
+the candidate list does not change an existing candidate's score. This contributes
+36 raw control columns and 72 normalized columns.
+
+### Frozen comparisons and analysis
+
+| Arm | Eligible additions before fitting-only screening | Purpose |
+|---|---:|---|
+| Baseline replay | 0 | Re-predict all selection candidates using the saved three baseline models |
+| Sequence | 64 | Action progression plus gap-defined episode context |
+| Raw graph control | 36 | Distinct recent and purchase seed pools, without normalization |
+| Normalized graph | 72 | Row and degree normalization over those same pools |
+| Combined | 136 | Sequence/episode features plus normalized graph evidence |
+
+The normalized-versus-raw contrast controls the graphs and pools, but differs in
+feature count and uses two normalization modes. It therefore compares feature
+packages, not the isolated causal effect of a single formula. A favorable package
+would need mode-specific and task-specific ablations. Likewise, the sequence arm
+does not isolate transitions from episodes; both remain follow-up questions.
+
+All arms use the original candidates, candidate order, targets, baseline columns
+and sampled fitting negatives. The new cache verifies their equality part by part,
+including on resume. No true item is injected. Baseline replay requires byte-pinned
+native models and identical hits/coverage for every original selection session.
+No unchanged baseline fit is repeated.
+
+Each challenger is screened independently against only its own eligible features
+on 100,000 evenly spaced fitting rows. The label-free screen removes nonfinite,
+constant and almost perfectly correlated columns (absolute correlation at least
+0.99999); original baseline columns remain fixed. This is quality/redundancy
+screening, not per-objective utility selection. Candidate and label arrays cannot
+enter the pure feature functions. Historical graph cutoffs must match the corpus
+and precede every observed query.
+
+Each challenger fits three LightGBM rankers with the frozen baseline settings:
+400-round cap, 40-round patience, evaluation every five rounds, seed 20260908 and
+32 threads. The checkpoint records every completed iteration and retains the best
+complete-query Recall@20 iteration. Training configuration, code, graphs, reference
+models and cache identities enter the immutable study contract. Checksum or contract
+changes stop recovery instead of silently mixing runs.
+
+Report pooled official Recall@20, individual objectives, full-query candidate
+ceilings and paired whole-session bootstrap differences for every arm, plus the
+normalized-versus-raw comparison. Percentile 95% intervals are descriptive,
+unadjusted for repeated selection or multiple comparisons. A negative finding stays
+in the record. Native-model gain is descriptive and cannot establish causal utility
+of one column. The independent audit recomputes metrics and intervals from complete
+session statistics and verifies model bytes, schemas, iterations and lineage; it
+does not independently reconstruct every raw feature or replay challenger predictions.
+
+### Execution and recovery
+
+The managed job reuses the existing corpus, original model-input archive, both
+historical graphs and baseline models. Feature parts have atomic checksum receipts;
+models retain resumable iteration checkpoints. UTC progress records and 15-second
+heartbeats identify the active stage. One processing instance has a 7,200-second
+runtime cap. The verified processing SKU and instance-only compute cap are recorded
+in [domain_feature_pricing.json](../reports/research/domain_feature_pricing.json);
+storage, requests, logging and any transfer charges are additional.
+
+The completed outcomes below retain the preregistered design and distinguish measured
+results from post-hoc diagnostics. The broader feature-research gate remains open.
+
+### Observed support for the domain hypotheses
+
+A verified observed-prefix census, computed before inspecting the new model results,
+shows that opportunity is uneven across queries.
+
+| Observed property | Fitting sessions (100,000) | Selection sessions (20,000) |
+|---|---:|---:|
+| One event only | 45,482 | 9,396 |
+| At least one repeated item | 31,665 | 5,934 |
+| Multiple action types on the same item | 14,233 | 2,700 |
+| Any cart or order | 15,514 | 2,997 |
+| At least one gap over 30 minutes | 10,747 | 1,308 |
+| At least one gap over two hours | 7,645 | 729 |
+
+Thus 46.98% of selection queries have no observed action transition, and only 6.54%
+have more than one 30-minute episode. These are support counts, not estimates of
+feature utility. In a one-event prefix, recent-distinct and last-item graph pools
+are identical, although normalization can still change cross-candidate evidence.
+The smaller selection share of long-gap prefixes also makes direct extrapolation
+from fitting-support counts unreliable. Exact counts, quantiles and observed-file
+hashes are in `reports/research/domain_prefix_profile.json`.
+
+Descriptive error slices use the original prefix-length boundaries (1, 2–5, 6–20,
+21+), repeated versus all-distinct observed items, observed cart/order versus
+click-only prefixes, and gaps above versus at most 30 minutes. These boundaries
+were fixed before new model outcomes were read. Each pair or length partition
+preserves complete sessions and target denominators; different slice families
+overlap. They do not measure target-item repeat/new recall or item rarity.
+
+### Completed domain comparison: September 10, 2026
+
+The managed run completed successfully and the independent aggregate audit passed.
+It fitted twelve new models and replayed three original baseline models. Every arm
+uses 100,000 fitting sessions (6,083,582 sampled candidate rows) and the same 20,000
+selection sessions (8,000,000 complete candidate rows). All 15 native model files,
+feature schemas, stopping iterations and input lineage passed verification. Candidate
+coverage is identical for every session and action; the weighted candidate ceiling
+is 0.697271. The source commit used by the job is
+`4336737fce1f7bc00bde939a0ec05e1dbeca1f06`.
+
+| Arm | Retained columns | Weighted Recall@20 | Change (pp) | Descriptive paired 95% interval (pp) |
+|---|---:|---:|---:|---:|
+| Baseline replay | 102 | 0.599523 | +0.0000 | Reference |
+| Sequence + episodes | 162 | 0.599310 | -0.0214 | -0.2572 to +0.2204 |
+| Matched raw graph pools | 132 | 0.596952 | -0.2571 | -0.5810 to +0.0817 |
+| Normalized graph pools | 162 | 0.599941 | +0.0417 | -0.3739 to +0.4609 |
+| Sequence + normalized | 222 | 0.599598 | +0.0075 | -0.4040 to +0.4080 |
+
+All four weighted difference intervals include zero. The normalized arm has the
+highest weighted point estimate, but no supported overall improvement was established.
+Its direct difference from matched raw graph pools is +0.2989 pp, with a descriptive
+95% interval of −0.1098 to +0.7317 pp. Neither comparison justifies promotion.
+
+The action-level results explain the cancellation in the weighted score. Sequence
+features increase click recall by 0.0676 pp and cart recall by 0.0843 pp, while order
+recall falls by 0.0890 pp; all three intervals include zero. Normalized graph features
+increase order recall by 0.2671 pp but reduce click recall by 0.7805 pp. The click
+interval lies below zero (−1.1450 to −0.4172 pp), while the order interval includes zero.
+These intervals are unadjusted and come from an already reused selection cohort.
+The combined arm does not resolve the trade-off. Cart models in the normalized and
+combined arms, and the combined click model, select the first boosting iteration;
+this is an observed stopping outcome, not evidence of stable feature utility.
+
+A post-hoc diagnostic selects the best existing arm separately for each action:
+sequence for clicks/carts and normalized graph for orders. It produces **0.601446**
+on this same selection cohort, **+0.1923 pp** above the replayed baseline. This was
+computed after viewing outcomes and is not a sixth preregistered arm, an independently
+validated gain, or a new fit. Selecting on the reporting cohort creates optimism;
+[Cawley and Talbot (2010)](https://www.jmlr.org/papers/v11/cawley10a.html) explain why
+model-selection variance must be included in evaluation design. The mix is a follow-up
+hypothesis only. Its exact selection rule and component models are recorded in the
+slice report.
+
+Prefix diagnostics also warrant restraint. The sequence arm improves the one-event
+slice despite the absence of an observed transition; the model also uses static
+last-state/context features and changes its learned splits. That slice cannot establish
+that action transitions caused the gain. The normalized arm's positive long-prefix
+point estimate is based on only 409 sessions with 21+ observed events. The cohort
+partitions conserve per-action hits and full target denominators; their weighted
+recalls must not be averaged by session counts to reconstruct the pooled score.
+
+**Next controlled work:** reuse the certified caches, separate funnel from episode
+features and row from degree normalization, and screen feature utility separately for
+each action using fitting-only session groups. Freeze the selected schemas, models and
+routing rule before a separately declared temporal confirmation. This experiment used
+one seed, one development cohort and redundancy screening; it does not settle those
+questions or the other open families in the coverage inventory. Feature engineering
+remains open, with no final training or Kaggle promotion.
+
+The [results](../reports/research/domain_feature_results.json),
+[audit](../reports/research/domain_feature_audit.json),
+[screening](../reports/research/domain_feature_screening.json),
+[slices](../reports/research/domain_feature_slices.json) and
+[completed run receipt](../reports/research/domain_feature_run.json) contain exact
+values and hashes. The canonical [Notebook 09](../notebooks/09_controlled_feature_study.ipynb)
+recomputes report consistency checks and presents the comparisons.
+
+The job used 3,013.228 managed processing seconds (50.22 minutes), estimated at
+**$2.868593056 in instance compute** at the verified $3.4272/hour rate. This is not an
+invoice and excludes storage, requests, logs and transfer. No replacement compute run
+was needed to recover the results. All 64 collected checkpoint files passed size and
+SHA-256 checks before the independent audit. Source, launch, caches, logs and models
+remain checkpointed under the receipt's owned S3 prefix.
+
+During this run, matrix loading before each arm produced a quiet interval. The current
+source extends 15-second heartbeats across that stage for future runs. The completed
+job retains its original published source identity; it did not use that later logging
+change.

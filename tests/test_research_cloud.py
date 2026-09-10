@@ -212,7 +212,8 @@ def test_replication_keeps_bootstrap_seed_separate_and_publishes_its_protocol(
 
 
 @pytest.mark.parametrize(
-    "task", ["study", "delivery", "verification", "window_study", "window_verification"]
+    "task",
+    ["study", "delivery", "verification", "window_study", "window_verification", "domain_features"],
 )
 def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypatch, task):
     path = Path(__file__).resolve().parents[1] / "scripts/processing_research.py"
@@ -248,6 +249,7 @@ def test_bootstrap_overrides_inherited_container_environment(tmp_path, monkeypat
             "verification": "otto_recsys.cloud.robustness_verification",
             "window_study": "otto_recsys.cloud.window_job",
             "window_verification": "otto_recsys.cloud.window_job",
+            "domain_features": "otto_recsys.cloud.domain_feature_job",
         }[task]
     )
 

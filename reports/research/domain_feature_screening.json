@@ -1,0 +1,2256 @@
+{
+  "combined": {
+    "absolute_correlation_threshold": 0.99999,
+    "decisions": [
+      {
+        "decision": "retained",
+        "name": "domain_funnel_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_full_count_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_distinct_actions",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_unique_reciprocal_rank",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_age_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_events_since_last_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_observed_span_fraction",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_cart_without_later_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_click_after_cart",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_click_after_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_clicks_since_cart_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_carts_since_order_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_trailing_run_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_prefix_item_entropy",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_prefix_item_concentration",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_prefix_switch_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_action_0",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_action_1",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_action_2",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_previous_action_0",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_previous_action_1",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_previous_action_2",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_0_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_0_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_1_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_1_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_2_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_2_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_0_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_0_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_1_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_1_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_2_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_2_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_2_0_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_2_0_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_transition_2_1_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_transition_2_1_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_2_2_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_transition_2_2_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_count_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_distinct_actions",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_cart_without_later_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_previous_episode_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_earlier_episodes_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_last_age_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_events_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_unique_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_duration_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_episode_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_boundary_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_count_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_distinct_actions",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_cart_without_later_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_previous_episode_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_earlier_episodes_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_last_age_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_events_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_unique_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_duration_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_episode_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_boundary_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_time_row_last_max",
+        "redundant_with": "domain_norm_symmetric_time_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_time_degree_last_max",
+        "redundant_with": "domain_norm_symmetric_time_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_cart_row_last_max",
+        "redundant_with": "domain_norm_symmetric_cart_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_cart_degree_last_max",
+        "redundant_with": "domain_norm_symmetric_cart_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_order_row_last_max",
+        "redundant_with": "domain_norm_symmetric_order_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_order_degree_last_max",
+        "redundant_with": "domain_norm_symmetric_order_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_time_row_last_max",
+        "redundant_with": "domain_norm_forward_time_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_time_degree_last_max",
+        "redundant_with": "domain_norm_forward_time_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_cart_row_last_max",
+        "redundant_with": "domain_norm_forward_cart_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_cart_degree_last_max",
+        "redundant_with": "domain_norm_forward_cart_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_order_row_last_max",
+        "redundant_with": "domain_norm_forward_order_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_order_degree_last_max",
+        "redundant_with": "domain_norm_forward_order_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_purchase_unique_max",
+        "redundant_with": null
+      }
+    ],
+    "features": [
+      "query_duration_hours",
+      "query_repeat_share",
+      "query_events",
+      "query_carts_share",
+      "query_unique",
+      "repeat_orders_n50_count",
+      "repeat_all_n50_age_hours",
+      "query_orders_share",
+      "repeat_all_n50_last_position",
+      "repeat_all_n50_count",
+      "repeat_carts_n50_count",
+      "repeat_clicks_n50_count",
+      "query_hour_sin",
+      "query_weekday_cos",
+      "query_hour_cos",
+      "repeat_all_n5_share",
+      "hist_clicks_h72_share",
+      "hist_carts_h72",
+      "query_clicks_last_age_hours",
+      "query_weekday_sin",
+      "query_gap_max",
+      "query_gap_median",
+      "hist_all_h336",
+      "history_last_age_hours",
+      "intent_repeat_carts",
+      "hist_carts_h12_share",
+      "hist_all_h336_share",
+      "hist_orders_h6_share",
+      "repeat_carts_h24_decay",
+      "hist_clicks_h168_share",
+      "query_clicks_count",
+      "hist_carts_h6_share",
+      "query_carts_last_age_hours",
+      "query_gap_mean",
+      "hist_orders_h24_share",
+      "history_lifetime_hours",
+      "hist_orders_trend_h72_h168",
+      "intent_repeat_orders",
+      "graph_time_clicks_n1_uniform_sum",
+      "hist_carts_h1_share",
+      "hist_orders_per_click_h72",
+      "query_clicks_share",
+      "query_carts_count",
+      "hist_clicks_h6",
+      "hist_orders_per_click_h336",
+      "hist_clicks_trend_h72_h168",
+      "hist_all_trend_h168_h336",
+      "query_gap_std",
+      "hist_orders_h336_share",
+      "hist_all_trend_h24_h72",
+      "hist_orders_h72",
+      "hist_carts_h72_share",
+      "hist_carts_per_click_h336",
+      "hist_carts_trend_h24_h72",
+      "hist_all_h168_share",
+      "hist_carts_per_click_all",
+      "hist_orders_per_click_h24",
+      "hist_carts_h168",
+      "intent_time_carts",
+      "hist_clicks_trend_h24_h72",
+      "repeat_all_n20_age_hours",
+      "hist_clicks_h336_share",
+      "hist_carts_per_click_h72",
+      "hist_all_h1",
+      "hist_all_trend_h6_h24",
+      "hist_all_h12_share",
+      "hist_clicks_trend_h6_h24",
+      "repeat_all_n1_count",
+      "hist_all_h72_share",
+      "hist_orders_per_click_all",
+      "hist_orders_h168_share",
+      "hist_clicks_trend_h168_h336",
+      "hist_all_trend_h1_h6",
+      "hist_clicks_h168",
+      "hist_orders_per_click_h12",
+      "repeat_all_h72_decay",
+      "intent_time_clicks",
+      "repeat_clicks_n1_count",
+      "hist_carts_h336_share",
+      "graph_cart_all_n5_uniform_max",
+      "repeat_all_h1_decay",
+      "repeat_all_n20_share",
+      "repeat_all_n5_count",
+      "hist_all_h1_share",
+      "hist_all_all",
+      "repeat_clicks_h24_decay",
+      "hist_carts_trend_h72_h168",
+      "hist_all_trend_h72_h168",
+      "hist_all_h24_share",
+      "hist_carts_all",
+      "hist_orders_trend_h168_h336",
+      "hist_orders_trend_h24_h72",
+      "hist_carts_trend_h6_h24",
+      "hist_carts_trend_h168_h336",
+      "graph_time_all_n1_uniform_sum",
+      "hist_orders_h12_share",
+      "graph_cart_all_n50_six_hours_mean",
+      "hist_carts_per_click_h168",
+      "graph_cart_all_n20_six_hours_mean",
+      "hist_clicks_h6_share",
+      "repeat_carts_n5_first_position",
+      "hist_orders_h24",
+      "domain_funnel_seen",
+      "domain_funnel_full_count_share",
+      "domain_funnel_distinct_actions",
+      "domain_funnel_last_unique_reciprocal_rank",
+      "domain_funnel_last_age_log_hours",
+      "domain_funnel_events_since_last_log",
+      "domain_funnel_observed_span_fraction",
+      "domain_funnel_cart_without_later_order",
+      "domain_funnel_click_after_cart",
+      "domain_funnel_click_after_order",
+      "domain_funnel_clicks_since_cart_log",
+      "domain_funnel_trailing_run_share",
+      "domain_funnel_prefix_item_entropy",
+      "domain_funnel_prefix_item_concentration",
+      "domain_funnel_prefix_switch_share",
+      "domain_funnel_last_action_0",
+      "domain_funnel_last_action_1",
+      "domain_funnel_last_action_2",
+      "domain_funnel_previous_action_0",
+      "domain_funnel_previous_action_1",
+      "domain_funnel_previous_action_2",
+      "domain_funnel_transition_0_0_count_log",
+      "domain_funnel_transition_0_0_mean_gap_log_hours",
+      "domain_funnel_transition_0_1_count_log",
+      "domain_funnel_transition_0_1_mean_gap_log_hours",
+      "domain_funnel_transition_0_2_count_log",
+      "domain_funnel_transition_0_2_mean_gap_log_hours",
+      "domain_funnel_transition_1_0_count_log",
+      "domain_funnel_transition_1_0_mean_gap_log_hours",
+      "domain_funnel_transition_1_1_count_log",
+      "domain_funnel_transition_1_1_mean_gap_log_hours",
+      "domain_funnel_transition_1_2_count_log",
+      "domain_funnel_transition_1_2_mean_gap_log_hours",
+      "domain_funnel_transition_2_0_count_log",
+      "domain_funnel_transition_2_0_mean_gap_log_hours",
+      "domain_funnel_transition_2_2_count_log",
+      "domain_episode_s1800_seen",
+      "domain_episode_s1800_count_share",
+      "domain_episode_s1800_distinct_actions",
+      "domain_episode_s1800_cart_without_later_order",
+      "domain_episode_s1800_previous_episode_seen",
+      "domain_episode_s1800_earlier_episodes_log",
+      "domain_episode_s1800_last_age_log_hours",
+      "domain_episode_s1800_query_events_log",
+      "domain_episode_s1800_query_unique_log",
+      "domain_episode_s1800_query_duration_log_hours",
+      "domain_episode_s1800_query_episode_count_log",
+      "domain_episode_s1800_query_boundary_gap_log_hours",
+      "domain_episode_s7200_seen",
+      "domain_episode_s7200_count_share",
+      "domain_episode_s7200_distinct_actions",
+      "domain_episode_s7200_cart_without_later_order",
+      "domain_episode_s7200_previous_episode_seen",
+      "domain_episode_s7200_earlier_episodes_log",
+      "domain_episode_s7200_last_age_log_hours",
+      "domain_episode_s7200_query_events_log",
+      "domain_episode_s7200_query_unique_log",
+      "domain_episode_s7200_query_duration_log_hours",
+      "domain_episode_s7200_query_episode_count_log",
+      "domain_episode_s7200_query_boundary_gap_log_hours",
+      "domain_norm_symmetric_time_row_last_mean",
+      "domain_norm_symmetric_time_row_recent_unique_mean",
+      "domain_norm_symmetric_time_row_recent_unique_max",
+      "domain_norm_symmetric_time_row_purchase_unique_mean",
+      "domain_norm_symmetric_time_row_purchase_unique_max",
+      "domain_norm_symmetric_time_degree_last_mean",
+      "domain_norm_symmetric_time_degree_recent_unique_mean",
+      "domain_norm_symmetric_time_degree_recent_unique_max",
+      "domain_norm_symmetric_time_degree_purchase_unique_mean",
+      "domain_norm_symmetric_time_degree_purchase_unique_max",
+      "domain_norm_symmetric_cart_row_last_mean",
+      "domain_norm_symmetric_cart_row_recent_unique_mean",
+      "domain_norm_symmetric_cart_row_recent_unique_max",
+      "domain_norm_symmetric_cart_row_purchase_unique_mean",
+      "domain_norm_symmetric_cart_row_purchase_unique_max",
+      "domain_norm_symmetric_cart_degree_last_mean",
+      "domain_norm_symmetric_cart_degree_recent_unique_mean",
+      "domain_norm_symmetric_cart_degree_recent_unique_max",
+      "domain_norm_symmetric_cart_degree_purchase_unique_mean",
+      "domain_norm_symmetric_cart_degree_purchase_unique_max",
+      "domain_norm_symmetric_order_row_last_mean",
+      "domain_norm_symmetric_order_row_recent_unique_mean",
+      "domain_norm_symmetric_order_row_recent_unique_max",
+      "domain_norm_symmetric_order_row_purchase_unique_mean",
+      "domain_norm_symmetric_order_row_purchase_unique_max",
+      "domain_norm_symmetric_order_degree_last_mean",
+      "domain_norm_symmetric_order_degree_recent_unique_mean",
+      "domain_norm_symmetric_order_degree_recent_unique_max",
+      "domain_norm_symmetric_order_degree_purchase_unique_mean",
+      "domain_norm_symmetric_order_degree_purchase_unique_max",
+      "domain_norm_forward_time_row_last_mean",
+      "domain_norm_forward_time_row_recent_unique_mean",
+      "domain_norm_forward_time_row_recent_unique_max",
+      "domain_norm_forward_time_row_purchase_unique_mean",
+      "domain_norm_forward_time_row_purchase_unique_max",
+      "domain_norm_forward_time_degree_last_mean",
+      "domain_norm_forward_time_degree_recent_unique_mean",
+      "domain_norm_forward_time_degree_recent_unique_max",
+      "domain_norm_forward_time_degree_purchase_unique_mean",
+      "domain_norm_forward_time_degree_purchase_unique_max",
+      "domain_norm_forward_cart_row_last_mean",
+      "domain_norm_forward_cart_row_recent_unique_mean",
+      "domain_norm_forward_cart_row_recent_unique_max",
+      "domain_norm_forward_cart_row_purchase_unique_mean",
+      "domain_norm_forward_cart_row_purchase_unique_max",
+      "domain_norm_forward_cart_degree_last_mean",
+      "domain_norm_forward_cart_degree_recent_unique_mean",
+      "domain_norm_forward_cart_degree_recent_unique_max",
+      "domain_norm_forward_cart_degree_purchase_unique_mean",
+      "domain_norm_forward_cart_degree_purchase_unique_max",
+      "domain_norm_forward_order_row_last_mean",
+      "domain_norm_forward_order_row_recent_unique_mean",
+      "domain_norm_forward_order_row_recent_unique_max",
+      "domain_norm_forward_order_row_purchase_unique_mean",
+      "domain_norm_forward_order_row_purchase_unique_max",
+      "domain_norm_forward_order_degree_last_mean",
+      "domain_norm_forward_order_degree_recent_unique_mean",
+      "domain_norm_forward_order_degree_recent_unique_max",
+      "domain_norm_forward_order_degree_purchase_unique_mean",
+      "domain_norm_forward_order_degree_purchase_unique_max"
+    ],
+    "rows": 100000,
+    "scope": "fitting rows only; original baseline features fixed; no labels used"
+  },
+  "normalized_graph": {
+    "absolute_correlation_threshold": 0.99999,
+    "decisions": [
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_time_row_last_max",
+        "redundant_with": "domain_norm_symmetric_time_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_time_degree_last_max",
+        "redundant_with": "domain_norm_symmetric_time_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_cart_row_last_max",
+        "redundant_with": "domain_norm_symmetric_cart_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_cart_degree_last_max",
+        "redundant_with": "domain_norm_symmetric_cart_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_order_row_last_max",
+        "redundant_with": "domain_norm_symmetric_order_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_order_degree_last_max",
+        "redundant_with": "domain_norm_symmetric_order_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_time_row_last_max",
+        "redundant_with": "domain_norm_forward_time_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_time_degree_last_max",
+        "redundant_with": "domain_norm_forward_time_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_cart_row_last_max",
+        "redundant_with": "domain_norm_forward_cart_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_cart_degree_last_max",
+        "redundant_with": "domain_norm_forward_cart_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_degree_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_order_row_last_max",
+        "redundant_with": "domain_norm_forward_order_row_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_row_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_order_degree_last_max",
+        "redundant_with": "domain_norm_forward_order_degree_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_degree_purchase_unique_max",
+        "redundant_with": null
+      }
+    ],
+    "features": [
+      "query_duration_hours",
+      "query_repeat_share",
+      "query_events",
+      "query_carts_share",
+      "query_unique",
+      "repeat_orders_n50_count",
+      "repeat_all_n50_age_hours",
+      "query_orders_share",
+      "repeat_all_n50_last_position",
+      "repeat_all_n50_count",
+      "repeat_carts_n50_count",
+      "repeat_clicks_n50_count",
+      "query_hour_sin",
+      "query_weekday_cos",
+      "query_hour_cos",
+      "repeat_all_n5_share",
+      "hist_clicks_h72_share",
+      "hist_carts_h72",
+      "query_clicks_last_age_hours",
+      "query_weekday_sin",
+      "query_gap_max",
+      "query_gap_median",
+      "hist_all_h336",
+      "history_last_age_hours",
+      "intent_repeat_carts",
+      "hist_carts_h12_share",
+      "hist_all_h336_share",
+      "hist_orders_h6_share",
+      "repeat_carts_h24_decay",
+      "hist_clicks_h168_share",
+      "query_clicks_count",
+      "hist_carts_h6_share",
+      "query_carts_last_age_hours",
+      "query_gap_mean",
+      "hist_orders_h24_share",
+      "history_lifetime_hours",
+      "hist_orders_trend_h72_h168",
+      "intent_repeat_orders",
+      "graph_time_clicks_n1_uniform_sum",
+      "hist_carts_h1_share",
+      "hist_orders_per_click_h72",
+      "query_clicks_share",
+      "query_carts_count",
+      "hist_clicks_h6",
+      "hist_orders_per_click_h336",
+      "hist_clicks_trend_h72_h168",
+      "hist_all_trend_h168_h336",
+      "query_gap_std",
+      "hist_orders_h336_share",
+      "hist_all_trend_h24_h72",
+      "hist_orders_h72",
+      "hist_carts_h72_share",
+      "hist_carts_per_click_h336",
+      "hist_carts_trend_h24_h72",
+      "hist_all_h168_share",
+      "hist_carts_per_click_all",
+      "hist_orders_per_click_h24",
+      "hist_carts_h168",
+      "intent_time_carts",
+      "hist_clicks_trend_h24_h72",
+      "repeat_all_n20_age_hours",
+      "hist_clicks_h336_share",
+      "hist_carts_per_click_h72",
+      "hist_all_h1",
+      "hist_all_trend_h6_h24",
+      "hist_all_h12_share",
+      "hist_clicks_trend_h6_h24",
+      "repeat_all_n1_count",
+      "hist_all_h72_share",
+      "hist_orders_per_click_all",
+      "hist_orders_h168_share",
+      "hist_clicks_trend_h168_h336",
+      "hist_all_trend_h1_h6",
+      "hist_clicks_h168",
+      "hist_orders_per_click_h12",
+      "repeat_all_h72_decay",
+      "intent_time_clicks",
+      "repeat_clicks_n1_count",
+      "hist_carts_h336_share",
+      "graph_cart_all_n5_uniform_max",
+      "repeat_all_h1_decay",
+      "repeat_all_n20_share",
+      "repeat_all_n5_count",
+      "hist_all_h1_share",
+      "hist_all_all",
+      "repeat_clicks_h24_decay",
+      "hist_carts_trend_h72_h168",
+      "hist_all_trend_h72_h168",
+      "hist_all_h24_share",
+      "hist_carts_all",
+      "hist_orders_trend_h168_h336",
+      "hist_orders_trend_h24_h72",
+      "hist_carts_trend_h6_h24",
+      "hist_carts_trend_h168_h336",
+      "graph_time_all_n1_uniform_sum",
+      "hist_orders_h12_share",
+      "graph_cart_all_n50_six_hours_mean",
+      "hist_carts_per_click_h168",
+      "graph_cart_all_n20_six_hours_mean",
+      "hist_clicks_h6_share",
+      "repeat_carts_n5_first_position",
+      "hist_orders_h24",
+      "domain_norm_symmetric_time_row_last_mean",
+      "domain_norm_symmetric_time_row_recent_unique_mean",
+      "domain_norm_symmetric_time_row_recent_unique_max",
+      "domain_norm_symmetric_time_row_purchase_unique_mean",
+      "domain_norm_symmetric_time_row_purchase_unique_max",
+      "domain_norm_symmetric_time_degree_last_mean",
+      "domain_norm_symmetric_time_degree_recent_unique_mean",
+      "domain_norm_symmetric_time_degree_recent_unique_max",
+      "domain_norm_symmetric_time_degree_purchase_unique_mean",
+      "domain_norm_symmetric_time_degree_purchase_unique_max",
+      "domain_norm_symmetric_cart_row_last_mean",
+      "domain_norm_symmetric_cart_row_recent_unique_mean",
+      "domain_norm_symmetric_cart_row_recent_unique_max",
+      "domain_norm_symmetric_cart_row_purchase_unique_mean",
+      "domain_norm_symmetric_cart_row_purchase_unique_max",
+      "domain_norm_symmetric_cart_degree_last_mean",
+      "domain_norm_symmetric_cart_degree_recent_unique_mean",
+      "domain_norm_symmetric_cart_degree_recent_unique_max",
+      "domain_norm_symmetric_cart_degree_purchase_unique_mean",
+      "domain_norm_symmetric_cart_degree_purchase_unique_max",
+      "domain_norm_symmetric_order_row_last_mean",
+      "domain_norm_symmetric_order_row_recent_unique_mean",
+      "domain_norm_symmetric_order_row_recent_unique_max",
+      "domain_norm_symmetric_order_row_purchase_unique_mean",
+      "domain_norm_symmetric_order_row_purchase_unique_max",
+      "domain_norm_symmetric_order_degree_last_mean",
+      "domain_norm_symmetric_order_degree_recent_unique_mean",
+      "domain_norm_symmetric_order_degree_recent_unique_max",
+      "domain_norm_symmetric_order_degree_purchase_unique_mean",
+      "domain_norm_symmetric_order_degree_purchase_unique_max",
+      "domain_norm_forward_time_row_last_mean",
+      "domain_norm_forward_time_row_recent_unique_mean",
+      "domain_norm_forward_time_row_recent_unique_max",
+      "domain_norm_forward_time_row_purchase_unique_mean",
+      "domain_norm_forward_time_row_purchase_unique_max",
+      "domain_norm_forward_time_degree_last_mean",
+      "domain_norm_forward_time_degree_recent_unique_mean",
+      "domain_norm_forward_time_degree_recent_unique_max",
+      "domain_norm_forward_time_degree_purchase_unique_mean",
+      "domain_norm_forward_time_degree_purchase_unique_max",
+      "domain_norm_forward_cart_row_last_mean",
+      "domain_norm_forward_cart_row_recent_unique_mean",
+      "domain_norm_forward_cart_row_recent_unique_max",
+      "domain_norm_forward_cart_row_purchase_unique_mean",
+      "domain_norm_forward_cart_row_purchase_unique_max",
+      "domain_norm_forward_cart_degree_last_mean",
+      "domain_norm_forward_cart_degree_recent_unique_mean",
+      "domain_norm_forward_cart_degree_recent_unique_max",
+      "domain_norm_forward_cart_degree_purchase_unique_mean",
+      "domain_norm_forward_cart_degree_purchase_unique_max",
+      "domain_norm_forward_order_row_last_mean",
+      "domain_norm_forward_order_row_recent_unique_mean",
+      "domain_norm_forward_order_row_recent_unique_max",
+      "domain_norm_forward_order_row_purchase_unique_mean",
+      "domain_norm_forward_order_row_purchase_unique_max",
+      "domain_norm_forward_order_degree_last_mean",
+      "domain_norm_forward_order_degree_recent_unique_mean",
+      "domain_norm_forward_order_degree_recent_unique_max",
+      "domain_norm_forward_order_degree_purchase_unique_mean",
+      "domain_norm_forward_order_degree_purchase_unique_max"
+    ],
+    "rows": 100000,
+    "scope": "fitting rows only; original baseline features fixed; no labels used"
+  },
+  "raw_graph": {
+    "absolute_correlation_threshold": 0.99999,
+    "decisions": [
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_raw_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_time_raw_last_max",
+        "redundant_with": "domain_norm_symmetric_time_raw_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_raw_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_raw_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_raw_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_time_raw_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_raw_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_cart_raw_last_max",
+        "redundant_with": "domain_norm_symmetric_cart_raw_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_raw_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_raw_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_raw_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_cart_raw_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_raw_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_symmetric_order_raw_last_max",
+        "redundant_with": "domain_norm_symmetric_order_raw_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_raw_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_raw_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_raw_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_symmetric_order_raw_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_raw_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_time_raw_last_max",
+        "redundant_with": "domain_norm_forward_time_raw_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_raw_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_raw_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_raw_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_time_raw_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_raw_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_cart_raw_last_max",
+        "redundant_with": "domain_norm_forward_cart_raw_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_raw_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_raw_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_raw_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_cart_raw_purchase_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_raw_last_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "redundant_on_fit_sample",
+        "name": "domain_norm_forward_order_raw_last_max",
+        "redundant_with": "domain_norm_forward_order_raw_last_mean"
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_raw_recent_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_raw_recent_unique_max",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_raw_purchase_unique_mean",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_norm_forward_order_raw_purchase_unique_max",
+        "redundant_with": null
+      }
+    ],
+    "features": [
+      "query_duration_hours",
+      "query_repeat_share",
+      "query_events",
+      "query_carts_share",
+      "query_unique",
+      "repeat_orders_n50_count",
+      "repeat_all_n50_age_hours",
+      "query_orders_share",
+      "repeat_all_n50_last_position",
+      "repeat_all_n50_count",
+      "repeat_carts_n50_count",
+      "repeat_clicks_n50_count",
+      "query_hour_sin",
+      "query_weekday_cos",
+      "query_hour_cos",
+      "repeat_all_n5_share",
+      "hist_clicks_h72_share",
+      "hist_carts_h72",
+      "query_clicks_last_age_hours",
+      "query_weekday_sin",
+      "query_gap_max",
+      "query_gap_median",
+      "hist_all_h336",
+      "history_last_age_hours",
+      "intent_repeat_carts",
+      "hist_carts_h12_share",
+      "hist_all_h336_share",
+      "hist_orders_h6_share",
+      "repeat_carts_h24_decay",
+      "hist_clicks_h168_share",
+      "query_clicks_count",
+      "hist_carts_h6_share",
+      "query_carts_last_age_hours",
+      "query_gap_mean",
+      "hist_orders_h24_share",
+      "history_lifetime_hours",
+      "hist_orders_trend_h72_h168",
+      "intent_repeat_orders",
+      "graph_time_clicks_n1_uniform_sum",
+      "hist_carts_h1_share",
+      "hist_orders_per_click_h72",
+      "query_clicks_share",
+      "query_carts_count",
+      "hist_clicks_h6",
+      "hist_orders_per_click_h336",
+      "hist_clicks_trend_h72_h168",
+      "hist_all_trend_h168_h336",
+      "query_gap_std",
+      "hist_orders_h336_share",
+      "hist_all_trend_h24_h72",
+      "hist_orders_h72",
+      "hist_carts_h72_share",
+      "hist_carts_per_click_h336",
+      "hist_carts_trend_h24_h72",
+      "hist_all_h168_share",
+      "hist_carts_per_click_all",
+      "hist_orders_per_click_h24",
+      "hist_carts_h168",
+      "intent_time_carts",
+      "hist_clicks_trend_h24_h72",
+      "repeat_all_n20_age_hours",
+      "hist_clicks_h336_share",
+      "hist_carts_per_click_h72",
+      "hist_all_h1",
+      "hist_all_trend_h6_h24",
+      "hist_all_h12_share",
+      "hist_clicks_trend_h6_h24",
+      "repeat_all_n1_count",
+      "hist_all_h72_share",
+      "hist_orders_per_click_all",
+      "hist_orders_h168_share",
+      "hist_clicks_trend_h168_h336",
+      "hist_all_trend_h1_h6",
+      "hist_clicks_h168",
+      "hist_orders_per_click_h12",
+      "repeat_all_h72_decay",
+      "intent_time_clicks",
+      "repeat_clicks_n1_count",
+      "hist_carts_h336_share",
+      "graph_cart_all_n5_uniform_max",
+      "repeat_all_h1_decay",
+      "repeat_all_n20_share",
+      "repeat_all_n5_count",
+      "hist_all_h1_share",
+      "hist_all_all",
+      "repeat_clicks_h24_decay",
+      "hist_carts_trend_h72_h168",
+      "hist_all_trend_h72_h168",
+      "hist_all_h24_share",
+      "hist_carts_all",
+      "hist_orders_trend_h168_h336",
+      "hist_orders_trend_h24_h72",
+      "hist_carts_trend_h6_h24",
+      "hist_carts_trend_h168_h336",
+      "graph_time_all_n1_uniform_sum",
+      "hist_orders_h12_share",
+      "graph_cart_all_n50_six_hours_mean",
+      "hist_carts_per_click_h168",
+      "graph_cart_all_n20_six_hours_mean",
+      "hist_clicks_h6_share",
+      "repeat_carts_n5_first_position",
+      "hist_orders_h24",
+      "domain_norm_symmetric_time_raw_last_mean",
+      "domain_norm_symmetric_time_raw_recent_unique_mean",
+      "domain_norm_symmetric_time_raw_recent_unique_max",
+      "domain_norm_symmetric_time_raw_purchase_unique_mean",
+      "domain_norm_symmetric_time_raw_purchase_unique_max",
+      "domain_norm_symmetric_cart_raw_last_mean",
+      "domain_norm_symmetric_cart_raw_recent_unique_mean",
+      "domain_norm_symmetric_cart_raw_recent_unique_max",
+      "domain_norm_symmetric_cart_raw_purchase_unique_mean",
+      "domain_norm_symmetric_cart_raw_purchase_unique_max",
+      "domain_norm_symmetric_order_raw_last_mean",
+      "domain_norm_symmetric_order_raw_recent_unique_mean",
+      "domain_norm_symmetric_order_raw_recent_unique_max",
+      "domain_norm_symmetric_order_raw_purchase_unique_mean",
+      "domain_norm_symmetric_order_raw_purchase_unique_max",
+      "domain_norm_forward_time_raw_last_mean",
+      "domain_norm_forward_time_raw_recent_unique_mean",
+      "domain_norm_forward_time_raw_recent_unique_max",
+      "domain_norm_forward_time_raw_purchase_unique_mean",
+      "domain_norm_forward_time_raw_purchase_unique_max",
+      "domain_norm_forward_cart_raw_last_mean",
+      "domain_norm_forward_cart_raw_recent_unique_mean",
+      "domain_norm_forward_cart_raw_recent_unique_max",
+      "domain_norm_forward_cart_raw_purchase_unique_mean",
+      "domain_norm_forward_cart_raw_purchase_unique_max",
+      "domain_norm_forward_order_raw_last_mean",
+      "domain_norm_forward_order_raw_recent_unique_mean",
+      "domain_norm_forward_order_raw_recent_unique_max",
+      "domain_norm_forward_order_raw_purchase_unique_mean",
+      "domain_norm_forward_order_raw_purchase_unique_max"
+    ],
+    "rows": 100000,
+    "scope": "fitting rows only; original baseline features fixed; no labels used"
+  },
+  "sequence": {
+    "absolute_correlation_threshold": 0.99999,
+    "decisions": [
+      {
+        "decision": "retained",
+        "name": "domain_funnel_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_full_count_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_distinct_actions",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_unique_reciprocal_rank",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_age_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_events_since_last_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_observed_span_fraction",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_cart_without_later_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_click_after_cart",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_click_after_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_clicks_since_cart_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_carts_since_order_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_trailing_run_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_prefix_item_entropy",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_prefix_item_concentration",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_prefix_switch_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_action_0",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_action_1",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_last_action_2",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_previous_action_0",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_previous_action_1",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_previous_action_2",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_0_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_0_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_1_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_1_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_2_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_0_2_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_0_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_0_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_1_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_1_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_2_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_1_2_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_2_0_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_2_0_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_transition_2_1_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_transition_2_1_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_funnel_transition_2_2_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "constant_on_fit_sample",
+        "name": "domain_funnel_transition_2_2_mean_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_count_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_distinct_actions",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_cart_without_later_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_previous_episode_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_earlier_episodes_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_last_age_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_events_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_unique_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_duration_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_episode_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s1800_query_boundary_gap_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_count_share",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_distinct_actions",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_cart_without_later_order",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_previous_episode_seen",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_earlier_episodes_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_last_age_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_events_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_unique_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_duration_log_hours",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_episode_count_log",
+        "redundant_with": null
+      },
+      {
+        "decision": "retained",
+        "name": "domain_episode_s7200_query_boundary_gap_log_hours",
+        "redundant_with": null
+      }
+    ],
+    "features": [
+      "query_duration_hours",
+      "query_repeat_share",
+      "query_events",
+      "query_carts_share",
+      "query_unique",
+      "repeat_orders_n50_count",
+      "repeat_all_n50_age_hours",
+      "query_orders_share",
+      "repeat_all_n50_last_position",
+      "repeat_all_n50_count",
+      "repeat_carts_n50_count",
+      "repeat_clicks_n50_count",
+      "query_hour_sin",
+      "query_weekday_cos",
+      "query_hour_cos",
+      "repeat_all_n5_share",
+      "hist_clicks_h72_share",
+      "hist_carts_h72",
+      "query_clicks_last_age_hours",
+      "query_weekday_sin",
+      "query_gap_max",
+      "query_gap_median",
+      "hist_all_h336",
+      "history_last_age_hours",
+      "intent_repeat_carts",
+      "hist_carts_h12_share",
+      "hist_all_h336_share",
+      "hist_orders_h6_share",
+      "repeat_carts_h24_decay",
+      "hist_clicks_h168_share",
+      "query_clicks_count",
+      "hist_carts_h6_share",
+      "query_carts_last_age_hours",
+      "query_gap_mean",
+      "hist_orders_h24_share",
+      "history_lifetime_hours",
+      "hist_orders_trend_h72_h168",
+      "intent_repeat_orders",
+      "graph_time_clicks_n1_uniform_sum",
+      "hist_carts_h1_share",
+      "hist_orders_per_click_h72",
+      "query_clicks_share",
+      "query_carts_count",
+      "hist_clicks_h6",
+      "hist_orders_per_click_h336",
+      "hist_clicks_trend_h72_h168",
+      "hist_all_trend_h168_h336",
+      "query_gap_std",
+      "hist_orders_h336_share",
+      "hist_all_trend_h24_h72",
+      "hist_orders_h72",
+      "hist_carts_h72_share",
+      "hist_carts_per_click_h336",
+      "hist_carts_trend_h24_h72",
+      "hist_all_h168_share",
+      "hist_carts_per_click_all",
+      "hist_orders_per_click_h24",
+      "hist_carts_h168",
+      "intent_time_carts",
+      "hist_clicks_trend_h24_h72",
+      "repeat_all_n20_age_hours",
+      "hist_clicks_h336_share",
+      "hist_carts_per_click_h72",
+      "hist_all_h1",
+      "hist_all_trend_h6_h24",
+      "hist_all_h12_share",
+      "hist_clicks_trend_h6_h24",
+      "repeat_all_n1_count",
+      "hist_all_h72_share",
+      "hist_orders_per_click_all",
+      "hist_orders_h168_share",
+      "hist_clicks_trend_h168_h336",
+      "hist_all_trend_h1_h6",
+      "hist_clicks_h168",
+      "hist_orders_per_click_h12",
+      "repeat_all_h72_decay",
+      "intent_time_clicks",
+      "repeat_clicks_n1_count",
+      "hist_carts_h336_share",
+      "graph_cart_all_n5_uniform_max",
+      "repeat_all_h1_decay",
+      "repeat_all_n20_share",
+      "repeat_all_n5_count",
+      "hist_all_h1_share",
+      "hist_all_all",
+      "repeat_clicks_h24_decay",
+      "hist_carts_trend_h72_h168",
+      "hist_all_trend_h72_h168",
+      "hist_all_h24_share",
+      "hist_carts_all",
+      "hist_orders_trend_h168_h336",
+      "hist_orders_trend_h24_h72",
+      "hist_carts_trend_h6_h24",
+      "hist_carts_trend_h168_h336",
+      "graph_time_all_n1_uniform_sum",
+      "hist_orders_h12_share",
+      "graph_cart_all_n50_six_hours_mean",
+      "hist_carts_per_click_h168",
+      "graph_cart_all_n20_six_hours_mean",
+      "hist_clicks_h6_share",
+      "repeat_carts_n5_first_position",
+      "hist_orders_h24",
+      "domain_funnel_seen",
+      "domain_funnel_full_count_share",
+      "domain_funnel_distinct_actions",
+      "domain_funnel_last_unique_reciprocal_rank",
+      "domain_funnel_last_age_log_hours",
+      "domain_funnel_events_since_last_log",
+      "domain_funnel_observed_span_fraction",
+      "domain_funnel_cart_without_later_order",
+      "domain_funnel_click_after_cart",
+      "domain_funnel_click_after_order",
+      "domain_funnel_clicks_since_cart_log",
+      "domain_funnel_trailing_run_share",
+      "domain_funnel_prefix_item_entropy",
+      "domain_funnel_prefix_item_concentration",
+      "domain_funnel_prefix_switch_share",
+      "domain_funnel_last_action_0",
+      "domain_funnel_last_action_1",
+      "domain_funnel_last_action_2",
+      "domain_funnel_previous_action_0",
+      "domain_funnel_previous_action_1",
+      "domain_funnel_previous_action_2",
+      "domain_funnel_transition_0_0_count_log",
+      "domain_funnel_transition_0_0_mean_gap_log_hours",
+      "domain_funnel_transition_0_1_count_log",
+      "domain_funnel_transition_0_1_mean_gap_log_hours",
+      "domain_funnel_transition_0_2_count_log",
+      "domain_funnel_transition_0_2_mean_gap_log_hours",
+      "domain_funnel_transition_1_0_count_log",
+      "domain_funnel_transition_1_0_mean_gap_log_hours",
+      "domain_funnel_transition_1_1_count_log",
+      "domain_funnel_transition_1_1_mean_gap_log_hours",
+      "domain_funnel_transition_1_2_count_log",
+      "domain_funnel_transition_1_2_mean_gap_log_hours",
+      "domain_funnel_transition_2_0_count_log",
+      "domain_funnel_transition_2_0_mean_gap_log_hours",
+      "domain_funnel_transition_2_2_count_log",
+      "domain_episode_s1800_seen",
+      "domain_episode_s1800_count_share",
+      "domain_episode_s1800_distinct_actions",
+      "domain_episode_s1800_cart_without_later_order",
+      "domain_episode_s1800_previous_episode_seen",
+      "domain_episode_s1800_earlier_episodes_log",
+      "domain_episode_s1800_last_age_log_hours",
+      "domain_episode_s1800_query_events_log",
+      "domain_episode_s1800_query_unique_log",
+      "domain_episode_s1800_query_duration_log_hours",
+      "domain_episode_s1800_query_episode_count_log",
+      "domain_episode_s1800_query_boundary_gap_log_hours",
+      "domain_episode_s7200_seen",
+      "domain_episode_s7200_count_share",
+      "domain_episode_s7200_distinct_actions",
+      "domain_episode_s7200_cart_without_later_order",
+      "domain_episode_s7200_previous_episode_seen",
+      "domain_episode_s7200_earlier_episodes_log",
+      "domain_episode_s7200_last_age_log_hours",
+      "domain_episode_s7200_query_events_log",
+      "domain_episode_s7200_query_unique_log",
+      "domain_episode_s7200_query_duration_log_hours",
+      "domain_episode_s7200_query_episode_count_log",
+      "domain_episode_s7200_query_boundary_gap_log_hours"
+    ],
+    "rows": 100000,
+    "scope": "fitting rows only; original baseline features fixed; no labels used"
+  }
+}

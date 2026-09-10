@@ -103,7 +103,12 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
         if path.stat().st_size != entry["bytes"]:
             raise ValueError("corpus input has an incorrect length")
         shutil.copyfile(path, corpus / name)
-    if launch.get("task") not in {"representation", "retrieval", "graph_features"}:
+    if launch.get("task") not in {
+        "representation",
+        "retrieval",
+        "graph_features",
+        "domain_features",
+    }:
         assembled = workspace / "retrieval_inputs.tar"
         assemble(inputs / "retrieval", assembled, launch["retrieval_manifest_sha256"])
         extract(assembled, root)
@@ -111,7 +116,7 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     models = inputs / "model/model_inputs.tar"
     verified(models, launch["model_inputs_sha256"])
     extract(models, root)
-    if launch.get("task") == "graph_features":
+    if launch.get("task") in {"graph_features", "domain_features"}:
         if set(launch["graphs"]) != {"symmetric", "forward"}:
             raise ValueError("graph inputs must include both historical families")
         for family, inventory in launch["graphs"].items():
@@ -126,6 +131,16 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
                 destination = root / "graphs" / family / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(path, destination)
+    if launch.get("task") == "domain_features":
+        for name, expected in launch["study"]["reference_files"].items():
+            relative = Path(name)
+            if relative.is_absolute() or ".." in relative.parts:
+                raise ValueError("baseline reference path escapes its input")
+            source_reference = inputs / "reference" / relative
+            verified(source_reference, expected)
+            destination = root / "reference" / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source_reference, destination)
     if launch.get("task", "study") == "delivery":
         for role in ("train", "test"):
             stage_events(inputs, project, launch[f"{role}_files"], role=role)
@@ -149,6 +164,7 @@ def main() -> int:
         "representation",
         "retrieval",
         "graph_features",
+        "domain_features",
     }:
         raise ValueError("unsupported research processing task")
     print(
@@ -217,6 +233,7 @@ def main() -> int:
                 "representation": "otto_recsys.cloud.representation_job",
                 "retrieval": "otto_recsys.cloud.retrieval_job",
                 "graph_features": "otto_recsys.cloud.graph_feature_job",
+                "domain_features": "otto_recsys.cloud.domain_feature_job",
             }[task],
             str(launch_path),
         ],

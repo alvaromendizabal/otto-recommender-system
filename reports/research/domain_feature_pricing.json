@@ -1,0 +1,19 @@
+{
+  "verified_at_utc": "2026-09-10T05:25:07.637136+00:00",
+  "service": "AmazonSageMaker",
+  "region": "us-west-2",
+  "usage_type": "USW2-Processing:ml.c7i.16xlarge",
+  "sku": "FB3WX66MSBWM5MWK",
+  "price_catalog_version": "20260909175544",
+  "rate_usd_per_hour": "3.4272000000",
+  "instance_count": 1,
+  "runtime_cap_seconds": 7200,
+  "instance_compute_cap_usd": "6.8544",
+  "exclusions": [
+    "S3 storage and requests",
+    "Processing volume storage",
+    "CloudWatch logs",
+    "any data-transfer charges"
+  ],
+  "source": "AWS Price List API GetProducts, OnDemand, effective 2026-09-01; processing SKU verified separately from Studio."
+}
