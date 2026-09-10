@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "experiment": "matched-retrieval",
+  "region": "us-west-2",
+  "source_commit": "5fdf6e41de1c843e56585d2bee5a6eea0fd8d8f9",
+  "source_sha256": "6824d22e39c73d16e09edf051b203feaed8a2a82cc42c555e687bc9fc4d8f708",
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/retrieval/6824d22e39c73d16e09edf051b203feaed8a2a82cc42c555e687bc9fc4d8f708/checkpoints",
+  "launch_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/retrieval/6824d22e39c73d16e09edf051b203feaed8a2a82cc42c555e687bc9fc4d8f708/source/launch.json",
+  "observed": {
+    "CreationTime": "2026-09-10T02:19:18.459000+00:00",
+    "ProcessingJobName": "otto-retrieval-6824d22e39c7",
+    "ProcessingJobStatus": "InProgress"
+  },
+  "scope": "development selection; no Kaggle promotion",
+  "results_status": "pending",
+  "resources": {
+    "instance_type": "ml.c7i.16xlarge",
+    "maximum_runtime_seconds": 7200,
+    "volume_gib": 100
+  },
+  "baseline_private_score": 0.56842,
+  "target_private_score": 0.60503
+}
