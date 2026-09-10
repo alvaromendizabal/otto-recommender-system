@@ -29,7 +29,9 @@ our candidate pools or ranker hyperparameters.
 |---|---|
 | Representation fitting | Historical events strictly before August 20, 2022, 22:00 UTC |
 | Learned families | Skip-gram Item2Vec on all actions; separately on carts and orders |
+| Data preparation | External sort with an 8 GB memory limit, Arrow batches and bounded 100-token session buffers |
 | Embedding settings | 128 dimensions, window 10, 10 negatives, 3 epochs, seed 20260910 |
+| Concurrent work | Two independent embedding training tasks, 16 workers each, inside the same capped instance |
 | Similarity features | 148 proposed columns: known-item flags, frequency, action/window coverage, last-item, mean, maximum, centroid and recency-weighted similarities |
 | Quality screening | 100,000 fitting rows only; remove nonfinite, constant and redundant new columns |
 | Matched arms | Existing 102 features; add all-action embeddings; add intent embeddings; add both |
@@ -82,7 +84,7 @@ The first pilot has a two-hour compute ceiling plus provisioning/input setup. It
 checkpoint timing determine the next estimate. There is no evidence-based deadline or guarantee
 for reaching 0.60503; calendar age alone does not remove data, model or compute constraints.
 
-SageMaker accepted **`otto-representations-fe780ed36e9e`** at **00:18 UTC on September 10**.
+SageMaker accepted **`otto-representations-d4aa725e8659`** at **00:26 UTC on September 10**.
 The [launch receipt](../reports/research/representation_run.json) pins the source commit,
 source archive, input contract, checkpoint destination and bounded resources. The saved status
 is an observation, not a live progress indicator. Monitor the running experiment with:
@@ -94,6 +96,11 @@ uv run --frozen --extra cloud python scripts/representation_status.py --watch
 
 The monitor prints the managed job status and recent CloudWatch heartbeats. It does not launch
 compute. This experiment is separate from the completed nine-cell robustness batch below.
+
+The first attempt encountered a DuckDB memory limit during sequence preparation, before
+training. It was stopped at 00:24 UTC. The replacement streams bounded session buffers and
+preserves this failed attempt in the same launch history. A passed synthetic test is not
+reported as evidence that a full-data workload completed.
 
 ## Verified baseline
 
