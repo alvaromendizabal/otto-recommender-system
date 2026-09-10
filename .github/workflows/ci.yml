@@ -88,6 +88,10 @@ jobs:
           assert report["notebooks"] == report["reused_notebooks"] == expected
           print("OTTO_NOTEBOOK_EXECUTION_AND_RESUME_PASSED")
           PY
+      - name: Prepare verified publication receipt
+        run: |
+          /tmp/otto-analysis/bin/python scripts/publish_notebooks.py
+          cp notebooks/execution.json artifacts/notebooks/publication.json
       - name: Retain executed notebooks and timestamped evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

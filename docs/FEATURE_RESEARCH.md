@@ -415,3 +415,20 @@ During this run, matrix loading before each arm produced a quiet interval. The c
 source extends 15-second heartbeats across that stage for future runs. The completed
 job retains its original published source identity; it did not use that later logging
 change.
+
+## Bounded shortlist pilot: completed
+
+A three-arm follow-up has now tested fitting-only shared versus per-task selection
+on cached domain features. Shared selection scored **0.604069**, per-task selection
+**0.599860**, and the matched small-data baseline **0.578084** on 2,048 development
+sessions. The shared gain is +2.599 pp, primarily orders. Per-task selection did not
+beat the shared control. These numbers are not Kaggle scores or temporal confirmation.
+
+The completed managed job used 4.50 processing minutes, about $0.257 in instance
+compute. Nine models passed independent metric/hash checks and a zero-training
+restart reproduced every result. [Full pilot, uncertainty and decisions](TASK_FEATURE_PILOT.md).
+
+The next bounded stage freezes the 32 shared additions and compares them with the
+baseline using more fitting support; block ablations and temporal confirmation follow
+only if warranted. The exact per-task rule will not be scaled. All 14 unresolved
+families remain open. [Standing execution rules](EXECUTION_RULES.md).

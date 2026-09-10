@@ -16,6 +16,7 @@ for broad feature research or establish the historical winning score of 0.60503.
 | Wider retrieval pilot | Completed; both challengers improved coverage but reduced final ranking |
 | Complementary graph feature study | **Completed and audited**: 0.595269 / 0.595923 / 0.596443 versus baseline 0.599523; no promotion |
 | Domain feature study | **Completed and audited**: 172 eligible formulas, five arms, 12 new models; best weighted point 0.599941 versus 0.599523, interval spans zero; no promotion |
+| Bounded shortlist pilot | **Completed and audited**: shared 0.604069 / per-task 0.599860 / matched small baseline 0.578084; zero-training restart passed; no promotion |
 | Broader feature completion gate | **Open**; [coverage inventory](FEATURE_RESEARCH.md) records unresolved work |
 | New-feature temporal confirmation | Pending; the original inspected cohorts are not fresh holdouts |
 | Earlier 50-file collection | Not executed; one accepted baseline file is verified |
@@ -40,7 +41,7 @@ profiles. Feature counts are not a completion percentage.
 ```bash
 uv run --frozen --extra dev --extra ml python scripts/project_status.py
 uv run --frozen --extra dev --extra ml python scripts/project_status.py --require-feature-gate
-uv run --frozen --extra cloud python scripts/retrieval_status.py --receipt reports/research/domain_feature_run.json
+uv run --frozen --extra cloud python scripts/retrieval_status.py --receipt reports/research/task_feature_run.json
 ```
 
 The project-status command reads and verifies committed evidence; it does not query
@@ -54,7 +55,7 @@ candidate cache and graph hashes bind the experiment to its inputs. Native model
 feature partitions and UTC heartbeats persist in the project AWS account. The domain launch and completion receipts identify the owned S3 checkpoints and immutable source; credentials and signed download URLs are not published.
 The completed managed job used one instance with a two-hour runtime cap.
 
-## Latest completed study and next work
+## Preceding domain study
 
 The domain job `otto-domain-features-09629193067f` completed at **06:22:01 UTC on
 September 10**. Independent metric/model verification passed after all 64 evidence
@@ -67,7 +68,7 @@ transfer. The job is completed; it does not need another training launch.
 Sequence features have the highest click/cart point estimates among these arms;
 normalized graph features have the highest order point estimate. Selecting those
 existing models after inspecting this cohort gives 0.601446, an optimistic diagnostic,
-not an independently confirmed improvement. Reuse the feature caches to separate
+not an independently confirmed improvement. This motivated the completed shortlist pilot below. Its original follow-up was to separate
 funnel/episode and row/degree blocks, measure fitting-only per-action utility, and
 freeze the next configuration before temporal confirmation. The 14 unresolved families
 remain open; the original six covered scopes and two data-based exclusions are unchanged.
@@ -98,3 +99,20 @@ truncated prefixes. [Source audit and delivery](INFERENCE.md).
 
 [Original temporal results](ROBUSTNESS.md) · [Model card](MODEL_CARD.md) ·
 [Research coverage](FEATURE_RESEARCH.md) · [Retrieval experiments](retrieval-research.md)
+
+## Bounded shortlist pilot: completed
+
+A three-arm follow-up has now tested fitting-only shared versus per-task selection
+on cached domain features. Shared selection scored **0.604069**, per-task selection
+**0.599860**, and the matched small-data baseline **0.578084** on 2,048 development
+sessions. The shared gain is +2.599 pp, primarily orders. Per-task selection did not
+beat the shared control. These numbers are not Kaggle scores or temporal confirmation.
+
+The completed managed job used 4.50 processing minutes, about $0.257 in instance
+compute. Nine models passed independent metric/hash checks and a zero-training
+restart reproduced every result. [Full pilot, uncertainty and decisions](TASK_FEATURE_PILOT.md).
+
+The next bounded stage freezes the 32 shared additions and compares them with the
+baseline using more fitting support; block ablations and temporal confirmation follow
+only if warranted. The exact per-task rule will not be scaled. All 14 unresolved
+families remain open. [Standing execution rules](EXECUTION_RULES.md).
