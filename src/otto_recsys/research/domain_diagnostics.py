@@ -137,6 +137,21 @@ def error_slices(corpus: Path, study: Path) -> dict[str, Any]:
                     for j, o in enumerate(OBJECTIVES)
                 },
             }
+    choices = {
+        objective: min(
+            result["arms"],
+            key=lambda arm: (
+                -result["arms"][arm]["objectives"][objective]["recall_at_20"],
+                arm != "baseline",
+                arm,
+            ),
+        )
+        for objective in OBJECTIVES
+    }
+    mixed_score = sum(
+        weight * result["arms"][choices[objective]]["objectives"][objective]["recall_at_20"]
+        for weight, objective in zip((0.1, 0.3, 0.6), OBJECTIVES, strict=True)
+    )
     return {
         "study_id": result["study_id"],
         "scope": (
@@ -150,4 +165,18 @@ def error_slices(corpus: Path, study: Path) -> dict[str, Any]:
         "code_sha256": sha256_file(Path(__file__)),
         "files": files,
         "arms": summaries,
+        "same_cohort_task_mix": {
+            "status": "post_hoc_diagnostic_not_an_independent_experiment",
+            "selection_rule": (
+                "Best pooled recall per task on this selection cohort; "
+                "baseline wins ties, then alphabetical arm name"
+            ),
+            "selected_arms": choices,
+            "weighted_recall_at_20": mixed_score,
+            "absolute_gain": mixed_score - result["arms"]["baseline"]["weighted_recall_at_20"],
+            "interpretation": (
+                "Optimistic same-cohort model selection; no independent gain "
+                "or promotion claimed; requires separate confirmation"
+            ),
+        },
     }

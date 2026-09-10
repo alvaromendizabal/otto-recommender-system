@@ -1,0 +1,835 @@
+{
+  "arms": {
+    "baseline": {
+      "features": 102,
+      "models": {
+        "carts": {
+          "best_iteration": 60,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f",
+          "new_feature_gain_share": 0.0,
+          "top_new_features": []
+        },
+        "clicks": {
+          "best_iteration": 40,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85",
+          "new_feature_gain_share": 0.0,
+          "top_new_features": []
+        },
+        "orders": {
+          "best_iteration": 95,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3",
+          "new_feature_gain_share": 0.0,
+          "top_new_features": []
+        }
+      },
+      "weighted_recall_at_20": 0.5995234305889497
+    },
+    "combined": {
+      "features": 222,
+      "models": {
+        "carts": {
+          "best_iteration": 1,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "ef81a973c68cf67aa21f0c1d0c23115ac242f7e7280c5f45900ce37702897fd6",
+          "new_feature_gain_share": 0.9801788175337319,
+          "top_new_features": [
+            [
+              "domain_funnel_last_unique_reciprocal_rank",
+              66206.703125
+            ],
+            [
+              "domain_norm_forward_cart_row_last_mean",
+              7878.9869384765625
+            ],
+            [
+              "domain_norm_symmetric_time_degree_recent_unique_max",
+              2590.780029296875
+            ],
+            [
+              "domain_funnel_trailing_run_share",
+              1499.1700439453125
+            ],
+            [
+              "domain_norm_forward_cart_row_recent_unique_max",
+              485.0270080566406
+            ],
+            [
+              "domain_funnel_prefix_item_concentration",
+              313.2983932495117
+            ],
+            [
+              "domain_episode_s1800_query_unique_log",
+              204.86900329589844
+            ],
+            [
+              "domain_norm_symmetric_time_row_recent_unique_max",
+              153.38400268554688
+            ],
+            [
+              "domain_norm_symmetric_cart_row_recent_unique_mean",
+              142.3820037841797
+            ],
+            [
+              "domain_norm_symmetric_order_row_last_mean",
+              120.16999816894531
+            ]
+          ]
+        },
+        "clicks": {
+          "best_iteration": 1,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "551c8a1ad7c52bc5dae468f565cd402074072a329c66d47090cf4019b1d4ea84",
+          "new_feature_gain_share": 0.9685732517531219,
+          "top_new_features": [
+            [
+              "domain_funnel_last_unique_reciprocal_rank",
+              176410.1610107422
+            ],
+            [
+              "domain_norm_symmetric_time_row_recent_unique_max",
+              63328.244567871094
+            ],
+            [
+              "domain_norm_symmetric_time_row_last_mean",
+              22197.3095703125
+            ],
+            [
+              "domain_norm_symmetric_order_row_recent_unique_mean",
+              1711.97998046875
+            ],
+            [
+              "domain_norm_forward_time_row_recent_unique_max",
+              1686.1400451660156
+            ],
+            [
+              "domain_funnel_prefix_switch_share",
+              1053.0799865722656
+            ],
+            [
+              "domain_funnel_prefix_item_entropy",
+              801.5850219726562
+            ],
+            [
+              "domain_norm_symmetric_order_row_recent_unique_max",
+              521.1589965820312
+            ],
+            [
+              "domain_norm_forward_time_degree_last_mean",
+              509.4090118408203
+            ],
+            [
+              "domain_funnel_full_count_share",
+              461.69500732421875
+            ]
+          ]
+        },
+        "orders": {
+          "best_iteration": 30,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "1bcfa3210d4e58daef29feb7485732e2f63ca3b8363a611ce8ab843e8597ef00",
+          "new_feature_gain_share": 0.6795129432489591,
+          "top_new_features": [
+            [
+              "domain_funnel_full_count_share",
+              369303.3536643982
+            ],
+            [
+              "domain_funnel_cart_without_later_order",
+              20884.570379257202
+            ],
+            [
+              "domain_episode_s7200_count_share",
+              14401.957778930664
+            ],
+            [
+              "domain_norm_forward_cart_row_recent_unique_max",
+              8717.653358459473
+            ],
+            [
+              "domain_norm_symmetric_time_degree_recent_unique_mean",
+              7236.772079467773
+            ],
+            [
+              "domain_norm_forward_cart_row_last_mean",
+              7126.9796352386475
+            ],
+            [
+              "domain_norm_symmetric_cart_row_recent_unique_mean",
+              5564.097499847412
+            ],
+            [
+              "domain_norm_symmetric_time_degree_last_mean",
+              3847.8665523529053
+            ],
+            [
+              "domain_episode_s1800_count_share",
+              3777.6314601898193
+            ],
+            [
+              "domain_norm_forward_cart_row_recent_unique_mean",
+              3658.175910949707
+            ]
+          ]
+        }
+      },
+      "paired_gain": {
+        "objectives": {
+          "carts": {
+            "ci95": [
+              -0.007802234172108979,
+              0.0043330415872147145
+            ],
+            "gain": -0.002191873208565166
+          },
+          "clicks": {
+            "ci95": [
+              -0.010850057416190663,
+              -0.003071445398996783
+            ],
+            "gain": -0.0069202351839325665
+          },
+          "orders": {
+            "ci95": [
+              -0.00328274941018878,
+              0.007997715089292137
+            ],
+            "gain": 0.002373887240356083
+          }
+        },
+        "weighted": 7.474686325084335e-05,
+        "weighted_ci95": [
+          -0.004039735897510206,
+          0.004080394883838249
+        ]
+      },
+      "weighted_recall_at_20": 0.5995981774522006
+    },
+    "normalized_graph": {
+      "features": 162,
+      "models": {
+        "carts": {
+          "best_iteration": 1,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "8c1c711e5b8942e26e1d8a922e64d18173b21a189fb7eb1270687f352b9cfdc8",
+          "new_feature_gain_share": 0.1469814386377249,
+          "top_new_features": [
+            [
+              "domain_norm_forward_cart_row_recent_unique_max",
+              7437.7900390625
+            ],
+            [
+              "domain_norm_symmetric_time_degree_recent_unique_max",
+              2042.1238403320312
+            ],
+            [
+              "domain_norm_symmetric_cart_row_last_mean",
+              1572.8677673339844
+            ],
+            [
+              "domain_norm_symmetric_time_row_last_mean",
+              213.95700073242188
+            ],
+            [
+              "domain_norm_forward_cart_row_last_mean",
+              184.11399841308594
+            ],
+            [
+              "domain_norm_symmetric_time_degree_last_mean",
+              174.76600646972656
+            ],
+            [
+              "domain_norm_symmetric_time_row_recent_unique_max",
+              103.39700317382812
+            ],
+            [
+              "domain_norm_symmetric_cart_row_recent_unique_max",
+              102.81600189208984
+            ],
+            [
+              "domain_norm_symmetric_cart_degree_last_mean",
+              78.78700256347656
+            ],
+            [
+              "domain_norm_symmetric_cart_degree_recent_unique_mean",
+              73.09230041503906
+            ]
+          ]
+        },
+        "clicks": {
+          "best_iteration": 30,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "d27bcc512cef15ba5ed9ccb15c44635e4f874ac1fb88a8244a8724874269a05f",
+          "new_feature_gain_share": 0.295544440295234,
+          "top_new_features": [
+            [
+              "domain_norm_symmetric_time_row_recent_unique_max",
+              689896.3441925049
+            ],
+            [
+              "domain_norm_symmetric_time_row_last_mean",
+              118829.84437561035
+            ],
+            [
+              "domain_norm_forward_time_row_last_mean",
+              64432.92010498047
+            ],
+            [
+              "domain_norm_forward_time_degree_last_mean",
+              25566.659896850586
+            ],
+            [
+              "domain_norm_forward_time_row_recent_unique_max",
+              19341.48191833496
+            ],
+            [
+              "domain_norm_symmetric_order_row_recent_unique_mean",
+              17252.239936828613
+            ],
+            [
+              "domain_norm_symmetric_time_degree_last_mean",
+              14974.624908447266
+            ],
+            [
+              "domain_norm_symmetric_cart_row_recent_unique_mean",
+              14389.996948242188
+            ],
+            [
+              "domain_norm_symmetric_order_row_recent_unique_max",
+              14113.41790008545
+            ],
+            [
+              "domain_norm_forward_time_row_recent_unique_mean",
+              7946.429946899414
+            ]
+          ]
+        },
+        "orders": {
+          "best_iteration": 25,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "96c5a4bb70cb9b3e1fea42489c19ab795600d43358b84d4278c9cd048eee9b28",
+          "new_feature_gain_share": 0.06026040136373195,
+          "top_new_features": [
+            [
+              "domain_norm_forward_cart_row_last_mean",
+              7869.703598022461
+            ],
+            [
+              "domain_norm_symmetric_cart_row_recent_unique_mean",
+              6837.823394775391
+            ],
+            [
+              "domain_norm_symmetric_time_degree_recent_unique_mean",
+              6537.860977172852
+            ],
+            [
+              "domain_norm_forward_cart_row_recent_unique_max",
+              4502.778209686279
+            ],
+            [
+              "domain_norm_forward_cart_row_recent_unique_mean",
+              4155.944528579712
+            ],
+            [
+              "domain_norm_symmetric_time_degree_last_mean",
+              4025.3469791412354
+            ],
+            [
+              "domain_norm_symmetric_time_row_recent_unique_max",
+              1429.0037097930908
+            ],
+            [
+              "domain_norm_forward_time_row_recent_unique_max",
+              380.3091011047363
+            ],
+            [
+              "domain_norm_forward_time_degree_last_mean",
+              315.8409080505371
+            ],
+            [
+              "domain_norm_symmetric_time_row_last_mean",
+              270.3156051635742
+            ]
+          ]
+        }
+      },
+      "paired_gain": {
+        "objectives": {
+          "carts": {
+            "ci95": [
+              -0.007554403668317819,
+              0.005600806124069139
+            ],
+            "gain": -0.0013488450514247176
+          },
+          "clicks": {
+            "ci95": [
+              -0.011450193110058637,
+              -0.0041724055400242654
+            ],
+            "gain": -0.007804776523232218
+          },
+          "orders": {
+            "ci95": [
+              -0.002902011152295612,
+              0.008108245161997698
+            ],
+            "gain": 0.0026706231454005935
+          }
+        },
+        "weighted": 0.000417242719489719,
+        "weighted_ci95": [
+          -0.0037387902893398295,
+          0.004609308850516455
+        ]
+      },
+      "weighted_recall_at_20": 0.5999406733084395
+    },
+    "raw_graph": {
+      "features": 132,
+      "models": {
+        "carts": {
+          "best_iteration": 55,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "dfc61e5ab3b18c660e075d0d06f89256e9111ca7989b1d93485452e7d6e8eea1",
+          "new_feature_gain_share": 0.11644828634049108,
+          "top_new_features": [
+            [
+              "domain_norm_symmetric_time_raw_recent_unique_max",
+              85970.43138694763
+            ],
+            [
+              "domain_norm_forward_cart_raw_last_mean",
+              10891.940561294556
+            ],
+            [
+              "domain_norm_forward_time_raw_last_mean",
+              7781.266119003296
+            ],
+            [
+              "domain_norm_symmetric_time_raw_last_mean",
+              4333.170957565308
+            ],
+            [
+              "domain_norm_forward_time_raw_recent_unique_max",
+              3792.919120788574
+            ],
+            [
+              "domain_norm_forward_order_raw_last_mean",
+              3128.5533599853516
+            ],
+            [
+              "domain_norm_forward_cart_raw_recent_unique_max",
+              2324.7077083587646
+            ],
+            [
+              "domain_norm_symmetric_order_raw_recent_unique_mean",
+              1079.4490928649902
+            ],
+            [
+              "domain_norm_symmetric_order_raw_recent_unique_max",
+              992.5148029327393
+            ],
+            [
+              "domain_norm_symmetric_order_raw_last_mean",
+              936.1930084228516
+            ]
+          ]
+        },
+        "clicks": {
+          "best_iteration": 100,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "7343dd8840010a6f4bc3ff0feaec743ec1e807338bea43dcb56b25779d8115e0",
+          "new_feature_gain_share": 0.20261404834464067,
+          "top_new_features": [
+            [
+              "domain_norm_symmetric_time_raw_recent_unique_max",
+              516475.5254840851
+            ],
+            [
+              "domain_norm_symmetric_time_raw_last_mean",
+              119441.1185874939
+            ],
+            [
+              "domain_norm_forward_time_raw_recent_unique_max",
+              60567.103160858154
+            ],
+            [
+              "domain_norm_forward_time_raw_last_mean",
+              33279.70443916321
+            ],
+            [
+              "domain_norm_symmetric_order_raw_recent_unique_mean",
+              22053.39252281189
+            ],
+            [
+              "domain_norm_symmetric_order_raw_recent_unique_max",
+              16077.564842224121
+            ],
+            [
+              "domain_norm_symmetric_order_raw_last_mean",
+              2774.13431930542
+            ],
+            [
+              "domain_norm_forward_time_raw_recent_unique_mean",
+              1888.2064170837402
+            ],
+            [
+              "domain_norm_symmetric_time_raw_recent_unique_mean",
+              1654.7342052459717
+            ],
+            [
+              "domain_norm_symmetric_cart_raw_recent_unique_max",
+              1082.3512115478516
+            ]
+          ]
+        },
+        "orders": {
+          "best_iteration": 35,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "c4cb2ab2e755cea703fd2a1156040207fec9283831386f01e1d1bd8fb027abb1",
+          "new_feature_gain_share": 0.028220902826036877,
+          "top_new_features": [
+            [
+              "domain_norm_symmetric_time_raw_recent_unique_max",
+              6742.638849258423
+            ],
+            [
+              "domain_norm_symmetric_time_raw_last_mean",
+              3802.175687789917
+            ],
+            [
+              "domain_norm_forward_cart_raw_last_mean",
+              3336.9032249450684
+            ],
+            [
+              "domain_norm_symmetric_time_raw_recent_unique_mean",
+              1357.6935844421387
+            ],
+            [
+              "domain_norm_forward_order_raw_last_mean",
+              805.3607025146484
+            ],
+            [
+              "domain_norm_forward_time_raw_recent_unique_mean",
+              505.0686950683594
+            ],
+            [
+              "domain_norm_forward_order_raw_recent_unique_mean",
+              473.64680099487305
+            ],
+            [
+              "domain_norm_forward_cart_raw_recent_unique_mean",
+              352.82020568847656
+            ],
+            [
+              "domain_norm_forward_time_raw_last_mean",
+              351.9149055480957
+            ],
+            [
+              "domain_norm_forward_time_raw_recent_unique_max",
+              318.3631114959717
+            ]
+          ]
+        }
+      },
+      "paired_gain": {
+        "objectives": {
+          "carts": {
+            "ci95": [
+              -0.010614951371540286,
+              -0.001720237781481126
+            ],
+            "gain": -0.006069802731411229
+          },
+          "clicks": {
+            "ci95": [
+              -0.008674469600871103,
+              -0.0029143253957429785
+            ],
+            "gain": -0.005723502783703626
+          },
+          "orders": {
+            "ci95": [
+              -0.005075203844836987,
+              0.004609019382076374
+            ],
+            "gain": -0.0002967359050445104
+          }
+        },
+        "weighted": -0.002571332640820438,
+        "weighted_ci95": [
+          -0.005810328423346908,
+          0.0008168002705440004
+        ]
+      },
+      "weighted_recall_at_20": 0.5969520979481293
+    },
+    "sequence": {
+      "features": 162,
+      "models": {
+        "carts": {
+          "best_iteration": 75,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "41f9db4bc62e991e2fe9a9d53a451486cb0cda598175c900e8461739ed4af258",
+          "new_feature_gain_share": 0.6438173965620776,
+          "top_new_features": [
+            [
+              "domain_funnel_last_unique_reciprocal_rank",
+              571799.4475107193
+            ],
+            [
+              "domain_funnel_trailing_run_share",
+              91835.96986198425
+            ],
+            [
+              "domain_funnel_full_count_share",
+              17728.21861076355
+            ],
+            [
+              "domain_funnel_prefix_item_concentration",
+              8677.841698646545
+            ],
+            [
+              "domain_funnel_prefix_item_entropy",
+              3573.728784561157
+            ],
+            [
+              "domain_episode_s7200_count_share",
+              3059.530792236328
+            ],
+            [
+              "domain_episode_s1800_query_unique_log",
+              2418.1957178115845
+            ],
+            [
+              "domain_funnel_transition_0_0_mean_gap_log_hours",
+              548.8000011444092
+            ],
+            [
+              "domain_funnel_observed_span_fraction",
+              534.5448989868164
+            ],
+            [
+              "domain_funnel_prefix_switch_share",
+              288.3735990524292
+            ]
+          ]
+        },
+        "clicks": {
+          "best_iteration": 120,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "b0da65e0e0efd922f5399127f73854a6d7a5800c192b37b306bfee1aee0d4da5",
+          "new_feature_gain_share": 0.6590531873205002,
+          "top_new_features": [
+            [
+              "domain_funnel_last_unique_reciprocal_rank",
+              2165547.7776756287
+            ],
+            [
+              "domain_episode_s1800_count_share",
+              169042.47045135498
+            ],
+            [
+              "domain_episode_s7200_count_share",
+              82246.25308609009
+            ],
+            [
+              "domain_funnel_full_count_share",
+              43208.01240348816
+            ],
+            [
+              "domain_funnel_prefix_item_concentration",
+              31510.43307876587
+            ],
+            [
+              "domain_funnel_prefix_switch_share",
+              8318.999496459961
+            ],
+            [
+              "domain_episode_s1800_query_unique_log",
+              6551.525386810303
+            ],
+            [
+              "domain_funnel_prefix_item_entropy",
+              6437.1328048706055
+            ],
+            [
+              "domain_funnel_observed_span_fraction",
+              5506.294813156128
+            ],
+            [
+              "domain_episode_s7200_query_unique_log",
+              2001.2538089752197
+            ]
+          ]
+        },
+        "orders": {
+          "best_iteration": 100,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "d614fea122e38632a29f06451da393661990bca1da075173a9a37d81ccc8c27e",
+          "new_feature_gain_share": 0.5926624961674782,
+          "top_new_features": [
+            [
+              "domain_funnel_full_count_share",
+              386036.64008903503
+            ],
+            [
+              "domain_funnel_cart_without_later_order",
+              24958.480447769165
+            ],
+            [
+              "domain_episode_s7200_count_share",
+              20383.95124053955
+            ],
+            [
+              "domain_episode_s1800_count_share",
+              4408.980284690857
+            ],
+            [
+              "domain_funnel_trailing_run_share",
+              2275.9520921707153
+            ],
+            [
+              "domain_episode_s7200_cart_without_later_order",
+              2000.972020149231
+            ],
+            [
+              "domain_funnel_last_action_1",
+              689.4231605529785
+            ],
+            [
+              "domain_episode_s1800_query_events_log",
+              660.8075790405273
+            ],
+            [
+              "domain_funnel_last_unique_reciprocal_rank",
+              570.5821981430054
+            ],
+            [
+              "domain_funnel_prefix_switch_share",
+              365.7904624938965
+            ]
+          ]
+        }
+      },
+      "paired_gain": {
+        "objectives": {
+          "carts": {
+            "ci95": [
+              -0.0016761952684726318,
+              0.0035749837206571506
+            ],
+            "gain": 0.0008430281571404484
+          },
+          "clicks": {
+            "ci95": [
+              -0.0014075533750722248,
+              0.002963205566345196
+            ],
+            "gain": 0.0006764139653467923
+          },
+          "orders": {
+            "ci95": [
+              -0.004552242844119066,
+              0.0028111020079067814
+            ],
+            "gain": -0.0008902077151335311
+          }
+        },
+        "weighted": -0.0002135747854033049,
+        "weighted_ci95": [
+          -0.002572459988689283,
+          0.0022044340656694385
+        ]
+      },
+      "weighted_recall_at_20": 0.5993098558035463
+    }
+  },
+  "arms_verified": 5,
+  "candidate_coverage_equal_per_session_and_objective": true,
+  "cross_family_screening_findings": [],
+  "evaluation_access": false,
+  "files": {
+    "fit_cache/manifest.json": "defc23c78c19d0fd36ba36b82d72f6993a9bdf229ed0de5be3af2d80c6fb27db",
+    "launch.json": "187b0cd784c4b5f17aac9fbc4996623f6856b020272ac1b1fbec7b77a7c90215",
+    "models/baseline/carts/contract.json": "7d343c236f19d02a36ae764b0a95525f806b6d7c08ba1f3001d41189df2ed849",
+    "models/baseline/carts/manifest.json": "76ce3f18174acd707eab13e6a5e8153b6e15e87f6991cad39be029b7f17e75f1",
+    "models/baseline/carts/model.txt": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f",
+    "models/baseline/clicks/contract.json": "3add0d07059b1085b3e69b67b2366f5ee28dbfb0c27a2543aeac3cb50c83b680",
+    "models/baseline/clicks/manifest.json": "e35da41354bda20136e37de060b33b1896e3782708e12ad9d63e0d149f9293c0",
+    "models/baseline/clicks/model.txt": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85",
+    "models/baseline/orders/contract.json": "014973e105c764e1f94b9479bfc94669f35c6cc3378cc14a7d63139a00184f10",
+    "models/baseline/orders/manifest.json": "230a6df0c1e92aac1be2ad45289706cb4507eeec9fcf048061ac43648dc7804d",
+    "models/baseline/orders/model.txt": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3",
+    "models/baseline/selection_statistics.parquet": "3ee690615c0f955c37ccfbff6c4ae363d0c0cf21958d5d965d457bd689eb0744",
+    "models/combined/carts/contract.json": "4d3c0007e81a95a6287d2be2d556934a89cc9624de5871d38b46d7d1dae7e603",
+    "models/combined/carts/manifest.json": "245be7b78c02d2af2bc6ce35cd7b5993256ea28aaeb888fdc72caef638ce7afb",
+    "models/combined/carts/model.txt": "ef81a973c68cf67aa21f0c1d0c23115ac242f7e7280c5f45900ce37702897fd6",
+    "models/combined/clicks/contract.json": "1adf74340a82499f5b50439b3d770fdd661407c01cd35261481ad13459826520",
+    "models/combined/clicks/manifest.json": "600c2d8469531bb6e150fe573de2adaa84614154b58574ad128c0a4508eace7a",
+    "models/combined/clicks/model.txt": "551c8a1ad7c52bc5dae468f565cd402074072a329c66d47090cf4019b1d4ea84",
+    "models/combined/orders/contract.json": "002a17c2fc4ea11ec5a9134aed01e2b84392a5348f53c16da7371b04eaa5e44f",
+    "models/combined/orders/manifest.json": "9c5362c36afc45c0bf34ffbedc270f7f59e8ec555371d64a33dde5f3d705f9a9",
+    "models/combined/orders/model.txt": "1bcfa3210d4e58daef29feb7485732e2f63ca3b8363a611ce8ab843e8597ef00",
+    "models/combined/selection_statistics.parquet": "ae0fe543aac621276cc1eaa021c8b6bb3b10c9ccab25f86094aea91f39a6eb45",
+    "models/normalized_graph/carts/contract.json": "40bbbf67bf7e31382332755a65a3e85041ac4d9b3b54175a7761d851924123df",
+    "models/normalized_graph/carts/manifest.json": "a74baf904e0f177fad31eac183e07256406060b94d8a69ab3a7cb8776e9ec2f7",
+    "models/normalized_graph/carts/model.txt": "8c1c711e5b8942e26e1d8a922e64d18173b21a189fb7eb1270687f352b9cfdc8",
+    "models/normalized_graph/clicks/contract.json": "f730bf87a46f7073712f0e6084e513de20e28cbe2f07aa68d316f8c61f236421",
+    "models/normalized_graph/clicks/manifest.json": "48c9058b3fd4434f15f6d65bbe5e9af276bac88de8473e487b2c38ee017203e8",
+    "models/normalized_graph/clicks/model.txt": "d27bcc512cef15ba5ed9ccb15c44635e4f874ac1fb88a8244a8724874269a05f",
+    "models/normalized_graph/orders/contract.json": "e47400fd23186e01cfd925458df303a5c59d76d04a0527f0ed0d3f830d9dbfc4",
+    "models/normalized_graph/orders/manifest.json": "253b0a965055dafca682542cc00685f36ca0cb8b76789ebc4a3d074afe014092",
+    "models/normalized_graph/orders/model.txt": "96c5a4bb70cb9b3e1fea42489c19ab795600d43358b84d4278c9cd048eee9b28",
+    "models/normalized_graph/selection_statistics.parquet": "49d48eacd3314ca0970683b90327c75f233d08e3f68cddd9a7800a7cb81ec51b",
+    "models/raw_graph/carts/contract.json": "86258390697b92bfcea16cc7288605d91ac0f0ac0560dcee4e3e93deac707ca3",
+    "models/raw_graph/carts/manifest.json": "54a6deffd3087ad6b88c4a995d50c5ac104586b66d47c16dd37d51a602e40c80",
+    "models/raw_graph/carts/model.txt": "dfc61e5ab3b18c660e075d0d06f89256e9111ca7989b1d93485452e7d6e8eea1",
+    "models/raw_graph/clicks/contract.json": "051783dce4dae2b6443aa049f4fe2b8b79673fea2a450026079877c752052ae8",
+    "models/raw_graph/clicks/manifest.json": "98b5823d3998d81556a032418300d7d1b9b74d801728cb2418be308d019ef23a",
+    "models/raw_graph/clicks/model.txt": "7343dd8840010a6f4bc3ff0feaec743ec1e807338bea43dcb56b25779d8115e0",
+    "models/raw_graph/orders/contract.json": "0337c5c697cfb4495e575fd9dee96c9dd7b29e31a62cfd02d95bee997238c789",
+    "models/raw_graph/orders/manifest.json": "4a7b67d22edf9053bb3c0d29336de360810de6d9cf3f2fcabddd189db51e5e0a",
+    "models/raw_graph/orders/model.txt": "c4cb2ab2e755cea703fd2a1156040207fec9283831386f01e1d1bd8fb027abb1",
+    "models/raw_graph/selection_statistics.parquet": "1436d1dac915893096a4b3f13f71fb95cf598ab6453a1fe661d09cb779e9c5f9",
+    "models/sequence/carts/contract.json": "2de9b837b30071c466dcf1f9e90c8d0a0ef0f50d77c466143ab03b6b98f3f4ee",
+    "models/sequence/carts/manifest.json": "8c834b9ad2b8298c91cfb5217bb1542c0ce5ad9ded97856746e1a86380965a28",
+    "models/sequence/carts/model.txt": "41f9db4bc62e991e2fe9a9d53a451486cb0cda598175c900e8461739ed4af258",
+    "models/sequence/clicks/contract.json": "c045f651a9af523d0b53da6527c35e02ba497ecaa947be7611cb4d5d841845f6",
+    "models/sequence/clicks/manifest.json": "9e5d5925dcc867bc1db46884f0781444b9873b9a3a3da1a35d57fbe9eca8bd38",
+    "models/sequence/clicks/model.txt": "b0da65e0e0efd922f5399127f73854a6d7a5800c192b37b306bfee1aee0d4da5",
+    "models/sequence/orders/contract.json": "149af07ed8b56100dee94af0981d6cb3c0e117f902c5b43f48f4be1ea962f8da",
+    "models/sequence/orders/manifest.json": "9b03282e7fca0244c6499e4f0c8cebe6ca5c556e731f98b6d7b2be465580a4ae",
+    "models/sequence/orders/model.txt": "d614fea122e38632a29f06451da393661990bca1da075173a9a37d81ccc8c27e",
+    "models/sequence/selection_statistics.parquet": "21403755aeb259e10c073ee4ca855cd732fdaa912dfbd39934d0942d443eb23f",
+    "queries.parquet": "f706acdad8badc24fbc2c6967816e4079cc8407a85f0c537ce220ec95a27dfe9",
+    "results.json": "48d698ac19b7a73d3308236eb877d2d2a429c1a18bfd984a9b59df51792ad0f7",
+    "screening.json": "1e517ba135a1820ef252c6bf5c235207d6652320062486f35a587e8608525c80",
+    "selection_cache/manifest.json": "6be19480267b1d90e7d05375df74aa2e390ca2d376335e7532b73fff6bbc1b66",
+    "study_contract.json": "3916171f0c5ae3c6becc2eafca9077f1033732c0c2d9b86b03e4978d6b313dfe"
+  },
+  "kaggle_promotion": false,
+  "limitations": [
+    "No independent reconstruction of raw graph edges or all candidate feature values.",
+    "This independent audit does not replay challenger predictions. The study replays every baseline candidate and requires identical reference per-session statistics.",
+    "Gain importance is descriptive and does not establish individual causal utility.",
+    "Repeated selection-cohort use requires separate confirmation before promotion."
+  ],
+  "models_verified": 15,
+  "normalized_vs_raw": {
+    "ci95": [
+      -0.0010976957303434262,
+      0.0073173706509570315
+    ],
+    "weighted_gain": 0.0029885753603101565
+  },
+  "per_task_intervals": "Paired whole-session percentile 95%; descriptive, unadjusted for selection or multiple comparisons",
+  "scope": "Independent aggregate metrics and model-byte lineage; development selection only",
+  "sessions_per_arm": 20000,
+  "source_commit": "4336737fce1f7bc00bde939a0ec05e1dbeca1f06",
+  "status": "passed",
+  "study_id": "4408bbf8454dc59bd187aaafc351da4694445e195c1a212bda01a47a1cddd239"
+}

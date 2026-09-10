@@ -1,16 +1,37 @@
 {
-  "status": "running",
-  "managed_status": "InProgress",
+  "audit_sha256": "64e308b4e0bdbd0136fa62a1b400b3683162cb995c7000344bbc3da99f0bc01a",
+  "audited_at_utc": "2026-09-10T06:38:47.968+00:00",
+  "baseline_models_reused": 3,
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
+  "collector_sha256": "1e4d52219def233d5065dbe02bdccda285d6dd744cca3d7b60fa38cc4efdb565",
+  "cost_scope": "Instance compute estimate only; not an invoice; excludes storage, requests, logs and transfer",
+  "estimated_instance_compute_usd": "2.868593056000000000000000000",
+  "evaluation_access": false,
   "job_name": "otto-domain-features-09629193067f",
+  "kaggle_promotion": false,
+  "launch_sha256": "187b0cd784c4b5f17aac9fbc4996623f6856b020272ac1b1fbec7b77a7c90215",
+  "managed_status": "Completed",
+  "new_models_fitted": 12,
+  "observed": {
+    "ProcessingJobName": "otto-domain-features-09629193067f",
+    "ProcessingJobStatus": "Completed"
+  },
+  "pipeline_seconds": 2806.860446018,
+  "processing_finished_at_utc": "2026-09-10T06:22:01.713000+00:00",
+  "processing_seconds": "3013.228",
+  "processing_started_at_utc": "2026-09-10T05:31:48.485000+00:00",
+  "profile_sha256": "527cc780011afa662c963014d61c994082b1a21962927130e60eea6bba67bc44",
+  "region": "us-west-2",
+  "resources": {
+    "InstanceCount": 1,
+    "InstanceType": "ml.c7i.16xlarge",
+    "VolumeSizeInGB": 100
+  },
+  "results_sha256": "48d698ac19b7a73d3308236eb877d2d2a429c1a18bfd984a9b59df51792ad0f7",
+  "screening_sha256": "1e517ba135a1820ef252c6bf5c235207d6652320062486f35a587e8608525c80",
+  "slices_sha256": "5f37ec393478cdf2209f2cf7661777f2688fecb86cf201875e13d65886424245",
   "source_commit": "4336737fce1f7bc00bde939a0ec05e1dbeca1f06",
   "source_sha256": "09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd",
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
-  "recorded_at_utc": "2026-09-10T05:41:16.607208+00:00",
-  "stage_last_verified": "baseline replay complete; fitting feature cache in progress",
-  "baseline_models_reused": 3,
-  "planned_new_models": 12,
-  "runtime_cap_seconds": 7200,
-  "instance_compute_cap_usd": "6.8544",
-  "evaluation_access": false,
-  "kaggle_promotion": false
+  "status": "passed",
+  "study_id": "4408bbf8454dc59bd187aaafc351da4694445e195c1a212bda01a47a1cddd239"
 }

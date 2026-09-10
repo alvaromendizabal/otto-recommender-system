@@ -1,6 +1,6 @@
 # OTTO · Session-based recommendation
 
-**Baseline delivered; performance research active.** Nine temporal validation runs are audited, and the official-prefix submission scores **0.56842 private / 0.56862 public**. The historical winning private score is **0.60503**. The feature-research gate remains open: the completed embedding and wider-retrieval pilots did not support promotion. The complementary-graph experiment also completed without an improvement; all three additions scored below baseline on unchanged candidates. [Feature coverage and remaining hypotheses](docs/FEATURE_RESEARCH.md). [Results and research plan](docs/ROADMAP.md).
+**Baseline delivered; performance research active.** Nine temporal validation runs are audited, and the official-prefix submission scores **0.56842 private / 0.56862 public**. The historical winning private score is **0.60503**. The feature-research gate remains open: the completed embedding and wider-retrieval pilots did not support promotion. The complementary-graph additions scored below baseline. A further five-arm domain study is now completed and audited: normalized graph features score 0.599941 versus the replayed 0.599523 development baseline, with an uncertainty interval spanning zero. Sequence features show different click/cart/order trade-offs; no challenger is promoted. [Feature coverage and remaining hypotheses](docs/FEATURE_RESEARCH.md). [Results and research plan](docs/ROADMAP.md).
 
 **Predict what a shopper will click, add to cart, and order next.**
 

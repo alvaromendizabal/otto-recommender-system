@@ -203,6 +203,7 @@ def verify_report_publication(inputs, output, launch, result):
     spec.loader.exec_module(collector)
     launch.update(
         source_sha256="a" * 64,
+        region="us-west-2",
         checkpoint_uri="s3://fixture/domain/checkpoints/",
         pricing={"rate_usd_per_hour": "3.4272"},
     )

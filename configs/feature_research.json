@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "assessed_at_utc": "2026-09-10T05:27:57.011220+00:00",
+  "assessed_at_utc": "2026-09-10T06:40:17.186250+00:00",
   "scope": "Coverage of distinct high-value hypotheses on the verified OTTO interaction data. Counts are an inventory, not a percent complete or a proof of literal mathematical exhaustiveness.",
   "sources": [
     {
@@ -26,6 +26,10 @@
     {
       "title": "NISER: normalization and popularity bias in session recommendation",
       "url": "https://arxiv.org/abs/1909.04276"
+    },
+    {
+      "title": "Model-selection overfitting and evaluation bias",
+      "url": "https://www.jmlr.org/papers/v11/cawley10a.html"
     }
   ],
   "evidence": {
@@ -112,12 +116,32 @@
     "domain_tests": {
       "path": "tests/test_domain_features.py",
       "kind": "test",
-      "sha256": "a33d122171828597562a90eebe57bbb00983d0b984091f1ddcfe3afc24c5f1fb"
+      "sha256": "28e75ad701545ccdcea8ba2c023a4e7e27e35e94d058a0cb45e76d9eeb230b02"
     },
     "domain_code": {
       "path": "src/otto_recsys/research/domain_features.py",
       "kind": "implementation",
       "sha256": "d0c8e2c2204e0b16764319983c35b806b1d67ecf1158b13f8e2df351ff5b4d7a"
+    },
+    "domain_result": {
+      "path": "reports/research/domain_feature_results.json",
+      "kind": "pilot_result",
+      "sha256": "48d698ac19b7a73d3308236eb877d2d2a429c1a18bfd984a9b59df51792ad0f7"
+    },
+    "domain_audit": {
+      "path": "reports/research/domain_feature_audit.json",
+      "kind": "controlled_result",
+      "sha256": "64e308b4e0bdbd0136fa62a1b400b3683162cb995c7000344bbc3da99f0bc01a"
+    },
+    "domain_screening": {
+      "path": "reports/research/domain_feature_screening.json",
+      "kind": "implementation",
+      "sha256": "1e517ba135a1820ef252c6bf5c235207d6652320062486f35a587e8608525c80"
+    },
+    "domain_slices": {
+      "path": "reports/research/domain_feature_slices.json",
+      "kind": "pilot_result",
+      "sha256": "5f37ec393478cdf2209f2cf7661777f2688fecb86cf201875e13d65886424245"
     }
   },
   "families": [
@@ -216,10 +240,14 @@
         "retrieval",
         "graph_result",
         "graph_audit",
-        "graph_screening"
+        "graph_screening",
+        "domain_result",
+        "domain_audit",
+        "domain_screening",
+        "domain_slices"
       ],
-      "remaining_question": "All three raw block additions scored below the baseline. Can fitting-only task-specific utility pruning or support-aware normalization recover useful signals from these graphs?",
-      "next_experiment": "Use the audited negative result to distinguish raw block additions from normalized or utility-screened variants. Preserve candidates and negatives; screen each arm using only its eligible fitting features."
+      "remaining_question": "Matched raw-pool additions reduce the weighted point estimate. Normalization removes that point loss but its paired interval includes zero; task-specific utility and richer support remain untested.",
+      "next_experiment": "Reuse certified caches for fitting-only task utility screening. Keep original candidates, negatives and baseline columns fixed."
     },
     {
       "id": "asof_drift",
@@ -243,10 +271,14 @@
         "baseline_code",
         "domain_config",
         "domain_tests",
-        "domain_code"
+        "domain_code",
+        "domain_result",
+        "domain_audit",
+        "domain_screening",
+        "domain_slices"
       ],
-      "remaining_question": "Do two prefixes with the same counts but different action order imply different future actions?",
-      "next_experiment": "Add prefix-only sequence features to the fixed candidate cache; separately ablate transitions, episodes and concentration. Gap-after-event is an observed proxy, with the final event censored."
+      "remaining_question": "The combined sequence/episode arm has small positive click/cart and negative order point changes, all uncertain. Which transition, state, concentration or episode block adds stable per-task utility?",
+      "next_experiment": "Separate funnel/state from gap-defined episode additions and prune per task using fitting-only groups; do not infer transition utility from the one-event slice."
     },
     {
       "id": "smoothed_encoding",
@@ -270,10 +302,14 @@
         "retrieval",
         "domain_config",
         "domain_tests",
-        "domain_code"
+        "domain_code",
+        "domain_result",
+        "domain_audit",
+        "domain_screening",
+        "domain_slices"
       ],
-      "remaining_question": "Are raw edge weights overly driven by common items, and do action-specific transitions improve rare-item relevance?",
-      "next_experiment": "Compare raw versus smoothed normalized edge affinity on unchanged candidates; fit normalization marginals at the same cutoff and retain support features."
+      "remaining_question": "The matched normalized arm scores 0.599941 versus baseline 0.599523, with weighted uncertainty spanning zero and worse clicks. Which row/degree, support or cross-action representation survives task-specific screening?",
+      "next_experiment": "Separate row from degree normalization on unchanged cached rows. Retained graph marginals are pruned mass, not full probabilities; support-aware lift and cross-action variants remain open."
     },
     {
       "id": "multihop",
@@ -343,10 +379,14 @@
         "protocol",
         "domain_config",
         "domain_tests",
-        "domain_code"
+        "domain_code",
+        "domain_result",
+        "domain_audit",
+        "domain_screening",
+        "domain_slices"
       ],
-      "remaining_question": "Does pooling an entire session obscure separate shopping intentions?",
-      "next_experiment": "First test multiple query pools using existing vectors; train a multi-intent encoder only if coverage/error analysis supports it."
+      "remaining_question": "Last-item, recent-distinct and cart/order-distinct graph pools have been measured as blocks; their individual contributions and vector-based multi-interest representations are unresolved.",
+      "next_experiment": "Ablate query pools using existing graphs/vectors before training a new multi-intent encoder. Nearly half the selection prefixes have one event; report opportunity by prefix support."
     },
     {
       "id": "repeat_explore",
@@ -383,10 +423,14 @@
         "graph_config",
         "domain_config",
         "domain_tests",
-        "domain_code"
+        "domain_code",
+        "domain_result",
+        "domain_audit",
+        "domain_screening",
+        "domain_slices"
       ],
-      "remaining_question": "Does a shared schema suppress useful click/cart features, or does joint screening remove one family in favor of a feature absent from its arm?",
-      "next_experiment": "Screen each arm against its own eligible features, then compare per-task schemas with fixed candidate rows. Diagnose support before expanding fit sessions or changing negative sampling."
+      "remaining_question": "Sequence leads click/cart point estimates and normalized graphs lead orders. The post-hoc task mix scores 0.601446 on the reused selection cohort and is optimistic; no independent gain is established.",
+      "next_experiment": "Use fitting-only grouped utility screens per objective, freeze feature blocks and routing before separately declared temporal confirmation, and retain complete-query targets and negative samples."
     },
     {
       "id": "semantic_metadata",
@@ -418,5 +462,5 @@
     "evidence": [],
     "reason": "The original nine cells confirm the original procedure. Newly selected features require preregistered temporal confirmation with prior data exposure declared."
   },
-  "next_task": "Execute and audit the preregistered five-arm domain comparison: frozen baseline replay, sequence/episode, matched raw graph pools, normalized graph pools, and combined. Keep feature engineering open; no final training or promotion."
+  "next_task": "Reuse the audited domain caches to isolate funnel versus episode and row versus degree blocks, screen utility separately per task on fitting-only session groups, then freeze the next configuration before temporal confirmation. Keep feature engineering open; the post-hoc task mix is not a confirmed gain and no final training or promotion is authorized by these results."
 }

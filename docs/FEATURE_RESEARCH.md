@@ -304,9 +304,8 @@ runtime cap. The verified processing SKU and instance-only compute cap are recor
 in [domain_feature_pricing.json](../reports/research/domain_feature_pricing.json);
 storage, requests, logging and any transfer charges are additional.
 
-The new experiment will update this record with measured outcomes after completion.
-It does not close the broader feature-research gate or authorize a claim that all
-useful feature families have been exhausted.
+The completed outcomes below retain the preregistered design and distinguish measured
+results from post-hoc diagnostics. The broader feature-research gate remains open.
 
 ### Observed support for the domain hypotheses
 
@@ -336,3 +335,83 @@ click-only prefixes, and gaps above versus at most 30 minutes. These boundaries
 were fixed before new model outcomes were read. Each pair or length partition
 preserves complete sessions and target denominators; different slice families
 overlap. They do not measure target-item repeat/new recall or item rarity.
+
+### Completed domain comparison: September 10, 2026
+
+The managed run completed successfully and the independent aggregate audit passed.
+It fitted twelve new models and replayed three original baseline models. Every arm
+uses 100,000 fitting sessions (6,083,582 sampled candidate rows) and the same 20,000
+selection sessions (8,000,000 complete candidate rows). All 15 native model files,
+feature schemas, stopping iterations and input lineage passed verification. Candidate
+coverage is identical for every session and action; the weighted candidate ceiling
+is 0.697271. The source commit used by the job is
+`4336737fce1f7bc00bde939a0ec05e1dbeca1f06`.
+
+| Arm | Retained columns | Weighted Recall@20 | Change (pp) | Descriptive paired 95% interval (pp) |
+|---|---:|---:|---:|---:|
+| Baseline replay | 102 | 0.599523 | +0.0000 | Reference |
+| Sequence + episodes | 162 | 0.599310 | -0.0214 | -0.2572 to +0.2204 |
+| Matched raw graph pools | 132 | 0.596952 | -0.2571 | -0.5810 to +0.0817 |
+| Normalized graph pools | 162 | 0.599941 | +0.0417 | -0.3739 to +0.4609 |
+| Sequence + normalized | 222 | 0.599598 | +0.0075 | -0.4040 to +0.4080 |
+
+All four weighted difference intervals include zero. The normalized arm has the
+highest weighted point estimate, but no supported overall improvement was established.
+Its direct difference from matched raw graph pools is +0.2989 pp, with a descriptive
+95% interval of −0.1098 to +0.7317 pp. Neither comparison justifies promotion.
+
+The action-level results explain the cancellation in the weighted score. Sequence
+features increase click recall by 0.0676 pp and cart recall by 0.0843 pp, while order
+recall falls by 0.0890 pp; all three intervals include zero. Normalized graph features
+increase order recall by 0.2671 pp but reduce click recall by 0.7805 pp. The click
+interval lies below zero (−1.1450 to −0.4172 pp), while the order interval includes zero.
+These intervals are unadjusted and come from an already reused selection cohort.
+The combined arm does not resolve the trade-off. Cart models in the normalized and
+combined arms, and the combined click model, select the first boosting iteration;
+this is an observed stopping outcome, not evidence of stable feature utility.
+
+A post-hoc diagnostic selects the best existing arm separately for each action:
+sequence for clicks/carts and normalized graph for orders. It produces **0.601446**
+on this same selection cohort, **+0.1923 pp** above the replayed baseline. This was
+computed after viewing outcomes and is not a sixth preregistered arm, an independently
+validated gain, or a new fit. Selecting on the reporting cohort creates optimism;
+[Cawley and Talbot (2010)](https://www.jmlr.org/papers/v11/cawley10a.html) explain why
+model-selection variance must be included in evaluation design. The mix is a follow-up
+hypothesis only. Its exact selection rule and component models are recorded in the
+slice report.
+
+Prefix diagnostics also warrant restraint. The sequence arm improves the one-event
+slice despite the absence of an observed transition; the model also uses static
+last-state/context features and changes its learned splits. That slice cannot establish
+that action transitions caused the gain. The normalized arm's positive long-prefix
+point estimate is based on only 409 sessions with 21+ observed events. The cohort
+partitions conserve per-action hits and full target denominators; their weighted
+recalls must not be averaged by session counts to reconstruct the pooled score.
+
+**Next controlled work:** reuse the certified caches, separate funnel from episode
+features and row from degree normalization, and screen feature utility separately for
+each action using fitting-only session groups. Freeze the selected schemas, models and
+routing rule before a separately declared temporal confirmation. This experiment used
+one seed, one development cohort and redundancy screening; it does not settle those
+questions or the other open families in the coverage inventory. Feature engineering
+remains open, with no final training or Kaggle promotion.
+
+The [results](../reports/research/domain_feature_results.json),
+[audit](../reports/research/domain_feature_audit.json),
+[screening](../reports/research/domain_feature_screening.json),
+[slices](../reports/research/domain_feature_slices.json) and
+[completed run receipt](../reports/research/domain_feature_run.json) contain exact
+values and hashes. The canonical [Notebook 09](../notebooks/09_controlled_feature_study.ipynb)
+recomputes report consistency checks and presents the comparisons.
+
+The job used 3,013.228 managed processing seconds (50.22 minutes), estimated at
+**$2.868593056 in instance compute** at the verified $3.4272/hour rate. This is not an
+invoice and excludes storage, requests, logs and transfer. No replacement compute run
+was needed to recover the results. All 64 collected checkpoint files passed size and
+SHA-256 checks before the independent audit. Source, launch, caches, logs and models
+remain checkpointed under the receipt's owned S3 prefix.
+
+During this run, matrix loading before each arm produced a quiet interval. The current
+source extends 15-second heartbeats across that stage for future runs. The completed
+job retains its original published source identity; it did not use that later logging
+change.

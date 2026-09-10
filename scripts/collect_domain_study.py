@@ -150,6 +150,11 @@ def publish_reports(output: Path, reports: Path, job: dict[str, Any]) -> dict[st
         "status": "passed",
         "managed_status": job["ProcessingJobStatus"],
         "job_name": job["ProcessingJobName"],
+        "region": launch["region"],
+        "observed": {
+            "ProcessingJobName": job["ProcessingJobName"],
+            "ProcessingJobStatus": job["ProcessingJobStatus"],
+        },
         "study_id": result["study_id"],
         "source_commit": launch["source_commit"],
         "source_sha256": launch["source_sha256"],

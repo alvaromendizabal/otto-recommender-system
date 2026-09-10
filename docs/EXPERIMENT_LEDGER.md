@@ -75,5 +75,35 @@ parts, graph inputs and reference files are checksum pinned.
 The implementation has an end-to-end recovery test and an independent aggregate
 audit that rejects altered metrics. Baseline model corruption, candidate changes,
 timestamp-unit errors and graph cutoff violations are explicit failure conditions.
-The managed source and launch identities will be recorded with measured results.
-No result or promotion is claimed by this preregistration.
+The preregistration preceded the managed job. Its measured outcome and immutable source
+identity are recorded below; no promotion follows from execution success.
+
+## Domain-feature study: completed outcome
+
+- Source: `4336737fce1f7bc00bde939a0ec05e1dbeca1f06`; archive SHA-256
+  `09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd`.
+- Managed job: `otto-domain-features-09629193067f`, Completed; September 10, 2026,
+  05:31:48.485–06:22:01.713 UTC processing interval.
+- Scope: 100,000 fitting / 20,000 selection sessions; 172 eligible added formulas;
+  baseline replay plus four challenger arms; 12 new fits, 15 native models audited.
+- Results: baseline 0.599523; sequence 0.599310; raw graph 0.596952; normalized graph
+  0.599941; combined 0.599598. All weighted paired difference intervals include zero.
+- Post-hoc task mix: 0.601446 on the same development cohort. This is an optimistic
+  model-selection diagnostic, not a sixth registered arm or confirmation result.
+- Compute: 3,013.228 processing seconds × $3.4272/hour / 3,600 = **$2.868593056**
+  estimated instance compute. No replacement training job was launched for collection.
+  Storage, API requests, logging and transfer are additional; this is not an invoice.
+- Recovery: the first bulk evidence transfer stopped after eight files when network
+  approval was cancelled. Smaller authenticated reads and reuse of verified local
+  baseline files recovered all 64 checkpoint files; every size and SHA-256 matched.
+  The experiment itself had already completed successfully.
+- Validation: independent full-session metric/interval reconstruction, identical
+  per-session candidate coverage, 15 model byte/schema/iteration checks, and complete
+  query-context slice denominator conservation passed. Challenger prediction replay
+  and independent raw-feature reconstruction are outside this aggregate audit.
+
+The [completed receipt](../reports/research/domain_feature_run.json) binds exact result,
+audit, screening, diagnostic and launch hashes. [Notebook 09](../notebooks/09_controlled_feature_study.ipynb)
+presents the measured results. The [coverage inventory](FEATURE_RESEARCH.md) keeps
+feature engineering open and specifies the next controlled work. The later heartbeat
+extension applies to future jobs; the completed job's source above is unchanged.

@@ -290,16 +290,17 @@ def _run_study(
     publish(output / "screening.json")
     for arm in ARM_FAMILIES:
         logger.info("domain_feature_arm_start", extra={"stage": arm})
-        summary, hits = fit_arm(
-            output,
-            output / "models" / arm,
-            queries,
-            tuple(screens[arm]["features"]),
-            config["training"],
-            {"study_id": identity, "arm": arm},
-            logger=logger,
-            publish=publish,
-        )
+        with Heartbeat(logger, stage=f"domain_arm_{arm}", interval_seconds=15):
+            summary, hits = fit_arm(
+                output,
+                output / "models" / arm,
+                queries,
+                tuple(screens[arm]["features"]),
+                config["training"],
+                {"study_id": identity, "arm": arm},
+                logger=logger,
+                publish=publish,
+            )
         summary["paired_selection_comparison"] = paired_bootstrap(
             hits, baseline_hits, queries["selection"].denominators, seed=config["training"]["seed"]
         )

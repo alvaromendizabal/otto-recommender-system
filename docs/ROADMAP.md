@@ -15,6 +15,7 @@ for broad feature research or establish the historical winning score of 0.60503.
 | Item2Vec feature pilot | Completed; no supported weighted gain, no promotion |
 | Wider retrieval pilot | Completed; both challengers improved coverage but reduced final ranking |
 | Complementary graph feature study | **Completed and audited**: 0.595269 / 0.595923 / 0.596443 versus baseline 0.599523; no promotion |
+| Domain feature study | **Completed and audited**: 172 eligible formulas, five arms, 12 new models; best weighted point 0.599941 versus 0.599523, interval spans zero; no promotion |
 | Broader feature completion gate | **Open**; [coverage inventory](FEATURE_RESEARCH.md) records unresolved work |
 | New-feature temporal confirmation | Pending; the original inspected cohorts are not fresh holdouts |
 | Earlier 50-file collection | Not executed; one accepted baseline file is verified |
@@ -39,7 +40,7 @@ profiles. Feature counts are not a completion percentage.
 ```bash
 uv run --frozen --extra dev --extra ml python scripts/project_status.py
 uv run --frozen --extra dev --extra ml python scripts/project_status.py --require-feature-gate
-uv run --frozen --extra cloud python scripts/retrieval_status.py --receipt reports/research/graph_feature_run.json
+uv run --frozen --extra cloud python scripts/retrieval_status.py --receipt reports/research/domain_feature_run.json
 ```
 
 The project-status command reads and verifies committed evidence; it does not query
@@ -50,8 +51,32 @@ as proof that the job is still running now.
 
 A duplicate job is unnecessary when a matching study is active. Source, corpus,
 candidate cache and graph hashes bind the experiment to its inputs. Native models,
-feature partitions and UTC heartbeats persist in the project AWS account. The public receipt omits raw cloud locations.
+feature partitions and UTC heartbeats persist in the project AWS account. The domain launch and completion receipts identify the owned S3 checkpoints and immutable source; credentials and signed download URLs are not published.
 The completed managed job used one instance with a two-hour runtime cap.
+
+## Latest completed study and next work
+
+The domain job `otto-domain-features-09629193067f` completed at **06:22:01 UTC on
+September 10**. Independent metric/model verification passed after all 64 evidence
+files were recovered and checksum verified. It used **50.22 processing minutes**,
+estimated **$2.87 in instance compute**, excluding storage, requests, logging and
+transfer. The job is completed; it does not need another training launch.
+[Completed receipt](../reports/research/domain_feature_run.json) ·
+[Measured outcomes and limitations](FEATURE_RESEARCH.md#completed-domain-comparison-september-10-2026).
+
+Sequence features have the highest click/cart point estimates among these arms;
+normalized graph features have the highest order point estimate. Selecting those
+existing models after inspecting this cohort gives 0.601446, an optimistic diagnostic,
+not an independently confirmed improvement. Reuse the feature caches to separate
+funnel/episode and row/degree blocks, measure fitting-only per-action utility, and
+freeze the next configuration before temporal confirmation. The 14 unresolved families
+remain open; the original six covered scopes and two data-based exclusions are unchanged.
+
+To reconstruct the completed evidence without training:
+
+```bash
+uv run --frozen --extra cloud --extra ml python scripts/collect_domain_study.py --output artifacts/domain_feature_audit
+```
 
 ## Promotion requirements
 

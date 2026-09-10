@@ -248,14 +248,17 @@ def project_status(root: Path) -> dict[str, Any]:
     result.update(feature_gate(root))
     if result["feature_research_gate"] == "open":
         result["next_task"] = result["feature_gate_next_task"]
-    development_path = root / "reports/research/graph_feature_run.json"
-    if development_path.is_file():
+    for experiment in ("domain_feature", "graph_feature"):
+        development_path = root / f"reports/research/{experiment}_run.json"
+        if not development_path.is_file():
+            continue
         development = json.loads(development_path.read_text())
         result["latest_development_observation"] = {
-            "experiment": development["experiment"],
+            "experiment": development.get("experiment", experiment),
             "observed": development["observed"],
             "scope": "Saved observation only; use retrieval_status.py for live AWS state.",
         }
+        break
     return result
 
 
@@ -314,6 +317,13 @@ def main() -> int:
             print(
                 f"ANN candidate coverage: {value['base']:.3%} -> {value['union']:.3%}; "
                 f"gain={100 * value['gain']:.3f} percentage points"
+            )
+        if "latest_development_observation" in result:
+            development = result["latest_development_observation"]
+            observed = development["observed"]
+            print(
+                f"Latest saved development observation: {development['experiment']} "
+                f"job={observed['ProcessingJobName']} status={observed['ProcessingJobStatus']}"
             )
         print(f"Next: {result['next_task']}")
         print(result["scope"])

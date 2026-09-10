@@ -1,0 +1,1087 @@
+{
+  "arms": {
+    "baseline": {
+      "all_items_distinct": {
+        "objectives": {
+          "carts": {
+            "denominator": 2336,
+            "hits": 1221,
+            "recall_at_20": 0.5226883561643836
+          },
+          "clicks": {
+            "denominator": 13822,
+            "hits": 6956,
+            "recall_at_20": 0.5032556793517581
+          },
+          "orders": {
+            "denominator": 762,
+            "hits": 433,
+            "recall_at_20": 0.568241469816273
+          }
+        },
+        "sessions": 14066,
+        "weighted_recall_at_20": 0.5480769566742547
+      },
+      "clicks_only": {
+        "objectives": {
+          "carts": {
+            "denominator": 2960,
+            "hits": 1623,
+            "recall_at_20": 0.5483108108108108
+          },
+          "clicks": {
+            "denominator": 16668,
+            "hits": 8656,
+            "recall_at_20": 0.5193184545236381
+          },
+          "orders": {
+            "denominator": 965,
+            "hits": 550,
+            "recall_at_20": 0.5699481865284974
+          }
+        },
+        "sessions": 17003,
+        "weighted_recall_at_20": 0.5583940006127055
+      },
+      "gap_at_most_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 5322,
+            "hits": 2424,
+            "recall_at_20": 0.455467869222097
+          },
+          "clicks": {
+            "denominator": 17996,
+            "hits": 9301,
+            "recall_at_20": 0.5168370749055345
+          },
+          "orders": {
+            "denominator": 2860,
+            "hits": 1926,
+            "recall_at_20": 0.6734265734265734
+          }
+        },
+        "sessions": 18692,
+        "weighted_recall_at_20": 0.5923800123131265
+      },
+      "gap_over_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 609,
+            "hits": 288,
+            "recall_at_20": 0.4729064039408867
+          },
+          "clicks": {
+            "denominator": 1223,
+            "hits": 651,
+            "recall_at_20": 0.5322976287816844
+          },
+          "orders": {
+            "denominator": 510,
+            "hits": 380,
+            "recall_at_20": 0.7450980392156863
+          }
+        },
+        "sessions": 1308,
+        "weighted_recall_at_20": 0.6421605075898462
+      },
+      "has_repeat_item": {
+        "objectives": {
+          "carts": {
+            "denominator": 3595,
+            "hits": 1491,
+            "recall_at_20": 0.41474269819193327
+          },
+          "clicks": {
+            "denominator": 5397,
+            "hits": 2996,
+            "recall_at_20": 0.5551232166018158
+          },
+          "orders": {
+            "denominator": 2608,
+            "hits": 1873,
+            "recall_at_20": 0.7181748466257669
+          }
+        },
+        "sessions": 5934,
+        "weighted_recall_at_20": 0.6108400390932217
+      },
+      "observed_cart_or_order": {
+        "objectives": {
+          "carts": {
+            "denominator": 2971,
+            "hits": 1089,
+            "recall_at_20": 0.36654325143049477
+          },
+          "clicks": {
+            "denominator": 2551,
+            "hits": 1296,
+            "recall_at_20": 0.5080360642885143
+          },
+          "orders": {
+            "denominator": 2405,
+            "hits": 1756,
+            "recall_at_20": 0.7301455301455302
+          }
+        },
+        "sessions": 2997,
+        "weighted_recall_at_20": 0.5988538999453179
+      },
+      "prefix_1": {
+        "objectives": {
+          "carts": {
+            "denominator": 1222,
+            "hits": 734,
+            "recall_at_20": 0.6006546644844517
+          },
+          "clicks": {
+            "denominator": 9274,
+            "hits": 4933,
+            "recall_at_20": 0.5319171878369635
+          },
+          "orders": {
+            "denominator": 369,
+            "hits": 214,
+            "recall_at_20": 0.5799457994579946
+          }
+        },
+        "sessions": 9396,
+        "weighted_recall_at_20": 0.5813555978038286
+      },
+      "prefix_21_plus": {
+        "objectives": {
+          "carts": {
+            "denominator": 558,
+            "hits": 134,
+            "recall_at_20": 0.24014336917562723
+          },
+          "clicks": {
+            "denominator": 377,
+            "hits": 144,
+            "recall_at_20": 0.3819628647214854
+          },
+          "orders": {
+            "denominator": 647,
+            "hits": 470,
+            "recall_at_20": 0.7264296754250387
+          }
+        },
+        "sessions": 409,
+        "weighted_recall_at_20": 0.5460971024798599
+      },
+      "prefix_2_to_5": {
+        "objectives": {
+          "carts": {
+            "denominator": 2299,
+            "hits": 1163,
+            "recall_at_20": 0.5058721183123097
+          },
+          "clicks": {
+            "denominator": 7123,
+            "hits": 3751,
+            "recall_at_20": 0.5266039590060367
+          },
+          "orders": {
+            "denominator": 1125,
+            "hits": 745,
+            "recall_at_20": 0.6622222222222223
+          }
+        },
+        "sessions": 7540,
+        "weighted_recall_at_20": 0.6017553647276299
+      },
+      "prefix_6_to_20": {
+        "objectives": {
+          "carts": {
+            "denominator": 1852,
+            "hits": 681,
+            "recall_at_20": 0.36771058315334776
+          },
+          "clicks": {
+            "denominator": 2445,
+            "hits": 1124,
+            "recall_at_20": 0.4597137014314928
+          },
+          "orders": {
+            "denominator": 1229,
+            "hits": 877,
+            "recall_at_20": 0.7135882831570383
+          }
+        },
+        "sessions": 2655,
+        "weighted_recall_at_20": 0.5844375149833766
+      }
+    },
+    "combined": {
+      "all_items_distinct": {
+        "objectives": {
+          "carts": {
+            "denominator": 2336,
+            "hits": 1207,
+            "recall_at_20": 0.516695205479452
+          },
+          "clicks": {
+            "denominator": 13822,
+            "hits": 6816,
+            "recall_at_20": 0.49312689914628854
+          },
+          "orders": {
+            "denominator": 762,
+            "hits": 430,
+            "recall_at_20": 0.5643044619422573
+          }
+        },
+        "sessions": 14066,
+        "weighted_recall_at_20": 0.5429039287238188
+      },
+      "clicks_only": {
+        "objectives": {
+          "carts": {
+            "denominator": 2960,
+            "hits": 1606,
+            "recall_at_20": 0.5425675675675675
+          },
+          "clicks": {
+            "denominator": 16668,
+            "hits": 8518,
+            "recall_at_20": 0.5110391168706504
+          },
+          "orders": {
+            "denominator": 965,
+            "hits": 545,
+            "recall_at_20": 0.5647668393782384
+          }
+        },
+        "sessions": 17003,
+        "weighted_recall_at_20": 0.5527342855842783
+      },
+      "gap_at_most_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 5322,
+            "hits": 2417,
+            "recall_at_20": 0.454152574220218
+          },
+          "clicks": {
+            "denominator": 17996,
+            "hits": 9152,
+            "recall_at_20": 0.508557457212714
+          },
+          "orders": {
+            "denominator": 2860,
+            "hits": 1928,
+            "recall_at_20": 0.6741258741258741
+          }
+        },
+        "sessions": 18692,
+        "weighted_recall_at_20": 0.5915770424628612
+      },
+      "gap_over_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 609,
+            "hits": 282,
+            "recall_at_20": 0.4630541871921182
+          },
+          "clicks": {
+            "denominator": 1223,
+            "hits": 667,
+            "recall_at_20": 0.5453802125919869
+          },
+          "orders": {
+            "denominator": 510,
+            "hits": 386,
+            "recall_at_20": 0.7568627450980392
+          }
+        },
+        "sessions": 1308,
+        "weighted_recall_at_20": 0.6475719244756577
+      },
+      "has_repeat_item": {
+        "objectives": {
+          "carts": {
+            "denominator": 3595,
+            "hits": 1492,
+            "recall_at_20": 0.4150208623087622
+          },
+          "clicks": {
+            "denominator": 5397,
+            "hits": 3003,
+            "recall_at_20": 0.556420233463035
+          },
+          "orders": {
+            "denominator": 2608,
+            "hits": 1884,
+            "recall_at_20": 0.7223926380368099
+          }
+        },
+        "sessions": 5934,
+        "weighted_recall_at_20": 0.613583864861018
+      },
+      "observed_cart_or_order": {
+        "objectives": {
+          "carts": {
+            "denominator": 2971,
+            "hits": 1093,
+            "recall_at_20": 0.36788959946146077
+          },
+          "clicks": {
+            "denominator": 2551,
+            "hits": 1301,
+            "recall_at_20": 0.5099960799686397
+          },
+          "orders": {
+            "denominator": 2405,
+            "hits": 1769,
+            "recall_at_20": 0.7355509355509355
+          }
+        },
+        "sessions": 2997,
+        "weighted_recall_at_20": 0.6026970491658635
+      },
+      "prefix_1": {
+        "objectives": {
+          "carts": {
+            "denominator": 1222,
+            "hits": 722,
+            "recall_at_20": 0.5908346972176759
+          },
+          "clicks": {
+            "denominator": 9274,
+            "hits": 4796,
+            "recall_at_20": 0.5171447056286392
+          },
+          "orders": {
+            "denominator": 369,
+            "hits": 215,
+            "recall_at_20": 0.5826558265582655
+          }
+        },
+        "sessions": 9396,
+        "weighted_recall_at_20": 0.578558375663126
+      },
+      "prefix_21_plus": {
+        "objectives": {
+          "carts": {
+            "denominator": 558,
+            "hits": 135,
+            "recall_at_20": 0.24193548387096775
+          },
+          "clicks": {
+            "denominator": 377,
+            "hits": 151,
+            "recall_at_20": 0.4005305039787798
+          },
+          "orders": {
+            "denominator": 647,
+            "hits": 474,
+            "recall_at_20": 0.732612055641422
+          }
+        },
+        "sessions": 409,
+        "weighted_recall_at_20": 0.5522009289440215
+      },
+      "prefix_2_to_5": {
+        "objectives": {
+          "carts": {
+            "denominator": 2299,
+            "hits": 1159,
+            "recall_at_20": 0.5041322314049587
+          },
+          "clicks": {
+            "denominator": 7123,
+            "hits": 3724,
+            "recall_at_20": 0.5228134213112453
+          },
+          "orders": {
+            "denominator": 1125,
+            "hits": 742,
+            "recall_at_20": 0.6595555555555556
+          }
+        },
+        "sessions": 7540,
+        "weighted_recall_at_20": 0.5992543448859454
+      },
+      "prefix_6_to_20": {
+        "objectives": {
+          "carts": {
+            "denominator": 1852,
+            "hits": 683,
+            "recall_at_20": 0.36879049676025916
+          },
+          "clicks": {
+            "denominator": 2445,
+            "hits": 1148,
+            "recall_at_20": 0.4695296523517382
+          },
+          "orders": {
+            "denominator": 1229,
+            "hits": 883,
+            "recall_at_20": 0.7184703010577705
+          }
+        },
+        "sessions": 2655,
+        "weighted_recall_at_20": 0.5886722948979138
+      }
+    },
+    "normalized_graph": {
+      "all_items_distinct": {
+        "objectives": {
+          "carts": {
+            "denominator": 2336,
+            "hits": 1216,
+            "recall_at_20": 0.5205479452054794
+          },
+          "clicks": {
+            "denominator": 13822,
+            "hits": 6794,
+            "recall_at_20": 0.491535233685429
+          },
+          "orders": {
+            "denominator": 762,
+            "hits": 430,
+            "recall_at_20": 0.5643044619422573
+          }
+        },
+        "sessions": 14066,
+        "weighted_recall_at_20": 0.5439005840955411
+      },
+      "clicks_only": {
+        "objectives": {
+          "carts": {
+            "denominator": 2960,
+            "hits": 1604,
+            "recall_at_20": 0.5418918918918919
+          },
+          "clicks": {
+            "denominator": 16668,
+            "hits": 8477,
+            "recall_at_20": 0.5085793136549076
+          },
+          "orders": {
+            "denominator": 965,
+            "hits": 545,
+            "recall_at_20": 0.5647668393782384
+          }
+        },
+        "sessions": 17003,
+        "weighted_recall_at_20": 0.5522856025600014
+      },
+      "gap_at_most_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 5322,
+            "hits": 2415,
+            "recall_at_20": 0.45377677564825253
+          },
+          "clicks": {
+            "denominator": 17996,
+            "hits": 9147,
+            "recall_at_20": 0.5082796176928206
+          },
+          "orders": {
+            "denominator": 2860,
+            "hits": 1930,
+            "recall_at_20": 0.6748251748251748
+          }
+        },
+        "sessions": 18692,
+        "weighted_recall_at_20": 0.5918560993588626
+      },
+      "gap_over_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 609,
+            "hits": 289,
+            "recall_at_20": 0.4745484400656814
+          },
+          "clicks": {
+            "denominator": 1223,
+            "hits": 655,
+            "recall_at_20": 0.53556827473426
+          },
+          "orders": {
+            "denominator": 510,
+            "hits": 385,
+            "recall_at_20": 0.7549019607843137
+          }
+        },
+        "sessions": 1308,
+        "weighted_recall_at_20": 0.6488625359637187
+      },
+      "has_repeat_item": {
+        "objectives": {
+          "carts": {
+            "denominator": 3595,
+            "hits": 1488,
+            "recall_at_20": 0.41390820584144644
+          },
+          "clicks": {
+            "denominator": 5397,
+            "hits": 3008,
+            "recall_at_20": 0.5573466740781916
+          },
+          "orders": {
+            "denominator": 2608,
+            "hits": 1885,
+            "recall_at_20": 0.7227760736196319
+          }
+        },
+        "sessions": 5934,
+        "weighted_recall_at_20": 0.6135727733320322
+      },
+      "observed_cart_or_order": {
+        "objectives": {
+          "carts": {
+            "denominator": 2971,
+            "hits": 1100,
+            "recall_at_20": 0.3702457085156513
+          },
+          "clicks": {
+            "denominator": 2551,
+            "hits": 1325,
+            "recall_at_20": 0.5194041552332419
+          },
+          "orders": {
+            "denominator": 2405,
+            "hits": 1770,
+            "recall_at_20": 0.735966735966736
+          }
+        },
+        "sessions": 2997,
+        "weighted_recall_at_20": 0.6045941696580611
+      },
+      "prefix_1": {
+        "objectives": {
+          "carts": {
+            "denominator": 1222,
+            "hits": 720,
+            "recall_at_20": 0.5891980360065466
+          },
+          "clicks": {
+            "denominator": 9274,
+            "hits": 4784,
+            "recall_at_20": 0.5158507655811947
+          },
+          "orders": {
+            "denominator": 369,
+            "hits": 214,
+            "recall_at_20": 0.5799457994579946
+          }
+        },
+        "sessions": 9396,
+        "weighted_recall_at_20": 0.5763119670348802
+      },
+      "prefix_21_plus": {
+        "objectives": {
+          "carts": {
+            "denominator": 558,
+            "hits": 140,
+            "recall_at_20": 0.25089605734767023
+          },
+          "clicks": {
+            "denominator": 377,
+            "hits": 158,
+            "recall_at_20": 0.41909814323607425
+          },
+          "orders": {
+            "denominator": 647,
+            "hits": 476,
+            "recall_at_20": 0.7357032457496137
+          }
+        },
+        "sessions": 409,
+        "weighted_recall_at_20": 0.5586005789776767
+      },
+      "prefix_2_to_5": {
+        "objectives": {
+          "carts": {
+            "denominator": 2299,
+            "hits": 1167,
+            "recall_at_20": 0.5076120052196608
+          },
+          "clicks": {
+            "denominator": 7123,
+            "hits": 3719,
+            "recall_at_20": 0.5221114698862839
+          },
+          "orders": {
+            "denominator": 1125,
+            "hits": 744,
+            "recall_at_20": 0.6613333333333333
+          }
+        },
+        "sessions": 7540,
+        "weighted_recall_at_20": 0.6012947485545266
+      },
+      "prefix_6_to_20": {
+        "objectives": {
+          "carts": {
+            "denominator": 1852,
+            "hits": 677,
+            "recall_at_20": 0.36555075593952485
+          },
+          "clicks": {
+            "denominator": 2445,
+            "hits": 1141,
+            "recall_at_20": 0.4666666666666667
+          },
+          "orders": {
+            "denominator": 1229,
+            "hits": 881,
+            "recall_at_20": 0.7168429617575265
+          }
+        },
+        "sessions": 2655,
+        "weighted_recall_at_20": 0.58643767050304
+      }
+    },
+    "raw_graph": {
+      "all_items_distinct": {
+        "objectives": {
+          "carts": {
+            "denominator": 2336,
+            "hits": 1222,
+            "recall_at_20": 0.5231164383561644
+          },
+          "clicks": {
+            "denominator": 13822,
+            "hits": 6875,
+            "recall_at_20": 0.49739545651859357
+          },
+          "orders": {
+            "denominator": 762,
+            "hits": 427,
+            "recall_at_20": 0.5603674540682415
+          }
+        },
+        "sessions": 14066,
+        "weighted_recall_at_20": 0.5428949495996536
+      },
+      "clicks_only": {
+        "objectives": {
+          "carts": {
+            "denominator": 2960,
+            "hits": 1615,
+            "recall_at_20": 0.5456081081081081
+          },
+          "clicks": {
+            "denominator": 16668,
+            "hits": 8543,
+            "recall_at_20": 0.5125389968802496
+          },
+          "orders": {
+            "denominator": 965,
+            "hits": 546,
+            "recall_at_20": 0.5658031088082901
+          }
+        },
+        "sessions": 17003,
+        "weighted_recall_at_20": 0.5544181974054314
+      },
+      "gap_at_most_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 5322,
+            "hits": 2403,
+            "recall_at_20": 0.45152198421646
+          },
+          "clicks": {
+            "denominator": 17996,
+            "hits": 9193,
+            "recall_at_20": 0.5108357412758391
+          },
+          "orders": {
+            "denominator": 2860,
+            "hits": 1923,
+            "recall_at_20": 0.6723776223776223
+          }
+        },
+        "sessions": 18692,
+        "weighted_recall_at_20": 0.5899667428190953
+      },
+      "gap_over_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 609,
+            "hits": 273,
+            "recall_at_20": 0.4482758620689655
+          },
+          "clicks": {
+            "denominator": 1223,
+            "hits": 649,
+            "recall_at_20": 0.5306623058053965
+          },
+          "orders": {
+            "denominator": 510,
+            "hits": 382,
+            "recall_at_20": 0.7490196078431373
+          }
+        },
+        "sessions": 1308,
+        "weighted_recall_at_20": 0.6369607539071116
+      },
+      "has_repeat_item": {
+        "objectives": {
+          "carts": {
+            "denominator": 3595,
+            "hits": 1454,
+            "recall_at_20": 0.4044506258692629
+          },
+          "clicks": {
+            "denominator": 5397,
+            "hits": 2967,
+            "recall_at_20": 0.5497498610339078
+          },
+          "orders": {
+            "denominator": 2608,
+            "hits": 1878,
+            "recall_at_20": 0.7200920245398773
+          }
+        },
+        "sessions": 5934,
+        "weighted_recall_at_20": 0.608365388588096
+      },
+      "observed_cart_or_order": {
+        "objectives": {
+          "carts": {
+            "denominator": 2971,
+            "hits": 1061,
+            "recall_at_20": 0.35711881521373273
+          },
+          "clicks": {
+            "denominator": 2551,
+            "hits": 1299,
+            "recall_at_20": 0.5092120736965896
+          },
+          "orders": {
+            "denominator": 2405,
+            "hits": 1759,
+            "recall_at_20": 0.7313929313929314
+          }
+        },
+        "sessions": 2997,
+        "weighted_recall_at_20": 0.5968926107695376
+      },
+      "prefix_1": {
+        "objectives": {
+          "carts": {
+            "denominator": 1222,
+            "hits": 737,
+            "recall_at_20": 0.6031096563011457
+          },
+          "clicks": {
+            "denominator": 9274,
+            "hits": 4882,
+            "recall_at_20": 0.5264179426353246
+          },
+          "orders": {
+            "denominator": 369,
+            "hits": 211,
+            "recall_at_20": 0.5718157181571816
+          }
+        },
+        "sessions": 9396,
+        "weighted_recall_at_20": 0.5766641220481851
+      },
+      "prefix_21_plus": {
+        "objectives": {
+          "carts": {
+            "denominator": 558,
+            "hits": 134,
+            "recall_at_20": 0.24014336917562723
+          },
+          "clicks": {
+            "denominator": 377,
+            "hits": 152,
+            "recall_at_20": 0.40318302387267907
+          },
+          "orders": {
+            "denominator": 647,
+            "hits": 473,
+            "recall_at_20": 0.7310664605873262
+          }
+        },
+        "sessions": 409,
+        "weighted_recall_at_20": 0.5510011894923518
+      },
+      "prefix_2_to_5": {
+        "objectives": {
+          "carts": {
+            "denominator": 2299,
+            "hits": 1150,
+            "recall_at_20": 0.5002174858634189
+          },
+          "clicks": {
+            "denominator": 7123,
+            "hits": 3713,
+            "recall_at_20": 0.5212691281763302
+          },
+          "orders": {
+            "denominator": 1125,
+            "hits": 744,
+            "recall_at_20": 0.6613333333333333
+          }
+        },
+        "sessions": 7540,
+        "weighted_recall_at_20": 0.5989921585766587
+      },
+      "prefix_6_to_20": {
+        "objectives": {
+          "carts": {
+            "denominator": 1852,
+            "hits": 655,
+            "recall_at_20": 0.3536717062634989
+          },
+          "clicks": {
+            "denominator": 2445,
+            "hits": 1095,
+            "recall_at_20": 0.44785276073619634
+          },
+          "orders": {
+            "denominator": 1229,
+            "hits": 877,
+            "recall_at_20": 0.7135882831570383
+          }
+        },
+        "sessions": 2655,
+        "weighted_recall_at_20": 0.5790397578468922
+      }
+    },
+    "sequence": {
+      "all_items_distinct": {
+        "objectives": {
+          "carts": {
+            "denominator": 2336,
+            "hits": 1232,
+            "recall_at_20": 0.5273972602739726
+          },
+          "clicks": {
+            "denominator": 13822,
+            "hits": 6963,
+            "recall_at_20": 0.5037621183620316
+          },
+          "orders": {
+            "denominator": 762,
+            "hits": 433,
+            "recall_at_20": 0.568241469816273
+          }
+        },
+        "sessions": 14066,
+        "weighted_recall_at_20": 0.5495402718081587
+      },
+      "clicks_only": {
+        "objectives": {
+          "carts": {
+            "denominator": 2960,
+            "hits": 1631,
+            "recall_at_20": 0.5510135135135135
+          },
+          "clicks": {
+            "denominator": 16668,
+            "hits": 8659,
+            "recall_at_20": 0.51949844012479
+          },
+          "orders": {
+            "denominator": 965,
+            "hits": 543,
+            "recall_at_20": 0.5626943005181347
+          }
+        },
+        "sessions": 17003,
+        "weighted_recall_at_20": 0.5548704783774139
+      },
+      "gap_at_most_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 5322,
+            "hits": 2429,
+            "recall_at_20": 0.4564073656520105
+          },
+          "clicks": {
+            "denominator": 17996,
+            "hits": 9311,
+            "recall_at_20": 0.5173927539453211
+          },
+          "orders": {
+            "denominator": 2860,
+            "hits": 1924,
+            "recall_at_20": 0.6727272727272727
+          }
+        },
+        "sessions": 18692,
+        "weighted_recall_at_20": 0.5922978487264989
+      },
+      "gap_over_30_minutes": {
+        "objectives": {
+          "carts": {
+            "denominator": 609,
+            "hits": 288,
+            "recall_at_20": 0.4729064039408867
+          },
+          "clicks": {
+            "denominator": 1223,
+            "hits": 654,
+            "recall_at_20": 0.5347506132461161
+          },
+          "orders": {
+            "denominator": 510,
+            "hits": 379,
+            "recall_at_20": 0.7431372549019608
+          }
+        },
+        "sessions": 1308,
+        "weighted_recall_at_20": 0.641229335448054
+      },
+      "has_repeat_item": {
+        "objectives": {
+          "carts": {
+            "denominator": 3595,
+            "hits": 1485,
+            "recall_at_20": 0.41307371349095967
+          },
+          "clicks": {
+            "denominator": 5397,
+            "hits": 3002,
+            "recall_at_20": 0.5562349453400037
+          },
+          "orders": {
+            "denominator": 2608,
+            "hits": 1870,
+            "recall_at_20": 0.7170245398773006
+          }
+        },
+        "sessions": 5934,
+        "weighted_recall_at_20": 0.6097603325076686
+      },
+      "observed_cart_or_order": {
+        "objectives": {
+          "carts": {
+            "denominator": 2971,
+            "hits": 1086,
+            "recall_at_20": 0.3655334904072703
+          },
+          "clicks": {
+            "denominator": 2551,
+            "hits": 1306,
+            "recall_at_20": 0.5119560956487652
+          },
+          "orders": {
+            "denominator": 2405,
+            "hits": 1760,
+            "recall_at_20": 0.7318087318087318
+          }
+        },
+        "sessions": 2997,
+        "weighted_recall_at_20": 0.5999408957722967
+      },
+      "prefix_1": {
+        "objectives": {
+          "carts": {
+            "denominator": 1222,
+            "hits": 739,
+            "recall_at_20": 0.6047463175122749
+          },
+          "clicks": {
+            "denominator": 9274,
+            "hits": 4941,
+            "recall_at_20": 0.5327798145352599
+          },
+          "orders": {
+            "denominator": 369,
+            "hits": 217,
+            "recall_at_20": 0.5880758807588076
+          }
+        },
+        "sessions": 9396,
+        "weighted_recall_at_20": 0.587547405162493
+      },
+      "prefix_21_plus": {
+        "objectives": {
+          "carts": {
+            "denominator": 558,
+            "hits": 135,
+            "recall_at_20": 0.24193548387096775
+          },
+          "clicks": {
+            "denominator": 377,
+            "hits": 147,
+            "recall_at_20": 0.38992042440318303
+          },
+          "orders": {
+            "denominator": 647,
+            "hits": 465,
+            "recall_at_20": 0.7187017001545595
+          }
+        },
+        "sessions": 409,
+        "weighted_recall_at_20": 0.5427937076943443
+      },
+      "prefix_2_to_5": {
+        "objectives": {
+          "carts": {
+            "denominator": 2299,
+            "hits": 1165,
+            "recall_at_20": 0.5067420617659852
+          },
+          "clicks": {
+            "denominator": 7123,
+            "hits": 3756,
+            "recall_at_20": 0.5273059104309982
+          },
+          "orders": {
+            "denominator": 1125,
+            "hits": 743,
+            "recall_at_20": 0.6604444444444444
+          }
+        },
+        "sessions": 7540,
+        "weighted_recall_at_20": 0.601019876239562
+      },
+      "prefix_6_to_20": {
+        "objectives": {
+          "carts": {
+            "denominator": 1852,
+            "hits": 678,
+            "recall_at_20": 0.36609071274298055
+          },
+          "clicks": {
+            "denominator": 2445,
+            "hits": 1121,
+            "recall_at_20": 0.45848670756646215
+          },
+          "orders": {
+            "denominator": 1229,
+            "hits": 878,
+            "recall_at_20": 0.7144019528071603
+          }
+        },
+        "sessions": 2655,
+        "weighted_recall_at_20": 0.5843170562638366
+      }
+    }
+  },
+  "code_sha256": "407d8f24559097158b47f0f1b5cf546d4164be8765576f7da90e7484b7c5cddf",
+  "files": {
+    "baseline": "3ee690615c0f955c37ccfbff6c4ae363d0c0cf21958d5d965d457bd689eb0744",
+    "combined": "ae0fe543aac621276cc1eaa021c8b6bb3b10c9ccab25f86094aea91f39a6eb45",
+    "normalized_graph": "49d48eacd3314ca0970683b90327c75f233d08e3f68cddd9a7800a7cb81ec51b",
+    "raw_graph": "1436d1dac915893096a4b3f13f71fb95cf598ab6453a1fe661d09cb779e9c5f9",
+    "sequence": "21403755aeb259e10c073ee4ca855cd732fdaa912dfbd39934d0942d443eb23f"
+  },
+  "limits": "These are whole-session context slices, not target-item repeat/new or rare-item recall.",
+  "same_cohort_task_mix": {
+    "absolute_gain": 0.001922923730917181,
+    "interpretation": "Optimistic same-cohort model selection; no independent gain or promotion claimed; requires separate confirmation",
+    "selected_arms": {
+      "carts": "sequence",
+      "clicks": "sequence",
+      "orders": "normalized_graph"
+    },
+    "selection_rule": "Best pooled recall per task on this selection cohort; baseline wins ties, then alphabetical arm name",
+    "status": "post_hoc_diagnostic_not_an_independent_experiment",
+    "weighted_recall_at_20": 0.6014463543198669
+  },
+  "scope": "Descriptive query-context slices, selected before results were available; overlapping slice families; no adjusted intervals or promotion",
+  "study_id": "4408bbf8454dc59bd187aaafc351da4694445e195c1a212bda01a47a1cddd239"
+}
