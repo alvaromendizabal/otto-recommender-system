@@ -145,7 +145,7 @@ def project_status(root: Path) -> dict[str, Any]:
         else "Complete and audit the frozen-baseline ANN comparison.",
         "ranking_evaluation": "not yet measured",
         "kaggle_submission": "not yet generated",
-        "paid_compute_started": False,
+        "paid_compute_started_by_this_command": False,
     }
     result["observed_ranking_features"] = "passed" if features_complete else "pending"
     if features_complete:
@@ -243,6 +243,19 @@ def project_status(root: Path) -> dict[str, Any]:
                     kaggle_submission="file uploaded; final Submit action awaiting confirmation",
                     next_task="Confirm the prepared Kaggle submission; no training remains.",
                 )
+    from otto_recsys.research.feature_gate import feature_gate
+
+    result.update(feature_gate(root))
+    if result["feature_research_gate"] == "open":
+        result["next_task"] = result["feature_gate_next_task"]
+    development_path = root / "reports/research/graph_feature_run.json"
+    if development_path.is_file():
+        development = json.loads(development_path.read_text())
+        result["latest_development_observation"] = {
+            "experiment": development["experiment"],
+            "observed": development["observed"],
+            "scope": "Saved observation only; use retrieval_status.py for live AWS state.",
+        }
     return result
 
 
@@ -250,6 +263,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--json", action="store_true")
+    parser.add_argument(
+        "--require-feature-gate", action="store_true",
+        help="Exit 2 unless feature coverage and temporal confirmation are complete.",
+    )
     args = parser.parse_args()
     started = time.perf_counter()
     result = project_status(args.root)
@@ -277,6 +294,8 @@ def main() -> int:
             "controlled_research",
             "competition_prediction",
             "temporal_validation",
+            "feature_research_gate",
+            "final_training_ready",
         ):
             if key in result:
                 print(f"{key}={result[key]}")
@@ -299,7 +318,7 @@ def main() -> int:
         print(f"Next: {result['next_task']}")
         print(result["scope"])
         print(f"OTTO_PROJECT_STATUS_COMPLETE elapsed_seconds={result['elapsed_seconds']:.3f}")
-    return 0
+    return 2 if args.require_feature_gate and not result["final_training_ready"] else 0
 
 
 if __name__ == "__main__":

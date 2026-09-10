@@ -1,0 +1,636 @@
+{
+  "arms": {
+    "baseline": {
+      "features": 102,
+      "models": {
+        "carts": {
+          "best_iteration": 60,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f",
+          "new_feature_gain_share": 0.0,
+          "top_new_features": []
+        },
+        "clicks": {
+          "best_iteration": 40,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85",
+          "new_feature_gain_share": 0.0,
+          "top_new_features": []
+        },
+        "orders": {
+          "best_iteration": 95,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3",
+          "new_feature_gain_share": 0.0,
+          "top_new_features": []
+        }
+      },
+      "weighted_recall_at_20": 0.5995234305889497
+    },
+    "both": {
+      "features": 222,
+      "models": {
+        "carts": {
+          "best_iteration": 60,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "e35d1372ecdc1bf7904c23d67820010ddfbf0123cdca1128c25947b14d381f00",
+          "new_feature_gain_share": 0.11758196378192483,
+          "top_new_features": [
+            [
+              "wide_symmetric_time_all_n20_max",
+              69389.37364578247
+            ],
+            [
+              "wide_symmetric_time_all_n5_max",
+              15004.793733596802
+            ],
+            [
+              "wide_forward_cart_all_n1_sum",
+              10880.511484146118
+            ],
+            [
+              "wide_forward_time_all_n1_sum",
+              5824.456594467163
+            ],
+            [
+              "wide_forward_time_all_n20_sum",
+              4822.78574180603
+            ],
+            [
+              "wide_symmetric_time_all_n1_sum",
+              4553.435094833374
+            ],
+            [
+              "wide_forward_order_all_n1_sum",
+              3716.1764945983887
+            ],
+            [
+              "wide_symmetric_time_all_n20_sum",
+              1692.789789199829
+            ],
+            [
+              "wide_forward_cart_clicks_n5_max",
+              909.6653938293457
+            ],
+            [
+              "wide_forward_cart_all_n20_max",
+              853.1223068237305
+            ]
+          ]
+        },
+        "clicks": {
+          "best_iteration": 115,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "eb4c23329078f1955dd66a654890fd1ac707643e50cffd712cde39aa89138edd",
+          "new_feature_gain_share": 0.20524604267554572,
+          "top_new_features": [
+            [
+              "wide_symmetric_time_all_n5_max",
+              423200.54448127747
+            ],
+            [
+              "wide_symmetric_time_clicks_n5_max",
+              118073.27669906616
+            ],
+            [
+              "wide_symmetric_time_all_n20_max",
+              60532.948862075806
+            ],
+            [
+              "wide_forward_time_all_n5_max",
+              35588.79233932495
+            ],
+            [
+              "wide_symmetric_time_all_n1_sum",
+              23752.104682922363
+            ],
+            [
+              "wide_forward_time_all_n1_sum",
+              21171.109895706177
+            ],
+            [
+              "wide_forward_time_clicks_n1_sum",
+              20818.9823513031
+            ],
+            [
+              "wide_symmetric_time_clicks_n20_max",
+              12806.269367218018
+            ],
+            [
+              "wide_symmetric_time_clicks_n1_sum",
+              10092.059135437012
+            ],
+            [
+              "wide_forward_time_clicks_n5_max",
+              9820.992782592773
+            ]
+          ]
+        },
+        "orders": {
+          "best_iteration": 35,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "0b0da724874ab568c2ab71576fd171bfaee1c7f56662b93c3777ef398786a22b",
+          "new_feature_gain_share": 0.0479103969962538,
+          "top_new_features": [
+            [
+              "wide_symmetric_time_clicks_n1_sum",
+              13068.231079101562
+            ],
+            [
+              "wide_symmetric_time_all_n5_max",
+              8404.847770690918
+            ],
+            [
+              "wide_forward_time_clicks_n1_sum",
+              1815.2290344238281
+            ],
+            [
+              "wide_symmetric_time_all_n20_max",
+              1612.2264995574951
+            ],
+            [
+              "wide_forward_time_all_n5_max",
+              1143.3300170898438
+            ],
+            [
+              "wide_forward_cart_clicks_n1_sum",
+              1102.7490005493164
+            ],
+            [
+              "wide_forward_cart_all_n1_sum",
+              1050.8830108642578
+            ],
+            [
+              "wide_forward_order_all_n1_sum",
+              801.0523948669434
+            ],
+            [
+              "wide_forward_time_clicks_n5_sum",
+              487.42999267578125
+            ],
+            [
+              "wide_forward_time_all_n1_sum",
+              396.7120056152344
+            ]
+          ]
+        }
+      },
+      "paired_gain": {
+        "objectives": {
+          "carts": {
+            "ci95": [
+              -0.0107903021391026,
+              -0.0014919745416469327
+            ],
+            "gain": -0.006069802731411229
+          },
+          "clicks": {
+            "ci95": [
+              -0.0064440608989495,
+              -0.0007801488532239032
+            ],
+            "gain": -0.0036942608876632498
+          },
+          "orders": {
+            "ci95": [
+              -0.006534493129667392,
+              0.003360078292718511
+            ],
+            "gain": -0.001483679525222552
+          }
+        },
+        "weighted": -0.0030805746233232246,
+        "weighted_ci95": [
+          -0.006392212217967618,
+          0.00021369826465812757
+        ]
+      },
+      "weighted_recall_at_20": 0.5964428559656265
+    },
+    "forward": {
+      "features": 162,
+      "models": {
+        "carts": {
+          "best_iteration": 120,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "93f63f12ea6971ab0fc695b8922fd9862abceaad82d7fa8cebd70d331e811ea3",
+          "new_feature_gain_share": 0.11069822137770755,
+          "top_new_features": [
+            [
+              "wide_forward_time_all_n20_max",
+              56608.48699760437
+            ],
+            [
+              "wide_forward_time_all_n5_max",
+              16906.19436264038
+            ],
+            [
+              "wide_forward_cart_all_n1_sum",
+              11467.027159690857
+            ],
+            [
+              "wide_forward_time_all_n20_sum",
+              10650.03689289093
+            ],
+            [
+              "wide_forward_time_all_n1_sum",
+              9088.680177688599
+            ],
+            [
+              "wide_forward_order_all_n1_sum",
+              4871.403643608093
+            ],
+            [
+              "wide_forward_time_all_n5_sum",
+              1317.0263919830322
+            ],
+            [
+              "wide_forward_cart_clicks_n5_max",
+              1259.1152839660645
+            ],
+            [
+              "wide_forward_cart_all_n20_max",
+              939.0832252502441
+            ],
+            [
+              "wide_forward_time_clicks_n5_sum",
+              900.6572046279907
+            ]
+          ]
+        },
+        "clicks": {
+          "best_iteration": 100,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "b9c378201499e81552123f7b010a4b28e010d334487fd336766aff50983719ee",
+          "new_feature_gain_share": 0.1823073825727296,
+          "top_new_features": [
+            [
+              "wide_forward_time_all_n5_max",
+              425996.50117492676
+            ],
+            [
+              "wide_forward_time_clicks_n5_max",
+              114563.40019798279
+            ],
+            [
+              "wide_forward_time_all_n20_max",
+              38386.66226577759
+            ],
+            [
+              "wide_forward_time_all_n1_sum",
+              31996.788345336914
+            ],
+            [
+              "wide_forward_time_clicks_n1_sum",
+              31849.609252929688
+            ],
+            [
+              "wide_forward_time_clicks_n5_sum",
+              19914.087295532227
+            ],
+            [
+              "wide_forward_time_all_n5_sum",
+              13435.122959136963
+            ],
+            [
+              "wide_forward_time_clicks_n20_sum",
+              6278.795799255371
+            ],
+            [
+              "wide_forward_order_all_n5_max",
+              3983.5703659057617
+            ],
+            [
+              "wide_forward_time_clicks_n20_max",
+              3119.7631797790527
+            ]
+          ]
+        },
+        "orders": {
+          "best_iteration": 20,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "41dd4680f0f0bd44f1534240e50ba5d4b14bc520bbc21e9093d72305509aee9f",
+          "new_feature_gain_share": 0.03011800445453953,
+          "top_new_features": [
+            [
+              "wide_forward_time_all_n5_max",
+              6443.5450439453125
+            ],
+            [
+              "wide_forward_time_clicks_n1_sum",
+              6086.720031738281
+            ],
+            [
+              "wide_forward_cart_all_n1_sum",
+              1030.8552131652832
+            ],
+            [
+              "wide_forward_time_all_n5_sum",
+              929.7179985046387
+            ],
+            [
+              "wide_forward_time_clicks_n5_max",
+              821.0392074584961
+            ],
+            [
+              "wide_forward_order_all_n1_sum",
+              561.5327033996582
+            ],
+            [
+              "wide_forward_cart_clicks_n1_sum",
+              286.84759521484375
+            ],
+            [
+              "wide_forward_time_carts_n1_sum",
+              240.63400268554688
+            ],
+            [
+              "wide_forward_order_clicks_n5_sum",
+              202.08429718017578
+            ],
+            [
+              "wide_forward_cart_clicks_n5_max",
+              165.006103515625
+            ]
+          ]
+        }
+      },
+      "paired_gain": {
+        "objectives": {
+          "carts": {
+            "ci95": [
+              -0.008736683838512819,
+              0.0005067696099041213
+            ],
+            "gain": -0.003877929522846063
+          },
+          "clicks": {
+            "ci95": [
+              -0.007490646445883238,
+              -0.0018718388702950535
+            ],
+            "gain": -0.00478692960091576
+          },
+          "orders": {
+            "ci95": [
+              -0.008780081823073695,
+              0.0015385158408000336
+            ],
+            "gain": -0.0032640949554896144
+          }
+        },
+        "weighted": -0.0036005287902391636,
+        "weighted_ci95": [
+          -0.007304527991401875,
+          1.5604816833540113e-05
+        ]
+      },
+      "weighted_recall_at_20": 0.5959229017987105
+    },
+    "symmetric": {
+      "features": 162,
+      "models": {
+        "carts": {
+          "best_iteration": 40,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "6d003362fd71b33a8ed548344a493a66f824e987dfbec987ec688a6faca42232",
+          "new_feature_gain_share": 0.106923614261818,
+          "top_new_features": [
+            [
+              "wide_symmetric_time_all_n20_max",
+              70797.93176651001
+            ],
+            [
+              "wide_symmetric_time_all_n5_max",
+              13885.27886390686
+            ],
+            [
+              "wide_symmetric_time_all_n1_sum",
+              7215.1322383880615
+            ],
+            [
+              "wide_symmetric_cart_all_n1_sum",
+              5285.4973793029785
+            ],
+            [
+              "wide_symmetric_order_all_n1_sum",
+              5006.49577331543
+            ],
+            [
+              "wide_symmetric_time_all_n20_sum",
+              4631.812330245972
+            ],
+            [
+              "wide_symmetric_order_clicks_n20_max",
+              505.26919746398926
+            ],
+            [
+              "wide_symmetric_order_all_n20_max",
+              363.5625991821289
+            ],
+            [
+              "wide_symmetric_order_clicks_n20_sum",
+              345.08320236206055
+            ],
+            [
+              "wide_symmetric_order_clicks_n5_sum",
+              280.0769958496094
+            ]
+          ]
+        },
+        "clicks": {
+          "best_iteration": 130,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "5041ed19dc959b1604d574287e62228ffaeac04f0b25bdbd273a476189db84a0",
+          "new_feature_gain_share": 0.1993757887205149,
+          "top_new_features": [
+            [
+              "wide_symmetric_time_all_n5_max",
+              439940.609210968
+            ],
+            [
+              "wide_symmetric_time_clicks_n5_max",
+              130284.307346344
+            ],
+            [
+              "wide_symmetric_time_all_n20_max",
+              81735.81685638428
+            ],
+            [
+              "wide_symmetric_time_all_n1_sum",
+              31975.456535339355
+            ],
+            [
+              "wide_symmetric_time_clicks_n1_sum",
+              29517.09045600891
+            ],
+            [
+              "wide_symmetric_time_clicks_n5_sum",
+              15456.649154663086
+            ],
+            [
+              "wide_symmetric_order_all_n20_max",
+              8403.388692855835
+            ],
+            [
+              "wide_symmetric_time_clicks_n20_max",
+              6138.28893661499
+            ],
+            [
+              "wide_symmetric_time_clicks_n20_sum",
+              4917.7475662231445
+            ],
+            [
+              "wide_symmetric_order_all_n20_sum",
+              3845.0647869110107
+            ]
+          ]
+        },
+        "orders": {
+          "best_iteration": 90,
+          "gain_source": "recomputed from the verified native model file",
+          "model_sha256": "1d8ccd812ababcaa8ad8a9404435bdcfa7d44a572df7f7f92af1ef31460566d0",
+          "new_feature_gain_share": 0.05067445228697657,
+          "top_new_features": [
+            [
+              "wide_symmetric_time_clicks_n1_sum",
+              13214.350927352905
+            ],
+            [
+              "wide_symmetric_time_all_n5_max",
+              12186.587802886963
+            ],
+            [
+              "wide_symmetric_time_all_n1_sum",
+              1876.3372659683228
+            ],
+            [
+              "wide_symmetric_time_all_n20_max",
+              1815.003056526184
+            ],
+            [
+              "wide_symmetric_cart_all_n1_sum",
+              1355.4956998825073
+            ],
+            [
+              "wide_symmetric_time_clicks_n5_max",
+              898.8860902786255
+            ],
+            [
+              "wide_symmetric_order_all_n1_sum",
+              727.9007167816162
+            ],
+            [
+              "wide_symmetric_order_clicks_n1_sum",
+              578.0676040649414
+            ],
+            [
+              "wide_symmetric_time_clicks_n5_sum",
+              495.17370414733887
+            ],
+            [
+              "wide_symmetric_time_all_n20_sum",
+              414.66479873657227
+            ]
+          ]
+        }
+      },
+      "paired_gain": {
+        "objectives": {
+          "carts": {
+            "ci95": [
+              -0.011067939107801955,
+              -0.0018710981057256568
+            ],
+            "gain": -0.0064070139942674085
+          },
+          "clicks": {
+            "ci95": [
+              -0.008343737944296041,
+              -0.002703942955533063
+            ],
+            "gain": -0.0055153754097507675
+          },
+          "orders": {
+            "ci95": [
+              -0.007911624535384852,
+              0.0011873135648736717
+            ],
+            "gain": -0.002967359050445104
+          }
+        },
+        "weighted": -0.004254057169522362,
+        "weighted_ci95": [
+          -0.0072726525427274785,
+          -0.0012762929548332186
+        ]
+      },
+      "weighted_recall_at_20": 0.5952693734194273
+    }
+  },
+  "arms_verified": 4,
+  "candidate_coverage_equal_per_session_and_objective": true,
+  "cross_family_screening_findings": [],
+  "evaluation_access": false,
+  "files": {
+    "launch.json": "acba0ea38502d6bb946b01547677361ae16585b82b18175a776cef69c1e00cfa",
+    "models/baseline/carts/contract.json": "7d343c236f19d02a36ae764b0a95525f806b6d7c08ba1f3001d41189df2ed849",
+    "models/baseline/carts/manifest.json": "76ce3f18174acd707eab13e6a5e8153b6e15e87f6991cad39be029b7f17e75f1",
+    "models/baseline/carts/model.txt": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f",
+    "models/baseline/clicks/contract.json": "3add0d07059b1085b3e69b67b2366f5ee28dbfb0c27a2543aeac3cb50c83b680",
+    "models/baseline/clicks/manifest.json": "e35da41354bda20136e37de060b33b1896e3782708e12ad9d63e0d149f9293c0",
+    "models/baseline/clicks/model.txt": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85",
+    "models/baseline/orders/contract.json": "014973e105c764e1f94b9479bfc94669f35c6cc3378cc14a7d63139a00184f10",
+    "models/baseline/orders/manifest.json": "230a6df0c1e92aac1be2ad45289706cb4507eeec9fcf048061ac43648dc7804d",
+    "models/baseline/orders/model.txt": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3",
+    "models/baseline/selection_statistics.parquet": "3ee690615c0f955c37ccfbff6c4ae363d0c0cf21958d5d965d457bd689eb0744",
+    "models/both/carts/contract.json": "69039418939cae5b71831062f234d6d6398c0b407a8d7a485d39759626c47e46",
+    "models/both/carts/manifest.json": "5220e3b171c9b4e2efe21fc26f2fb59c2b5ae77cf50aa8e5736565305b54a75d",
+    "models/both/carts/model.txt": "e35d1372ecdc1bf7904c23d67820010ddfbf0123cdca1128c25947b14d381f00",
+    "models/both/clicks/contract.json": "36432ac6cf89bc4ca0c422a4f1375acef5d77078375d3722e07a55ce5c7131cf",
+    "models/both/clicks/manifest.json": "bc38acce9a7995169023d8483f1dc50c97a300aa97115264e90e73f788a74498",
+    "models/both/clicks/model.txt": "eb4c23329078f1955dd66a654890fd1ac707643e50cffd712cde39aa89138edd",
+    "models/both/orders/contract.json": "ce9288509661d852655dce0239cc601397ee54722f559565ff1ea52b7e469c56",
+    "models/both/orders/manifest.json": "cdbadb8976dd54f09bf418ff5b041cd24e69d2128e446b7fb51924d2c7c874b2",
+    "models/both/orders/model.txt": "0b0da724874ab568c2ab71576fd171bfaee1c7f56662b93c3777ef398786a22b",
+    "models/both/selection_statistics.parquet": "2b59688f9504ed5be6695fe0f0d9d896ef6e44909bcb97ef42881b1e1c582eb9",
+    "models/forward/carts/contract.json": "8f37af733c7ffd757d66f4b8aaed54e985438f4a7eb9a922f5a0658d77b16919",
+    "models/forward/carts/manifest.json": "a8d42c437f362644bba391b9c5e1953caefc3e4bf64eeb1a368dd10d6308b1bc",
+    "models/forward/carts/model.txt": "93f63f12ea6971ab0fc695b8922fd9862abceaad82d7fa8cebd70d331e811ea3",
+    "models/forward/clicks/contract.json": "18b6547c78cc85158749f89b73c2646ba29ba2d78b1d9f2b955d4c04d09861de",
+    "models/forward/clicks/manifest.json": "6b8f3e4797c68333f8b7328ce40fb179eed0e280592103df2ecb88c79df4a4ad",
+    "models/forward/clicks/model.txt": "b9c378201499e81552123f7b010a4b28e010d334487fd336766aff50983719ee",
+    "models/forward/orders/contract.json": "9000f031745860f41f3c98aa6ada00959f2f13e2573ba20f07bf7b41436d93b9",
+    "models/forward/orders/manifest.json": "512839e50ba593c789de463a8402fec231f8df6131fa8ddfb09f4d87767e1dbf",
+    "models/forward/orders/model.txt": "41dd4680f0f0bd44f1534240e50ba5d4b14bc520bbc21e9093d72305509aee9f",
+    "models/forward/selection_statistics.parquet": "8868bc8f71db1284eccddb2e518b31368dbac7ea7bfe212f3d72d293490f0b7d",
+    "models/symmetric/carts/contract.json": "d31723b8d631259193ec08333e2ce595c29f66b6492b3981af6f34d6e03148b7",
+    "models/symmetric/carts/manifest.json": "c20a9a33cd8f7e877b98a72fc18f8f1e7e4f9aac174072d9f57a2e7a90b5addd",
+    "models/symmetric/carts/model.txt": "6d003362fd71b33a8ed548344a493a66f824e987dfbec987ec688a6faca42232",
+    "models/symmetric/clicks/contract.json": "87b38e01f15815d2978d86a5c11e3fc7441e06126f8d87b112bba2f03419e503",
+    "models/symmetric/clicks/manifest.json": "a644e39844ecb7c49abbff42b3f9c8818287cad8e937c642076a88b112a19a50",
+    "models/symmetric/clicks/model.txt": "5041ed19dc959b1604d574287e62228ffaeac04f0b25bdbd273a476189db84a0",
+    "models/symmetric/orders/contract.json": "ceed7d9065709c4700557bebcb6a19b3b42d3f6567ae7dc0bf7ca1ba0baa5e5b",
+    "models/symmetric/orders/manifest.json": "580f7d02bd5695bdb1de3e69b56acca5d5ac7ee7c97d0d21164eb6250629f894",
+    "models/symmetric/orders/model.txt": "1d8ccd812ababcaa8ad8a9404435bdcfa7d44a572df7f7f92af1ef31460566d0",
+    "models/symmetric/selection_statistics.parquet": "a344519f7d97bad0b70457c90744e3c0573f6a84ec036f0e289f0a3bdf6ebcb6",
+    "queries.parquet": "f706acdad8badc24fbc2c6967816e4079cc8407a85f0c537ce220ec95a27dfe9",
+    "results.json": "9bf036af88707c599f29aad5dd79a62a34f95eedeb274a93014e05a52fb4f9b0",
+    "screening.json": "3e145c6185e48207e5b31f049093193f42a3caa734b4ed7b766f63927a17de64",
+    "study_contract.json": "a29a3c3bd6fb6ceb11250e821afc55f75173b7fdebdb620891eb1212a255a44a"
+  },
+  "kaggle_promotion": false,
+  "limitations": [
+    "No independent reconstruction of raw graph edges or all candidate feature values.",
+    "No replay of model predictions on the full candidate matrix.",
+    "Gain importance is descriptive and does not establish individual causal utility.",
+    "Repeated selection-cohort use requires separate confirmation before promotion."
+  ],
+  "models_verified": 12,
+  "per_task_intervals": "Paired whole-session percentile 95%; descriptive, unadjusted for selection or multiple comparisons",
+  "scope": "Independent aggregate metrics and model-byte lineage; development selection only",
+  "sessions_per_arm": 20000,
+  "source_commit": "6b74425cbb7a6c280551cc2e1505464f9b70e781",
+  "status": "passed",
+  "study_id": "b32594f7b569779d83a84e02f8aa3bc706e339ab4daed1695f95936d89bb18a4"
+}

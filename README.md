@@ -1,6 +1,6 @@
 # OTTO · Session-based recommendation
 
-**Baseline delivered; performance research active.** Nine temporal validation runs are audited, and the official-prefix submission scores **0.56842 private / 0.56862 public**. The historical winning private score is **0.60503**. The next controlled experiment tests learned item/session similarity features under the same chronological protocol. [Results and research plan](docs/ROADMAP.md).
+**Baseline delivered; performance research active.** Nine temporal validation runs are audited, and the official-prefix submission scores **0.56842 private / 0.56862 public**. The historical winning private score is **0.60503**. The feature-research gate remains open: the completed embedding and wider-retrieval pilots did not support promotion. The complementary-graph experiment also completed without an improvement; all three additions scored below baseline on unchanged candidates. [Feature coverage and remaining hypotheses](docs/FEATURE_RESEARCH.md). [Results and research plan](docs/ROADMAP.md).
 
 **Predict what a shopper will click, add to cart, and order next.**
 

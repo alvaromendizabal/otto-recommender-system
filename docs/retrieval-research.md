@@ -70,3 +70,16 @@ These features measure different relationships: broad co-interest, directional p
 The four arms are baseline, baseline plus symmetric features, baseline plus forward features, and baseline plus both. Constant and near-duplicate columns are screened only on fitting data; original baseline columns remain. Every arm must retain the identical candidate ceiling. The baseline must reproduce its certified score before augmentation proceeds. Paired selection comparisons remain exploratory and do not authorize promotion without separate temporal confirmation.
 
 Run through the verified bootstrap with task `graph_features`. Monitor a recorded run using `scripts/retrieval_status.py --receipt reports/research/graph_feature_run.json --watch` after its launch receipt is published. The managed runtime cap is two hours. The research gate remains open regardless of whether this individual experiment improves the selection metric.
+
+## Completed complementary-feature result
+
+The four-arm feature study finished successfully on September 10 at 03:47:56 UTC.
+Baseline: **0.59952343**; symmetric: **0.59526937**; forward: **0.59592290**;
+both: **0.59644286**. All three additions are below baseline on the complete
+selection cohort. No arm is promoted. The independent metric/model audit passes
+for 20,000 sessions per arm and all 12 native models, with identical per-session
+candidate coverage. See [the coverage assessment](FEATURE_RESEARCH.md#completed-complementary-graph-audit)
+for uncertainty, per-task interpretation and audit limitations.
+
+The graph job has completed. The public [run receipt](../reports/research/graph_feature_run.json)
+records its exact observation time and source identity. The feature-research gate remains open.
