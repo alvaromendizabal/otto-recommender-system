@@ -432,3 +432,15 @@ The next bounded stage freezes the 32 shared additions and compares them with th
 baseline using more fitting support; block ablations and temporal confirmation follow
 only if warranted. The exact per-task rule will not be scaled. All 14 unresolved
 families remain open. [Standing execution rules](EXECUTION_RULES.md).
+
+## Larger frozen-shortlist validation and ablations
+The [new bounded comparison](SHARED_FEATURE_VALIDATION.md) completes the next
+shared-shortlist experiment and all five planned block removals. On 12,800 fitting
+and 5,120 selection sessions, the full 32 additions score 0.595073 against 0.589870.
+Removing funnel, episode, raw graph, row-normalized graph or degree-normalized graph
+blocks lowers the point estimate. Every block interval includes zero, and one
+query-time quartile regresses. These data do not establish individual family value
+or temporal stability. Keep the schema fixed for earlier-window replication;
+do not repeatedly search block combinations on this cohort. See the primary-source
+review in that report for query-relative demand and learned-representation gaps.
+All 14 unresolved families remain open. No feature or Kaggle promotion is claimed.

@@ -248,7 +248,7 @@ def project_status(root: Path) -> dict[str, Any]:
     result.update(feature_gate(root))
     if result["feature_research_gate"] == "open":
         result["next_task"] = result["feature_gate_next_task"]
-    for experiment in ("task_feature", "domain_feature", "graph_feature"):
+    for experiment in ("shared_feature", "task_feature", "domain_feature", "graph_feature"):
         development_path = root / f"reports/research/{experiment}_run.json"
         if not development_path.is_file():
             continue

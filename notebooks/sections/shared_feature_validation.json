@@ -1,0 +1,109 @@
+{
+  "notebook": "09_controlled_feature_study.ipynb",
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "id": "shared-validation-context",
+      "metadata": {},
+      "source": [
+        "## Larger frozen-shortlist validation and gated family ablations\n",
+        "\n",
+        "The shared 32 additions are frozen before this comparison; screening is not repeated. Both controls use 12,800 fitting sessions and 5,120 selection sessions, identical cached candidates and negatives, and the same ranker capacity. Sampling spans the stored development partitions and is not a strictly nested enlargement of the earlier sample.\n",
+        "\n",
+        "The prespecified gate buys five separate block ablations only if weighted Recall@20 improves by at least 0.001 without reducing order recall. Each managed stage has a 900-second cap. Completed baseline/shared models are reused by the ablation stage. The five blocks represent prefix funnel state, shopping episodes, raw graph affinities, row normalization and degree normalization. [Protocol and leakage assumptions](../docs/SHARED_FEATURE_VALIDATION.md).\n",
+        "\n",
+        "These are reused development data, one seed and one time window. Query-time quartiles are descriptive slices, not separate temporal refits. Neither these scores nor their conditional bootstrap intervals establish a new Kaggle score.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "id": "shared-validation-evidence",
+      "metadata": {},
+      "source": [
+        "shared_run = load('shared_feature_run.json')\n",
+        "for name, expected in shared_run['files'].items():\n",
+        "    assert hashlib.sha256((DATA / name).read_bytes()).hexdigest() == expected, name\n",
+        "shared_result = load('shared_feature_results.json')\n",
+        "shared_audit = load('shared_feature_audit.json')\n",
+        "assert shared_result['study_id'] == shared_run['study_id']\n",
+        "assert shared_result['status'] == shared_audit['status'] == 'passed'\n",
+        "assert shared_result['inputs']['fit']['sessions'] == 12800\n",
+        "assert shared_result['inputs']['selection']['sessions'] == 5120\n",
+        "assert shared_result['evaluation_access'] is False and shared_result['kaggle_promotion'] is False\n",
+        "assert all(stage['observed']['ProcessingJobStatus'] == 'Completed' for stage in shared_run['stages'])\n",
+        "assert shared_audit['native_rankers_verified'] == 3 * len(shared_result['arms'])\n",
+        "assert shared_audit['training_free_replay']['training_calls'] == 0\n",
+        "assert shared_audit['training_free_replay']['all_models_and_metrics_identical']\n",
+        "reference = shared_result['arms']['baseline']['weighted_recall_at_20']\n",
+        "rows = []\n",
+        "for name, arm in shared_result['arms'].items():\n",
+        "    score = sum(weights[action] * arm['objectives'][action]['hits'] / arm['objectives'][action]['denominator'] for action in weights)\n",
+        "    assert abs(score - arm['weighted_recall_at_20']) < 1e-12\n",
+        "    rows.append({'Arm': name, 'Features': len(arm['features']['clicks']), 'Weighted Recall@20': score,\n",
+        "                 'Change vs baseline (pp)': 100 * (score - reference),\n",
+        "                 **{action.title(): arm['objectives'][action]['recall_at_20'] for action in weights}})\n",
+        "display(pd.DataFrame(rows).style.format({name: '{:.6f}' for name in ['Weighted Recall@20', 'Clicks', 'Carts', 'Orders']} | {'Change vs baseline (pp)': '{:+.3f}'}))\n",
+        "print('Prespecified gate:', shared_result['decision'])\n",
+        "print(f\"Verified {shared_audit['native_rankers_verified']} native models and zero-training replay; total managed processing {shared_run['total_processing_seconds']/60:.2f} minutes, estimated instance compute ${shared_run['estimated_total_instance_compute_usd']:.3f}.\")\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "id": "shared-validation-ablations",
+      "metadata": {},
+      "source": [
+        "block_rows = []\n",
+        "for name, arm in shared_result['arms'].items():\n",
+        "    if 'full_minus_drop' in arm:\n",
+        "        difference = arm['full_minus_drop']\n",
+        "        lo, hi = difference['gain_interval']\n",
+        "        block_rows.append({'Block removed': name.removeprefix('without_'), 'Full minus drop (pp)': 100*difference['absolute_gain'],\n",
+        "                           'Low': 100*lo, 'High': 100*hi})\n",
+        "if block_rows:\n",
+        "    block_frame = pd.DataFrame(block_rows)\n",
+        "    fig = go.Figure(go.Scatter(x=block_frame['Full minus drop (pp)'], y=block_frame['Block removed'], mode='markers',\n",
+        "        marker=dict(color='#0F766E', size=11),\n",
+        "        error_x=dict(type='data', symmetric=False, array=block_frame['High']-block_frame['Full minus drop (pp)'],\n",
+        "                     arrayminus=block_frame['Full minus drop (pp)']-block_frame['Low'])))\n",
+        "    fig.add_vline(x=0, line_color='#64748B', line_width=1)\n",
+        "    show(fig, 'Does each block help when the other additions are present?', height=430,\n",
+        "         xaxis_title='Full shortlist minus block removal (percentage points)', yaxis_title='')\n",
+        "    display(block_frame.style.format({key: '{:+.3f}' for key in ['Full minus drop (pp)', 'Low', 'High']}))\n",
+        "    print('Positive favors retaining the block; negative favors removal. Five related comparisons and reused development data: intervals are descriptive, not simultaneous tests or causal effects.')\n",
+        "else:\n",
+        "    print('The advancement gate did not support ablation compute; the five block experiments were not launched.')\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "id": "shared-validation-slices",
+      "metadata": {},
+      "source": [
+        "slice_rows = []\n",
+        "for key, baseline_slice in shared_result['arms']['baseline']['slices'].items():\n",
+        "    for name, arm in shared_result['arms'].items():\n",
+        "        if 'weighted_recall_at_20' in baseline_slice and 'weighted_recall_at_20' in arm['slices'][key]:\n",
+        "            slice_rows.append({'Slice': key, 'Arm': name, 'Sessions': baseline_slice['sessions'],\n",
+        "                               'Gain (pp)': 100*(arm['slices'][key]['weighted_recall_at_20']-baseline_slice['weighted_recall_at_20'])})\n",
+        "slice_frame = pd.DataFrame(slice_rows)\n",
+        "time_frame = slice_frame[slice_frame['Slice'].str.startswith('time_') & (slice_frame['Arm'] != 'baseline')]\n",
+        "fig = px.line(time_frame, x='Slice', y='Gain (pp)', color='Arm', markers=True)\n",
+        "fig.add_hline(y=0, line_color='#64748B', line_width=1)\n",
+        "show(fig, 'Descriptive query-time stability on reused development data', height=450,\n",
+        "     yaxis_title='Change vs matched baseline (percentage points)', xaxis_title='Chronological query-time quartile',\n",
+        "     legend=dict(orientation='v', x=1.01, y=1), margin=dict(l=85, r=220, t=85, b=70))\n",
+        "display(slice_frame[slice_frame['Slice'].str.startswith('prefix_') & (slice_frame['Arm'] == 'shared')].style.format({'Gain (pp)': '{:+.3f}'}))\n",
+        "interval = shared_result['arms']['shared']['versus_baseline']['gain_interval']\n",
+        "print(f\"Shared minus baseline: {100*shared_result['decision']['weighted_gain']:+.3f} pp; descriptive paired 95% interval [{100*interval[0]:+.3f}, {100*interval[1]:+.3f}] pp.\")\n",
+        "print(shared_run['decision'])\n",
+        "print('Feature engineering remains open. Accepted Kaggle score: 0.56842 private / 0.56862 public; historical winning private score: 0.60503. No challenger promoted.')\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}

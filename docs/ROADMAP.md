@@ -17,6 +17,7 @@ for broad feature research or establish the historical winning score of 0.60503.
 | Complementary graph feature study | **Completed and audited**: 0.595269 / 0.595923 / 0.596443 versus baseline 0.599523; no promotion |
 | Domain feature study | **Completed and audited**: 172 eligible formulas, five arms, 12 new models; best weighted point 0.599941 versus 0.599523, interval spans zero; no promotion |
 | Bounded shortlist pilot | **Completed and audited**: shared 0.604069 / per-task 0.599860 / matched small baseline 0.578084; zero-training restart passed; no promotion |
+| Larger frozen validation + five block ablations | **Completed and audited**: full shortlist 0.595073 versus 0.589870; every removal lower, all block intervals span zero; 21 models verified; no promotion |
 | Broader feature completion gate | **Open**; [coverage inventory](FEATURE_RESEARCH.md) records unresolved work |
 | New-feature temporal confirmation | Pending; the original inspected cohorts are not fresh holdouts |
 | Earlier 50-file collection | Not executed; one accepted baseline file is verified |
@@ -41,7 +42,7 @@ profiles. Feature counts are not a completion percentage.
 ```bash
 uv run --frozen --extra dev --extra ml python scripts/project_status.py
 uv run --frozen --extra dev --extra ml python scripts/project_status.py --require-feature-gate
-uv run --frozen --extra cloud python scripts/retrieval_status.py --receipt reports/research/task_feature_run.json
+uv run --frozen --extra cloud python scripts/retrieval_status.py --receipt reports/research/shared_feature_run.json
 ```
 
 The project-status command reads and verifies committed evidence; it does not query
@@ -116,3 +117,24 @@ The next bounded stage freezes the 32 shared additions and compares them with th
 baseline using more fitting support; block ablations and temporal confirmation follow
 only if warranted. The exact per-task rule will not be scaled. All 14 unresolved
 families remain open. [Standing execution rules](EXECUTION_RULES.md).
+
+## Latest bounded milestone
+
+The [frozen shared-feature study](SHARED_FEATURE_VALIDATION.md) completed both
+managed stages: 4.90 minutes for validation and 8.66 for the conditional ablations,
+13.57 total processing minutes and approximately $0.77 instance compute. Each
+stage had a separate 15-minute cap. All six controls were reused unchanged;
+21 unique native models and complete zero-training replay passed audit. The
+[run receipt](../reports/research/shared_feature_run.json) contains both terminal
+AWS observations and checksums for the eight result/launch/status artifacts.
+
+The full shortlist improves weighted point recall by 0.520 points; its descriptive
+95% paired interval is [-0.401, +1.596] points. No block removal improves it, yet
+all five block intervals span zero. The third query-time quartile loses 1.755
+points. Keep the full schema frozen for the [temporal preflight](../configs/shared_feature_confirmation.json):
+verify earlier-cutoff artifacts, audit 256 queries per role, measure a 1,024-session
+build and then run the matched early window only if the resource estimate fits.
+Inspect before expanding to the middle window. This answers transfer and cost
+questions before another full feature materialization. The original calendar
+windows were previously inspected; they are not fresh holdouts. The 14 open
+families remain open and the accepted competition score is unchanged.

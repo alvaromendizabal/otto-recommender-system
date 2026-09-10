@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "status": "design_frozen_temporal_input_preflight_not_executed",
+  "preregistered_at_utc": "2026-09-10T20:27:25.871683+00:00",
+  "question": "Does the frozen 32-feature shared representation transfer to earlier historical cutoffs with matched candidate generation and ranking controls?",
+  "source_study_id": "1a2816eceec36dbf2f6bdc63085ebda99887894ce2f3e9a1816d680f3a18ae57",
+  "source_results_sha256": "e86b8d32f4e9f6566a6ed12a8b917255053afdd48201bc1db7a9f64cb61a9364",
+  "frozen_schema_path": "configs/shared_feature_validation.json",
+  "frozen_schema_sha256": "bc50150f10a7d1bbd9a6c3e6d01f91594fcbb2d61e2598d6e028f6f232e60530",
+  "arms": [
+    "baseline",
+    "shared"
+  ],
+  "feature_counts": {
+    "baseline": 102,
+    "shared": 134
+  },
+  "windows": [
+    {
+      "name": "early",
+      "history_end": "2022-08-16T22:00:00+00:00",
+      "fit_end": "2022-08-19T22:00:00+00:00",
+      "selection_end": "2022-08-20T22:00:00+00:00",
+      "evaluation_end": "2022-08-22T22:00:00+00:00"
+    },
+    {
+      "name": "middle",
+      "history_end": "2022-08-18T22:00:00+00:00",
+      "fit_end": "2022-08-21T22:00:00+00:00",
+      "selection_end": "2022-08-22T22:00:00+00:00",
+      "evaluation_end": "2022-08-24T22:00:00+00:00"
+    }
+  ],
+  "exposure": "The original baseline research already inspected these calendar windows. This is new-feature temporal replication, not an untouched holdout. Overlapping windows are not independent datasets.",
+  "fit_sessions": 12800,
+  "selection_sessions": 5120,
+  "candidate_budget": 400,
+  "first_model_seed": 20260911,
+  "cohort_seed": 20260911,
+  "sampling_contract": "Freeze whole-session IDs and fitting negatives before reading selection metrics. Preserve exactly matched rows across arms. Any later seed replication must record whether it changes sampled data, model randomness, or both; identical inputs/models are not independent evidence.",
+  "training": {
+    "evaluation_interval": 5,
+    "patience": 30,
+    "rounds": 150,
+    "seed": 20260911,
+    "threads": 4
+  },
+  "execution": {
+    "maximum_concurrent_jobs": 1,
+    "maximum_runtime_seconds_per_job": 900,
+    "next_action": "Verify earlier-window corpus/retriever artifacts, then build and audit features for 256 complete queries per role before any ranker fit. Measure loading/build time and peak memory, then a 1,024-session sample before extrapolating to the target cohort.",
+    "ranker_phase": "Six models per window. Inspect and checkpoint the early result before launching the middle window.",
+    "maximum_instance_compute_usd_per_job_at_recorded_rate": 0.8568
+  },
+  "preflight_required": [
+    "Every graph and item statistic fitted strictly before that window history_end; reference-window graphs cannot be reused.",
+    "No new feature screening, routing, block removal or model search on the replication cohorts.",
+    "Full candidate features computed before fitting-negative sampling; target denominators retain all eligible future labels.",
+    "Input hashes, source hashes, schema and candidate identities verified; 256-query smoke and partial/complete replay pass.",
+    "Resource estimate from measured smoke throughput fits the next bounded stage; checkpoint on every completed partition/model."
+  ],
+  "advance_from_early_if": "Shared weighted point gain is at least 0.001 and order recall does not decline. Otherwise stop expansion and diagnose; never change the frozen schema to rescue this replication.",
+  "promotion": "No promotion from a single point gate. Require stable objective-level gains, uncertainty assessment with overlap/exposure declared, training-support checks and an independent audit. The broader feature-family completion gate remains open."
+}

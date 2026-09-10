@@ -41,3 +41,93 @@ Feature engineering remains open. The accepted Kaggle score is unchanged, and th
 ## Reproduction
 
 With the checksum-verified inputs restored, run `uv run python scripts/run_shared_feature_validation.py --phase validation`. Inspect the gate before running the same command with `--phase ablation` against the same output directory. The CLI enforces a 900-second deadline; the managed bootstrap additionally verifies zero-training replay and uploads checkpoints.
+
+## Completed larger comparison
+
+The frozen shortlist scores **0.5950734445** against the matched baseline's
+**0.5898696552**: **+0.5204 percentage points**, with a descriptive paired 95%
+interval **[-0.4007, +1.5958] points**. Orders gain nine hits (559 versus 550);
+clicks and carts each lose six. All six native models, independent pooled metric
+arithmetic and zero-training replay passed audit.
+
+The prespecified point gate passes, so it authorizes the five block ablations,
+not promotion. Query-time gains are +1.025, +1.311, -1.755 and +1.073 points:
+the third quartile underperforms. All three prefix-length group point changes
+are positive, but this does not establish temporal or training stability.
+
+The fixed candidate ceiling is 0.692289 on these development sessions. The
+0.097215 gap from the shared ranker is recoverable ranking headroom only in
+principle, not an expected feature gain. None of these development quantities
+can be subtracted from the historical Kaggle winning score to estimate the
+competition gap. The accepted private-score gap remains 0.03661.
+
+## Primary-source review and remaining representation gaps
+
+The [winning implementation's feature join](https://github.com/mrkmakr/OTTO-Multi-Objective-Recommender-System/blob/main/codes/otto/scripts_prepare_2nd/prepare_feature.py)
+combines multiple graph and learned candidate sources, joins item statistics to
+session-hour statistics, and computes within-session ranks of item counts, rates
+and demand features. Our original source ranks are already tested; they are not
+new work. Query-relative historical demand ranks and genuinely query-time demand
+updates remain distinct open hypotheses. The current dataset builder computes
+features on the complete candidate pool before taking fitting negatives. New
+relative features must use that path: recomputing ranks on the already sampled
+fitting cache would make fitting and selection representations inconsistent.
+Time-indexed popularity must use events available at each query; the names of
+historical competition windows are not evidence that they meet this project's
+strict cutoff contract.
+
+The [winner's action-conditioned encoder](https://github.com/mrkmakr/OTTO-Multi-Objective-Recommender-System/blob/main/codes/otto/scripts_nn/emb_model_v42.py)
+adds target-action embeddings to session representations and selects difficult
+negative scores during training. Its candidate scores enter the later ranker.
+This motivates jointly testing representation complementarity and ranking value;
+a new retriever's recall alone is not sufficient. We already have an objective-
+conditioned two-tower implementation, so reproducing that concept without a
+controlled change would duplicate work. It still needs a current-window,
+feature-aware comparison under the accepted protocol.
+
+[TRON](https://arxiv.org/html/2307.14906v2), from OTTO researchers, combines efficient
+uniform/in-batch sampling, top-k hard-negative updates and sampled softmax. Its
+reported offline setup uses clicks, minimum-support filtering and next-item
+metrics, so those results do not establish a gain on this competition's weighted
+three-action target. Our inference is narrower: negative sampling and temporal
+sequence representation deserve a controlled experiment after cheaper feature
+hypotheses, with matched data and full-query weighted Recall@20 evaluation.
+
+The [winner's reproduction notes](https://github.com/mrkmakr/OTTO-Multi-Objective-Recommender-System/blob/main/codes/readme.txt)
+describe substantially larger hardware and multi-day builds. These are historical
+cost evidence, not a prescription for this project. Reuse candidate caches, test
+one representation change at a time, and require measurable marginal value before
+scaling or expanding an ensemble. The 3.661-point private-score gap cannot yet be
+reliably apportioned among features, retrieval, data support and ensembling.
+
+## Completed block ablations
+
+| Removed addition block | Columns removed | Weighted Recall@20 | Full minus removal (pp) | Descriptive 95% interval (pp) |
+|---|---:|---:|---:|---|
+| funnel | 11 | 0.592273 | +0.280 | [-0.328, +0.939] |
+| episode | 6 | 0.592745 | +0.233 | [-0.444, +0.953] |
+| graph_raw | 3 | 0.587329 | +0.774 | [-0.097, +1.658] |
+| graph_row | 10 | 0.592504 | +0.257 | [-0.533, +1.103] |
+| graph_degree | 2 | 0.594788 | +0.029 | [-0.600, +0.723] |
+
+Every removal reduces the point estimate; none of these five descriptive intervals
+excludes zero. The raw graph block has the largest measured contribution and the
+degree-normalization block the smallest. These are conditional removals from the
+32 additions, not ablations of all graph or sequence features in the system.
+The full shortlist remains the frozen challenger. There is no evidence here to
+justify repeatedly tuning block combinations or promoting any individual family.
+
+The six control models and every control metric are identical across stages. All
+21 native models pass schema/hash checks; pooled metrics are independently rebuilt
+from per-session hit/denominator artifacts. Complete restart performs zero training
+calls and reproduces every arm. All models, per-session statistics, contracts and
+heartbeats are saved under the source-addressed S3 checkpoint URI in the run receipt.
+
+The [next temporal protocol](../configs/shared_feature_confirmation.json) freezes
+early/middle window comparisons and the full schema. It is a design and preflight
+contract, not an executed replication. Start with artifact checks and a 256-query
+feature smoke, then 1,024 sessions to measure cost. Each later managed stage keeps
+the 900-second cap. Reference-window graphs cannot be reused at earlier cutoffs.
+This is worth additional compute because one current query-time quartile regresses
+and all family intervals span zero; transfer evidence is more informative now than
+further tuning on the same cohort. Broader domain-informed feature work remains open.
