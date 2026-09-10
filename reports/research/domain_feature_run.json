@@ -1,0 +1,16 @@
+{
+  "status": "running",
+  "managed_status": "InProgress",
+  "job_name": "otto-domain-features-09629193067f",
+  "source_commit": "4336737fce1f7bc00bde939a0ec05e1dbeca1f06",
+  "source_sha256": "09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd",
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
+  "recorded_at_utc": "2026-09-10T05:41:16.607208+00:00",
+  "stage_last_verified": "baseline replay complete; fitting feature cache in progress",
+  "baseline_models_reused": 3,
+  "planned_new_models": 12,
+  "runtime_cap_seconds": 7200,
+  "instance_compute_cap_usd": "6.8544",
+  "evaluation_access": false,
+  "kaggle_promotion": false
+}

@@ -180,6 +180,7 @@ def test_complete_domain_comparison_replays_baseline_and_recovers(tmp_path, monk
     with pytest.raises(ValueError, match="weighted Recall"):
         audit(output)
     (output / "results.json").write_text(json.dumps(result))
+    verify_report_publication(inputs, output, launch, result)
     times = {p: p.stat().st_mtime_ns for p in output.glob("*_cache/part-*.parquet")}
     assert study.run_study(inputs, output, config, **args) == result
     assert all(p.stat().st_mtime_ns == stamp for p, stamp in times.items())
@@ -188,3 +189,53 @@ def test_complete_domain_comparison_replays_baseline_and_recovers(tmp_path, monk
     (inputs / "reference/clicks/model.txt").write_bytes(b"corrupt")
     with pytest.raises(ValueError, match="reference checksum"):
         study.run_study(inputs, output, config, **args)
+
+
+def verify_report_publication(inputs, output, launch, result):
+    import importlib.util
+    from datetime import UTC, datetime, timedelta
+    from decimal import Decimal
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[1] / "scripts/collect_domain_study.py"
+    spec = importlib.util.spec_from_file_location("domain_collection_test", path)
+    collector = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(collector)
+    launch.update(
+        source_sha256="a" * 64,
+        checkpoint_uri="s3://fixture/domain/checkpoints/",
+        pricing={"rate_usd_per_hour": "3.4272"},
+    )
+    (output / "launch.json").write_text(json.dumps(launch))
+    status = {
+        "status": "passed",
+        "study_id": result["study_id"],
+        "source_sha256": "a" * 64,
+        "elapsed_seconds": 110,
+    }
+    (output / "job_status.json").write_text(json.dumps(status))
+    shutil.copytree(inputs / "corpus", output / "corpus")
+    start = datetime(2026, 9, 10, tzinfo=UTC)
+    job = {
+        "ProcessingJobStatus": "Completed",
+        "ProcessingJobName": "fixture",
+        "ProcessingStartTime": start,
+        "ProcessingEndTime": start + timedelta(seconds=120),
+        "ProcessingResources": {"ClusterConfig": {"InstanceCount": 1}},
+    }
+    reports = output / "published"
+    record = collector.publish_reports(output, reports, job)
+    assert Decimal(record["estimated_instance_compute_usd"]) == Decimal("0.11424")
+    slices = json.loads((reports / "domain_feature_slices.json").read_text())
+    groups = ("prefix_1", "prefix_2_to_5", "prefix_6_to_20", "prefix_21_plus")
+    for arm, summary in result["arms"].items():
+        for objective in ("clicks", "carts", "orders"):
+            for field in ("hits", "denominator"):
+                assert (
+                    sum(slices["arms"][arm][g]["objectives"][objective][field] for g in groups)
+                    == summary["objectives"][objective][field]
+                )
+    before = (reports / "domain_feature_run.json").read_bytes()
+    with pytest.raises(ValueError, match="matched completed"):
+        collector.publish_reports(output, reports, {**job, "ProcessingJobStatus": "InProgress"})
+    assert (reports / "domain_feature_run.json").read_bytes() == before

@@ -307,3 +307,32 @@ storage, requests, logging and any transfer charges are additional.
 The new experiment will update this record with measured outcomes after completion.
 It does not close the broader feature-research gate or authorize a claim that all
 useful feature families have been exhausted.
+
+### Observed support for the domain hypotheses
+
+A verified observed-prefix census, computed before inspecting the new model results,
+shows that opportunity is uneven across queries.
+
+| Observed property | Fitting sessions (100,000) | Selection sessions (20,000) |
+|---|---:|---:|
+| One event only | 45,482 | 9,396 |
+| At least one repeated item | 31,665 | 5,934 |
+| Multiple action types on the same item | 14,233 | 2,700 |
+| Any cart or order | 15,514 | 2,997 |
+| At least one gap over 30 minutes | 10,747 | 1,308 |
+| At least one gap over two hours | 7,645 | 729 |
+
+Thus 46.98% of selection queries have no observed action transition, and only 6.54%
+have more than one 30-minute episode. These are support counts, not estimates of
+feature utility. In a one-event prefix, recent-distinct and last-item graph pools
+are identical, although normalization can still change cross-candidate evidence.
+The smaller selection share of long-gap prefixes also makes direct extrapolation
+from fitting-support counts unreliable. Exact counts, quantiles and observed-file
+hashes are in `reports/research/domain_prefix_profile.json`.
+
+Descriptive error slices use the original prefix-length boundaries (1, 2–5, 6–20,
+21+), repeated versus all-distinct observed items, observed cart/order versus
+click-only prefixes, and gaps above versus at most 30 minutes. These boundaries
+were fixed before new model outcomes were read. Each pair or length partition
+preserves complete sessions and target denominators; different slice families
+overlap. They do not measure target-item repeat/new recall or item rarity.

@@ -112,7 +112,7 @@
     "domain_tests": {
       "path": "tests/test_domain_features.py",
       "kind": "test",
-      "sha256": "57c76a4b198763a69d2733d22ea924ecaa6c30efba2af4813f007484f6a96cf0"
+      "sha256": "a33d122171828597562a90eebe57bbb00983d0b984091f1ddcfe3afc24c5f1fb"
     },
     "domain_code": {
       "path": "src/otto_recsys/research/domain_features.py",
