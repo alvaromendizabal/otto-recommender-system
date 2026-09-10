@@ -154,6 +154,7 @@ def screen(
     config: dict[str, Any],
     study_id: str,
     logger: logging.Logger,
+    publish: Callable[[Path], None] | None = None,
 ) -> dict[str, Any]:
     if fit["role"] != "fit":
         raise ValueError("utility screening accepts fitting data only")
@@ -223,6 +224,9 @@ def screen(
                     "validation_sessions": int(np.unique(fit["sessions"][valid]).size),
                 }
                 atomic_json(receipt_path, receipt)
+            if publish:
+                publish(model_path)
+                publish(receipt_path)
             gains[f, j] = model.feature_importance(importance_type="gain")
             diagnostics.append(receipt)
     result = {
@@ -232,6 +236,8 @@ def screen(
         **select_columns(names, base, gains, config["maximum_added"]),
     }
     atomic_json(output / "selection.json", result)
+    if publish:
+        publish(output / "selection.json")
     return result
 
 
@@ -278,7 +284,7 @@ def _run(
     atomic_json(path, contract)
     with Heartbeat(logger, stage="load_fitting_sample", interval_seconds=15):
         fit = load_sample(inputs, "fit", config)
-    screening = screen(fit, output / "screening", config, identity, logger)
+    screening = screen(fit, output / "screening", config, identity, logger, publish)
     # Freeze shortlists before loading any chronological selection candidate values/targets.
     with Heartbeat(logger, stage="load_selection_sample", interval_seconds=15):
         valid = load_sample(inputs, "selection", config)
