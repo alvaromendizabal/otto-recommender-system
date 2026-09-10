@@ -157,5 +157,74 @@
     "selection_scope": "Expanded reused development cohort, not an independent holdout",
     "continue_if": "Shared weighted point estimate exceeds matched baseline by at least 0.001 and order recall does not decline; otherwise diagnose/stop before increasing scale.",
     "following_stage": "If the point gate passes, preregister matched funnel, episode, raw, row-normalized and degree-normalized block ablations. Require uncertainty and temporal stability before promotion."
-  }
+  },
+  "source_manifests": {
+    "fit": "defc23c78c19d0fd36ba36b82d72f6993a9bdf229ed0de5be3af2d80c6fb27db",
+    "selection": "6be19480267b1d90e7d05375df74aa2e390ca2d376335e7532b73fff6bbc1b66"
+  },
+  "corpus_manifest_sha256": "6fa9e23bc9d254bf4534fd02b995b8ca92bdb4d6fa9229426b50432fe5c20b68",
+  "queries_sha256": "f706acdad8badc24fbc2c6967816e4079cc8407a85f0c537ce220ec95a27dfe9",
+  "sessions_per_part": 256,
+  "candidate_budget": 400,
+  "seed": 20260910,
+  "threads": 4,
+  "training": {
+    "evaluation_interval": 5,
+    "patience": 30,
+    "rounds": 150,
+    "seed": 20260910,
+    "threads": 4
+  },
+  "part_counts": {
+    "fit": 50,
+    "selection": 20
+  },
+  "minimum_weighted_gain": 0.001,
+  "ablation_blocks": {
+    "funnel": [
+      "domain_funnel_cart_without_later_order",
+      "domain_funnel_trailing_run_share",
+      "domain_funnel_transition_0_1_mean_gap_log_hours",
+      "domain_funnel_prefix_item_concentration",
+      "domain_funnel_last_unique_reciprocal_rank",
+      "domain_funnel_prefix_switch_share",
+      "domain_funnel_observed_span_fraction",
+      "domain_funnel_full_count_share",
+      "domain_funnel_transition_1_0_mean_gap_log_hours",
+      "domain_funnel_transition_0_0_mean_gap_log_hours",
+      "domain_funnel_last_action_0"
+    ],
+    "episode": [
+      "domain_episode_s1800_count_share",
+      "domain_episode_s1800_query_duration_log_hours",
+      "domain_episode_s7200_query_duration_log_hours",
+      "domain_episode_s1800_last_age_log_hours",
+      "domain_episode_s1800_query_events_log",
+      "domain_episode_s7200_query_unique_log"
+    ],
+    "graph_raw": [
+      "domain_norm_symmetric_time_raw_last_mean",
+      "domain_norm_symmetric_time_raw_recent_unique_max",
+      "domain_norm_symmetric_time_raw_recent_unique_mean"
+    ],
+    "graph_row": [
+      "domain_norm_forward_time_row_recent_unique_max",
+      "domain_norm_forward_time_row_last_mean",
+      "domain_norm_symmetric_time_row_recent_unique_max",
+      "domain_norm_symmetric_time_row_last_mean",
+      "domain_norm_symmetric_cart_row_recent_unique_mean",
+      "domain_norm_symmetric_order_row_last_mean",
+      "domain_norm_symmetric_order_row_purchase_unique_mean",
+      "domain_norm_symmetric_time_row_recent_unique_mean",
+      "domain_norm_forward_cart_row_last_mean",
+      "domain_norm_forward_time_row_recent_unique_mean"
+    ],
+    "graph_degree": [
+      "domain_norm_forward_time_degree_purchase_unique_mean",
+      "domain_norm_symmetric_time_degree_recent_unique_max"
+    ]
+  },
+  "ablation_preregistered_at_utc": "2026-09-10T19:56:13.482068+00:00",
+  "ablation_protocol": "After the frozen validation gate passes, remove each prespecified block from the shared schema separately. Restore and reuse completed baseline/shared models. Report paired full-minus-drop differences and descriptive query-time quartiles. Five related ablations on reused development data are exploratory; no automatic family retention or promotion.",
+  "maximum_seconds": 900
 }

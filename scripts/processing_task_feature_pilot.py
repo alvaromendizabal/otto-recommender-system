@@ -1,4 +1,4 @@
-"""Managed recovery of the bounded pilot using the previously proven CPU image."""
+"""Managed, checkpointed execution of bounded frozen-feature research stages."""
 
 from __future__ import annotations
 
@@ -25,15 +25,20 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
     from otto_recsys.cloud.research_checkpoints import ResearchCheckpoints
     from otto_recsys.logging_utils import configure_logging, utc_now_iso
     from otto_recsys.research.protocol import atomic_json
-    from otto_recsys.research.task_feature_pilot import run
     from otto_recsys.runtime import Heartbeat
 
+    task = launch.get("task", "task_feature_pilot")
+    if task not in {"task_feature_pilot", "shared_feature_validation"}:
+        raise ValueError("unknown bounded feature study")
+    phase = launch.get("phase", "validation")
+    options = {"phase": phase} if task == "shared_feature_validation" else {}
+    run = importlib.import_module(f"otto_recsys.research.{task}").run
     inputs, output = (
         project / "artifacts/task_feature_inputs",
-        project / "artifacts/task_feature_pilot",
+        project / "artifacts" / task,
     )
     output.mkdir(parents=True, exist_ok=True)
-    logger = configure_logging("task_feature_pilot", log_dir=output / "logs")
+    logger = configure_logging(task, log_dir=project / "artifacts/bootstrap_logs")
     storage = ResearchCheckpoints(
         output,
         launch["checkpoint_uri"],
@@ -42,6 +47,8 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
         logger=logger,
     )
     storage.restore()
+    logger = configure_logging(task, log_dir=output / "logs")
+    storage.logger = logger
     status: dict[str, Any] = {
         "status": "running",
         "stage": "input_recovery",
@@ -87,7 +94,7 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
                 "-m",
                 "pytest",
                 "-q",
-                "tests/test_task_feature_pilot.py",
+                f"tests/test_{task}.py",
                 "-W",
                 "error",
             ],
@@ -98,8 +105,8 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
         status.update(stage="feature_pilot")
         atomic_json(output / "status.json", status)
         storage.publish(output / "status.json")
-        config = json.loads((project / "configs/task_feature_pilot.json").read_text())
-        result = run(inputs, output, config, logger=logger, publish=storage.publish)
+        config = json.loads((project / "configs" / f"{task}.json").read_text())
+        result = run(inputs, output, config, logger=logger, publish=storage.publish, **options)
         lgb: Any = importlib.import_module("lightgbm")
         training = lgb.train
 
@@ -108,7 +115,7 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
 
         lgb.train = forbidden
         try:
-            replay = run(inputs, output, config, logger=logger, publish=storage.publish)
+            replay = run(inputs, output, config, logger=logger, publish=storage.publish, **options)
         finally:
             lgb.train = training
         if replay["arms"] != result["arms"]:
@@ -120,6 +127,9 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
         }
         atomic_json(output / "results.json", result)
         storage.publish(output / "results.json")
+        if task == "shared_feature_validation":
+            atomic_json(output / f"{phase}_results.json", result)
+            storage.publish(output / f"{phase}_results.json")
         pl = importlib.import_module("polars")
         rows = []
         for arm, summary in result["arms"].items():
@@ -149,13 +159,18 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
             {
                 "status": "passed",
                 "arms": rows,
-                "native_rankers_verified": 9,
+                "native_rankers_verified": sum(len(s["models"]) for s in result["arms"].values()),
                 "training_free_replay": result["recovery"],
                 "source_commit": launch["source_commit"],
                 "scope": "Independent metric arithmetic and model hashes; raw features shared.",
             },
         )
         storage.publish(output / "audit.json")
+        if task == "shared_feature_validation":
+            atomic_json(
+                output / f"{phase}_audit.json", json.loads((output / "audit.json").read_text())
+            )
+            storage.publish(output / f"{phase}_audit.json")
         status.update(status="passed", stage="complete", study_id=result["study_id"])
         print(json.dumps({"pilot_results": rows}), flush=True)
     except BaseException as error:
@@ -167,7 +182,10 @@ def execute(project: Path, launch: dict[str, Any]) -> dict[str, Any]:
         storage.publish(output / "status.json")
         for handler in logger.handlers:
             handler.flush()
-        storage.publish(output / "logs/task_feature_pilot.jsonl")
+        if task == "shared_feature_validation":
+            atomic_json(output / f"{phase}_status.json", status)
+            storage.publish(output / f"{phase}_status.json")
+        storage.publish(output / "logs" / f"{task}.jsonl")
     return status
 
 
