@@ -418,5 +418,5 @@
     "evidence": [],
     "reason": "The original nine cells confirm the original procedure. Newly selected features require preregistered temporal confirmation with prior data exposure declared."
   },
-  "next_task": "Execute and audit the preregistered five-arm domain comparison: frozen baseline replay, sequence/episode, matched raw graph pools, normalized graph pools, and combined. Keep feature research open; no final training or promotion."
+  "next_task": "Execute and audit the preregistered five-arm domain comparison: frozen baseline replay, sequence/episode, matched raw graph pools, normalized graph pools, and combined. Keep feature engineering open; no final training or promotion."
 }
