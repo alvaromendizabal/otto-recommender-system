@@ -14,11 +14,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--watch", action="store_true")
     parser.add_argument("--interval", type=int, default=30)
+    parser.add_argument("--receipt", type=Path, default=Path("reports/research/retrieval_run.json"))
     args = parser.parse_args()
     if not 15 <= args.interval <= 60:
         parser.error("--interval must be between 15 and 60 seconds")
     root = Path(__file__).resolve().parents[1]
-    receipt = json.loads((root / "reports/research/retrieval_run.json").read_text())
+    receipt = json.loads((root / args.receipt).read_text())
     name = receipt["observed"]["ProcessingJobName"]
     sdk = importlib.import_module("boto3")
     configuration = importlib.import_module("botocore.config").Config(

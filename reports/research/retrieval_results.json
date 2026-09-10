@@ -1,0 +1,575 @@
+{
+  "arms": {
+    "baseline": {
+      "candidate_ceiling": {
+        "objectives": {
+          "carts": {
+            "denominator": 5931,
+            "hits": 3488,
+            "recall_at_20": 0.5880964424211769
+          },
+          "clicks": {
+            "denominator": 19219,
+            "hits": 12640,
+            "recall_at_20": 0.6576825016910349
+          },
+          "orders": {
+            "denominator": 3370,
+            "hits": 2556,
+            "recall_at_20": 0.7584569732937686
+          }
+        },
+        "weighted_recall_at_20": 0.6972713668717176
+      },
+      "features": [
+        "query_duration_hours",
+        "query_repeat_share",
+        "query_events",
+        "query_carts_share",
+        "query_unique",
+        "repeat_orders_n50_count",
+        "repeat_all_n50_age_hours",
+        "query_orders_share",
+        "repeat_all_n50_last_position",
+        "repeat_all_n50_count",
+        "repeat_carts_n50_count",
+        "repeat_clicks_n50_count",
+        "query_hour_sin",
+        "query_weekday_cos",
+        "query_hour_cos",
+        "repeat_all_n5_share",
+        "hist_clicks_h72_share",
+        "hist_carts_h72",
+        "query_clicks_last_age_hours",
+        "query_weekday_sin",
+        "query_gap_max",
+        "query_gap_median",
+        "hist_all_h336",
+        "history_last_age_hours",
+        "intent_repeat_carts",
+        "hist_carts_h12_share",
+        "hist_all_h336_share",
+        "hist_orders_h6_share",
+        "repeat_carts_h24_decay",
+        "hist_clicks_h168_share",
+        "query_clicks_count",
+        "hist_carts_h6_share",
+        "query_carts_last_age_hours",
+        "query_gap_mean",
+        "hist_orders_h24_share",
+        "history_lifetime_hours",
+        "hist_orders_trend_h72_h168",
+        "intent_repeat_orders",
+        "graph_time_clicks_n1_uniform_sum",
+        "hist_carts_h1_share",
+        "hist_orders_per_click_h72",
+        "query_clicks_share",
+        "query_carts_count",
+        "hist_clicks_h6",
+        "hist_orders_per_click_h336",
+        "hist_clicks_trend_h72_h168",
+        "hist_all_trend_h168_h336",
+        "query_gap_std",
+        "hist_orders_h336_share",
+        "hist_all_trend_h24_h72",
+        "hist_orders_h72",
+        "hist_carts_h72_share",
+        "hist_carts_per_click_h336",
+        "hist_carts_trend_h24_h72",
+        "hist_all_h168_share",
+        "hist_carts_per_click_all",
+        "hist_orders_per_click_h24",
+        "hist_carts_h168",
+        "intent_time_carts",
+        "hist_clicks_trend_h24_h72",
+        "repeat_all_n20_age_hours",
+        "hist_clicks_h336_share",
+        "hist_carts_per_click_h72",
+        "hist_all_h1",
+        "hist_all_trend_h6_h24",
+        "hist_all_h12_share",
+        "hist_clicks_trend_h6_h24",
+        "repeat_all_n1_count",
+        "hist_all_h72_share",
+        "hist_orders_per_click_all",
+        "hist_orders_h168_share",
+        "hist_clicks_trend_h168_h336",
+        "hist_all_trend_h1_h6",
+        "hist_clicks_h168",
+        "hist_orders_per_click_h12",
+        "repeat_all_h72_decay",
+        "intent_time_clicks",
+        "repeat_clicks_n1_count",
+        "hist_carts_h336_share",
+        "graph_cart_all_n5_uniform_max",
+        "repeat_all_h1_decay",
+        "repeat_all_n20_share",
+        "repeat_all_n5_count",
+        "hist_all_h1_share",
+        "hist_all_all",
+        "repeat_clicks_h24_decay",
+        "hist_carts_trend_h72_h168",
+        "hist_all_trend_h72_h168",
+        "hist_all_h24_share",
+        "hist_carts_all",
+        "hist_orders_trend_h168_h336",
+        "hist_orders_trend_h24_h72",
+        "hist_carts_trend_h6_h24",
+        "hist_carts_trend_h168_h336",
+        "graph_time_all_n1_uniform_sum",
+        "hist_orders_h12_share",
+        "graph_cart_all_n50_six_hours_mean",
+        "hist_carts_per_click_h168",
+        "graph_cart_all_n20_six_hours_mean",
+        "hist_clicks_h6_share",
+        "repeat_carts_n5_first_position",
+        "hist_orders_h24"
+      ],
+      "fixed_fusion": {
+        "objectives": {
+          "carts": {
+            "denominator": 5931,
+            "hits": 2698,
+            "recall_at_20": 0.454897993592986
+          },
+          "clicks": {
+            "denominator": 19219,
+            "hits": 10311,
+            "recall_at_20": 0.5365003382069826
+          },
+          "orders": {
+            "denominator": 3370,
+            "hits": 2017,
+            "recall_at_20": 0.5985163204747774
+          }
+        },
+        "weighted_recall_at_20": 0.5492292241834605
+      },
+      "models": {
+        "carts": {
+          "best_iteration": 60,
+          "sha256": "98091bb44aa9d9db28dfb9479a346379d1215d2f4d938868be362e2d671eaa2f"
+        },
+        "clicks": {
+          "best_iteration": 40,
+          "sha256": "0d6c5f71b95d48d9e679d0920bf0a50e7d0a87e6db6cca748fd47065be158e85"
+        },
+        "orders": {
+          "best_iteration": 95,
+          "sha256": "006755a23b88041361e14966b28c694f40233f44bab4d71ae857df92a80158b3"
+        }
+      },
+      "objectives": {
+        "carts": {
+          "denominator": 5931,
+          "hits": 2712,
+          "recall_at_20": 0.45725847243297923
+        },
+        "clicks": {
+          "denominator": 19219,
+          "hits": 9952,
+          "recall_at_20": 0.5178209063947136
+        },
+        "orders": {
+          "denominator": 3370,
+          "hits": 2306,
+          "recall_at_20": 0.684272997032641
+        }
+      },
+      "weighted_recall_at_20": 0.5995234305889497
+    },
+    "wide_forward": {
+      "candidate_ceiling": {
+        "objectives": {
+          "carts": {
+            "denominator": 5931,
+            "hits": 3640,
+            "recall_at_20": 0.6137244983982465
+          },
+          "clicks": {
+            "denominator": 19219,
+            "hits": 13341,
+            "recall_at_20": 0.6941568239762734
+          },
+          "orders": {
+            "denominator": 3370,
+            "hits": 2587,
+            "recall_at_20": 0.7676557863501484
+          }
+        },
+        "weighted_recall_at_20": 0.7141265037271903
+      },
+      "features": [
+        "query_duration_hours",
+        "query_repeat_share",
+        "query_events",
+        "query_carts_share",
+        "query_unique",
+        "repeat_orders_n50_count",
+        "repeat_all_n50_age_hours",
+        "query_orders_share",
+        "repeat_all_n50_last_position",
+        "repeat_all_n50_count",
+        "repeat_carts_n50_count",
+        "repeat_clicks_n50_count",
+        "query_hour_sin",
+        "query_weekday_cos",
+        "query_hour_cos",
+        "repeat_all_n5_share",
+        "hist_clicks_h72_share",
+        "hist_carts_h72",
+        "query_clicks_last_age_hours",
+        "query_weekday_sin",
+        "query_gap_max",
+        "query_gap_median",
+        "hist_all_h336",
+        "history_last_age_hours",
+        "intent_repeat_carts",
+        "hist_carts_h12_share",
+        "hist_all_h336_share",
+        "hist_orders_h6_share",
+        "repeat_carts_h24_decay",
+        "hist_clicks_h168_share",
+        "query_clicks_count",
+        "hist_carts_h6_share",
+        "query_carts_last_age_hours",
+        "query_gap_mean",
+        "hist_orders_h24_share",
+        "history_lifetime_hours",
+        "hist_orders_trend_h72_h168",
+        "intent_repeat_orders",
+        "graph_time_clicks_n1_uniform_sum",
+        "hist_carts_h1_share",
+        "hist_orders_per_click_h72",
+        "query_clicks_share",
+        "query_carts_count",
+        "hist_clicks_h6",
+        "hist_orders_per_click_h336",
+        "hist_clicks_trend_h72_h168",
+        "hist_all_trend_h168_h336",
+        "query_gap_std",
+        "hist_orders_h336_share",
+        "hist_all_trend_h24_h72",
+        "hist_orders_h72",
+        "hist_carts_h72_share",
+        "hist_carts_per_click_h336",
+        "hist_carts_trend_h24_h72",
+        "hist_all_h168_share",
+        "hist_carts_per_click_all",
+        "hist_orders_per_click_h24",
+        "hist_carts_h168",
+        "intent_time_carts",
+        "hist_clicks_trend_h24_h72",
+        "repeat_all_n20_age_hours",
+        "hist_clicks_h336_share",
+        "hist_carts_per_click_h72",
+        "hist_all_h1",
+        "hist_all_trend_h6_h24",
+        "hist_all_h12_share",
+        "hist_clicks_trend_h6_h24",
+        "repeat_all_n1_count",
+        "hist_all_h72_share",
+        "hist_orders_per_click_all",
+        "hist_orders_h168_share",
+        "hist_clicks_trend_h168_h336",
+        "hist_all_trend_h1_h6",
+        "hist_clicks_h168",
+        "hist_orders_per_click_h12",
+        "repeat_all_h72_decay",
+        "intent_time_clicks",
+        "repeat_clicks_n1_count",
+        "hist_carts_h336_share",
+        "graph_cart_all_n5_uniform_max",
+        "repeat_all_h1_decay",
+        "repeat_all_n20_share",
+        "repeat_all_n5_count",
+        "hist_all_h1_share",
+        "hist_all_all",
+        "repeat_clicks_h24_decay",
+        "hist_carts_trend_h72_h168",
+        "hist_all_trend_h72_h168",
+        "hist_all_h24_share",
+        "hist_carts_all",
+        "hist_orders_trend_h168_h336",
+        "hist_orders_trend_h24_h72",
+        "hist_carts_trend_h6_h24",
+        "hist_carts_trend_h168_h336",
+        "graph_time_all_n1_uniform_sum",
+        "hist_orders_h12_share",
+        "graph_cart_all_n50_six_hours_mean",
+        "hist_carts_per_click_h168",
+        "graph_cart_all_n20_six_hours_mean",
+        "hist_clicks_h6_share",
+        "repeat_carts_n5_first_position",
+        "hist_orders_h24"
+      ],
+      "fixed_fusion": {
+        "objectives": {
+          "carts": {
+            "denominator": 5931,
+            "hits": 2701,
+            "recall_at_20": 0.4554038104872703
+          },
+          "clicks": {
+            "denominator": 19219,
+            "hits": 10216,
+            "recall_at_20": 0.5315573130756023
+          },
+          "orders": {
+            "denominator": 3370,
+            "hits": 2012,
+            "recall_at_20": 0.5970326409495549
+          }
+        },
+        "weighted_recall_at_20": 0.5479964590234743
+      },
+      "models": {
+        "carts": {
+          "best_iteration": 35,
+          "sha256": "3cbb8225e8f39137870974d53b0dd67dd753e00f50aa5591d609d405ad930623"
+        },
+        "clicks": {
+          "best_iteration": 1,
+          "sha256": "ebabc9de4db7da8a9ac67060f158de23ff3cd7eb7a0c1a9362c461c42bb8f04c"
+        },
+        "orders": {
+          "best_iteration": 45,
+          "sha256": "42e5d0487b6476f4e69e9e9eb10850f697cba798ca945258e15a0423f8061038"
+        }
+      },
+      "objectives": {
+        "carts": {
+          "denominator": 5931,
+          "hits": 2682,
+          "recall_at_20": 0.45220030349013657
+        },
+        "clicks": {
+          "denominator": 19219,
+          "hits": 9682,
+          "recall_at_20": 0.5037723086528956
+        },
+        "orders": {
+          "denominator": 3370,
+          "hits": 2297,
+          "recall_at_20": 0.6816023738872403
+        }
+      },
+      "paired_selection_comparison": {
+        "absolute_gain": -0.0045246843442749984,
+        "gain_interval": [
+          -0.008681298262121629,
+          -0.0003656351185384129
+        ],
+        "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+        "requested_replicates": 1000,
+        "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+        "score": 0.5949987462446747,
+        "score_interval": [
+          0.5780595515813156,
+          0.6120407884413452
+        ],
+        "seed": 20260908,
+        "valid_replicates": 1000
+      },
+      "weighted_recall_at_20": 0.5949987462446747
+    },
+    "wide_symmetric": {
+      "candidate_ceiling": {
+        "objectives": {
+          "carts": {
+            "denominator": 5931,
+            "hits": 3677,
+            "recall_at_20": 0.6199629067610858
+          },
+          "clicks": {
+            "denominator": 19219,
+            "hits": 13593,
+            "recall_at_20": 0.7072688485353036
+          },
+          "orders": {
+            "denominator": 3370,
+            "hits": 2613,
+            "recall_at_20": 0.7753709198813057
+          }
+        },
+        "weighted_recall_at_20": 0.7219383088106395
+      },
+      "features": [
+        "query_duration_hours",
+        "query_repeat_share",
+        "query_events",
+        "query_carts_share",
+        "query_unique",
+        "repeat_orders_n50_count",
+        "repeat_all_n50_age_hours",
+        "query_orders_share",
+        "repeat_all_n50_last_position",
+        "repeat_all_n50_count",
+        "repeat_carts_n50_count",
+        "repeat_clicks_n50_count",
+        "query_hour_sin",
+        "query_weekday_cos",
+        "query_hour_cos",
+        "repeat_all_n5_share",
+        "hist_clicks_h72_share",
+        "hist_carts_h72",
+        "query_clicks_last_age_hours",
+        "query_weekday_sin",
+        "query_gap_max",
+        "query_gap_median",
+        "hist_all_h336",
+        "history_last_age_hours",
+        "intent_repeat_carts",
+        "hist_carts_h12_share",
+        "hist_all_h336_share",
+        "hist_orders_h6_share",
+        "repeat_carts_h24_decay",
+        "hist_clicks_h168_share",
+        "query_clicks_count",
+        "hist_carts_h6_share",
+        "query_carts_last_age_hours",
+        "query_gap_mean",
+        "hist_orders_h24_share",
+        "history_lifetime_hours",
+        "hist_orders_trend_h72_h168",
+        "intent_repeat_orders",
+        "graph_time_clicks_n1_uniform_sum",
+        "hist_carts_h1_share",
+        "hist_orders_per_click_h72",
+        "query_clicks_share",
+        "query_carts_count",
+        "hist_clicks_h6",
+        "hist_orders_per_click_h336",
+        "hist_clicks_trend_h72_h168",
+        "hist_all_trend_h168_h336",
+        "query_gap_std",
+        "hist_orders_h336_share",
+        "hist_all_trend_h24_h72",
+        "hist_orders_h72",
+        "hist_carts_h72_share",
+        "hist_carts_per_click_h336",
+        "hist_carts_trend_h24_h72",
+        "hist_all_h168_share",
+        "hist_carts_per_click_all",
+        "hist_orders_per_click_h24",
+        "hist_carts_h168",
+        "intent_time_carts",
+        "hist_clicks_trend_h24_h72",
+        "repeat_all_n20_age_hours",
+        "hist_clicks_h336_share",
+        "hist_carts_per_click_h72",
+        "hist_all_h1",
+        "hist_all_trend_h6_h24",
+        "hist_all_h12_share",
+        "hist_clicks_trend_h6_h24",
+        "repeat_all_n1_count",
+        "hist_all_h72_share",
+        "hist_orders_per_click_all",
+        "hist_orders_h168_share",
+        "hist_clicks_trend_h168_h336",
+        "hist_all_trend_h1_h6",
+        "hist_clicks_h168",
+        "hist_orders_per_click_h12",
+        "repeat_all_h72_decay",
+        "intent_time_clicks",
+        "repeat_clicks_n1_count",
+        "hist_carts_h336_share",
+        "graph_cart_all_n5_uniform_max",
+        "repeat_all_h1_decay",
+        "repeat_all_n20_share",
+        "repeat_all_n5_count",
+        "hist_all_h1_share",
+        "hist_all_all",
+        "repeat_clicks_h24_decay",
+        "hist_carts_trend_h72_h168",
+        "hist_all_trend_h72_h168",
+        "hist_all_h24_share",
+        "hist_carts_all",
+        "hist_orders_trend_h168_h336",
+        "hist_orders_trend_h24_h72",
+        "hist_carts_trend_h6_h24",
+        "hist_carts_trend_h168_h336",
+        "graph_time_all_n1_uniform_sum",
+        "hist_orders_h12_share",
+        "graph_cart_all_n50_six_hours_mean",
+        "hist_carts_per_click_h168",
+        "graph_cart_all_n20_six_hours_mean",
+        "hist_clicks_h6_share",
+        "repeat_carts_n5_first_position",
+        "hist_orders_h24"
+      ],
+      "fixed_fusion": {
+        "objectives": {
+          "carts": {
+            "denominator": 5931,
+            "hits": 2685,
+            "recall_at_20": 0.4527061203844208
+          },
+          "clicks": {
+            "denominator": 19219,
+            "hits": 10329,
+            "recall_at_20": 0.5374369113897706
+          },
+          "orders": {
+            "denominator": 3370,
+            "hits": 2010,
+            "recall_at_20": 0.5964391691394659
+          }
+        },
+        "weighted_recall_at_20": 0.5474190287379829
+      },
+      "models": {
+        "carts": {
+          "best_iteration": 55,
+          "sha256": "21dd4fe273ac80f94809c1a38cc89d417d5e6a6b53e0b2a092e548a1fcf12671"
+        },
+        "clicks": {
+          "best_iteration": 1,
+          "sha256": "c2e0c91a792137387746812b11fc806b820e3b8dd8d23fa74378b087852d3f92"
+        },
+        "orders": {
+          "best_iteration": 90,
+          "sha256": "536d58e40d053ecf776377259b0b7ec6874221014abc3b5052febc93f40fe393"
+        }
+      },
+      "objectives": {
+        "carts": {
+          "denominator": 5931,
+          "hits": 2661,
+          "recall_at_20": 0.4486595852301467
+        },
+        "clicks": {
+          "denominator": 19219,
+          "hits": 9760,
+          "recall_at_20": 0.5078307924449763
+        },
+        "orders": {
+          "denominator": 3370,
+          "hits": 2296,
+          "recall_at_20": 0.6813056379821959
+        }
+      },
+      "paired_selection_comparison": {
+        "absolute_gain": -0.005359092986090608,
+        "gain_interval": [
+          -0.008678573224595554,
+          -0.002070307894153979
+        ],
+        "method": "paired nonparametric session bootstrap, percentile 95% intervals",
+        "requested_replicates": 1000,
+        "scope": "conditional on this frozen model and temporal cohort; no training uncertainty",
+        "score": 0.5941643376028591,
+        "score_interval": [
+          0.5773530994134315,
+          0.6111538147038894
+        ],
+        "seed": 20260908,
+        "valid_replicates": 1000
+      },
+      "weighted_recall_at_20": 0.5941643376028591
+    }
+  },
+  "scope": "development selection; not an independent holdout or Kaggle result",
+  "status": "passed",
+  "study_id": "adba575561128b3d08aa37866dca2496f10dcea334f568692e4733d53549f9f9"
+}

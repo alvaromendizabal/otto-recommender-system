@@ -37,7 +37,7 @@ The current experiment addresses one missing family. The feature-research comple
 | Historical popularity, trends and action conversion | Included in the screened feature study and temporal replications | Do strictly as-of updates or item popularity ranks help under temporal drift? |
 | Session recurrence, recency, intent and context | Included in controlled family ablations | Can separate repeat-item and new-item scoring improve clicks without reducing orders? |
 | Short-range co-visitation | Certified baseline | Does wider retrieval preserve stronger candidates? |
-| Wider and forward transitions | Managed comparison running | Final ranked gain at the same 400-candidate budget |
+| Wider and forward transitions | Both replacement arms reduced ranked Recall@20 | Do complementary graph features help on the unchanged baseline candidates? |
 | Item2Vec candidate similarities | Completed four-arm pilot; no supported weighted gain | Retrieval complementarity has not been tested by this feature-only experiment |
 | Multi-hop graph discovery | Not evaluated under this protocol | Incremental true-item coverage and final ranking gain beyond direct neighbors |
 | Task-conditioned neural retrieval | Earlier fold evidence exists; not a matched current-protocol result | New-item discovery, multi-positive future targets, and hard-negative training |
@@ -50,3 +50,23 @@ The [MiaSRec paper](https://arxiv.org/html/2405.00986v1) motivates item-frequenc
 [HIPHOP](https://arxiv.org/abs/2507.04623) additionally uses LLM-derived semantic embeddings and cross-session intent relationships. Applying semantic content requires real item descriptions or metadata; anonymized item identifiers alone do not establish product meaning. The currently verified OTTO inputs contain interaction identifiers, timestamps, and action types. No product semantics will be invented from identifiers.
 
 The next experiment is chosen from measured failure modes: candidate misses, ranking losses among retrieved items, action-specific errors, and temporal instability. Higher candidate ceilings, more formulas, newer architectures, and passing tests each provide useful evidence, but none substitutes for an improved official metric under an appropriate validation protocol.
+
+## Completed wider-retrieval result
+
+The managed study completed on 10 September 2026 in 26 minutes. The baseline reproduced exactly. Both wider variants improved candidate coverage but reduced final ranking quality; neither is promoted. The full result is retained in `reports/research/retrieval_results.json`.
+
+| Arm | Selection weighted Recall@20 | Candidate ceiling |
+|---|---:|---:|
+| Baseline | 0.59952343 | 0.69727137 |
+| Wide symmetric | 0.59416434 | 0.72193831 |
+| Wide forward | 0.59499875 | 0.71412650 |
+
+## Complementary graph features
+
+`configs/graph_feature_study.json` specifies the next feature-only experiment. It preserves every baseline candidate row, target, negative sample and all 102 original features. It appends 144 historical graph affinities: symmetric/forward graphs, time/cart/order scores, all/click/cart/order prefix actions, last 1/5/20 events, and sum/maximum aggregation. Prefix action masks refer to the last N overall events, not the last N events of that action. Scores do not depend on which negative candidates were sampled.
+
+These features measure different relationships: broad co-interest, directional progression, recent intent, repeated interest, and strongest matching prior item. They are hypotheses, not inferred product categories. Both graphs were already fitted strictly before the corpus cutoff and are reused with checksummed inputs. No graph rebuilding or embedding retraining is required.
+
+The four arms are baseline, baseline plus symmetric features, baseline plus forward features, and baseline plus both. Constant and near-duplicate columns are screened only on fitting data; original baseline columns remain. Every arm must retain the identical candidate ceiling. The baseline must reproduce its certified score before augmentation proceeds. Paired selection comparisons remain exploratory and do not authorize promotion without separate temporal confirmation.
+
+Run through the verified bootstrap with task `graph_features`. Monitor a recorded run using `scripts/retrieval_status.py --receipt reports/research/graph_feature_run.json --watch` after its launch receipt is published. The managed runtime cap is two hours. The research gate remains open regardless of whether this individual experiment improves the selection metric.

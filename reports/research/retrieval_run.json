@@ -9,15 +9,18 @@
   "observed": {
     "CreationTime": "2026-09-10T02:19:18.459000+00:00",
     "ProcessingJobName": "otto-retrieval-6824d22e39c7",
-    "ProcessingJobStatus": "InProgress"
+    "ProcessingJobStatus": "Completed",
+    "ProcessingStartTime": "2026-09-10T02:20:08.909000+00:00",
+    "ProcessingEndTime": "2026-09-10T02:46:27.776000+00:00"
   },
   "scope": "development selection; no Kaggle promotion",
-  "results_status": "pending",
+  "results_status": "completed; neither challenger supports promotion",
   "resources": {
     "instance_type": "ml.c7i.16xlarge",
     "maximum_runtime_seconds": 7200,
     "volume_gib": 100
   },
   "baseline_private_score": 0.56842,
-  "target_private_score": 0.60503
+  "target_private_score": 0.60503,
+  "results_file": "reports/research/retrieval_results.json"
 }
