@@ -156,6 +156,7 @@ jobs:
         run: |
           uv venv /tmp/otto-analysis --python 3.12.13 --no-project
           uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
+          /tmp/otto-analysis/bin/python scripts/prepare_notebook_sections.py
           /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py
           /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py

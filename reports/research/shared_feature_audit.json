@@ -1,0 +1,48 @@
+{
+  "arms": [
+    {
+      "arm": "baseline",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5898696552118983
+    },
+    {
+      "arm": "shared",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5950734444797646
+    },
+    {
+      "arm": "without_funnel",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5922733878358655
+    },
+    {
+      "arm": "without_episode",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5927452289674092
+    },
+    {
+      "arm": "without_graph_raw",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5873292631930281
+    },
+    {
+      "arm": "without_graph_row",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5925041854603617
+    },
+    {
+      "arm": "without_graph_degree",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5947876207022722
+    }
+  ],
+  "native_rankers_verified": 21,
+  "scope": "Independent metric arithmetic and model hashes; raw features shared.",
+  "source_commit": "06d5551bc2da9e07ff760af8b523fdb27f14e680",
+  "status": "passed",
+  "training_free_replay": {
+    "all_models_and_metrics_identical": true,
+    "replay_elapsed_seconds": 44.82637493899995,
+    "training_calls": 0
+  }
+}

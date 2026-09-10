@@ -157,3 +157,5 @@ historical session-neighbor and implicit-factor affinities; as-of demand/rank ch
 and support-aware conversion propensities. Each needs its own availability cutoff,
 fitting-only screen, fixed-budget comparison and temporal confirmation. Missing
 product metadata and persistent shopper identity cannot be invented from anonymous IDs.
+
+The next larger comparison and its five conditional ablations are now [completed and audited](SHARED_FEATURE_VALIDATION.md). The unchanged shared shortlist remains a challenger pending temporal replication.

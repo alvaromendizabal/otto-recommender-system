@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "assessed_at_utc": "2026-09-10T06:40:17.186250+00:00",
+  "assessed_at_utc": "2026-09-10T20:28:47.244676+00:00",
   "scope": "Coverage of distinct high-value hypotheses on the verified OTTO interaction data. Counts are an inventory, not a percent complete or a proof of literal mathematical exhaustiveness.",
   "sources": [
     {
@@ -177,6 +177,41 @@
       "path": "reports/research/task_feature_run.json",
       "kind": "run_receipt",
       "sha256": "0761fad16e45a2024438d5c9627c4d75bbd54a39f6dcc77a279415f9ab4f3326"
+    },
+    "shared_config": {
+      "path": "configs/shared_feature_validation.json",
+      "kind": "implementation",
+      "sha256": "bc50150f10a7d1bbd9a6c3e6d01f91594fcbb2d61e2598d6e028f6f232e60530"
+    },
+    "shared_code": {
+      "path": "src/otto_recsys/research/shared_feature_validation.py",
+      "kind": "implementation",
+      "sha256": "1a084176518fb5aec14cdc4ff78674fecb552ab7c466d842b9da4dc375b59646"
+    },
+    "shared_tests": {
+      "path": "tests/test_shared_feature_validation.py",
+      "kind": "test",
+      "sha256": "e39565cc5f16d287d14b7d8d4e2a6b54d9a447ffbfe24a93426cd67300d4cb11"
+    },
+    "shared_result": {
+      "path": "reports/research/shared_feature_results.json",
+      "kind": "pilot_result",
+      "sha256": "e86b8d32f4e9f6566a6ed12a8b917255053afdd48201bc1db7a9f64cb61a9364"
+    },
+    "shared_audit": {
+      "path": "reports/research/shared_feature_audit.json",
+      "kind": "audit",
+      "sha256": "7c8dc765424d014c8472f68765e48c23f54978e519a5d8345fb18acb90198b94"
+    },
+    "shared_run": {
+      "path": "reports/research/shared_feature_run.json",
+      "kind": "run_receipt",
+      "sha256": "4e112c49e001817c31063bda7fc9a3ce10566789983c8bf07d543c0a41573d06"
+    },
+    "shared_confirmation_protocol": {
+      "path": "configs/shared_feature_confirmation.json",
+      "kind": "protocol",
+      "sha256": "57673c76d1636d3f7b34ea373801a023faa6ccb68b35b6ca0ac541253b79cb33"
     }
   },
   "families": [
@@ -310,10 +345,17 @@
         "domain_result",
         "domain_audit",
         "domain_screening",
-        "domain_slices"
+        "domain_slices",
+        "shared_config",
+        "shared_code",
+        "shared_tests",
+        "shared_result",
+        "shared_audit",
+        "shared_run",
+        "shared_confirmation_protocol"
       ],
-      "remaining_question": "The combined sequence/episode arm has small positive click/cart and negative order point changes, all uncertain. Which transition, state, concentration or episode block adds stable per-task utility?",
-      "next_experiment": "Separate funnel/state from gap-defined episode additions and prune per task using fitting-only groups; do not infer transition utility from the one-event slice."
+      "remaining_question": "The larger frozen shortlist scores 0.595073 versus 0.589870; all five block removals lower point recall, but every block interval spans zero and one time quartile regresses. Does the unchanged representation transfer to earlier cutoffs with adequate target support? The degree block has only +0.029 pp conditional point contribution.",
+      "next_experiment": "Run the frozen temporal-input preflight and matched earlier-window replication in configs/shared_feature_confirmation.json. Preserve the full 32 additions; no block combination search or promotion. Each stage is capped at 900 seconds."
     },
     {
       "id": "smoothed_encoding",
@@ -341,10 +383,17 @@
         "domain_result",
         "domain_audit",
         "domain_screening",
-        "domain_slices"
+        "domain_slices",
+        "shared_config",
+        "shared_code",
+        "shared_tests",
+        "shared_result",
+        "shared_audit",
+        "shared_run",
+        "shared_confirmation_protocol"
       ],
-      "remaining_question": "The matched normalized arm scores 0.599941 versus baseline 0.599523, with weighted uncertainty spanning zero and worse clicks. Which row/degree, support or cross-action representation survives task-specific screening?",
-      "next_experiment": "Separate row from degree normalization on unchanged cached rows. Retained graph marginals are pruned mass, not full probabilities; support-aware lift and cross-action variants remain open."
+      "remaining_question": "The larger frozen shortlist scores 0.595073 versus 0.589870; all five block removals lower point recall, but every block interval spans zero and one time quartile regresses. Does the unchanged representation transfer to earlier cutoffs with adequate target support? The degree block has only +0.029 pp conditional point contribution.",
+      "next_experiment": "Run the frozen temporal-input preflight and matched earlier-window replication in configs/shared_feature_confirmation.json. Preserve the full 32 additions; no block combination search or promotion. Each stage is capped at 900 seconds."
     },
     {
       "id": "multihop",
@@ -469,10 +518,17 @@
         "task_result",
         "task_audit",
         "task_screening",
-        "task_run"
+        "task_run",
+        "shared_config",
+        "shared_code",
+        "shared_tests",
+        "shared_result",
+        "shared_audit",
+        "shared_run",
+        "shared_confirmation_protocol"
       ],
-      "remaining_question": "The 5,120-fit/2,048-selection pilot scores shared 0.604069 and per-task 0.599860 versus matched baseline 0.578084. Per-task selection fails to beat the shared control. Does the frozen shared shortlist retain its gain with more training support, and which blocks contribute? These reused development data are not temporal confirmation.",
-      "next_experiment": "Freeze the 32 shared additions. Run a bounded larger baseline/shared comparison on unchanged cached candidate rows and negatives. If the gain persists, ablate funnel, episodes and graph subgroups before preregistered temporal confirmation. Do not scale the exact per-task selection rule."
+      "remaining_question": "The larger frozen shortlist scores 0.595073 versus 0.589870; all five block removals lower point recall, but every block interval spans zero and one time quartile regresses. Does the unchanged representation transfer to earlier cutoffs with adequate target support? The degree block has only +0.029 pp conditional point contribution.",
+      "next_experiment": "Run the frozen temporal-input preflight and matched earlier-window replication in configs/shared_feature_confirmation.json. Preserve the full 32 additions; no block combination search or promotion. Each stage is capped at 900 seconds."
     },
     {
       "id": "semantic_metadata",
@@ -504,5 +560,5 @@
     "evidence": [],
     "reason": "The original nine cells confirm the original procedure. Newly selected features require preregistered temporal confirmation with prior data exposure declared."
   },
-  "next_task": "Keep feature engineering open. Validate the frozen shared 32 additions on a larger matched development sample, then ablate funnel/episode and raw/row/degree graph blocks. The small pilot favored shared selection; do not scale the per-task shortlist. Reuse immutable caches, preserve full candidate targets, bound each stage, and preregister temporal confirmation before promotion."
+  "next_task": "Keep feature engineering open. Preflight the frozen 32-feature challenger at an earlier historical cutoff: verify corpus/retriever hashes, audit 256 complete queries per role, then measure a 1,024-session build before a bounded baseline/shared temporal replication. All five block removals reduced point recall, but their intervals span zero and one query-time quartile regresses. Preserve the accepted baseline; broader query-relative/as-of demand, latent/session-neighbor and neural-complementarity hypotheses remain open."
 }

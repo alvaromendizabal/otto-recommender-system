@@ -1,0 +1,23 @@
+{
+  "arms": [
+    {
+      "arm": "baseline",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5898696552118983
+    },
+    {
+      "arm": "shared",
+      "sessions": 5120,
+      "weighted_recall_at_20": 0.5950734444797646
+    }
+  ],
+  "native_rankers_verified": 6,
+  "scope": "Independent metric arithmetic and model hashes; raw features shared.",
+  "source_commit": "06d5551bc2da9e07ff760af8b523fdb27f14e680",
+  "status": "passed",
+  "training_free_replay": {
+    "all_models_and_metrics_identical": true,
+    "replay_elapsed_seconds": 16.691411956000024,
+    "training_calls": 0
+  }
+}
