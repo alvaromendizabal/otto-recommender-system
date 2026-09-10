@@ -63,3 +63,17 @@ CI executes the canonical notebooks, rejects errors and warnings, verifies depen
 and input fingerprints, proves reuse, and publishes actual outputs with receipts.
 The final release is ready only when its exact published head passes the project,
 neural and notebook gates and the managed prediction run has a verified completion.
+
+## Domain-feature study: preregistration
+
+The five-arm comparison is frozen in `configs/domain_feature_study.json` and
+explained in `docs/FEATURE_RESEARCH.md`. It reuses the certified baseline models,
+corpus, candidates and graphs. Four challenger arms require twelve new task fits;
+the baseline is verified by prediction replay without refitting. Source, candidate
+parts, graph inputs and reference files are checksum pinned.
+
+The implementation has an end-to-end recovery test and an independent aggregate
+audit that rejects altered metrics. Baseline model corruption, candidate changes,
+timestamp-unit errors and graph cutoff violations are explicit failure conditions.
+The managed source and launch identities will be recorded with measured results.
+No result or promotion is claimed by this preregistration.

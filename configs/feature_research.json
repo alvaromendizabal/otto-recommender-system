@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "assessed_at_utc": "2026-09-10T03:50:37.923026+00:00",
+  "assessed_at_utc": "2026-09-10T05:27:57.011220+00:00",
   "scope": "Coverage of distinct high-value hypotheses on the verified OTTO interaction data. Counts are an inventory, not a percent complete or a proof of literal mathematical exhaustiveness.",
   "sources": [
     {
@@ -22,6 +22,10 @@
     {
       "title": "MiaSRec: multiple session intents",
       "url": "https://arxiv.org/html/2405.00986v1"
+    },
+    {
+      "title": "NISER: normalization and popularity bias in session recommendation",
+      "url": "https://arxiv.org/abs/1909.04276"
     }
   ],
   "evidence": {
@@ -99,6 +103,21 @@
       "path": "reports/research/graph_feature_screening.json",
       "kind": "implementation",
       "sha256": "3e145c6185e48207e5b31f049093193f42a3caa734b4ed7b766f63927a17de64"
+    },
+    "domain_config": {
+      "path": "configs/domain_feature_study.json",
+      "kind": "contract",
+      "sha256": "0239a666bc25db487bc853a65f61d9a5e76c8e3c3080d908ce45e85de3b18ea5"
+    },
+    "domain_tests": {
+      "path": "tests/test_domain_features.py",
+      "kind": "test",
+      "sha256": "57c76a4b198763a69d2733d22ea924ecaa6c30efba2af4813f007484f6a96cf0"
+    },
+    "domain_code": {
+      "path": "src/otto_recsys/research/domain_features.py",
+      "kind": "implementation",
+      "sha256": "d0c8e2c2204e0b16764319983c35b806b1d67ecf1158b13f8e2df351ff5b4d7a"
     }
   },
   "families": [
@@ -221,7 +240,10 @@
       "disposition": "open",
       "evidence": [
         "catalog",
-        "baseline_code"
+        "baseline_code",
+        "domain_config",
+        "domain_tests",
+        "domain_code"
       ],
       "remaining_question": "Do two prefixes with the same counts but different action order imply different future actions?",
       "next_experiment": "Add prefix-only sequence features to the fixed candidate cache; separately ablate transitions, episodes and concentration. Gap-after-event is an observed proxy, with the final event censored."
@@ -245,7 +267,10 @@
       "disposition": "open",
       "evidence": [
         "catalog",
-        "retrieval"
+        "retrieval",
+        "domain_config",
+        "domain_tests",
+        "domain_code"
       ],
       "remaining_question": "Are raw edge weights overly driven by common items, and do action-specific transitions improve rare-item relevance?",
       "next_experiment": "Compare raw versus smoothed normalized edge affinity on unchanged candidates; fit normalization marginals at the same cutoff and retain support features."
@@ -315,7 +340,10 @@
       "disposition": "open",
       "evidence": [
         "embedding",
-        "protocol"
+        "protocol",
+        "domain_config",
+        "domain_tests",
+        "domain_code"
       ],
       "remaining_question": "Does pooling an entire session obscure separate shopping intentions?",
       "next_experiment": "First test multiple query pools using existing vectors; train a multi-intent encoder only if coverage/error analysis supports it."
@@ -352,7 +380,10 @@
       "evidence": [
         "ablation",
         "embedding",
-        "graph_config"
+        "graph_config",
+        "domain_config",
+        "domain_tests",
+        "domain_code"
       ],
       "remaining_question": "Does a shared schema suppress useful click/cart features, or does joint screening remove one family in favor of a feature absent from its arm?",
       "next_experiment": "Screen each arm against its own eligible features, then compare per-task schemas with fixed candidate rows. Diagnose support before expanding fit sessions or changing negative sampling."
@@ -387,5 +418,5 @@
     "evidence": [],
     "reason": "The original nine cells confirm the original procedure. Newly selected features require preregistered temporal confirmation with prior data exposure declared."
   },
-  "next_task": "Keep feature engineering open. The graph-addition experiment is complete with no supported promotion. Preregister task-specific utility screening and distinct sequence/funnel or support-normalized signals on unchanged candidate rows before final training or wrap-up."
+  "next_task": "Execute and audit the preregistered five-arm domain comparison: frozen baseline replay, sequence/episode, matched raw graph pools, normalized graph pools, and combined. Keep feature research open; no final training or promotion."
 }
