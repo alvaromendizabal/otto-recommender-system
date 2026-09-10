@@ -103,7 +103,7 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
         if path.stat().st_size != entry["bytes"]:
             raise ValueError("corpus input has an incorrect length")
         shutil.copyfile(path, corpus / name)
-    if launch.get("task") != "representation":
+    if launch.get("task") not in {"representation", "retrieval"}:
         assembled = workspace / "retrieval_inputs.tar"
         assemble(inputs / "retrieval", assembled, launch["retrieval_manifest_sha256"])
         extract(assembled, root)
@@ -132,6 +132,7 @@ def main() -> int:
         "window_study",
         "window_verification",
         "representation",
+        "retrieval",
     }:
         raise ValueError("unsupported research processing task")
     print(
@@ -198,6 +199,7 @@ def main() -> int:
                 "window_study": "otto_recsys.cloud.window_job",
                 "window_verification": "otto_recsys.cloud.window_job",
                 "representation": "otto_recsys.cloud.representation_job",
+                "retrieval": "otto_recsys.cloud.retrieval_job",
             }[task],
             str(launch_path),
         ],

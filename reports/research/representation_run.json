@@ -10,7 +10,7 @@
     "CreationTime": "2026-09-10T00:26:11.085000+00:00",
     "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-representations-d4aa725e8659",
     "ProcessingJobName": "otto-representations-d4aa725e8659",
-    "ProcessingJobStatus": "InProgress",
+    "ProcessingJobStatus": "Completed",
     "ProcessingResources": {
       "ClusterConfig": {
         "InstanceCount": 1,
@@ -20,7 +20,8 @@
     },
     "StoppingCondition": {
       "MaxRuntimeInSeconds": 7200
-    }
+    },
+    "ProcessingEndTime": "2026-09-10T01:05:55.604000+00:00"
   },
   "region": "us-west-2",
   "resources": {
@@ -28,7 +29,7 @@
     "maximum_runtime_seconds": 7200,
     "volume_gib": 100
   },
-  "results_status": "pending",
+  "results_status": "completed_no_promotion",
   "schema_version": 1,
   "scope": "development; no evaluation or Kaggle promotion",
   "source_archive_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/representations/d4aa725e8659fefa68a48a3b37a95750086a5ce2ec10a4ccf2ffd6ca57a4147b/source/source.tar.gz",
@@ -64,5 +65,7 @@
       "log_group": "/aws/sagemaker/ProcessingJobs",
       "log_stream_prefix": "otto-representations-fe780ed36e9e"
     }
-  ]
+  ],
+  "results_path": "reports/research/representation_results.json",
+  "decision": "Intent embedding selection gain 0.00011247; paired interval includes zero. No Kaggle promotion."
 }
