@@ -6,7 +6,8 @@ import json
 import logging
 import time
 import zlib
-from collections.abc import Callable
+from collections import deque
+from collections.abc import Callable, Iterable, Iterator
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +45,37 @@ def feature_names(family: str) -> tuple[str, ...]:
     )
 
 
+def session_sequences(batches: Iterable[Any]) -> Iterator[tuple[list[str], list[str]]]:
+    """Keep at most 100 tokens per family, including sessions spanning Arrow batches."""
+    current = -1
+    all_actions: deque[str] = deque(maxlen=100)
+    intent: deque[str] = deque(maxlen=100)
+    for batch in batches:
+        sessions = batch.column("session").to_numpy()
+        aids = batch.column("aid").to_numpy()
+        kinds = batch.column("event_type").to_numpy()
+        if not sessions.size:
+            continue
+        if sessions[0] < current or (np.diff(sessions) < 0).any():
+            raise ValueError("embedding history stream must be sorted by session")
+        starts = np.r_[0, np.flatnonzero(np.diff(sessions)) + 1]
+        stops = np.r_[starts[1:], sessions.size]
+        for start, stop in zip(starts, stops, strict=True):
+            session = int(sessions[start])
+            if session != current:
+                if all_actions:
+                    yield list(all_actions), list(intent)
+                current = session
+                all_actions.clear()
+                intent.clear()
+            # Discard long-session prefixes before string conversion; both buffers stay bounded.
+            all_actions.extend(str(int(v)) for v in aids[max(start, stop - 100) : stop])
+            selected = aids[start:stop][kinds[start:stop] > 0]
+            intent.extend(str(int(v)) for v in selected[-100:])
+    if all_actions:
+        yield list(all_actions), list(intent)
+
+
 def prepare_sequences(
     history: Path,
     output: Path,
@@ -62,6 +94,9 @@ def prepare_sequences(
         "cutoff_exclusive_ms": cutoff,
         "maximum_events_per_session": 100,
         "families": {"all": [0, 1, 2], "intent": [1, 2]},
+        "preparation": "external sort, Arrow batches, bounded per-session deques",
+        "sort_memory_gb": 8,
+        "sort_threads": min(4, int(threads)),
         "code_sha256": sha256_file(Path(__file__)),
     }
     output.mkdir(parents=True, exist_ok=True)
@@ -77,34 +112,46 @@ def prepare_sequences(
             return saved
     connection = duckdb.connect()
     try:
-        connection.execute(f"SET threads={int(threads)}")
-        connection.execute("SET memory_limit='32GB'")
+        connection.execute(f"SET threads={min(4, int(threads))}")
+        connection.execute("SET memory_limit='8GB'")
+        connection.execute("SET preserve_insertion_order=false")
         connection.execute("SET temp_directory=?", [str(output / "temporary")])
         summary = connection.execute(
             "SELECT min(ts), max(ts), count(*) FROM read_parquet(?)", [str(history)]
         ).fetchone()
         if summary is None or summary[2] == 0 or summary[1] >= cutoff:
             raise ValueError("embedding training must contain events strictly before history_end")
-        source = str(history).replace("'", "''")
+        progress = {"sessions": 0, "history_events": int(summary[2])}
+        with (
+            Heartbeat(
+                logger,
+                stage="embedding_sequences",
+                interval_seconds=15,
+                progress_provider=progress.copy,
+            ),
+            (output / "all.tmp").open("w", buffering=1024**2) as all_stream,
+            (output / "intent.tmp").open("w", buffering=1024**2) as intent_stream,
+        ):
+            reader = connection.execute(
+                "SELECT session, aid, event_type FROM read_parquet(?) "
+                "ORDER BY session, event_index",
+                [str(history)],
+            ).to_arrow_reader(batch_size=262144)
+            for all_actions, intent in session_sequences(reader):
+                all_stream.write(" ".join(all_actions) + "\n")
+                if intent:
+                    intent_stream.write(" ".join(intent) + "\n")
+                progress["sessions"] += 1
         for family in FAMILIES:
             destination = output / f"{family}.txt"
-            temporary = output / f"{family}.tmp"
-            where = "" if family == "all" else "WHERE event_type IN (1, 2)"
-            target = str(temporary).replace("'", "''")
-            with Heartbeat(logger, stage=f"sequences_{family}", interval_seconds=15):
-                connection.execute(f"""COPY (
-                    SELECT array_to_string(list_slice(
-                        list(CAST(aid AS VARCHAR) ORDER BY event_index), -100, -1), ' ')
-                    FROM read_parquet('{source}') {where}
-                    GROUP BY session ORDER BY session
-                ) TO '{target}' (FORMAT CSV, HEADER FALSE, DELIMITER '\t', QUOTE '')""")
-            temporary.replace(destination)
+            (output / f"{family}.tmp").replace(destination)
             if publish:
                 publish(destination)
         result = {
             "contract": contract,
             "history_events": int(summary[2]),
             "history_max_ts": int(summary[1]),
+            "sessions": progress["sessions"],
             "files": {
                 f"{family}.txt": sha256_file(output / f"{family}.txt") for family in FAMILIES
             },

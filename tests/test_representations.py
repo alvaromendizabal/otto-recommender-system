@@ -7,6 +7,7 @@ import logging
 
 import numpy as np
 import polars as pl
+import pyarrow as pa
 import pytest
 
 from otto_recsys.experiments.manifest import sha256_file
@@ -16,10 +17,30 @@ from otto_recsys.research.representations import (
     Representation,
     feature_names,
     prepare_sequences,
+    session_sequences,
     train_representation,
 )
 
 LOGGER = logging.getLogger("representation-test")
+
+
+def test_streamed_sequences_preserve_long_sessions_across_batch_boundaries():
+    frame = pl.DataFrame(
+        {
+            "session": np.r_[np.zeros(350, dtype=int), np.ones(2, dtype=int)],
+            "aid": np.arange(352),
+            "event_type": np.arange(352) % 3,
+        }
+    )
+    batches = frame.to_arrow().to_batches(max_chunksize=37)
+    sequences = list(session_sequences(batches))
+    assert sequences[0][0] == [str(v) for v in range(250, 350)]
+    assert sequences[0][1] == [str(v) for v in range(350) if v % 3][-100:]
+    assert sequences[1] == (["350", "351"], ["350"])
+    assert len(sequences) == 2
+    reversed_batch = pa.record_batch({"session": [2, 1], "aid": [1, 2], "event_type": [0, 1]})
+    with pytest.raises(ValueError, match="sorted by session"):
+        list(session_sequences([reversed_batch]))
 
 
 def write_vectors(directory):

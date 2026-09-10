@@ -6,6 +6,7 @@ import json
 import logging
 import time
 from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
@@ -237,14 +238,23 @@ def _run_study(
     )
     vectors = {}
     receipts = {}
+    # Two independent native training tasks share one capped instance, with 16 workers each.
+    # The candidate-feature stage waits for both immutable vector artifacts.
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        jobs = {
+            family: pool.submit(
+                train_representation,
+                output / f"sequences/{family}.txt",
+                output / f"representations/{family}",
+                config["embedding"],
+                logger=logger,
+                publish=publish,
+            )
+            for family in FAMILIES
+        }
+        for family in FAMILIES:
+            receipts[family] = jobs[family].result()
     for family in FAMILIES:
-        receipts[family] = train_representation(
-            output / f"sequences/{family}.txt",
-            output / f"representations/{family}",
-            config["embedding"],
-            logger=logger,
-            publish=publish,
-        )
         vectors[family] = Representation(output / f"representations/{family}/vectors.npz")
     queries = {role: Queries(corpus, role) for role in ("fit", "selection")}
     if set(queries["fit"].session) & set(queries["selection"].session):
