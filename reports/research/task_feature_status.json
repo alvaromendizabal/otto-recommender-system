@@ -1,0 +1,10 @@
+{
+  "elapsed_seconds": 106.52629187499997,
+  "finished_at_utc": "2026-09-10T18:53:27.657+00:00",
+  "source_commit": "34e65efdfc32fcc30f91ff1dcaa7fc408bddcb53",
+  "source_sha256": "e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6",
+  "stage": "complete",
+  "started_at_utc": "2026-09-10T18:51:41.078+00:00",
+  "status": "passed",
+  "study_id": "989c2d1bdb051dbd6afc7661ae979d6b91d552d2e9706e8cb06d74ced401ccb1"
+}

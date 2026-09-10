@@ -142,6 +142,41 @@
       "path": "reports/research/domain_feature_slices.json",
       "kind": "pilot_result",
       "sha256": "5f37ec393478cdf2209f2cf7661777f2688fecb86cf201875e13d65886424245"
+    },
+    "task_config": {
+      "path": "configs/task_feature_pilot.json",
+      "kind": "protocol",
+      "sha256": "e7afb82fb70a52f1dbc78782fc73b255c4c36fd9306628c5d243794e745fbe56"
+    },
+    "task_code": {
+      "path": "src/otto_recsys/research/task_feature_pilot.py",
+      "kind": "implementation",
+      "sha256": "adbefb97d9f1f1ee68d2ac6fc816513976e8b4576a8a287a50136a1ce9ef0168"
+    },
+    "task_tests": {
+      "path": "tests/test_task_feature_pilot.py",
+      "kind": "test",
+      "sha256": "3cf280e097f165e2ad79c494e6842cff9bcf1049d5f50e0cdd6e7e64f15daf62"
+    },
+    "task_result": {
+      "path": "reports/research/task_feature_results.json",
+      "kind": "pilot_result",
+      "sha256": "53bcefdf91ad982bb6a60685ddd5eefe1d8a0baede10f20962f2b3d6ddb3ec5c"
+    },
+    "task_audit": {
+      "path": "reports/research/task_feature_audit.json",
+      "kind": "audit",
+      "sha256": "3959fdf6f66f9609b6a1e3d952b9ea47f3e9b377180b57eea9b08fd6798947b1"
+    },
+    "task_screening": {
+      "path": "reports/research/task_feature_screening.json",
+      "kind": "screening",
+      "sha256": "8a275158b20a9fc1ca92c85fd0f7b952b59104298e6ba9616a50e4a0a9e29837"
+    },
+    "task_run": {
+      "path": "reports/research/task_feature_run.json",
+      "kind": "run_receipt",
+      "sha256": "0761fad16e45a2024438d5c9627c4d75bbd54a39f6dcc77a279415f9ab4f3326"
     }
   },
   "families": [
@@ -427,10 +462,17 @@
         "domain_result",
         "domain_audit",
         "domain_screening",
-        "domain_slices"
+        "domain_slices",
+        "task_config",
+        "task_code",
+        "task_tests",
+        "task_result",
+        "task_audit",
+        "task_screening",
+        "task_run"
       ],
-      "remaining_question": "Sequence leads click/cart point estimates and normalized graphs lead orders. The post-hoc task mix scores 0.601446 on the reused selection cohort and is optimistic; no independent gain is established.",
-      "next_experiment": "Use fitting-only grouped utility screens per objective, freeze feature blocks and routing before separately declared temporal confirmation, and retain complete-query targets and negative samples."
+      "remaining_question": "The 5,120-fit/2,048-selection pilot scores shared 0.604069 and per-task 0.599860 versus matched baseline 0.578084. Per-task selection fails to beat the shared control. Does the frozen shared shortlist retain its gain with more training support, and which blocks contribute? These reused development data are not temporal confirmation.",
+      "next_experiment": "Freeze the 32 shared additions. Run a bounded larger baseline/shared comparison on unchanged cached candidate rows and negatives. If the gain persists, ablate funnel, episodes and graph subgroups before preregistered temporal confirmation. Do not scale the exact per-task selection rule."
     },
     {
       "id": "semantic_metadata",
@@ -462,5 +504,5 @@
     "evidence": [],
     "reason": "The original nine cells confirm the original procedure. Newly selected features require preregistered temporal confirmation with prior data exposure declared."
   },
-  "next_task": "Reuse the audited domain caches to isolate funnel versus episode and row versus degree blocks, screen utility separately per task on fitting-only session groups, then freeze the next configuration before temporal confirmation. Keep feature engineering open; the post-hoc task mix is not a confirmed gain and no final training or promotion is authorized by these results."
+  "next_task": "Keep feature engineering open. Validate the frozen shared 32 additions on a larger matched development sample, then ablate funnel/episode and raw/row/degree graph blocks. The small pilot favored shared selection; do not scale the per-task shortlist. Reuse immutable caches, preserve full candidate targets, bound each stage, and preregister temporal confirmation before promotion."
 }

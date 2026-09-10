@@ -23,7 +23,11 @@ def main() -> int:
     name = receipt["observed"]["ProcessingJobName"]
     sdk = importlib.import_module("boto3")
     configuration = importlib.import_module("botocore.config").Config(
-        region_name=receipt["region"],
+        region_name=(
+            receipt["region"]
+            if "region" in receipt
+            else receipt["observed"]["ProcessingJobArn"].split(":")[3]
+        ),
         connect_timeout=5,
         read_timeout=20,
         retries={"mode": "standard", "total_max_attempts": 3},
