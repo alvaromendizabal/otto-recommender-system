@@ -1,0 +1,58 @@
+name: import verified notebook evidence
+on:
+  push:
+    branches: ["notebook-execution/task-feature-pilot"]
+    paths: [".github/workflows/import-task-notebooks.yml"]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Recover the completed execution artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api repos/alvaromendizabal/otto-recommender-system/actions/artifacts/10168501946/zip > /tmp/otto-notebook-evidence.zip
+      - name: Verify actual outputs, source cells and publication receipts
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, zipfile
+          from scripts.publish_notebooks import cell_sources, validate_outputs
+          archive = pathlib.Path('/tmp/otto-notebook-evidence.zip')
+          assert hashlib.sha256(archive.read_bytes()).hexdigest() == 'a7ed6eb5db0588474f0843789df9bb7b7ecdbdaed957075e623a77d39d6a67a8'
+          destination = pathlib.Path('/tmp/otto-notebook-evidence')
+          with zipfile.ZipFile(archive) as bundle:
+              for name in bundle.namelist():
+                  path = pathlib.Path(name)
+                  assert not path.is_absolute() and '..' not in path.parts
+              bundle.extractall(destination)
+          load = lambda name: json.loads((destination / name).read_text())
+          manifest, publication = load('manifest.json'), load('publication.json')
+          assert manifest['status'] == publication['status'] == 'passed'
+          assert manifest['notebooks'] == manifest['reused_notebooks'] == publication['notebooks'] == 10
+          assert manifest['receipts'] == publication['receipts']
+          for receipt in publication['receipts']:
+              path = pathlib.Path('notebooks') / receipt['notebook']
+              assert path.name == receipt['notebook']
+              data = (destination / path.name).read_bytes()
+              assert hashlib.sha256(data).hexdigest() == receipt['sha256']
+              actual = json.loads(data)
+              assert cell_sources(actual) == cell_sources(json.loads(path.read_text()))
+              assert validate_outputs(actual) == receipt['code_cells']
+              path.write_bytes(data)
+          pathlib.Path('notebooks/execution.json').write_bytes((destination / 'publication.json').read_bytes())
+          print('Ten actually executed notebooks and publication receipts recovered without reexecution.')
+          PY
+      - name: Commit recovered evidence on the staging branch
+        run: |
+          set -euo pipefail
+          git add -- notebooks/[0-9][0-9]_*.ipynb notebooks/execution.json
+          git fetch --no-tags origin refs/heads/notebook-execution/task-feature-pilot
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "docs: recover actual notebook execution and receipts"
+          git push origin HEAD:refs/heads/notebook-execution/task-feature-pilot
