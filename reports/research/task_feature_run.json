@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "experiment": "task_feature_pilot",
+  "status": "passed",
+  "source_commit": "34e65efdfc32fcc30f91ff1dcaa7fc408bddcb53",
+  "source_sha256": "e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6",
+  "study_id": "989c2d1bdb051dbd6afc7661ae979d6b91d552d2e9706e8cb06d74ced401ccb1",
+  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/task-feature-pilot/e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6/checkpoints/",
+  "observed": {
+    "AppSpecification": {
+      "ContainerEntrypoint": [
+        "python3",
+        "/opt/ml/processing/input/bootstrap/processing_task_feature_pilot.py"
+      ],
+      "ImageUri": "763104351884.dkr.ecr.us-west-2.amazonaws.com/pytorch:2.13.0-cu133-amzn2023-sagemaker"
+    },
+    "CreationTime": "2026-09-10T18:48:18.545000+00:00",
+    "LastModifiedTime": "2026-09-10T18:55:50.081000+00:00",
+    "ProcessingEndTime": "2026-09-10T18:53:38.940000+00:00",
+    "ProcessingInputs": [
+      {
+        "AppManaged": false,
+        "InputName": "bootstrap",
+        "S3Input": {
+          "LocalPath": "/opt/ml/processing/input/bootstrap",
+          "S3DataDistributionType": "FullyReplicated",
+          "S3DataType": "S3Prefix",
+          "S3InputMode": "File",
+          "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/task-feature-pilot/e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6/source/processing_task_feature_pilot.py"
+        }
+      },
+      {
+        "AppManaged": false,
+        "InputName": "source",
+        "S3Input": {
+          "LocalPath": "/opt/ml/processing/input/source",
+          "S3DataDistributionType": "FullyReplicated",
+          "S3DataType": "S3Prefix",
+          "S3InputMode": "File",
+          "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/task-feature-pilot/e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6/source/source.tar.gz"
+        }
+      },
+      {
+        "AppManaged": false,
+        "InputName": "launch",
+        "S3Input": {
+          "LocalPath": "/opt/ml/processing/input/launch",
+          "S3DataDistributionType": "FullyReplicated",
+          "S3DataType": "S3Prefix",
+          "S3InputMode": "File",
+          "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/task-feature-pilot/e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6/source/launch.json"
+        }
+      }
+    ],
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-task-feature-e57d55d8f858",
+    "ProcessingJobName": "otto-task-feature-e57d55d8f858",
+    "ProcessingJobStatus": "Completed",
+    "ProcessingResources": {
+      "ClusterConfig": {
+        "InstanceCount": 1,
+        "InstanceType": "ml.c7i.16xlarge",
+        "VolumeSizeInGB": 100
+      }
+    },
+    "ProcessingStartTime": "2026-09-10T18:49:09.202000+00:00",
+    "RoleArn": "arn:aws:iam::560403859723:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
+    "StoppingCondition": {
+      "MaxRuntimeInSeconds": 900
+    }
+  },
+  "files": {
+    "task_feature_audit.json": "3959fdf6f66f9609b6a1e3d952b9ea47f3e9b377180b57eea9b08fd6798947b1",
+    "task_feature_results.json": "53bcefdf91ad982bb6a60685ddd5eefe1d8a0baede10f20962f2b3d6ddb3ec5c",
+    "task_feature_screening.json": "8a275158b20a9fc1ca92c85fd0f7b952b59104298e6ba9616a50e4a0a9e29837",
+    "task_feature_status.json": "7189b397a3f2a572cb2aacbb936221de57bc9f6dccb3eb88fd679aa2e569c188"
+  },
+  "processing_seconds": 269.738,
+  "estimated_instance_compute_usd": 0.256790576,
+  "pricing": {
+    "maximum_instance_compute_usd": 0.8568,
+    "rate_usd_per_hour": 3.4272,
+    "scope": "Earlier same-day recorded instance rate; excludes storage, transfer and request charges."
+  },
+  "decision": "Do not scale the exact per-task selection method. Freeze the shared 32 additions for a larger matched development comparison, block ablations and temporal confirmation. No promotion.",
+  "scope": "Systematic small partition sample of reused development cohorts; not a Kaggle score or independent temporal confirmation."
+}
