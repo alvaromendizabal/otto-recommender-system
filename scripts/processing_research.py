@@ -103,10 +103,11 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
         if path.stat().st_size != entry["bytes"]:
             raise ValueError("corpus input has an incorrect length")
         shutil.copyfile(path, corpus / name)
-    assembled = workspace / "retrieval_inputs.tar"
-    assemble(inputs / "retrieval", assembled, launch["retrieval_manifest_sha256"])
-    extract(assembled, root)
-    assembled.unlink()
+    if launch.get("task") != "representation":
+        assembled = workspace / "retrieval_inputs.tar"
+        assemble(inputs / "retrieval", assembled, launch["retrieval_manifest_sha256"])
+        extract(assembled, root)
+        assembled.unlink()
     models = inputs / "model/model_inputs.tar"
     verified(models, launch["model_inputs_sha256"])
     extract(models, root)
@@ -124,7 +125,14 @@ def main() -> int:
     launch_path = args.inputs / "launch/launch.json"
     launch = json.loads(launch_path.read_text())
     task = launch.get("task", "study")
-    if task not in {"study", "delivery", "verification", "window_study", "window_verification"}:
+    if task not in {
+        "study",
+        "delivery",
+        "verification",
+        "window_study",
+        "window_verification",
+        "representation",
+    }:
         raise ValueError("unsupported research processing task")
     print(
         json.dumps({"timestamp": datetime.now(UTC).isoformat(), "stage": "verify_inputs"}),
@@ -189,6 +197,7 @@ def main() -> int:
                 "verification": "otto_recsys.cloud.robustness_verification",
                 "window_study": "otto_recsys.cloud.window_job",
                 "window_verification": "otto_recsys.cloud.window_job",
+                "representation": "otto_recsys.cloud.representation_job",
             }[task],
             str(launch_path),
         ],
