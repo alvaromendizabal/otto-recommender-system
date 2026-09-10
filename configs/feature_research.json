@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "assessed_at_utc": "2026-09-10T03:50:37.923026+00:00",
+  "scope": "Coverage of distinct high-value hypotheses on the verified OTTO interaction data. Counts are an inventory, not a percent complete or a proof of literal mathematical exhaustiveness.",
+  "sources": [
+    {
+      "title": "Official OTTO task, labels, metric and data availability",
+      "url": "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md"
+    },
+    {
+      "title": "First-place implementation",
+      "url": "https://github.com/mrkmakr/OTTO-Multi-Objective-Recommender-System"
+    },
+    {
+      "title": "Third-place feature implementation",
+      "url": "https://github.com/TheoViel/kaggle_otto_rs"
+    },
+    {
+      "title": "TRON: negative sampling and session retrieval",
+      "url": "https://arxiv.org/abs/2307.14906"
+    },
+    {
+      "title": "MiaSRec: multiple session intents",
+      "url": "https://arxiv.org/html/2405.00986v1"
+    }
+  ],
+  "evidence": {
+    "catalog": {
+      "path": "reports/research/feature_catalog.csv",
+      "kind": "implementation",
+      "sha256": "6a64efd0832a36e13cef2c9d51fc271e74ecfa692b3326371c9e9a4448da7a68"
+    },
+    "ablation": {
+      "path": "reports/research/ablations.json",
+      "kind": "controlled_result",
+      "sha256": "6d8d63c35fa1a6ce894c500bf7096e98ba641137c82fc385436b66f83df94252"
+    },
+    "evaluation": {
+      "path": "reports/research/evaluation.json",
+      "kind": "controlled_result",
+      "sha256": "3765e11e9c77ef60a3209a4783fc61d6a480e7b4211d5379e3e6157201b9863a"
+    },
+    "audit": {
+      "path": "reports/research/audit.json",
+      "kind": "controlled_result",
+      "sha256": "25a03ee2a7d4cf156fbb4a09dd81fb8ad7a3f660866617bcb5681a9f0a6fd2cc"
+    },
+    "robustness": {
+      "path": "reports/robustness/comparison.json",
+      "kind": "controlled_result",
+      "sha256": "4a50a261447b57dc67802f9bd9115d81b0cf629f00f1f985cbf4ce8cab354e9b"
+    },
+    "embedding": {
+      "path": "reports/research/representation_results.json",
+      "kind": "pilot_result",
+      "sha256": "7e5f5fc004a89e87d104506c94228b6d5c9a19de315747ffdb510c58ea0635ae"
+    },
+    "retrieval": {
+      "path": "reports/research/retrieval_results.json",
+      "kind": "pilot_result",
+      "sha256": "e543e63e452e301b5baa3086e0b65af0c2109369cff4a58c877fa84ffc8f227a"
+    },
+    "graph_config": {
+      "path": "configs/graph_feature_study.json",
+      "kind": "contract",
+      "sha256": "bf45face37018b49399adbcd2df1e1c041c16bca42d50a341fa2584b0c891d38"
+    },
+    "graph_tests": {
+      "path": "tests/test_graph_signals.py",
+      "kind": "test",
+      "sha256": "8f5b7db3b14b5bf20a7df6c081c2ff08dbdd0f59d4e78e2d52b14b112904a493"
+    },
+    "neural": {
+      "path": "reports/metrics/two_tower_fold0_retrieval.json",
+      "kind": "pilot_result",
+      "sha256": "90202d1e6d39e183fec5ed7480fc44f8e69f745362ec48a662784c076d65c5f9"
+    },
+    "baseline_code": {
+      "path": "src/otto_recsys/research/features.py",
+      "kind": "implementation",
+      "sha256": "c2462f91b66b812875e382040de3d8f68beeeb61f0d321f34171c9e2e6dbf874"
+    },
+    "protocol": {
+      "path": "reports/research/temporal_contract.json",
+      "kind": "contract",
+      "sha256": "5a50f09ac6457698d87f129a1cccbc11b1c3e69ddebd5f84ac19a852723db5ab"
+    },
+    "graph_result": {
+      "path": "reports/research/graph_feature_results.json",
+      "kind": "pilot_result",
+      "sha256": "9bf036af88707c599f29aad5dd79a62a34f95eedeb274a93014e05a52fb4f9b0"
+    },
+    "graph_audit": {
+      "path": "reports/research/graph_feature_audit.json",
+      "kind": "controlled_result",
+      "sha256": "fc3e8963b43027c09f2fb2cd4244407cdee0ea624e61271a37c3a2dee48f3f16"
+    },
+    "graph_screening": {
+      "path": "reports/research/graph_feature_screening.json",
+      "kind": "implementation",
+      "sha256": "3e145c6185e48207e5b31f049093193f42a3caa734b4ed7b766f63927a17de64"
+    }
+  },
+  "families": [
+    {
+      "id": "historical_counts",
+      "name": "Historical popularity and action rates",
+      "scope": "Fixed-cutoff item counts, short/long window trends, activity shares and unsmoothed action/count ratios in the original catalog.",
+      "disposition": "covered",
+      "evidence": [
+        "catalog",
+        "ablation",
+        "evaluation",
+        "audit",
+        "robustness"
+      ],
+      "decision": "Evidence supports the published configuration within this scope; extensions have separate open entries."
+    },
+    {
+      "id": "prefix_repeats",
+      "name": "Prefix recurrence and recency",
+      "scope": "Observed action-specific candidate counts, event positions, spans, age, and exponential recency over the tested horizons.",
+      "disposition": "covered",
+      "evidence": [
+        "catalog",
+        "ablation",
+        "evaluation",
+        "audit",
+        "robustness"
+      ],
+      "decision": "Evidence supports the published configuration within this scope; extensions have separate open entries."
+    },
+    {
+      "id": "prefix_context",
+      "name": "Prefix context and clock signals",
+      "scope": "Session length, uniqueness, action proportions, inter-event gap summaries and UTC hour/weekday encodings.",
+      "disposition": "covered",
+      "evidence": [
+        "catalog",
+        "ablation",
+        "evaluation",
+        "audit",
+        "robustness"
+      ],
+      "decision": "Evidence supports the published configuration within this scope; extensions have separate open entries."
+    },
+    {
+      "id": "short_graph",
+      "name": "Short-range graph affinity",
+      "scope": "Original symmetric three-position graph and its tested aggregation/decay transformations.",
+      "disposition": "covered",
+      "evidence": [
+        "catalog",
+        "ablation",
+        "evaluation",
+        "audit",
+        "robustness"
+      ],
+      "decision": "Evidence supports the published configuration within this scope; extensions have separate open entries."
+    },
+    {
+      "id": "source_evidence",
+      "name": "Direct retrieval-source evidence",
+      "scope": "The original source score/rank/presence/share family; its removal improved the frozen selection result. This does not exclude every candidate rank feature.",
+      "disposition": "covered",
+      "evidence": [
+        "catalog",
+        "ablation",
+        "evaluation",
+        "audit",
+        "robustness"
+      ],
+      "decision": "Evidence supports the published configuration within this scope; extensions have separate open entries."
+    },
+    {
+      "id": "intent_interactions",
+      "name": "Original intent interactions",
+      "scope": "Tested graph evidence by prefix action share and repeat interest by historical action/count ratio.",
+      "disposition": "covered",
+      "evidence": [
+        "catalog",
+        "ablation",
+        "evaluation",
+        "audit",
+        "robustness"
+      ],
+      "decision": "Evidence supports the published configuration within this scope; extensions have separate open entries."
+    },
+    {
+      "id": "complementary_graph",
+      "name": "Wider and directional graph features",
+      "scope": "144 proposed affinities on the exact baseline candidate rows and original 102 features.",
+      "disposition": "open",
+      "evidence": [
+        "graph_config",
+        "graph_tests",
+        "retrieval",
+        "graph_result",
+        "graph_audit",
+        "graph_screening"
+      ],
+      "remaining_question": "All three raw block additions scored below the baseline. Can fitting-only task-specific utility pruning or support-aware normalization recover useful signals from these graphs?",
+      "next_experiment": "Use the audited negative result to distinguish raw block additions from normalized or utility-screened variants. Preserve candidates and negatives; screen each arm using only its eligible fitting features."
+    },
+    {
+      "id": "asof_drift",
+      "name": "As-of demand, popularity ranks and drift",
+      "scope": "Historical demand updated using an explicit timestamp-availability policy.",
+      "disposition": "open",
+      "evidence": [
+        "catalog",
+        "protocol"
+      ],
+      "remaining_question": "Does the fixed historical cutoff make popularity stale, and can item ranks, growth acceleration or hour/week interactions improve it?",
+      "next_experiment": "Compare frozen history with rolling as-of snapshots; exclude all label suffixes and embargo incomplete conversion windows."
+    },
+    {
+      "id": "sequence_funnel",
+      "name": "Action sequence, funnel and episode context",
+      "scope": "Prefix action transitions, repeat bursts, item last-action state, entropy/concentration and episodes separated by observed gaps.",
+      "disposition": "open",
+      "evidence": [
+        "catalog",
+        "baseline_code"
+      ],
+      "remaining_question": "Do two prefixes with the same counts but different action order imply different future actions?",
+      "next_experiment": "Add prefix-only sequence features to the fixed candidate cache; separately ablate transitions, episodes and concentration. Gap-after-event is an observed proxy, with the final event censored."
+    },
+    {
+      "id": "smoothed_encoding",
+      "name": "Smoothed historical propensity and categorical encoding",
+      "scope": "Support-adjusted item/transition propensities and chronological out-of-fold target encodings.",
+      "disposition": "open",
+      "evidence": [
+        "catalog",
+        "protocol"
+      ],
+      "remaining_question": "Do historical count ratios benefit from shrinkage and support measures, especially for rare items?",
+      "next_experiment": "Start with empirical-Bayes historical rates; if label-derived encodings are used, fit only on earlier complete sessions with an embargo and unseen-item fallback. Never encode each row with its own future targets."
+    },
+    {
+      "id": "normalized_graph",
+      "name": "Popularity-normalized graph and higher-order intent",
+      "scope": "Lift/PMI, row-normalized transitions, neighbor rank, support and cross-action transitions.",
+      "disposition": "open",
+      "evidence": [
+        "catalog",
+        "retrieval"
+      ],
+      "remaining_question": "Are raw edge weights overly driven by common items, and do action-specific transitions improve rare-item relevance?",
+      "next_experiment": "Compare raw versus smoothed normalized edge affinity on unchanged candidates; fit normalization marginals at the same cutoff and retain support features."
+    },
+    {
+      "id": "multihop",
+      "name": "Multi-hop and complementary graph discovery",
+      "scope": "Bounded two-hop graph paths with task-dependent aggregation.",
+      "disposition": "open",
+      "evidence": [
+        "retrieval"
+      ],
+      "remaining_question": "Can paths through intermediate items find incremental positives beyond direct neighbors?",
+      "next_experiment": "Reuse certified historical graphs; measure overlap and unique positives at fixed budgets before fitting matched rankers. Exclude self loops and cap hubs."
+    },
+    {
+      "id": "item2vec",
+      "name": "Learned Item2Vec similarities and retrieval",
+      "scope": "Two historical 128-dimensional Item2Vec spaces; four feature-only arms are measured.",
+      "disposition": "open",
+      "evidence": [
+        "embedding"
+      ],
+      "remaining_question": "Does the small/no weighted feature gain reflect redundancy, poor coverage, objective mismatch, or inadequate retrieval complementarity?",
+      "next_experiment": "Audit per-action coverage and gain; reuse saved vectors for a bounded ANN candidate-union test before any further embedding training."
+    },
+    {
+      "id": "factorization",
+      "name": "Implicit matrix-factorization signals",
+      "scope": "Historical item/session factors learned from interaction weights.",
+      "disposition": "open",
+      "evidence": [
+        "embedding",
+        "protocol"
+      ],
+      "remaining_question": "Do collaborative latent factors add information beyond co-visitation and local sequence embeddings?",
+      "next_experiment": "Fit one bounded implicit factorization on historical sessions; compare candidate affinity and cold-item coverage with existing vectors."
+    },
+    {
+      "id": "session_neighbors",
+      "name": "Session-neighbor and sequence alignment",
+      "scope": "Historical nearest-session neighbors, recency weights and order-aware similarity.",
+      "disposition": "open",
+      "evidence": [
+        "protocol",
+        "retrieval"
+      ],
+      "remaining_question": "Can similar baskets from earlier sessions supply complementary items without a neural encoder?",
+      "next_experiment": "Fit a bounded historical session index and test incremental coverage; ablate binary overlap, inverse-frequency and order weighting."
+    },
+    {
+      "id": "task_neural",
+      "name": "Task-conditioned neural retrieval",
+      "scope": "Historical two-tower/sequence retrieval with next-click versus multi-positive cart/order targets.",
+      "disposition": "open",
+      "evidence": [
+        "neural",
+        "protocol"
+      ],
+      "remaining_question": "Does the earlier fold benefit reproduce under the current corpus cutoff and unchanged ranker?",
+      "next_experiment": "Recertify or refit with exact historical cutoffs; compare raw retrieval, candidate union and ranking features separately. Use fixed seeds and an explicit hard-negative policy."
+    },
+    {
+      "id": "multiple_intents",
+      "name": "Multiple session interests",
+      "scope": "Separate representations of recent activity, cart/order interest and diverse prefix items.",
+      "disposition": "open",
+      "evidence": [
+        "embedding",
+        "protocol"
+      ],
+      "remaining_question": "Does pooling an entire session obscure separate shopping intentions?",
+      "next_experiment": "First test multiple query pools using existing vectors; train a multi-intent encoder only if coverage/error analysis supports it."
+    },
+    {
+      "id": "repeat_explore",
+      "name": "Repeat-versus-new relevance",
+      "scope": "Observed-item versus novel-item likelihood and task-specific routing.",
+      "disposition": "open",
+      "evidence": [
+        "evaluation",
+        "catalog"
+      ],
+      "remaining_question": "Can clicks improve by handling revisits differently while preserving cart/order performance?",
+      "next_experiment": "Select repeat/new feature interactions and routing only on development data; report disjoint hit/denominator slices, including missed candidates."
+    },
+    {
+      "id": "candidate_frontier",
+      "name": "Candidate budget, consensus and relative ranks",
+      "scope": "Complementary source unions, source disagreement, full-query ranks and 400/800/1200 frontiers.",
+      "disposition": "open",
+      "evidence": [
+        "retrieval",
+        "catalog"
+      ],
+      "remaining_question": "Do additional candidates help only when paired with source-aware features and sufficient ranker training coverage?",
+      "next_experiment": "Compare nested candidate unions at fixed task budgets and full-query normalized ranks computed before negative sampling; report recall, overlap, latency and memory."
+    },
+    {
+      "id": "objective_selection",
+      "name": "Task-specific feature utility and training support",
+      "scope": "Per-objective feature selection, feature interactions and adequate negative/session coverage.",
+      "disposition": "open",
+      "evidence": [
+        "ablation",
+        "embedding",
+        "graph_config"
+      ],
+      "remaining_question": "Does a shared schema suppress useful click/cart features, or does joint screening remove one family in favor of a feature absent from its arm?",
+      "next_experiment": "Screen each arm against its own eligible features, then compare per-task schemas with fixed candidate rows. Diagnose support before expanding fit sessions or changing negative sampling."
+    },
+    {
+      "id": "semantic_metadata",
+      "name": "Text, image, price and product semantics",
+      "scope": "Current verified OTTO competition inputs only.",
+      "disposition": "excluded",
+      "evidence": [
+        "protocol",
+        "baseline_code"
+      ],
+      "data_constraint": "Only session, item, timestamp and action type are verified.",
+      "exclusion_reason": "The verified OTTO schema provides no item descriptions, images, prices, categories or inventory. Anonymous IDs cannot supply product meaning."
+    },
+    {
+      "id": "persistent_identity",
+      "name": "Persistent user attributes and cross-session user history",
+      "scope": "Current verified OTTO competition inputs only.",
+      "disposition": "excluded",
+      "evidence": [
+        "protocol",
+        "baseline_code"
+      ],
+      "data_constraint": "Only session, item, timestamp and action type are verified.",
+      "exclusion_reason": "A session identifier is not a verified persistent shopper identity. No supplied customer profile, geography or reliable identity link is available."
+    }
+  ],
+  "temporal_confirmation": {
+    "status": "pending",
+    "evidence": [],
+    "reason": "The original nine cells confirm the original procedure. Newly selected features require preregistered temporal confirmation with prior data exposure declared."
+  },
+  "next_task": "Keep feature engineering open. The graph-addition experiment is complete with no supported promotion. Preregister task-specific utility screening and distinct sequence/funnel or support-normalized signals on unchanged candidate rows before final training or wrap-up."
+}

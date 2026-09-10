@@ -29,7 +29,7 @@ def test_status_uses_published_evidence_without_local_data(tmp_path: Path) -> No
     assert status["ann_comparison"] == "passed"
     assert status["sessions"] == 103468
     assert "nested validation" in status["next_task"]
-    assert status["paid_compute_started"] is False
+    assert status["paid_compute_started_by_this_command"] is False
     assert status["timestamp"].endswith("+00:00")
     assert status["elapsed_seconds"] >= 0
 

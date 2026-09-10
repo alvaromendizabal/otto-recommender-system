@@ -103,7 +103,7 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
         if path.stat().st_size != entry["bytes"]:
             raise ValueError("corpus input has an incorrect length")
         shutil.copyfile(path, corpus / name)
-    if launch.get("task") not in {"representation", "retrieval"}:
+    if launch.get("task") not in {"representation", "retrieval", "graph_features"}:
         assembled = workspace / "retrieval_inputs.tar"
         assemble(inputs / "retrieval", assembled, launch["retrieval_manifest_sha256"])
         extract(assembled, root)
@@ -111,6 +111,21 @@ def prepare(inputs: Path, workspace: Path, launch: dict[str, Any]) -> Path:
     models = inputs / "model/model_inputs.tar"
     verified(models, launch["model_inputs_sha256"])
     extract(models, root)
+    if launch.get("task") == "graph_features":
+        if set(launch["graphs"]) != {"symmetric", "forward"}:
+            raise ValueError("graph inputs must include both historical families")
+        for family, inventory in launch["graphs"].items():
+            if family not in {"symmetric", "forward"}:
+                raise ValueError("unknown graph input family")
+            for entry in inventory:
+                relative = Path(entry["path"])
+                if relative.is_absolute() or ".." in relative.parts:
+                    raise ValueError("graph inventory path escapes its input")
+                path = inputs / f"graph_{family}" / relative
+                verified(path, entry["sha256"])
+                destination = root / "graphs" / family / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(path, destination)
     if launch.get("task", "study") == "delivery":
         for role in ("train", "test"):
             stage_events(inputs, project, launch[f"{role}_files"], role=role)
@@ -133,6 +148,7 @@ def main() -> int:
         "window_verification",
         "representation",
         "retrieval",
+        "graph_features",
     }:
         raise ValueError("unsupported research processing task")
     print(
@@ -200,6 +216,7 @@ def main() -> int:
                 "window_verification": "otto_recsys.cloud.window_job",
                 "representation": "otto_recsys.cloud.representation_job",
                 "retrieval": "otto_recsys.cloud.retrieval_job",
+                "graph_features": "otto_recsys.cloud.graph_feature_job",
             }[task],
             str(launch_path),
         ],
