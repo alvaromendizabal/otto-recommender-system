@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "EARLY_SHARED_FEATURE_SMOKE_PASSED",
+  "executed_at_utc": {
+    "started": "2026-09-11T04:34:51Z",
+    "finished": "2026-09-11T04:45:19Z"
+  },
+  "source": {
+    "github_commit": "91d3dcd1324fdaf06252c5afb128795fab22203e",
+    "post_merge_ci_run": 34561363574,
+    "post_merge_ci_conclusion": "success",
+    "s3_prefix": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-feature-confirmation/early-smoke-91d3dcd1/"
+  },
+  "protocol": {
+    "history_end_ms": 1660687200000,
+    "history_end_utc": "2022-08-16T22:00:00Z",
+    "candidate_budget": 400,
+    "fit_sessions": 256,
+    "selection_sessions": 256,
+    "baseline_features": 102,
+    "added_features": 32,
+    "total_features": 134,
+    "model_fits": 0,
+    "feature_screening": "none; fitting-role diagnostics are unsupervised only",
+    "selection_feature_formulas_changed": false
+  },
+  "graphs": {
+    "symmetric": {
+      "input_id": "8dd68657bf29f5c5a70cd3255eebeebb0a60063c370e6270241bd82c8db47814",
+      "completed_parts": 64,
+      "reused_parts": 0,
+      "elapsed_seconds": 186.80416421200005,
+      "observed_history_max_ts": 1660687199973
+    },
+    "forward": {
+      "input_id": "593ea0ad5f521067aacaf1cebb569a9ed11b2e84816d1f86da2293ec9cfce70c",
+      "completed_parts": 64,
+      "reused_parts": 0,
+      "elapsed_seconds": 153.35155784999995,
+      "observed_history_max_ts": 1660687199973
+    }
+  },
+  "roles": {
+    "fit": {
+      "sessions": 256,
+      "candidate_rows": 102400,
+      "pooled_denominators": [247, 86, 27],
+      "elapsed_seconds": 13.496421698999939,
+      "parquet_sha256": "957017138f27a307ce41faed47ba3a3068ceec779e95a1218f74cb5892f22ed1"
+    },
+    "selection": {
+      "sessions": 256,
+      "candidate_rows": 102400,
+      "pooled_denominators": [245, 67, 35],
+      "elapsed_seconds": 8.683243553000011,
+      "parquet_sha256": "c708518d9325d9aab647788dc71e7e9f747f2218e7ba180195113dfe1f63c6f5"
+    }
+  },
+  "verification": {
+    "candidate_target_parity": "passed against certified early caches",
+    "deterministic_full_replay": true,
+    "total_candidate_rows": 204800,
+    "peak_rss_mib": 16091.1875,
+    "smoke_elapsed_seconds": 396.213726834,
+    "worker_exit_code": 0
+  },
+  "limitations": [
+    "No ranker was fitted and no official Recall@20 score was produced by this smoke.",
+    "This is an earlier-window development replication, not a new untouched holdout.",
+    "Feature promotion remains blocked on larger fitting-only screening, ablation, and temporal stability."
+  ],
+  "decision": {
+    "advance": true,
+    "next_gate": "Measure 1,024 complete fitting queries with the frozen 134-column schema before any ranker fit; then perform fitting-only support/redundancy screening and bounded family ablation."
+  }
+}
