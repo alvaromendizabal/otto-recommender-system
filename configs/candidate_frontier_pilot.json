@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_not_executed",
+  "role": "fit",
+  "selection_access": false,
+  "evaluation_access": false,
+  "sessions": 256,
+  "cohort_seed": 20260911,
+  "history_end_ms": 1660687200000,
+  "twohop_bridge_per_source": 64,
+  "rrf_k": 20.0,
+  "max_discovery_items": 250000,
+  "work_seconds": 300,
+  "minimum_weighted_ceiling_gain": 0.005,
+  "model_fits": 0,
+  "arms": {
+    "baseline_400": {"budget": 400, "hops": 1},
+    "wide_onehop_800": {"budget": 800, "hops": 1},
+    "wide_onehop_1200": {"budget": 1200, "hops": 1},
+    "wide_twohop_800": {"budget": 800, "hops": 2},
+    "wide_twohop_1200": {"budget": 1200, "hops": 2}
+  },
+  "advance_rule": "At least +0.005 pooled weighted oracle Recall@20 permits unchanged fitting-only scale replication, not feature promotion. Repeat all expanded arms without label-tuning weights.",
+  "ranking_guard": "A larger candidate oracle does not imply a better top-20 ranker. Test ranking after scale replication.",
+  "research_sources": [
+    "https://www.kaggle.com/competitions/otto-recommender-system/writeups/mrkmakr-1st-place-solution",
+    "https://github.com/TheoViel/kaggle_otto_rs"
+  ]
+}
