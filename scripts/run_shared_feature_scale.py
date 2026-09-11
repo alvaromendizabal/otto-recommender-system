@@ -19,6 +19,7 @@ from typing import Any
 import numpy as np
 import polars as pl
 
+from otto_recsys.experiments.manifest import canonical_json_sha256
 from otto_recsys.research.dataset import OBJECTIVES, Queries, sampled_rows
 from otto_recsys.research.domain_features import (
     DOMAIN_FAMILIES,
@@ -89,10 +90,28 @@ def role_indices(queries: Queries, ids: np.ndarray) -> np.ndarray:
     return indices.astype(np.int64)
 
 
-def cached_metadata(cache: Path, ids: np.ndarray) -> dict[int, pl.DataFrame]:
+def cached_metadata(
+    cache: Path,
+    ids: np.ndarray,
+    *,
+    corpus_id: str,
+) -> tuple[dict[int, pl.DataFrame], dict[str, Any]]:
+    manifest = json.loads((cache / "manifest.json").read_text())
+    contract = json.loads((cache / "contract.json").read_text())
+    if (
+        manifest["status"] != "passed"
+        or manifest["role"] != "fit"
+        or contract["role"] != "fit"
+        or manifest["input_id"] != canonical_json_sha256(contract)
+        or contract["corpus_id"] != corpus_id
+    ):
+        raise ValueError("fitting cache manifest/contract lineage differs")
     paths = sorted(cache.glob("part-*.parquet"))
     if not paths:
         raise ValueError("fitting candidate cache has no staged parts")
+    for path in paths:
+        if path.name not in manifest["files"] or sha256_file(path) != manifest["files"][path.name]:
+            raise ValueError(f"staged fitting cache checksum differs: {path.name}")
     frame = (
         pl.scan_parquet([str(path) for path in paths])
         .filter(pl.col("session").is_in(ids.tolist()))
@@ -111,7 +130,7 @@ def cached_metadata(cache: Path, ids: np.ndarray) -> dict[int, pl.DataFrame]:
         groups[session] = group.sort("candidate_position")
     if set(groups) != set(map(int, ids.tolist())):
         raise ValueError("staged fitting cache is missing a scale-cohort session")
-    return groups
+    return groups, contract
 
 
 def verify_cached_query(
@@ -239,8 +258,11 @@ def run(
     queries = Queries(corpus, "fit")
     ids = fitting_ids(queries, preflight)
     indices = role_indices(queries, ids)
-    stored = cached_metadata(inputs / "fit_cache", ids)
-    contract = json.loads((inputs / "fit_cache/contract.json").read_text())
+    stored, contract = cached_metadata(
+        inputs / "fit_cache",
+        ids,
+        corpus_id=manifest["input_id"],
+    )
     if (
         int(contract["candidate_budget"]) != CANDIDATE_BUDGET
         or int(contract["negative_budget"]) <= 0
@@ -300,6 +322,10 @@ def run(
                     "candidate_position",
                     np.arange(candidates.aid.size, dtype=np.int16),
                 ),
+                *[
+                    pl.Series(f"target_{objective}", target[:, j])
+                    for j, objective in enumerate(OBJECTIVES)
+                ],
             )
         )
         part_sessions += 1
@@ -336,6 +362,17 @@ def run(
 
     diag = diagnostics.finalize()
     atomic_json(output / "fit_feature_diagnostics.json", diag)
+    ledger = pl.DataFrame(
+        {
+            "session": ids.astype(np.int64),
+            **{
+                f"denominator_{objective}": queries.denominators[indices, j]
+                for j, objective in enumerate(OBJECTIVES)
+            },
+        }
+    ).sort("session")
+    ledger_path = output / "fit_query_ledger.parquet"
+    ledger.write_parquet(ledger_path, compression="zstd")
 
     replay_started = time.perf_counter()
     added_indices = None
@@ -386,6 +423,10 @@ def run(
         },
         "pooled_denominators": denominator.tolist(),
         "parts": part_receipts,
+        "query_ledger": {
+            "rows": ledger.height,
+            "sha256": sha256_file(ledger_path),
+        },
         "diagnostics_sha256": sha256_file(output / "fit_feature_diagnostics.json"),
         "added_feature_diagnostics": {
             "constant": sum(bool(row["constant"]) for row in added_rows),
