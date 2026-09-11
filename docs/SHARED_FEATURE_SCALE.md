@@ -15,7 +15,7 @@ This stage is the direct successor to the passed Aug-16 256+256 reconstruction s
 
 The runner accumulates exact first/second moments and cross-products session by session, avoiding retention of the full matrix in memory. It reports finite/nonconstant behavior, row and session support, exact Pearson correlation of each added feature with the frozen baseline, exact redundancy among the 32 additions, output hashes, runtime and peak RSS. Correlation flags are **diagnostic only** and cannot remove a feature.
 
-Four complete 256-session Parquet partitions are checkpointed. A second complete pass must reproduce every per-session candidate/target/feature hash.
+Four complete 256-session Parquet partitions are checkpointed with the 134 features, candidate identity/position and fitting targets, plus a 1,024-row denominator ledger for later fitting-only evaluation. Every staged certified-cache part is SHA-256 verified before parity checks. A second complete pass must reproduce every per-session candidate/target/feature hash.
 
 ## Decision gate
 
