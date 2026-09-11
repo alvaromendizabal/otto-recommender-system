@@ -27,8 +27,8 @@ from otto_recsys.research.domain_features import (
     NormalizedGraphSignals,
     episode_features,
     funnel_features,
-    feature_names as domain_feature_names,
 )
+from otto_recsys.research.domain_features import feature_names as domain_feature_names
 from otto_recsys.research.features import FeatureEngine
 from otto_recsys.research.graph_signals import FAMILIES, GraphSignals
 from otto_recsys.research.protocol import atomic_json
