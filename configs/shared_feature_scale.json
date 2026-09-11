@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_not_executed",
+  "source_smoke_report": "reports/research/early_shared_feature_smoke.json",
+  "role": "fit",
+  "selection_access": false,
+  "cohort_seed": 20260911,
+  "sessions": 1024,
+  "candidate_budget": 400,
+  "sessions_per_output_part": 256,
+  "schema": {
+    "baseline": 102,
+    "added": 32,
+    "total": 134
+  },
+  "graphs": {
+    "policy": "reuse exact certified Aug-16 symmetric/forward manifests; never rebuild unless checksum/identity fails",
+    "history_end_ms": 1660687200000
+  },
+  "diagnostics": {
+    "supervised": false,
+    "measures": [
+      "finite/nonconstant",
+      "row nonzero share",
+      "session nonzero share",
+      "exact Pearson correlation versus frozen baseline",
+      "exact Pearson redundancy among 32 additions",
+      "wall time",
+      "peak RSS",
+      "deterministic replay"
+    ],
+    "near_duplicate_abs_correlation": 0.995,
+    "retention_decisions": 0
+  },
+  "model_fits": 0,
+  "next_gate": "Only after this passes: preregister a bounded fitting-only supervised screen/add-drop comparison; selection remains frozen.",
+  "artifacts": {
+    "parts": "four complete 256-session Parquet partitions with all 134 features, candidate identity/position, and three fitting targets",
+    "query_ledger": "1,024 rows with pooled Recall@20 denominators by objective",
+    "cache_validation": "every staged source cache part must match its certified manifest SHA-256"
+  }
+}
