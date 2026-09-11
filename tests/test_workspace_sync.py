@@ -296,6 +296,74 @@ class WorkspaceSyncTests(unittest.TestCase):
             self.assertEqual(remote.created, 5)
             self.assertTrue(all(not item["created"] for item in third.report["files"]))
 
+    def test_git_capture_output_retains_stdout_and_stderr(self) -> None:
+        completed = subprocess.CompletedProcess(["git"], 0, "main\n", "")
+        with patch.object(sync.subprocess, "run", return_value=completed) as run:
+            self.assertEqual(sync.git(None, "branch", "--show-current"), "main")
+        self.assertTrue(run.call_args.kwargs["capture_output"])
+        self.assertNotIn("stdout", run.call_args.kwargs)
+        self.assertNotIn("stderr", run.call_args.kwargs)
+
+    def test_git_failure_keeps_diagnostic(self) -> None:
+        completed = subprocess.CompletedProcess(["git"], 1, "", "fixture failure")
+        with (
+            patch.object(sync.subprocess, "run", return_value=completed),
+            self.assertRaisesRegex(sync.StopReview, "fixture failure"),
+        ):
+            sync.git(None, "status")
+
+    def test_source_keys_are_content_addressed(self) -> None:
+        first = sync.source_archive_keys(sync.sha_bytes(b"first helper"))
+        second = sync.source_archive_keys(sync.sha_bytes(b"second helper"))
+        self.assertNotEqual(first, second)
+        self.assertTrue(first[0].endswith("/sync_otto_workspace.py"))
+        self.assertTrue(first[1].endswith("/manifest.json"))
+
+    def test_source_keys_reject_invalid_digest(self) -> None:
+        with self.assertRaises(sync.StopReview):
+            sync.source_archive_keys("../" + "a" * 61)
+
+    def test_new_helper_keeps_old_source_and_reuses_bundles(self) -> None:
+        specs = []
+        for index in range(3):
+            path = make_zip(self.root / f"bundle{index}.zip")
+            specs.append({"name": path.name, "folder": ".", "label": str(index),
+                          "bytes": path.stat().st_size, "sha256": sync.sha_file(path)})
+        store = FakeS3()
+        legacy = {
+            f"{sync.PREFIX}/source/sync_otto_workspace.py": b"old archived helper",
+            f"{sync.PREFIX}/manifest.json": b"old archived manifest",
+        }
+        store.objects.update(legacy)
+        for spec in specs:
+            store.objects[f"{sync.PREFIX}/bundles/{spec['name']}"] = (
+                self.root / spec["name"]
+            ).read_bytes()
+        original = dict(store.objects)
+        with patch.object(sync, "FILES", tuple(specs)):
+            first = session(self.root, s3=store)
+            first.archive()
+            self.assertEqual(first.report["status"], "AWS_ARCHIVE_VERIFIED")
+            self.assertEqual(store.created, 2)
+            self.assertTrue(all(not item["created"] for item in first.report["files"]))
+            for key, value in original.items():
+                self.assertEqual(store.objects[key], value)
+            source_key, manifest_key = sync.source_archive_keys(sync.sha_file(SOURCE))
+            self.assertEqual(store.objects[source_key], SOURCE.read_bytes())
+            self.assertEqual(json.loads(store.objects[manifest_key])["source_key"], source_key)
+            second = session(self.root, s3=store)
+            second.archive()
+            self.assertEqual(store.created, 2)
+            self.assertFalse(second.report["source"]["created"])
+            self.assertFalse(second.report["manifest"]["created"])
+
+    def test_documented_restore_uses_current_helper(self) -> None:
+        digest = sync.sha_file(SOURCE)
+        document = SOURCE.parents[1] / "docs" / "MANUAL_WORKSPACE_SYNC.md"
+        text = document.read_text()
+        self.assertIn(f"source/{digest}/sync_otto_workspace.py", text)
+        self.assertIn(f"'{digest}'", text)
+
     def git_fixture(self) -> tuple[Path, Path]:
         remote = self.root / "remote.git"
         working = self.root / "seed"

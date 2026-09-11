@@ -18,7 +18,6 @@ import shutil
 import signal
 import stat
 import subprocess
-import sys
 import tempfile
 import threading
 import time
@@ -82,6 +81,14 @@ def sha_file(path: Path) -> str:
         for chunk in iter(lambda: source.read(1024**2), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def source_archive_keys(digest: str) -> tuple[str, str]:
+    """Version helper bytes without overwriting old source or duplicating evidence."""
+    if len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest):
+        raise StopReview("Source identity must be a lowercase SHA-256 digest")
+    root = f"{PREFIX}/source/{digest}"
+    return f"{root}/sync_otto_workspace.py", f"{root}/manifest.json"
 
 
 def json_bytes(value: Any) -> bytes:
@@ -225,8 +232,7 @@ def git(repo: Path | None, *args: str, timeout: int = 75) -> str:
         command,
         check=False,
         text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         timeout=timeout,
         env={**os.environ, "GIT_TERMINAL_PROMPT": "0", "GIT_LFS_SKIP_SMUDGE": "1"},
     )
@@ -422,9 +428,13 @@ class Session:
             self.save_report()
             self.log(f"S3_VERIFIED {spec['name']}")
         source = Path(__file__).resolve().read_bytes()
-        self.report["source"] = self.put(f"{PREFIX}/source/sync_otto_workspace.py", source)
-        manifest = {"schema_version": 1, "bundles": list(FILES), "source_sha256": sha_bytes(source)}
-        self.report["manifest"] = self.put(f"{PREFIX}/manifest.json", json_bytes(manifest))
+        source_digest = sha_bytes(source)
+        source_key, manifest_key = source_archive_keys(source_digest)
+        self.report["source"] = self.put(source_key, source)
+        manifest = {"schema_version": 1, "bundles": list(FILES),
+                    "source_sha256": source_digest, "source_key": source_key}
+        self.report["manifest"] = self.put(manifest_key, json_bytes(manifest))
+        self.log(f"SOURCE_VERIFIED sha256={source_digest} key={source_key}")
         self.report["status"] = "AWS_ARCHIVE_VERIFIED"
 
     def synchronize_git(self) -> Path:
@@ -534,8 +544,6 @@ def main() -> int:
     arguments = parser.parse_args()
     session: Session | None = None
     try:
-        if sys.version_info < (3, 10):
-            raise StopReview("Python 3.10+ is required; return this message rather than installing")
         signal.signal(signal.SIGALRM, timeout_handler)
         signal.alarm(WORK_SECONDS)
         session = Session(Path.home(), arguments.mode)

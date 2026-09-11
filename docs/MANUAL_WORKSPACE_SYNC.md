@@ -1,105 +1,141 @@
 # Manual OTTO workspace synchronization
 
-## Scope and current evidence
+## Current milestone: correct the existing PR #42
 
-The 2026-09-10 owner-returned smoke-input collection finished in **10.915 seconds**,
-with **16 AWS reads** and **27,092,677 downloaded bytes**, without training or cloud writes.
-All **17** entries in its checksum manifest passed independent verification. Rechecking
-all three reviewed result bundles verified **162** checksum entries (102 + 43 + 17).
-
-The two collected wide graph contracts both use **2022-08-20 22:00 UTC** history, whereas
-the early window requires **2022-08-16 22:00 UTC**. They must not be reused for early
-confirmation. The scoped inventory does not establish that no suitable graph exists
-elsewhere. This review did not independently reconstruct all prefixes and targets,
-load full graph tables, build features, fit models, or change the frozen feature lists.
-Feature research remains open and the challenger remains unpromoted.
-
-The accompanying `reports/research/shared_feature_confirmation_preflight.json` is an
-immutable preparation-time review. Actual synchronization completion is recorded by the
-owner-run receipt, not inferred from this document.
-
-## Storage responsibilities
-
-GitHub contains reviewed code, tests, executed notebooks and small public-safe reports.
-The project S3 bucket contains data, models, recovered evidence and immutable receipts.
-The existing `otto-dev` SageMaker space contains a working Git checkout and the recovered
-evidence outside that checkout. This is explicit checkpoint-based synchronization, not
-an automatically running two-way synchronization service.
-
-The helper archives only the three SHA-pinned returned ZIPs. These include the prior
-collector sources. It does not upload your home directory, unrelated project files,
-credentials, or newly selected data. No raw ZIP, session IDs or labels are included in
-this public package. Existing large history/checkpoint objects remain at their existing
-S3 locations; no full bucket download is necessary.
-
-## 1. Archive in the existing Oregon CloudShell
-
-Upload `scripts/sync_otto_workspace.py` using Actions -> Upload file. Run:
-
-```bash
-cd "$HOME"
-python3 -u "$HOME/sync_otto_workspace.py" archive
-```
-
-Required successful status: `AWS_ARCHIVE_VERIFIED`.
-
-The expected inputs are the existing result ZIPs in `~/otto_manual_recovery/`,
-`~/otto_confirmation_preflight/`, and `~/otto_shared_feature_smoke_inputs/`.
-The script also accepts the exact reviewed ZIP directly in the home directory.
-Do not rerun older collectors or regenerate those ZIPs. An unknown hash or missing file
-stops execution; return the report instead of deleting evidence.
-
-The private destination is:
-
-```text
-s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/
-```
-
-Every object is created conditionally and read back in full for SHA-256 verification.
-Existing identical objects are reused. An existing different object is never overwritten.
-The script does not change IAM, launch compute, delete prior evidence, train, or push Git.
-
-## 2. Publish this four-file package through GitHub
-
-In the repository root on `main`, use Add file -> Upload files. Drag the four INNER
-folders `scripts`, `tests`, `docs`, and `reports` from the extracted package. There are
-exactly four files. Do not upload the package ZIP, a parent wrapper folder, or any of the
-three private result ZIPs. The paths must be:
+The original upload is in `alvaromendizabal-patch-1`, targeting `main` in
+`alvaromendizabal/otto-recommender-system`. Do not open another pull request or commit
+this correction directly to `main`. Replace these three existing files on that branch:
 
 ```text
 scripts/sync_otto_workspace.py
 tests/test_workspace_sync.py
 docs/MANUAL_WORKSPACE_SYNC.md
-reports/research/shared_feature_confirmation_preflight.json
 ```
 
-Use commit message `Record manual recovery and synchronize OTTO workspace`. Choose a new
-branch and start a pull request; the automatically suggested branch name is suitable.
-Do not use a `results/` branch for this maintenance-only change, since the existing
-workflow gives that prefix extra notebook-publication behavior.
+Leave the already uploaded
+`reports/research/shared_feature_confirmation_preflight.json` unchanged. The correction
+ZIP contains only the three replacements, not research data or a new result report.
 
-Review all four filenames. Let the unchanged repository CI run. Merge only after its
-checks pass. If checks fail or require an unavailable approval, preserve the PR and
-return its link; do not weaken CI or start a paid SageMaker app to work around it.
-No notebook output is fabricated or rerun solely to publish this synchronization helper.
+### What failed and what changed
 
-## 3. Open the existing SageMaker space, after archive and merge
+Both original quality jobs stopped at Ruff, with the same two findings:
 
-Use SageMaker AI in `us-west-2` -> Studio -> domain
-`QuickSetupDomain-20260902T115323` (`d-njhxv1erusdc`) -> user profile
+- `UP022`: replace the two subprocess pipe arguments with `capture_output=True`.
+- `UP036`: remove the obsolete lower-Python-version branch under the repository's
+  Python 3.13 lint target, together with its now-unused import.
+
+The original jobs passed notebook replay and 83 selected ranking/recovery tests before
+reaching that failure. The full quality pipeline did not complete. Passing behavioral
+tests alone is not a passing repository CI result. No lint rule, workflow, type-check
+configuration, or scientific gate has been disabled by this correction.
+
+The helper's bytes change when code is corrected. Its source and manifest are therefore
+stored under a SHA-256-specific path. Existing bundles retain their exact locations and
+identities; old helper/manifest objects are preserved instead of overwritten. The old
+SageMaker command using the unversioned source key is superseded by the command below.
+
+### Browser steps for this correction
+
+1. Extract the latest `otto_workspace_sync_package.zip` into a separate Windows folder
+   such as `OTTO_PR42`. Use this copy, not the earlier extracted package.
+2. Open `https://github.com/alvaromendizabal/otto-recommender-system/tree/alvaromendizabal-patch-1`.
+   Confirm the branch selector says `alvaromendizabal-patch-1`, not `main`.
+3. At the repository top level choose **Add file -> Upload files**. Drag the three
+   inner folders `scripts`, `tests`, and `docs` from the new extraction. Do not upload
+   the ZIP, its parent folder, or any recovered data ZIP.
+4. Confirm the three paths above. Commit with message
+   `Correct workspace sync checks and preserve archived helper versions`.
+   Choose **Commit directly to the alvaromendizabal-patch-1 branch**.
+5. Return to PR #42. The new commit updates the same pull request. Let its new checks
+   finish. Do not rerun the unchanged failed commit, bypass checks, or start SageMaker.
+6. Merge only after the new revision's quality, neural-contracts, notebooks and
+   portfolio checks pass. Use **Merge pull request -> Confirm merge**, then return the
+   PR link for the next milestone. If any active check fails, leave the PR open and
+   return that failure instead. The existing `publish-notebooks` job is conditional
+   on `results/` pushes; its skipped status here is not the Ruff failure.
+
+The next sections describe the later archive/restore milestone. Do not execute them
+until the corrected revision has passed CI and is merged. No successful archive or
+restore is asserted merely because this document exists.
+
+## Scope and evidence
+
+The owner's reviewed smoke-input collection recorded 10.915 seconds, 16 AWS reads and
+27,092,677 downloaded bytes, without training or cloud writes. Its 17 checksum entries
+passed the preparation audit. All three reviewed bundles together have 162 recorded
+checksum entries (102 + 43 + 17). These are previous audit results, not new experiments.
+
+Both inspected wide-graph contracts use 2022-08-20 22:00 UTC history; early confirmation
+requires 2022-08-16 22:00 UTC. They cannot be reused for that early test. The scoped
+inspection does not establish that no suitable graph exists elsewhere. Prefix/target
+reconstruction and full graph construction remain unfinished. Feature engineering
+stays open and the challenger remains unpromoted.
+
+GitHub holds reviewed source, tests, executed notebooks and small public-safe reports.
+S3 holds data, models, recovered evidence and receipts. The existing `otto-dev` space
+holds a working Git checkout and recovered evidence outside it. This is an explicit
+verified snapshot, not an automatic two-way synchronization service.
+
+## After CI and merge: archive from Oregon CloudShell
+
+Upload this revision of `scripts/sync_otto_workspace.py` through **Actions -> Upload
+file**. Ensure the uploaded filename is exactly `sync_otto_workspace.py`, not a browser
+renamed copy. Verify the helper before running it:
+
+```bash
+cd "$HOME"
+printf '%s  %s\n' \
+  'a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464' \
+  "$HOME/sync_otto_workspace.py" | sha256sum --check && \
+python3 -u "$HOME/sync_otto_workspace.py" archive
+```
+
+Expected success: `RESULT: AWS_ARCHIVE_VERIFIED`.
+
+The three original result ZIPs must remain in `~/otto_manual_recovery/`,
+`~/otto_confirmation_preflight/`, and `~/otto_shared_feature_smoke_inputs/`, or directly
+in home with the exact reviewed bytes. Do not regenerate them. Different bytes, missing
+inputs, missing permissions, or a resource limit cause a stop for review.
+
+Destination bucket/prefix:
+
+```text
+s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/
+```
+
+Bundle keys remain under `bundles/`. The corrected helper uses these revision keys:
+
+```text
+source/a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464/sync_otto_workspace.py
+source/a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464/manifest.json
+```
+
+Objects use conditional creation and full-byte read-back verification. Existing
+identical bundles are reused, although requests and read-back transfers still occur.
+Legacy source/manifest objects are not deleted or overwritten. The helper makes no IAM
+changes, launches no compute, trains no models, and pushes no Git commits.
+
+On failure return `~/otto_workspace_sync/otto_workspace_sync_result.zip` rather than
+repeatedly retrying. A checksum failure in the initial shell command means the wrong
+helper file was uploaded; that check deliberately prevents execution.
+
+## After archive verification: open the existing SageMaker space
+
+Use SageMaker AI in Oregon (`us-west-2`) -> Studio -> domain
+`QuickSetupDomain-20260902T115323` (`d-njhxv1erusdc`) -> profile
 `default-20260902T115323` -> Open Studio -> Launch personal Studio, when shown.
-Within Studio choose JupyterLab -> `otto-dev` -> Run space -> Open JupyterLab.
+Choose JupyterLab -> `otto-dev` -> Run space -> Open JupyterLab.
 
-The live preparation-time observation was a stopped JupyterLab app with an existing
-100 GB space and configured CPU `ml.m7i.2xlarge`, distribution image alias `4.4.2`.
-Do not recreate, delete or enlarge the space. This setup is sufficient for the bounded
-file-sync stage, subject to its actual free-space and identity checks; it is not a
-certification of full graph-building memory or a Python ML environment.
-Running the application incurs instance usage; stop it explicitly after this milestone.
+Earlier preparation observed a 100 GB persistent space with CPU `ml.m7i.2xlarge` and
+image alias `4.4.2`. This is a historical observation, not a new live resource check.
+Do not recreate, delete or enlarge the space. Restore checks actual free space and
+identity. This file-sync stage does not certify the ML environment or graph workload.
+Stop the application explicitly afterward; script timeout does not stop app billing.
 
-## 4. Restore and verify in the SageMaker terminal
+## Restore in the SageMaker terminal, not CloudShell
 
-In JupyterLab choose File -> New -> Terminal, then paste this complete block:
+Open a Terminal in JupyterLab and run this revised, hash-pinned block. Do not use the
+older unversioned helper command from a prior chat message.
 
 ```bash
 cd "$HOME"
@@ -108,77 +144,66 @@ cd "$HOME"
   helper="$(mktemp /tmp/otto-sync.XXXXXX)"
   trap 'rm -f -- "$helper"' EXIT
   aws s3 cp \
-    "s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/source/sync_otto_workspace.py" \
+    "s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/source/a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464/sync_otto_workspace.py" \
     "$helper" --region us-west-2 --only-show-errors
   printf '%s  %s\n' \
-    '411b81fb2aaf604622efa14747a96c074afaa06e1592c9eadc1729950f3a068a' "$helper" | sha256sum --check
+    'a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464' "$helper" | sha256sum --check
   python3 -u "$helper" restore --confirm-space otto-dev
 )
 ```
 
-Only the verified helper is temporarily downloaded; all recovered evidence is written
-to persistent home storage. The temporary helper is removed after execution and remains
-preserved in S3 and GitHub. No passwords or access keys need to be pasted anywhere.
-
-The helper restores the three archives under:
+Only that temporary helper is removed afterward. Recovered evidence is written to:
 
 ```text
 ~/otto-artifacts/manual-sync/af39235b19df/
 ```
 
-It locates an existing OTTO-named checkout in home, projects, SageMaker, or workspaces,
-or clones the public repository into `~/otto-recommender-system` if none exists there.
-It refuses multiple matching checkouts, unexpected origins, a non-main branch, untracked
-or modified files, ahead/diverged branches, or a GitHub main that does not contain this
-exact helper and the reviewed report. No stash, reset, clean, force push or deletion is
-performed. This bounded search does not certify every possible custom checkout path.
+The helper looks for one OTTO checkout in home, projects, SageMaker or workspaces; it
+clones into `~/otto-recommender-system` only when no matching checkout is found there.
+It stops on multiple checkouts, unexpected origins, a non-main branch, local changes,
+local commits ahead of GitHub, or a mismatch between this helper and GitHub main.
+It never resets, stashes, cleans or force-pushes existing work. Its bounded directory
+search does not cover every possible custom project path.
 
-Expected success: `AWS_GITHUB_WORKSPACE_SYNCED`. The saved receipt includes Git commit,
-tree, checkout path, archive hashes and extraction checks, plus an S3 receipt read-back.
-This is a verified snapshot, not a promise that later changes auto-synchronize.
+Expected success: `RESULT: AWS_GITHUB_WORKSPACE_SYNCED`. This certifies the three
+reviewed bundles and the published repository snapshot, not the full S3 bucket or later
+edits. Source equality remains required; it is not weakened to accept an old helper.
 
-## 5. Return the result and stop unused compute
+## Return the result and stop unused compute
 
-Use the JupyterLab file browser to download:
+Download `~/otto_workspace_sync/otto_workspace_sync_result.zip` using the JupyterLab
+file browser and return it for review. The script prints the exact absolute path.
+On `STOPPED_REVIEW_REQUIRED`, return the same ZIP instead of retrying unchanged. If a
+ZIP is not produced, return the visible terminal error. Do not paste access keys.
 
-```text
-~/otto_workspace_sync/otto_workspace_sync_result.zip
-```
+In the Studio tab choose Running instances, find `otto-dev` / JupyterLab, and Stop.
+Stop the app, not the space: deleting the space removes its stored files. Retained
+storage and S3 can still incur charges even when app compute is stopped.
 
-Attach it to ChatGPT for review. The script prints the exact absolute path. On any
-`STOPPED_REVIEW_REQUIRED`, return that same ZIP instead of repeating the failure. If no
-ZIP exists, return the visible terminal error. Do not change IAM or install packages.
+## Bounds, tests and scientific next step
 
-In the Studio tab choose Running instances, find `otto-dev` / JupyterLab, and choose
-Stop. Stop the app, **do not delete the space**. Files persist when the app is stopped;
-deleting the space destroys its storage. Retained storage/S3 can still incur charges.
+Each archive/restore invocation has a 280-second work alarm, 15-second heartbeats,
+64 AWS-call cap and 128 MiB transfer cap. Reporting follows the work phase. Git commands
+have their own timeouts. Restore requires at least 1 GiB free disk space. The script
+starts no background training jobs and does not stop the interactive app itself.
 
-## Bounds, tests and remaining work
+Offline tests exercise ZIP integrity, symlinks, path traversal, no-overwrite behavior,
+conditional writes and read-back, identity/budget gates, partial recovery, source-version
+coexistence, and local Git fixtures for clone, fast-forward and preservation. Fake S3
+and local Git tests do not certify live cloud permissions or full repository CI.
+The revision-specific external validation report records what actually ran and which
+checks remain pending; do not equate unit-test success with an all-green CI result.
 
-Each archive/restore process has a 280-second work alarm, 15-second heartbeats,
-64 AWS-call maximum and 128 MiB transfer maximum; reporting follows the work phase.
-Git operations have individual timeouts. Restore requires at least 1 GiB free.
-No training occurs and there are no background jobs started by this helper. These limits
-do not shut down the interactive SageMaker application: stopping it is the owner's step.
+After synchronization receipt review, the next research dependency is correct-cutoff
+graph preparation followed by the 256-query feature check with measured resource use.
+File synchronization is not approval to rescreen features, train full models or promote
+the challenger.
 
-Offline checks cover unsafe archive paths, checksum tampering, symlinks, no-overwrite
-behavior, conditional S3 writes/read-back, partial recovery, unchanged replay, identity
-and transfer gates, and actual local Git clone/fast-forward/preservation fixtures.
-Full repository CI is a separate, required owner-triggered check.
+## References
 
-After the synchronization receipt passes review, the scientific next step is a bounded
-correct-cutoff graph-dependency plan followed by 256-query feature reconstruction with
-measured memory/throughput. No full-data rebuild, ranker fit, feature rescreening, or
-promotion is authorized by a successful file synchronization.
-
-## Operational references
-
-- AWS CloudShell upload/download: https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html
-- GitHub browser upload and new branch: https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository
+- Failed PR job: https://github.com/alvaromendizabal/otto-recommender-system/actions/runs/34544773813/job/103094915619
+- Failed push job: https://github.com/alvaromendizabal/otto-recommender-system/actions/runs/34544750792/job/103094841521
+- GitHub browser upload: https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository
+- CloudShell files: https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html
 - Studio launch: https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-launch.html
-- JupyterLab space configuration: https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-jl-user-guide-configure-space.html
-- Stop app versus delete space: https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-running-stop.html
-- S3 conditional PutObject: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
-
-These document links explain service behavior. The user's AWS settings above were
-observed through read-only connector calls during preparation, not inferred from docs.
+- Stop versus delete: https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-running-stop.html
