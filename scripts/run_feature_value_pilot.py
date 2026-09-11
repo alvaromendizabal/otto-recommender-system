@@ -374,8 +374,8 @@ def run(repo: Path, scale: Path, corpus: Path, output: Path) -> dict[str, Any]:
             - aggregates[right]["weighted_recall_at_20"],
             "descriptive_95_interval": np.quantile(differences, [0.025, 0.975]).tolist(),
             "bootstrap_replicates": len(differences)}
-    idx = np.concatenate([fold["valid"] for fold in folds])
-    oracle = pooled(np.minimum(target[idx].sum(axis=1), 20), den)
+    evaluation_indices = np.concatenate([fold["valid"] for fold in folds])
+    oracle = pooled(np.minimum(target[evaluation_indices].sum(axis=1), 20), den)
     model_inventory = {
         str(path.relative_to(output)): sha(path)
         for path in sorted((output / "models").rglob("model.txt"))
