@@ -1,62 +1,37 @@
-# Manual OTTO workspace synchronization
+# OTTO workspace synchronization
 
-## Current milestone: correct the existing PR #42
+## PR #42 correction and current execution boundary
 
-The original upload is in `alvaromendizabal-patch-1`, targeting `main` in
-`alvaromendizabal/otto-recommender-system`. Do not open another pull request or commit
-this correction directly to `main`. Replace these three existing files on that branch:
+The owner has explicitly requested that the assistant handle the GitHub correction
+rather than requiring another manual package upload. Update the existing
+`alvaromendizabal-patch-1` branch, preserve the pull request, and merge only after
+its active quality, neural-contracts, notebooks and portfolio checks pass. Do not
+weaken the workflow or type-checking configuration. This permission does not launch
+AWS compute or imply that a stopped SageMaker workspace has already synchronized.
 
-```text
-scripts/sync_otto_workspace.py
-tests/test_workspace_sync.py
-docs/MANUAL_WORKSPACE_SYNC.md
-```
+### Diagnosed failures
 
-Leave the already uploaded
-`reports/research/shared_feature_confirmation_preflight.json` unchanged. The correction
-ZIP contains only the three replacements, not research data or a new result report.
+The first revision failed Ruff rules UP022 and UP036. The second revision corrected
+those findings and passed Ruff, but failed mypy with three diagnostics at lines
+509-511. In `Session.restore`, `receipt` first held the dictionary returned by
+`extract_verified` and was then reused for JSON bytes. The correction keeps that
+dictionary intact and uses a separately typed `receipt_bytes` value for hashing
+and S3 publication. No feature formula, model, dataset, workflow, or quality gate
+is changed.
 
-### What failed and what changed
+The existing 38 offline tests cover full restore/replay, immutable source versions,
+archive safety and preservation of local Git work. Passing those behavioral tests
+alone is not proof that the complete repository checks pass. The real GitHub run
+for the corrected commit remains the authority for Ruff, mypy and full-suite status.
 
-Both original quality jobs stopped at Ruff, with the same two findings:
+The helper hash and all commands below are updated together. Old source objects
+and the three reviewed bundle identities are preserved. Do not use a command from
+an older chat message that pins a different helper. Successful GitHub publication
+does not establish that the updated helper has been archived or executed in AWS.
 
-- `UP022`: replace the two subprocess pipe arguments with `capture_output=True`.
-- `UP036`: remove the obsolete lower-Python-version branch under the repository's
-  Python 3.13 lint target, together with its now-unused import.
-
-The original jobs passed notebook replay and 83 selected ranking/recovery tests before
-reaching that failure. The full quality pipeline did not complete. Passing behavioral
-tests alone is not a passing repository CI result. No lint rule, workflow, type-check
-configuration, or scientific gate has been disabled by this correction.
-
-The helper's bytes change when code is corrected. Its source and manifest are therefore
-stored under a SHA-256-specific path. Existing bundles retain their exact locations and
-identities; old helper/manifest objects are preserved instead of overwritten. The old
-SageMaker command using the unversioned source key is superseded by the command below.
-
-### Browser steps for this correction
-
-1. Extract the latest `otto_workspace_sync_package.zip` into a separate Windows folder
-   such as `OTTO_PR42`. Use this copy, not the earlier extracted package.
-2. Open `https://github.com/alvaromendizabal/otto-recommender-system/tree/alvaromendizabal-patch-1`.
-   Confirm the branch selector says `alvaromendizabal-patch-1`, not `main`.
-3. At the repository top level choose **Add file -> Upload files**. Drag the three
-   inner folders `scripts`, `tests`, and `docs` from the new extraction. Do not upload
-   the ZIP, its parent folder, or any recovered data ZIP.
-4. Confirm the three paths above. Commit with message
-   `Correct workspace sync checks and preserve archived helper versions`.
-   Choose **Commit directly to the alvaromendizabal-patch-1 branch**.
-5. Return to PR #42. The new commit updates the same pull request. Let its new checks
-   finish. Do not rerun the unchanged failed commit, bypass checks, or start SageMaker.
-6. Merge only after the new revision's quality, neural-contracts, notebooks and
-   portfolio checks pass. Use **Merge pull request -> Confirm merge**, then return the
-   PR link for the next milestone. If any active check fails, leave the PR open and
-   return that failure instead. The existing `publish-notebooks` job is conditional
-   on `results/` pushes; its skipped status here is not the Ruff failure.
-
-The next sections describe the later archive/restore milestone. Do not execute them
-until the corrected revision has passed CI and is merged. No successful archive or
-restore is asserted merely because this document exists.
+The later archive/restore instructions below are retained for the AWS milestone;
+they are not a request to repeat manual GitHub uploading. Execute no AWS stage
+until the corrected revision is green, merged, and its prerequisites are checked.
 
 ## Scope and evidence
 
@@ -85,7 +60,7 @@ renamed copy. Verify the helper before running it:
 ```bash
 cd "$HOME"
 printf '%s  %s\n' \
-  'a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464' \
+  'd5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686' \
   "$HOME/sync_otto_workspace.py" | sha256sum --check && \
 python3 -u "$HOME/sync_otto_workspace.py" archive
 ```
@@ -106,8 +81,8 @@ s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/
 Bundle keys remain under `bundles/`. The corrected helper uses these revision keys:
 
 ```text
-source/a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464/sync_otto_workspace.py
-source/a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464/manifest.json
+source/d5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686/sync_otto_workspace.py
+source/d5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686/manifest.json
 ```
 
 Objects use conditional creation and full-byte read-back verification. Existing
@@ -144,10 +119,10 @@ cd "$HOME"
   helper="$(mktemp /tmp/otto-sync.XXXXXX)"
   trap 'rm -f -- "$helper"' EXIT
   aws s3 cp \
-    "s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/source/a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464/sync_otto_workspace.py" \
+    "s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/source/d5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686/sync_otto_workspace.py" \
     "$helper" --region us-west-2 --only-show-errors
   printf '%s  %s\n' \
-    'a4c28c42977bec1245189bc2e199e3ceb58b96b4be8df974f9e3ae7a5a3ed464' "$helper" | sha256sum --check
+    'd5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686' "$helper" | sha256sum --check
   python3 -u "$helper" restore --confirm-space otto-dev
 )
 ```
@@ -201,7 +176,8 @@ the challenger.
 
 ## References
 
-- Failed PR job: https://github.com/alvaromendizabal/otto-recommender-system/actions/runs/34544773813/job/103094915619
+- Second-revision type-check failure: https://github.com/alvaromendizabal/otto-recommender-system/actions/runs/34547841699/job/103104192476
+- First-revision PR job: https://github.com/alvaromendizabal/otto-recommender-system/actions/runs/34544773813/job/103094915619
 - Failed push job: https://github.com/alvaromendizabal/otto-recommender-system/actions/runs/34544750792/job/103094841521
 - GitHub browser upload: https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository
 - CloudShell files: https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html

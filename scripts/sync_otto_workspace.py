@@ -506,9 +506,9 @@ class Session:
             "AWS app stopping is a separate owner action; this script does not stop the app.",
         ]
         self.save_report()
-        receipt = json_bytes(self.report)
-        key = f"{PREFIX}/receipts/{sha_bytes(receipt)}.json"
-        self.report["s3_sync_receipt"] = self.put(key, receipt)
+        receipt_bytes: bytes = json_bytes(self.report)
+        key = f"{PREFIX}/receipts/{sha_bytes(receipt_bytes)}.json"
+        self.report["s3_sync_receipt"] = self.put(key, receipt_bytes)
 
     def save_report(self) -> None:
         self.report["aws_calls"] = self.calls
