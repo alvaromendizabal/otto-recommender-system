@@ -1,0 +1,493 @@
+{
+  "arms": {
+    "baseline": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 102,
+      "fold_hits": [
+        [
+          104,
+          32,
+          18
+        ],
+        [
+          116,
+          29,
+          29
+        ]
+      ],
+      "fold_scores": [
+        0.3512402967051923,
+        0.645175009493895
+      ],
+      "hits": [
+        220,
+        61,
+        47
+      ],
+      "weighted_recall_at_20": 0.47057402671213416
+    },
+    "baseline_relative": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 114,
+      "fold_hits": [
+        [
+          104,
+          32,
+          19
+        ],
+        [
+          115,
+          28,
+          28
+        ]
+      ],
+      "fold_scores": [
+        0.3621493876142832,
+        0.6241421702722013
+      ],
+      "hits": [
+        219,
+        60,
+        47
+      ],
+      "weighted_recall_at_20": 0.4684112221963884
+    },
+    "shared": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 134,
+      "fold_hits": [
+        [
+          103,
+          34,
+          20
+        ],
+        [
+          116,
+          31,
+          28
+        ]
+      ],
+      "fold_scores": [
+        0.3797140762463343,
+        0.6377823226894435
+      ],
+      "hits": [
+        219,
+        65,
+        48
+      ],
+      "weighted_recall_at_20": 0.48473688289545064
+    },
+    "shared_relative": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 146,
+      "fold_hits": [
+        [
+          103,
+          34,
+          19
+        ],
+        [
+          126,
+          31,
+          29
+        ]
+      ],
+      "fold_scores": [
+        0.3688049853372434,
+        0.6580471219016111
+      ],
+      "hits": [
+        229,
+        65,
+        48
+      ],
+      "weighted_recall_at_20": 0.48675708491565267
+    },
+    "without_episode": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 128,
+      "fold_hits": [
+        [
+          105,
+          34,
+          19
+        ],
+        [
+          126,
+          30,
+          28
+        ]
+      ],
+      "fold_scores": [
+        0.36961143695014664,
+        0.6374191409795126
+      ],
+      "hits": [
+        231,
+        64,
+        47
+      ],
+      "weighted_recall_at_20": 0.47867860187553285
+    },
+    "without_funnel": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 123,
+      "fold_hits": [
+        [
+          109,
+          33,
+          18
+        ],
+        [
+          121,
+          32,
+          28
+        ]
+      ],
+      "fold_scores": [
+        0.35678583750215626,
+        0.6442183788933016
+      ],
+      "hits": [
+        230,
+        65,
+        46
+      ],
+      "weighted_recall_at_20": 0.47391562685680333
+    },
+    "without_graph_degree": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 132,
+      "fold_hits": [
+        [
+          104,
+          32,
+          20
+        ],
+        [
+          123,
+          30,
+          29
+        ]
+      ],
+      "fold_scores": [
+        0.37305847852337415,
+        0.6524207822969432
+      ],
+      "hits": [
+        227,
+        62,
+        49
+      ],
+      "weighted_recall_at_20": 0.48699243070087056
+    },
+    "without_graph_raw": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 131,
+      "fold_hits": [
+        [
+          104,
+          32,
+          20
+        ],
+        [
+          118,
+          30,
+          28
+        ]
+      ],
+      "fold_scores": [
+        0.37305847852337415,
+        0.6341802745827514
+      ],
+      "hits": [
+        222,
+        62,
+        48
+      ],
+      "weighted_recall_at_20": 0.47946059056033474
+    },
+    "without_graph_row": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "features": 124,
+      "fold_hits": [
+        [
+          108,
+          33,
+          21
+        ],
+        [
+          118,
+          31,
+          28
+        ]
+      ],
+      "fold_scores": [
+        0.3891098844229774,
+        0.6385920392886337
+      ],
+      "hits": [
+        226,
+        64,
+        49
+      ],
+      "weighted_recall_at_20": 0.4907119791263014
+    }
+  },
+  "candidate_oracle": {
+    "denominators": [
+      495,
+      153,
+      92
+    ],
+    "hits": [
+      314,
+      82,
+      63
+    ],
+    "interpretation": "Ceiling inside this fixed 400-candidate pool and fitting subset only; not a Kaggle score or bound on the competition test.",
+    "weighted_recall_at_20": 0.6350882223772248
+  },
+  "comparisons": {
+    "baseline_relative_minus_baseline": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.020000607287449394,
+        0.013983901645322068
+      ],
+      "difference": -0.002162804515745742,
+      "fold_differences": [
+        0.010909090909090924,
+        -0.021032839221693633
+      ]
+    },
+    "shared_minus_baseline": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.012740992203190606,
+        0.03999357434738235
+      ],
+      "difference": 0.014162856183316475,
+      "fold_differences": [
+        0.028473779541141997,
+        -0.007392686804451487
+      ]
+    },
+    "shared_minus_without_episode": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.006021744182940187,
+        0.021301175278294737
+      ],
+      "difference": 0.006058281019917788,
+      "fold_differences": [
+        0.010102639296187654,
+        0.00036318170993088206
+      ]
+    },
+    "shared_minus_without_funnel": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.006380684956617377,
+        0.02993294776175005
+      ],
+      "difference": 0.010821256038647309,
+      "fold_differences": [
+        0.022928238744178042,
+        -0.00643605620385812
+      ]
+    },
+    "shared_minus_without_graph_degree": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.020384750462760226,
+        0.0110054705267687
+      ],
+      "difference": -0.002255547805419922,
+      "fold_differences": [
+        0.006655597722960149,
+        -0.014638459607499765
+      ]
+    },
+    "shared_minus_without_graph_raw": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.0030365694434192074,
+        0.014982459755100139
+      ],
+      "difference": 0.005276292335115895,
+      "fold_differences": [
+        0.006655597722960149,
+        0.0036020481066920684
+      ]
+    },
+    "shared_minus_without_graph_row": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.01923763953862612,
+        0.0047507155936475825
+      ],
+      "difference": -0.0059750962308507405,
+      "fold_differences": [
+        -0.009395808176643095,
+        -0.0008097165991902688
+      ]
+    },
+    "shared_relative_minus_shared": {
+      "bootstrap_replicates": 1000,
+      "descriptive_95_interval": [
+        -0.015464826594041784,
+        0.022754411300655423
+      ],
+      "difference": 0.002020202020202033,
+      "fold_differences": [
+        -0.010909090909090924,
+        0.020264799212167617
+      ]
+    }
+  },
+  "decisions": {
+    "feature_engineering_complete": false,
+    "feature_retention_decisions": 0,
+    "frozen_shared": "Retain as a research challenger only; mixed temporal fold signs and uncertainty still include regression.",
+    "kaggle_submission_made": false,
+    "relative_on_baseline": "Do not expand this exact variant: negative pooled difference and mixed fold signs.",
+    "relative_on_shared": "Do not promote or expand automatically: small positive pooled difference but mixed fold signs and interval includes zero.",
+    "without_graph_row": "Candidate for a controlled larger fitting-only confirmation: positive point differences on both folds, but interval includes zero; no automatic removal."
+  },
+  "execution": {
+    "first_pass_seconds": 60.48971432299999,
+    "identical_replay_metrics": true,
+    "independent_arm_reports_checked": 18,
+    "independent_audit_at_utc": "2026-09-11T06:06:29.880760+00:00",
+    "independent_session_arm_entries_checked": 4608,
+    "native_model_reload_parity": true,
+    "new_models": 54,
+    "peak_rss_mib": 1390.67578125,
+    "replay_new_models": 0,
+    "verified_persisted_files": 131
+  },
+  "limitations": [
+    "Reused fitting data, retrospective query prefixes, one model seed and two dependent forward folds.",
+    "Training labels were censored at each fold cutoff; validation targets retain the original fitting-period horizon. This is not a deployment-faithful online backtest.",
+    "Only 92 pooled order-denominator units across the two validation folds; intervals are descriptive, unadjusted, and not evidence of a leaderboard record.",
+    "The earlier 3-fold OOF screen uses another validation protocol. Its 0.537570 score is not directly comparable with this temporal pilot.",
+    "Top-score objective remains open; neither more features nor this completed experiment certifies research completion."
+  ],
+  "new_feature_family": {
+    "availability": "fixed Aug-16 historical snapshot; label-blind; computed before negative sampling",
+    "features": 12,
+    "name": "candidate-relative historical demand",
+    "not_the_75_feature_family": "This does not implement rolling query-time as-of snapshots.",
+    "sources": [
+      "hist_clicks_h6",
+      "hist_carts_h72",
+      "hist_orders_h72",
+      "hist_carts_h168",
+      "hist_all_h336",
+      "hist_all_h1"
+    ],
+    "transforms": [
+      "tie-aware percentile among complete candidates; zero counts map to zero",
+      "count divided by total count of complete candidate pool; zero-total safe"
+    ]
+  },
+  "next_research": {
+    "bounded_question": "Can broader action-conditioned/multi-hop candidate retrieval recover missing targets efficiently, and does omitting row-normalized graph features remain helpful on a larger fitting-only cohort?",
+    "gate": "Candidate coverage plus latency/memory smoke before any large ranking run; keep selection/evaluation frozen until a protocol is committed.",
+    "reuse": "Reuse all 54 native models and saved feature matrices. Do not refit this pilot or rebuild certified graphs."
+  },
+  "primary_sources": {
+    "leaderboard": "https://www.kaggle.com/competitions/otto-recommender-system/leaderboard",
+    "metric": "https://www.kaggle.com/competitions/otto-recommender-system",
+    "winning_solution": "https://www.kaggle.com/competitions/otto-recommender-system/writeups/mrkmakr-1st-place-solution"
+  },
+  "protocol": {
+    "candidate_budget": 400,
+    "embargo_hours": 6,
+    "evaluation_access": false,
+    "folds": [
+      {
+        "cutoff_ms": 1660833898281,
+        "excluded_by_embargo": 109,
+        "full_horizon_positive_rows_removed": 10,
+        "latest_training_query_ms": 1660811769824,
+        "train_sessions": 403,
+        "validation_denominators": [
+          248,
+          85,
+          55
+        ],
+        "validation_sessions": 256
+      },
+      {
+        "cutoff_ms": 1660902807000,
+        "excluded_by_embargo": 69,
+        "full_horizon_positive_rows_removed": 14,
+        "latest_training_query_ms": 1660879269521,
+        "train_sessions": 699,
+        "validation_denominators": [
+          247,
+          68,
+          37
+        ],
+        "validation_sessions": 256
+      }
+    ],
+    "history_end_ms": 1660687200000,
+    "model_seed": 20260911,
+    "num_leaves": 15,
+    "role": "fit",
+    "rounds": 150,
+    "selection_access": false,
+    "source_sessions": 1024,
+    "training_targets_censored_before_negative_sampling": true,
+    "validation_sessions": 512
+  },
+  "schema_version": 1,
+  "source": {
+    "commit": "b9f53c29297a6df08cbeabf6890e0736047f9acf",
+    "independent_audit_s3": "s3://otto-recsys-560403859723-us-west-2/ranking/research/feature-value-pilot/b9f53c29297a/independent_metric_audit.json",
+    "result_s3": "s3://otto-recsys-560403859723-us-west-2/ranking/research/feature-value-pilot/b9f53c29297a/output/result.json",
+    "result_sha256": "b6a4f9494c3dc7be5942524928675694cdacc0200e7c30d754811444f21b6d03",
+    "result_version_id": "TYI5eax3wlTjAflWR8bJvMQb2vlHaV7H"
+  },
+  "status": "FITTING_FEATURE_VALUE_PILOT_PASSED"
+}

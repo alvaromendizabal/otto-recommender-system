@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "notebook": "notebooks/research/feature_value_pilot.ipynb",
+  "notebook_sha256": "983716b494dd4953cf7e09358e060983c657d9b225eb8f6aba4363540e96f3c6",
+  "evidence_sha256": "db38587e9bba57b4fd28990a79f768b9c77120a52509827eee14bb2ae2274341",
+  "code_cells": 4,
+  "model_fits": 0,
+  "execution_scope": "Analysis replay of authentic AWS measurements; no training in notebook."
+}
