@@ -33,5 +33,10 @@
     "retention_decisions": 0
   },
   "model_fits": 0,
-  "next_gate": "Only after this passes: preregister a bounded fitting-only supervised screen/add-drop comparison; selection remains frozen."
+  "next_gate": "Only after this passes: preregister a bounded fitting-only supervised screen/add-drop comparison; selection remains frozen.",
+  "artifacts": {
+    "parts": "four complete 256-session Parquet partitions with all 134 features, candidate identity/position, and three fitting targets",
+    "query_ledger": "1,024 rows with pooled Recall@20 denominators by objective",
+    "cache_validation": "every staged source cache part must match its certified manifest SHA-256"
+  }
 }
