@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_not_executed",
+  "role": "fit",
+  "selection_access": false,
+  "sessions": 256,
+  "cohort_seed": 20260911,
+  "arms": {
+    "baseline_400": {"budget": 400, "hops": 1},
+    "wide_onehop_800": {"budget": 800, "hops": 1},
+    "wide_onehop_1200": {"budget": 1200, "hops": 1},
+    "wide_twohop_800": {"budget": 800, "hops": 2},
+    "wide_twohop_1200": {"budget": 1200, "hops": 2}
+  },
+  "twohop_bridge_per_source": 64,
+  "rrf_k": 20.0,
+  "minimum_weighted_ceiling_gain": 0.005,
+  "model_fits": 0,
+  "advance_rule": "Best expanded frontier must improve fitting-only weighted candidate ceiling by at least +0.005 versus exact baseline_400; objective ceilings cannot decline because baseline candidates are nested.",
+  "next_gate": "If passed, repeat unchanged on the frozen 1,024 fitting sessions before source-feature materialization or ranking."
+}
