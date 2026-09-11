@@ -18,6 +18,7 @@ from otto_recsys.research.candidate_frontier import (
     source_ranks,
 )
 
+
 @dataclass
 class PrefixFixture:
     session: int
