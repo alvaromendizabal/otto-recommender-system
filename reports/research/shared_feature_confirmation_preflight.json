@@ -1,0 +1,86 @@
+{
+  "challenger_promoted": false,
+  "collector_observation": {
+    "aws_read_calls": 16,
+    "aws_resources_modified": false,
+    "downloaded_bytes_this_run": 27092677,
+    "elapsed_seconds": 10.915,
+    "finished_at_utc": "2026-09-10T23:06:39+00:00",
+    "github_updated": false,
+    "model_fits": 0,
+    "new_jobs_launched": 0,
+    "started_at_utc": "2026-09-10T23:06:28+00:00"
+  },
+  "feature_reconstruction_run": false,
+  "feature_research_gate": "OPEN",
+  "frozen_configuration_changed": false,
+  "graph_contract_findings": [
+    {
+      "contract_sha256": "23a8f391804d86bec4031cf23571219a6768b05b1938af3c396011adba24c36c",
+      "direction": "symmetric",
+      "history_end_ms": 1661032800000,
+      "history_end_utc": "2022-08-20T22:00:00Z",
+      "history_sha256": "e02868ba218685e041bf4850cd3369ced1b994eb3baa872e0f700bf967549699",
+      "required_early_history_end_utc": "2022-08-16T22:00:00Z",
+      "status": "REJECTED_FOR_EARLY_WINDOW"
+    },
+    {
+      "contract_sha256": "dc89a040d7a118269e41414b26e0cf86d7379c1dc61b6cb3cdedd73d15ccb476",
+      "direction": "forward",
+      "history_end_ms": 1661032800000,
+      "history_end_utc": "2022-08-20T22:00:00Z",
+      "history_sha256": "e02868ba218685e041bf4850cd3369ced1b994eb3baa872e0f700bf967549699",
+      "required_early_history_end_utc": "2022-08-16T22:00:00Z",
+      "status": "REJECTED_FOR_EARLY_WINDOW"
+    }
+  ],
+  "graph_search_scope": "Only these project namespaces and explicitly relevant child directories were checked. No account-wide absence claim.",
+  "next_scientific_step": "After workspace synchronization, resolve or construct only required early-cutoff graph dependencies under a measured partition budget; then audit 256 whole fitting and 256 selection queries. No ranker fitting now.",
+  "reviewed_at_utc": "2026-09-10T23:22:12.432683+00:00",
+  "schema_version": 1,
+  "source_bundle_filename": "otto_shared_feature_smoke_inputs_bundle.zip",
+  "source_bundle_sha256": "af39235b19dfd9226268e0236ce52b8cd4bc565f7fc0d1925a022b74349a9ae7",
+  "source_repository_commit_reviewed": "3ca82ee93a34270ffef82cccb6784afefdf2f4bb",
+  "status": "INPUT_COLLECTION_VERIFIED_EARLY_WIDE_GRAPHS_NOT_CERTIFIED",
+  "synchronization": {
+    "github_public_content": "Synchronization helper, offline tests, methodology/status review and instructions only",
+    "not_in_scope": "Account-wide backup, remote uncommitted files, full corpus replication, ML environment installation, new graphs or training",
+    "private_archive_uri": "s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/",
+    "private_evidence": "Three reviewed ZIPs and their exact source scripts, models and sample data stay in private S3 and outside the Git checkout",
+    "proof_of_completion": "Owner-run restore receipt must report AWS_GITHUB_WORKSPACE_SYNCED; package preparation is not proof of remote synchronization",
+    "state_at_package_preparation": "OWNER_EXECUTION_PENDING",
+    "workspace": "otto-dev"
+  },
+  "verification": {
+    "all_three_bundle_manifest_files_verified": 162,
+    "archive_checks": [
+      {
+        "bytes": 6731874,
+        "folder": "otto_manual_recovery",
+        "label": "recovery",
+        "manifest_files_verified": 102,
+        "name": "otto_recovery_bundle.zip",
+        "sha256": "ee9ed3727c0eca4e96705636c687a01a6703c03e768f3dc454c2a1ed2a244c69"
+      },
+      {
+        "bytes": 11418845,
+        "folder": "otto_confirmation_preflight",
+        "label": "preflight",
+        "manifest_files_verified": 43,
+        "name": "otto_confirmation_preflight_bundle.zip",
+        "sha256": "df42a2a5460d094c0fe042b59521b9a75be824843db1e2c7d91f84c381eb1856"
+      },
+      {
+        "bytes": 27322879,
+        "folder": "otto_shared_feature_smoke_inputs",
+        "label": "smoke_inputs",
+        "manifest_files_verified": 17,
+        "name": "otto_shared_feature_smoke_inputs_bundle.zip",
+        "sha256": "af39235b19dfd9226268e0236ce52b8cd4bc565f7fc0d1925a022b74349a9ae7"
+      }
+    ],
+    "latest_manifest_files_verified": 17,
+    "row_level_prefix_and_target_reconstruction_performed_this_review": false,
+    "scope": "Archive membership and SHA-256; collected graph contracts, not full graph data"
+  }
+}
