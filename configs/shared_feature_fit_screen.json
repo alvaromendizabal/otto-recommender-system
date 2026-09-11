@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_not_executed",
+  "role": "fit",
+  "selection_access": false,
+  "sessions": 1024,
+  "folds": 3,
+  "fold_seed": 20260911,
+  "candidate_budget": 400,
+  "negative_budget": 60,
+  "candidate_seed": 20260908,
+  "arms": [
+    "baseline",
+    "shared"
+  ],
+  "baseline_features": 102,
+  "shared_features": 134,
+  "model": {
+    "type": "LightGBM LambdaRank",
+    "rounds": 75,
+    "threads": 4,
+    "model_seed": 20260911,
+    "num_leaves": 31,
+    "learning_rate": 0.05,
+    "min_data_in_leaf": 100,
+    "lambdarank_truncation_level": 25,
+    "early_stopping": false
+  },
+  "rounds": 75,
+  "threads": 4,
+  "model_seed": 20260911,
+  "bootstrap_seed": 20260911,
+  "bootstrap_replicates": 1000,
+  "minimum_weighted_gain": 0.001,
+  "minimum_nonnegative_folds": 2,
+  "advance_rule": "Pooled shared-baseline weighted Recall@20 gain >=0.001, orders recall does not decline, and shared weighted gain is nonnegative in at least 2 of 3 whole-session folds.",
+  "next_gate": "If passed, fitting-only leave-one-block-out ablation on identical folds/artifacts; selection remains frozen."
+}
