@@ -147,7 +147,9 @@ class TransformTests(unittest.TestCase):
 
     def test_candidate_mass_sums_to_one_when_supported(self) -> None:
         names = module.feature_names()
-        matrix = module.transform(snapshot(), np.array([10, 20, 30], dtype=np.int64), query_ts=10_500_000)
+        matrix = module.transform(
+            snapshot(), np.array([10, 20, 30], dtype=np.int64), query_ts=10_500_000
+        )
         for action in module.ACTIONS:
             for hours in module.WINDOW_HOURS:
                 col = names.index(f"asof_{action}_h{hours}_candidate_mass_share")
@@ -163,13 +165,17 @@ class TransformTests(unittest.TestCase):
 
     def test_percentile_delta_detects_rank_change(self) -> None:
         names = module.feature_names()
-        matrix = module.transform(snapshot(), np.array([10, 20, 30], dtype=np.int64), query_ts=10_500_000)
+        matrix = module.transform(
+            snapshot(), np.array([10, 20, 30], dtype=np.int64), query_ts=10_500_000
+        )
         col = names.index("asof_clicks_percentile_delta_h1_h24")
         self.assertTrue(np.isfinite(matrix[:, col]).all())
 
     def test_action_mix_sums_to_one(self) -> None:
         names = module.feature_names()
-        matrix = module.transform(snapshot(), np.array([10, 20, 30, 99], dtype=np.int64), query_ts=10_500_000)
+        matrix = module.transform(
+            snapshot(), np.array([10, 20, 30, 99], dtype=np.int64), query_ts=10_500_000
+        )
         for hours in module.MIX_WINDOWS:
             cols = [names.index(f"asof_action_mix_{action}_h{hours}") for action in module.ACTIONS]
             np.testing.assert_allclose(matrix[:, cols].sum(axis=1), 1, atol=1e-6)
