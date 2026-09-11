@@ -215,7 +215,7 @@ def feature_matrix(
     baseline_names: tuple[str, ...],
     added_names: tuple[str, ...],
     added_indices: list[int] | None,
-) -> tuple[Any, np.ndarray, np.ndarray, list[int]]:
+) -> tuple[Any, np.ndarray, tuple[str, ...], list[int]]:
     candidates = engine.candidates(prefix, CANDIDATE_BUDGET)
     base = engine.transform(prefix, candidates, baseline_names).astype(np.float32)
     domain, domain_names = domain_matrix(graphs, prefix, candidates.aid)
