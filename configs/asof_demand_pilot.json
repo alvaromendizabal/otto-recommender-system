@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "family": "asof_demand",
+  "status": "implemented_not_screened",
+  "research_question": "Do strictly historical, query-time demand/support and candidate-relative demand ranks add stable ranking signal beyond fixed-cutoff popularity, retrieval-source ranks, and the frozen 32-feature domain addition?",
+  "availability": {
+    "snapshot_rule": "All counts and last-event timestamps must come from events with ts < snapshot.cutoff_ts; snapshot.cutoff_ts must be <= query_ts.",
+    "candidate_normalization": "Candidate-relative percentiles and mass shares are computed across the complete candidate set before any target-dependent fitting-negative subsampling.",
+    "labels": "No future suffix labels are accepted by the feature transform.",
+    "semantics": "Action-mix statistics are descriptive intensities, not causal conversion rates."
+  },
+  "candidate_features": {
+    "count": 75,
+    "windows_hours": [1, 6, 24, 72, 168],
+    "trend_pairs_hours": [[1, 24], [6, 24], [24, 168]],
+    "mix_windows_hours": [24, 168],
+    "groups": [
+      "action/window log counts",
+      "tie-aware within-query candidate demand percentiles",
+      "within-query candidate demand mass shares",
+      "short-vs-long per-hour log-rate drift",
+      "short-vs-long candidate percentile deltas",
+      "support-smoothed action mix",
+      "action-specific last-seen availability and age"
+    ]
+  },
+  "screening": {
+    "data": "fitting role only",
+    "required_temporal_windows": ["early", "reference"],
+    "grouping": "session",
+    "official_metric": "pooled weighted Recall@20: 0.1 clicks + 0.3 carts + 0.6 orders",
+    "pre_screen": [
+      "finite/nonconstant checks on fitting data",
+      "support prevalence and zero-rate report",
+      "correlation/redundancy diagnostics against frozen baseline and shared features"
+    ],
+    "model_screen": "Add/drop family comparison with fixed candidates, fitting negatives, model capacity and seeds.",
+    "retain_rule": "Retain only features/family with positive fitting-only evidence that survives a second temporal fitting fold/window; no selection/evaluation label-driven formula changes.",
+    "stop_rule": "Stop on leakage/cutoff mismatch, duplicate information with no incremental evidence, unstable sign across fitting folds, or measured construction cost incompatible with bounded confirmation."
+  },
+  "bounded_execution": {
+    "stage_1": "tiny deterministic fixture and 256-query smoke",
+    "stage_2": "fitting-only screening on cached candidates",
+    "stage_3": "family add/drop ablation",
+    "stage_4": "temporal stability before any promotion",
+    "no_gpu_required_for_initial_stages": true
+  },
+  "research_sources": [
+    {"title": "OTTO dataset and competition task", "url": "https://github.com/otto-de/recsys-dataset"},
+    {"title": "First-place OTTO solution implementation", "url": "https://github.com/mrkmakr/OTTO-Multi-Objective-Recommender-System"},
+    {"title": "Third-place OTTO solution", "url": "https://github.com/TheoViel/kaggle_otto_rs"},
+    {"title": "Public OTTO feature-engineering solution describing item/session/hour statistics and ranks", "url": "https://github.com/nlztrk/OTTO-Multi-Objective-Recommender-System"}
+  ],
+  "decision": "Implementation only. No feature value, temporal stability, or competition-score improvement is claimed until fitting-only screening and explicit ablation complete."
+}
