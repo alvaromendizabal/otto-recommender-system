@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "EARLY_SHARED_FEATURE_SCALE_PASSED",
+  "executed_at_utc": {
+    "started": "2026-09-11T05:18:53Z",
+    "finished": "2026-09-11T05:20:44Z"
+  },
+  "source": {
+    "github_commit": "29439ec2c3e18e524762129323a1a1cdb2189fcb",
+    "post_merge_ci_run": 34564900791,
+    "post_merge_ci_conclusion": "success",
+    "s3_prefix": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-feature-confirmation/early-scale-29439ec2/"
+  },
+  "protocol": {
+    "role": "fit",
+    "selection_access": false,
+    "cohort_seed": 20260911,
+    "sessions": 1024,
+    "candidate_budget": 400,
+    "candidate_rows": 409600,
+    "baseline_features": 102,
+    "added_features": 32,
+    "total_features": 134,
+    "model_fits": 0,
+    "feature_retention_decisions": 0
+  },
+  "graphs": {
+    "symmetric": {
+      "input_id": "8dd68657bf29f5c5a70cd3255eebeebb0a60063c370e6270241bd82c8db47814",
+      "history_end": 1660687200000,
+      "observed_history_max_ts": 1660687199973
+    },
+    "forward": {
+      "input_id": "593ea0ad5f521067aacaf1cebb569a9ed11b2e84816d1f86da2293ec9cfce70c",
+      "history_end": 1660687200000,
+      "observed_history_max_ts": 1660687199973
+    }
+  },
+  "outputs": {
+    "parts": [
+      {"part": "fit_complete_part-0000.parquet", "sessions": 256, "rows": 102400, "sha256": "b0a8c5497f4fce3bf885392d9c3635136901a5d5726450563d83f454df0aa046"},
+      {"part": "fit_complete_part-0001.parquet", "sessions": 256, "rows": 102400, "sha256": "35ce5a415ef5b0f78bc719784052c065c1e4887b4f66a2170009c429873961a6"},
+      {"part": "fit_complete_part-0002.parquet", "sessions": 256, "rows": 102400, "sha256": "b01db42d0c0a2e1bcceff8764e8a756881d9e0680abfa9fd9aa8b8d81fe2404d"},
+      {"part": "fit_complete_part-0003.parquet", "sessions": 256, "rows": 102400, "sha256": "a001ca2ecce8dba4515000f7b10fbff99179a5cbc08705a5e6eb62c9fe172221"}
+    ],
+    "query_ledger": {"rows": 1024, "sha256": "2bfe3218acc8810aa0a2e5b61a4fc9d4187b0db7613652cd0c0c0c955b7d3e72"},
+    "diagnostics_sha256": "9712580df5c1b350bf72ad843fc111700e019fe36c10d9f28e03034207d7fbfb"
+  },
+  "pooled_denominators": [987, 340, 168],
+  "diagnostics": {
+    "added_constant_features": 0,
+    "added_near_duplicate_with_baseline_at_abs_corr_0_995": 1,
+    "near_duplicate_added_pairs_at_abs_corr_0_995": 0,
+    "minimum_added_session_nonzero_share": 0.060546875,
+    "near_duplicate_baseline_feature": "domain_funnel_full_count_share",
+    "near_duplicate_baseline_feature_max_abs_corr": 0.9995758535642043,
+    "lowest_session_support_feature": "domain_funnel_transition_1_0_mean_gap_log_hours",
+    "lowest_session_support": 0.060546875,
+    "interpretation": "Unsupervised fitting-only diagnostics only; no feature was retained or removed from these flags."
+  },
+  "performance": {
+    "feature_seconds": 29.071243302000028,
+    "replay_seconds": 22.043951247999985,
+    "elapsed_seconds": 98.43711639300003,
+    "peak_rss_mib": 8029.89453125,
+    "deterministic_full_replay": true
+  },
+  "limitations": [
+    "No ranker was fitted and no Recall@20 score was produced by this scale gate.",
+    "The Aug-16 window is development temporal replication, not a new untouched holdout.",
+    "The 0.995 correlation and support thresholds are engineering diagnostics, not automatic feature-selection rules.",
+    "The separate 75-feature as-of demand/support family remains untested on real fitting data."
+  ],
+  "decision": {
+    "advance": true,
+    "next_gate": "Preregister a bounded fitting-only supervised baseline-vs-shared comparison on these fixed artifacts. Keep candidate policy, fitting-negative sampling, model capacity and seeds fixed; do not access selection. If the shared signal does not survive fitting-only folds, diagnose before any selection replication."
+  }
+}
