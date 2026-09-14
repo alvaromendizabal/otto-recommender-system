@@ -1,0 +1,325 @@
+{
+  "added_features": 24,
+  "algorithm_search": false,
+  "arms": {
+    "control_shared": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    },
+    "ordered_funnel": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        986,
+        220,
+        218
+      ],
+      "recall": {
+        "carts": 0.3832752613240418,
+        "clicks": 0.4982314300151592,
+        "orders": 0.6707692307692308
+      },
+      "weighted_recall_at_20": 0.5672672598602669
+    },
+    "unordered_funnel_ablation": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        977,
+        224,
+        217
+      ],
+      "recall": {
+        "carts": 0.3902439024390244,
+        "clicks": 0.49368367862556845,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5670569232096487
+    }
+  },
+  "candidate_coverage_sha256": "f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38",
+  "comparisons": {
+    "ordered_funnel_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.013233281343756158,
+        0.008299863254998202
+      ],
+      "fold_gains": [
+        -0.006130920799193196,
+        0.0021263201193207903
+      ],
+      "gain": -0.001963974452198314,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -7,
+        "clicks": -3,
+        "orders": 1
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.003076923076923088,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0036585365853658534,
+        "clicks": -0.00015159171298635677,
+        "orders": 0.0018461538461538461
+      }
+    },
+    "ordered_funnel_minus_unordered_funnel_ablation": {
+      "decision": "UNSTABLE_DO_NOT_PROMOTE",
+      "descriptive_95_interval": [
+        -0.00879583001786156,
+        0.008497102904949
+      ],
+      "fold_gains": [
+        0.0007092198581559739,
+        -0.00042040658671815834
+      ],
+      "gain": 0.0002103366506182036,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -4,
+        "clicks": 9,
+        "orders": 1
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.003076923076923088,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0020905923344947735,
+        "clicks": 0.0004547751389590703,
+        "orders": 0.0018461538461538461
+      }
+    },
+    "unordered_funnel_ablation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.012943308069948874,
+        0.008102620632138617
+      ],
+      "fold_gains": [
+        -0.00684014065734917,
+        0.0025467267060389487
+      ],
+      "gain": -0.0021743111028165174,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -3,
+        "clicks": -12,
+        "orders": 0
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.0,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0015679442508710801,
+        "clicks": -0.0006063668519454271,
+        "orders": 0.0
+      }
+    }
+  },
+  "competition_test_access": false,
+  "context_diagnostics_sha256": "b4b8ae37b6a5a9ee6eaac48d1c137c85cd23555cbd744c6bdbd0a146fcff90a0",
+  "control_features": 134,
+  "control_models_refit": 0,
+  "control_prediction_replay_exact": true,
+  "control_recipe_unchanged": true,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "features_committed_before_label_access": true,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        494,
+        113,
+        104
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.5005065856129686,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5385788577367362
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        495,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49899193548387094,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6015890131627349
+    },
+    {
+      "arm": "ordered_funnel",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        495,
+        114,
+        102
+      ],
+      "recall": {
+        "carts": 0.3787375415282392,
+        "clicks": 0.5015197568389058,
+        "orders": 0.6144578313253012
+      },
+      "weighted_recall_at_20": 0.532447936937543
+    },
+    {
+      "arm": "unordered_funnel_ablation",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        488,
+        114,
+        102
+      ],
+      "recall": {
+        "carts": 0.3787375415282392,
+        "clicks": 0.49442755825734547,
+        "orders": 0.6144578313253012
+      },
+      "weighted_recall_at_20": 0.531738717079387
+    },
+    {
+      "arm": "ordered_funnel",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        491,
+        106,
+        116
+      ],
+      "recall": {
+        "carts": 0.3882783882783883,
+        "clicks": 0.4949596774193548,
+        "orders": 0.7295597484276729
+      },
+      "weighted_recall_at_20": 0.6037153332820557
+    },
+    {
+      "arm": "unordered_funnel_ablation",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        489,
+        110,
+        115
+      ],
+      "recall": {
+        "carts": 0.40293040293040294,
+        "clicks": 0.49294354838709675,
+        "orders": 0.7232704402515723
+      },
+      "weighted_recall_at_20": 0.6041357398687739
+    }
+  ],
+  "historical_source_cutoff_ms": 1660687200000,
+  "limitations": [
+    "Reused Round02 fitting cohort; adaptive exploration, not independent validation.",
+    "Pending Round09 and predeclared Round10 independently compare with the immutable 134-feature control.",
+    "All original study sessions excluded from certified retained historical tails; source not full raw sessions.",
+    "64 recent matching sessions per anchor; retained-tail source and selected-neighbor funnel ratios are not population conversion probabilities.",
+    "Candidate pool frozen at400. Candidate expansion is not tested or applied.",
+    "All target-aware diagnostics use censored training targets only; no automatic feature filtering.",
+    "Model capacity and data scale held fixed to isolate features; not proved optimal.",
+    "Intervals are descriptive and do not adjust for adaptive hypothesis selection or temporal dependence.",
+    "No Kaggle submission, achieved leaderboard score or automatic feature promotion."
+  ],
+  "model_count": 12,
+  "model_inventory": {
+    "models/fold-0/ordered_funnel/carts/model.txt": "c3c749330ff03186ee341904759f4a9c4fe382bfacb0f1f3f9c0e9c166c2e607",
+    "models/fold-0/ordered_funnel/clicks/model.txt": "331ff2592c442452aa0eab81ee9d4b780dc6e07c9f0df2a8ea4bab36cbf21bf5",
+    "models/fold-0/ordered_funnel/orders/model.txt": "8b6de03acf986854123670014f47d5b9aca2509c03691d12f5d754bfea8ffe4c",
+    "models/fold-0/unordered_funnel_ablation/carts/model.txt": "cb719326ef7a0604715c19394e71e2decbda90239f686cca668c9ba4b445bad1",
+    "models/fold-0/unordered_funnel_ablation/clicks/model.txt": "d886eb899495f43dab986ff5506bca5c3d38c72f982e6227d81e18d039ecc8b6",
+    "models/fold-0/unordered_funnel_ablation/orders/model.txt": "31927e5d1d8de6d78f11840b9a2903d75e33a18f9db86ced38c0b8b9a94ba414",
+    "models/fold-1/ordered_funnel/carts/model.txt": "53d583fad43c673be61c20b4fe2f9c195883d29e8de8e37067fa99f3af241e1f",
+    "models/fold-1/ordered_funnel/clicks/model.txt": "9b662efe2c7ae13c9b59d705de1eb1f071d1d1a7c7eb5e77572692a709188945",
+    "models/fold-1/ordered_funnel/orders/model.txt": "1286dfec2c18ac9c6818602efceff8e8be7e1f180feab0f4e58d0f5787b1d283",
+    "models/fold-1/unordered_funnel_ablation/carts/model.txt": "f197aac1c4b77e5813941d03980b87faefad920f4cae067986e6d203c5b74997",
+    "models/fold-1/unordered_funnel_ablation/clicks/model.txt": "dd88758c1075c9c14b12c4a75e26bcb0b8b267537aa600a313b896f32d647f24",
+    "models/fold-1/unordered_funnel_ablation/orders/model.txt": "1141750e480ecfc6e1eca266a59b096ca3543c97ab8daf362616d3b14cf32ce4"
+  },
+  "native_reload_prediction_parity": true,
+  "new_indices": 0,
+  "old_graphs_rebuilt": 0,
+  "original_graph_rebuilds": 0,
+  "positive_support_sha256": "34e724a3330d091b62271b59fc559ae60a54c1233bcb296ac5eee4bae33041b8",
+  "primary_comparison": "ordered_funnel_minus_control_shared",
+  "round02_timing_included": false,
+  "round03_mass_included": false,
+  "secondary_comparisons_are_not_advancement_gates": true,
+  "selection_access": false,
+  "sessions": 4096,
+  "shared_historical_cache_reused": true,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "statistics_sha256": "e0e92d7ea66e9237f255d0f29afa8867d0d85a753d4f214cee0f46fac2a14ee7",
+  "status": "ROUND10_SCREEN_COMPLETED",
+  "validation_sessions": 2048
+}

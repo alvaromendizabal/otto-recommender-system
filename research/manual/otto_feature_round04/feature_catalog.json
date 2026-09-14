@@ -1,0 +1,677 @@
+[
+  {
+    "name": "asof_clicks_h1_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h1 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h1_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h1 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h1_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h1 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h6_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h6 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h6_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h6 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h6_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h6 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h24_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h24 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h24_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h24 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h24_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h24 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h72_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h72 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h72_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h72 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h72_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h72 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h168_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h168 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h168_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h168 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_h168_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks h168 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_last_seen",
+    "family": "seen_and_recency",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks last seen",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_last_age_log_hours",
+    "family": "seen_and_recency",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks last age log hours",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_trend_h1_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks trend h1 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_percentile_delta_h1_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks percentile delta h1 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_trend_h6_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks trend h6 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_percentile_delta_h6_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks percentile delta h6 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_trend_h24_h168",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks trend h24 h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_clicks_percentile_delta_h24_h168",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "clicks percentile delta h24 h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h1_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h1 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h1_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h1 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h1_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h1 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h6_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h6 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h6_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h6 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h6_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h6 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h24_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h24 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h24_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h24 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h24_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h24 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h72_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h72 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h72_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h72 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h72_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h72 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h168_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h168 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h168_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h168 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_h168_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts h168 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_last_seen",
+    "family": "seen_and_recency",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts last seen",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_last_age_log_hours",
+    "family": "seen_and_recency",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts last age log hours",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_trend_h1_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts trend h1 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_percentile_delta_h1_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts percentile delta h1 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_trend_h6_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts trend h6 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_percentile_delta_h6_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts percentile delta h6 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_trend_h24_h168",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts trend h24 h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_carts_percentile_delta_h24_h168",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "carts percentile delta h24 h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h1_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h1 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h1_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h1 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h1_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h1 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h6_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h6 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h6_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h6 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h6_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h6 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h24_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h24 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h24_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h24 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h24_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h24 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h72_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h72 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h72_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h72 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h72_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h72 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h168_log_count",
+    "family": "action_count",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h168 log count",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h168_candidate_percentile",
+    "family": "within_candidate_rank",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h168 candidate percentile",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_h168_candidate_mass_share",
+    "family": "within_candidate_mass",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders h168 candidate mass share",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_last_seen",
+    "family": "seen_and_recency",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders last seen",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_last_age_log_hours",
+    "family": "seen_and_recency",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders last age log hours",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_trend_h1_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders trend h1 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_percentile_delta_h1_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders percentile delta h1 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_trend_h6_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders trend h6 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_percentile_delta_h6_h24",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders percentile delta h6 h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_trend_h24_h168",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders trend h24 h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_orders_percentile_delta_h24_h168",
+    "family": "demand_drift",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "orders percentile delta h24 h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_action_mix_clicks_h24",
+    "family": "descriptive_action_mix",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "action mix clicks h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_action_mix_carts_h24",
+    "family": "descriptive_action_mix",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "action mix carts h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_action_mix_orders_h24",
+    "family": "descriptive_action_mix",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "action mix orders h24",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_action_mix_clicks_h168",
+    "family": "descriptive_action_mix",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "action mix clicks h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_action_mix_carts_h168",
+    "family": "descriptive_action_mix",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "action mix carts h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  },
+  {
+    "name": "asof_action_mix_orders_h168",
+    "family": "descriptive_action_mix",
+    "dtype": "float32",
+    "availability": "Other raw TRAIN sessions only; excludes all 5120 study sessions; timestamps strictly before hourly or static cutoff.",
+    "definition": "action mix orders h168",
+    "evidence": "unexecuted hypothesis; identical formulas in rolling and static arms",
+    "leakage_controls": "No targets in aggregation. Full candidate set for relative features. Full-catalogue prior."
+  }
+]

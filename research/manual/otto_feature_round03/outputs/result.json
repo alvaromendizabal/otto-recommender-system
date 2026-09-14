@@ -1,0 +1,311 @@
+{
+  "added_features": 36,
+  "algorithm_search": false,
+  "arms": {
+    "control_shared": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    },
+    "mass_missing_aware": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        974,
+        233,
+        213
+      ],
+      "recall": {
+        "carts": 0.4059233449477352,
+        "clicks": 0.4921677614957049,
+        "orders": 0.6553846153846153
+      },
+      "weighted_recall_at_20": 0.5642245488646602
+    },
+    "mass_zero_ablation": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        978,
+        226,
+        211
+      ],
+      "recall": {
+        "carts": 0.39372822299651566,
+        "clicks": 0.494188984335523,
+        "orders": 0.6492307692307693
+      },
+      "weighted_recall_at_20": 0.5570758268709686
+    }
+  },
+  "comparisons": {
+    "mass_missing_aware_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.016389299388084727,
+        0.005153042732649956
+      ],
+      "fold_gains": [
+        -0.016196744282566122,
+        0.006667062395912082
+      ],
+      "gain": -0.005006685447805026,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": 6,
+        "clicks": -15,
+        "orders": -4
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.012307692307692353,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": 0.0031358885017421603,
+        "clicks": -0.0007579585649317837,
+        "orders": -0.0073846153846153844
+      }
+    },
+    "mass_missing_aware_minus_mass_zero_ablation": {
+      "decision": "NEW_COHORT_AND_TIME_WINDOW_CONFIRMATION_REQUIRED",
+      "descriptive_95_interval": [
+        -0.0005627979639098585,
+        0.015544681201848038
+      ],
+      "fold_gains": [
+        0.012803713617458357,
+        0.001098901098901095
+      ],
+      "gain": 0.0071487219936916535,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": 7,
+        "clicks": -4,
+        "orders": 2
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.006153846153846065,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": 0.0036585365853658534,
+        "clicks": -0.00020212228398180902,
+        "orders": 0.0036923076923076922
+      }
+    },
+    "mass_zero_ablation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.02550109325681354,
+        0.0005518333861019748
+      ],
+      "fold_gains": [
+        -0.02900045790002448,
+        0.005568161297010987
+      ],
+      "gain": -0.01215540744149668,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -1,
+        "clicks": -11,
+        "orders": -6
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.018461538461538418,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0005226480836236934,
+        "clicks": -0.0005558362809499747,
+        "orders": -0.011076923076923078
+      }
+    }
+  },
+  "competition_test_access": false,
+  "control_features": 134,
+  "control_models_refit": 0,
+  "control_prediction_replay_exact": true,
+  "control_recipe_unchanged": true,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        494,
+        113,
+        104
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.5005065856129686,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5385788577367362
+    },
+    {
+      "arm": "mass_missing_aware",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 170,
+      "fold": 0,
+      "hits": [
+        483,
+        116,
+        99
+      ],
+      "recall": {
+        "carts": 0.3853820598006645,
+        "clicks": 0.48936170212765956,
+        "orders": 0.5963855421686747
+      },
+      "weighted_recall_at_20": 0.5223821134541701
+    },
+    {
+      "arm": "mass_zero_ablation",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 170,
+      "fold": 0,
+      "hits": [
+        487,
+        110,
+        97
+      ],
+      "recall": {
+        "carts": 0.3654485049833887,
+        "clicks": 0.49341438703140833,
+        "orders": 0.5843373493975904
+      },
+      "weighted_recall_at_20": 0.5095783998367117
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        495,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49899193548387094,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6015890131627349
+    },
+    {
+      "arm": "mass_missing_aware",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 170,
+      "fold": 1,
+      "hits": [
+        491,
+        117,
+        114
+      ],
+      "recall": {
+        "carts": 0.42857142857142855,
+        "clicks": 0.4949596774193548,
+        "orders": 0.7169811320754716
+      },
+      "weighted_recall_at_20": 0.608256075558647
+    },
+    {
+      "arm": "mass_zero_ablation",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 170,
+      "fold": 1,
+      "hits": [
+        491,
+        116,
+        114
+      ],
+      "recall": {
+        "carts": 0.4249084249084249,
+        "clicks": 0.4949596774193548,
+        "orders": 0.7169811320754716
+      },
+      "weighted_recall_at_20": 0.6071571744597459
+    }
+  ],
+  "graph_rebuilds": 0,
+  "limitations": [
+    "Reused Round02 fitting cohort; exploratory new-feature screen, not untouched holdout.",
+    "Same fixed Aug16 graph window; no claim of rolling demand or independent time-window stability.",
+    "Missing encoding is a hypothesis, not a demonstrated cause of Round02 regression.",
+    "Candidate policy and model capacity held fixed; negative findings apply to this protocol.",
+    "No new Kaggle predictions, submission, leaderboard score or feature promotion."
+  ],
+  "model_count": 12,
+  "model_inventory": {
+    "models/fold-0/mass_missing_aware/carts/model.txt": "73c9262c5e9c2836916528c3eefb01b3c94aaed30fe2a1a2f404ad9ac3b98b94",
+    "models/fold-0/mass_missing_aware/clicks/model.txt": "5b06581f6822ed45533fa05eaacf4075bde2d46679a64a1028e19f1aa829a7ff",
+    "models/fold-0/mass_missing_aware/orders/model.txt": "0473b5b2b96a12f163f5e621ef37e4b8437ca691fafe701ba657a744438af587",
+    "models/fold-0/mass_zero_ablation/carts/model.txt": "48981a3f357549b4d67855166327227e6bdc1a7e85ab3cea05d644c6fbfef0be",
+    "models/fold-0/mass_zero_ablation/clicks/model.txt": "eb178325dd88beadd691163ac4864f3f6bd024d8332881b2f6ac8aa240c92c1d",
+    "models/fold-0/mass_zero_ablation/orders/model.txt": "45ed03d7ebdd3944d76c9675ec0bdbb8056b69f5be1db06be9716219b5d5c8c6",
+    "models/fold-1/mass_missing_aware/carts/model.txt": "7450cdb86c1fb325c082296570b82b6468be5cbe273a2229192cd3459bc2a951",
+    "models/fold-1/mass_missing_aware/clicks/model.txt": "d474ae169d40d74cb5da8ba7c3f4f9ec66e82e20e4e5dd762524d0136ce34906",
+    "models/fold-1/mass_missing_aware/orders/model.txt": "a31ea858aac226ca2f67a9e1d49aa13c36dc224f4496661a70ec078022c9934c",
+    "models/fold-1/mass_zero_ablation/carts/model.txt": "e250d52f40665e3457c7798c86c0dd22cc3fa190e1d57df9e775e57f6013cfb0",
+    "models/fold-1/mass_zero_ablation/clicks/model.txt": "bf32bac570656c95efceef490ffdf02378ab6f7b06eaff199a66e2e28b8f74ec",
+    "models/fold-1/mass_zero_ablation/orders/model.txt": "9d962270dd09c0a7c9defa40e8baa061c0abb2e3ba9c5e701637526c09a30af6"
+  },
+  "native_reload_prediction_parity": true,
+  "primary_comparison": "mass_missing_aware_minus_control_shared",
+  "round02_timing_included": false,
+  "selection_access": false,
+  "sessions": 4096,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "statistics_sha256": "358e3587be069556bec9a5cf0a64ee1c2469e87fd89fa6bc604f73e28ff3f2a4",
+  "status": "ROUND03_SCREEN_COMPLETED",
+  "validation_sessions": 2048
+}

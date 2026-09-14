@@ -1,0 +1,186 @@
+test_absent_last_anchor_returns_zero (test_feature_logic.Formulas.test_absent_last_anchor_returns_zero) ... ok
+test_action_specific_not_pooled (test_feature_logic.Formulas.test_action_specific_not_pooled) ... ok
+test_before_only_item_removed_by_direction (test_feature_logic.Formulas.test_before_only_item_removed_by_direction) ... ok
+test_candidate_permutation (test_feature_logic.Formulas.test_candidate_permutation) ... ok
+test_continuation_same_neighbor_set (test_feature_logic.Formulas.test_continuation_same_neighbor_set) ... ok
+test_duplicate_anchors_fail (test_feature_logic.Formulas.test_duplicate_anchors_fail) ... ok
+test_duplicate_candidates_fail (test_feature_logic.Formulas.test_duplicate_candidates_fail) ... ok
+test_duplicate_original_index_rejected (test_feature_logic.Formulas.test_duplicate_original_index_rejected) ... ok
+test_duplicate_source_fails (test_feature_logic.Formulas.test_duplicate_source_fails) ... ok
+test_effective_support_single_session (test_feature_logic.Formulas.test_effective_support_single_session) ... ok
+test_empty_anchors_fail (test_feature_logic.Formulas.test_empty_anchors_fail) ... ok
+test_equal_anchor_frequency_collapses_ablation (test_feature_logic.Formulas.test_equal_anchor_frequency_collapses_ablation) ... ok
+test_event_repetition_not_inflate_forward_support (test_feature_logic.Formulas.test_event_repetition_not_inflate_forward_support) ... ok
+test_exact_width_names_unique (test_feature_logic.Formulas.test_exact_width_names_unique) ... ok
+test_false_zero_frequency_fails (test_feature_logic.Formulas.test_false_zero_frequency_fails) ... ok
+test_fifth_anchor_fails (test_feature_logic.Formulas.test_fifth_anchor_fails) ... ok
+test_finite_nonnegative (test_feature_logic.Formulas.test_finite_nonnegative) ... ok
+test_float_candidates_fail (test_feature_logic.Formulas.test_float_candidates_fail) ... ok
+test_forward_is_subset_of_unsigned (test_feature_logic.Formulas.test_forward_is_subset_of_unsigned) ... ok
+test_forward_keeps_later_order (test_feature_logic.Formulas.test_forward_keeps_later_order) ... ok
+test_future_source_rejected (test_feature_logic.Formulas.test_future_source_rejected) ... ok
+test_latest_pivot_not_first_occurrence (test_feature_logic.Formulas.test_latest_pivot_not_first_occurrence) ... ok
+test_missing_source_fails (test_feature_logic.Formulas.test_missing_source_fails) ... ok
+test_negative_candidates_fail (test_feature_logic.Formulas.test_negative_candidates_fail) ... ok
+test_negative_frequency_fails (test_feature_logic.Formulas.test_negative_frequency_fails) ... ok
+test_neighbor_cap64_and_deterministic_tie (test_feature_logic.Formulas.test_neighbor_cap64_and_deterministic_tie) ... ok
+test_neighbor_rank_mass_normalized (test_feature_logic.Formulas.test_neighbor_rank_mass_normalized) ... ok
+test_no_historical_support_zero (test_feature_logic.Formulas.test_no_historical_support_zero) ... ok
+test_no_target_arguments (test_feature_logic.Formulas.test_no_target_arguments) ... ok
+test_one_anchor_rarity_is_scale_invariant (test_feature_logic.Formulas.test_one_anchor_rarity_is_scale_invariant) ... ok
+test_original_gaps_not_compressed (test_feature_logic.Formulas.test_original_gaps_not_compressed) ... ok
+test_rare_anchor_changes_similarity (test_feature_logic.Formulas.test_rare_anchor_changes_similarity) ... ok
+test_self_anchor_excluded_both_arms (test_feature_logic.Formulas.test_self_anchor_excluded_both_arms) ... ok
+test_source_permutation (test_feature_logic.Formulas.test_source_permutation) ... ok
+test_study_session_rejected (test_feature_logic.Formulas.test_study_session_rejected) ... ok
+test_support_is_distinct_sessions_not_events (test_feature_logic.Formulas.test_support_is_distinct_sessions_not_events) ... ok
+test_tied_time_forward_original_index_allowed (test_feature_logic.Formulas.test_tied_time_forward_original_index_allowed) ... ok
+test_time_window_inclusive_boundary (test_feature_logic.Formulas.test_time_window_inclusive_boundary) ... ok
+test_unknown_candidate_zero (test_feature_logic.Formulas.test_unknown_candidate_zero) ... ok
+test_unknown_round_fails (test_feature_logic.Formulas.test_unknown_round_fails) ... ok
+test_48_unique_names (test_funnel_features.FunnelFeatures.test_48_unique_names) ... ok
+test_absent_source_is_not_population_negative (test_funnel_features.FunnelFeatures.test_absent_source_is_not_population_negative) ... ok
+test_cache_equals_uncached (test_funnel_features.FunnelFeatures.test_cache_equals_uncached) ... ok
+test_cache_readonly_features (test_funnel_features.FunnelFeatures.test_cache_readonly_features) ... ok
+test_cache_rejects_other_history_same_ids (test_funnel_features.FunnelFeatures.test_cache_rejects_other_history_same_ids) ... ok
+test_candidate_permutation (test_funnel_features.FunnelFeatures.test_candidate_permutation) ... ok
+test_conditional_source_denominator_differs_from_global_mass (test_funnel_features.FunnelFeatures.test_conditional_source_denominator_differs_from_global_mass) ... ok
+test_finite_shrunk_support_upper_bound (test_funnel_features.FunnelFeatures.test_finite_shrunk_support_upper_bound) ... ok
+test_future_and_excluded_history_rejected (test_funnel_features.FunnelFeatures.test_future_and_excluded_history_rejected) ... ok
+test_invalid_cache_bounds (test_funnel_features.FunnelFeatures.test_invalid_cache_bounds) ... ok
+test_later_source_not_allowed_in_primary (test_funnel_features.FunnelFeatures.test_later_source_not_allowed_in_primary) ... ok
+test_missing_candidate_zero (test_funnel_features.FunnelFeatures.test_missing_candidate_zero) ... ok
+test_multiple_source_visits_uses_nearest_preceding (test_funnel_features.FunnelFeatures.test_multiple_source_visits_uses_nearest_preceding) ... ok
+test_no_cross_product_funnel (test_funnel_features.FunnelFeatures.test_no_cross_product_funnel) ... ok
+test_no_neighbors_zero (test_funnel_features.FunnelFeatures.test_no_neighbors_zero) ... ok
+test_no_targets_in_signature (test_funnel_features.FunnelFeatures.test_no_targets_in_signature) ... ok
+test_nonmonotonic_time_rejected (test_funnel_features.FunnelFeatures.test_nonmonotonic_time_rejected) ... ok
+test_ordered_support_subset_not_effective_n (test_funnel_features.FunnelFeatures.test_ordered_support_subset_not_effective_n) ... ok
+test_ordered_vs_unordered_count_oracle (test_funnel_features.FunnelFeatures.test_ordered_vs_unordered_count_oracle) ... ok
+test_original_position_gaps_allowed_not_assumed_adjacent (test_funnel_features.FunnelFeatures.test_original_position_gaps_allowed_not_assumed_adjacent) ... ok
+test_pair_count_once_despite_repeated_orders (test_funnel_features.FunnelFeatures.test_pair_count_once_despite_repeated_orders) ... ok
+test_protocol_forbids_new_history_scan (test_funnel_features.FunnelFeatures.test_protocol_forbids_new_history_scan) ... ok
+test_protocol_forbids_window_tuning (test_funnel_features.FunnelFeatures.test_protocol_forbids_window_tuning) ... ok
+test_protocol_preserves_exact_ranker (test_funnel_features.FunnelFeatures.test_protocol_preserves_exact_ranker) ... ok
+test_randomized_minimum_gap_oracle (test_funnel_features.FunnelFeatures.test_randomized_minimum_gap_oracle) ... ok
+test_same_neighbor_set (test_funnel_features.FunnelFeatures.test_same_neighbor_set) ... ok
+test_source_permutation (test_funnel_features.FunnelFeatures.test_source_permutation) ... ok
+test_three_distinct_action_pairs (test_funnel_features.FunnelFeatures.test_three_distinct_action_pairs) ... ok
+test_time_tie_uses_original_index (test_funnel_features.FunnelFeatures.test_time_tie_uses_original_index) ... ok
+test_width_dtype_finite (test_funnel_features.FunnelFeatures.test_width_dtype_finite) ... ok
+test_window_boundary_inclusive (test_funnel_features.FunnelFeatures.test_window_boundary_inclusive) ... ok
+test_duplicate_identifiers (test_history_sql.SQLTests.test_duplicate_identifiers) ... ok
+test_history_exclusion (test_history_sql.SQLTests.test_history_exclusion) ... ok
+test_history_keeps_nonanchor_products (test_history_sql.SQLTests.test_history_keeps_nonanchor_products) ... ok
+test_invalid_bound (test_history_sql.SQLTests.test_invalid_bound) ... ok
+test_matches_independent_grouping_and_topk (test_history_sql.SQLTests.test_matches_independent_grouping_and_topk) ... ok
+test_null_not_silently_cast (test_history_sql.SQLTests.test_null_not_silently_cast) ... ok
+test_repeat_not_double_counted (test_history_sql.SQLTests.test_repeat_not_double_counted) ... ok
+test_row_cap_stops_no_trimming (test_history_sql.SQLTests.test_row_cap_stops_no_trimming) ... ok
+test_strict_cutoff_and_tie (test_history_sql.SQLTests.test_strict_cutoff_and_tie) ... ok
+test_unsafe_identifier (test_history_sql.SQLTests.test_unsafe_identifier) ... ok
+test_bundle_excludes_large_binaries (test_launch.Launcher.test_bundle_excludes_large_binaries) ... RETURN_FILE: /tmp/tmpl6sujgb0/otto_round10_return.zip
+ok
+test_bundle_manifest_hashes (test_launch.Launcher.test_bundle_manifest_hashes) ... RETURN_FILE: /tmp/tmphw6vk786/otto_round10_return.zip
+ok
+test_bundle_preserves_external_symlink_target (test_launch.Launcher.test_bundle_preserves_external_symlink_target) ... RETURN_FILE: /tmp/tmpfhxjkcys/otto_round10_return.zip
+ok
+test_caps_are_bounded (test_launch.Launcher.test_caps_are_bounded) ... ok
+test_checksum_failure_stops (test_launch.Launcher.test_checksum_failure_stops) ... ok
+test_features_require_successful_tests (test_launch.Launcher.test_features_require_successful_tests) ... ok
+test_missing_package_file_stops (test_launch.Launcher.test_missing_package_file_stops) ... ok
+test_no_unattended_all_stage (test_launch.Launcher.test_no_unattended_all_stage) ... ok
+test_prior_failure_blocks_even_after_later_report_success (test_launch.Launcher.test_prior_failure_blocks_even_after_later_report_success) ... ok
+test_screen_requires_features (test_launch.Launcher.test_screen_requires_features) ... ok
+test_disjoint_deterministic_selection (test_metric_contracts.CohortAndFoldTests.test_disjoint_deterministic_selection) ... ok
+test_duplicate_fold_ids_rejected (test_metric_contracts.CohortAndFoldTests.test_duplicate_fold_ids_rejected) ... ok
+test_forward_folds_full_replication_shape (test_metric_contracts.CohortAndFoldTests.test_forward_folds_full_replication_shape) ... ok
+test_insufficient_embargo_support (test_metric_contracts.CohortAndFoldTests.test_insufficient_embargo_support) ... ok
+test_invalid_cohort_input (test_metric_contracts.CohortAndFoldTests.test_invalid_cohort_input) ... ok
+test_no_target_argument_in_selection (test_metric_contracts.CohortAndFoldTests.test_no_target_argument_in_selection) ... ok
+test_seed_changes_membership (test_metric_contracts.CohortAndFoldTests.test_seed_changes_membership) ... ok
+test_tied_queries_do_not_leak_across_time (test_metric_contracts.CohortAndFoldTests.test_tied_queries_do_not_leak_across_time) ... ok
+test_bootstrap_identical_models_zero_interval (test_metric_contracts.TargetAndMetricTests.test_bootstrap_identical_models_zero_interval) ... ok
+test_bootstrap_repeatable_and_paired (test_metric_contracts.TargetAndMetricTests.test_bootstrap_repeatable_and_paired) ... ok
+test_complete_pool_no_positive_dropping (test_metric_contracts.TargetAndMetricTests.test_complete_pool_no_positive_dropping) ... ok
+test_count_mismatch_and_multiple_clicks_rejected (test_metric_contracts.TargetAndMetricTests.test_count_mismatch_and_multiple_clicks_rejected) ... ok
+test_decision_does_not_promote_uncertain_or_unstable (test_metric_contracts.TargetAndMetricTests.test_decision_does_not_promote_uncertain_or_unstable) ... ok
+test_duplicate_label_rejected (test_metric_contracts.TargetAndMetricTests.test_duplicate_label_rejected) ... ok
+test_equal_timestamp_later_index_valid (test_metric_contracts.TargetAndMetricTests.test_equal_timestamp_later_index_valid) ... ok
+test_exclusive_censor_happens_before_sampling (test_metric_contracts.TargetAndMetricTests.test_exclusive_censor_happens_before_sampling) ... ok
+test_hit_ranking_ties_use_item_id (test_metric_contracts.TargetAndMetricTests.test_hit_ranking_ties_use_item_id) ... ok
+test_immutable_input_target_generation (test_metric_contracts.TargetAndMetricTests.test_immutable_input_target_generation) ... ok
+test_metric_invalid_support (test_metric_contracts.TargetAndMetricTests.test_metric_invalid_support) ... ok
+test_missing_truth_not_removed_from_denominator (test_metric_contracts.TargetAndMetricTests.test_missing_truth_not_removed_from_denominator) ... ok
+test_pre_prefix_label_rejected (test_metric_contracts.TargetAndMetricTests.test_pre_prefix_label_rejected) ... ok
+test_same_index_label_rejected (test_metric_contracts.TargetAndMetricTests.test_same_index_label_rejected) ... ok
+test_target_after_period_end_rejected (test_metric_contracts.TargetAndMetricTests.test_target_after_period_end_rejected) ... ok
+test_training_query_after_cutoff_rejected (test_metric_contracts.TargetAndMetricTests.test_training_query_after_cutoff_rejected) ... ok
+test_control_reload_exact_and_mismatched_contract_rejected (test_native_and_storage.NativeReplay.test_control_reload_exact_and_mismatched_contract_rejected) ... ok
+test_atomic_json_reuse (test_native_and_storage.Storage.test_atomic_json_reuse) ... ok
+test_npz_byte_identical_replay (test_native_and_storage.Storage.test_npz_byte_identical_replay) ... ok
+test_object_array_rejected (test_native_and_storage.Storage.test_object_array_rejected) ... ok
+test_symlink_write_rejected (test_native_and_storage.Storage.test_symlink_write_rejected) ... ok
+test_all_notebook_code_compiles (test_notebook_integrity.NotebookIntegrity.test_all_notebook_code_compiles) ... ok
+test_both_hypotheses_documented (test_notebook_integrity.NotebookIntegrity.test_both_hypotheses_documented) ... ok
+test_catalog_has_equal_width (test_notebook_integrity.NotebookIntegrity.test_catalog_has_equal_width) ... ok
+test_execution_outputs_allowed (test_notebook_integrity.NotebookIntegrity.test_execution_outputs_allowed) ... ok
+test_notebook_source_change_refused (test_notebook_integrity.NotebookIntegrity.test_notebook_source_change_refused) ... ok
+test_registry_change_refused (test_notebook_integrity.NotebookIntegrity.test_registry_change_refused) ... ok
+test_changed_actual_binary_stops (test_readonly_handoff.ReadOnlyHandoff.test_changed_actual_binary_stops) ... ok
+test_changed_ranker_is_refused (test_readonly_handoff.ReadOnlyHandoff.test_changed_ranker_is_refused) ... ok
+test_changed_round08_receipt_stops (test_readonly_handoff.ReadOnlyHandoff.test_changed_round08_receipt_stops) ... ok
+test_changed_round09_result_stops (test_readonly_handoff.ReadOnlyHandoff.test_changed_round09_result_stops) ... ok
+test_handoff_does_not_mutate_prior_bytes (test_readonly_handoff.ReadOnlyHandoff.test_handoff_does_not_mutate_prior_bytes) ... ok
+test_missing_round09_result_stops (test_readonly_handoff.ReadOnlyHandoff.test_missing_round09_result_stops) ... ok
+test_negative_round09_allows_independent_round10 (test_readonly_handoff.ReadOnlyHandoff.test_negative_round09_allows_independent_round10) ... ok
+test_unbound_reader_is_refused (test_readonly_handoff.ReadOnlyHandoff.test_unbound_reader_is_refused) ... ok
+test_uncertified_reader_cannot_execute (test_readonly_handoff.ReadOnlyHandoff.test_uncertified_reader_cannot_execute) ... ok
+test_wrong_round09_status_stops (test_readonly_handoff.ReadOnlyHandoff.test_wrong_round09_status_stops) ... ok
+{"completed": 64, "event": "feature_checkpoint", "stage": "historical_feature_chunks", "total": 64, "utc": "2026-09-12T23:30:47.878322+00:00"}
+{"event": "all_six_controls_verified_before_new_fits", "utc": "2026-09-12T23:30:48.099523+00:00"}
+{"arm": "ordered_funnel", "completed": 1, "event": "model_checkpoint", "fold": 0, "new_fit": 1, "objective": "clicks", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:48.308277+00:00"}
+{"arm": "ordered_funnel", "completed": 2, "event": "model_checkpoint", "fold": 0, "new_fit": 1, "objective": "carts", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:48.469884+00:00"}
+{"arm": "ordered_funnel", "completed": 3, "event": "model_checkpoint", "fold": 0, "new_fit": 1, "objective": "orders", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:48.676545+00:00"}
+{"arm": "unordered_funnel_ablation", "completed": 4, "event": "model_checkpoint", "fold": 0, "new_fit": 1, "objective": "clicks", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:48.752142+00:00"}
+{"arm": "unordered_funnel_ablation", "completed": 5, "event": "model_checkpoint", "fold": 0, "new_fit": 1, "objective": "carts", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:48.962511+00:00"}
+{"arm": "unordered_funnel_ablation", "completed": 6, "event": "model_checkpoint", "fold": 0, "new_fit": 1, "objective": "orders", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:49.173783+00:00"}
+{"arm": "ordered_funnel", "completed": 7, "event": "model_checkpoint", "fold": 1, "new_fit": 1, "objective": "clicks", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:49.537533+00:00"}
+{"arm": "ordered_funnel", "completed": 8, "event": "model_checkpoint", "fold": 1, "new_fit": 1, "objective": "carts", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:49.830925+00:00"}
+{"arm": "ordered_funnel", "completed": 9, "event": "model_checkpoint", "fold": 1, "new_fit": 1, "objective": "orders", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:50.135653+00:00"}
+{"arm": "unordered_funnel_ablation", "completed": 10, "event": "model_checkpoint", "fold": 1, "new_fit": 1, "objective": "clicks", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:50.234178+00:00"}
+{"arm": "unordered_funnel_ablation", "completed": 11, "event": "model_checkpoint", "fold": 1, "new_fit": 1, "objective": "carts", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:50.532110+00:00"}
+{"arm": "unordered_funnel_ablation", "completed": 12, "event": "model_checkpoint", "fold": 1, "new_fit": 1, "objective": "orders", "stage": "matched_historical_feature_screen", "total": 12, "utc": "2026-09-12T23:30:50.926723+00:00"}
+test_all_control_replays_before_twelve_fits (test_screen_fixture.SyntheticScreen.test_all_control_replays_before_twelve_fits) ... ok
+test_both_arms_use_158_features (test_screen_fixture.SyntheticScreen.test_both_arms_use_158_features) ... ok
+test_context_before_sampling (test_screen_fixture.SyntheticScreen.test_context_before_sampling) ... ok
+test_context_diagnostics_use_training_only (test_screen_fixture.SyntheticScreen.test_context_diagnostics_use_training_only) ... ok
+test_corrupted_schema_fails_before_fitting (test_screen_fixture.SyntheticScreen.test_corrupted_schema_fails_before_fitting) ... ok
+test_feature_identity_tamper_stops (test_screen_fixture.SyntheticScreen.test_feature_identity_tamper_stops) ... ok
+test_feature_replay_reuses_completed_chunks (test_screen_fixture.SyntheticScreen.test_feature_replay_reuses_completed_chunks) ... {"completed": 64, "event": "feature_checkpoint", "stage": "historical_feature_chunks", "total": 64, "utc": "2026-09-12T23:30:51.448453+00:00"}
+ok
+test_native_models_and_zero_refits (test_screen_fixture.SyntheticScreen.test_native_models_and_zero_refits) ... ok
+test_report_has_nine_plotly_charts (test_screen_fixture.SyntheticScreen.test_report_has_nine_plotly_charts) ... RESULT: ROUND10_REPORT_READY
+ok
+test_result_replay_does_not_refit (test_screen_fixture.SyntheticScreen.test_result_replay_does_not_refit) ... ok
+test_round10_fixture_has_nonzero_order_sensitive_features (test_screen_fixture.SyntheticScreen.test_round10_fixture_has_nonzero_order_sensitive_features) ... ok
+test_training_support_not_holdout_selected (test_screen_fixture.SyntheticScreen.test_training_support_not_holdout_selected) ... ok
+test_true_missing_candidates_remain_in_metric (test_screen_fixture.SyntheticScreen.test_true_missing_candidates_remain_in_metric) ... ok
+test_corrupt_history_stops (test_shared_contracts.SharedContracts.test_corrupt_history_stops) ... ok
+test_corrupt_posting_stops_without_scan (test_shared_contracts.SharedContracts.test_corrupt_posting_stops_without_scan) ... ok
+test_duplicate_posting_rejected (test_shared_contracts.SharedContracts.test_duplicate_posting_rejected) ... ok
+test_frequency_under_count_rejected (test_shared_contracts.SharedContracts.test_frequency_under_count_rejected) ... ok
+test_incremental_two_scans_and_reuse (test_shared_contracts.SharedContracts.test_incremental_two_scans_and_reuse) ... ok
+test_noninteger_posting_rejected (test_shared_contracts.SharedContracts.test_noninteger_posting_rejected) ... ok
+test_orphan_history_is_preserved (test_shared_contracts.SharedContracts.test_orphan_history_is_preserved) ... ok
+test_orphan_posting_is_preserved (test_shared_contracts.SharedContracts.test_orphan_posting_is_preserved) ... ok
+test_posting_cutoff_strict (test_shared_contracts.SharedContracts.test_posting_cutoff_strict) ... ok
+test_source_count_not_capped_frequency (test_shared_contracts.SharedContracts.test_source_count_not_capped_frequency) ... ok
+test_study_session_posting_rejected (test_shared_contracts.SharedContracts.test_study_session_posting_rejected) ... ok
+test_unrequested_anchor_rejected (test_shared_contracts.SharedContracts.test_unrequested_anchor_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 161 tests in 6.531s
+
+OK
+LOCAL_CONTRACTS_PASSED; private AWS/Parquet integration NOT executed

@@ -1,0 +1,100 @@
+test_extraction_to_eight_chart_report_and_replay (test_end_to_end.PipelineTests.test_extraction_to_eight_chart_report_and_replay) ... ok
+test_duplicate_identifiers (test_history_sql.SQLTests.test_duplicate_identifiers) ... ok
+test_history_exclusion (test_history_sql.SQLTests.test_history_exclusion) ... ok
+test_history_keeps_nonanchor_products (test_history_sql.SQLTests.test_history_keeps_nonanchor_products) ... ok
+test_invalid_bound (test_history_sql.SQLTests.test_invalid_bound) ... ok
+test_matches_independent_grouping_and_topk (test_history_sql.SQLTests.test_matches_independent_grouping_and_topk) ... ok
+test_null_not_silently_cast (test_history_sql.SQLTests.test_null_not_silently_cast) ... ok
+test_repeat_not_double_counted (test_history_sql.SQLTests.test_repeat_not_double_counted) ... ok
+test_row_cap_stops_no_trimming (test_history_sql.SQLTests.test_row_cap_stops_no_trimming) ... ok
+test_strict_cutoff_and_tie (test_history_sql.SQLTests.test_strict_cutoff_and_tie) ... ok
+test_unsafe_identifier (test_history_sql.SQLTests.test_unsafe_identifier) ... ok
+test_cutoff_equality_excluded (test_metrics_storage.CensorTests.test_cutoff_equality_excluded) ... ok
+test_duplicate_target_rejected (test_metrics_storage.CensorTests.test_duplicate_target_rejected) ... ok
+test_equal_query_time_later_event_allowed (test_metrics_storage.CensorTests.test_equal_query_time_later_event_allowed) ... ok
+test_future_excluded (test_metrics_storage.CensorTests.test_future_excluded) ... ok
+test_period_end_excluded (test_metrics_storage.CensorTests.test_period_end_excluded) ... ok
+test_prior_event_rejected (test_metrics_storage.CensorTests.test_prior_event_rejected) ... ok
+test_query_reaches_cutoff (test_metrics_storage.CensorTests.test_query_reaches_cutoff) ... ok
+test_wrong_complete_counts_rejected (test_metrics_storage.CensorTests.test_wrong_complete_counts_rejected) ... ok
+test_capped_20_not_uncapped_coverage (test_metrics_storage.OracleTests.test_capped_20_not_uncapped_coverage) ... ok
+test_duplicate_baseline_rejected (test_metrics_storage.OracleTests.test_duplicate_baseline_rejected) ... ok
+test_duplicate_proposals_rejected (test_metrics_storage.OracleTests.test_duplicate_proposals_rejected) ... ok
+test_expansion_uses_missing_item (test_metrics_storage.OracleTests.test_expansion_uses_missing_item) ... ok
+test_positive_support_uses_action (test_metrics_storage.OracleTests.test_positive_support_uses_action) ... ok
+test_zero_denominator_is_not_fake_weighted_metric (test_metrics_storage.OracleTests.test_zero_denominator_is_not_fake_weighted_metric) ... ok
+test_array_conflict_preserved (test_metrics_storage.StorageTests.test_array_conflict_preserved) ... ok
+test_arrays_replay_byte_identical (test_metrics_storage.StorageTests.test_arrays_replay_byte_identical) ... ok
+test_changed_code_rejected (test_metrics_storage.StorageTests.test_changed_code_rejected) ... ok
+test_collect_excludes_private_large_arrays (test_metrics_storage.StorageTests.test_collect_excludes_private_large_arrays) ... RETURN_FILE: /dev/shm/tmpycyqd8rh/otto_round07_return.zip
+ok
+test_failed_run_blocks_retry (test_metrics_storage.StorageTests.test_failed_run_blocks_retry) ... ok
+test_json_conflict_preserved (test_metrics_storage.StorageTests.test_json_conflict_preserved) ... ok
+test_missing_prerequisite_blocks_work (test_metrics_storage.StorageTests.test_missing_prerequisite_blocks_work) ... ok
+test_object_arrays_rejected (test_metrics_storage.StorageTests.test_object_arrays_rejected) ... ok
+test_bad_bound (test_neighbors.AnchorTests.test_bad_bound) ... ok
+test_empty_rejected (test_neighbors.AnchorTests.test_empty_rejected) ... ok
+test_float_rejected (test_neighbors.AnchorTests.test_float_rejected) ... ok
+test_four_bound (test_neighbors.AnchorTests.test_four_bound) ... ok
+test_negative_rejected (test_neighbors.AnchorTests.test_negative_rejected) ... ok
+test_single (test_neighbors.AnchorTests.test_single) ... ok
+test_unique_recency (test_neighbors.AnchorTests.test_unique_recency) ... ok
+test_cutoff_equality_rejected (test_neighbors.HistoricalTests.test_cutoff_equality_rejected) ... ok
+test_duplicate_index_rejected (test_neighbors.HistoricalTests.test_duplicate_index_rejected) ... ok
+test_empty (test_neighbors.HistoricalTests.test_empty) ... ok
+test_exclusion (test_neighbors.HistoricalTests.test_exclusion) ... ok
+test_gapped_index_valid (test_neighbors.HistoricalTests.test_gapped_index_valid) ... ok
+test_group_shuffled (test_neighbors.HistoricalTests.test_group_shuffled) ... ok
+test_invalid_action (test_neighbors.HistoricalTests.test_invalid_action) ... ok
+test_time_nonmonotonic (test_neighbors.HistoricalTests.test_time_nonmonotonic) ... ok
+test_after_latest_matched_anchor (test_neighbors.NeighborTests.test_after_latest_matched_anchor) ... ok
+test_candidate_order_invariance (test_neighbors.NeighborTests.test_candidate_order_invariance) ... ok
+test_distinct_session_support_not_events (test_neighbors.NeighborTests.test_distinct_session_support_not_events) ... ok
+test_duplicate_candidates_rejected (test_neighbors.NeighborTests.test_duplicate_candidates_rejected) ... ok
+test_duplicate_source_rejected (test_neighbors.NeighborTests.test_duplicate_source_rejected) ... ok
+test_empty_votes_zero (test_neighbors.NeighborTests.test_empty_votes_zero) ... ok
+test_feature_schema (test_neighbors.NeighborTests.test_feature_schema) ... ok
+test_missing_source_rejected (test_neighbors.NeighborTests.test_missing_source_rejected) ... ok
+test_multi_item_similarity (test_neighbors.NeighborTests.test_multi_item_similarity) ... ok
+test_no_overlap (test_neighbors.NeighborTests.test_no_overlap) ... ok
+test_proposals_padding (test_neighbors.NeighborTests.test_proposals_padding) ... ok
+test_randomized_independent_oracle (test_neighbors.NeighborTests.test_randomized_independent_oracle) ... ok
+test_repeat_candidate_allowed (test_neighbors.NeighborTests.test_repeat_candidate_allowed) ... ok
+test_shared_neighbor_denominator (test_neighbors.NeighborTests.test_shared_neighbor_denominator) ... ok
+test_similarity_normalized_by_full_session (test_neighbors.NeighborTests.test_similarity_normalized_by_full_session) ... ok
+test_single_anchor_arms_identical (test_neighbors.NeighborTests.test_single_anchor_arms_identical) ... ok
+test_tied_proposals_aid_order (test_neighbors.NeighborTests.test_tied_proposals_aid_order) ... ok
+test_top64_neighbors (test_neighbors.NeighborTests.test_top64_neighbors) ... ok
+test_unknown_candidate_zero (test_neighbors.NeighborTests.test_unknown_candidate_zero) ... ok
+test_feature_stage_reuse_and_audit (test_research_checkpoints.StageTests.test_feature_stage_reuse_and_audit) ... {"completed": 32, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.042801+00:00"}
+{"completed": 64, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.083264+00:00"}
+{"completed": 96, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.122537+00:00"}
+{"completed": 128, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.162807+00:00"}
+{"completed": 160, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.202771+00:00"}
+{"completed": 192, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.241810+00:00"}
+{"completed": 224, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.281254+00:00"}
+{"completed": 256, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.320963+00:00"}
+{"completed": 32, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.323360+00:00"}
+{"completed": 64, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.323813+00:00"}
+{"completed": 96, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.324129+00:00"}
+{"completed": 128, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.324474+00:00"}
+{"completed": 160, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.324785+00:00"}
+{"completed": 192, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.325069+00:00"}
+{"completed": 224, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.325346+00:00"}
+{"completed": 256, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.325674+00:00"}
+ok
+test_orphan_checkpoint_is_not_overwritten (test_research_checkpoints.StageTests.test_orphan_checkpoint_is_not_overwritten) ... ok
+test_tampered_feature_checkpoint_fails (test_research_checkpoints.StageTests.test_tampered_feature_checkpoint_fails) ... {"completed": 32, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:06.962807+00:00"}
+{"completed": 64, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:07.003707+00:00"}
+{"completed": 96, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:07.042665+00:00"}
+{"completed": 128, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:07.082257+00:00"}
+{"completed": 160, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:07.122731+00:00"}
+{"completed": 192, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:07.163469+00:00"}
+{"completed": 224, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:07.203400+00:00"}
+{"completed": 256, "event": "feature_chunk_committed", "stage": "session_neighbor_features", "total": 256, "utc": "2026-09-12T22:11:07.242852+00:00"}
+ok
+
+----------------------------------------------------------------------
+Ran 70 tests in 2.456s
+
+OK

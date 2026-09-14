@@ -1,0 +1,32 @@
+{
+  "utc": "2026-09-12T04:29:06.758284+00:00",
+  "project_tests_passed": 79,
+  "test_command": "python -W error run_tests.py",
+  "test_elapsed_seconds": 6.781,
+  "test_log_sha256": "f666dd148dd8b406c4b06ecc28c8f7e16769438b12604a442fb1e0e4326fd620",
+  "synthetic_pipeline_executed": true,
+  "synthetic_native_models": 18,
+  "synthetic_saved_controls_replayed_before_challengers": 6,
+  "synthetic_new_challengers": 12,
+  "synthetic_model_replay_parity": true,
+  "synthetic_report_plotly_charts": 9,
+  "real_project_model_fits": 0,
+  "real_private_data_or_parquet_integration_replayed": false,
+  "audited_input_manifest_files": 66,
+  "review_notebook_executed_cells": 8,
+  "review_notebook_plotly_payloads": 6,
+  "review_notebook_errors": 0,
+  "notebooks_structurally_valid": 4,
+  "prospective_experiment_notebooks_executed_on_private_data": false,
+  "aws_api_writes": 0,
+  "github_writes": 0,
+  "submissions": 0,
+  "versions": {
+    "numpy": "2.3.5",
+    "lightgbm": "4.6.0",
+    "plotly": "6.5.2",
+    "nbformat": "5.10.4",
+    "nbclient": "0.10.4"
+  },
+  "installer_validation": "Companion OTTO_ROUND06_VALIDATION.json records final installer tests after ZIP creation."
+}

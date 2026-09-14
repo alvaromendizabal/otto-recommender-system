@@ -1,0 +1,71 @@
+{
+  "round": 9,
+  "local_research_tests_passed": 119,
+  "local_test_mode": "warnings-as-errors, real native LightGBM on synthetic fixtures; private schema contracts mocked only within fixture",
+  "packages": {
+    "numpy": "2.3.5",
+    "lightgbm": "4.6.0",
+    "plotly": "6.5.2",
+    "nbformat": "5.10.4",
+    "nbclient": "0.10.4"
+  },
+  "local_python": "3.13.5",
+  "notebooks": [
+    {
+      "name": "00_round07_review.ipynb",
+      "code_cells": 9,
+      "executed_cells": 9,
+      "plotly_payloads": 8,
+      "errors": 0
+    },
+    {
+      "name": "01_build_features.ipynb",
+      "code_cells": 5,
+      "executed_cells": 0,
+      "plotly_payloads": 0,
+      "errors": 0
+    },
+    {
+      "name": "02_run_comparison.ipynb",
+      "code_cells": 5,
+      "executed_cells": 0,
+      "plotly_payloads": 0,
+      "errors": 0
+    },
+    {
+      "name": "03_saved_results.ipynb",
+      "code_cells": 11,
+      "executed_cells": 0,
+      "plotly_payloads": 0,
+      "errors": 0
+    },
+    {
+      "name": "04_feature_examples.ipynb",
+      "code_cells": 5,
+      "executed_cells": 5,
+      "plotly_payloads": 4,
+      "errors": 0
+    }
+  ],
+  "private_aws_parquet_pipeline_replayed": false,
+  "duckdb_local_available": false,
+  "actual_backend_smoke_mandatory_in_aws": true,
+  "full_private_controls_replayed_here": false,
+  "actual_project_model_fits_here": 0,
+  "local_synthetic_model_tests": true,
+  "cloud_writes": 0,
+  "git_writes": 0,
+  "kaggle_submissions": 0,
+  "round07_audit_sha256": "c84a9d18dc5876aec15c5065be5dea9efe9c43690ff04fa91340b2a70845a4ae",
+  "round07_verified_files": 81,
+  "primary_feature_count": 24,
+  "ablation_feature_count": 24,
+  "maximum_new_real_models": 12,
+  "full_result_charts": 9,
+  "notes": [
+    "Executed review uses independently audited saved statistics. Executed feature examples use toy events only.",
+    "Real execution notebooks and real saved-results notebook are deliberately unexecuted; no new actual performance result claimed.",
+    "SQLite adapter exercises identical extraction SQL locally; real DuckDB/Parquet is not substituted in the runtime.",
+    "Local full private corpus/source/model binaries are unavailable. All such reused assets must validate in the existing workspace."
+  ]
+}

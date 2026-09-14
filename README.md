@@ -1,5 +1,14 @@
 # OTTO · Session-based recommendation
 
+<!-- OTTO_PUBLIC_RESEARCH -->
+## Latest owner-run feature research
+
+[Public implementation and saved notebooks](research/manual/README.md) · [Measured results and limitations](docs/MANUAL_RESEARCH.md) · [Interactive report](reports/manual_research/progress.html)
+
+Complete research source is public; data and credentials are excluded. Pending and negative experiments remain explicit.
+<!-- /OTTO_PUBLIC_RESEARCH -->
+
+
 **Baseline delivered; feature research remains open.** The accepted submission scores **0.56842 private / 0.56862 public**, versus the historical winning private score **0.60503**. The latest matched development comparison scores **0.595073 with 32 frozen additions versus 0.589870 baseline**. All five block removals reduce the point estimate, but uncertainty spans zero and one time quartile regresses. The two bounded stages completed in **13.57 processing minutes, about $0.77 instance compute**; 21 native models and zero-training replay passed audit. No challenger is promoted. [Measured feature contributions and next temporal preflight](docs/SHARED_FEATURE_VALIDATION.md) · [Coverage gaps](docs/FEATURE_RESEARCH.md) · [Project state](docs/ROADMAP.md).
 
 **Predict what a shopper will click, add to cart, and order next.**

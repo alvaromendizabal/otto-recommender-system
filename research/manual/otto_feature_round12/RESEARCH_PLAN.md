@@ -1,0 +1,62 @@
+# Round 12 — Directed action-context latent affinities
+
+## Hypothesis and novelty
+
+Direct event-count features can miss products related through similar historical context. A low-rank directed product/action association representation may generalize across sparse direct edges. This round changes the representation from the Round09 local-neighbor continuation counts to a learned action-specific context basis over training-anchor-selected sessions in the certified cached history. It does not add Round11's features or inherit a winning configuration from Round11.
+
+The primary preserves forward event direction. The width-matched ablation removes direction while keeping the same vocabulary, time/position limits, three destination-action types, aggregation functions and ranker. A completed negative Round11 does not block this predeclared hypothesis; an operational failure does.
+
+## Construction
+
+For every historical session selected using the earliest fold training anchors ONLY, consider different-product event pairs with original event-index separation one through five and elapsed time at most 30 minutes. Equal timestamps are permitted only with increasing original indices. Up to five retained-row offsets enumerate all such pairs; the ACTUAL original index gap controls eligibility. Source and target vocabulary membership are applied after checking chronology. Retained gaps are not compressed.
+
+Primary rows are (historical session, source item, target item, target action) with source before target. The ablation also includes reverse-oriented rows: the earlier event becomes the destination and its own action becomes the destination action. It is NOT a naive G+G-transpose of an already typed graph, which would attach the wrong action semantics to reversed edges.
+
+For each arm and destination action, count DISTINCT (session, source, target) before summing across sessions. Repeated pairs in a session contribute once. From the sparse count matrix C, compute positive pointwise mutual information P_ij=max(0, log(C_ij * total(C)/(row_sum_i * column_sum_j))) only at nonzero observed entries. Remove zero associations. No target-label smoothing or target encoding is involved. An insufficient association matrix stops instead of training on meaningless all-zero factors.
+
+Fit a randomized truncated SVD of each P using up to 32 components, seed 20260912, eight oversamples, two power iterations and QR normalization. Source vectors are U*sqrt(S); target vectors are V*sqrt(S), individually row-normalized. Query and candidate vectors are thus in a shared compatible factor basis for each objective. Three destination actions times two arms means SIX self-supervised factorizations, checkpointed separately.
+
+Eight anchor summaries per destination action give 24 primary and 24 ablation columns. Cosines may be negative despite nonnegative PPMI; those values are retained. PPMI can amplify rare associations, and low-rank projection can suppress rare but important orders. Support, density, rank and fold diagnostics are required; this is not a guarantee that statistical association reflects causal shopping intent.
+
+## Research rationale — external sources, not this experiment's results
+
+Levy and Goldberg relate word/context embedding objectives to implicit matrix factorization and discuss PMI-based representations: https://papers.nips.cc/paper/5477-neural-word-embedding-as-implicit-matrix-factorization . This supports the representation family, not an equivalence between our truncated PPMI-SVD and a fully trained skip-gram model.
+
+The first-person third-place OTTO solution motivates using item embeddings and session-similarity aggregates in a recommendation ranker: https://github.com/TheoViel/kaggle_otto_rs . The official dataset documents session actions and extraction limitations: https://github.com/otto-de/recsys-dataset . A missing observed precursor action is not proof of a failed conversion. No metadata, user identity, or product attributes absent from the supplied data are invented.
+
+
+## Frozen comparison and interpretation
+
+This is one predeclared 24-column family and one 24-column information-removal ablation. Each is independently appended to the saved 134-column control, yielding 158 columns. There is no combined 48-column arm and no carry-forward of losing prior-round features. Candidate budget stays 400 on the exact 4,096 fitting sessions. The two chronological validation folds total 2,048 queries. Three objectives use the official 0.1 / 0.3 / 0.6 click/cart/order weights and complete capped target denominators. There is a six-hour query embargo. Training targets are censored to the fold training boundary BEFORE negative sampling. The saved seed, 60-negative policy, 150 boosting rounds, 15 leaves, and other LambdaRank settings remain unchanged in protocol.json.
+
+All six native controls must replay the same per-session validation hits and feature order before a new challenger fit. There are at most twelve new supervised ranker fits per round, not a hyperparameter search. Training-only diagnostic correlations, support, and available-vector rates do not trigger automatic feature removal or tuning. Learned representations are made before any target-dependent candidate subsampling. Complete validation candidate pools are scored. Native challenger models are reloaded for prediction parity and stored with immutable contracts.
+
+A primary pooled delta >= +0.003, nonnegative deltas on both folds, and no pooled order-recall decline earns a separate confirmation proposal, never automatic retention. Primary-minus-ablation superiority does not rescue a losing primary. This cohort has informed repeated exploratory hypotheses. Paired bootstrap intervals are descriptive and do not correct for all prior selection or time dependence. Independent different-cohort / different-history confirmation remains required. No holdout, selection-role data, competition test set, or submission is accessed.
+
+## Historical source and leakage boundary
+
+The storage source is the existing certified Round08 retrieved-history cache, NOT all original OTTO history. BEFORE representation learning, restrict its historical sessions to postings for the earliest chronological fold TRAINING anchors only. Validation-query anchors cannot expand vocabulary or the learned basis. The same conservatively frozen basis is used in both later validation folds. This addresses the fact that the original cache union was assembled using the larger cohort’s observed anchors. It still has training-query-retrieval selection and tail-truncation biases. Learning across this training-selected history is broader than pooling top neighbors for a single query, but must not be described as a full-catalogue/full-history embedding system. All 4,096 current and 1,024 earlier study sessions remain excluded; every retained event is strictly before 1660687200000 ms (2022-08-16 22:00 UTC). Session IDs, product IDs, valid actions, monotonic timestamps, and original event indices are checked. Original event gaps are never compressed into adjacency.
+
+Vocabulary selection uses only DISTINCT historical (session, item) frequency in the training-anchor-selected history. The top 60,000 items are retained with deterministic item-ID tie breaking. No validation target controls vocabulary membership. This is a declared vocabulary restriction, not an undisclosed sample. Fewer than 16 retained items stops preparation. Unknown or zero-vector items receive zero affinities and explicit availability measures. A large vocabulary/target coverage deficit would be a reason to inspect the source before another larger run, not proof that latent representations do not work.
+
+The query uses its last four DISTINCT observed products, most recent first, from the certified cache. Candidate-self anchors are excluded so a product cannot get a trivial cosine of one merely by being revisited. Other revisit features remain in the 134-column control. Negative cosines remain negative. There are eight summaries for each candidate destination action: latest, maximum, mean, population standard deviation, reciprocal-recency weighted mean, cosine to the weighted centroid, latest-minus-older mean, and available-anchor fraction. The catalogue documents exact zero conventions. Candidate order is not a predictor; reordering candidates must preserve their per-item features within floating-point tolerance.
+
+## Bounded stages and resource accounting
+
+Run tests -> prepare representation inputs -> learn representations -> build features -> replay controls / screen -> report -> save notebooks -> bundle. Never launch the entire sequence as an unattended shell loop. Each stage is an explicit user action. A test pass is a functionality gate, not predictive evidence. Existing environment dependencies include NumPy, SciPy, scikit-learn, LightGBM, Polars, Plotly and DuckDB; versions are recorded. Nothing auto-installs. A missing dependency stops with a specific name to report.
+
+Useful-work limits are 220s preparation, 280s representations, 240s feature generation, 240s screen and 60s report. Outer limits are 120s tests, 240s preparation, 300s representations, 260s features, 260s screen, 90s report. They are caps, not estimates. Four numerical worker threads, 26 GiB worker RSS stop and 10 GiB free disk are required. Dataset caps: 400,000 retained historical sessions, 10 million retained events, 60,000 vocabulary items and eight million combined typed pair records. Exceeding a cap stops rather than silently dropping pairs or raising budgets.
+
+UTC heartbeat messages expose stage progress. Sparse input units, representation units, 64-query feature chunks and native ranker models have checksums and immutable receipts. Saved units are reused only when code, schema, protocol, dependencies and historical-source identity match. A planned pause or failure is not permission to retry automatically. Download its return ZIP for diagnosis; do not delete orphan evidence. Expensive single factorizations cannot be checkpointed internally; a hard interruption may require revisiting that one unit after review. Completed separate units remain intact.
+
+No new raw JSON scan, historical Parquet scan, graph rebuild, candidate expansion, AWS operation, Git write, or submission occurs. These two rounds jointly allow 24 supervised challenger fits; self-supervised representation factorizations are separately counted, not hidden as zero compute. Inference would require the frozen historical basis and the same vocabulary/anchor/missing conventions; applicability to full competition inference remains to be established.
+
+## Evidence and next decision
+
+Nine result charts report matched scores, descriptive uncertainty, fold deltas, objective-specific recall, weighted hit contributions, primary/ablation representation differences, redundancy, candidate ceilings and training-positive support. Representation notebooks additionally show matrix density, learned rank/singular values and input statistics. Save executed notebooks to preserve inline Plotly payloads. External HTML is supplementary.
+
+A gain must be attributable to the specified representation rather than changed candidates, rows, denominator or ranker. A loss is recorded, not hidden. A sparse or zero PPMI matrix, high out-of-vocabulary rate, inadequate action evidence, instability across folds, or strong redundancy prompts diagnosis. Repeatedly retuning dimensions, context windows or smoothing on these same labels is not the next default. Different historical windows, larger justified history, richer embeddings and candidate availability remain distinct hypotheses, not claims that this one failed configuration exhausts the family.
+
+## Preparation and execution status
+
+Prepared for manual execution. No project tests, notebooks, representation fits or ranker fits were executed by the assistant for this delivery. Static syntax and artifact consistency inspection do not establish runtime correctness. Tests are supplied for the user, including pure-function edge cases, synthetic sparse representations, native ranker/reload fixtures, complete denominators, checkpoint behavior and report/notebook integrity. The mandatory installed DuckDB/Parquet smoke runs in the user's environment; no database fallback is used on real source data. The original experiment checkout stays pinned and untouched. Publish from a separate clone, not from that checkout.

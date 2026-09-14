@@ -1,0 +1,230 @@
+{
+  "basis": "Two supplied return ZIPs; independent checksum, integer-metric and descriptive-interval analysis. No project modules, tests, notebooks or experiments were executed.",
+  "audits": [
+    {
+      "file": "otto_round09_return(1).zip",
+      "archive_sha256": "1ccdf843afc74d1b0efa94fcc9b5f8398f80bd55182ca987c1da954eef31ac83",
+      "manifest_files_checked": 170,
+      "mismatches": [],
+      "pooled_and_fold_scores_recalculated": true,
+      "primary_and_ablation_intervals_recalculated": true,
+      "control_identity_matches_previous": true,
+      "notebooks": [
+        {
+          "file": "00_round07_review.ipynb",
+          "code_cells": 9,
+          "executed_code_cells": 9,
+          "saved_errors": [],
+          "plotly_payloads": 8
+        },
+        {
+          "file": "01_build_features.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "saved_errors": [],
+          "plotly_payloads": 0
+        },
+        {
+          "file": "02_run_comparison.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "saved_errors": [],
+          "plotly_payloads": 0
+        },
+        {
+          "file": "03_saved_results.ipynb",
+          "code_cells": 11,
+          "executed_code_cells": 11,
+          "saved_errors": [],
+          "plotly_payloads": 9
+        },
+        {
+          "file": "04_feature_examples.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "saved_errors": [],
+          "plotly_payloads": 4
+        }
+      ]
+    },
+    {
+      "file": "otto_round10_return.zip",
+      "archive_sha256": "85b8e0b5bbe3b0fc69ba11e49af371148d4c8fe4e6cfaa21136efab26adec3c9",
+      "manifest_files_checked": 182,
+      "mismatches": [],
+      "pooled_and_fold_scores_recalculated": true,
+      "primary_and_ablation_intervals_recalculated": true,
+      "control_identity_matches_previous": true,
+      "notebooks": [
+        {
+          "file": "00_round08_review.ipynb",
+          "code_cells": 9,
+          "executed_code_cells": 9,
+          "saved_errors": [],
+          "plotly_payloads": 8
+        },
+        {
+          "file": "01_build_features.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "saved_errors": [],
+          "plotly_payloads": 0
+        },
+        {
+          "file": "02_run_comparison.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "saved_errors": [],
+          "plotly_payloads": 0
+        },
+        {
+          "file": "03_saved_results.ipynb",
+          "code_cells": 11,
+          "executed_code_cells": 11,
+          "saved_errors": [],
+          "plotly_payloads": 9
+        },
+        {
+          "file": "04_feature_examples.ipynb",
+          "code_cells": 6,
+          "executed_code_cells": 6,
+          "saved_errors": [],
+          "plotly_payloads": 5
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "round": 9,
+      "baseline": 0.5692312343124653,
+      "comparisons": [
+        {
+          "arm": "forward_continuation",
+          "score": 0.5680017411445208,
+          "gain": -0.0012294931679444066,
+          "net_hits": [
+            -25,
+            -7,
+            2
+          ],
+          "interval": [
+            -0.01021374053778792,
+            0.007784722299382555
+          ],
+          "fold_gains": [
+            -0.004813741429278373,
+            0.002445920254426026
+          ]
+        },
+        {
+          "arm": "unsigned_window_ablation",
+          "score": 0.5676797187948669,
+          "gain": -0.0015515155175983564,
+          "net_hits": [
+            10,
+            -11,
+            2
+          ],
+          "interval": [
+            -0.012525710439021336,
+            0.009179842543222811
+          ],
+          "fold_gains": [
+            -0.005405179067865418,
+            0.002237096439774544
+          ]
+        }
+      ],
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "validation_sessions": 2048,
+      "fit_sessions": 4096,
+      "status": "ROUND09_SCREEN_COMPLETED",
+      "observed_execution": {
+        "features": {
+          "elapsed_seconds": 34.58580811699994,
+          "peak_rss_mib": 725.58203125,
+          "status": "ROUND09_FEATURES_READY"
+        },
+        "screen": {
+          "elapsed_seconds": 67.38339003100009,
+          "peak_rss_mib": 3028.04296875,
+          "status": "ROUND09_SCREEN_COMPLETED"
+        }
+      },
+      "source_commit_recorded_not_live_verified": "2638faa34afa427ed4ac4e92bba04deda57c688e"
+    },
+    {
+      "round": 10,
+      "baseline": 0.5692312343124653,
+      "comparisons": [
+        {
+          "arm": "ordered_funnel",
+          "score": 0.5672672598602669,
+          "gain": -0.001963974452198314,
+          "net_hits": [
+            -3,
+            -7,
+            1
+          ],
+          "interval": [
+            -0.013233281343756158,
+            0.008299863254998204
+          ],
+          "fold_gains": [
+            -0.006130920799193196,
+            0.0021263201193207903
+          ]
+        },
+        {
+          "arm": "unordered_funnel_ablation",
+          "score": 0.5670569232096487,
+          "gain": -0.0021743111028165174,
+          "net_hits": [
+            -12,
+            -3,
+            0
+          ],
+          "interval": [
+            -0.012943308069948874,
+            0.008102620632138617
+          ],
+          "fold_gains": [
+            -0.00684014065734917,
+            0.0025467267060389487
+          ]
+        }
+      ],
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "validation_sessions": 2048,
+      "fit_sessions": 4096,
+      "status": "ROUND10_SCREEN_COMPLETED",
+      "observed_execution": {
+        "features": {
+          "elapsed_seconds": 27.584483287000694,
+          "peak_rss_mib": 725.70703125,
+          "status": "ROUND10_FEATURES_READY"
+        },
+        "screen": {
+          "elapsed_seconds": 66.88175629100078,
+          "peak_rss_mib": 3025.89453125,
+          "status": "ROUND10_SCREEN_COMPLETED"
+        }
+      },
+      "source_commit_recorded_not_live_verified": "2638faa34afa427ed4ac4e92bba04deda57c688e"
+    }
+  ],
+  "limitations": [
+    "Large feature matrices, learned models and historical caches are not included; their reported runtime/checks are workspace evidence, not an independent replay.",
+    "Repeatedly reused fitting cohort; bootstrap intervals are descriptive, not adjusted for adaptive hypothesis selection.",
+    "No new score or GitHub/account status is established by this audit."
+  ]
+}

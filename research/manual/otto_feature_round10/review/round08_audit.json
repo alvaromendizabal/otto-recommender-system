@@ -1,0 +1,199 @@
+{
+  "scope": "Uploaded small archives only; large native models, historical arrays and feature matrices not supplied. No cloud replay.",
+  "archives": {
+    "8": {
+      "filename": "otto_round08_return.zip",
+      "sha256": "43364082be3607d8df83ea8710393953296c4df8ac4af372da41a8fa39640e6a",
+      "bytes": 1671102,
+      "verified_files": 183,
+      "notebooks": [
+        {
+          "name": "00_round07_review.ipynb",
+          "code_cells": 9,
+          "executed_code_cells": 9,
+          "errors": 0,
+          "plotly_outputs": 8
+        },
+        {
+          "name": "01_build_features.ipynb",
+          "code_cells": 7,
+          "executed_code_cells": 7,
+          "errors": 0,
+          "plotly_outputs": 0
+        },
+        {
+          "name": "02_run_comparison.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "errors": 0,
+          "plotly_outputs": 0
+        },
+        {
+          "name": "03_saved_results.ipynb",
+          "code_cells": 11,
+          "executed_code_cells": 11,
+          "errors": 0,
+          "plotly_outputs": 9
+        },
+        {
+          "name": "04_feature_examples.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "errors": 0,
+          "plotly_outputs": 4
+        }
+      ],
+      "outputs_files": 128
+    },
+    "9": {
+      "filename": "otto_round09_return.zip",
+      "sha256": "7a02cc4b9f7a07de61366643a11cba0e7b91a4123105a6903d8f24e215da0db5",
+      "bytes": 154722,
+      "verified_files": 55,
+      "notebooks": [
+        {
+          "name": "00_round07_review.ipynb",
+          "code_cells": 9,
+          "executed_code_cells": 9,
+          "errors": 0,
+          "plotly_outputs": 8
+        },
+        {
+          "name": "01_build_features.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 0,
+          "errors": 0,
+          "plotly_outputs": 0
+        },
+        {
+          "name": "02_run_comparison.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 0,
+          "errors": 0,
+          "plotly_outputs": 0
+        },
+        {
+          "name": "03_saved_results.ipynb",
+          "code_cells": 11,
+          "executed_code_cells": 0,
+          "errors": 0,
+          "plotly_outputs": 0
+        },
+        {
+          "name": "04_feature_examples.ipynb",
+          "code_cells": 5,
+          "executed_code_cells": 5,
+          "errors": 0,
+          "plotly_outputs": 4
+        }
+      ],
+      "outputs_files": 0
+    }
+  },
+  "round08_scores": {
+    "control_shared": 0.5692312343124653,
+    "equal_weight_ablation": 0.5658773777030842,
+    "rarity_neighbors": 0.5625975289453764
+  },
+  "round08_fold_scores": {
+    "control_shared_fold0": 0.5385788577367362,
+    "control_shared_fold1": 0.6015890131627349,
+    "equal_weight_ablation_fold0": 0.5249315917802829,
+    "equal_weight_ablation_fold1": 0.6089982560044945,
+    "rarity_neighbors_fold0": 0.5198303640801987,
+    "rarity_neighbors_fold1": 0.6076069054195956
+  },
+  "round08_comparisons": {
+    "equal_weight_ablation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.013905972382074208,
+        0.006811148296953653
+      ],
+      "fold_gains": [
+        -0.01364726595645327,
+        0.007409242841759589
+      ],
+      "gain": -0.003353856609381034,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -4,
+        "clicks": -25,
+        "orders": 0
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.0,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0020905923344947735,
+        "clicks": -0.0012632642748863063,
+        "orders": 0.0
+      }
+    },
+    "rarity_neighbors_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.021266407060492674,
+        0.007602937123322127
+      ],
+      "fold_gains": [
+        -0.018748493656537524,
+        0.0060178922568606685
+      ],
+      "gain": -0.006633705367088849,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -8,
+        "clicks": -12,
+        "orders": -1
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.003076923076923088,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.004181184668989547,
+        "clicks": -0.0006063668519454271,
+        "orders": -0.0018461538461538461
+      }
+    },
+    "rarity_neighbors_minus_equal_weight_ablation": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.013113776272929737,
+        0.0059359880369258666
+      ],
+      "fold_gains": [
+        -0.005101227700084254,
+        -0.0013913505848989205
+      ],
+      "gain": -0.003279848757707815,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -4,
+        "clicks": 13,
+        "orders": -1
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.003076923076923088,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0020905923344947735,
+        "clicks": 0.0006568974229408793,
+        "orders": -0.0018461538461538461
+      }
+    }
+  },
+  "round08_model_receipts_present": 12,
+  "round08_control_and_sessions_equal_saved_reference": true,
+  "round09_status": "NO_EXPERIMENT_EXECUTION_EVIDENCE_IN_SUPPLIED_RETURN",
+  "round09_model_score": null,
+  "next_experiments": [
+    9,
+    10
+  ],
+  "round08_large_binaries_independently_replayed": false,
+  "replicates_per_interval": 2000
+}

@@ -1,0 +1,137 @@
+{
+  "exploratory_reused_fitting_cohort": true,
+  "folds": [
+    {
+      "achieved_control": {
+        "denominators": [
+          987,
+          301,
+          166
+        ],
+        "hits": [
+          494,
+          113,
+          104
+        ],
+        "recall": {
+          "carts": 0.3754152823920266,
+          "clicks": 0.5005065856129686,
+          "orders": 0.6265060240963856
+        },
+        "weighted_recall_at_20": 0.5385788577367362
+      },
+      "candidate_oracle_at20": {
+        "denominators": [
+          987,
+          301,
+          166
+        ],
+        "hits": [
+          644,
+          171,
+          129
+        ],
+        "recall": {
+          "carts": 0.5681063122923588,
+          "clicks": 0.6524822695035462,
+          "orders": 0.7771084337349398
+        },
+        "weighted_recall_at_20": 0.701945180879026
+      },
+      "causal_attribution": false,
+      "fold": 0,
+      "metric_capped_not_uncapped_recall400": true,
+      "new_model_fits": 0,
+      "weighted_missing_candidate_gap": 0.298054819120974,
+      "weighted_within_candidate_ranking_gap": 0.16336632314228983
+    },
+    {
+      "achieved_control": {
+        "denominators": [
+          992,
+          273,
+          159
+        ],
+        "hits": [
+          495,
+          114,
+          113
+        ],
+        "recall": {
+          "carts": 0.4175824175824176,
+          "clicks": 0.49899193548387094,
+          "orders": 0.710691823899371
+        },
+        "weighted_recall_at_20": 0.6015890131627349
+      },
+      "candidate_oracle_at20": {
+        "denominators": [
+          992,
+          273,
+          159
+        ],
+        "hits": [
+          644,
+          161,
+          129
+        ],
+        "recall": {
+          "carts": 0.5897435897435898,
+          "clicks": 0.6491935483870968,
+          "orders": 0.8113207547169812
+        },
+        "weighted_recall_at_20": 0.7286348845919753
+      },
+      "causal_attribution": false,
+      "fold": 1,
+      "metric_capped_not_uncapped_recall400": true,
+      "new_model_fits": 0,
+      "weighted_missing_candidate_gap": 0.27136511540802466,
+      "weighted_within_candidate_ranking_gap": 0.1270458714292404
+    }
+  ],
+  "pooled": {
+    "achieved_control": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    },
+    "candidate_oracle_at20": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        1288,
+        332,
+        258
+      ],
+      "recall": {
+        "carts": 0.578397212543554,
+        "clicks": 0.650833754421425,
+        "orders": 0.7938461538461539
+      },
+      "weighted_recall_at_20": 0.714910231512901
+    },
+    "causal_attribution": false,
+    "metric_capped_not_uncapped_recall400": true,
+    "new_model_fits": 0,
+    "weighted_missing_candidate_gap": 0.285089768487099,
+    "weighted_within_candidate_ranking_gap": 0.14567899720043576
+  },
+  "untouched_holdout": false
+}

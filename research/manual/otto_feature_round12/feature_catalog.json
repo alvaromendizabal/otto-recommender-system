@@ -1,0 +1,488 @@
+{
+  "round": 12,
+  "primary_features": 24,
+  "ablation_features": 24,
+  "combined_48_feature_arm": false,
+  "features": [
+    {
+      "name": "forward_latent_clicks_latest_cosine",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "latest_cosine",
+      "definition": "Signed cosine to the most recent anchor; zero when that anchor or the target has no vector, or is the candidate itself.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_clicks_maximum_cosine",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "maximum_cosine",
+      "definition": "Maximum signed cosine over available non-self anchors, not a positive-clipped maximum; zero when none are available.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_clicks_mean_cosine",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "mean_cosine",
+      "definition": "Arithmetic mean over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_clicks_cosine_std",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "cosine_std",
+      "definition": "Population standard deviation over available non-self anchors; zero with fewer than two.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_clicks_recency_weighted_cosine",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "recency_weighted_cosine",
+      "definition": "Weighted mean cosine with fixed weights 1/(rank+1), renormalized over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_clicks_centroid_cosine",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "centroid_cosine",
+      "definition": "Cosine to the recency-weighted anchor-vector centroid, in the SAME learned basis; zero when the centroid is zero.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_clicks_latest_minus_older_cosine",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "latest_minus_older_cosine",
+      "definition": "Latest cosine minus the mean of available older anchors; requires both latest and at least one older anchor.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_clicks_available_anchor_fraction",
+      "arm": "primary",
+      "destination_action": "clicks",
+      "measurement": "available_anchor_fraction",
+      "definition": "Number of available non-self anchor/target vector pairs divided by the number of non-self anchors; zero if none.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_latest_cosine",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "latest_cosine",
+      "definition": "Signed cosine to the most recent anchor; zero when that anchor or the target has no vector, or is the candidate itself.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_maximum_cosine",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "maximum_cosine",
+      "definition": "Maximum signed cosine over available non-self anchors, not a positive-clipped maximum; zero when none are available.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_mean_cosine",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "mean_cosine",
+      "definition": "Arithmetic mean over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_cosine_std",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "cosine_std",
+      "definition": "Population standard deviation over available non-self anchors; zero with fewer than two.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_recency_weighted_cosine",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "recency_weighted_cosine",
+      "definition": "Weighted mean cosine with fixed weights 1/(rank+1), renormalized over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_centroid_cosine",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "centroid_cosine",
+      "definition": "Cosine to the recency-weighted anchor-vector centroid, in the SAME learned basis; zero when the centroid is zero.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_latest_minus_older_cosine",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "latest_minus_older_cosine",
+      "definition": "Latest cosine minus the mean of available older anchors; requires both latest and at least one older anchor.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_carts_available_anchor_fraction",
+      "arm": "primary",
+      "destination_action": "carts",
+      "measurement": "available_anchor_fraction",
+      "definition": "Number of available non-self anchor/target vector pairs divided by the number of non-self anchors; zero if none.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_latest_cosine",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "latest_cosine",
+      "definition": "Signed cosine to the most recent anchor; zero when that anchor or the target has no vector, or is the candidate itself.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_maximum_cosine",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "maximum_cosine",
+      "definition": "Maximum signed cosine over available non-self anchors, not a positive-clipped maximum; zero when none are available.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_mean_cosine",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "mean_cosine",
+      "definition": "Arithmetic mean over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_cosine_std",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "cosine_std",
+      "definition": "Population standard deviation over available non-self anchors; zero with fewer than two.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_recency_weighted_cosine",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "recency_weighted_cosine",
+      "definition": "Weighted mean cosine with fixed weights 1/(rank+1), renormalized over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_centroid_cosine",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "centroid_cosine",
+      "definition": "Cosine to the recency-weighted anchor-vector centroid, in the SAME learned basis; zero when the centroid is zero.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_latest_minus_older_cosine",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "latest_minus_older_cosine",
+      "definition": "Latest cosine minus the mean of available older anchors; requires both latest and at least one older anchor.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "forward_latent_orders_available_anchor_fraction",
+      "arm": "primary",
+      "destination_action": "orders",
+      "measurement": "available_anchor_fraction",
+      "definition": "Number of available non-self anchor/target vector pairs divided by the number of non-self anchors; zero if none.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_latest_cosine",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "latest_cosine",
+      "definition": "Signed cosine to the most recent anchor; zero when that anchor or the target has no vector, or is the candidate itself.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_maximum_cosine",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "maximum_cosine",
+      "definition": "Maximum signed cosine over available non-self anchors, not a positive-clipped maximum; zero when none are available.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_mean_cosine",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "mean_cosine",
+      "definition": "Arithmetic mean over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_cosine_std",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "cosine_std",
+      "definition": "Population standard deviation over available non-self anchors; zero with fewer than two.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_recency_weighted_cosine",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "recency_weighted_cosine",
+      "definition": "Weighted mean cosine with fixed weights 1/(rank+1), renormalized over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_centroid_cosine",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "centroid_cosine",
+      "definition": "Cosine to the recency-weighted anchor-vector centroid, in the SAME learned basis; zero when the centroid is zero.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_latest_minus_older_cosine",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "latest_minus_older_cosine",
+      "definition": "Latest cosine minus the mean of available older anchors; requires both latest and at least one older anchor.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_clicks_available_anchor_fraction",
+      "arm": "ablation",
+      "destination_action": "clicks",
+      "measurement": "available_anchor_fraction",
+      "definition": "Number of available non-self anchor/target vector pairs divided by the number of non-self anchors; zero if none.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_latest_cosine",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "latest_cosine",
+      "definition": "Signed cosine to the most recent anchor; zero when that anchor or the target has no vector, or is the candidate itself.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_maximum_cosine",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "maximum_cosine",
+      "definition": "Maximum signed cosine over available non-self anchors, not a positive-clipped maximum; zero when none are available.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_mean_cosine",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "mean_cosine",
+      "definition": "Arithmetic mean over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_cosine_std",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "cosine_std",
+      "definition": "Population standard deviation over available non-self anchors; zero with fewer than two.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_recency_weighted_cosine",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "recency_weighted_cosine",
+      "definition": "Weighted mean cosine with fixed weights 1/(rank+1), renormalized over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_centroid_cosine",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "centroid_cosine",
+      "definition": "Cosine to the recency-weighted anchor-vector centroid, in the SAME learned basis; zero when the centroid is zero.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_latest_minus_older_cosine",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "latest_minus_older_cosine",
+      "definition": "Latest cosine minus the mean of available older anchors; requires both latest and at least one older anchor.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_carts_available_anchor_fraction",
+      "arm": "ablation",
+      "destination_action": "carts",
+      "measurement": "available_anchor_fraction",
+      "definition": "Number of available non-self anchor/target vector pairs divided by the number of non-self anchors; zero if none.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_latest_cosine",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "latest_cosine",
+      "definition": "Signed cosine to the most recent anchor; zero when that anchor or the target has no vector, or is the candidate itself.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_maximum_cosine",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "maximum_cosine",
+      "definition": "Maximum signed cosine over available non-self anchors, not a positive-clipped maximum; zero when none are available.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_mean_cosine",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "mean_cosine",
+      "definition": "Arithmetic mean over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_cosine_std",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "cosine_std",
+      "definition": "Population standard deviation over available non-self anchors; zero with fewer than two.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_recency_weighted_cosine",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "recency_weighted_cosine",
+      "definition": "Weighted mean cosine with fixed weights 1/(rank+1), renormalized over available non-self anchors.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_centroid_cosine",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "centroid_cosine",
+      "definition": "Cosine to the recency-weighted anchor-vector centroid, in the SAME learned basis; zero when the centroid is zero.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_latest_minus_older_cosine",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "latest_minus_older_cosine",
+      "definition": "Latest cosine minus the mean of available older anchors; requires both latest and at least one older anchor.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    },
+    {
+      "name": "unsigned_latent_orders_available_anchor_fraction",
+      "arm": "ablation",
+      "destination_action": "orders",
+      "measurement": "available_anchor_fraction",
+      "definition": "Number of available non-self anchor/target vector pairs divided by the number of non-self anchors; zero if none.",
+      "availability": "Historical cache strictly before cutoff; observed query anchors only; no query labels.",
+      "missing_convention": "Zero for no evidence; available_anchor_fraction records availability.",
+      "training_only": "Vocabulary and basis use historical cache only; never fitted on fitting/validation targets."
+    }
+  ]
+}

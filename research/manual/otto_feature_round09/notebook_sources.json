@@ -1,0 +1,284 @@
+{
+  "00_round07_review.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# OTTO · Round 07 evidence review\n## Historical-session pilot: support exists, no ranker result yet\n\n**256 training-only queries · 81 verified checksum-listed files · zero model fits.**\nThe candidate oracle is an upper bound under perfect ordering, not achieved Recall@20. Both proposal arms recovered six extra click targets, one cart target and no orders. The two next matched ranker tests keep the original 400-candidate pool fixed.\n\nThe integer statistics and archive checks were independently reproduced. Large private history, posting and feature arrays were not included in the return ZIP; their membership cannot be independently replayed from receipts alone."
+    },
+    {
+      "cell_type": "code",
+      "source": "import json\nimport plotly.graph_objects as go\nimport plotly.io as pio\nfrom IPython.display import display\nfigures=[]\ndef emit(fig):\n    fig.update_layout(margin=dict(l=65,r=35,t=80,b=65),height=480)\n    figures.append(fig)\n    display({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)\n\naudit={'archive_sha256': 'bf59cb78bf0aeb88388da662a2a36b32c286cf625fe1c782bc8fdb725e0a0ff8', 'checksum_files_verified': 81, 'mismatches': [], 'all_saved_integer_metrics_reproduced': True, 'sessions': 256, 'unique_sessions': 256, 'training_only': True, 'new_model_fits': 0, 'baseline_oracle': {'denominators': [236, 70, 33], 'hits': [158, 37, 18], 'recall': {'carts': 0.5285714285714286, 'clicks': 0.6694915254237288, 'orders': 0.5454545454545454}, 'weighted_oracle_at20': 0.5527933083865286}, 'arms': {'last_anchor': {'expanded_candidate_oracle': {'denominators': [236, 70, 33], 'hits': [164, 38, 18], 'recall': {'carts': 0.5428571428571428, 'clicks': 0.6949152542372882, 'orders': 0.5454545454545454}, 'weighted_oracle_at20': 0.5596213955535989}, 'mean_new_candidates_by_objective': [60.1015625, 35.23046875, 14.94921875], 'net_capped_hits': [6, 1, 0], 'new_distinct_target_hits': [6, 1, 0], 'supported_baseline_positive_items': [137, 27, 12]}, 'session_context': {'expanded_candidate_oracle': {'denominators': [236, 70, 33], 'hits': [164, 38, 18], 'recall': {'carts': 0.5428571428571428, 'clicks': 0.6949152542372882, 'orders': 0.5454545454545454}, 'weighted_oracle_at20': 0.5596213955535989}, 'mean_new_candidates_by_objective': [61.0390625, 33.75390625, 14.38671875], 'net_capped_hits': [6, 1, 0], 'new_distinct_target_hits': [6, 1, 0], 'supported_baseline_positive_items': [148, 26, 14]}}, 'oracle_gain': 0.006828087167070285, 'notebook_execution': [{'notebook': '00_round06_review.ipynb', 'code_cells': 9, 'executed_cells': 9, 'errors': 0, 'plotly_payloads': 8}, {'notebook': '01_build_neighbor_evidence.ipynb', 'code_cells': 6, 'executed_cells': 6, 'errors': 0, 'plotly_payloads': 0}, {'notebook': '02_features_and_audit.ipynb', 'code_cells': 5, 'executed_cells': 5, 'errors': 0, 'plotly_payloads': 0}, {'notebook': '03_saved_results.ipynb', 'code_cells': 10, 'executed_cells': 10, 'errors': 0, 'plotly_payloads': 8}], 'failed_receipts': [], 'limitations': ['Native history, postings, pilot and feature arrays were NOT in return archive; their checksums/receipts were reviewed, not independently replayed.', 'Integer per-query audit arrays reproduced; candidate membership and feature values require private AWS binaries.', '256 reused training queries, only 33 order denominator units, no achieved ranker or Kaggle score.']}\nprint(\"AUDIT_READY: saved integer statistics, no fitting\")"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1 · Candidate oracle on the same pilot"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure(go.Bar(x=['Original 400 candidates','Session-context proposals','Last-anchor proposals'],y=[audit['baseline_oracle']['weighted_oracle_at20'],audit['arms']['session_context']['expanded_candidate_oracle']['weighted_oracle_at20'],audit['arms']['last_anchor']['expanded_candidate_oracle']['weighted_oracle_at20']],text=[f\"{x:.6f}\" for x in [audit['baseline_oracle']['weighted_oracle_at20'],audit['arms']['session_context']['expanded_candidate_oracle']['weighted_oracle_at20'],audit['arms']['last_anchor']['expanded_candidate_oracle']['weighted_oracle_at20']]],textposition='outside'))\nf.update_layout(title='Perfect-ordering bound, not an achieved model score',yaxis_title='Weighted candidate oracle');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2 · Exact target hits recovered"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nfor arm in ['session_context','last_anchor']:\n    f.add_trace(go.Bar(name=arm,x=['Clicks','Carts','Orders'],y=audit['arms'][arm]['net_capped_hits']))\nf.update_layout(title='Both arms recovered the same 6 / 1 / 0 capped hits',barmode='group',yaxis_title='Additional hits');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3 · Baseline-positive support differs"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nfor arm in ['session_context','last_anchor']:\n    f.add_trace(go.Bar(name=arm,x=['Clicks','Carts','Orders'],y=audit['arms'][arm]['supported_baseline_positive_items']))\nf.update_layout(title='Relevant original candidates with historical support',barmode='group',yaxis_title='Supported candidate/action targets');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4 · Action-level ceilings"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nf.add_trace(go.Bar(name='Original pool',x=['Clicks','Carts','Orders'],y=[audit['baseline_oracle']['recall'][o] for o in ['clicks','carts','orders']]))\nf.add_trace(go.Bar(name='Expanded bound (both arms)',x=['Clicks','Carts','Orders'],y=[audit['arms']['session_context']['expanded_candidate_oracle']['recall'][o] for o in ['clicks','carts','orders']]))\nf.update_layout(title='No order-ceiling gain on this pilot',barmode='group',yaxis_title='Action candidate oracle');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5 · Small outcome denominators"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure(go.Bar(x=['Clicks','Carts','Orders'],y=audit['baseline_oracle']['denominators'],text=audit['baseline_oracle']['denominators'],textposition='outside'))\nf.update_layout(title='Only 33 order denominator units: avoid broad conclusions',yaxis_title='Capped denominator units');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 6 · Additional candidates are not automatically useful"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nfor arm in ['session_context','last_anchor']:\n    f.add_trace(go.Bar(name=arm,x=['Clicks','Carts','Orders'],y=audit['arms'][arm]['mean_new_candidates_by_objective']))\nf.update_layout(title='New candidate volume versus just seven extra target hits',barmode='group',yaxis_title='Mean novel proposals per query');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 7 · Effect on the weighted bound"
+    },
+    {
+      "cell_type": "code",
+      "source": "weights=[0.1,0.3,0.6];hits=[6,1,0];den=audit['baseline_oracle']['denominators']\nf=go.Figure(go.Bar(x=['Clicks','Carts','Orders'],y=[w*h/d for w,h,d in zip(weights,hits,den)]))\nf.update_layout(title='Weighted oracle gain totals +0.006828, not a ranking gain',yaxis_title='Weighted contribution to oracle change');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 8 · Source coverage and truncation"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure(go.Bar(x=['Supported anchors','Unsupported anchors','Anchors exceeding 64 retained postings'],y=[499,3,358]))\nf.update_layout(title='502 pilot anchors; 358 have truncated source postings',yaxis_title='Anchor count');emit(f)\nassert len(figures)==8\nprint('ROUND07_REVIEW_COMPLETE: 8 charts; no new experiment score')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Decision and limits\n\nPreserve the completed pilot. Do not repeat its extraction or fit a model on just these 256 selected training queries. The next packages reuse its certified source and conduct two separate full-cohort feature comparisons. The baseline stays at 134 features; each primary and ablation adds 24. Positive support establishes a reason to test, not proof of ranking value. The historical source remains a retained tail, not complete sessions."
+    }
+  ],
+  "01_build_features.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# OTTO Round 09 · Build features\n## Directed historical-session continuation\n\nRun **one code cell at a time with Shift+Enter**. Stop on any red error or planned pause. Do not use Run All here. Keep the existing kernel; the launcher uses the verified project interpreter."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport importlib.util, json\nROOT=Path.home()/'otto_feature_round09'\nspec=importlib.util.spec_from_file_location('otto_round09_launcher',ROOT/'launch.py')\nlauncher=importlib.util.module_from_spec(spec);spec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(path,status):\n    row=json.loads(Path(path).read_text())\n    if row.get('status')!=status:raise RuntimeError('STOPPED_REVIEW_REQUIRED: missing completed stage '+status)\n    print(status)\n    return row\nprint('KERNEL_READY')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Tests first\nThe installed DuckDB/Parquet backend smoke must pass. Do not install a fallback."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('tests')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Require completed shared extraction from Round08\nThis is a completion check, not a positive-score gate."
+    },
+    {
+      "cell_type": "code",
+      "source": "require(Path.home()/'otto_feature_round08/outputs/shared/history.json','SHARED_HISTORY_READY')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Generate 24 primary and 24 ablation features\nCandidates stay fixed; save the notebook after the gate."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('features')"
+    },
+    {
+      "cell_type": "code",
+      "source": "require(ROOT/'outputs/feature_manifest.json','ROUND09_FEATURES_READY')"
+    }
+  ],
+  "02_run_comparison.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# OTTO Round 09 · Matched comparison\n## Directed historical-session continuation\n\nRun one code cell at a time. Six saved control replays precede all challenger fits. At most twelve new models. Any operational failure stops both rounds."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport importlib.util, json\nROOT=Path.home()/'otto_feature_round09'\nspec=importlib.util.spec_from_file_location('otto_round09_launcher',ROOT/'launch.py')\nlauncher=importlib.util.module_from_spec(spec);spec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(path,status):\n    row=json.loads(Path(path).read_text())\n    if row.get('status')!=status:raise RuntimeError('STOPPED_REVIEW_REQUIRED: missing completed stage '+status)\n    print(status)\n    return row\nprint('KERNEL_READY')"
+    },
+    {
+      "cell_type": "code",
+      "source": "require(ROOT/'outputs/feature_manifest.json','ROUND09_FEATURES_READY')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Screen\nFrozen model settings, full validation candidates and original target denominators."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('screen')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Recalculate results and generate nine plots\nReport generation reads saved results; it does not train."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('report')"
+    },
+    {
+      "cell_type": "code",
+      "source": "row=require(ROOT/'outputs/result.json','ROUND09_SCREEN_COMPLETED')\nprint(json.dumps(row['comparisons'][row['primary_comparison']],indent=2))\nrequire(ROOT/'outputs/report_receipt.json','ROUND09_REPORT_READY')"
+    }
+  ],
+  "03_saved_results.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# OTTO Round 09 · Saved results\n## Directed historical-session continuation\n\nThis notebook reads nine saved Plotly payloads; it does not train or extract data. Run All is safe **only after** the report stage succeeded. Save all notebooks, then execute the final bundle command in the terminal to include saved execution outputs."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport importlib.util, json\nROOT=Path.home()/'otto_feature_round09'\nspec=importlib.util.spec_from_file_location('otto_round09_launcher',ROOT/'launch.py')\nlauncher=importlib.util.module_from_spec(spec);spec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(path,status):\n    row=json.loads(Path(path).read_text())\n    if row.get('status')!=status:raise RuntimeError('STOPPED_REVIEW_REQUIRED: missing completed stage '+status)\n    print(status)\n    return row\nprint('KERNEL_READY')\nreceipt=require(ROOT/'outputs/report_receipt.json','ROUND09_REPORT_READY')\nimport hashlib\nfrom IPython.display import display"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1 · Matched weighted Recall@20"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/01.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2 · Paired descriptive intervals"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/02.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3 · Fold stability"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/03.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4 · Action recall"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/04.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5 · Exact target-hit contributions"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/05.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 6 · Representation contrast"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/06.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 7 · Training-only redundancy"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/07.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 8 · Candidate ceiling versus achieved ranking"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/08.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 9 · Training-positive support"
+    },
+    {
+      "cell_type": "code",
+      "source": "path=ROOT/'outputs/plots/09.json'\nif hashlib.sha256(path.read_bytes()).hexdigest()!=receipt['plot_hashes'][path.name]:raise ValueError('Plot checksum changed')\ndisplay({'application/vnd.plotly.v1+json':json.loads(path.read_text())},raw=True)"
+    },
+    {
+      "cell_type": "code",
+      "source": "print('ROUND09_RESULTS_DISPLAYED: save notebooks; run launch.py bundle in the terminal')"
+    }
+  ],
+  "04_feature_examples.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# OTTO Round 09 · Worked feature examples\n## Directed historical-session continuation\n\nAll events below are invented unit fixtures. The 24 primary and 24 ablation columns are produced by the same pure feature implementation used in the real pipeline. Nothing in this notebook is an achieved model metric."
+    },
+    {
+      "cell_type": "code",
+      "source": "import json\nimport plotly.graph_objects as go\nimport plotly.io as pio\nfrom IPython.display import display\nfigures=[]\ndef emit(fig):\n    fig.update_layout(margin=dict(l=65,r=35,t=80,b=65),height=480)\n    figures.append(fig)\n    display({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)\n\nimport numpy as np\nfrom neighbors import HistoricalSession\nfrom feature_logic import build, names, select\n# Entirely synthetic historical sessions. No targets, models or Kaggle score.\ndef h(sid,aids,kinds,indices,timestamps):\n    return HistoricalSession(sid,*[np.asarray(x,dtype=np.int64) for x in (aids,kinds,indices,timestamps)])\nhistory={\n 1:h(1,[9,10,80,90],[0,0,1,2],[0,1,2,4],[1000,2000,5000,15000]),\n 2:h(2,[20,10,81,91],[0,0,1,2],[0,1,2,3],[1000,2000,5000,9000]),\n 3:h(3,[10,20,82,92],[0,0,1,2],[0,1,2,7],[1000,2000,6000,12000]),\n 4:h(4,[83,10,93],[1,0,2],[0,1,2],[1000,3000,4500]),\n 5:h(5,[20,84,94],[0,1,2],[0,1,2],[1000,5000,10000]),\n}\nfor session in history.values():session.validate(100000)\nanchors=np.array([10,20],dtype=np.int64)\ncandidates=np.array([9,10,20,80,81,82,83,84,90,91,92,93,94,999],dtype=np.int64)\nfrequencies={10:100,20:5}\nprimary,ablation,diagnostics=build(9,anchors,candidates,list(history),history,frequencies)\nprimary_names=names(9); ablation_names=names(9,True)\nassert primary.shape==ablation.shape==(len(candidates),24)\nprint('SYNTHETIC_FEATURE_EXAMPLE_ONLY:',diagnostics)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1 · Clicks weighted support\nEach source session counts once; unsupported candidates remain zero."
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nf.add_trace(go.Bar(name='Primary',x=candidates.astype(str),y=primary[:,1]))\nf.add_trace(go.Bar(name='Ablation',x=candidates.astype(str),y=ablation[:,1]))\nf.update_layout(title='Synthetic clicks weighted-vote share',xaxis_title='Candidate product',yaxis_title='Descriptive share',barmode='group');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2 · Carts weighted support\nEach source session counts once; unsupported candidates remain zero."
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nf.add_trace(go.Bar(name='Primary',x=candidates.astype(str),y=primary[:,9]))\nf.add_trace(go.Bar(name='Ablation',x=candidates.astype(str),y=ablation[:,9]))\nf.update_layout(title='Synthetic carts weighted-vote share',xaxis_title='Candidate product',yaxis_title='Descriptive share',barmode='group');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3 · Orders weighted support\nEach source session counts once; unsupported candidates remain zero."
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nf.add_trace(go.Bar(name='Primary',x=candidates.astype(str),y=primary[:,17]))\nf.add_trace(go.Bar(name='Ablation',x=candidates.astype(str),y=ablation[:,17]))\nf.update_layout(title='Synthetic orders weighted-vote share',xaxis_title='Candidate product',yaxis_title='Descriptive share',barmode='group');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4 · Where representations differ\nThis is a numerical comparison of toy features, not feature importance or ranking performance."
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure(go.Bar(x=[n.split('_',2)[-1] for n in primary_names],y=np.abs(primary-ablation).mean(axis=0)))\nf.update_layout(title='Synthetic mean absolute feature difference',yaxis_title='Mean absolute difference',xaxis_tickangle=-50,height=700);emit(f)\nassert len(figures)==4\nassert np.isfinite(primary).all() and np.isfinite(ablation).all()\nprint('WORKED_EXAMPLE_COMPLETE: 24 + 24 finite columns, no models')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Interpretation\nThe primary excludes the preceding cart on product83, while the unsigned window includes it. Event gaps retain their original indices: product92 is seven indices after the pivot and is excluded. No neighborhood-size or decay search is performed."
+    }
+  ]
+}

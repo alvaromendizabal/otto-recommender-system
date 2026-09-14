@@ -1,0 +1,17 @@
+{
+  "chart_count": 8,
+  "html_sha256": "853897062ac44819821bea65ce503bdf569bde724a37cf56ba23744e2f4069b0",
+  "new_model_fits": 0,
+  "plot_hashes": {
+    "01.json": "ca58d8f043667fc06feca1e1bf6ee14f754cc2d8fc7867fb3631396af7cb6feb",
+    "02.json": "36914be5ad79ad833f6d140530be51266341fd559856e51ffffd4addbdcde7a0",
+    "03.json": "cdf74ff3cae2e6c895c4da3e4aed3d22bdfc08d01fde926f3ca09fcfdacba120",
+    "04.json": "9670a8e73c8b3fca3edc64b7a4a43abb644ed6205ee552afc5fcc225a54d81b8",
+    "05.json": "3be930b755ac8be6d3bddb6376a8dc8b34d6d751451823ef9a6ed8c8cf1a0b13",
+    "06.json": "1cf47944d35907976dd2d8448944863f5b5a318a0f1ccfcaa5719927d40b3615",
+    "07.json": "2928c38b024337120df14cc18a13440f80fd444560ee9d62651f328b5c43af0d",
+    "08.json": "f06356eec72021e60f1a8c4c7a5b0075ddea016aead23fd94c13305559a5e21f"
+  },
+  "result_sha256": "9d786134ae912efd55cc8560e6a54d1db72d1b4b27fe55e6a235168410d134c1",
+  "status": "ROUND07_REPORT_READY"
+}

@@ -1,0 +1,18 @@
+{
+  "charts": 9,
+  "metrics_replayed": true,
+  "new_model_fits": 0,
+  "plot_hashes": {
+    "01.json": "d0fd07507b72d338f5cba760e3cc7b406336e37d44fdb3a7d1f0cf7d24a237de",
+    "02.json": "096a6b78525734545feaac717e5d407170a27564ebd09d58af48cfaa037cc2eb",
+    "03.json": "31c7b08e3a4d08e7987c1e8e44193aa9fa6b9e4ea093214397b546fa8341968d",
+    "04.json": "253d45b6c9964dbff245886068e4449413e447e86b1761f8c23fa09981846dd2",
+    "05.json": "928c8a1a8209b6cc2abf61d54fbc82b1ee0d81e1cabbf0d6173cd133cfaa8a48",
+    "06.json": "d83b4e8fc7b5f6ee7f86d7647043e0d025621ec46c39024b456d5e18f970b4f1",
+    "07.json": "484c64ef871a703caaf6a6f75be0e0174adde45918d5ed81ffe825130647b28a",
+    "08.json": "029c16f272c5f418f2fac7e4d0bedd540cdf7dfe42748da2be0cc7b3403b87f0",
+    "09.json": "4a42c0b3627ba23c04fd87ae4767ed1b7c77e2979c25c60f7e904dd015fa801a"
+  },
+  "result_sha256": "202f222a04a2c733728b7db67c6620a48ca3f739ad082ce8caec4690e06e0b0f",
+  "status": "ROUND09_REPORT_READY"
+}

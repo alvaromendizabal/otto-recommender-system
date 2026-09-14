@@ -1,0 +1,386 @@
+[
+  {
+    "name": "intent_support_symmetric_time_recent_unique_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_time_recent_unique_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_time_recent_unique_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_time_recent_unique_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_time_pending_cart_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_time_pending_cart_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_time_pending_cart_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_time_pending_cart_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_recent_unique_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_recent_unique_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_recent_unique_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_recent_unique_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_pending_cart_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_pending_cart_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_pending_cart_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_cart_pending_cart_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_recent_unique_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_recent_unique_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_recent_unique_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_recent_unique_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_pending_cart_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_pending_cart_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_pending_cart_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_symmetric_order_pending_cart_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_recent_unique_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_recent_unique_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_recent_unique_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_recent_unique_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_pending_cart_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_pending_cart_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_pending_cart_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_time_pending_cart_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_recent_unique_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_recent_unique_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_recent_unique_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_recent_unique_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_pending_cart_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_pending_cart_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_pending_cart_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_cart_pending_cart_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_recent_unique_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_recent_unique_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_recent_unique_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_recent_unique_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_pending_cart_coverage",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_pending_cart_entropy",
+    "group": "support",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_pending_cart_mean_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  },
+  {
+    "name": "intent_support_forward_order_pending_cart_strongest_age_log_hours",
+    "group": "timing",
+    "availability": "certified Aug-16 history + observed prefix only",
+    "self_edges": "excluded",
+    "candidate_policy": "unchanged 400",
+    "empty_support": "zero; coverage indicates whether evidence exists"
+  }
+]

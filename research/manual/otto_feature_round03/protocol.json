@@ -1,0 +1,64 @@
+{
+  "round": "03_recent_affinity_mass",
+  "role": "fit",
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "sessions": 4096,
+  "candidate_budget": 400,
+  "control_features": 134,
+  "added_features": 36,
+  "windows_minutes": [
+    5,
+    30,
+    120
+  ],
+  "seed_pools": [
+    "recent_unique",
+    "pending_cart"
+  ],
+  "new_arm_names": [
+    "mass_missing_aware",
+    "mass_zero_ablation"
+  ],
+  "primary_arm": "mass_missing_aware",
+  "maximum_new_models": 12,
+  "control_models_refit": 0,
+  "cohort": "Exact reused Round02 cohort; exploratory new feature screen, not independent replication",
+  "missing_encoding": {
+    "mass_missing_aware": -1.0,
+    "mass_zero_ablation": 0.0
+  },
+  "round02_timing_features_included": false,
+  "embargo_hours": 6,
+  "negative_budget": 60,
+  "negative_sampling_seed": 20260908,
+  "model_params": {
+    "objective": "lambdarank",
+    "metric": "None",
+    "learning_rate": 0.05,
+    "num_leaves": 15,
+    "min_data_in_leaf": 20,
+    "lambda_l2": 1.0,
+    "lambdarank_truncation_level": 25,
+    "verbosity": -1,
+    "deterministic": true,
+    "force_col_wise": true,
+    "num_threads": 4,
+    "seed": 20260911,
+    "feature_fraction": 1.0,
+    "bagging_fraction": 1.0,
+    "bagging_freq": 0
+  },
+  "rounds": 150,
+  "work_seconds": {
+    "features": 300,
+    "screen": 240,
+    "report": 45
+  },
+  "chunk_sessions": 64,
+  "graph_rebuilds": 0,
+  "algorithm_search": false,
+  "selection_access": false,
+  "evaluation_access": false,
+  "competition_test_access": false,
+  "decision": "Primary gain >=0.003, both folds nonnegative, pooled orders nonnegative permits preregistered new-cohort/time-window confirmation only. No automatic promotion. Secondary encoding is a controlled ablation, not alternate primary winner."
+}

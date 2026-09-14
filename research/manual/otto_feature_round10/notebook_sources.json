@@ -1,0 +1,304 @@
+{
+  "02_run_comparison.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 10 \u00b7 Matched progression comparison\n\nUnchanged 134-feature control; two independent 158-feature challengers. Run individual code cells. Six exact saved-control replays precede at most twelve new real-data fits."
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1 \u00b7 Initialize"
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport importlib.util, json\nROOT = Path.home() / 'otto_feature_round10'\nspec = importlib.util.spec_from_file_location('otto_round10_launcher', ROOT / 'launch.py')\nlauncher = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(path, status):\n    row = json.loads(Path(path).read_text())\n    if row.get('status') != status:\n        raise RuntimeError('Expected ' + status + '; stop and bundle evidence.')\n    print(status)\n    return row\nprint('KERNEL_READY')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2 \u00b7 Require features"
+    },
+    {
+      "cell_type": "code",
+      "source": "require(ROOT/'outputs/feature_manifest.json', 'ROUND10_FEATURES_READY')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3 \u00b7 Replay controls and screen\nA negative completed result is a legitimate result. An operational error or pause means stop."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('screen')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4 \u00b7 Replay metrics and create nine Plotly charts"
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('report')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5 \u00b7 Record decision and save"
+    },
+    {
+      "cell_type": "code",
+      "source": "row = require(ROOT/'outputs/result.json', 'ROUND10_SCREEN_COMPLETED')\nprint(json.dumps(row['comparisons'][row['primary_comparison']], indent=2))\nrequire(ROOT/'outputs/report_receipt.json', 'ROUND10_REPORT_READY')\nprint('SAVE; then open 03_saved_results.ipynb')"
+    }
+  ],
+  "01_build_features.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 10 \u00b7 Build historical same-product action features\n\nComplete pending Round 09 first. No Round 08 rerun or history scan. Run one code cell at a time with **Shift+Enter**. After any error or pause, stop and bundle evidence. This notebook uses your existing project interpreter through the launcher."
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1 \u00b7 Initialize"
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport importlib.util, json\nROOT = Path.home() / 'otto_feature_round10'\nspec = importlib.util.spec_from_file_location('otto_round10_launcher', ROOT / 'launch.py')\nlauncher = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(path, status):\n    row = json.loads(Path(path).read_text())\n    if row.get('status') != status:\n        raise RuntimeError('Expected ' + status + '; stop and bundle evidence.')\n    print(status)\n    return row\nprint('KERNEL_READY')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2 \u00b7 Tests and actual installed-backend smoke\nContinue only after `ROUND10_TESTS_PASSED`. Native models in these tests are tiny synthetic fixtures, not project scores."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('tests')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3 \u00b7 Require completed input experiments\nThese display checks are followed by full receipt, source-file and binary checks in the feature stage."
+    },
+    {
+      "cell_type": "code",
+      "source": "require(Path.home()/'otto_feature_round08/outputs/shared/history.json', 'SHARED_HISTORY_READY')\nrequire(Path.home()/'otto_feature_round09/outputs/report_receipt.json', 'ROUND09_REPORT_READY')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4 \u00b7 Build both 24-column representations\nFull candidates first; no target access. 64-query checkpoints. Stop at any pause or failure."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('features')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5 \u00b7 Verify the feature gate and save"
+    },
+    {
+      "cell_type": "code",
+      "source": "require(ROOT/'outputs/feature_manifest.json', 'ROUND10_FEATURES_READY')\nprint('SAVE this notebook before opening 02_run_comparison.ipynb')"
+    }
+  ],
+  "00_round08_review.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# OTTO \u00b7 Round 08 result and Round 09 execution audit\n\n**Round 08 completed; Round 09 has no experiment outputs in its supplied ZIP.** Keep the control. The later internal fold exceeding the recorded 0.60503 private target does not establish a leaderboard win. Source: uploaded return manifests and saved per-session integer statistics."
+    },
+    {
+      "cell_type": "code",
+      "source": "import json\nimport plotly.graph_objects as go\nimport plotly.io as pio\nfrom IPython.display import display\nfigures=[]\ndef emit(fig):\n    figures.append(fig)\n    display({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))},raw=True)\nresult=json.loads('{\"added_features\": 24, \"algorithm_search\": false, \"arms\": {\"control_shared\": {\"denominators\": [1979, 574, 325], \"hits\": [989, 227, 217], \"recall\": {\"carts\": 0.39547038327526135, \"clicks\": 0.4997473471450227, \"orders\": 0.6676923076923077}, \"weighted_recall_at_20\": 0.5692312343124653}, \"equal_weight_ablation\": {\"denominators\": [1979, 574, 325], \"hits\": [964, 223, 217], \"recall\": {\"carts\": 0.3885017421602787, \"clicks\": 0.48711470439615967, \"orders\": 0.6676923076923077}, \"weighted_recall_at_20\": 0.5658773777030842}, \"rarity_neighbors\": {\"denominators\": [1979, 574, 325], \"hits\": [977, 219, 216], \"recall\": {\"carts\": 0.38153310104529614, \"clicks\": 0.49368367862556845, \"orders\": 0.6646153846153846}, \"weighted_recall_at_20\": 0.5625975289453764}}, \"candidate_coverage_sha256\": \"f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38\", \"comparisons\": {\"equal_weight_ablation_minus_control_shared\": {\"decision\": \"STOP_THIS_CONFIGURATION_NO_GAIN\", \"descriptive_95_interval\": [-0.013905972382074208, 0.006811148296953653], \"fold_gains\": [-0.01364726595645327, 0.007409242841759589], \"gain\": -0.003353856609381034, \"method\": \"paired session bootstrap within time fold; descriptive\", \"net_extra_hits\": {\"carts\": -4, \"clicks\": -25, \"orders\": 0}, \"no_automatic_promotion\": true, \"one_order_hit_weight\": 0.0018461538461538461, \"order_gain\": 0.0, \"replicates\": 2000, \"weighted_contributions\": {\"carts\": -0.0020905923344947735, \"clicks\": -0.0012632642748863063, \"orders\": 0.0}}, \"rarity_neighbors_minus_control_shared\": {\"decision\": \"STOP_THIS_CONFIGURATION_NO_GAIN\", \"descriptive_95_interval\": [-0.021266407060492674, 0.007602937123322127], \"fold_gains\": [-0.018748493656537524, 0.0060178922568606685], \"gain\": -0.006633705367088849, \"method\": \"paired session bootstrap within time fold; descriptive\", \"net_extra_hits\": {\"carts\": -8, \"clicks\": -12, \"orders\": -1}, \"no_automatic_promotion\": true, \"one_order_hit_weight\": 0.0018461538461538461, \"order_gain\": -0.003076923076923088, \"replicates\": 2000, \"weighted_contributions\": {\"carts\": -0.004181184668989547, \"clicks\": -0.0006063668519454271, \"orders\": -0.0018461538461538461}}, \"rarity_neighbors_minus_equal_weight_ablation\": {\"decision\": \"STOP_THIS_CONFIGURATION_NO_GAIN\", \"descriptive_95_interval\": [-0.013113776272929737, 0.0059359880369258666], \"fold_gains\": [-0.005101227700084254, -0.0013913505848989205], \"gain\": -0.003279848757707815, \"method\": \"paired session bootstrap within time fold; descriptive\", \"net_extra_hits\": {\"carts\": -4, \"clicks\": 13, \"orders\": -1}, \"no_automatic_promotion\": true, \"one_order_hit_weight\": 0.0018461538461538461, \"order_gain\": -0.003076923076923088, \"replicates\": 2000, \"weighted_contributions\": {\"carts\": -0.0020905923344947735, \"clicks\": 0.0006568974229408793, \"orders\": -0.0018461538461538461}}}, \"competition_test_access\": false, \"context_diagnostics_sha256\": \"f5876c2d06a333b7cbe3b605648a124cbeaa03af5207986695a674d451adabab\", \"control_features\": 134, \"control_models_refit\": 0, \"control_prediction_replay_exact\": true, \"control_recipe_unchanged\": true, \"evaluation_access\": false, \"feature_engineering_complete\": false, \"feature_retention_decisions\": 0, \"features_committed_before_label_access\": true, \"fold_results\": [{\"arm\": \"control_shared\", \"denominators\": [987, 301, 166], \"features\": 134, \"fold\": 0, \"hits\": [494, 113, 104], \"recall\": {\"carts\": 0.3754152823920266, \"clicks\": 0.5005065856129686, \"orders\": 0.6265060240963856}, \"weighted_recall_at_20\": 0.5385788577367362}, {\"arm\": \"control_shared\", \"denominators\": [992, 273, 159], \"features\": 134, \"fold\": 1, \"hits\": [495, 114, 113], \"recall\": {\"carts\": 0.4175824175824176, \"clicks\": 0.49899193548387094, \"orders\": 0.710691823899371}, \"weighted_recall_at_20\": 0.6015890131627349}, {\"arm\": \"rarity_neighbors\", \"denominators\": [987, 301, 166], \"features\": 158, \"fold\": 0, \"hits\": [491, 109, 100], \"recall\": {\"carts\": 0.36212624584717606, \"clicks\": 0.49746707193515705, \"orders\": 0.6024096385542169}, \"weighted_recall_at_20\": 0.5198303640801987}, {\"arm\": \"equal_weight_ablation\", \"denominators\": [987, 301, 166], \"features\": 158, \"fold\": 0, \"hits\": [486, 111, 101], \"recall\": {\"carts\": 0.3687707641196013, \"clicks\": 0.49240121580547114, \"orders\": 0.608433734939759}, \"weighted_recall_at_20\": 0.5249315917802829}, {\"arm\": \"rarity_neighbors\", \"denominators\": [992, 273, 159], \"features\": 158, \"fold\": 1, \"hits\": [486, 110, 116], \"recall\": {\"carts\": 0.40293040293040294, \"clicks\": 0.4899193548387097, \"orders\": 0.7295597484276729}, \"weighted_recall_at_20\": 0.6076069054195956}, {\"arm\": \"equal_weight_ablation\", \"denominators\": [992, 273, 159], \"features\": 158, \"fold\": 1, \"hits\": [478, 112, 116], \"recall\": {\"carts\": 0.41025641025641024, \"clicks\": 0.48185483870967744, \"orders\": 0.7295597484276729}, \"weighted_recall_at_20\": 0.6089982560044945}], \"historical_source_cutoff_ms\": 1660687200000, \"limitations\": [\"Reused Round02 fitting cohort; adaptive exploration, not independent validation.\", \"Two predeclared independent families are evaluated against the same immutable 134-feature control.\", \"All original study sessions excluded from certified retained historical tails; source not full raw sessions.\", \"64 recent matching sessions per anchor; not exhaustive nearest-neighbor retrieval.\", \"Candidate pool frozen at400. Candidate expansion is not tested or applied.\", \"All target-aware diagnostics use censored training targets only; no automatic feature filtering.\", \"Model capacity and data scale held fixed to isolate features; not proved optimal.\", \"Intervals are descriptive and do not adjust for adaptive hypothesis selection or temporal dependence.\", \"No Kaggle submission, achieved leaderboard score or automatic feature promotion.\"], \"model_count\": 12, \"model_inventory\": {\"models/fold-0/equal_weight_ablation/carts/model.txt\": \"d69682088cdda031c969ac5af1118d3917107f16294792f32f65539bbe87c143\", \"models/fold-0/equal_weight_ablation/clicks/model.txt\": \"59e7729b7dec673e021737a7e9ee714ec0ff6c9031521b792afab64181a6a6f9\", \"models/fold-0/equal_weight_ablation/orders/model.txt\": \"64b8e87ada33c394c439399ee2ee5aeac8447d2959b9048f65a6db4da56a7d4f\", \"models/fold-0/rarity_neighbors/carts/model.txt\": \"2f77ea1b41f9781ae5386f37870b1484e446f18be606198f0d9aa11d66748bf0\", \"models/fold-0/rarity_neighbors/clicks/model.txt\": \"ca50ad5914bfa8f5586a07b7f148d48778727b5150a5a8d3fae6f4553374e7e8\", \"models/fold-0/rarity_neighbors/orders/model.txt\": \"1ee533be1daff199353ba562ffeac39efbf3bc5be9b823e450102f3df219b92d\", \"models/fold-1/equal_weight_ablation/carts/model.txt\": \"7841323db7f5a13676b749a1fee5667626d05713887c395dc8cfd47ea19ce196\", \"models/fold-1/equal_weight_ablation/clicks/model.txt\": \"85485d776d65abeb169ad53e026405c8af8541788a7169ae24e77420c47b8c9b\", \"models/fold-1/equal_weight_ablation/orders/model.txt\": \"4465839805d551b7d5aa59a6f5df8ceecd9b1644c8d9bb54b2dbb6651bb315f5\", \"models/fold-1/rarity_neighbors/carts/model.txt\": \"ae13e907fab6f6d604edc094fda411459e2becb875fa7d924341cc3c52697423\", \"models/fold-1/rarity_neighbors/clicks/model.txt\": \"58ddf40eab33accfb6075fde4f976e9f8f11eec9bb9bd926f1cbe01eadbc1127\", \"models/fold-1/rarity_neighbors/orders/model.txt\": \"afc0f51c5b95c96d836f604608087a75b68832bb983bce9a3988ba250c0fad87\"}, \"native_reload_prediction_parity\": true, \"new_indices\": 0, \"old_graphs_rebuilt\": 0, \"original_graph_rebuilds\": 0, \"positive_support_sha256\": \"0c94a5b22b3db1d28b35e75f9c48413fb1308c5e1b16c2eb5b560b1f693f66ba\", \"primary_comparison\": \"rarity_neighbors_minus_control_shared\", \"round02_timing_included\": false, \"round03_mass_included\": false, \"secondary_comparisons_are_not_advancement_gates\": true, \"selection_access\": false, \"sessions\": 4096, \"shared_historical_cache_reused\": true, \"source_commit\": \"2638faa34afa427ed4ac4e92bba04deda57c688e\", \"statistics_sha256\": \"a80dc48c6b0acc9a3721abd4457e1c4bc35d42db15ecf25bbc14ec9125145ed4\", \"status\": \"ROUND08_SCREEN_COMPLETED\", \"validation_sessions\": 2048}')\naudit=json.loads('{\"scope\": \"Uploaded small archives only; large native models, historical arrays and feature matrices not supplied. No cloud replay.\", \"archives\": {\"8\": {\"filename\": \"otto_round08_return.zip\", \"sha256\": \"43364082be3607d8df83ea8710393953296c4df8ac4af372da41a8fa39640e6a\", \"bytes\": 1671102, \"verified_files\": 183, \"notebooks\": [{\"name\": \"00_round07_review.ipynb\", \"code_cells\": 9, \"executed_code_cells\": 9, \"errors\": 0, \"plotly_outputs\": 8}, {\"name\": \"01_build_features.ipynb\", \"code_cells\": 7, \"executed_code_cells\": 7, \"errors\": 0, \"plotly_outputs\": 0}, {\"name\": \"02_run_comparison.ipynb\", \"code_cells\": 5, \"executed_code_cells\": 5, \"errors\": 0, \"plotly_outputs\": 0}, {\"name\": \"03_saved_results.ipynb\", \"code_cells\": 11, \"executed_code_cells\": 11, \"errors\": 0, \"plotly_outputs\": 9}, {\"name\": \"04_feature_examples.ipynb\", \"code_cells\": 5, \"executed_code_cells\": 5, \"errors\": 0, \"plotly_outputs\": 4}], \"outputs_files\": 128}, \"9\": {\"filename\": \"otto_round09_return.zip\", \"sha256\": \"7a02cc4b9f7a07de61366643a11cba0e7b91a4123105a6903d8f24e215da0db5\", \"bytes\": 154722, \"verified_files\": 55, \"notebooks\": [{\"name\": \"00_round07_review.ipynb\", \"code_cells\": 9, \"executed_code_cells\": 9, \"errors\": 0, \"plotly_outputs\": 8}, {\"name\": \"01_build_features.ipynb\", \"code_cells\": 5, \"executed_code_cells\": 0, \"errors\": 0, \"plotly_outputs\": 0}, {\"name\": \"02_run_comparison.ipynb\", \"code_cells\": 5, \"executed_code_cells\": 0, \"errors\": 0, \"plotly_outputs\": 0}, {\"name\": \"03_saved_results.ipynb\", \"code_cells\": 11, \"executed_code_cells\": 0, \"errors\": 0, \"plotly_outputs\": 0}, {\"name\": \"04_feature_examples.ipynb\", \"code_cells\": 5, \"executed_code_cells\": 5, \"errors\": 0, \"plotly_outputs\": 4}], \"outputs_files\": 0}}, \"round08_scores\": {\"control_shared\": 0.5692312343124653, \"equal_weight_ablation\": 0.5658773777030842, \"rarity_neighbors\": 0.5625975289453764}, \"round08_fold_scores\": {\"control_shared_fold0\": 0.5385788577367362, \"control_shared_fold1\": 0.6015890131627349, \"equal_weight_ablation_fold0\": 0.5249315917802829, \"equal_weight_ablation_fold1\": 0.6089982560044945, \"rarity_neighbors_fold0\": 0.5198303640801987, \"rarity_neighbors_fold1\": 0.6076069054195956}, \"round08_comparisons\": {\"equal_weight_ablation_minus_control_shared\": {\"decision\": \"STOP_THIS_CONFIGURATION_NO_GAIN\", \"descriptive_95_interval\": [-0.013905972382074208, 0.006811148296953653], \"fold_gains\": [-0.01364726595645327, 0.007409242841759589], \"gain\": -0.003353856609381034, \"method\": \"paired session bootstrap within time fold; descriptive\", \"net_extra_hits\": {\"carts\": -4, \"clicks\": -25, \"orders\": 0}, \"no_automatic_promotion\": true, \"one_order_hit_weight\": 0.0018461538461538461, \"order_gain\": 0.0, \"replicates\": 2000, \"weighted_contributions\": {\"carts\": -0.0020905923344947735, \"clicks\": -0.0012632642748863063, \"orders\": 0.0}}, \"rarity_neighbors_minus_control_shared\": {\"decision\": \"STOP_THIS_CONFIGURATION_NO_GAIN\", \"descriptive_95_interval\": [-0.021266407060492674, 0.007602937123322127], \"fold_gains\": [-0.018748493656537524, 0.0060178922568606685], \"gain\": -0.006633705367088849, \"method\": \"paired session bootstrap within time fold; descriptive\", \"net_extra_hits\": {\"carts\": -8, \"clicks\": -12, \"orders\": -1}, \"no_automatic_promotion\": true, \"one_order_hit_weight\": 0.0018461538461538461, \"order_gain\": -0.003076923076923088, \"replicates\": 2000, \"weighted_contributions\": {\"carts\": -0.004181184668989547, \"clicks\": -0.0006063668519454271, \"orders\": -0.0018461538461538461}}, \"rarity_neighbors_minus_equal_weight_ablation\": {\"decision\": \"STOP_THIS_CONFIGURATION_NO_GAIN\", \"descriptive_95_interval\": [-0.013113776272929737, 0.0059359880369258666], \"fold_gains\": [-0.005101227700084254, -0.0013913505848989205], \"gain\": -0.003279848757707815, \"method\": \"paired session bootstrap within time fold; descriptive\", \"net_extra_hits\": {\"carts\": -4, \"clicks\": 13, \"orders\": -1}, \"no_automatic_promotion\": true, \"one_order_hit_weight\": 0.0018461538461538461, \"order_gain\": -0.003076923076923088, \"replicates\": 2000, \"weighted_contributions\": {\"carts\": -0.0020905923344947735, \"clicks\": 0.0006568974229408793, \"orders\": -0.0018461538461538461}}}, \"round08_model_receipts_present\": 12, \"round08_control_and_sessions_equal_saved_reference\": true, \"round09_status\": \"NO_EXPERIMENT_EXECUTION_EVIDENCE_IN_SUPPLIED_RETURN\", \"round09_model_score\": null, \"next_experiments\": [9, 10], \"round08_large_binaries_independently_replayed\": false, \"replicates_per_interval\": 2000}')\narms=['control_shared','rarity_neighbors','equal_weight_ablation']\nprint('AUDIT_READY: uploaded integer statistics; no fitting')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1 \u00b7 Overall matched comparison"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure(go.Bar(x=arms,y=[result['arms'][a]['weighted_recall_at_20'] for a in arms],text=[f\"{result['arms'][a]['weighted_recall_at_20']:.6f}\" for a in arms],textposition='outside'));f.update_layout(title='Round 08: matched fitting scores, not leaderboard scores');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2 \u00b7 Chronological stability"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nfor a in arms[1:]:f.add_trace(go.Bar(name=a,x=['Earlier fold','Later fold'],y=result['comparisons'][a+'_minus_control_shared']['fold_gains']))\nf.add_hline(y=0,line_dash='dash');f.update_layout(title='Temporal instability: negative earlier fold, positive later fold',barmode='group');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3 \u00b7 Exact changes in target hits"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nfor a in arms[1:]:f.add_trace(go.Bar(name=a,x=['Clicks','Carts','Orders'],y=[result['comparisons'][a+'_minus_control_shared']['net_extra_hits'][k] for k in ['clicks','carts','orders']]))\nf.update_layout(title='Net extra hits versus unchanged control',barmode='group');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4 \u00b7 Action-specific recall"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nfor a in arms:f.add_trace(go.Bar(name=a,x=['Clicks','Carts','Orders'],y=[result['arms'][a]['recall'][k] for k in ['clicks','carts','orders']]))\nf.update_layout(title='Recall by objective \u2014 full target denominators',barmode='group');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5 \u00b7 Descriptive paired uncertainty"
+    },
+    {
+      "cell_type": "code",
+      "source": "keys=list(result['comparisons']);c=[result['comparisons'][k] for k in keys];v=[x['gain'] for x in c];lo=[x['descriptive_95_interval'][0] for x in c];hi=[x['descriptive_95_interval'][1] for x in c]\nf=go.Figure(go.Scatter(x=v,y=keys,mode='markers',error_x=dict(type='data',symmetric=False,array=[h-x for h,x in zip(hi,v)],arrayminus=[x-l for x,l in zip(v,lo)])));f.add_vline(x=0,line_dash='dash');f.update_layout(title='Descriptive paired 95% intervals \u2014 adaptively reused cohort');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 6 \u00b7 Contribution to the weighted metric"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure()\nfor a in arms[1:]:f.add_trace(go.Bar(name=a,x=['Clicks','Carts','Orders'],y=[result['comparisons'][a+'_minus_control_shared']['weighted_contributions'][k] for k in ['clicks','carts','orders']]))\nf.update_layout(title='Which target hits caused the pooled score change?',barmode='group');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 7 \u00b7 Which archive contains execution evidence?"
+    },
+    {
+      "cell_type": "code",
+      "source": "f=go.Figure(go.Bar(x=['Round 08 output files','Round 09 output files'],y=[audit['archives']['8']['outputs_files'],audit['archives']['9']['outputs_files']]));f.update_layout(title='A packaged notebook is not an executed experiment');emit(f)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 8 \u00b7 Notebook completion audit"
+    },
+    {
+      "cell_type": "code",
+      "source": "ops=['01_build_features.ipynb','02_run_comparison.ipynb','03_saved_results.ipynb'];f=go.Figure()\nfor rr in ['8','9']:\n rows={x['name']:x for x in audit['archives'][rr]['notebooks']};f.add_trace(go.Bar(name='Round '+rr,x=ops,y=[rows[x]['executed_code_cells'] for x in ops]))\nf.update_layout(title='Saved operational notebook execution evidence',barmode='group');emit(f)\nprint('ROUND08_REVIEW_COMPLETE; pending Round09 has no achieved score')"
+    }
+  ],
+  "04_feature_examples.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 10 \u00b7 Worked feature example\n\nA clicked \u2192 carted \u2192 ordered product and a reversed sequence occur in two synthetic neighbors. A third neighbor clicks the product but does not progress. Item 99 has an order without a source action and therefore has no funnel support. **These are synthetic illustrative events, not new project results.**"
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport sys, json\nimport numpy as np\nimport plotly.graph_objects as go\nimport plotly.io as pio\nfrom IPython.display import display\nROOT=Path.cwd()\nif not (ROOT/'funnel_features.py').is_file(): ROOT=Path.home()/'otto_feature_round10'\nsys.path.insert(0,str(ROOT))\nfrom neighbors import group_history\nfrom feature_logic import build,names\nrows=np.array([(1,10,10,0,0),(1,80,20,0,1),(1,80,30,1,2),(1,80,40,2,3),\n (2,10,10,0,0),(2,80,20,2,1),(2,80,30,1,2),(2,80,40,0,3),\n (3,10,10,0,0),(3,80,20,0,1),(3,99,30,2,2)],np.int64)\nhistory=group_history(rows,100000000,set())\ncandidates=np.array([80,99,999])\na,b,diag=build(10,np.array([10]),candidates,[1,2,3],history,{10:3})\nassert a.shape==b.shape==(3,24)\ndef show(fig):\n    display({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))},raw=True)\nprint('SYNTHETIC_EXAMPLE_ONLY \u2014 not an OTTO model score')\nprint(json.dumps(diag,indent=2))"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Click \u2192 cart"
+    },
+    {
+      "cell_type": "code",
+      "source": "fig=go.Figure()\nfig.add_trace(go.Bar(name='Ordered progression',x=candidates.astype(str),y=a[:,0]))\nfig.add_trace(go.Bar(name='Unordered co-action',x=candidates.astype(str),y=b[:,0]))\nfig.update_layout(title='Click \u2192 cart: one ordered versus two unordered supporting sessions',barmode='group',xaxis_title='Synthetic candidate product',yaxis_title='log(1 + session support)')\nshow(fig)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Cart \u2192 order"
+    },
+    {
+      "cell_type": "code",
+      "source": "fig=go.Figure()\nfig.add_trace(go.Bar(name='Ordered progression',x=candidates.astype(str),y=a[:,8]))\nfig.add_trace(go.Bar(name='Unordered co-action',x=candidates.astype(str),y=b[:,8]))\nfig.update_layout(title='Cart \u2192 order: one ordered versus two unordered supporting sessions',barmode='group',xaxis_title='Synthetic candidate product',yaxis_title='log(1 + session support)')\nshow(fig)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Click \u2192 order"
+    },
+    {
+      "cell_type": "code",
+      "source": "fig=go.Figure()\nfig.add_trace(go.Bar(name='Ordered progression',x=candidates.astype(str),y=a[:,16]))\nfig.add_trace(go.Bar(name='Unordered co-action',x=candidates.astype(str),y=b[:,16]))\nfig.update_layout(title='Click \u2192 order: one ordered versus two unordered supporting sessions',barmode='group',xaxis_title='Synthetic candidate product',yaxis_title='log(1 + session support)')\nshow(fig)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Candidate-specific denominators\nThe click-source denominator is three sessions, but the cart-source denominator is two. These local conditional intensities are not population conversion probabilities."
+    },
+    {
+      "cell_type": "code",
+      "source": "fig=go.Figure()\nfig.add_trace(go.Bar(name='Ordered',x=['Click to cart','Cart to order','Click to order'],y=a[0,[2,10,18]]))\nfig.add_trace(go.Bar(name='Unordered',x=['Click to cart','Cart to order','Click to order'],y=b[0,[2,10,18]]))\nfig.update_layout(title='Support / (source sessions + 20)',barmode='group')\nshow(fig)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Full feature contrast"
+    },
+    {
+      "cell_type": "code",
+      "source": "fig=go.Figure(go.Bar(x=list(names(10)),y=np.abs(a-b).mean(axis=0)))\nfig.update_layout(title='24 declared feature differences \u2014 synthetic only',height=700,xaxis_tickangle=-65)\nshow(fig)\nprint('WORKED_EXAMPLE_COMPLETE: 24 primary + 24 ablation columns; no model training')"
+    }
+  ],
+  "03_saved_results.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 10 \u00b7 Saved evidence dashboard\n\n**Run All is appropriate here after reporting succeeds.** These cells display saved Plotly figures only. Save notebook outputs before the final terminal bundle command."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport importlib.util, json\nROOT = Path.home() / 'otto_feature_round10'\nspec = importlib.util.spec_from_file_location('otto_round10_launcher', ROOT / 'launch.py')\nlauncher = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(path, status):\n    row = json.loads(Path(path).read_text())\n    if row.get('status') != status:\n        raise RuntimeError('Expected ' + status + '; stop and bundle evidence.')\n    print(status)\n    return row\nprint('KERNEL_READY')\nimport hashlib\nimport plotly.io as pio\nfrom IPython.display import display\nreceipt = require(ROOT/'outputs/report_receipt.json','ROUND10_REPORT_READY')\nassert hashlib.sha256((ROOT/'outputs/result.json').read_bytes()).hexdigest() == receipt['result_sha256']"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1 \u00b7 Matched weighted Recall@20"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/01.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2 \u00b7 Descriptive paired intervals"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/02.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3 \u00b7 Chronological fold stability"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/03.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4 \u00b7 Click/cart/order recall"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/04.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5 \u00b7 Exact hits explaining gains"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/05.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 6 \u00b7 Primary versus unordered representation"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/06.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 7 \u00b7 Training-only support and redundancy"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/07.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 8 \u00b7 Candidate ceilings versus achieved ranking"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/08.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 9 \u00b7 Training-positive feature support"
+    },
+    {
+      "cell_type": "code",
+      "source": "path = ROOT/'outputs/plots/09.json'\nif hashlib.sha256(path.read_bytes()).hexdigest() != receipt['plot_hashes'][path.name]:\n    raise ValueError('Saved chart checksum changed')\nfig = pio.from_json(path.read_text())\ndisplay({'application/vnd.plotly.v1+json':json.loads(pio.to_json(fig))}, raw=True)"
+    },
+    {
+      "cell_type": "code",
+      "source": "print('ROUND10_RESULTS_DISPLAYED: save all notebooks, then run launch.py bundle in a terminal')"
+    }
+  ]
+}
