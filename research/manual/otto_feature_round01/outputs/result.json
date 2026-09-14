@@ -1,0 +1,372 @@
+{
+  "arms": {
+    "control_shared": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "hits": [
+        219,
+        65,
+        48
+      ],
+      "recall": {
+        "carts": 0.42483660130718953,
+        "clicks": 0.44242424242424244,
+        "orders": 0.5217391304347826
+      },
+      "weighted_recall_at_20": 0.48473688289545064
+    },
+    "plus_both": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "hits": [
+        221,
+        67,
+        47
+      ],
+      "recall": {
+        "carts": 0.43790849673202614,
+        "clicks": 0.44646464646464645,
+        "orders": 0.5108695652173914
+      },
+      "weighted_recall_at_20": 0.48254075279650727
+    },
+    "plus_support": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "hits": [
+        223,
+        66,
+        47
+      ],
+      "recall": {
+        "carts": 0.43137254901960786,
+        "clicks": 0.4505050505050505,
+        "orders": 0.5108695652173914
+      },
+      "weighted_recall_at_20": 0.4809840088868222
+    },
+    "plus_timing": {
+      "denominators": [
+        495,
+        153,
+        92
+      ],
+      "hits": [
+        224,
+        66,
+        49
+      ],
+      "recall": {
+        "carts": 0.43137254901960786,
+        "clicks": 0.45252525252525255,
+        "orders": 0.532608695652174
+      },
+      "weighted_recall_at_20": 0.49422950734971194
+    }
+  },
+  "candidate_changes": 0,
+  "comparisons": {
+    "plus_both__minus__control_shared": {
+      "decision": "STOP_THIS_VARIANT",
+      "descriptive_95_interval": [
+        -0.017156306538463,
+        0.010621757997767482
+      ],
+      "fold_gains": [
+        -0.009699413489736075,
+        0.00841867111216954
+      ],
+      "gain": -0.002196130098943372,
+      "method": "paired, stratified by forward fold; unadjusted",
+      "order_gain": -0.010869565217391242,
+      "replicates": 1000
+    },
+    "plus_both__minus__plus_support": {
+      "decision": "SMALL_GAIN_LOW_PRIORITY",
+      "descriptive_95_interval": [
+        -0.004928316008287726,
+        0.009065187803800265
+      ],
+      "fold_gains": [
+        0.0012096774193548487,
+        0.002387473207906665
+      ],
+      "gain": 0.0015567439096850766,
+      "method": "paired, stratified by forward fold; unadjusted",
+      "order_gain": 0.0,
+      "replicates": 1000
+    },
+    "plus_both__minus__plus_timing": {
+      "decision": "STOP_THIS_VARIANT",
+      "descriptive_95_interval": [
+        -0.031148809044626708,
+        0.004151785714285712
+      ],
+      "fold_gains": [
+        -0.020608504398827,
+        0.0019826149083115308
+      ],
+      "gain": -0.011688754553204672,
+      "method": "paired, stratified by forward fold; unadjusted",
+      "order_gain": -0.021739130434782594,
+      "replicates": 1000
+    },
+    "plus_support__minus__control_shared": {
+      "decision": "STOP_THIS_VARIANT",
+      "descriptive_95_interval": [
+        -0.019083136365650486,
+        0.009421440458693921
+      ],
+      "fold_gains": [
+        -0.010909090909090924,
+        0.006031197904262875
+      ],
+      "gain": -0.0037528740086284484,
+      "method": "paired, stratified by forward fold; unadjusted",
+      "order_gain": -0.010869565217391242,
+      "replicates": 1000
+    },
+    "plus_timing__minus__control_shared": {
+      "decision": "PROMISING_POINT_ESTIMATE_UNCERTAIN_REPLICATE_ONLY",
+      "descriptive_95_interval": [
+        -0.0037692462855691074,
+        0.02656019737277989
+      ],
+      "fold_gains": [
+        0.010909090909090924,
+        0.006436056203858009
+      ],
+      "gain": 0.0094926244542613,
+      "method": "paired, stratified by forward fold; unadjusted",
+      "order_gain": 0.010869565217391353,
+      "replicates": 1000
+    }
+  },
+  "competition_test_access": false,
+  "control_features": 134,
+  "control_models_refitted": 0,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        248,
+        85,
+        55
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        103,
+        34,
+        20
+      ],
+      "model_fits": 0,
+      "recall": {
+        "carts": 0.4,
+        "clicks": 0.4153225806451613,
+        "orders": 0.36363636363636365
+      },
+      "source": "verified saved per-session control hits",
+      "weighted_recall_at_20": 0.3797140762463343
+    },
+    {
+      "arm": "plus_support",
+      "denominators": [
+        248,
+        85,
+        55
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        103,
+        34,
+        19
+      ],
+      "recall": {
+        "carts": 0.4,
+        "clicks": 0.4153225806451613,
+        "orders": 0.34545454545454546
+      },
+      "weighted_recall_at_20": 0.3688049853372434
+    },
+    {
+      "arm": "plus_timing",
+      "denominators": [
+        248,
+        85,
+        55
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        103,
+        34,
+        21
+      ],
+      "recall": {
+        "carts": 0.4,
+        "clicks": 0.4153225806451613,
+        "orders": 0.38181818181818183
+      },
+      "weighted_recall_at_20": 0.3906231671554252
+    },
+    {
+      "arm": "plus_both",
+      "denominators": [
+        248,
+        85,
+        55
+      ],
+      "features": 182,
+      "fold": 0,
+      "hits": [
+        106,
+        34,
+        19
+      ],
+      "recall": {
+        "carts": 0.4,
+        "clicks": 0.4274193548387097,
+        "orders": 0.34545454545454546
+      },
+      "weighted_recall_at_20": 0.3700146627565982
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        247,
+        68,
+        37
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        116,
+        31,
+        28
+      ],
+      "model_fits": 0,
+      "recall": {
+        "carts": 0.45588235294117646,
+        "clicks": 0.46963562753036436,
+        "orders": 0.7567567567567568
+      },
+      "source": "verified saved per-session control hits",
+      "weighted_recall_at_20": 0.6377823226894435
+    },
+    {
+      "arm": "plus_support",
+      "denominators": [
+        247,
+        68,
+        37
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        120,
+        32,
+        28
+      ],
+      "recall": {
+        "carts": 0.47058823529411764,
+        "clicks": 0.48582995951417,
+        "orders": 0.7567567567567568
+      },
+      "weighted_recall_at_20": 0.6438135205937063
+    },
+    {
+      "arm": "plus_timing",
+      "denominators": [
+        247,
+        68,
+        37
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        121,
+        32,
+        28
+      ],
+      "recall": {
+        "carts": 0.47058823529411764,
+        "clicks": 0.4898785425101215,
+        "orders": 0.7567567567567568
+      },
+      "weighted_recall_at_20": 0.6442183788933015
+    },
+    {
+      "arm": "plus_both",
+      "denominators": [
+        247,
+        68,
+        37
+      ],
+      "features": 182,
+      "fold": 1,
+      "hits": [
+        115,
+        33,
+        28
+      ],
+      "recall": {
+        "carts": 0.4852941176470588,
+        "clicks": 0.46558704453441296,
+        "orders": 0.7567567567567568
+      },
+      "weighted_recall_at_20": 0.646200993801613
+    }
+  ],
+  "graph_rebuilds": 0,
+  "limitations": [
+    "Small previously used fitting cohort, one model seed, two dependent forward folds.",
+    "Retrospective prefixes; training targets censored at fold cutoff, not an online deployment backtest.",
+    "Only 92 pooled order-denominator units. Bootstrap intervals descriptive/unadjusted.",
+    "A development gain is not a Kaggle gain or proof of beating 0.60503.",
+    "Pending-cart means observed cart after last observed order; cart removals and actual inventory unavailable."
+  ],
+  "maximum_new_models": 18,
+  "metric": "pooled 0.1 click + 0.3 cart + 0.6 order Recall@20; complete candidate pools",
+  "model_inventory": {
+    "models/fold-0/plus_both/carts/model.txt": "3ef6c6a4fb2c45bd82e061f8508039a872c5053ad5974f6a423731d29537830b",
+    "models/fold-0/plus_both/clicks/model.txt": "a90be8a8ea721917bce26e238f02b16d37b5b6df9b1dfc18dbb768ce07bb0be8",
+    "models/fold-0/plus_both/orders/model.txt": "9032cfb11ed7e6d01e19802aa038dffa0554902ebe03e9c761bf987a0dd6027f",
+    "models/fold-0/plus_support/carts/model.txt": "bc287e792a910973fc8a0129f34e7ac5eae75c996555287164cadc83b34fef0f",
+    "models/fold-0/plus_support/clicks/model.txt": "2948abb1548fa7fbbf6e2968dcc81729bd905fd4e40ac7662a4e3c89ff6157a3",
+    "models/fold-0/plus_support/orders/model.txt": "c982f83f58dfa9c1803a4f0ad115bbb0b8d10c3ed0cab74c7aa63d973c0b3932",
+    "models/fold-0/plus_timing/carts/model.txt": "7932d4d51f7892f3205e65b920af3d4eaad7c55325a2614501b2b79d311be420",
+    "models/fold-0/plus_timing/clicks/model.txt": "f1b5a3ed95df279b0c90a97b8cb1ce732d19bb962aee8dbf5ff0c88d9b396ca3",
+    "models/fold-0/plus_timing/orders/model.txt": "0e2035464cbf38bac652f81c8e8f54ef2f0be887bc280caf36df38a2f1f9f38c",
+    "models/fold-1/plus_both/carts/model.txt": "291f8865de3e18ca586d5aa80009bc952d99ddc2550e090bd6e43d42648d2e72",
+    "models/fold-1/plus_both/clicks/model.txt": "58961fc32d95a259123ded3885ff654829f885e6d95de20c9560ef8921f740a1",
+    "models/fold-1/plus_both/orders/model.txt": "ca20d5d1af5a3a0df4b81f51f4901acb132532c5a8359e9bfd5402348a507748",
+    "models/fold-1/plus_support/carts/model.txt": "7af7e8f919880d2f18c26969d656300ba896e9248001ae5431999889765c64bf",
+    "models/fold-1/plus_support/clicks/model.txt": "a8b24dd751046ebe9160096178d1ddfc902bdd044d4631afe9011d8d737e3f08",
+    "models/fold-1/plus_support/orders/model.txt": "a30eb76cc09de807e9053abc450f548c65bff8360f5615c7419b6c1c75cce5e9",
+    "models/fold-1/plus_timing/carts/model.txt": "a2003c3e1c9b75321bda55c48e70b67f0226120c1d36d226b5c73b19d3ee7d3a",
+    "models/fold-1/plus_timing/clicks/model.txt": "544aad2d054425877b7def36d92a8c1319d7f13b8a63eed62fbe2e50c1f6dd86",
+    "models/fold-1/plus_timing/orders/model.txt": "28788512e4dcc7607d755d40db0ee1b9ea6772a4f1023ac28b92adcb8b7d8c59"
+  },
+  "native_reload_prediction_parity": true,
+  "new_feature_count": 48,
+  "primary_comparison": "plus_both__minus__control_shared",
+  "selection_access": false,
+  "sessions": 1024,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "status": "ROUND01_SCREEN_COMPLETED",
+  "validated_sessions": 512
+}

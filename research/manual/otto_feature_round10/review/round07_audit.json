@@ -1,0 +1,147 @@
+{
+  "archive_sha256": "bf59cb78bf0aeb88388da662a2a36b32c286cf625fe1c782bc8fdb725e0a0ff8",
+  "checksum_files_verified": 81,
+  "mismatches": [],
+  "all_saved_integer_metrics_reproduced": true,
+  "sessions": 256,
+  "unique_sessions": 256,
+  "training_only": true,
+  "new_model_fits": 0,
+  "baseline_oracle": {
+    "denominators": [
+      236,
+      70,
+      33
+    ],
+    "hits": [
+      158,
+      37,
+      18
+    ],
+    "recall": {
+      "carts": 0.5285714285714286,
+      "clicks": 0.6694915254237288,
+      "orders": 0.5454545454545454
+    },
+    "weighted_oracle_at20": 0.5527933083865286
+  },
+  "arms": {
+    "last_anchor": {
+      "expanded_candidate_oracle": {
+        "denominators": [
+          236,
+          70,
+          33
+        ],
+        "hits": [
+          164,
+          38,
+          18
+        ],
+        "recall": {
+          "carts": 0.5428571428571428,
+          "clicks": 0.6949152542372882,
+          "orders": 0.5454545454545454
+        },
+        "weighted_oracle_at20": 0.5596213955535989
+      },
+      "mean_new_candidates_by_objective": [
+        60.1015625,
+        35.23046875,
+        14.94921875
+      ],
+      "net_capped_hits": [
+        6,
+        1,
+        0
+      ],
+      "new_distinct_target_hits": [
+        6,
+        1,
+        0
+      ],
+      "supported_baseline_positive_items": [
+        137,
+        27,
+        12
+      ]
+    },
+    "session_context": {
+      "expanded_candidate_oracle": {
+        "denominators": [
+          236,
+          70,
+          33
+        ],
+        "hits": [
+          164,
+          38,
+          18
+        ],
+        "recall": {
+          "carts": 0.5428571428571428,
+          "clicks": 0.6949152542372882,
+          "orders": 0.5454545454545454
+        },
+        "weighted_oracle_at20": 0.5596213955535989
+      },
+      "mean_new_candidates_by_objective": [
+        61.0390625,
+        33.75390625,
+        14.38671875
+      ],
+      "net_capped_hits": [
+        6,
+        1,
+        0
+      ],
+      "new_distinct_target_hits": [
+        6,
+        1,
+        0
+      ],
+      "supported_baseline_positive_items": [
+        148,
+        26,
+        14
+      ]
+    }
+  },
+  "oracle_gain": 0.006828087167070285,
+  "notebook_execution": [
+    {
+      "notebook": "00_round06_review.ipynb",
+      "code_cells": 9,
+      "executed_cells": 9,
+      "errors": 0,
+      "plotly_payloads": 8
+    },
+    {
+      "notebook": "01_build_neighbor_evidence.ipynb",
+      "code_cells": 6,
+      "executed_cells": 6,
+      "errors": 0,
+      "plotly_payloads": 0
+    },
+    {
+      "notebook": "02_features_and_audit.ipynb",
+      "code_cells": 5,
+      "executed_cells": 5,
+      "errors": 0,
+      "plotly_payloads": 0
+    },
+    {
+      "notebook": "03_saved_results.ipynb",
+      "code_cells": 10,
+      "executed_cells": 10,
+      "errors": 0,
+      "plotly_payloads": 8
+    }
+  ],
+  "failed_receipts": [],
+  "limitations": [
+    "Native history, postings, pilot and feature arrays were NOT in return archive; their checksums/receipts were reviewed, not independently replayed.",
+    "Integer per-query audit arrays reproduced; candidate membership and feature values require private AWS binaries.",
+    "256 reused training queries, only 33 order denominator units, no achieved ranker or Kaggle score."
+  ]
+}

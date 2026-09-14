@@ -1,0 +1,292 @@
+{
+  "00_review_and_design.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 11 | Historical item\u2013session latent affinities\n\nPrepared, unexecuted notebook. Review the actual uploaded R09/R10 evidence first. The four challenger point estimates were below the saved control; all descriptive intervals cross zero. Keep the control. Do not rerun completed R09/R10."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport json\nimport plotly.graph_objects as go\nimport plotly.io as pio\npio.renderers.default = \"notebook_connected+plotly_mimetype\"\nROOT = Path.home() / \"otto_feature_round11\"\nfigures = json.loads((ROOT / \"review/figures.json\").read_text())\nprint(\"Uploaded R09/R10 results only; not new Round 11/12 scores.\")"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Evidence panel 1\nRead the evaluation setting in the title; these are exploratory fitting-fold results, not a leaderboard comparison."
+    },
+    {
+      "cell_type": "code",
+      "source": "fig = go.Figure(figures[0])\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Evidence panel 2\nRead the evaluation setting in the title; these are exploratory fitting-fold results, not a leaderboard comparison."
+    },
+    {
+      "cell_type": "code",
+      "source": "fig = go.Figure(figures[1])\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Evidence panel 3\nRead the evaluation setting in the title; these are exploratory fitting-fold results, not a leaderboard comparison."
+    },
+    {
+      "cell_type": "code",
+      "source": "fig = go.Figure(figures[2])\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Evidence panel 4\nRead the evaluation setting in the title; these are exploratory fitting-fold results, not a leaderboard comparison."
+    },
+    {
+      "cell_type": "code",
+      "source": "fig = go.Figure(figures[3])\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Evidence panel 5\nRead the evaluation setting in the title; these are exploratory fitting-fold results, not a leaderboard comparison."
+    },
+    {
+      "cell_type": "code",
+      "source": "fig = go.Figure(figures[4])\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Evidence panel 6\nRead the evaluation setting in the title; these are exploratory fitting-fold results, not a leaderboard comparison."
+    },
+    {
+      "cell_type": "code",
+      "source": "fig = go.Figure(figures[5])\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Next hypothesis\n\n## Hypothesis and novelty\n\nA candidate may share a broader pattern of historical shopping sessions with several observed products even when its direct local transition counts are weak. Learning a compact representation from the retained item/session incidence structure could expose these indirect relationships to the fixed ranker. The saved 134-column control has graph and domain features but no latent-embedding columns in its supplied feature-order contract. This is a new representation class in this controlled comparison, not simply another weighting of a per-query neighbor vote.\n\nThe primary tests rarity weighting DURING representation learning, not the Round08 rarity-weighted neighbor support calculation. The ablation learns the same-size representation without item rarity weighting. That distinction must be retained when reporting positive or negative results.\n\n\nFull formulas and limits: RESEARCH_PLAN.md. No new test or experiment result is claimed before you run it."
+    }
+  ],
+  "01_build_representations.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 11 | Build the latent representations\n\nRun code cells individually with Shift+Enter, not Run All. Stop at the first failure or planned pause; save and bundle evidence. No automatic retries."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport json, sys, importlib.util\nROOT = Path.home() / \"otto_feature_round11\"\nassert ROOT.is_dir(), ROOT\nif str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))\nspec = importlib.util.spec_from_file_location(\"otto_launcher_11\", ROOT / \"launch.py\")\nlauncher = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(relative, key, expected):\n    value = json.loads((ROOT / relative).read_text())\n    assert value[key] == expected, (relative, value.get(key))\n    print(expected)\n    return value\nprint(\"KERNEL_READY\")"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1. Tests\nThis includes small synthetic factorization and native-ranker fixtures plus the installed-backend smoke. These tests have not been executed for this delivery."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('tests')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2. Prepare sparse historical inputs\nReuses the certified existing history. No new data downloads, source Parquet scans, or graph rebuilding. Round12 additionally requires the completed Round11 report."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('prepare')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3. Inspect the representation input gate"
+    },
+    {
+      "cell_type": "code",
+      "source": "inputs = require(\"outputs/representation_inputs/manifest.json\", \"status\", \"ROUND11_REPRESENTATION_INPUTS_READY\")\nimport plotly.graph_objects as go\nimport plotly.io as pio\npio.renderers.default = \"notebook_connected+plotly_mimetype\"\nmeasures = {k: v for k,v in inputs.items() if k in (\"vocabulary_size\", \"session_count\", \"nonzero_incidence\", \"pair_records\", \"source_history_events\")}\nfig = go.Figure(go.Bar(x=list(measures), y=list(measures.values())))\nfig.update_layout(title=\"Historical input counts \u2014 different units, not model quality\", yaxis_title=\"Count\", xaxis_title=\"Input statistic\")\nfig.show()\nprint(json.dumps(inputs, indent=2))"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4. Learn the frozen representations\nTwo SVD factorizations in Round11; six in Round12. These are counted compute, separate from the subsequent supervised ranker fits. An interrupted single SVD is not internally resumable; completed other units remain saved."
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('representations')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5. Inspect saved singular values\nA low-rank historical basis is a feature construction result, not evidence of higher Recall@20."
+    },
+    {
+      "cell_type": "code",
+      "source": "receipt = require(\"outputs/representations/manifest.json\", \"status\", \"ROUND11_REPRESENTATIONS_READY\")\nimport numpy as np\nfig = go.Figure()\nfor name in sorted(receipt[\"files\"]):\n    with np.load(ROOT / \"outputs/representations\" / name, allow_pickle=False) as values:\n        singular = values[\"singular_values\"]\n    fig.add_trace(go.Scatter(x=list(range(1,len(singular)+1)), y=singular, mode=\"lines+markers\", name=name))\nfig.update_layout(title=\"Historical representation singular spectra\", xaxis_title=\"Component\", yaxis_title=\"Singular value\")\nfig.show()\nprint(\"Save this notebook before continuing.\")"
+    }
+  ],
+  "02_features_and_comparison.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 11 | Features and matched comparison\n\nEach arm adds 24 features to the exact saved 134-feature control. No changed candidate pool, ensemble, or ranker hyperparameter search. Run cells individually."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport json, sys, importlib.util\nROOT = Path.home() / \"otto_feature_round11\"\nassert ROOT.is_dir(), ROOT\nif str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))\nspec = importlib.util.spec_from_file_location(\"otto_launcher_11\", ROOT / \"launch.py\")\nlauncher = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(relative, key, expected):\n    value = json.loads((ROOT / relative).read_text())\n    assert value[key] == expected, (relative, value.get(key))\n    print(expected)\n    return value\nprint(\"KERNEL_READY\")"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 1. Representation gate"
+    },
+    {
+      "cell_type": "code",
+      "source": "require(\"outputs/representations/manifest.json\", \"status\", \"ROUND11_REPRESENTATIONS_READY\")"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 2. Build both feature matrices"
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('features')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 3. Require complete features; replay controls and fit challengers\nThe screen replays six controls before fitting at most twelve challengers. A failure is a stop, not an invitation to keep retrying."
+    },
+    {
+      "cell_type": "code",
+      "source": "require(\"outputs/feature_manifest.json\", \"status\", \"ROUND11_FEATURES_READY\")\nstage(\"screen\")"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 4. Recompute report from saved integer statistics"
+    },
+    {
+      "cell_type": "code",
+      "source": "stage('report')"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## 5. Read the gate decision"
+    },
+    {
+      "cell_type": "code",
+      "source": "require(\"outputs/report_receipt.json\", \"status\", \"ROUND11_REPORT_READY\")\nresult = json.loads((ROOT / \"outputs/result.json\").read_text())\nprint(json.dumps(result[\"arms\"], indent=2))\nprint(json.dumps(result[\"comparisons\"][\"idf_session_latent_minus_control_shared\"], indent=2))\nprint(\"Save this notebook, then open 03_saved_results.ipynb.\")"
+    }
+  ],
+  "03_saved_results.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 11 | Saved results\n\nRead-only visualization. Run All is safe here after report completion; no features, representations, or models are rebuilt. Save to retain inline Plotly output."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport json, sys, importlib.util\nROOT = Path.home() / \"otto_feature_round11\"\nassert ROOT.is_dir(), ROOT\nif str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))\nspec = importlib.util.spec_from_file_location(\"otto_launcher_11\", ROOT / \"launch.py\")\nlauncher = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(relative, key, expected):\n    value = json.loads((ROOT / relative).read_text())\n    assert value[key] == expected, (relative, value.get(key))\n    print(expected)\n    return value\nprint(\"KERNEL_READY\")\nreceipt = require(\"outputs/report_receipt.json\", \"status\", \"ROUND11_REPORT_READY\")\nimport hashlib\nimport plotly.io as pio\npio.renderers.default = \"notebook_connected+plotly_mimetype\"\nplots = sorted(receipt[\"plot_hashes\"])\nassert len(plots) == 9\n"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 1"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[0]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 2"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[1]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 3"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[2]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 4"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[3]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 5"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[4]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 6"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[5]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 7"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[6]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 8"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[7]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Result panel 9"
+    },
+    {
+      "cell_type": "code",
+      "source": "relative = plots[8]\npath = ROOT / \"outputs/plots\" / relative\nassert hashlib.sha256(path.read_bytes()).hexdigest() == receipt[\"plot_hashes\"][relative]\nfig = pio.from_json(path.read_text())\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "Save all notebooks with Ctrl+S. Then run the report-only `launch.py bundle` command in a terminal so saved execution outputs are included. A notebook cannot guarantee it has saved its own latest cells before bundling."
+    }
+  ],
+  "04_feature_examples.ipynb": [
+    {
+      "cell_type": "markdown",
+      "source": "# Round 11 | Worked feature example\n\nSynthetic illustrative vectors only. Not a learned OTTO basis, not a score. This notebook is supplied unexecuted. It exercises the actual aggregation function on small explicit vectors without fitting a model."
+    },
+    {
+      "cell_type": "code",
+      "source": "from pathlib import Path\nimport json, sys, importlib.util\nROOT = Path.home() / \"otto_feature_round11\"\nassert ROOT.is_dir(), ROOT\nif str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))\nspec = importlib.util.spec_from_file_location(\"otto_launcher_11\", ROOT / \"launch.py\")\nlauncher = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(launcher)\ndef stage(name):\n    return launcher.run_stage(name)\ndef require(relative, key, expected):\n    value = json.loads((ROOT / relative).read_text())\n    assert value[key] == expected, (relative, value.get(key))\n    print(expected)\n    return value\nprint(\"KERNEL_READY\")\nimport numpy as np\nimport plotly.graph_objects as go\nimport plotly.io as pio\npio.renderers.default = \"notebook_connected+plotly_mimetype\"\nfrom latent_features import affinity_summaries, names, normalize\nvocabulary = np.array([10,20,30,40], dtype=np.int64)\nbase = normalize(np.array([[1.,0.],[0.,1.],[1.,1.],[-1.,0.]]))\nquery = np.broadcast_to(base, (3,4,2)).copy()\ntarget = query.copy()\nanchors = np.array([10,20], dtype=np.int64)\ncandidates = np.array([10,30,40,999], dtype=np.int64)\nvalues = affinity_summaries(anchors,candidates,vocabulary,query,target)\nprint(\"SYNTHETIC EXAMPLE ONLY \u2014 explicit vectors, no learned project result\")"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Signed affinities and missing vectors"
+    },
+    {
+      "cell_type": "code",
+      "source": "fig = go.Figure(go.Heatmap(z=values[:,:8], x=[\"latest\",\"max\",\"mean\",\"std\",\"weighted\",\"centroid\",\"latest-old\",\"availability\"], y=[str(x) for x in candidates]))\nfig.update_layout(title=\"Synthetic click-view summaries \u2014 negative cosine retained\", xaxis_title=\"Statistic\", yaxis_title=\"Candidate ID (illustrative)\")\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Candidate order is not a feature"
+    },
+    {
+      "cell_type": "code",
+      "source": "reversed_values = affinity_summaries(anchors,candidates[::-1],vocabulary,query,target)\nnp.testing.assert_allclose(reversed_values[::-1],values,atol=1e-6,rtol=1e-6)\nfig = go.Figure(go.Bar(x=[str(x) for x in candidates],y=np.max(np.abs(reversed_values[::-1]-values),axis=1)))\nfig.update_layout(title=\"Synthetic permutation check\",yaxis_title=\"Maximum absolute difference\",xaxis_title=\"Illustrative candidate\")\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Missing/self-anchor conventions"
+    },
+    {
+      "cell_type": "code",
+      "source": "self_only = affinity_summaries(np.array([10],np.int64),np.array([10,999],np.int64),vocabulary,query,target)\nnp.testing.assert_array_equal(self_only,0)\nfig=go.Figure(go.Bar(x=[str(x) for x in candidates],y=values[:,7]))\nfig.update_layout(title=\"Synthetic available non-self anchor fraction\",xaxis_title=\"Illustrative candidate\",yaxis_title=\"Available fraction\")\nfig.show()"
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## Latest context versus older context"
+    },
+    {
+      "cell_type": "code",
+      "source": "changed = affinity_summaries(anchors[::-1],candidates,vocabulary,query,target)\nfig=go.Figure()\nfig.add_trace(go.Bar(name=\"Original anchor order\",x=[str(x) for x in candidates],y=values[:,0]))\nfig.add_trace(go.Bar(name=\"Reversed anchor order\",x=[str(x) for x in candidates],y=changed[:,0]))\nfig.update_layout(title=\"Synthetic query order carries information\",xaxis_title=\"Illustrative candidate\",yaxis_title=\"Latest cosine\",barmode=\"group\")\nfig.show()"
+    }
+  ]
+}

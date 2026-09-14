@@ -1,0 +1,17 @@
+{
+  "automatic_execution": false,
+  "feature_engineering_open": true,
+  "next_only": "Round06 repeat-conditioned affinity context",
+  "remaining_hypotheses": [
+    "Frozen different-cohort/time confirmation if Round06 passes",
+    "Candidate coverage and existing neural-union/ranker compatibility audit",
+    "Availability-safe historical session neighbors",
+    "Separated-intent graph pooling with matched ablation"
+  ],
+  "do_not_repeat_unchanged": [
+    "Round02 timing",
+    "Round03 recent mass",
+    "Round04 rolling/static demand",
+    "Round05 adjacent typed/collapsed transitions"
+  ]
+}

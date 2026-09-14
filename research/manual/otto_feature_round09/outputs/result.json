@@ -1,0 +1,325 @@
+{
+  "added_features": 24,
+  "algorithm_search": false,
+  "arms": {
+    "control_shared": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    },
+    "forward_continuation": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        964,
+        220,
+        219
+      ],
+      "recall": {
+        "carts": 0.3832752613240418,
+        "clicks": 0.48711470439615967,
+        "orders": 0.6738461538461539
+      },
+      "weighted_recall_at_20": 0.5680017411445208
+    },
+    "unsigned_window_ablation": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        999,
+        216,
+        219
+      ],
+      "recall": {
+        "carts": 0.37630662020905925,
+        "clicks": 0.504800404244568,
+        "orders": 0.6738461538461539
+      },
+      "weighted_recall_at_20": 0.5676797187948669
+    }
+  },
+  "candidate_coverage_sha256": "f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38",
+  "comparisons": {
+    "forward_continuation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.01021374053778792,
+        0.007784722299382556
+      ],
+      "fold_gains": [
+        -0.004813741429278373,
+        0.002445920254426026
+      ],
+      "gain": -0.0012294931679444066,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -7,
+        "clicks": -25,
+        "orders": 2
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.006153846153846176,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0036585365853658534,
+        "clicks": -0.0012632642748863063,
+        "orders": 0.0036923076923076922
+      }
+    },
+    "forward_continuation_minus_unsigned_window_ablation": {
+      "decision": "SMALL_GAIN_REVIEW_COMPUTE_VALUE",
+      "descriptive_95_interval": [
+        -0.007169762213460464,
+        0.008163864908854977
+      ],
+      "fold_gains": [
+        0.0005914376385870446,
+        0.00020882381465148203
+      ],
+      "gain": 0.0003220223496539498,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": 4,
+        "clicks": -35,
+        "orders": 0
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.0,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": 0.0020905923344947735,
+        "clicks": -0.001768569984840829,
+        "orders": 0.0
+      }
+    },
+    "unsigned_window_ablation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.012525710439021336,
+        0.009179842543222811
+      ],
+      "fold_gains": [
+        -0.005405179067865418,
+        0.002237096439774544
+      ],
+      "gain": -0.0015515155175983564,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -11,
+        "clicks": 10,
+        "orders": 2
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.006153846153846176,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.005749128919860627,
+        "clicks": 0.0005053057099545225,
+        "orders": 0.0036923076923076922
+      }
+    }
+  },
+  "competition_test_access": false,
+  "context_diagnostics_sha256": "ab3adce14145196d6c3090acdf1d69618475cb191416783b68446c792f2c2e1a",
+  "control_features": 134,
+  "control_models_refit": 0,
+  "control_prediction_replay_exact": true,
+  "control_recipe_unchanged": true,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "features_committed_before_label_access": true,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        494,
+        113,
+        104
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.5005065856129686,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5385788577367362
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        495,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49899193548387094,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6015890131627349
+    },
+    {
+      "arm": "forward_continuation",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        476,
+        110,
+        104
+      ],
+      "recall": {
+        "carts": 0.3654485049833887,
+        "clicks": 0.48226950354609927,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5337651163074578
+    },
+    {
+      "arm": "unsigned_window_ablation",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        496,
+        111,
+        103
+      ],
+      "recall": {
+        "carts": 0.3687707641196013,
+        "clicks": 0.502532928064843,
+        "orders": 0.6204819277108434
+      },
+      "weighted_recall_at_20": 0.5331736786688708
+    },
+    {
+      "arm": "forward_continuation",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        488,
+        110,
+        115
+      ],
+      "recall": {
+        "carts": 0.40293040293040294,
+        "clicks": 0.49193548387096775,
+        "orders": 0.7232704402515723
+      },
+      "weighted_recall_at_20": 0.604034933417161
+    },
+    {
+      "arm": "unsigned_window_ablation",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        503,
+        105,
+        116
+      ],
+      "recall": {
+        "carts": 0.38461538461538464,
+        "clicks": 0.5070564516129032,
+        "orders": 0.7295597484276729
+      },
+      "weighted_recall_at_20": 0.6038261096025095
+    }
+  ],
+  "historical_source_cutoff_ms": 1660687200000,
+  "limitations": [
+    "Reused Round02 fitting cohort; adaptive exploration, not independent validation.",
+    "Two predeclared independent families are evaluated against the same immutable 134-feature control.",
+    "All original study sessions excluded from certified retained historical tails; source not full raw sessions.",
+    "64 recent matching sessions per anchor; not exhaustive nearest-neighbor retrieval.",
+    "Candidate pool frozen at400. Candidate expansion is not tested or applied.",
+    "All target-aware diagnostics use censored training targets only; no automatic feature filtering.",
+    "Model capacity and data scale held fixed to isolate features; not proved optimal.",
+    "Intervals are descriptive and do not adjust for adaptive hypothesis selection or temporal dependence.",
+    "No Kaggle submission, achieved leaderboard score or automatic feature promotion."
+  ],
+  "model_count": 12,
+  "model_inventory": {
+    "models/fold-0/forward_continuation/carts/model.txt": "581965104cf40b040aacc3923fcf4f71f71d36e8cc9f1f089f1d54f49a7fe64f",
+    "models/fold-0/forward_continuation/clicks/model.txt": "053c0698fa7fcde19e064630eac71562a5074d029886ea78325114354fe7290e",
+    "models/fold-0/forward_continuation/orders/model.txt": "b4d134a82c97a09d1a705a96e8e966b16562b32b4c9017338fc14b9212c20110",
+    "models/fold-0/unsigned_window_ablation/carts/model.txt": "5d7e2235449f28177f5b5d388689ba0e073957496ce4fa2dd633a73d907f9716",
+    "models/fold-0/unsigned_window_ablation/clicks/model.txt": "4425a4f6a4b1096759976449951d6b3f8dfbc14449a854d76d982bb1e440094e",
+    "models/fold-0/unsigned_window_ablation/orders/model.txt": "f1634bccd677ea689e96a053598db2ffbee02db7397f492f43ae04c904ac07d0",
+    "models/fold-1/forward_continuation/carts/model.txt": "1e1db4abbde259c35437dbcc27a049de7c9589aa4a2d2125b24b4b0dd3ec98dd",
+    "models/fold-1/forward_continuation/clicks/model.txt": "ce19c3e2948ad72d1aff9ec4a14ce046a259227f5b7a7e8d7d90db2fa3bf8591",
+    "models/fold-1/forward_continuation/orders/model.txt": "0c19a4a8a66823403200f8a022766444698a9e5405fe8d98059b21d4fc04615b",
+    "models/fold-1/unsigned_window_ablation/carts/model.txt": "9377428dac5b28f5d6772fd8310079f2b3db54b9e1b38bfd9b72d5fb518b4cdb",
+    "models/fold-1/unsigned_window_ablation/clicks/model.txt": "7ebb60881ce867d6ec08bbd6ebd492c8ab7e5ee0ad1603cd71f814dcd95e1433",
+    "models/fold-1/unsigned_window_ablation/orders/model.txt": "fd94a5b21756ec47a5d509c37beb383efbef674fec0b1a8601be3f5d29f5c0da"
+  },
+  "native_reload_prediction_parity": true,
+  "new_indices": 0,
+  "old_graphs_rebuilt": 0,
+  "original_graph_rebuilds": 0,
+  "positive_support_sha256": "b881caad5548cd67070baed2145f4fa75d6bbeee996886c11cafd8e59336a90f",
+  "primary_comparison": "forward_continuation_minus_control_shared",
+  "round02_timing_included": false,
+  "round03_mass_included": false,
+  "secondary_comparisons_are_not_advancement_gates": true,
+  "selection_access": false,
+  "sessions": 4096,
+  "shared_historical_cache_reused": true,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "statistics_sha256": "688f42c718c3ffa8633bc4c81ba21d932bbc8b4c097ff2ada971c0dab171df98",
+  "status": "ROUND09_SCREEN_COMPLETED",
+  "validation_sessions": 2048
+}

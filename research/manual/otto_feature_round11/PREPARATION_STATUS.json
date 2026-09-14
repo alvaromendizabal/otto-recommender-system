@@ -1,0 +1,7 @@
+{
+  "status": "STATICALLY_REVIEWED_IMPORT_REPAIR",
+  "project_tests_executed_by_assistant": false,
+  "models_fitted_by_assistant": 0,
+  "previous_user_test_evidence": "Round11 notebook reports 101 tests OK before the real-source import failed",
+  "new_prepared_import_regression_tests": 7
+}

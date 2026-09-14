@@ -1,0 +1,16 @@
+{
+  "charts": 7,
+  "metrics_replayed": true,
+  "new_model_fits": 0,
+  "plot_hashes": {
+    "01.json": "0aff921f84572e01d71c4bf72bfff5e4d453acca87eb3cd7771e6d811bf6b4c1",
+    "02.json": "91bdcad8f355664dc1c8ac9350af30c68307b6080b493f44d0fae7e648ca3d20",
+    "03.json": "bd3f26e7208f300492f5f4bcbe2b4524846df11b7a0d5422cd22fa588593febc",
+    "04.json": "ac930f52ad755a9fcaaa41559c198f8eb09aeed918c9a462598dfb897c8b186d",
+    "05.json": "1db407b4a769ead60aecc8581380787db2023dfc9cce717c0bb5b1229e0cfd4f",
+    "06.json": "dfda7c6624f2f4d7c2a206b3709264f55d09c5b55c4c2303e82f02dbdf8a8950",
+    "07.json": "af4790dcc0e2e9ccda5be956d30006c897c4ea2b0b31dacc78118a78608fd892"
+  },
+  "result_sha256": "1fc3a19abf34b421f14d0ac2738e3e194b325a345648597eaa2c3515cd7bed75",
+  "status": "ROUND03_REPORT_READY"
+}

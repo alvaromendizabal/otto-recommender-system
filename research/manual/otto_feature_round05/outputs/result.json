@@ -1,0 +1,319 @@
+{
+  "added_features": 27,
+  "algorithm_search": false,
+  "arms": {
+    "action_pairs": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        970,
+        222,
+        212
+      ],
+      "recall": {
+        "carts": 0.3867595818815331,
+        "clicks": 0.4901465386558868,
+        "orders": 0.6523076923076923
+      },
+      "weighted_recall_at_20": 0.556427143814664
+    },
+    "collapsed_action_ablation": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        977,
+        223,
+        215
+      ],
+      "recall": {
+        "carts": 0.3885017421602787,
+        "clicks": 0.49368367862556845,
+        "orders": 0.6615384615384615
+      },
+      "weighted_recall_at_20": 0.5628419674337174
+    },
+    "control_shared": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    }
+  },
+  "comparisons": {
+    "action_pairs_minus_collapsed_action_ablation": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.016746442308258627,
+        0.004429753401626799
+      ],
+      "fold_gains": [
+        -0.0028887160999976347,
+        -0.009929404132082209
+      ],
+      "gain": -0.006414823619053434,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -1,
+        "clicks": -7,
+        "orders": -3
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.009230769230769265,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0005226480836236934,
+        "clicks": -0.00035371399696816576,
+        "orders": -0.005538461538461539
+      }
+    },
+    "action_pairs_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.023997199367052004,
+        -0.0027569300996071544
+      ],
+      "fold_gains": [
+        -0.011823529361668084,
+        -0.013730139686849996
+      ],
+      "gain": -0.01280409049780129,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -5,
+        "clicks": -19,
+        "orders": -5
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.015384615384615441,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0026132404181184667,
+        "clicks": -0.0009600808489135927,
+        "orders": -0.009230769230769232
+      }
+    },
+    "collapsed_action_ablation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.017311148087641146,
+        0.003119415676473776
+      ],
+      "fold_gains": [
+        -0.008934813261670449,
+        -0.003800735554767787
+      ],
+      "gain": -0.006389266878747857,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -4,
+        "clicks": -12,
+        "orders": -2
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.006153846153846176,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0020905923344947735,
+        "clicks": -0.0006063668519454271,
+        "orders": -0.0036923076923076922
+      }
+    }
+  },
+  "competition_test_access": false,
+  "control_features": 134,
+  "control_models_refit": 0,
+  "control_prediction_replay_exact": true,
+  "control_recipe_unchanged": true,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        494,
+        113,
+        104
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.5005065856129686,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5385788577367362
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        495,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49899193548387094,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6015890131627349
+    },
+    {
+      "arm": "action_pairs",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 161,
+      "fold": 0,
+      "hits": [
+        488,
+        109,
+        102
+      ],
+      "recall": {
+        "carts": 0.36212624584717606,
+        "clicks": 0.49442755825734547,
+        "orders": 0.6144578313253012
+      },
+      "weighted_recall_at_20": 0.5267553283750681
+    },
+    {
+      "arm": "collapsed_action_ablation",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 143,
+      "fold": 0,
+      "hits": [
+        487,
+        112,
+        102
+      ],
+      "recall": {
+        "carts": 0.37209302325581395,
+        "clicks": 0.49341438703140833,
+        "orders": 0.6144578313253012
+      },
+      "weighted_recall_at_20": 0.5296440444750657
+    },
+    {
+      "arm": "action_pairs",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 161,
+      "fold": 1,
+      "hits": [
+        482,
+        113,
+        110
+      ],
+      "recall": {
+        "carts": 0.4139194139194139,
+        "clicks": 0.48588709677419356,
+        "orders": 0.6918238993710691
+      },
+      "weighted_recall_at_20": 0.587858873475885
+    },
+    {
+      "arm": "collapsed_action_ablation",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 143,
+      "fold": 1,
+      "hits": [
+        490,
+        111,
+        113
+      ],
+      "recall": {
+        "carts": 0.4065934065934066,
+        "clicks": 0.4939516129032258,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.5977882776079672
+    }
+  ],
+  "full_outgoing_denominators": true,
+  "historical_transition_cutoff_ms": 1660687200000,
+  "limitations": [
+    "Reused Round02 fitting cohort; exploratory new-feature screen, not untouched holdout.",
+    "Historical adjacent-event transitions are counted only inside the previously retained session tails before Aug16. This does not test all nonadjacent action-pair relationships.",
+    "All current and earlier study sessions are excluded. Outgoing denominators include noncandidate destination items; no targets enter transition construction.",
+    "Original graphs and candidates are unchanged. Primary adds 27 typed features; the action-collapsed ablation adds nine. This removes information and changes feature dimension.",
+    "Candidate policy and model capacity held fixed; negative findings apply to this protocol.",
+    "No new Kaggle predictions, submission, leaderboard score or feature promotion."
+  ],
+  "model_count": 12,
+  "model_inventory": {
+    "models/fold-0/action_pairs/carts/model.txt": "344b77b01a250ca0b9a33698df0a47199441039c1e1e990a72f992237af80730",
+    "models/fold-0/action_pairs/clicks/model.txt": "baf2331a9607f64acc4cfed9dbb2090631910c79f92ca0781c8ee9fb6d229f73",
+    "models/fold-0/action_pairs/orders/model.txt": "49b3994fbaed04c44129c9a9bf858526d1bcc4691a0b5308126e5e5d4b72db3d",
+    "models/fold-0/collapsed_action_ablation/carts/model.txt": "71f6c19a8ca283106a0491a444ac6cc9bee8d9c63cdd06caaaf3b2642a2ab598",
+    "models/fold-0/collapsed_action_ablation/clicks/model.txt": "6b1cd705d1cab569c7c9994cf9bee8efc2381428b748be15fd3ff58ca8565242",
+    "models/fold-0/collapsed_action_ablation/orders/model.txt": "7c8c89618e6d654619ec1b8fe74b9f1686bdac0f749c81a99459e9e368c08e71",
+    "models/fold-1/action_pairs/carts/model.txt": "1bd35d5eed1aa1a38c7df9c01e2fbe6f3785bc2d921b0ba5317b9408cfd83d18",
+    "models/fold-1/action_pairs/clicks/model.txt": "6552bbb8801428c7a54691ac000eb285db75d5ca781fe3d26a2703f11f147550",
+    "models/fold-1/action_pairs/orders/model.txt": "58bd27740183ddd8ac5d3bbe6f9d165923134971ceac22cca88b787fa603f3d7",
+    "models/fold-1/collapsed_action_ablation/carts/model.txt": "ff236bd8a0750efed6d27cd1b6670719e960b0ce9bca032789955af94486df39",
+    "models/fold-1/collapsed_action_ablation/clicks/model.txt": "1e9db8b4a6222dcb4c0aee7f179cb00a493aa64ea5f695f9862763e5aa89c3aa",
+    "models/fold-1/collapsed_action_ablation/orders/model.txt": "fe4e65890b3554cb3bf9ebec41f16821a470a65a0d41e5fb2fc789bdf0fae16f"
+  },
+  "native_reload_prediction_parity": true,
+  "new_transition_index": true,
+  "old_graphs_rebuilt": 0,
+  "original_graph_rebuilds": 0,
+  "primary_comparison": "action_pairs_minus_control_shared",
+  "round02_timing_included": false,
+  "round03_mass_included": false,
+  "secondary_comparisons_are_not_advancement_gates": true,
+  "selection_access": false,
+  "sessions": 4096,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "statistics_sha256": "39ba79e43fd8f159ddec81c67d373aabf171df8f6688ffd3c19940395ca95cd8",
+  "status": "ROUND05_SCREEN_COMPLETED",
+  "study_sessions_excluded": 5120,
+  "validation_sessions": 2048
+}

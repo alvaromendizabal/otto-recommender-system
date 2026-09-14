@@ -1,0 +1,12 @@
+{
+  "new_real_project_models_trained": 0,
+  "cloud_jobs_launched": 0,
+  "aws_api_writes": 0,
+  "github_writes": 0,
+  "submissions": 0,
+  "github_main_verified": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "scope": "local manual deliverable preparation and synthetic tests",
+  "full_private_data_replay": false,
+  "private_parquet_loader_integration_locally_replayed": false,
+  "demand_prototype_discarded_before_delivery": true
+}

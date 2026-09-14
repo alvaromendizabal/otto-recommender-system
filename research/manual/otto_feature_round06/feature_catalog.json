@@ -1,0 +1,183 @@
+{
+  "source_signals": [
+    "graph_time_all_n1_uniform_sum",
+    "graph_cart_all_n5_uniform_max",
+    "domain_norm_symmetric_time_row_recent_unique_mean",
+    "domain_norm_forward_time_row_recent_unique_mean",
+    "domain_norm_symmetric_order_row_purchase_unique_mean",
+    "domain_norm_symmetric_order_row_last_mean"
+  ],
+  "membership": "domain_funnel_full_count_share > 0",
+  "primary": [
+    {
+      "name": "repeat_context_graph_time_all_n1_uniform_sum_positive_midrank",
+      "input": "graph_time_all_n1_uniform_sum",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_graph_time_all_n1_uniform_sum_affinity_share",
+      "input": "graph_time_all_n1_uniform_sum",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "within-group affinity share",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_graph_cart_all_n5_uniform_max_positive_midrank",
+      "input": "graph_cart_all_n5_uniform_max",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_graph_cart_all_n5_uniform_max_affinity_share",
+      "input": "graph_cart_all_n5_uniform_max",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "within-group affinity share",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_symmetric_time_row_recent_unique_mean_positive_midrank",
+      "input": "domain_norm_symmetric_time_row_recent_unique_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_symmetric_time_row_recent_unique_mean_affinity_share",
+      "input": "domain_norm_symmetric_time_row_recent_unique_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "within-group affinity share",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_forward_time_row_recent_unique_mean_positive_midrank",
+      "input": "domain_norm_forward_time_row_recent_unique_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_forward_time_row_recent_unique_mean_affinity_share",
+      "input": "domain_norm_forward_time_row_recent_unique_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "within-group affinity share",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_symmetric_order_row_purchase_unique_mean_positive_midrank",
+      "input": "domain_norm_symmetric_order_row_purchase_unique_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_symmetric_order_row_purchase_unique_mean_affinity_share",
+      "input": "domain_norm_symmetric_order_row_purchase_unique_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "within-group affinity share",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_symmetric_order_row_last_mean_positive_midrank",
+      "input": "domain_norm_symmetric_order_row_last_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    },
+    {
+      "name": "repeat_context_domain_norm_symmetric_order_row_last_mean_affinity_share",
+      "input": "domain_norm_symmetric_order_row_last_mean",
+      "conditioning": "seen/unseen group inside complete 400 candidates",
+      "statistic": "within-group affinity share",
+      "availability": "historical cutoff plus complete observed prefix; no target access"
+    }
+  ],
+  "ablation": [
+    {
+      "name": "global_context_graph_time_all_n1_uniform_sum_positive_midrank",
+      "input": "graph_time_all_n1_uniform_sum",
+      "conditioning": "all 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_graph_time_all_n1_uniform_sum_affinity_share",
+      "input": "graph_time_all_n1_uniform_sum",
+      "conditioning": "all 400 candidates",
+      "statistic": "global affinity share",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_graph_cart_all_n5_uniform_max_positive_midrank",
+      "input": "graph_cart_all_n5_uniform_max",
+      "conditioning": "all 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_graph_cart_all_n5_uniform_max_affinity_share",
+      "input": "graph_cart_all_n5_uniform_max",
+      "conditioning": "all 400 candidates",
+      "statistic": "global affinity share",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_symmetric_time_row_recent_unique_mean_positive_midrank",
+      "input": "domain_norm_symmetric_time_row_recent_unique_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_symmetric_time_row_recent_unique_mean_affinity_share",
+      "input": "domain_norm_symmetric_time_row_recent_unique_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "global affinity share",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_forward_time_row_recent_unique_mean_positive_midrank",
+      "input": "domain_norm_forward_time_row_recent_unique_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_forward_time_row_recent_unique_mean_affinity_share",
+      "input": "domain_norm_forward_time_row_recent_unique_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "global affinity share",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_symmetric_order_row_purchase_unique_mean_positive_midrank",
+      "input": "domain_norm_symmetric_order_row_purchase_unique_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_symmetric_order_row_purchase_unique_mean_affinity_share",
+      "input": "domain_norm_symmetric_order_row_purchase_unique_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "global affinity share",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_symmetric_order_row_last_mean_positive_midrank",
+      "input": "domain_norm_symmetric_order_row_last_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "positive-aware normalized midrank",
+      "availability": "same immutable inputs as primary"
+    },
+    {
+      "name": "global_context_domain_norm_symmetric_order_row_last_mean_affinity_share",
+      "input": "domain_norm_symmetric_order_row_last_mean",
+      "conditioning": "all 400 candidates",
+      "statistic": "global affinity share",
+      "availability": "same immutable inputs as primary"
+    }
+  ]
+}

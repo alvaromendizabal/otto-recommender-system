@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-09-12T22:10:39.687187+00:00",
+  "research_unit_and_synthetic_integration_tests": {
+    "passed": 70,
+    "command": "TMPDIR=/dev/shm PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 python -W error -m unittest discover -s tests -v",
+    "test_log": "LOCAL_TEST_LOG.txt"
+  },
+  "python_files_ast_validated": 16,
+  "notebooks": {
+    "03_saved_results.ipynb": {
+      "code_cells": 10,
+      "executed_cells": 0,
+      "plotly_payloads": 0
+    },
+    "02_features_and_audit.ipynb": {
+      "code_cells": 5,
+      "executed_cells": 0,
+      "plotly_payloads": 0
+    },
+    "01_build_neighbor_evidence.ipynb": {
+      "code_cells": 6,
+      "executed_cells": 0,
+      "plotly_payloads": 0
+    },
+    "00_round06_review.ipynb": {
+      "code_cells": 9,
+      "executed_cells": 9,
+      "plotly_payloads": 8
+    }
+  },
+  "local_absent_backends": [
+    "duckdb",
+    "polars",
+    "pyarrow"
+  ],
+  "real_duckdb_parquet_smoke": "Mandatory in run_tests.py and before source postings; NOT executed in preparation runtime",
+  "sql_testing": "Identical portable extraction SQL exercised on SQLite against independent Python oracle; NOT a substitute for installed DuckDB smoke",
+  "synthetic_stage_testing": "Real features() and audit() functions run with synthetic inputs and explicitly mocked private-data preflight; eight checkpoints, checksum reuse, tampering, orphan rejection and eight charts tested",
+  "local_filesystem_note": "Preparation filesystem fsync returned EIO; storage tests used /dev/shm where fsync works. Production persistence code was not weakened.",
+  "real_private_pipeline_run": false,
+  "new_project_model_fits": 0,
+  "new_cloud_jobs": 0,
+  "installer_validation": "Run against the final distributed ZIP; separate final validation record supplied beside downloads."
+}

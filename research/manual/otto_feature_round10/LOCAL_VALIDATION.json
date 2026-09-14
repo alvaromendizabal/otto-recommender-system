@@ -1,0 +1,44 @@
+{
+  "utc": "2026-09-12T23:31:33.937175+00:00",
+  "local_research_tests": 161,
+  "local_research_tests_passed": true,
+  "warnings_as_errors": true,
+  "synthetic_native_lightgbm_screen": true,
+  "private_aws_data_pipeline_run": false,
+  "cloud_jobs_started": 0,
+  "github_writes": 0,
+  "kaggle_submissions": 0,
+  "local_backends": {
+    "native_lightgbm": true,
+    "historical_sql_adapter": "SQLite fixtures; not production backend",
+    "duckdb_parquet": "Mandatory installed-backend smoke in user workspace, not available locally"
+  },
+  "notebooks": {
+    "00_round08_review.ipynb": {
+      "code_cells": 9,
+      "executed_code_cells": 9,
+      "errors": 0,
+      "plotly_outputs": 8
+    },
+    "04_feature_examples.ipynb": {
+      "code_cells": 6,
+      "executed_code_cells": 6,
+      "errors": 0,
+      "plotly_outputs": 5
+    }
+  },
+  "python": "3.13.5",
+  "libraries": {
+    "numpy": "2.3.5",
+    "lightgbm": "4.6.0",
+    "plotly": "6.5.2",
+    "nbformat": "5.10.4",
+    "nbclient": "0.10.4"
+  },
+  "local_test_log_sha256": "a8d695ab683df1620e5e96f53186f17db5eea932028cb319328f10db2607e44f",
+  "limitations": [
+    "Tests are synthetic; not newly achieved OTTO scores.",
+    "Read-only adapter fixture cannot reproduce unavailable full private source binaries.",
+    "Existing controls/data must be validated in SageMaker before new fitting."
+  ]
+}

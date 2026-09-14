@@ -1,0 +1,316 @@
+{
+  "added_features": 75,
+  "algorithm_search": false,
+  "arms": {
+    "control_shared": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    },
+    "demand_rolling": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        990,
+        219,
+        211
+      ],
+      "recall": {
+        "carts": 0.38153310104529614,
+        "clicks": 0.5002526528549772,
+        "orders": 0.6492307692307693
+      },
+      "weighted_recall_at_20": 0.5540236571375481
+    },
+    "demand_static_ablation": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        967,
+        212,
+        213
+      ],
+      "recall": {
+        "carts": 0.3693379790940767,
+        "clicks": 0.48863062152602327,
+        "orders": 0.6553846153846153
+      },
+      "weighted_recall_at_20": 0.5528952251115945
+    }
+  },
+  "comparisons": {
+    "demand_rolling_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.028588144404762473,
+        -0.002621046966976348
+      ],
+      "fold_gains": [
+        -0.02634966245131798,
+        -0.0033703590992086863
+      ],
+      "gain": -0.015207577174917164,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -8,
+        "clicks": 1,
+        "orders": -6
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.018461538461538418,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.004181184668989547,
+        "clicks": 5.0530570995452254e-05,
+        "orders": -0.011076923076923078
+      }
+    },
+    "demand_rolling_minus_demand_static_ablation": {
+      "decision": "UNSTABLE_DO_NOT_PROMOTE",
+      "descriptive_95_interval": [
+        -0.013349572558542777,
+        0.016006446566961114
+      ],
+      "fold_gains": [
+        -0.0005066140010667741,
+        0.0029305980082000582
+      ],
+      "gain": 0.0011284320259535852,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": 7,
+        "clicks": 23,
+        "orders": -2
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.006153846153846065,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": 0.0036585365853658534,
+        "clicks": 0.0011622031328954016,
+        "orders": -0.0036923076923076922
+      }
+    },
+    "demand_static_ablation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.03152937139998446,
+        -0.0013871625812532026
+      ],
+      "fold_gains": [
+        -0.025843048450251205,
+        -0.0063009571074087445
+      ],
+      "gain": -0.01633600920087075,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -15,
+        "clicks": -22,
+        "orders": -4
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.012307692307692353,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0078397212543554,
+        "clicks": -0.0011116725618999495,
+        "orders": -0.0073846153846153844
+      }
+    }
+  },
+  "competition_test_access": false,
+  "control_features": 134,
+  "control_models_refit": 0,
+  "control_prediction_replay_exact": true,
+  "control_recipe_unchanged": true,
+  "demand_source_study_sessions_excluded": 5120,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        494,
+        113,
+        104
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.5005065856129686,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5385788577367362
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        495,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49899193548387094,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6015890131627349
+    },
+    {
+      "arm": "demand_rolling",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 209,
+      "fold": 0,
+      "hits": [
+        491,
+        105,
+        99
+      ],
+      "recall": {
+        "carts": 0.3488372093023256,
+        "clicks": 0.49746707193515705,
+        "orders": 0.5963855421686747
+      },
+      "weighted_recall_at_20": 0.5122291952854182
+    },
+    {
+      "arm": "demand_static_ablation",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 209,
+      "fold": 0,
+      "hits": [
+        480,
+        103,
+        100
+      ],
+      "recall": {
+        "carts": 0.34219269102990035,
+        "clicks": 0.48632218844984804,
+        "orders": 0.6024096385542169
+      },
+      "weighted_recall_at_20": 0.512735809286485
+    },
+    {
+      "arm": "demand_rolling",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 209,
+      "fold": 1,
+      "hits": [
+        499,
+        114,
+        112
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.5030241935483871,
+        "orders": 0.7044025157232704
+      },
+      "weighted_recall_at_20": 0.5982186540635263
+    },
+    {
+      "arm": "demand_static_ablation",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 209,
+      "fold": 1,
+      "hits": [
+        487,
+        109,
+        113
+      ],
+      "recall": {
+        "carts": 0.3992673992673993,
+        "clicks": 0.4909274193548387,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.5952880560553262
+    }
+  ],
+  "full_catalogue_prior": true,
+  "graph_rebuilds": 0,
+  "limitations": [
+    "Reused Round02 fitting cohort; exploratory new-feature screen, not untouched holdout.",
+    "Hourly demand snapshots use other training sessions as a timestamped event stream; operational availability must be reproduced for any deployment.",
+    "All current and earlier study sessions are excluded wholesale from demand counts. Global action priors include all other catalogue items.",
+    "Fixed historical graphs/candidates are unchanged. The rolling versus static additions use identical formulas.",
+    "Candidate policy and model capacity held fixed; negative findings apply to this protocol.",
+    "No new Kaggle predictions, submission, leaderboard score or feature promotion."
+  ],
+  "model_count": 12,
+  "model_inventory": {
+    "models/fold-0/demand_rolling/carts/model.txt": "3156a70768608ecfb81cfb9004c590ac8df38f663d74ca041952ea2eba5d60ab",
+    "models/fold-0/demand_rolling/clicks/model.txt": "9e08a615598b6c94f4f8fcd208515c57c1df402ae4c2fe2ab29656c2b7473a67",
+    "models/fold-0/demand_rolling/orders/model.txt": "8a3d2874b0f03388cc505b1b705003ba374db3a44abb5842b6b27d624bf54fa7",
+    "models/fold-0/demand_static_ablation/carts/model.txt": "0eadd9b0b8d3e8987d4c396c57bfbe6b11b8563a18762f071fc3d477b05c3740",
+    "models/fold-0/demand_static_ablation/clicks/model.txt": "bf690f340f7d851fb3d70ce12b153fe92ba277e0f85f9802809f3ea060854a51",
+    "models/fold-0/demand_static_ablation/orders/model.txt": "744be231eec86116fb32561c197b86701cff711392f4ada694b59a2e205127b5",
+    "models/fold-1/demand_rolling/carts/model.txt": "3292c8095ca95a982a27d0f0c652ef84ff834074301e0a742053975707aa7826",
+    "models/fold-1/demand_rolling/clicks/model.txt": "67da6e8c6703005bc712dfd3ae51eb69c4bcb1b784066855e6555b2350a60485",
+    "models/fold-1/demand_rolling/orders/model.txt": "8158c4c6862c88aaf7d2d1c52b28050e716071ee56f25aea1542081326049d78",
+    "models/fold-1/demand_static_ablation/carts/model.txt": "0cf7975ad86a9144230b5f5af8e2cf5e9496ca85908adbb0b8c217950ef99bfd",
+    "models/fold-1/demand_static_ablation/clicks/model.txt": "e8b4e67e8754a798386d0c586c38ac62666905931587f1962b7740819730f98f",
+    "models/fold-1/demand_static_ablation/orders/model.txt": "da7ada9e1a704f2d77a36bb81f7b95d3361fdebedf77a6bf6f09f4fb45b8f9f9"
+  },
+  "native_reload_prediction_parity": true,
+  "primary_comparison": "demand_rolling_minus_control_shared",
+  "round02_timing_included": false,
+  "round03_mass_included": false,
+  "secondary_comparisons_are_not_advancement_gates": true,
+  "selection_access": false,
+  "sessions": 4096,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "statistics_sha256": "dbee89a11f4425f4b69f73b5a9ee3dcb1eceaecab67a28137e4c15b66fb031f8",
+  "status": "ROUND04_SCREEN_COMPLETED",
+  "validation_sessions": 2048
+}

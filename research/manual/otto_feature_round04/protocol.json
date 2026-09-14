@@ -1,0 +1,71 @@
+{
+  "round": "04_cross_session_hourly_demand",
+  "role": "fit",
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "sessions": 4096,
+  "candidate_budget": 400,
+  "control_features": 134,
+  "added_features": 75,
+  "new_arm_names": [
+    "demand_rolling",
+    "demand_static_ablation"
+  ],
+  "primary_arm": "demand_rolling",
+  "maximum_new_models": 12,
+  "control_models_refit": 0,
+  "cohort": "Exact reused Round02 cohort; exploratory new feature screen, not independent replication",
+  "round02_timing_features_included": false,
+  "embargo_hours": 6,
+  "negative_budget": 60,
+  "negative_sampling_seed": 20260908,
+  "model_params": {
+    "objective": "lambdarank",
+    "metric": "None",
+    "learning_rate": 0.05,
+    "num_leaves": 15,
+    "min_data_in_leaf": 20,
+    "lambda_l2": 1.0,
+    "lambdarank_truncation_level": 25,
+    "verbosity": -1,
+    "deterministic": true,
+    "force_col_wise": true,
+    "num_threads": 4,
+    "seed": 20260911,
+    "feature_fraction": 1.0,
+    "bagging_fraction": 1.0,
+    "bagging_freq": 0
+  },
+  "rounds": 150,
+  "work_seconds": {
+    "index": 300,
+    "features": 300,
+    "screen": 240,
+    "report": 45
+  },
+  "chunk_sessions": 64,
+  "graph_rebuilds": 0,
+  "algorithm_search": false,
+  "selection_access": false,
+  "evaluation_access": false,
+  "competition_test_access": false,
+  "decision": "Primary rolling gain >=0.003, both folds nonnegative and no pooled order loss permits separate cohort/time-window confirmation only. Static comparison does not rescue a failed primary. No promotion or submission.",
+  "snapshots": {
+    "hours": [
+      1,
+      6,
+      24,
+      72,
+      168
+    ],
+    "quantization": "floor(query_ms / 3600000) * 3600000",
+    "static_cutoff_ms": 1660687200000,
+    "windows": "left-inclusive, right-exclusive",
+    "exclude_sessions": "All 4096 Round02 study sessions plus the 1024 earlier sessions, before any counting",
+    "global_prior": "All permitted training items, never restricted to candidate union",
+    "availability_assumption": "Other training sessions are a timestamped event stream; only events strictly before each snapshot enter that query. No study session contributes any event."
+  },
+  "raw_chunk_MiB": 64,
+  "primary_comparison": "demand_rolling_minus_control_shared",
+  "data_source": "Previously verified raw/train/otto-recsys-train.jsonl only; never any test.jsonl",
+  "arms_note": "Two additions have the same 75 formulas and order. Rolling versus fixed historical snapshot isolates updates, not model family."
+}

@@ -1,0 +1,325 @@
+{
+  "added_features": 24,
+  "algorithm_search": false,
+  "arms": {
+    "control_shared": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    },
+    "equal_weight_ablation": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        964,
+        223,
+        217
+      ],
+      "recall": {
+        "carts": 0.3885017421602787,
+        "clicks": 0.48711470439615967,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5658773777030842
+    },
+    "rarity_neighbors": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        977,
+        219,
+        216
+      ],
+      "recall": {
+        "carts": 0.38153310104529614,
+        "clicks": 0.49368367862556845,
+        "orders": 0.6646153846153846
+      },
+      "weighted_recall_at_20": 0.5625975289453764
+    }
+  },
+  "candidate_coverage_sha256": "f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38",
+  "comparisons": {
+    "equal_weight_ablation_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.013905972382074208,
+        0.006811148296953653
+      ],
+      "fold_gains": [
+        -0.01364726595645327,
+        0.007409242841759589
+      ],
+      "gain": -0.003353856609381034,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -4,
+        "clicks": -25,
+        "orders": 0
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": 0.0,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0020905923344947735,
+        "clicks": -0.0012632642748863063,
+        "orders": 0.0
+      }
+    },
+    "rarity_neighbors_minus_control_shared": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.021266407060492674,
+        0.007602937123322127
+      ],
+      "fold_gains": [
+        -0.018748493656537524,
+        0.0060178922568606685
+      ],
+      "gain": -0.006633705367088849,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -8,
+        "clicks": -12,
+        "orders": -1
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.003076923076923088,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.004181184668989547,
+        "clicks": -0.0006063668519454271,
+        "orders": -0.0018461538461538461
+      }
+    },
+    "rarity_neighbors_minus_equal_weight_ablation": {
+      "decision": "STOP_THIS_CONFIGURATION_NO_GAIN",
+      "descriptive_95_interval": [
+        -0.013113776272929737,
+        0.0059359880369258666
+      ],
+      "fold_gains": [
+        -0.005101227700084254,
+        -0.0013913505848989205
+      ],
+      "gain": -0.003279848757707815,
+      "method": "paired session bootstrap within time fold; descriptive",
+      "net_extra_hits": {
+        "carts": -4,
+        "clicks": 13,
+        "orders": -1
+      },
+      "no_automatic_promotion": true,
+      "one_order_hit_weight": 0.0018461538461538461,
+      "order_gain": -0.003076923076923088,
+      "replicates": 2000,
+      "weighted_contributions": {
+        "carts": -0.0020905923344947735,
+        "clicks": 0.0006568974229408793,
+        "orders": -0.0018461538461538461
+      }
+    }
+  },
+  "competition_test_access": false,
+  "context_diagnostics_sha256": "f5876c2d06a333b7cbe3b605648a124cbeaa03af5207986695a674d451adabab",
+  "control_features": 134,
+  "control_models_refit": 0,
+  "control_prediction_replay_exact": true,
+  "control_recipe_unchanged": true,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "features_committed_before_label_access": true,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        494,
+        113,
+        104
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.5005065856129686,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5385788577367362
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        495,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49899193548387094,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6015890131627349
+    },
+    {
+      "arm": "rarity_neighbors",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        491,
+        109,
+        100
+      ],
+      "recall": {
+        "carts": 0.36212624584717606,
+        "clicks": 0.49746707193515705,
+        "orders": 0.6024096385542169
+      },
+      "weighted_recall_at_20": 0.5198303640801987
+    },
+    {
+      "arm": "equal_weight_ablation",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        486,
+        111,
+        101
+      ],
+      "recall": {
+        "carts": 0.3687707641196013,
+        "clicks": 0.49240121580547114,
+        "orders": 0.608433734939759
+      },
+      "weighted_recall_at_20": 0.5249315917802829
+    },
+    {
+      "arm": "rarity_neighbors",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        486,
+        110,
+        116
+      ],
+      "recall": {
+        "carts": 0.40293040293040294,
+        "clicks": 0.4899193548387097,
+        "orders": 0.7295597484276729
+      },
+      "weighted_recall_at_20": 0.6076069054195956
+    },
+    {
+      "arm": "equal_weight_ablation",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        478,
+        112,
+        116
+      ],
+      "recall": {
+        "carts": 0.41025641025641024,
+        "clicks": 0.48185483870967744,
+        "orders": 0.7295597484276729
+      },
+      "weighted_recall_at_20": 0.6089982560044945
+    }
+  ],
+  "historical_source_cutoff_ms": 1660687200000,
+  "limitations": [
+    "Reused Round02 fitting cohort; adaptive exploration, not independent validation.",
+    "Two predeclared independent families are evaluated against the same immutable 134-feature control.",
+    "All original study sessions excluded from certified retained historical tails; source not full raw sessions.",
+    "64 recent matching sessions per anchor; not exhaustive nearest-neighbor retrieval.",
+    "Candidate pool frozen at400. Candidate expansion is not tested or applied.",
+    "All target-aware diagnostics use censored training targets only; no automatic feature filtering.",
+    "Model capacity and data scale held fixed to isolate features; not proved optimal.",
+    "Intervals are descriptive and do not adjust for adaptive hypothesis selection or temporal dependence.",
+    "No Kaggle submission, achieved leaderboard score or automatic feature promotion."
+  ],
+  "model_count": 12,
+  "model_inventory": {
+    "models/fold-0/equal_weight_ablation/carts/model.txt": "d69682088cdda031c969ac5af1118d3917107f16294792f32f65539bbe87c143",
+    "models/fold-0/equal_weight_ablation/clicks/model.txt": "59e7729b7dec673e021737a7e9ee714ec0ff6c9031521b792afab64181a6a6f9",
+    "models/fold-0/equal_weight_ablation/orders/model.txt": "64b8e87ada33c394c439399ee2ee5aeac8447d2959b9048f65a6db4da56a7d4f",
+    "models/fold-0/rarity_neighbors/carts/model.txt": "2f77ea1b41f9781ae5386f37870b1484e446f18be606198f0d9aa11d66748bf0",
+    "models/fold-0/rarity_neighbors/clicks/model.txt": "ca50ad5914bfa8f5586a07b7f148d48778727b5150a5a8d3fae6f4553374e7e8",
+    "models/fold-0/rarity_neighbors/orders/model.txt": "1ee533be1daff199353ba562ffeac39efbf3bc5be9b823e450102f3df219b92d",
+    "models/fold-1/equal_weight_ablation/carts/model.txt": "7841323db7f5a13676b749a1fee5667626d05713887c395dc8cfd47ea19ce196",
+    "models/fold-1/equal_weight_ablation/clicks/model.txt": "85485d776d65abeb169ad53e026405c8af8541788a7169ae24e77420c47b8c9b",
+    "models/fold-1/equal_weight_ablation/orders/model.txt": "4465839805d551b7d5aa59a6f5df8ceecd9b1644c8d9bb54b2dbb6651bb315f5",
+    "models/fold-1/rarity_neighbors/carts/model.txt": "ae13e907fab6f6d604edc094fda411459e2becb875fa7d924341cc3c52697423",
+    "models/fold-1/rarity_neighbors/clicks/model.txt": "58ddf40eab33accfb6075fde4f976e9f8f11eec9bb9bd926f1cbe01eadbc1127",
+    "models/fold-1/rarity_neighbors/orders/model.txt": "afc0f51c5b95c96d836f604608087a75b68832bb983bce9a3988ba250c0fad87"
+  },
+  "native_reload_prediction_parity": true,
+  "new_indices": 0,
+  "old_graphs_rebuilt": 0,
+  "original_graph_rebuilds": 0,
+  "positive_support_sha256": "0c94a5b22b3db1d28b35e75f9c48413fb1308c5e1b16c2eb5b560b1f693f66ba",
+  "primary_comparison": "rarity_neighbors_minus_control_shared",
+  "round02_timing_included": false,
+  "round03_mass_included": false,
+  "secondary_comparisons_are_not_advancement_gates": true,
+  "selection_access": false,
+  "sessions": 4096,
+  "shared_historical_cache_reused": true,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "statistics_sha256": "a80dc48c6b0acc9a3721abd4457e1c4bc35d42db15ecf25bbc14ec9125145ed4",
+  "status": "ROUND08_SCREEN_COMPLETED",
+  "validation_sessions": 2048
+}

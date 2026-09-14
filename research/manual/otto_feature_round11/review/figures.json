@@ -1,0 +1,357 @@
+[
+  {
+    "data": [
+      {
+        "type": "bar",
+        "x": [
+          "Retained control",
+          "R09 primary",
+          "R09 ablation",
+          "R10 primary",
+          "R10 ablation"
+        ],
+        "y": [
+          0.5692312343124653,
+          0.5680017411445208,
+          0.5676797187948669,
+          0.5672672598602669,
+          0.5670569232096487
+        ],
+        "text": [
+          "0.569231",
+          "0.568002",
+          "0.567680",
+          "0.567267",
+          "0.567057"
+        ],
+        "textposition": "outside"
+      }
+    ],
+    "layout": {
+      "title": {
+        "text": "Matched ranking results | identical candidate pools"
+      },
+      "yaxis": {
+        "title": {
+          "text": "Weighted Recall@20"
+        },
+        "range": [
+          0.53,
+          0.585
+        ]
+      },
+      "height": 480,
+      "font": {
+        "family": "Arial, sans-serif",
+        "size": 14
+      },
+      "margin": {
+        "l": 85,
+        "r": 35,
+        "t": 95,
+        "b": 100
+      }
+    }
+  },
+  {
+    "data": [
+      {
+        "type": "scatter",
+        "mode": "markers",
+        "x": [
+          -0.0012294931679444066,
+          -0.0015515155175983564,
+          -0.001963974452198314,
+          -0.0021743111028165174
+        ],
+        "y": [
+          "R09 primary",
+          "R09 ablation",
+          "R10 primary",
+          "R10 ablation"
+        ],
+        "error_x": {
+          "type": "data",
+          "symmetric": false,
+          "array": [
+            0.009014215467326961,
+            0.010731358060821167,
+            0.010263837707196518,
+            0.010276931734955135
+          ],
+          "arrayminus": [
+            0.008984247369843514,
+            0.01097419492142298,
+            0.011269306891557845,
+            0.010768996967132356
+          ]
+        }
+      }
+    ],
+    "layout": {
+      "title": {
+        "text": "Descriptive paired 95% intervals | adaptive exploration"
+      },
+      "xaxis": {
+        "title": {
+          "text": "Change versus retained control"
+        }
+      },
+      "height": 420,
+      "font": {
+        "family": "Arial, sans-serif",
+        "size": 14
+      },
+      "margin": {
+        "l": 85,
+        "r": 35,
+        "t": 95,
+        "b": 100
+      }
+    }
+  },
+  {
+    "data": [
+      {
+        "type": "bar",
+        "name": "R09 primary",
+        "x": [
+          "Earlier time fold",
+          "Later time fold"
+        ],
+        "y": [
+          -0.004813741429278373,
+          0.002445920254426026
+        ]
+      },
+      {
+        "type": "bar",
+        "name": "R09 ablation",
+        "x": [
+          "Earlier time fold",
+          "Later time fold"
+        ],
+        "y": [
+          -0.005405179067865418,
+          0.002237096439774544
+        ]
+      },
+      {
+        "type": "bar",
+        "name": "R10 primary",
+        "x": [
+          "Earlier time fold",
+          "Later time fold"
+        ],
+        "y": [
+          -0.006130920799193196,
+          0.0021263201193207903
+        ]
+      },
+      {
+        "type": "bar",
+        "name": "R10 ablation",
+        "x": [
+          "Earlier time fold",
+          "Later time fold"
+        ],
+        "y": [
+          -0.00684014065734917,
+          0.0025467267060389487
+        ]
+      }
+    ],
+    "layout": {
+      "title": {
+        "text": "The apparent later-period gains did not generalize across both folds"
+      },
+      "barmode": "group",
+      "yaxis": {
+        "title": {
+          "text": "Weighted Recall@20 change"
+        }
+      },
+      "height": 480,
+      "font": {
+        "family": "Arial, sans-serif",
+        "size": 14
+      },
+      "margin": {
+        "l": 85,
+        "r": 35,
+        "t": 95,
+        "b": 100
+      }
+    }
+  },
+  {
+    "data": [
+      {
+        "type": "bar",
+        "name": "R09 primary",
+        "x": [
+          "Clicks",
+          "Carts",
+          "Orders"
+        ],
+        "y": [
+          -25,
+          -7,
+          2
+        ]
+      },
+      {
+        "type": "bar",
+        "name": "R09 ablation",
+        "x": [
+          "Clicks",
+          "Carts",
+          "Orders"
+        ],
+        "y": [
+          10,
+          -11,
+          2
+        ]
+      },
+      {
+        "type": "bar",
+        "name": "R10 primary",
+        "x": [
+          "Clicks",
+          "Carts",
+          "Orders"
+        ],
+        "y": [
+          -3,
+          -7,
+          1
+        ]
+      },
+      {
+        "type": "bar",
+        "name": "R10 ablation",
+        "x": [
+          "Clicks",
+          "Carts",
+          "Orders"
+        ],
+        "y": [
+          -12,
+          -3,
+          0
+        ]
+      }
+    ],
+    "layout": {
+      "title": {
+        "text": "Exact hit changes explain the weighted outcome"
+      },
+      "barmode": "group",
+      "yaxis": {
+        "title": {
+          "text": "Net relevant items recovered at 20"
+        }
+      },
+      "height": 460,
+      "font": {
+        "family": "Arial, sans-serif",
+        "size": 14
+      },
+      "margin": {
+        "l": 85,
+        "r": 35,
+        "t": 95,
+        "b": 100
+      }
+    }
+  },
+  {
+    "data": [
+      {
+        "type": "bar",
+        "x": [
+          "Clicks",
+          "Carts",
+          "Orders"
+        ],
+        "y": [
+          1979,
+          574,
+          325
+        ]
+      }
+    ],
+    "layout": {
+      "title": {
+        "text": "Outcome support limits statistical certainty"
+      },
+      "yaxis": {
+        "title": {
+          "text": "Summed metric denominators"
+        }
+      },
+      "height": 420,
+      "font": {
+        "family": "Arial, sans-serif",
+        "size": 14
+      },
+      "margin": {
+        "l": 85,
+        "r": 35,
+        "t": 95,
+        "b": 100
+      }
+    }
+  },
+  {
+    "data": [
+      {
+        "type": "bar",
+        "name": "Features",
+        "x": [
+          "Round 09",
+          "Round 10"
+        ],
+        "y": [
+          34.58580811699994,
+          27.584483287000694
+        ]
+      },
+      {
+        "type": "bar",
+        "name": "Matched model screen",
+        "x": [
+          "Round 09",
+          "Round 10"
+        ],
+        "y": [
+          67.38339003100009,
+          66.88175629100078
+        ]
+      }
+    ],
+    "layout": {
+      "title": {
+        "text": "Reported worker time | excludes setup, tests, reporting and application idle time"
+      },
+      "barmode": "group",
+      "yaxis": {
+        "title": {
+          "text": "Seconds from supplied logs"
+        }
+      },
+      "height": 440,
+      "font": {
+        "family": "Arial, sans-serif",
+        "size": 14
+      },
+      "margin": {
+        "l": 85,
+        "r": 35,
+        "t": 95,
+        "b": 100
+      }
+    }
+  }
+]

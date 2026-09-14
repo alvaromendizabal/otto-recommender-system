@@ -1,0 +1,104 @@
+{
+  "primary": [
+    {
+      "name": "session_neighbor_clicks_log_session_support",
+      "action": "clicks",
+      "measure": "log_session_support",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_clicks_weighted_vote_share",
+      "action": "clicks",
+      "measure": "weighted_vote_share",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_clicks_max_similarity",
+      "action": "clicks",
+      "measure": "max_similarity",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_clicks_after_anchor_vote_share",
+      "action": "clicks",
+      "measure": "after_anchor_vote_share",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_carts_log_session_support",
+      "action": "carts",
+      "measure": "log_session_support",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_carts_weighted_vote_share",
+      "action": "carts",
+      "measure": "weighted_vote_share",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_carts_max_similarity",
+      "action": "carts",
+      "measure": "max_similarity",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_carts_after_anchor_vote_share",
+      "action": "carts",
+      "measure": "after_anchor_vote_share",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_orders_log_session_support",
+      "action": "orders",
+      "measure": "log_session_support",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_orders_weighted_vote_share",
+      "action": "orders",
+      "measure": "weighted_vote_share",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_orders_max_similarity",
+      "action": "orders",
+      "measure": "max_similarity",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    },
+    {
+      "name": "session_neighbor_orders_after_anchor_vote_share",
+      "action": "orders",
+      "measure": "after_anchor_vote_share",
+      "source": "pre-cutoff retained historical sessions",
+      "query_context": "up to four most recent distinct observed items"
+    }
+  ],
+  "comparison": [
+    "last_anchor_neighbor_clicks_log_session_support",
+    "last_anchor_neighbor_clicks_weighted_vote_share",
+    "last_anchor_neighbor_clicks_max_similarity",
+    "last_anchor_neighbor_clicks_after_anchor_vote_share",
+    "last_anchor_neighbor_carts_log_session_support",
+    "last_anchor_neighbor_carts_weighted_vote_share",
+    "last_anchor_neighbor_carts_max_similarity",
+    "last_anchor_neighbor_carts_after_anchor_vote_share",
+    "last_anchor_neighbor_orders_log_session_support",
+    "last_anchor_neighbor_orders_weighted_vote_share",
+    "last_anchor_neighbor_orders_max_similarity",
+    "last_anchor_neighbor_orders_after_anchor_vote_share"
+  ],
+  "features_per_arm": 12,
+  "labels_used_to_generate": false
+}

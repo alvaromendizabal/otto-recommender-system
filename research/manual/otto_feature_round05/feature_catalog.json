@@ -1,0 +1,344 @@
+[
+  {
+    "name": "transition_clicks_to_clicks_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> clicks",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_clicks_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> clicks",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_clicks_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> clicks",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_carts_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> carts",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_carts_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> carts",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_carts_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> carts",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_orders_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> orders",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_orders_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> orders",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_clicks_to_orders_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "clicks -> orders",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_clicks_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> clicks",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_clicks_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> clicks",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_clicks_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> clicks",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_carts_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> carts",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_carts_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> carts",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_carts_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> carts",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_orders_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> orders",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_orders_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> orders",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_carts_to_orders_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "carts -> orders",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_clicks_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> clicks",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_clicks_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> clicks",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_clicks_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> clicks",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_carts_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> carts",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_carts_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> carts",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_carts_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> carts",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_orders_log_support",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> orders",
+    "statistic": "log_support",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_orders_outgoing_share",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> orders",
+    "statistic": "outgoing_share",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_orders_to_orders_direction_balance",
+    "family": "action_pairs",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "orders -> orders",
+    "statistic": "direction_balance",
+    "availability": "Other sessions, exact adjacent historical indices before 1660687200000; no current/earlier study session",
+    "missing_anchor_or_no_pair": "zero",
+    "self_pair": "excluded"
+  },
+  {
+    "name": "transition_untyped_from_query_clicks_log_support",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "log_support",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_clicks_outgoing_share",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "outgoing_share",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_clicks_direction_balance",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed clicks product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "direction_balance",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_carts_log_support",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "log_support",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_carts_outgoing_share",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "outgoing_share",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_carts_direction_balance",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed carts product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "direction_balance",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_orders_log_support",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "log_support",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_orders_outgoing_share",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "outgoing_share",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  },
+  {
+    "name": "transition_untyped_from_query_orders_direction_balance",
+    "family": "collapsed_action_ablation",
+    "query_anchor": "last observed orders product",
+    "historical_pair": "All action types collapsed BEFORE counting distinct session/item pairs",
+    "statistic": "direction_balance",
+    "availability": "Identical history and query anchors; historical action labels discarded"
+  }
+]

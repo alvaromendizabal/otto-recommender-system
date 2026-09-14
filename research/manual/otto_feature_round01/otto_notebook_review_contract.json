@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "files": {
+    "outputs/result.json": "45d0edc2d7c8150041b7beb15c8f0747fb30b0d8b83c469a3e5118f5a545ffc6",
+    "outputs/evaluation_statistics.npz": "ed9821cf5f2d9c3c1ec8a377b793b31e72becfba68e03d2cd5bcdac521e110e0",
+    "outputs/round01_report.html": "a756fd67f5c5a4bc60d71f1ffcf680bb1fe6a75f4b4b01cedbb2500e5defe373",
+    "outputs/plots/01.json": "7bd6e4f7fbb8e4f99dc26ad4ab99a62b1dd07e19cc0e76f5d1d048d742ff5850",
+    "outputs/plots/02.json": "e9b3b0ec72f0f479632356a32fb720c8e3b977437058ebba5150787fab8feba7",
+    "outputs/plots/03.json": "96b4b21a7aaf21ea78b1e2d6bd1bd464b0c823e138b144463a7c3695f9b2f543",
+    "outputs/plots/04.json": "773950af909f22296319e935f80a69d219101740d3030ae85f3f9e96bcfd09a9",
+    "outputs/plots/05.json": "eac546c447b35cccc42ddde9f9011a055356a63949cf3442b3fc67b652579b28",
+    "outputs/plots/06.json": "ec804a1121a4cbdda90b32558388c052c9e69880aaafa134a7e6578639e17697",
+    "outputs/plots/07.json": "bc333b9211f0048953739d432d224518e0cd4f9438845629ab9f476478252c8d"
+  },
+  "no_training": true
+}

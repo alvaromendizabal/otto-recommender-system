@@ -1,0 +1,4484 @@
+{
+  "excluded": [
+    {
+      "path": "artifacts/.gitkeep",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "data/interim/.gitkeep",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "data/processed/.gitkeep",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "data/raw/.gitkeep",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "logs/.gitkeep",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "models/.gitkeep",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/figures/ranking_session_lengths.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/ranking_splits.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/retrieval_evidence.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/two_tower_ann.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/two_tower_ann_comparison.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/two_tower_ann_quality.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/two_tower_export.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/two_tower_learning_curves.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/figures/two_tower_retrieval.png",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/logs/ranking_features.jsonl",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/logs/two_tower_fold0_ann_audit.jsonl",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/logs/two_tower_fold0_ann_comparison.jsonl",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/logs/two_tower_fold0_ann_comparison_audit.jsonl",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/logs/two_tower_fold0_audit.jsonl",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/portfolio/otto-research-report.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/research/ablation_models.csv",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/research/feature_catalog.csv",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/research/feature_families.csv",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/research/feature_importance.csv",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/research/inference_replay/expected.csv",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/research/inference_replay/features.parquet",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "reports/robustness/cells/early_seed_20260908/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/early_seed_20260908/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/early_seed_20260909/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/early_seed_20260909/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/early_seed_20260910/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/early_seed_20260910/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/middle_seed_20260908/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/middle_seed_20260908/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/middle_seed_20260909/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/middle_seed_20260909/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/middle_seed_20260910/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/middle_seed_20260910/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/reference_seed_20260909/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/reference_seed_20260909/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/reference_seed_20260910/models/ablation_report.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "reports/robustness/cells/reference_seed_20260910/models/study_contract.json",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "src/otto_recsys/data/__init__.py",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "src/otto_recsys/data/convert.py",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "src/otto_recsys/data/manifest.py",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "src/otto_recsys/data/processed_validation.py",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "src/otto_recsys/data/raw_validation.py",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "src/otto_recsys/data/schema.py",
+      "reason": "runtime data, environment, cache, or credential directory"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/otto_notebook_check.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/otto_round01_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/evidence/PACKAGE_VALIDATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/evidence/WORKSPACE_REVIEW.md",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/evidence/design_notebook_receipt.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/evidence/local_tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/evidence/workspace_review.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/.lock",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/bundle.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/feature_catalog.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/milestone_review.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/round01_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/support_diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/arm_reports/fold-0-plus_both.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/arm_reports/fold-0-plus_support.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/arm_reports/fold-0-plus_timing.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/arm_reports/fold-1-plus_both.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/arm_reports/fold-1-plus_support.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/arm_reports/fold-1-plus_timing.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/notebook_support/kernel_protocol_smoke.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/notebook_support/notebook_session.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/notebook_support/setup.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/notebook_support/backups/cee45ddfc3cf0f8fc2cbae29d299daba7c556e78421efe6388bb4deeab6c36a3/01_run_and_analyze.ipynb",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/contract.download.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-0-shared.download.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-0-shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-0.download.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-1-shared.download.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-1-shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-1.download.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/negative_contract.download.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/reference/negative_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T224925327056.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T224953258915.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T224953381103.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225023404589.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225023528297.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225024131049.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225024874924.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225830121573.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225845728628.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225846005539.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225855622370.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225855900410.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225856501948.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round01/outputs/runs/20260911T225857225733.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/otto_round02_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/evidence/NOTEBOOK_CHECK_REVIEW.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/evidence/NOTEBOOK_CHECK_REVIEW.md",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/evidence/NOTEBOOK_VALIDATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/evidence/PACKAGE_VALIDATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/evidence/ROUND01_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/evidence/local_tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/NOTEBOOK_SESSION.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/cohort.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/compatibility.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/round02_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/arm_reports/fold-0-plus_timing.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/arm_reports/fold-1-plus_timing.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/runs/features-1789170739174411095.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/runs/launcher-features-1789170739467150804.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/runs/launcher-report-1789170802019904778.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/runs/launcher-screen-1789170801076869708.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/runs/launcher-tests-1789170560464334717.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round02/outputs/runs/screen-1789170800687438864.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/otto_round03_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/evidence/LOCAL_TESTS.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/evidence/NOTEBOOK_INTEGRATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/evidence/PACKAGE_VALIDATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/evidence/ROUND02_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/evidence/ROUND02_CONTROL_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/evidence/ROUND02_REVIEW.md",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/NOTEBOOK_SESSION.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/round03_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/arm_reports/fold-0-mass_missing_aware.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/arm_reports/fold-0-mass_zero_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/arm_reports/fold-1-mass_missing_aware.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/arm_reports/fold-1-mass_zero_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/runs/features-1789172682268740672.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/runs/launcher-features-1789172682413400034.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/runs/launcher-report-1789172758160110816.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/runs/launcher-screen-1789172756923717488.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/runs/launcher-tests-1789172623837944231.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round03/outputs/runs/screen-1789172756634578382.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/otto_round04_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/LOCAL_TESTS.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/NOTEBOOK_VALIDATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/PACKAGE_VALIDATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/READER_BENCHMARK.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/ROUND02_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/ROUND02_CONTROL_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/ROUND03_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/evidence/ROUND03_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/INDEX_PROGRESS.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/NOTEBOOK_SESSION.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/index.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/index_summary.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/round04_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/snapshot_diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/arm_reports/fold-0-demand_rolling.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/arm_reports/fold-0-demand_static_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/arm_reports/fold-1-demand_rolling.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/arm_reports/fold-1-demand_static_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/features-1789180973392476612.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/index-1789174917050650867.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/index-1789179738294767516.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/launcher-features-1789180973460177555.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/launcher-index-1789174917117826190.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/launcher-index-1789179738503687651.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/launcher-report-1789181067367434043.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/launcher-screen-1789181066067143647.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/launcher-tests-1789174636607533773.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round04/outputs/runs/screen-1789181065628308474.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/otto_round05_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/PACKAGE_VALIDATION.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/ROUND02_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/ROUND02_CONTROL_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/ROUND04_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/ROUND04_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/ROUND04_REVIEW.md",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/evidence/local_tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/INDEX_PROGRESS.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/NOTEBOOK_SESSION.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/index.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/index_summary.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/round05_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/arm_reports/fold-0-action_pairs.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/arm_reports/fold-0-collapsed_action_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/arm_reports/fold-1-action_pairs.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/arm_reports/fold-1-collapsed_action_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/features-1789185602600524034.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/index-1789185504972479745.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/launcher-features-1789185602673670434.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/launcher-index-1789185505356620748.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/launcher-report-1789185670626058699.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/launcher-screen-1789185669386436084.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/launcher-tests-1789185426634297867.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round05/outputs/runs/screen-1789185669191184924.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/otto_round06_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/evidence/ROUND02_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/evidence/ROUND02_CONTROL_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/evidence/ROUND05_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/evidence/ROUND05_DIAGNOSTICS.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/evidence/ROUND05_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/evidence/ROUND05_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/.launcher.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/NOTEBOOK_SESSION.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/context_diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/positive_support.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/round06_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/arm_reports/fold-0-global_context_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/arm_reports/fold-0-repeat_context.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/arm_reports/fold-1-global_context_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/arm_reports/fold-1-repeat_context.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/08.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/plots/09.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/runs/features-1789249664662666998.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/runs/launcher-features-1789249664878025505.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/runs/launcher-report-1789249788201907457.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/runs/launcher-screen-1789249786911118281.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/runs/launcher-tests-1789249653707946420.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round06/outputs/runs/screen-1789249786596384808.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/otto_round07_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND05_INDEX_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND05_SOURCE_CHECK.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND06_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND06_CONTEXT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND06_COVERAGE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND06_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/evidence/ROUND06_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/.launcher.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/NOTEBOOK_SESSION.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/audit.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/audit_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/histories.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/history.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/history.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/input_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/neighbor_diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/pilot.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/pilot.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/postings.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/postings.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/postings.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/prepare.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/round07_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/plots/08.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/audit-1789251740172333422.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/features-1789251739415388639.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/histories-1789251511948489695.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/launcher-audit-1789251740482482006.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/launcher-features-1789251739517737557.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/launcher-histories-1789251512210490788.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/launcher-postings-1789251501040212334.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/launcher-prepare-1789251497676906657.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/launcher-tests-1789251479603316005.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/postings-1789251500952960688.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round07/outputs/runs/prepare-1789251497451210375.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/otto_round08_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND05_INDEX_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND05_SOURCE_CHECK.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND06_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND06_CONTEXT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND06_COVERAGE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND06_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND06_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_FEATURE_MANIFEST.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_NEIGHBOR_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_PILOT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/evidence/ROUND07_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/context_diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/histories.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/positive_support.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/postings.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/prepare.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/round08_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/arm_reports/fold-0-equal_weight_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/arm_reports/fold-0-rarity_neighbors.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/arm_reports/fold-1-equal_weight_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/arm_reports/fold-1-rarity_neighbors.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/08.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/plots/09.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/features-1789254147237293157.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/histories-1789254098754464434.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/launcher-features-1789254147498901114.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/launcher-histories-1789254099089536028.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/launcher-postings-1789253997862538454.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/launcher-prepare-1789253991225967694.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/launcher-report-1789254247353404100.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/launcher-screen-1789254246092754760.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/launcher-tests-1789253985789660883.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/postings-1789253997549844400.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/prepare-1789253990906072111.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round08/outputs/runs/screen-1789254245848406998.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/otto_round09_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND05_INDEX_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND05_SOURCE_CHECK.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND06_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND06_CONTEXT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND06_COVERAGE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND06_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND06_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_FEATURE_MANIFEST.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_NEIGHBOR_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_PILOT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/evidence/ROUND07_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/context_diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/positive_support.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/round09_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/arm_reports/fold-0-forward_continuation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/arm_reports/fold-0-unsigned_window_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/arm_reports/fold-1-forward_continuation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/arm_reports/fold-1-unsigned_window_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/08.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/plots/09.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/runs/features-1789256438508563346.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/runs/launcher-features-1789256438690798218.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/runs/launcher-report-1789258834167362812.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/runs/launcher-screen-1789258832908568249.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/runs/launcher-tests-1789256403792378772.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round09/outputs/runs/screen-1789258832502151897.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/otto_round10_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND05_INDEX_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND05_SOURCE_CHECK.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND06_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND06_CONTEXT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND06_COVERAGE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND06_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND06_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_FEATURE_MANIFEST.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_NEIGHBOR_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_PILOT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND07_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND08_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND08_REUSE_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND08_SHARED_COHORT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND08_SHARED_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND08_SHARED_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/evidence/ROUND08_SHARED_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/MILESTONE_REVIEW.md",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/context_diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/diagnostics.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/evaluation_statistics.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/feature_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/features.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/positive_support.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/report.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/round10_report.html",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/screen.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/screen_contract.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/arm_reports/fold-0-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/arm_reports/fold-0-ordered_funnel.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/arm_reports/fold-0-unordered_funnel_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/arm_reports/fold-1-control_shared.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/arm_reports/fold-1-ordered_funnel.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/arm_reports/fold-1-unordered_funnel_ablation.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/folds/fold-0.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/folds/fold-1.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/01.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/02.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/03.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/04.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/05.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/06.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/07.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/08.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/plots/09.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/runs/features-1789259706211238092.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/runs/launcher-features-1789259706481751154.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/runs/launcher-report-1789259797624733034.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/runs/launcher-screen-1789259796361068132.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/runs/launcher-tests-1789259678489269247.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round10/outputs/runs/screen-1789259796059272590.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/otto_round11_return.zip",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/COMPLETED_ROUNDS09_10.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND05_INDEX_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND05_SOURCE_CHECK.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND06_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND06_CONTEXT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND06_COVERAGE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND06_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND06_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_FEATURE_MANIFEST.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_NEIGHBOR_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_PILOT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND07_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND08_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND08_REUSE_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND08_SHARED_COHORT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND08_SHARED_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND08_SHARED_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUND08_SHARED_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/evidence/ROUNDS09_10_REVIEW.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/outputs/.experiment.lock",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/outputs/import_recovery.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/outputs/prepare.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/outputs/tests.log",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/outputs/recovery/otto-workspace-sync-20260913/launcher-prepare-1789267027191465820.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/outputs/recovery/otto-workspace-sync-20260913/launcher-tests-1789267026264908310.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round11/outputs/runs/prepare-1789267026998381647.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/COMPLETED_ROUNDS09_10.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND02_REFERENCE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND05_INDEX_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND05_SOURCE_CHECK.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND06_AUDIT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND06_CONTEXT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND06_COVERAGE.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND06_RESULT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND06_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_FEATURE_MANIFEST.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_NEIGHBOR_DIAGNOSTICS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_PILOT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND07_STATISTICS.npz",
+      "reason": "binary/dataset/archive or non-allowlisted extension"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND08_RESULT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND08_REUSE_CONTRACT.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND08_SHARED_COHORT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND08_SHARED_HISTORY.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND08_SHARED_INPUT_CONTRACT.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUND08_SHARED_POSTINGS.JSON",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/evidence/ROUNDS09_10_REVIEW.json",
+      "reason": "local provenance can contain session-level dataset records; retained in AWS"
+    },
+    {
+      "path": "research/manual/otto_feature_round12/outputs/import_recovery.json",
+      "reason": "raw logs, row-level records, or unreviewed output; retained in AWS"
+    }
+  ],
+  "excluded_directory_names_not_walked": [
+    ".aws",
+    ".cache",
+    ".config",
+    ".git",
+    ".ipynb_checkpoints",
+    ".ssh",
+    ".venv",
+    "__pycache__",
+    "artifacts",
+    "checkpoints",
+    "data",
+    "features",
+    "index",
+    "models",
+    "node_modules",
+    "raw",
+    "representation_inputs",
+    "representations",
+    "shared",
+    "venv"
+  ],
+  "files": [
+    {
+      "bytes": 64243,
+      "path": "research/manual/otto_feature_round01/00_feature_design.ipynb",
+      "sha256": "279677da0fd88d3598db6666b661063f192929ac27dd930c571fa8fb0a7e8be7"
+    },
+    {
+      "bytes": 153702,
+      "path": "research/manual/otto_feature_round01/01_run_and_analyze.ipynb",
+      "sha256": "348dbc392d1ec2b0c506a6c06291a7c3b1672e671c5ceb302af5af485fc6c62f"
+    },
+    {
+      "bytes": 1405,
+      "path": "research/manual/otto_feature_round01/MANIFEST.sha256",
+      "sha256": "d63d1338346ac9b59d6d8c38581faf384dc26919c07de5b269a80a1466c5937e"
+    },
+    {
+      "bytes": 9497,
+      "path": "research/manual/otto_feature_round01/RESEARCH_PLAN.md",
+      "sha256": "3083c977bae36ec2b634cd539a564fd6ea1061e1fb932296ad993fa2564a0547"
+    },
+    {
+      "bytes": 8341,
+      "path": "research/manual/otto_feature_round01/START_HERE.md",
+      "sha256": "56c346f8b605d8dd72d68dd7f01687d76ee0697ffb79c939422bc74b91b4b01f"
+    },
+    {
+      "bytes": 36423,
+      "path": "research/manual/otto_feature_round01/experiment.py",
+      "sha256": "69354b587a01fd489e9db16dcd2f73db964768981c6b8053f5bce263a54f4f94"
+    },
+    {
+      "bytes": 15331,
+      "path": "research/manual/otto_feature_round01/feature_catalog.json",
+      "sha256": "1a30c7e425bc3d39ec2592980e72af238c84ae80dc444f97eb6440328b5f9f72"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round01/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 4006,
+      "path": "research/manual/otto_feature_round01/launch.py",
+      "sha256": "672f119c7ff2cd38b2a2410583f4dab66109a77b261f802b1374f0d80cf4f9d2"
+    },
+    {
+      "bytes": 1107,
+      "path": "research/manual/otto_feature_round01/otto_notebook_review_contract.json",
+      "sha256": "4a3a08a5e0cebb51c837c4a2ef91c6c443580a939ad50e11db854cfbf3469f1e"
+    },
+    {
+      "bytes": 8746,
+      "path": "research/manual/otto_feature_round01/otto_notebook_support.py",
+      "sha256": "065f55b690d6e1dc8d0c72436b81d6d5159fb497bec79cb7530275cf57dc0ae6"
+    },
+    {
+      "bytes": 2843,
+      "path": "research/manual/otto_feature_round01/protocol.json",
+      "sha256": "0beaf1863bffe468aca5aa5b66230b48232a862c8d78da099e0033224ccd0490"
+    },
+    {
+      "bytes": 8349,
+      "path": "research/manual/otto_feature_round01/visualize.py",
+      "sha256": "c01a8d315a8686738619b3e32fb8fbf3441f26077ac3b5da3305d50c53cee265"
+    },
+    {
+      "bytes": 22275,
+      "path": "research/manual/otto_feature_round01/outputs/feature_manifest.json",
+      "sha256": "4693378daa0fdb5b79f0254f9e207b65a335e2c768f3bdaee7988994792e916d"
+    },
+    {
+      "bytes": 10386,
+      "path": "research/manual/otto_feature_round01/outputs/result.json",
+      "sha256": "45d0edc2d7c8150041b7beb15c8f0747fb30b0d8b83c469a3e5118f5a545ffc6"
+    },
+    {
+      "bytes": 9809,
+      "path": "research/manual/otto_feature_round01/tests/test_round01.py",
+      "sha256": "8e23e7491159dae55e0e3f97dfe2fe4b5a2a00251069699337b6b7d7d7652ca6"
+    },
+    {
+      "bytes": 43212,
+      "path": "research/manual/otto_feature_round02/00_experiment_design.ipynb",
+      "sha256": "8826cdb89452d858403f19a75f603d49428479e615519502df1199a8575b817e"
+    },
+    {
+      "bytes": 31294,
+      "path": "research/manual/otto_feature_round02/01_run_timing_replication.ipynb",
+      "sha256": "489689e83e3f44c4593f41aeda082c135a7b8e89a82b9f26ae132632017967c8"
+    },
+    {
+      "bytes": 143690,
+      "path": "research/manual/otto_feature_round02/02_saved_results.ipynb",
+      "sha256": "45cc3ad0d6a6d5f40b59fee0281618bb26e0385a48018b5d08293b1047da7606"
+    },
+    {
+      "bytes": 1763,
+      "path": "research/manual/otto_feature_round02/MANIFEST.sha256",
+      "sha256": "289121cc7fa4b0af2d445449087c72dd17ec4f3f5da3a6aa8ee53a480afa87ef"
+    },
+    {
+      "bytes": 7348,
+      "path": "research/manual/otto_feature_round02/RESEARCH_PLAN.md",
+      "sha256": "e7ab92b3a93937c57db413e1afb6e4c5b1c18b7714e6271e2c4b869561aad771"
+    },
+    {
+      "bytes": 7842,
+      "path": "research/manual/otto_feature_round02/START_HERE.md",
+      "sha256": "7b2a04e09c8e3097c83bbda7150f197e5dae887afab29df87af2a081de26f7c9"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round02/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 8783,
+      "path": "research/manual/otto_feature_round02/feature_catalog.json",
+      "sha256": "67040099ddfd3bf8885df25c039a03250cc94c78967c1e0e718ab4c2422b1b59"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round02/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 6066,
+      "path": "research/manual/otto_feature_round02/launch.py",
+      "sha256": "b9197e6d169d984835f2c95caf0d5ed0c2fe102f9a0c123a1fe5eabd3f8a4309"
+    },
+    {
+      "bytes": 2732,
+      "path": "research/manual/otto_feature_round02/notebook_view.py",
+      "sha256": "ffc37c4bac56abc2fac49215f4f6242bcb98d785f19a34fb3ac45c3dad4bd127"
+    },
+    {
+      "bytes": 2956,
+      "path": "research/manual/otto_feature_round02/protocol.json",
+      "sha256": "c462abf2d39a85a7509cc84a0db5b03fc0ae7661749ac21bba6483318246c9e8"
+    },
+    {
+      "bytes": 30689,
+      "path": "research/manual/otto_feature_round02/replication.py",
+      "sha256": "0eda427e734d41132617f3151607ced972cefdfe8811ef1abf02b6668f1791dd"
+    },
+    {
+      "bytes": 9173,
+      "path": "research/manual/otto_feature_round02/report.py",
+      "sha256": "7082bbc9aff3c8db6e55717384dedd6617a1a4b17527b3f1a8cf039f30a264a4"
+    },
+    {
+      "bytes": 26338,
+      "path": "research/manual/otto_feature_round02/outputs/feature_manifest.json",
+      "sha256": "4cc6523bf8edb115b0bb363ac7616be84996310a1fe59cf9ce0105c1dc0d0ebd"
+    },
+    {
+      "bytes": 193,
+      "path": "research/manual/otto_feature_round02/outputs/report_receipt.json",
+      "sha256": "a98f136007fc7fea3ff4ace287ae0b10d54a963eac8748f4c5c2dc0baf3e567f"
+    },
+    {
+      "bytes": 5925,
+      "path": "research/manual/otto_feature_round02/outputs/result.json",
+      "sha256": "0199ef13727d4224dfbbc48073f4b40f865a9f40bb429d5022c3e53828ada741"
+    },
+    {
+      "bytes": 15177,
+      "path": "research/manual/otto_feature_round02/tests/test_round02.py",
+      "sha256": "7c59d688d223eb4ed14a7226a174516e44706a8c29def2a89a21ac72285f6f12"
+    },
+    {
+      "bytes": 62042,
+      "path": "research/manual/otto_feature_round03/00_experiment_design.ipynb",
+      "sha256": "37fc2db7001eda26dbf030da16948d58c541332a496e3c71eddb0030c5e11dca"
+    },
+    {
+      "bytes": 22268,
+      "path": "research/manual/otto_feature_round03/01_run_recent_mass.ipynb",
+      "sha256": "af967f2c8d6dd7f43e31b7dcd182a1f4c57646fe761e5306177ac0f6d79e3b55"
+    },
+    {
+      "bytes": 142834,
+      "path": "research/manual/otto_feature_round03/02_saved_results.ipynb",
+      "sha256": "5897cc682cafc0fe3a67b3ce89bc7c3ca03e7469c632b4624153e2a6521c3296"
+    },
+    {
+      "bytes": 2112,
+      "path": "research/manual/otto_feature_round03/MANIFEST.sha256",
+      "sha256": "05420c736b2ecb3d863f414327c692c9b08d86b4c4344c918be940d5970113d8"
+    },
+    {
+      "bytes": 7563,
+      "path": "research/manual/otto_feature_round03/RESEARCH_PLAN.md",
+      "sha256": "6934bc8ed79815e69d6aef864ff0d8bd5be9034526f3c129875122731a487c96"
+    },
+    {
+      "bytes": 5243,
+      "path": "research/manual/otto_feature_round03/START_HERE.md",
+      "sha256": "d77cf6e65aae5ec51fde4a02e341ff0e70d0e8a18e8c61652917a6d9e9bc81c8"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round03/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round03/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 23815,
+      "path": "research/manual/otto_feature_round03/experiment.py",
+      "sha256": "72d8f4b76ae59aaf7df889e517c4301206cabf22c0729adec08ee31cf66b75f3"
+    },
+    {
+      "bytes": 23829,
+      "path": "research/manual/otto_feature_round03/feature_catalog.json",
+      "sha256": "311e17ef91da5196a69a5757d054e3db79aab2fb2f75b549ac90c2ba8252a756"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round03/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 6199,
+      "path": "research/manual/otto_feature_round03/launch.py",
+      "sha256": "1c4dca36cc3d968400bc97b67c071230b1e4a9824e104b15f4390374a2f090ef"
+    },
+    {
+      "bytes": 3070,
+      "path": "research/manual/otto_feature_round03/notebook_view.py",
+      "sha256": "cb33cabb468a2783f13538a4922751d31994c6c0af2774cec1628fa1604e9189"
+    },
+    {
+      "bytes": 1769,
+      "path": "research/manual/otto_feature_round03/protocol.json",
+      "sha256": "52424ad94c0be722f519345cb62b865cbd4f48361a7477dfd0ee89db79b50f18"
+    },
+    {
+      "bytes": 4171,
+      "path": "research/manual/otto_feature_round03/recent_mass_features.py",
+      "sha256": "6ed52c9d6b8552dcc40de1c2ffb6d63b77325b3a1fc4acbfb2a6713f198c88fa"
+    },
+    {
+      "bytes": 7925,
+      "path": "research/manual/otto_feature_round03/report.py",
+      "sha256": "4f38ee7cfd11a13dbaebfdc1a385e7853f02e98203fb9b18d3ac167a94685602"
+    },
+    {
+      "bytes": 13294,
+      "path": "research/manual/otto_feature_round03/outputs/feature_manifest.json",
+      "sha256": "0ad3573b8a879f6713e7b57572076492ad7b1d6117b7aba2effc47b5c97e0902"
+    },
+    {
+      "bytes": 796,
+      "path": "research/manual/otto_feature_round03/outputs/report_receipt.json",
+      "sha256": "982efd2d5e78cb7d3c153e67ddb778a8262cfe1a07ef89c8f8427368a952853e"
+    },
+    {
+      "bytes": 8941,
+      "path": "research/manual/otto_feature_round03/outputs/result.json",
+      "sha256": "1fc3a19abf34b421f14d0ac2738e3e194b325a345648597eaa2c3515cd7bed75"
+    },
+    {
+      "bytes": 10145,
+      "path": "research/manual/otto_feature_round03/tests/test_recent_mass.py",
+      "sha256": "7f4ecbff2d5b3077ffbb1dbaf4953245f38cc9ff4e42578a8036039be0a51629"
+    },
+    {
+      "bytes": 3382,
+      "path": "research/manual/otto_feature_round03/tests/test_report.py",
+      "sha256": "91e12d37084461629f1394c6a7060cfe01c885e0c724b0d8c2cf091680d014ca"
+    },
+    {
+      "bytes": 60363,
+      "path": "research/manual/otto_feature_round04/00_experiment_design.ipynb",
+      "sha256": "ce7a9e99f3cc29521c440c4c6f1b33adeb98b8b6ea0b07e0fd0fb2fc923c68db"
+    },
+    {
+      "bytes": 54278,
+      "path": "research/manual/otto_feature_round04/01_build_demand_index.ipynb",
+      "sha256": "5c290c1394275f13aaead6dd40ce18d3ea2b298d8c0e5246c90e4ec9d19eff5c"
+    },
+    {
+      "bytes": 16727,
+      "path": "research/manual/otto_feature_round04/02_run_demand_comparison.ipynb",
+      "sha256": "0cf7ef455ad5df8bfa1ef006b56175a63b92806ae790f57a96308a97889306e7"
+    },
+    {
+      "bytes": 150530,
+      "path": "research/manual/otto_feature_round04/03_saved_results.ipynb",
+      "sha256": "86b2e87b4b5ada77a0fe22e8ce8264ac560dca84e1895874e4f66fd311ba8d87"
+    },
+    {
+      "bytes": 2672,
+      "path": "research/manual/otto_feature_round04/MANIFEST.sha256",
+      "sha256": "5130f65a8d1820bbfecafd3eb7757b3e7cf3d0bf1d9baece1622dbc80d9acdd4"
+    },
+    {
+      "bytes": 9331,
+      "path": "research/manual/otto_feature_round04/RESEARCH_PLAN.md",
+      "sha256": "1c3ae3cd599f2be530146795ba393f105a649e4b901afe98131c671300764346"
+    },
+    {
+      "bytes": 5954,
+      "path": "research/manual/otto_feature_round04/START_HERE.md",
+      "sha256": "a4094ce8f5aad91d17ba96c7a4f13c275cd39ac15fa3456a601ab479564a40e3"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round04/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round04/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 4746,
+      "path": "research/manual/otto_feature_round04/demand_features.py",
+      "sha256": "1755571bb3e0af82dfdea7544e6dc731f000997b89224dbe9d3055ffde69e485"
+    },
+    {
+      "bytes": 11449,
+      "path": "research/manual/otto_feature_round04/demand_index.py",
+      "sha256": "742242a567ddc61dbdfbeb4a67c59b8ed3736804bfd9278638c9625b6f93fe9c"
+    },
+    {
+      "bytes": 28555,
+      "path": "research/manual/otto_feature_round04/experiment.py",
+      "sha256": "e1f5d66d57765aec2d862b3c6291540131ac554a6d6c579ab4102953977c9f38"
+    },
+    {
+      "bytes": 37984,
+      "path": "research/manual/otto_feature_round04/feature_catalog.json",
+      "sha256": "1088af9598ba8e169fb45ef8fc545fa9bba549db567df1917fb4cc8f4480097e"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round04/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 6815,
+      "path": "research/manual/otto_feature_round04/launch.py",
+      "sha256": "ad3f544d3e5f9dac333db828ced6846a47b84d58f1cb40e37e01970e1f76519f"
+    },
+    {
+      "bytes": 3065,
+      "path": "research/manual/otto_feature_round04/notebook_view.py",
+      "sha256": "e5fe5da7ca152a3f5976367037c8ef2017d399d04e2c0d6e6c9ebb74b1408ec2"
+    },
+    {
+      "bytes": 2525,
+      "path": "research/manual/otto_feature_round04/protocol.json",
+      "sha256": "8daface79a727a9dddcf4df672936e293c4f9960b00df3c6b9da04534b48259a"
+    },
+    {
+      "bytes": 8022,
+      "path": "research/manual/otto_feature_round04/report.py",
+      "sha256": "bfc7466fb47125be29ff14a97c9ae72346f8a751c51f30a9f052c69176c184aa"
+    },
+    {
+      "bytes": 14340,
+      "path": "research/manual/otto_feature_round04/outputs/feature_manifest.json",
+      "sha256": "c4567d5962e15451d81aa2ec7eb523886d63d28066014c2516d7fb53c11fbde7"
+    },
+    {
+      "bytes": 796,
+      "path": "research/manual/otto_feature_round04/outputs/report_receipt.json",
+      "sha256": "85efbcdf233f64909fad60d4026a553a825b44a1da40ea13a63692a6ae72ce45"
+    },
+    {
+      "bytes": 9318,
+      "path": "research/manual/otto_feature_round04/outputs/result.json",
+      "sha256": "57b9e47b6db786efbef675631f819e9ae1f9d29efb4b06097d7715bc87fd9234"
+    },
+    {
+      "bytes": 14785,
+      "path": "research/manual/otto_feature_round04/tests/test_demand.py",
+      "sha256": "d015837d42832a2603e992f1dbba75be4569346bf221623db3970a257112a854"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round04/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2234,
+      "path": "research/manual/otto_feature_round04/tests/test_native_and_storage.py",
+      "sha256": "39302a49e96ff24e1fc2533e8b0a072d739d4bede4e24ca897ca33073388c75c"
+    },
+    {
+      "bytes": 3369,
+      "path": "research/manual/otto_feature_round04/tests/test_report.py",
+      "sha256": "0581ff73d3bf30e103f67f9e9241776014be8051bc719c1ef5f30fd4089094ce"
+    },
+    {
+      "bytes": 61429,
+      "path": "research/manual/otto_feature_round05/00_experiment_design.ipynb",
+      "sha256": "f554a6bb15026b325c2b74e28cdda2af9c287b0ace295c8a73cb5b7820a9fe14"
+    },
+    {
+      "bytes": 26737,
+      "path": "research/manual/otto_feature_round05/01_build_transition_index.ipynb",
+      "sha256": "cce6c47a7174fd5eaf74b3bbb3fc1820fc0de684f7be43b35df359cf7cfbb6b6"
+    },
+    {
+      "bytes": 15449,
+      "path": "research/manual/otto_feature_round05/02_run_action_pair_comparison.ipynb",
+      "sha256": "a485fb3a65ae2972fcda79d458d7da1fb0ee8c2880f910abeda3c8e35238ecb2"
+    },
+    {
+      "bytes": 140171,
+      "path": "research/manual/otto_feature_round05/03_saved_results.ipynb",
+      "sha256": "ba0b19a733e37c4e60d6c41aa10c4989e153767747d22c90f8d786a27d69a2d3"
+    },
+    {
+      "bytes": 2850,
+      "path": "research/manual/otto_feature_round05/MANIFEST.sha256",
+      "sha256": "91186f18885264363441ec17936ad2fc1dc627df4293183f908850b978306def"
+    },
+    {
+      "bytes": 9863,
+      "path": "research/manual/otto_feature_round05/RESEARCH_PLAN.md",
+      "sha256": "60c9908eac19bef17e1097f7359c3b25224d197acad9e38ade0827e2ae8c5301"
+    },
+    {
+      "bytes": 6598,
+      "path": "research/manual/otto_feature_round05/START_HERE.md",
+      "sha256": "70284d1e7b2f59cdd6f2091a2ae1ad98c2763bf04cd5e33154d2d35876dcf774"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round05/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 3977,
+      "path": "research/manual/otto_feature_round05/backend_smoke.py",
+      "sha256": "978a7da6223b1c0ee84a8ce27aae195bf440e46e90cd11ddf5d1f67310b13974"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round05/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 29414,
+      "path": "research/manual/otto_feature_round05/experiment.py",
+      "sha256": "2bbca93e040ea1add7d1d6bd7b9c9f79b93547010276f64e695bbc8e03550d2e"
+    },
+    {
+      "bytes": 14973,
+      "path": "research/manual/otto_feature_round05/feature_catalog.json",
+      "sha256": "6fbfc84ccbd26127e83af797d0b450a68aed44f9d49f1deb216e671d83d4df33"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round05/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 6855,
+      "path": "research/manual/otto_feature_round05/launch.py",
+      "sha256": "50a13f8bed3f706e9730cc0d88d7c72141d39c57f9ab4e5e71f1c7bfaae70c0f"
+    },
+    {
+      "bytes": 3058,
+      "path": "research/manual/otto_feature_round05/notebook_view.py",
+      "sha256": "5bec2e48527d988484bada3c2f8bb54a65b48c71fffafc64dc05d5daa3488ab6"
+    },
+    {
+      "bytes": 2364,
+      "path": "research/manual/otto_feature_round05/protocol.json",
+      "sha256": "4c96ca2187f022a992c39f7d820229ab30940a3b873b1e1b053eff3f94cc056d"
+    },
+    {
+      "bytes": 8081,
+      "path": "research/manual/otto_feature_round05/report.py",
+      "sha256": "8c4a5df224b2a3930288748bb03b10bcd43e4d75d71f04ccaf55373b8b78013a"
+    },
+    {
+      "bytes": 440,
+      "path": "research/manual/otto_feature_round05/run_tests.py",
+      "sha256": "7d55304dc69ce41f29858c8f62d177f8b6d3c1ecb77319f49538225b98cdb687"
+    },
+    {
+      "bytes": 7062,
+      "path": "research/manual/otto_feature_round05/transition_features.py",
+      "sha256": "bbd83a8d6249a99e5a8f18cbb2f03f112fd6a3c630df405951d1c6ca5cf0bd17"
+    },
+    {
+      "bytes": 10432,
+      "path": "research/manual/otto_feature_round05/transition_index.py",
+      "sha256": "1cca12e457c3b64f73c8ce1ecc8314455a456eff3a9381f096a2a626b401af05"
+    },
+    {
+      "bytes": 13354,
+      "path": "research/manual/otto_feature_round05/outputs/feature_manifest.json",
+      "sha256": "aa1512f807479903ad8e79871b4583977cbd5d88af39b2221e5f6b6dddc5aa2d"
+    },
+    {
+      "bytes": 796,
+      "path": "research/manual/otto_feature_round05/outputs/report_receipt.json",
+      "sha256": "e0eb7b84d2c4b6c42a757e7a1724df6e02457a8d7f707f1fd8838d63b7cbba7c"
+    },
+    {
+      "bytes": 9568,
+      "path": "research/manual/otto_feature_round05/outputs/result.json",
+      "sha256": "6300b288abf57956fe0f1016eb77fee8271aefc6daa750ccfdda128483753eca"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round05/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2234,
+      "path": "research/manual/otto_feature_round05/tests/test_native_and_storage.py",
+      "sha256": "39302a49e96ff24e1fc2533e8b0a072d739d4bede4e24ca897ca33073388c75c"
+    },
+    {
+      "bytes": 4917,
+      "path": "research/manual/otto_feature_round05/tests/test_partition_recovery.py",
+      "sha256": "4770ee18bcb2647be21bd901817b2b0b84ee8989f205db90e3e523e304206111"
+    },
+    {
+      "bytes": 3423,
+      "path": "research/manual/otto_feature_round05/tests/test_report.py",
+      "sha256": "bf1a4f90a91fcc433082ba17ecc648ce51ea456c4376879db67beda9bbca1139"
+    },
+    {
+      "bytes": 8479,
+      "path": "research/manual/otto_feature_round05/tests/test_transition.py",
+      "sha256": "110a8f23085dc08c4ce12d3316aea7d712f348f52d6826a02d2f18d5e5df366c"
+    },
+    {
+      "bytes": 120696,
+      "path": "research/manual/otto_feature_round06/00_review_and_design.ipynb",
+      "sha256": "e1ead15ef34a6a492b6885c828cfd8bec684985dc8d3efe78bea321ae2f60e31"
+    },
+    {
+      "bytes": 21883,
+      "path": "research/manual/otto_feature_round06/01_build_context_features.ipynb",
+      "sha256": "37cf0a654c91769f05ca8885947899b4c29822677da0e265e828fbdb9e54cbab"
+    },
+    {
+      "bytes": 11616,
+      "path": "research/manual/otto_feature_round06/02_run_context_comparison.ipynb",
+      "sha256": "224dc34e1e827277f3a71660c6f6ababf8b6d3816e028af3dd9a8395a268535b"
+    },
+    {
+      "bytes": 179129,
+      "path": "research/manual/otto_feature_round06/03_saved_results.ipynb",
+      "sha256": "d539e8c93245c75431944c92138505b27a9c713decbb362063b7ed06e39424fe"
+    },
+    {
+      "bytes": 12439,
+      "path": "research/manual/otto_feature_round06/LOCAL_TEST_LOG.txt",
+      "sha256": "f666dd148dd8b406c4b06ecc28c8f7e16769438b12604a442fb1e0e4326fd620"
+    },
+    {
+      "bytes": 1172,
+      "path": "research/manual/otto_feature_round06/LOCAL_VALIDATION.json",
+      "sha256": "6c6d984597b0e39a7ebb650058335ac1b1bce87d38476b2e643bbdf39f3e4204"
+    },
+    {
+      "bytes": 3591,
+      "path": "research/manual/otto_feature_round06/MANIFEST.sha256",
+      "sha256": "d81cbf03b23eb5a756746856cf6a4f4d66a69b5dee998890a3c86ef597c1b6f5"
+    },
+    {
+      "bytes": 432,
+      "path": "research/manual/otto_feature_round06/PREPARATION_STATUS.json",
+      "sha256": "3d39226f33a67f121c704583a7d353b1847c954c079a9716c09fd11ff9863830"
+    },
+    {
+      "bytes": 1158,
+      "path": "research/manual/otto_feature_round06/README.md",
+      "sha256": "c13506c699435b0cf6f9cf7ac55dd200ddf43769ddfe6092c88f08bae179d9bf"
+    },
+    {
+      "bytes": 11270,
+      "path": "research/manual/otto_feature_round06/RESEARCH_PLAN.md",
+      "sha256": "cdb476c00b296e458c264aa92f185fd724555db1ccb66f344f3fe4d9bfd1f0fe"
+    },
+    {
+      "bytes": 6219,
+      "path": "research/manual/otto_feature_round06/START_HERE.md",
+      "sha256": "23d0873ae287afccfbe2cb316e27422daa3e9260d9f94ab7f9fa7bc5fdbae3ba"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round06/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round06/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 28310,
+      "path": "research/manual/otto_feature_round06/experiment.py",
+      "sha256": "cf4dec9da75df2f8e7f959d244174f6b9b8cbb6630616e2f01a4ff08e486562d"
+    },
+    {
+      "bytes": 8753,
+      "path": "research/manual/otto_feature_round06/feature_catalog.json",
+      "sha256": "6b0c9e54f3a9758fe4aaf4112ba77af0e362a498a65d4948157183979a7771e0"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round06/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 7425,
+      "path": "research/manual/otto_feature_round06/launch.py",
+      "sha256": "0f73362f204c66b4e18092fc5a2f2a85469a2a927ff9d496b2e985ee65e7023b"
+    },
+    {
+      "bytes": 3148,
+      "path": "research/manual/otto_feature_round06/notebook_view.py",
+      "sha256": "a3562e79f2a8e996371f975083d3008a0f8156dae5e359be15b25dfd873ab412"
+    },
+    {
+      "bytes": 2176,
+      "path": "research/manual/otto_feature_round06/protocol.json",
+      "sha256": "1fd141032c142737b5a63520a3e7016f1bb2ecc90c5d1983f1a8ac3bc3bb8f82"
+    },
+    {
+      "bytes": 5749,
+      "path": "research/manual/otto_feature_round06/relative_features.py",
+      "sha256": "8f83aa4563c09b103c505d5fb4565d314a1ac80a688ed1a308ea851929934fb5"
+    },
+    {
+      "bytes": 9756,
+      "path": "research/manual/otto_feature_round06/report.py",
+      "sha256": "5d0459ea89e41337a232759be680c0233a692e05640f8e13db35457854e585ee"
+    },
+    {
+      "bytes": 598,
+      "path": "research/manual/otto_feature_round06/research_queue.json",
+      "sha256": "97d0e75b89df56a3491adb4e20d8e07827fe0d20bf240491fd594808b27654fc"
+    },
+    {
+      "bytes": 387,
+      "path": "research/manual/otto_feature_round06/run_tests.py",
+      "sha256": "b7e7b79045cbb108267565ebc1e85dc1e0908033b4c975aad7bda7d88ea14edb"
+    },
+    {
+      "bytes": 3180,
+      "path": "research/manual/otto_feature_round06/outputs/candidate_coverage.json",
+      "sha256": "f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38"
+    },
+    {
+      "bytes": 13430,
+      "path": "research/manual/otto_feature_round06/outputs/feature_manifest.json",
+      "sha256": "c1cd11b52a631f7e2ed896e25092a7e2ae1490d94cf4d3f448b20b69339b69ce"
+    },
+    {
+      "bytes": 962,
+      "path": "research/manual/otto_feature_round06/outputs/report_receipt.json",
+      "sha256": "355543d02237e95fa6d600e9c86b4bfb930c369eac40e233bb9e334032c28239"
+    },
+    {
+      "bytes": 9694,
+      "path": "research/manual/otto_feature_round06/outputs/result.json",
+      "sha256": "11045ef1872740aa84819ecc407a328970ceea9205d7bd1025daf13691451d33"
+    },
+    {
+      "bytes": 7076,
+      "path": "research/manual/otto_feature_round06/review/01.json",
+      "sha256": "6e429bf2dd30f3e5ca49b20593fea8df70f963c56e8a52aeaf04032d3eef75fd"
+    },
+    {
+      "bytes": 7328,
+      "path": "research/manual/otto_feature_round06/review/02.json",
+      "sha256": "cc3c2a7480a5b92e0ef62536b7fbbdaaa611fad3d70a5dd5937c77d281dba227"
+    },
+    {
+      "bytes": 7135,
+      "path": "research/manual/otto_feature_round06/review/03.json",
+      "sha256": "b73e5294539be87d6fdec86b56fc93198657ae7df97a739b07005d51037ae186"
+    },
+    {
+      "bytes": 7279,
+      "path": "research/manual/otto_feature_round06/review/04.json",
+      "sha256": "5fd727c845653f4c0bed92f72ffbb793023ebb7d92286c6f14a0981d3c3b47c7"
+    },
+    {
+      "bytes": 7288,
+      "path": "research/manual/otto_feature_round06/review/05.json",
+      "sha256": "f058e0d9c417aa3d14ec6719b395b1a025881776b70873fd96b97bcfee1d1278"
+    },
+    {
+      "bytes": 7567,
+      "path": "research/manual/otto_feature_round06/review/06.json",
+      "sha256": "5cedef95a0807a86c4fd8da23a41604b58f5629835b4557bd647b2719740b6d4"
+    },
+    {
+      "bytes": 489,
+      "path": "research/manual/otto_feature_round06/review/manifest.json",
+      "sha256": "3728aff1ebdcb4cd8041696353e36757fdebd7ae58196f588da953819578c010"
+    },
+    {
+      "bytes": 3342,
+      "path": "research/manual/otto_feature_round06/tests/test_launch.py",
+      "sha256": "7f9ea20521196d1e5f31f1c555e9ae01eced29b00b99065d6e5f99c536bab25f"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round06/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2234,
+      "path": "research/manual/otto_feature_round06/tests/test_native_and_storage.py",
+      "sha256": "39302a49e96ff24e1fc2533e8b0a072d739d4bede4e24ca897ca33073388c75c"
+    },
+    {
+      "bytes": 6980,
+      "path": "research/manual/otto_feature_round06/tests/test_relative_features.py",
+      "sha256": "73a043bf212304035fde68471228cab88bc36a2d481710b30264e1e64b0e3f6e"
+    },
+    {
+      "bytes": 10567,
+      "path": "research/manual/otto_feature_round06/tests/test_screen_fixture.py",
+      "sha256": "53ab5beeda0f74136821e7431c84fd8f4f5c34688c22f9176c5e825946c2ce80"
+    },
+    {
+      "bytes": 175303,
+      "path": "research/manual/otto_feature_round07/00_round06_review.ipynb",
+      "sha256": "2be2138751da02cc5075c5aa05b9f76fede3de6c20380f8bf02cb4f80797a361"
+    },
+    {
+      "bytes": 20428,
+      "path": "research/manual/otto_feature_round07/01_build_neighbor_evidence.ipynb",
+      "sha256": "6aad03775bc5b3ac05e4a0fdb38a10d796ea13a11cfbdca223ab0e00fc044752"
+    },
+    {
+      "bytes": 10911,
+      "path": "research/manual/otto_feature_round07/02_features_and_audit.ipynb",
+      "sha256": "e9566fe93ce55d0b68436e394d5b59aaf5c3e32a2c7ff91e3e7ef75964fc4ecf"
+    },
+    {
+      "bytes": 161493,
+      "path": "research/manual/otto_feature_round07/03_saved_results.ipynb",
+      "sha256": "180425a7e0c396d514d290fe0fc1c01fa6ff658ee28788419e12e04ee95d413a"
+    },
+    {
+      "bytes": 10567,
+      "path": "research/manual/otto_feature_round07/LOCAL_TEST_LOG.txt",
+      "sha256": "b85bab6346c55d4dcc3d3738f77500e601e7fcd62e2ef6bbfb6adcf1287add3b"
+    },
+    {
+      "bytes": 1807,
+      "path": "research/manual/otto_feature_round07/LOCAL_VALIDATION.json",
+      "sha256": "111bab2f83c69d7ed199c44a5e7a4b98b8d0e119f2500bf021938045eaa3292b"
+    },
+    {
+      "bytes": 3085,
+      "path": "research/manual/otto_feature_round07/MANIFEST.sha256",
+      "sha256": "fbc255f6126567b2ed4f9e00784d54c085a5187e4b4f188685f9642ed21a74eb"
+    },
+    {
+      "bytes": 2209,
+      "path": "research/manual/otto_feature_round07/README.md",
+      "sha256": "f8c385f003c9671a52453aaafae6f5fa8afa54c207ca5f357cf93d824db905a9"
+    },
+    {
+      "bytes": 14601,
+      "path": "research/manual/otto_feature_round07/RESEARCH_PLAN.md",
+      "sha256": "d3172ace0c8f35af3fa0c9ec2444a565fb79db2f2e1fd853fd62b8fa645d7779"
+    },
+    {
+      "bytes": 7112,
+      "path": "research/manual/otto_feature_round07/START_HERE.md",
+      "sha256": "0c9d0c2bb9e8482339f82688eb7f460830387bd561dd2fee4759404b7112686a"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round07/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 3997,
+      "path": "research/manual/otto_feature_round07/feature_catalog.json",
+      "sha256": "d96024a2a6627e817240f428f5f8238b79c5bef0c2d3794a1d14adcfd81d872a"
+    },
+    {
+      "bytes": 5377,
+      "path": "research/manual/otto_feature_round07/history_io.py",
+      "sha256": "b863470ab8b45210a913b83b8c4aa30b6cbc44c49edc977ed5dc3d204dfd6ed3"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round07/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 7464,
+      "path": "research/manual/otto_feature_round07/launch.py",
+      "sha256": "b71aa58a30bc85050a19c5c93a909802f2de43ad6974bc6eb50fe0469eec68f3"
+    },
+    {
+      "bytes": 4335,
+      "path": "research/manual/otto_feature_round07/metrics.py",
+      "sha256": "fc40c472b256b6efaf2abbffc9b6caed8b868c69d823793e79aef97ba0b5c8fb"
+    },
+    {
+      "bytes": 6987,
+      "path": "research/manual/otto_feature_round07/neighbors.py",
+      "sha256": "04690a596a975e93d0d47de042c97f76354d527eb96c12162d17792e957bfac5"
+    },
+    {
+      "bytes": 2933,
+      "path": "research/manual/otto_feature_round07/notebook_view.py",
+      "sha256": "595ad37c548ac85b22386c9155e0deababd292cf937c9fc2a4b7e6a09a3df9fd"
+    },
+    {
+      "bytes": 1028,
+      "path": "research/manual/otto_feature_round07/protocol.json",
+      "sha256": "540b6f582b5c0bbbfa979d14b94e56cd96536c05c296380a3cc0f7b9ac973578"
+    },
+    {
+      "bytes": 6280,
+      "path": "research/manual/otto_feature_round07/report.py",
+      "sha256": "6b03f3232c6751dc59dc000761ac76f184c9ae800edc8ecd1fb6c020b30ba158"
+    },
+    {
+      "bytes": 23026,
+      "path": "research/manual/otto_feature_round07/research.py",
+      "sha256": "9a0b311a2c124ad7ef37f7c7d8d759772a670f470dc31f883fc60e99026f5bcd"
+    },
+    {
+      "bytes": 487,
+      "path": "research/manual/otto_feature_round07/run_tests.py",
+      "sha256": "c07d5727d50df93d48289c8ed34a706ceaadf20c68164b2e32b814c537da4e7c"
+    },
+    {
+      "bytes": 2884,
+      "path": "research/manual/otto_feature_round07/outputs/feature_manifest.json",
+      "sha256": "d1dd33b788384cc18da55eff59747d568cb0c43d799c3cd090b90245b3d533b4"
+    },
+    {
+      "bytes": 941,
+      "path": "research/manual/otto_feature_round07/outputs/report_receipt.json",
+      "sha256": "1fe4712299b63d642ceb21b1744909abd361c87743a6b13b72af02917035665d"
+    },
+    {
+      "bytes": 4571,
+      "path": "research/manual/otto_feature_round07/outputs/result.json",
+      "sha256": "9d786134ae912efd55cc8560e6a54d1db72d1b4b27fe55e6a235168410d134c1"
+    },
+    {
+      "bytes": 3034,
+      "path": "research/manual/otto_feature_round07/tests/test_end_to_end.py",
+      "sha256": "5d33c3a2743361d85b8352081fb77bfd2d6045cd32b9fc061809587d8b9fdc6a"
+    },
+    {
+      "bytes": 3090,
+      "path": "research/manual/otto_feature_round07/tests/test_history_sql.py",
+      "sha256": "7d636150bfc433419ef322317d59785b74d6c0b312210bbef2a5b08104a22b99"
+    },
+    {
+      "bytes": 5685,
+      "path": "research/manual/otto_feature_round07/tests/test_metrics_storage.py",
+      "sha256": "c8293ef419e15126e440ba26952a4f67b33f7860c64dc3caf8cd6fead4cdec45"
+    },
+    {
+      "bytes": 7390,
+      "path": "research/manual/otto_feature_round07/tests/test_neighbors.py",
+      "sha256": "cc288231a5824998a2cc27411f12a3006dfde468de13f9160d64af0449721d35"
+    },
+    {
+      "bytes": 3480,
+      "path": "research/manual/otto_feature_round07/tests/test_research_checkpoints.py",
+      "sha256": "7ea5087094e256e7b8cb246e7b4749d3419038b725602996117a7356b27ba6ca"
+    },
+    {
+      "bytes": 6587,
+      "path": "research/manual/otto_feature_round07/validation/test_installer.py",
+      "sha256": "3ad786925f5e504a8cd01cb7bbab9f5eead6664f47e5753a9981762c50cc4338"
+    },
+    {
+      "bytes": 158286,
+      "path": "research/manual/otto_feature_round08/00_round07_review.ipynb",
+      "sha256": "1b080c8c4541dc6942477c7cd3a462baaa5130aeb0fcdef554bf6fb5cb5f3656"
+    },
+    {
+      "bytes": 56687,
+      "path": "research/manual/otto_feature_round08/01_build_features.ipynb",
+      "sha256": "ad171afb8254927adc470e954d1be366a81e6263cdf12901a06bffc30571cd37"
+    },
+    {
+      "bytes": 27981,
+      "path": "research/manual/otto_feature_round08/02_run_comparison.ipynb",
+      "sha256": "d8eeb32742b6338e5003da73a96e79728b1abf13131d822384aa28d028eb0c13"
+    },
+    {
+      "bytes": 183088,
+      "path": "research/manual/otto_feature_round08/03_saved_results.ipynb",
+      "sha256": "9a9ca5a0b0fe5a45ba4c8ce1ea70e1cbf5e29950b8b395c8216b093e91a6d437"
+    },
+    {
+      "bytes": 81799,
+      "path": "research/manual/otto_feature_round08/04_feature_examples.ipynb",
+      "sha256": "b75799bc3ff7f99698192cf201c8e05330462ffba067e10a2580d22ef8310e0f"
+    },
+    {
+      "bytes": 16643,
+      "path": "research/manual/otto_feature_round08/LOCAL_TEST_LOG.txt",
+      "sha256": "4b156056b7448663dd4898d067edf2fb24337953ecaba2241f1384a023de55c4"
+    },
+    {
+      "bytes": 2238,
+      "path": "research/manual/otto_feature_round08/LOCAL_VALIDATION.json",
+      "sha256": "b8fa0f94e19106ed10fd27fd1060ba0f1ab64ed555f17c3c9f96a9648d3cbe1e"
+    },
+    {
+      "bytes": 4867,
+      "path": "research/manual/otto_feature_round08/MANIFEST.sha256",
+      "sha256": "929fe2b278ac011dd238776733a3465010977f0fddbd76962ee0906aff7bdb03"
+    },
+    {
+      "bytes": 1263,
+      "path": "research/manual/otto_feature_round08/README.md",
+      "sha256": "a164bd2941c6d4973e82a0d30ec0850e78ad5a21af850e329f3fcfe1f7107b38"
+    },
+    {
+      "bytes": 14674,
+      "path": "research/manual/otto_feature_round08/RESEARCH_PLAN.md",
+      "sha256": "5bc89107f6ef9e2e21a00eccf3a03751083c7e46ef850ea7ff1450477034fbd1"
+    },
+    {
+      "bytes": 6399,
+      "path": "research/manual/otto_feature_round08/START_HERE.md",
+      "sha256": "3b210544e53ea27496c31edc2f88da36060d19990fc9b527d778135bf4731f7a"
+    },
+    {
+      "bytes": 7775,
+      "path": "research/manual/otto_feature_round08/TWO_ROUND_GUIDE.md",
+      "sha256": "eca0ed1c792139a2583afb1c505fccac80956305915bdcd2a1aa5d87d5b1c771"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round08/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round08/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 1360,
+      "path": "research/manual/otto_feature_round08/coverage.py",
+      "sha256": "4a793b60339506378b37245695c10dda05b535fadcd85a6d47bebb16dc7b2445"
+    },
+    {
+      "bytes": 22780,
+      "path": "research/manual/otto_feature_round08/experiment.py",
+      "sha256": "048bc8d830124b32841a45d8109c0cc08627964527621814505c5ca35403137a"
+    },
+    {
+      "bytes": 25350,
+      "path": "research/manual/otto_feature_round08/feature_catalog.json",
+      "sha256": "1fbef05aa6390982331e90c4e18d876874d6404cc5b5f643162c102c90c7336f"
+    },
+    {
+      "bytes": 7408,
+      "path": "research/manual/otto_feature_round08/feature_logic.py",
+      "sha256": "684423173e3e0ed43dc1626af603cb10c3d08d81284ad542f11192b24e31e02f"
+    },
+    {
+      "bytes": 5377,
+      "path": "research/manual/otto_feature_round08/history_io.py",
+      "sha256": "b863470ab8b45210a913b83b8c4aa30b6cbc44c49edc977ed5dc3d204dfd6ed3"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round08/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 8081,
+      "path": "research/manual/otto_feature_round08/launch.py",
+      "sha256": "580d87e1f8fb09cd3e4b5850eefb60d218e251cbd773bd1e657e73bcb9086595"
+    },
+    {
+      "bytes": 6987,
+      "path": "research/manual/otto_feature_round08/neighbors.py",
+      "sha256": "04690a596a975e93d0d47de042c97f76354d527eb96c12162d17792e957bfac5"
+    },
+    {
+      "bytes": 21975,
+      "path": "research/manual/otto_feature_round08/notebook_sources.json",
+      "sha256": "213009708578448d27d7c8651cafc669727cc0dfead45891a4bd2f8c8d729b46"
+    },
+    {
+      "bytes": 2720,
+      "path": "research/manual/otto_feature_round08/protocol.json",
+      "sha256": "464a6f8c47104090dc9540d58d959629adec8fb095a39df893dd0e2f43fe2961"
+    },
+    {
+      "bytes": 9736,
+      "path": "research/manual/otto_feature_round08/report.py",
+      "sha256": "7382640b1d27adc341c91ab119ca68cbd4493a6bffec8c67972fcc8eeb5be869"
+    },
+    {
+      "bytes": 530,
+      "path": "research/manual/otto_feature_round08/run_tests.py",
+      "sha256": "d00c25ba8a7ee9c9bbad451af7c9837f27f96db737c36d77399968dbf0463e7a"
+    },
+    {
+      "bytes": 12628,
+      "path": "research/manual/otto_feature_round08/shared_data.py",
+      "sha256": "08c3f7b82e2255553eda35c4b7ab1e39ae0891e033709ced6b6a022c899e5c14"
+    },
+    {
+      "bytes": 4996,
+      "path": "research/manual/otto_feature_round08/source_contract.py",
+      "sha256": "2cd4d6a82e6cd71381bb083ba92eaef881e8b61c68536448821121766a18a8a0"
+    },
+    {
+      "bytes": 3180,
+      "path": "research/manual/otto_feature_round08/outputs/candidate_coverage.json",
+      "sha256": "f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38"
+    },
+    {
+      "bytes": 14123,
+      "path": "research/manual/otto_feature_round08/outputs/feature_manifest.json",
+      "sha256": "dccfa4ae0dc7dc4de0e857087d3e675b1dd6a79f3f0ea62f36636a0a2a47b7d6"
+    },
+    {
+      "bytes": 962,
+      "path": "research/manual/otto_feature_round08/outputs/report_receipt.json",
+      "sha256": "7e3ce024f88a9df01b63515a1808ffa1f5922dd27e486c416419a12039e4fcb7"
+    },
+    {
+      "bytes": 9902,
+      "path": "research/manual/otto_feature_round08/outputs/result.json",
+      "sha256": "af6aed9fa26245fe8d42eba981c255ad478fa4daca465acc6655c6f82fc77461"
+    },
+    {
+      "bytes": 3289,
+      "path": "research/manual/otto_feature_round08/review/round07_audit.json",
+      "sha256": "c84a9d18dc5876aec15c5065be5dea9efe9c43690ff04fa91340b2a70845a4ae"
+    },
+    {
+      "bytes": 4571,
+      "path": "research/manual/otto_feature_round08/review/round07_result.json",
+      "sha256": "9d786134ae912efd55cc8560e6a54d1db72d1b4b27fe55e6a235168410d134c1"
+    },
+    {
+      "bytes": 7099,
+      "path": "research/manual/otto_feature_round08/tests/test_feature_logic.py",
+      "sha256": "ad4c26393738a61a4303f8ae66f595033a3e266103f333c16afcb0f635ff660e"
+    },
+    {
+      "bytes": 3090,
+      "path": "research/manual/otto_feature_round08/tests/test_history_sql.py",
+      "sha256": "7d636150bfc433419ef322317d59785b74d6c0b312210bbef2a5b08104a22b99"
+    },
+    {
+      "bytes": 3429,
+      "path": "research/manual/otto_feature_round08/tests/test_launch.py",
+      "sha256": "1ec179fa77c4171b987a25e8d71ff2d9d4f784035ab793c440a5989fe38e4e1c"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round08/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2216,
+      "path": "research/manual/otto_feature_round08/tests/test_native_and_storage.py",
+      "sha256": "21429d16aae04cd0d1f031d264fc28691e1e5c2e9e438fe5efb359b26673b790"
+    },
+    {
+      "bytes": 2384,
+      "path": "research/manual/otto_feature_round08/tests/test_notebook_integrity.py",
+      "sha256": "81a91a8ea5d7caaeab495fce009ee663277ce1d7d2185d0a6c9d4c2a198a6409"
+    },
+    {
+      "bytes": 11735,
+      "path": "research/manual/otto_feature_round08/tests/test_screen_fixture.py",
+      "sha256": "87b15ebd1af1650a088a9893763e0e47aaa1d7802cb179c6307280b24245d6ec"
+    },
+    {
+      "bytes": 4217,
+      "path": "research/manual/otto_feature_round08/tests/test_shared_contracts.py",
+      "sha256": "2f073eb70f265893dbb54ed63c62fa5cb4f8116630d45794be33cce26163458f"
+    },
+    {
+      "bytes": 158286,
+      "path": "research/manual/otto_feature_round09/00_round07_review.ipynb",
+      "sha256": "1b080c8c4541dc6942477c7cd3a462baaa5130aeb0fcdef554bf6fb5cb5f3656"
+    },
+    {
+      "bytes": 52470,
+      "path": "research/manual/otto_feature_round09/01_build_features.ipynb",
+      "sha256": "f39403f786a04cef24988ee39b97338037f04640d74c5fbffc3c7f0a63179b28"
+    },
+    {
+      "bytes": 28025,
+      "path": "research/manual/otto_feature_round09/02_run_comparison.ipynb",
+      "sha256": "af6eb06be42cba7301b523479659774d1aed4789a1266a89c3e091c9b53af9a2"
+    },
+    {
+      "bytes": 183962,
+      "path": "research/manual/otto_feature_round09/03_saved_results.ipynb",
+      "sha256": "efa2c4b9c3ab64f10ef9df0e5d22299cdc4063986553b6fb252f95b3ec27410f"
+    },
+    {
+      "bytes": 81826,
+      "path": "research/manual/otto_feature_round09/04_feature_examples.ipynb",
+      "sha256": "96bd4613f8c6442a26fb63fd94963e85bb7014db6db27ba96d080473d6c68343"
+    },
+    {
+      "bytes": 16685,
+      "path": "research/manual/otto_feature_round09/LOCAL_TEST_LOG.txt",
+      "sha256": "b87034a420be4f715ab62dc9f0c4c749de39a9f0bf2a4458e564af5a4f44208c"
+    },
+    {
+      "bytes": 2238,
+      "path": "research/manual/otto_feature_round09/LOCAL_VALIDATION.json",
+      "sha256": "5327b95da334d8b19e3ae8457a53c549ca20bb97a283d21ab256e4f1b5cb5ef8"
+    },
+    {
+      "bytes": 4867,
+      "path": "research/manual/otto_feature_round09/MANIFEST.sha256",
+      "sha256": "b96143c72c7af11ed9cf7c59b73d54c4a11d8322a01ae237ce68bb64bf947758"
+    },
+    {
+      "bytes": 1260,
+      "path": "research/manual/otto_feature_round09/README.md",
+      "sha256": "f2e1b344440c74de98ace8db0c3407c89e83b0f5acadd787ea0f9bdfafdbfe8f"
+    },
+    {
+      "bytes": 15425,
+      "path": "research/manual/otto_feature_round09/RESEARCH_PLAN.md",
+      "sha256": "c5d8a541f1ab898c466dfaa505def7c6681b7e38e77be1c73f1c18d995df088e"
+    },
+    {
+      "bytes": 5885,
+      "path": "research/manual/otto_feature_round09/START_HERE.md",
+      "sha256": "d096387d362d320c05614c433133206003d514e06d53f2049b42e25c3a6346b6"
+    },
+    {
+      "bytes": 7775,
+      "path": "research/manual/otto_feature_round09/TWO_ROUND_GUIDE.md",
+      "sha256": "eca0ed1c792139a2583afb1c505fccac80956305915bdcd2a1aa5d87d5b1c771"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round09/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round09/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 1360,
+      "path": "research/manual/otto_feature_round09/coverage.py",
+      "sha256": "4a793b60339506378b37245695c10dda05b535fadcd85a6d47bebb16dc7b2445"
+    },
+    {
+      "bytes": 22817,
+      "path": "research/manual/otto_feature_round09/experiment.py",
+      "sha256": "6d0294dce0fc05a4eb3ce2dd47219ae78b041ebd931d95ce62a0eac8a4f18b0c"
+    },
+    {
+      "bytes": 25506,
+      "path": "research/manual/otto_feature_round09/feature_catalog.json",
+      "sha256": "a6985089df1318c4e088bbf42266e2947732013bc2ed4f5388957f73edb701bd"
+    },
+    {
+      "bytes": 7408,
+      "path": "research/manual/otto_feature_round09/feature_logic.py",
+      "sha256": "684423173e3e0ed43dc1626af603cb10c3d08d81284ad542f11192b24e31e02f"
+    },
+    {
+      "bytes": 5377,
+      "path": "research/manual/otto_feature_round09/history_io.py",
+      "sha256": "b863470ab8b45210a913b83b8c4aa30b6cbc44c49edc977ed5dc3d204dfd6ed3"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round09/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 8036,
+      "path": "research/manual/otto_feature_round09/launch.py",
+      "sha256": "b0f8d7dd86fd4120c99b6a3b0e3cac2a3b34db913d07acddade12816d4a39246"
+    },
+    {
+      "bytes": 6987,
+      "path": "research/manual/otto_feature_round09/neighbors.py",
+      "sha256": "04690a596a975e93d0d47de042c97f76354d527eb96c12162d17792e957bfac5"
+    },
+    {
+      "bytes": 21672,
+      "path": "research/manual/otto_feature_round09/notebook_sources.json",
+      "sha256": "3a1df5ae6d25c342420a331ec59e749d64525107a7e65b9eef02f698b08da840"
+    },
+    {
+      "bytes": 2732,
+      "path": "research/manual/otto_feature_round09/protocol.json",
+      "sha256": "7295212b5dd338ec29d688ed2789afde87047d7fce106ac39ca417017ef6083d"
+    },
+    {
+      "bytes": 9755,
+      "path": "research/manual/otto_feature_round09/report.py",
+      "sha256": "62a52241a80e53b5a39681c2b18c7b8860688946227a0830292c5854ae836cdd"
+    },
+    {
+      "bytes": 530,
+      "path": "research/manual/otto_feature_round09/run_tests.py",
+      "sha256": "ce7b6dae89e943a903cb82fb5a3d34c6d15a894b02ebab672b6394711adfa95e"
+    },
+    {
+      "bytes": 12628,
+      "path": "research/manual/otto_feature_round09/shared_data.py",
+      "sha256": "08c3f7b82e2255553eda35c4b7ab1e39ae0891e033709ced6b6a022c899e5c14"
+    },
+    {
+      "bytes": 4996,
+      "path": "research/manual/otto_feature_round09/source_contract.py",
+      "sha256": "2cd4d6a82e6cd71381bb083ba92eaef881e8b61c68536448821121766a18a8a0"
+    },
+    {
+      "bytes": 3180,
+      "path": "research/manual/otto_feature_round09/outputs/candidate_coverage.json",
+      "sha256": "f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38"
+    },
+    {
+      "bytes": 14129,
+      "path": "research/manual/otto_feature_round09/outputs/feature_manifest.json",
+      "sha256": "f9efb4bb4d67dab92a57d30767a3dfe6f88f5c290f89c3d707afa2e82855a4fe"
+    },
+    {
+      "bytes": 962,
+      "path": "research/manual/otto_feature_round09/outputs/report_receipt.json",
+      "sha256": "02b25b773ef01baf80936559d3df9e6729d20d903cc1c0e513eab2128fdcc115"
+    },
+    {
+      "bytes": 9970,
+      "path": "research/manual/otto_feature_round09/outputs/result.json",
+      "sha256": "202f222a04a2c733728b7db67c6620a48ca3f739ad082ce8caec4690e06e0b0f"
+    },
+    {
+      "bytes": 3289,
+      "path": "research/manual/otto_feature_round09/review/round07_audit.json",
+      "sha256": "c84a9d18dc5876aec15c5065be5dea9efe9c43690ff04fa91340b2a70845a4ae"
+    },
+    {
+      "bytes": 4571,
+      "path": "research/manual/otto_feature_round09/review/round07_result.json",
+      "sha256": "9d786134ae912efd55cc8560e6a54d1db72d1b4b27fe55e6a235168410d134c1"
+    },
+    {
+      "bytes": 7099,
+      "path": "research/manual/otto_feature_round09/tests/test_feature_logic.py",
+      "sha256": "ad4c26393738a61a4303f8ae66f595033a3e266103f333c16afcb0f635ff660e"
+    },
+    {
+      "bytes": 3090,
+      "path": "research/manual/otto_feature_round09/tests/test_history_sql.py",
+      "sha256": "7d636150bfc433419ef322317d59785b74d6c0b312210bbef2a5b08104a22b99"
+    },
+    {
+      "bytes": 3429,
+      "path": "research/manual/otto_feature_round09/tests/test_launch.py",
+      "sha256": "1ec179fa77c4171b987a25e8d71ff2d9d4f784035ab793c440a5989fe38e4e1c"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round09/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2216,
+      "path": "research/manual/otto_feature_round09/tests/test_native_and_storage.py",
+      "sha256": "21429d16aae04cd0d1f031d264fc28691e1e5c2e9e438fe5efb359b26673b790"
+    },
+    {
+      "bytes": 2384,
+      "path": "research/manual/otto_feature_round09/tests/test_notebook_integrity.py",
+      "sha256": "81a91a8ea5d7caaeab495fce009ee663277ce1d7d2185d0a6c9d4c2a198a6409"
+    },
+    {
+      "bytes": 11735,
+      "path": "research/manual/otto_feature_round09/tests/test_screen_fixture.py",
+      "sha256": "87b15ebd1af1650a088a9893763e0e47aaa1d7802cb179c6307280b24245d6ec"
+    },
+    {
+      "bytes": 4217,
+      "path": "research/manual/otto_feature_round09/tests/test_shared_contracts.py",
+      "sha256": "2f073eb70f265893dbb54ed63c62fa5cb4f8116630d45794be33cce26163458f"
+    },
+    {
+      "bytes": 167326,
+      "path": "research/manual/otto_feature_round10/00_round08_review.ipynb",
+      "sha256": "1cff76a0874e3e3ce7ae0294739bad38abe9ec3bb3d8b343ae556ecff11901ad"
+    },
+    {
+      "bytes": 42361,
+      "path": "research/manual/otto_feature_round10/01_build_features.ipynb",
+      "sha256": "3503170f4f847909013c2b7801954ce597d8bf066e9f0e6b6ed29f859e3b03a0"
+    },
+    {
+      "bytes": 27578,
+      "path": "research/manual/otto_feature_round10/02_run_comparison.ipynb",
+      "sha256": "ecf9ee2a3697479a1c18e277e21d072296e6e96d6a62210437273c5bd14b64dd"
+    },
+    {
+      "bytes": 186029,
+      "path": "research/manual/otto_feature_round10/03_saved_results.ipynb",
+      "sha256": "b7630c06707e03cc45e2984ee05956013a6940f27f51f7cd4f40fae48a75a37b"
+    },
+    {
+      "bytes": 98496,
+      "path": "research/manual/otto_feature_round10/04_feature_examples.ipynb",
+      "sha256": "0f1943488ed7c0aab2435908e3cc2996ee10be4a774d6b9e42dcc222c8911c5b"
+    },
+    {
+      "bytes": 21587,
+      "path": "research/manual/otto_feature_round10/LOCAL_TEST_LOG.txt",
+      "sha256": "a8d695ab683df1620e5e96f53186f17db5eea932028cb319328f10db2607e44f"
+    },
+    {
+      "bytes": 1357,
+      "path": "research/manual/otto_feature_round10/LOCAL_VALIDATION.json",
+      "sha256": "0c72ca8c9ccdbbff3286433867515d0087172ff61ea3db6ff2dd34d2f8425f1b"
+    },
+    {
+      "bytes": 6029,
+      "path": "research/manual/otto_feature_round10/MANIFEST.sha256",
+      "sha256": "db379b566e4e532212ec3afbb58ca16e7da5935149cb91b466c7f04a4ded4449"
+    },
+    {
+      "bytes": 2354,
+      "path": "research/manual/otto_feature_round10/README.md",
+      "sha256": "4ceb2333f5ff6e5917a616aacf5962e2d5c1468021fd2056d92f2429ea53f8fb"
+    },
+    {
+      "bytes": 17671,
+      "path": "research/manual/otto_feature_round10/RESEARCH_PLAN.md",
+      "sha256": "5d0f02d89e0c1ffa6f0fd015dcd813b984f3ada28d80ee59a5e06dfdc5a37252"
+    },
+    {
+      "bytes": 2240,
+      "path": "research/manual/otto_feature_round10/START_HERE.md",
+      "sha256": "228ec0d04d44790063b833fe3cc1d20790f8ea48ee3d7907f2b7a69330feda6f"
+    },
+    {
+      "bytes": 16228,
+      "path": "research/manual/otto_feature_round10/TWO_ROUND_GUIDE.md",
+      "sha256": "cc3c329387332486929418779e78bf9489421882ebc17506fa437260201bc919"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round10/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round10/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 1360,
+      "path": "research/manual/otto_feature_round10/coverage.py",
+      "sha256": "4a793b60339506378b37245695c10dda05b535fadcd85a6d47bebb16dc7b2445"
+    },
+    {
+      "bytes": 22282,
+      "path": "research/manual/otto_feature_round10/experiment.py",
+      "sha256": "118858ad58b02a27262df357f6219f91b0e3a35580f8ada23102aaf420c5ac5d"
+    },
+    {
+      "bytes": 38343,
+      "path": "research/manual/otto_feature_round10/feature_catalog.json",
+      "sha256": "29e21ba35e3e8a9e9a1792dbe091bc6483f92be4a8df1687134ff40094adb46d"
+    },
+    {
+      "bytes": 7785,
+      "path": "research/manual/otto_feature_round10/feature_logic.py",
+      "sha256": "4eb75b61dd7ef50aa4117d93f7bc677abbdc071044617cf0a2a7c7d6ddb5b849"
+    },
+    {
+      "bytes": 6771,
+      "path": "research/manual/otto_feature_round10/funnel_features.py",
+      "sha256": "033fc67e179f67abefb27ad40b54e8f79c6f24853bff0588549376ab59df2afc"
+    },
+    {
+      "bytes": 5377,
+      "path": "research/manual/otto_feature_round10/history_io.py",
+      "sha256": "b863470ab8b45210a913b83b8c4aa30b6cbc44c49edc977ed5dc3d204dfd6ed3"
+    },
+    {
+      "bytes": 6080,
+      "path": "research/manual/otto_feature_round10/intent_features.py",
+      "sha256": "15a903c59f51f0b98b3ad50d79eb4289d1492d452a8d0c72c0d2269979ce9ccf"
+    },
+    {
+      "bytes": 8057,
+      "path": "research/manual/otto_feature_round10/launch.py",
+      "sha256": "6adea654aa930c818ec91a52249ae897c95fce8c3fe4195e6bb5d5aea207f891"
+    },
+    {
+      "bytes": 6987,
+      "path": "research/manual/otto_feature_round10/neighbors.py",
+      "sha256": "04690a596a975e93d0d47de042c97f76354d527eb96c12162d17792e957bfac5"
+    },
+    {
+      "bytes": 32257,
+      "path": "research/manual/otto_feature_round10/notebook_sources.json",
+      "sha256": "6b814024a208b05d0bbe6d6cd86c4dc9e63032ac98709ac356d2a7080fdbf372"
+    },
+    {
+      "bytes": 2765,
+      "path": "research/manual/otto_feature_round10/protocol.json",
+      "sha256": "ec18cd153e4cdab1248d6206fcd9fcd623754aa4289e0d55cf3ed0250d3c8240"
+    },
+    {
+      "bytes": 9866,
+      "path": "research/manual/otto_feature_round10/report.py",
+      "sha256": "19d0a720457c93416b3351b793f9db879784aaba6c7e040cdcfd3432c995d2ad"
+    },
+    {
+      "bytes": 530,
+      "path": "research/manual/otto_feature_round10/run_tests.py",
+      "sha256": "34d43171691494e477c9d76c27415527a2ff91761ad84c7895095a314bdbdd3e"
+    },
+    {
+      "bytes": 12628,
+      "path": "research/manual/otto_feature_round10/shared_data.py",
+      "sha256": "08c3f7b82e2255553eda35c4b7ab1e39ae0891e033709ced6b6a022c899e5c14"
+    },
+    {
+      "bytes": 3860,
+      "path": "research/manual/otto_feature_round10/shared_reuse.py",
+      "sha256": "83f7b58660d3c89756bec8cfb91931c9e9834b468204d625ec212964e7de2768"
+    },
+    {
+      "bytes": 4996,
+      "path": "research/manual/otto_feature_round10/source_contract.py",
+      "sha256": "2cd4d6a82e6cd71381bb083ba92eaef881e8b61c68536448821121766a18a8a0"
+    },
+    {
+      "bytes": 3180,
+      "path": "research/manual/otto_feature_round10/outputs/candidate_coverage.json",
+      "sha256": "f28477a7c74f530d98a7e2b3e3f927e21075f4ea0a591b655be411e67730df38"
+    },
+    {
+      "bytes": 14473,
+      "path": "research/manual/otto_feature_round10/outputs/feature_manifest.json",
+      "sha256": "799d551644a4f021e950d71824507e4f3f05f08b566a9d7a869b4cfdd57d020c"
+    },
+    {
+      "bytes": 962,
+      "path": "research/manual/otto_feature_round10/outputs/report_receipt.json",
+      "sha256": "9ce376eb4fe5141e3b36fea8928017226cb6c1bd3dc4511e32b67f9a30b80c94"
+    },
+    {
+      "bytes": 9962,
+      "path": "research/manual/otto_feature_round10/outputs/result.json",
+      "sha256": "cc2e4725908a7e3dc39d65e95c801efaf817ffffc5debc9701b35feff586fa6b"
+    },
+    {
+      "bytes": 3289,
+      "path": "research/manual/otto_feature_round10/review/round07_audit.json",
+      "sha256": "c84a9d18dc5876aec15c5065be5dea9efe9c43690ff04fa91340b2a70845a4ae"
+    },
+    {
+      "bytes": 4571,
+      "path": "research/manual/otto_feature_round10/review/round07_result.json",
+      "sha256": "9d786134ae912efd55cc8560e6a54d1db72d1b4b27fe55e6a235168410d134c1"
+    },
+    {
+      "bytes": 5855,
+      "path": "research/manual/otto_feature_round10/review/round08_audit.json",
+      "sha256": "c5d90b0eb21d4361c51ad19a01d50fb5b96e4738dcb9e652c4e255ff4530480b"
+    },
+    {
+      "bytes": 9902,
+      "path": "research/manual/otto_feature_round10/review/round08_result.json",
+      "sha256": "af6aed9fa26245fe8d42eba981c255ad478fa4daca465acc6655c6f82fc77461"
+    },
+    {
+      "bytes": 7099,
+      "path": "research/manual/otto_feature_round10/tests/test_feature_logic.py",
+      "sha256": "f4db75e75e7ecf5327cea7f3c2085c978b7c459850727d42603ba4bda3a90e60"
+    },
+    {
+      "bytes": 7748,
+      "path": "research/manual/otto_feature_round10/tests/test_funnel_features.py",
+      "sha256": "949dd27ef1c3998a19bad02be59e8b7591601ea837958541e440aee1229b037e"
+    },
+    {
+      "bytes": 3090,
+      "path": "research/manual/otto_feature_round10/tests/test_history_sql.py",
+      "sha256": "7d636150bfc433419ef322317d59785b74d6c0b312210bbef2a5b08104a22b99"
+    },
+    {
+      "bytes": 3429,
+      "path": "research/manual/otto_feature_round10/tests/test_launch.py",
+      "sha256": "1ec179fa77c4171b987a25e8d71ff2d9d4f784035ab793c440a5989fe38e4e1c"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round10/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2216,
+      "path": "research/manual/otto_feature_round10/tests/test_native_and_storage.py",
+      "sha256": "21429d16aae04cd0d1f031d264fc28691e1e5c2e9e438fe5efb359b26673b790"
+    },
+    {
+      "bytes": 2384,
+      "path": "research/manual/otto_feature_round10/tests/test_notebook_integrity.py",
+      "sha256": "81a91a8ea5d7caaeab495fce009ee663277ce1d7d2185d0a6c9d4c2a198a6409"
+    },
+    {
+      "bytes": 5199,
+      "path": "research/manual/otto_feature_round10/tests/test_readonly_handoff.py",
+      "sha256": "3fd5a3565a6ba6780360c216eff5b48f80e885ae31a6a4310696e907acf315ce"
+    },
+    {
+      "bytes": 12543,
+      "path": "research/manual/otto_feature_round10/tests/test_screen_fixture.py",
+      "sha256": "77569a1b0af8d8effaa6154a36717ae5044cbcb7cf6a964914b3f3a491e07f6e"
+    },
+    {
+      "bytes": 4217,
+      "path": "research/manual/otto_feature_round10/tests/test_shared_contracts.py",
+      "sha256": "2f073eb70f265893dbb54ed63c62fa5cb4f8116630d45794be33cce26163458f"
+    },
+    {
+      "bytes": 4980,
+      "path": "research/manual/otto_feature_round11/00_review_and_design.ipynb",
+      "sha256": "da817bc0fd8f42f0e146a993beb4aec274ef09f30a57758691eb0b5b973f3d53"
+    },
+    {
+      "bytes": 29861,
+      "path": "research/manual/otto_feature_round11/01_build_representations.ipynb",
+      "sha256": "1f3ee99bd16a4f6a11b661fde18c204b60054af4f0e36a2da59756752ba9d7e1"
+    },
+    {
+      "bytes": 3965,
+      "path": "research/manual/otto_feature_round11/02_features_and_comparison.ipynb",
+      "sha256": "d758ccb6e622c0b240334434408eb93ff6e419943f0da1d054621e62df259e8d"
+    },
+    {
+      "bytes": 6892,
+      "path": "research/manual/otto_feature_round11/03_saved_results.ipynb",
+      "sha256": "4d0ba65db1a164e175c556001fb3c5bce1c7d6fa09c18eab7deee371d2125fd0"
+    },
+    {
+      "bytes": 4959,
+      "path": "research/manual/otto_feature_round11/04_feature_examples.ipynb",
+      "sha256": "b552ace8f6ab36795d5cf9c79bb4468cfec88beb2d1ee97ada7b42dfd3f118a2"
+    },
+    {
+      "bytes": 927,
+      "path": "research/manual/otto_feature_round11/DEPENDENCIES.md",
+      "sha256": "bd27044b568d7cb6c35e9e4bf4731dcf68acf3184cf98a9ac6a0eddf49027861"
+    },
+    {
+      "bytes": 1497,
+      "path": "research/manual/otto_feature_round11/FEATURE_FAMILY_REGISTRY.json",
+      "sha256": "a3539f4f01f4bc6b8ffdf047024facd8886d5be01b54e98e2ec591171b0f1976"
+    },
+    {
+      "bytes": 6048,
+      "path": "research/manual/otto_feature_round11/MANIFEST.sha256",
+      "sha256": "66872a58dfde4169ea4aa9559da455dfdaf1984dbd714545d263faf1044f92e3"
+    },
+    {
+      "bytes": 291,
+      "path": "research/manual/otto_feature_round11/PREPARATION_STATUS.json",
+      "sha256": "a635fe894ef79839f884fe2355577c88ddca44958de34f4827fde771bf696728"
+    },
+    {
+      "bytes": 509,
+      "path": "research/manual/otto_feature_round11/README.md",
+      "sha256": "8eb4217230288d85e4e3c89c13f3f65e4b76322faaa7977cbbd88ac32e880062"
+    },
+    {
+      "bytes": 584,
+      "path": "research/manual/otto_feature_round11/RECOVERY.md",
+      "sha256": "840c645de04fc436037b8079da1078fc060f0a0c89c002643345e4ad1eff8944"
+    },
+    {
+      "bytes": 11974,
+      "path": "research/manual/otto_feature_round11/RESEARCH_PLAN.md",
+      "sha256": "0132bd7aa5ab6be9bf5e6dd27d8dd0783648b5fc9c0e010d0855fa0ad96baa1d"
+    },
+    {
+      "bytes": 2426,
+      "path": "research/manual/otto_feature_round11/START_HERE.md",
+      "sha256": "498867ae5911875a55cbcc3a68345ebf774a69ec921e441cd0526aae1c09cfe9"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round11/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 1066,
+      "path": "research/manual/otto_feature_round11/check_imports.py",
+      "sha256": "477cbd5594b24fa801f5c67b50295480450ad18a51d747fbae3b9a036f8ecef5"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round11/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 1360,
+      "path": "research/manual/otto_feature_round11/coverage.py",
+      "sha256": "4a793b60339506378b37245695c10dda05b535fadcd85a6d47bebb16dc7b2445"
+    },
+    {
+      "bytes": 22228,
+      "path": "research/manual/otto_feature_round11/experiment.py",
+      "sha256": "4755f7f7d27aa2b475ac0ae9523538ebbe1a13ed89afe542a25b50114adca923"
+    },
+    {
+      "bytes": 30629,
+      "path": "research/manual/otto_feature_round11/feature_catalog.json",
+      "sha256": "9f60812514d560e4a1196b2638c07fa8ee5c076cb9e943f8f94936e430dfc6ff"
+    },
+    {
+      "bytes": 5377,
+      "path": "research/manual/otto_feature_round11/history_io.py",
+      "sha256": "b863470ab8b45210a913b83b8c4aa30b6cbc44c49edc977ed5dc3d204dfd6ed3"
+    },
+    {
+      "bytes": 4960,
+      "path": "research/manual/otto_feature_round11/latent_features.py",
+      "sha256": "e53ee343981e55ca7a7985cc2928463e1f606a11de32bc4b26ac8db059bc2848"
+    },
+    {
+      "bytes": 18366,
+      "path": "research/manual/otto_feature_round11/latent_models.py",
+      "sha256": "08de18ae20f81637c1370291da047f682d053eba2e82188ed7d83362b4c27b99"
+    },
+    {
+      "bytes": 8461,
+      "path": "research/manual/otto_feature_round11/launch.py",
+      "sha256": "f82708fac563d37c18cd45710f48fd8a0eece25a343c47a3eeac816da299c1ac"
+    },
+    {
+      "bytes": 2312,
+      "path": "research/manual/otto_feature_round11/legacy_imports.py",
+      "sha256": "34944b9a2b1224e052a20c1c45788a723d17f841c90bc334247af84e9eb2737f"
+    },
+    {
+      "bytes": 6987,
+      "path": "research/manual/otto_feature_round11/neighbors.py",
+      "sha256": "04690a596a975e93d0d47de042c97f76354d527eb96c12162d17792e957bfac5"
+    },
+    {
+      "bytes": 18627,
+      "path": "research/manual/otto_feature_round11/notebook_sources.json",
+      "sha256": "5e6bfdf7f628c8a971a2a3fad7dfd4c46928327aecf32989e30350ced38595d4"
+    },
+    {
+      "bytes": 2998,
+      "path": "research/manual/otto_feature_round11/protocol.json",
+      "sha256": "f90fdf870d14faf4f255926ce6ae535554fbd35a6b3c1f6f22d98dfe0c13f021"
+    },
+    {
+      "bytes": 9895,
+      "path": "research/manual/otto_feature_round11/report.py",
+      "sha256": "26b5447474fd6286cee75d92211ff7badaf5d843bf61a429cdf0db9b5df2b6f7"
+    },
+    {
+      "bytes": 774,
+      "path": "research/manual/otto_feature_round11/run_tests.py",
+      "sha256": "7966ad1d5eb7454256b5bc4405a8589f24ae50ec941d5518cc903c95a24e83e7"
+    },
+    {
+      "bytes": 12628,
+      "path": "research/manual/otto_feature_round11/shared_data.py",
+      "sha256": "08c3f7b82e2255553eda35c4b7ab1e39ae0891e033709ced6b6a022c899e5c14"
+    },
+    {
+      "bytes": 2004,
+      "path": "research/manual/otto_feature_round11/shared_reuse.py",
+      "sha256": "644be8e7c96ec41bb38fbf28503ab3bf45f7e10dbc0c588212a6bc098e0b25ac"
+    },
+    {
+      "bytes": 4799,
+      "path": "research/manual/otto_feature_round11/source_contract.py",
+      "sha256": "cbf7de4a4c8c3f7cc7b375562fe634a692ce72aff558fee59735dba8da5d0343"
+    },
+    {
+      "bytes": 6550,
+      "path": "research/manual/otto_feature_round11/review/completed_results.json",
+      "sha256": "a7248e6194b7ec143d0492e8591abfa2b1c06ea7bdf4aceb81733342ff78e016"
+    },
+    {
+      "bytes": 6710,
+      "path": "research/manual/otto_feature_round11/review/figures.json",
+      "sha256": "15c973b3e17b64cc19259dc104df5bcbabfadb39a176c8a98e1de6743746fd5c"
+    },
+    {
+      "bytes": 7651,
+      "path": "research/manual/otto_feature_round11/tests/test_latent_features.py",
+      "sha256": "518eb38417fe728270d475f2f4fc0995e07911d3417443e01c0b085cda3bf673"
+    },
+    {
+      "bytes": 3523,
+      "path": "research/manual/otto_feature_round11/tests/test_launch.py",
+      "sha256": "16e1c3576933f5b173f7bffb7d1d8e61bb18e53978ff6b1a245e7ce87878e449"
+    },
+    {
+      "bytes": 2601,
+      "path": "research/manual/otto_feature_round11/tests/test_legacy_imports.py",
+      "sha256": "f87bee3af7549a988b9664a3ab8a9ed7a533cb920da8b1cc094e358228b70db4"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round11/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2216,
+      "path": "research/manual/otto_feature_round11/tests/test_native_and_storage.py",
+      "sha256": "21429d16aae04cd0d1f031d264fc28691e1e5c2e9e438fe5efb359b26673b790"
+    },
+    {
+      "bytes": 2382,
+      "path": "research/manual/otto_feature_round11/tests/test_notebook_integrity.py",
+      "sha256": "3dcadf05fffd4e747359e0b88d706c81defee2c5dabc4b30a6d0a2c1152500be"
+    },
+    {
+      "bytes": 3666,
+      "path": "research/manual/otto_feature_round11/tests/test_representation_storage.py",
+      "sha256": "d8eb31916bec7beb744907c987cb40339e750107171d26fe2618c38a7a033360"
+    },
+    {
+      "bytes": 13146,
+      "path": "research/manual/otto_feature_round11/tests/test_screen_fixture.py",
+      "sha256": "548b84a7023cc9d80b8237f7d67775521600b61230dd9bb1e10ed47510ec7eb2"
+    },
+    {
+      "bytes": 4889,
+      "path": "research/manual/otto_feature_round12/00_review_and_design.ipynb",
+      "sha256": "c7689bd81c9e9301da56b9beec91cabe81d0a5201cd40055a0a0b4a47717a04f"
+    },
+    {
+      "bytes": 4916,
+      "path": "research/manual/otto_feature_round12/01_build_representations.ipynb",
+      "sha256": "53ee723877cea3356242ceb32ce5ca6766976e85b3c2f2e545ff9a5e84964a16"
+    },
+    {
+      "bytes": 3673,
+      "path": "research/manual/otto_feature_round12/02_features_and_comparison.ipynb",
+      "sha256": "0d5fda18bfd2cdf30d1d9c4a7bbade1c04330effc6a1f6a483c918e7007616fc"
+    },
+    {
+      "bytes": 6385,
+      "path": "research/manual/otto_feature_round12/03_saved_results.ipynb",
+      "sha256": "5835aa80638ce4956baad1a47761f9ff886b0e7a5afc59e25479b3358e61fe79"
+    },
+    {
+      "bytes": 4959,
+      "path": "research/manual/otto_feature_round12/04_feature_examples.ipynb",
+      "sha256": "965f0bc7ee3216a40fb37a0d740dee52a48da7849fd8b87d8ac49e804369540c"
+    },
+    {
+      "bytes": 927,
+      "path": "research/manual/otto_feature_round12/DEPENDENCIES.md",
+      "sha256": "bd27044b568d7cb6c35e9e4bf4731dcf68acf3184cf98a9ac6a0eddf49027861"
+    },
+    {
+      "bytes": 1497,
+      "path": "research/manual/otto_feature_round12/FEATURE_FAMILY_REGISTRY.json",
+      "sha256": "a3539f4f01f4bc6b8ffdf047024facd8886d5be01b54e98e2ec591171b0f1976"
+    },
+    {
+      "bytes": 6048,
+      "path": "research/manual/otto_feature_round12/MANIFEST.sha256",
+      "sha256": "7d2883abab0e84430f1cd664a6a30a9011090a2707b3d36ff44868a501ce502e"
+    },
+    {
+      "bytes": 291,
+      "path": "research/manual/otto_feature_round12/PREPARATION_STATUS.json",
+      "sha256": "a635fe894ef79839f884fe2355577c88ddca44958de34f4827fde771bf696728"
+    },
+    {
+      "bytes": 507,
+      "path": "research/manual/otto_feature_round12/README.md",
+      "sha256": "8b419ab7fa8e54c7660bf3855cab1adf78e9079d9d00dfda7a2df069752f6308"
+    },
+    {
+      "bytes": 584,
+      "path": "research/manual/otto_feature_round12/RECOVERY.md",
+      "sha256": "840c645de04fc436037b8079da1078fc060f0a0c89c002643345e4ad1eff8944"
+    },
+    {
+      "bytes": 12450,
+      "path": "research/manual/otto_feature_round12/RESEARCH_PLAN.md",
+      "sha256": "37b99f06e4068d82bc5dfa59ee283405617288f14afd1a59fc487f047798b2c2"
+    },
+    {
+      "bytes": 2426,
+      "path": "research/manual/otto_feature_round12/START_HERE.md",
+      "sha256": "f985b0ff11ee954b9c2a455429405519894b808a38cc7a1fded0c22e902b483d"
+    },
+    {
+      "bytes": 1228,
+      "path": "research/manual/otto_feature_round12/analysis_utils.py",
+      "sha256": "87271af525a7153f39c44e8e0ff6a048f0e6515647086ca4f7b230647a6b0aa9"
+    },
+    {
+      "bytes": 1066,
+      "path": "research/manual/otto_feature_round12/check_imports.py",
+      "sha256": "477cbd5594b24fa801f5c67b50295480450ad18a51d747fbae3b9a036f8ecef5"
+    },
+    {
+      "bytes": 9661,
+      "path": "research/manual/otto_feature_round12/core.py",
+      "sha256": "44cbcba4335d1dd35b6966d389815b14fd6aafafa1771cbd008478b21b0eebf5"
+    },
+    {
+      "bytes": 1360,
+      "path": "research/manual/otto_feature_round12/coverage.py",
+      "sha256": "4a793b60339506378b37245695c10dda05b535fadcd85a6d47bebb16dc7b2445"
+    },
+    {
+      "bytes": 22170,
+      "path": "research/manual/otto_feature_round12/experiment.py",
+      "sha256": "0738efe651b632b4226dc27963799b772e9bb48453f48f3718b6a3a7b5be6970"
+    },
+    {
+      "bytes": 30293,
+      "path": "research/manual/otto_feature_round12/feature_catalog.json",
+      "sha256": "e32158a52e18d489f625b8125970746e69aa632314b2a448a8812a92ae5bce8f"
+    },
+    {
+      "bytes": 5377,
+      "path": "research/manual/otto_feature_round12/history_io.py",
+      "sha256": "b863470ab8b45210a913b83b8c4aa30b6cbc44c49edc977ed5dc3d204dfd6ed3"
+    },
+    {
+      "bytes": 4960,
+      "path": "research/manual/otto_feature_round12/latent_features.py",
+      "sha256": "e53ee343981e55ca7a7985cc2928463e1f606a11de32bc4b26ac8db059bc2848"
+    },
+    {
+      "bytes": 18366,
+      "path": "research/manual/otto_feature_round12/latent_models.py",
+      "sha256": "08de18ae20f81637c1370291da047f682d053eba2e82188ed7d83362b4c27b99"
+    },
+    {
+      "bytes": 8461,
+      "path": "research/manual/otto_feature_round12/launch.py",
+      "sha256": "3425bd90b59363098a5d13d4c99e723bc08fb3430ade06237f66be1d8ac34824"
+    },
+    {
+      "bytes": 2312,
+      "path": "research/manual/otto_feature_round12/legacy_imports.py",
+      "sha256": "34944b9a2b1224e052a20c1c45788a723d17f841c90bc334247af84e9eb2737f"
+    },
+    {
+      "bytes": 6987,
+      "path": "research/manual/otto_feature_round12/neighbors.py",
+      "sha256": "04690a596a975e93d0d47de042c97f76354d527eb96c12162d17792e957bfac5"
+    },
+    {
+      "bytes": 18532,
+      "path": "research/manual/otto_feature_round12/notebook_sources.json",
+      "sha256": "0732251bfb038f0e595d1c6d776fd84af1ed84cb5ac47cecc4884fc7c88d0d69"
+    },
+    {
+      "bytes": 2976,
+      "path": "research/manual/otto_feature_round12/protocol.json",
+      "sha256": "040839e79c2970d84f9466bd37b5858fc193ecaa26558a966c310744b06f95ec"
+    },
+    {
+      "bytes": 9835,
+      "path": "research/manual/otto_feature_round12/report.py",
+      "sha256": "8ad54fd6715ae1290b98b3a1a26a9f702bc6c12ac646e54c371fa086543f1b43"
+    },
+    {
+      "bytes": 774,
+      "path": "research/manual/otto_feature_round12/run_tests.py",
+      "sha256": "7966ad1d5eb7454256b5bc4405a8589f24ae50ec941d5518cc903c95a24e83e7"
+    },
+    {
+      "bytes": 12628,
+      "path": "research/manual/otto_feature_round12/shared_data.py",
+      "sha256": "08c3f7b82e2255553eda35c4b7ab1e39ae0891e033709ced6b6a022c899e5c14"
+    },
+    {
+      "bytes": 2004,
+      "path": "research/manual/otto_feature_round12/shared_reuse.py",
+      "sha256": "644be8e7c96ec41bb38fbf28503ab3bf45f7e10dbc0c588212a6bc098e0b25ac"
+    },
+    {
+      "bytes": 4799,
+      "path": "research/manual/otto_feature_round12/source_contract.py",
+      "sha256": "cbf7de4a4c8c3f7cc7b375562fe634a692ce72aff558fee59735dba8da5d0343"
+    },
+    {
+      "bytes": 6550,
+      "path": "research/manual/otto_feature_round12/review/completed_results.json",
+      "sha256": "a7248e6194b7ec143d0492e8591abfa2b1c06ea7bdf4aceb81733342ff78e016"
+    },
+    {
+      "bytes": 6710,
+      "path": "research/manual/otto_feature_round12/review/figures.json",
+      "sha256": "15c973b3e17b64cc19259dc104df5bcbabfadb39a176c8a98e1de6743746fd5c"
+    },
+    {
+      "bytes": 7651,
+      "path": "research/manual/otto_feature_round12/tests/test_latent_features.py",
+      "sha256": "518eb38417fe728270d475f2f4fc0995e07911d3417443e01c0b085cda3bf673"
+    },
+    {
+      "bytes": 3523,
+      "path": "research/manual/otto_feature_round12/tests/test_launch.py",
+      "sha256": "16e1c3576933f5b173f7bffb7d1d8e61bb18e53978ff6b1a245e7ce87878e449"
+    },
+    {
+      "bytes": 2601,
+      "path": "research/manual/otto_feature_round12/tests/test_legacy_imports.py",
+      "sha256": "f87bee3af7549a988b9664a3ab8a9ed7a533cb920da8b1cc094e358228b70db4"
+    },
+    {
+      "bytes": 5951,
+      "path": "research/manual/otto_feature_round12/tests/test_metric_contracts.py",
+      "sha256": "9a254d8b14787a8ad19482b936bf5e196995f50ab7def6ce94827ed12983ab91"
+    },
+    {
+      "bytes": 2216,
+      "path": "research/manual/otto_feature_round12/tests/test_native_and_storage.py",
+      "sha256": "21429d16aae04cd0d1f031d264fc28691e1e5c2e9e438fe5efb359b26673b790"
+    },
+    {
+      "bytes": 2382,
+      "path": "research/manual/otto_feature_round12/tests/test_notebook_integrity.py",
+      "sha256": "3dcadf05fffd4e747359e0b88d706c81defee2c5dabc4b30a6d0a2c1152500be"
+    },
+    {
+      "bytes": 3666,
+      "path": "research/manual/otto_feature_round12/tests/test_representation_storage.py",
+      "sha256": "d8eb31916bec7beb744907c987cb40339e750107171d26fe2618c38a7a033360"
+    },
+    {
+      "bytes": 13146,
+      "path": "research/manual/otto_feature_round12/tests/test_screen_fixture.py",
+      "sha256": "548b84a7023cc9d80b8237f7d67775521600b61230dd9bb1e10ed47510ec7eb2"
+    }
+  ],
+  "model_fits_during_publication": 0,
+  "note": "Hashes refer to selected AWS bytes. Excluded directory contents were not enumerated. Generated documentation is additional. No Git history is rewritten.",
+  "source_head": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "source_working_tree_status": "",
+  "target": "alvaromendizabal/otto-recommender-system",
+  "version": "otto-public-sync-20260913-scanner-guard1"
+}

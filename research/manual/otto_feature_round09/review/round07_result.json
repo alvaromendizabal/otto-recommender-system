@@ -1,0 +1,154 @@
+{
+  "achieved_ranker_score": null,
+  "arms": {
+    "last_anchor": {
+      "expanded_candidate_oracle": {
+        "denominators": [
+          236,
+          70,
+          33
+        ],
+        "hits": [
+          164,
+          38,
+          18
+        ],
+        "recall": {
+          "carts": 0.5428571428571428,
+          "clicks": 0.6949152542372882,
+          "orders": 0.5454545454545454
+        },
+        "weighted_oracle_at20": 0.5596213955535989
+      },
+      "mean_new_candidates_by_objective": [
+        60.1015625,
+        35.23046875,
+        14.94921875
+      ],
+      "net_capped_hits": [
+        6,
+        1,
+        0
+      ],
+      "new_distinct_target_hits": [
+        6,
+        1,
+        0
+      ],
+      "supported_baseline_positive_items": [
+        137,
+        27,
+        12
+      ]
+    },
+    "session_context": {
+      "expanded_candidate_oracle": {
+        "denominators": [
+          236,
+          70,
+          33
+        ],
+        "hits": [
+          164,
+          38,
+          18
+        ],
+        "recall": {
+          "carts": 0.5428571428571428,
+          "clicks": 0.6949152542372882,
+          "orders": 0.5454545454545454
+        },
+        "weighted_oracle_at20": 0.5596213955535989
+      },
+      "mean_new_candidates_by_objective": [
+        61.0390625,
+        33.75390625,
+        14.38671875
+      ],
+      "net_capped_hits": [
+        6,
+        1,
+        0
+      ],
+      "new_distinct_target_hits": [
+        6,
+        1,
+        0
+      ],
+      "supported_baseline_positive_items": [
+        148,
+        26,
+        14
+      ]
+    }
+  },
+  "baseline_candidate_oracle": {
+    "denominators": [
+      236,
+      70,
+      33
+    ],
+    "hits": [
+      158,
+      37,
+      18
+    ],
+    "recall": {
+      "carts": 0.5285714285714286,
+      "clicks": 0.6694915254237288,
+      "orders": 0.5454545454545454
+    },
+    "weighted_oracle_at20": 0.5527933083865286
+  },
+  "decision": "REVIEW_FOR_MATCHED_RANKER_SCREEN_NOT_PROMOTION",
+  "feature_engineering_complete": false,
+  "feature_manifest_sha256": "d1dd33b788384cc18da55eff59747d568cb0c43d799c3cd090b90245b3d533b4",
+  "features_per_arm": 12,
+  "heuristic_triage_only": true,
+  "insufficient_denominator_objectives": [],
+  "labels_sha256": "c6498e38ee4e5a1aed24b69ef62cba5783d40e9bbdb1b58a4bdf791db0ac2bd1",
+  "limitations": [
+    "Reused fitting data; 256-query early-training feasibility pilot, not independent validation.",
+    "Source uses retained historical tails and the 64 most recent matching sessions per last-four anchor; not exhaustive nearest-neighbor search.",
+    "All labels used only after committed features/proposals; pilot labels censored before earliest validation cutoff.",
+    "Baseline400 union top100 proposals per objective has at most500 items; its oracle gains are not achieved ranking gains.",
+    "Last-anchor arm removes older anchors; neighbor composition and similarity change together. No causal isolation claimed.",
+    "No new ranker fits, leaderboard submission or feature promotion."
+  ],
+  "metric_note": "Perfect-ranking candidate oracle at20 on a 256-query training-only pilot; NOT measured ranking accuracy or Kaggle score.",
+  "new_model_fits": 0,
+  "pilot_manifest_sha256": "39c7516335c6ae1ee8e515ef0892224bd1e206dfde29af333bd8dfcb0d7652ee",
+  "postings": {
+    "anchors_over_cap": 358,
+    "backend_smoke": {
+      "duckdb_version": "1.5.5",
+      "new_model_fits": 0,
+      "status": "DUCKDB_PARQUET_SMOKE_PASSED",
+      "synthetic_rows": 8
+    },
+    "cap_policy": "64 most recent matching historical sessions per anchor, tie by session ID",
+    "history_tail_sha256": "b351d8dd4bca231b9b4bb70212666a412ca4cb9e0d446c463bf0be22c0897afe",
+    "new_model_fits": 0,
+    "per_anchor_cap": 64,
+    "requested_anchors": 502,
+    "rows": 26194,
+    "sha256": "3e8dff0df47530abb9014c49356b1e907bf48f7978462f82c99266f5eecb6251",
+    "source_sessions": 25291,
+    "status": "ROUND07_POSTINGS_READY",
+    "supported_anchors": 499
+  },
+  "sessions": 256,
+  "source": {
+    "history_tail_sha256": "b351d8dd4bca231b9b4bb70212666a412ca4cb9e0d446c463bf0be22c0897afe",
+    "new_model_fits": 0,
+    "postings_sha256": "3e8dff0df47530abb9014c49356b1e907bf48f7978462f82c99266f5eecb6251",
+    "retained_events": 473763,
+    "sha256": "185a8f568028c1d77e0d3eec54ba50ff21ae0f2d3d2d15c22d36068a8a189d75",
+    "source_sessions": 25291,
+    "source_tail_not_complete_original_sessions": true,
+    "status": "ROUND07_HISTORY_READY"
+  },
+  "status": "ROUND07_AUDIT_READY",
+  "targets_censored_before_validation": true,
+  "training_only": true
+}

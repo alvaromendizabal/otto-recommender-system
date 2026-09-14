@@ -1,0 +1,194 @@
+{
+  "algorithm_search": false,
+  "arms": {
+    "control_shared": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        989,
+        227,
+        217
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4997473471450227,
+        "orders": 0.6676923076923077
+      },
+      "weighted_recall_at_20": 0.5692312343124653
+    },
+    "plus_timing": {
+      "denominators": [
+        1979,
+        574,
+        325
+      ],
+      "hits": [
+        970,
+        227,
+        216
+      ],
+      "recall": {
+        "carts": 0.39547038327526135,
+        "clicks": 0.4901465386558868,
+        "orders": 0.6646153846153846
+      },
+      "weighted_recall_at_20": 0.5664249996173978
+    }
+  },
+  "candidate_policy_changed": false,
+  "comparison": {
+    "decision": "DO_NOT_RETAIN_NO_REPLICATION_GAIN",
+    "descriptive_95_interval": [
+      -0.013345646268401654,
+      0.00765555260191482
+    ],
+    "fold_gains": [
+      -0.004931580425043602,
+      -0.0006048387096774244
+    ],
+    "gain": -0.0028062346950674666,
+    "gain_less_one_order_hit": -0.004652388541221313,
+    "method": "paired session bootstrap within time fold; descriptive",
+    "net_extra_hits": {
+      "carts": 0,
+      "clicks": -19,
+      "orders": -1
+    },
+    "one_order_hit_weight": 0.0018461538461538461,
+    "order_gain": -0.003076923076923088,
+    "replicates": 2000,
+    "weighted_contributions": {
+      "carts": 0.0,
+      "clicks": -0.0009600808489135927,
+      "orders": -0.0018461538461538461
+    }
+  },
+  "competition_test_access": false,
+  "control_features": 134,
+  "evaluation_access": false,
+  "feature_engineering_complete": false,
+  "feature_retention_decisions": 0,
+  "fold_results": [
+    {
+      "arm": "control_shared",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 134,
+      "fold": 0,
+      "hits": [
+        494,
+        113,
+        104
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.5005065856129686,
+        "orders": 0.6265060240963856
+      },
+      "weighted_recall_at_20": 0.5385788577367362
+    },
+    {
+      "arm": "plus_timing",
+      "denominators": [
+        987,
+        301,
+        166
+      ],
+      "features": 158,
+      "fold": 0,
+      "hits": [
+        481,
+        113,
+        103
+      ],
+      "recall": {
+        "carts": 0.3754152823920266,
+        "clicks": 0.48733535967578523,
+        "orders": 0.6204819277108434
+      },
+      "weighted_recall_at_20": 0.5336472773116926
+    },
+    {
+      "arm": "control_shared",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 134,
+      "fold": 1,
+      "hits": [
+        495,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49899193548387094,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6015890131627349
+    },
+    {
+      "arm": "plus_timing",
+      "denominators": [
+        992,
+        273,
+        159
+      ],
+      "features": 158,
+      "fold": 1,
+      "hits": [
+        489,
+        114,
+        113
+      ],
+      "recall": {
+        "carts": 0.4175824175824176,
+        "clicks": 0.49294354838709675,
+        "orders": 0.710691823899371
+      },
+      "weighted_recall_at_20": 0.6009841744530575
+    }
+  ],
+  "graph_rebuilds": 0,
+  "limitations": [
+    "New relative to Round01 only; source training pool was previously explored, not untouched holdout.",
+    "Same Aug16 historical window, not cross-window confirmation; folds have dependent expanding training sets.",
+    "Timing selected after a 3-arm pilot; this replication does not erase prior multiple testing.",
+    "Zero timing means no support OR age zero under the frozen formula; not changed after seeing results.",
+    "A retrospective fitting score is not a Kaggle score; target 0.60503 remains unmet."
+  ],
+  "metric": "pooled weighted Recall@20 on new fitting-session cohort; NOT a Kaggle submission score",
+  "model_count": 12,
+  "model_inventory": {
+    "models/fold-0/control_shared/carts/model.txt": "157a805a697b9932d195492e1a9c38034c4129cf4864e7283090e802eada5ace",
+    "models/fold-0/control_shared/clicks/model.txt": "0f1d81171da45923b1c24064f42a36ff19b4e5fb58bd034385ab04ca539640a0",
+    "models/fold-0/control_shared/orders/model.txt": "a06c3ad81c014ad53353effce51083771a15e5984959a0ef2a5d39ff13184957",
+    "models/fold-0/plus_timing/carts/model.txt": "5dc10822ed3f530925f9a9ce305976417325e1027287e7c6f2952218f6376365",
+    "models/fold-0/plus_timing/clicks/model.txt": "d3cf206b7bb656475c2f00a8738e66d4a71c953c4fc37d8d587db05bcb5c1085",
+    "models/fold-0/plus_timing/orders/model.txt": "970eb234730a96d17ab783cfcd532eb35f17f4a6d30296f99f001fbe12aad1a8",
+    "models/fold-1/control_shared/carts/model.txt": "d61ab3c12d0e8084716f3f000cb3b72e6a2fa6fd264001482383762da55e18e2",
+    "models/fold-1/control_shared/clicks/model.txt": "7d1ea7ba625906ba9f4cd0711fec0df493c486e3c69ad24b9796dd1ec909a174",
+    "models/fold-1/control_shared/orders/model.txt": "71c89a587ba7bf76990e3c6f52298b2c695f53f0fb5055dfa57a75f6827cf5cb",
+    "models/fold-1/plus_timing/carts/model.txt": "98418ab18dc64ae0ea60deb49e9127d9ad0ee078d5cb1d715991f89f4db0d586",
+    "models/fold-1/plus_timing/clicks/model.txt": "c963a279a782b0987b9b98e1ce54ddf9e053d99c6c54acb45a7fd8095665f1c5",
+    "models/fold-1/plus_timing/orders/model.txt": "ea94068649aab9c3511ec327ce576eb54a5e26fe7ddd108646df9d688b6ba759"
+  },
+  "native_reload_prediction_parity": true,
+  "round01_session_overlap": 0,
+  "selection_access": false,
+  "sessions": 4096,
+  "source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+  "statistics_sha256": "d4c2fe19a632a560a2e2846fff01c53e7f1988930a38cdb08e4a332b0223d853",
+  "status": "ROUND02_SCREEN_COMPLETED",
+  "timing_features": 24,
+  "total_timing_arm_features": 158,
+  "validation_sessions": 2048
+}

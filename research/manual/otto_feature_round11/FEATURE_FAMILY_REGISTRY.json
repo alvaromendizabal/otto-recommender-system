@@ -1,0 +1,53 @@
+{
+  "scope": "Known rounds from supplied conversation/evidence, not a full inventory of every historical hypothesis",
+  "current_control_features": 134,
+  "retained_control_score": 0.5692312343124653,
+  "evaluation": "Exploratory reused fitting cohort",
+  "families": [
+    {
+      "round": 4,
+      "status": "completed negative",
+      "decision": "retain134control; do not repeat demand formulas"
+    },
+    {
+      "round": 5,
+      "status": "completed negative",
+      "decision": "do not repeat adjacent-action family unchanged"
+    },
+    {
+      "round": 6,
+      "status": "completed negative",
+      "decision": "do not repeat grouped graph-context family unchanged"
+    },
+    {
+      "round": 7,
+      "status": "completed support pilot only",
+      "decision": "not a model score"
+    },
+    {
+      "round": 8,
+      "status": "completed negative",
+      "decision": "no retention; reuse certified history"
+    },
+    {
+      "round": 9,
+      "status": "completed negative point estimate; CI crosses zero",
+      "decision": "no advancement"
+    },
+    {
+      "round": 10,
+      "status": "completed negative point estimate; CI crosses zero",
+      "decision": "no advancement"
+    },
+    {
+      "round": 11,
+      "status": "prepared; not executed",
+      "decision": "new latent item-session class; gate before fits"
+    },
+    {
+      "round": 12,
+      "status": "prepared; not executed",
+      "decision": "new latent typed contexts; requires completed Round11"
+    }
+  ]
+}

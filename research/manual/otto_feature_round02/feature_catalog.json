@@ -1,0 +1,218 @@
+[
+  {
+    "name": "intent_support_symmetric_time_recent_unique_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_time_recent_unique_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_time_pending_cart_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_time_pending_cart_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_cart_recent_unique_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_cart_recent_unique_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_cart_pending_cart_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_cart_pending_cart_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_order_recent_unique_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_order_recent_unique_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_order_pending_cart_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_symmetric_order_pending_cart_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_time_recent_unique_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_time_recent_unique_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_time_pending_cart_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_time_pending_cart_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_cart_recent_unique_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_cart_recent_unique_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_cart_pending_cart_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_cart_pending_cart_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_order_recent_unique_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_order_recent_unique_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_order_pending_cart_mean_age_log_hours",
+    "formula": "affinity-weighted mean(log1p(age_hours))",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  },
+  {
+    "name": "intent_support_forward_order_pending_cart_strongest_age_log_hours",
+    "formula": "log1p(age_hours of strongest supporting item)",
+    "source": "byte-identical Round01 implementation",
+    "availability": "Aug16 historical graph and observed prefix",
+    "self_edges": "excluded",
+    "no_support": 0,
+    "feature_retention": "not yet promoted"
+  }
+]
