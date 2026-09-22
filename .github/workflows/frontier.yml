@@ -18,5 +18,29 @@ jobs:
         run: |
           uv venv /tmp/otto-frontier --python 3.12.13 --no-project
           uv pip install --python /tmp/otto-frontier/bin/python --require-hashes -r notebooks/requirements.txt
-      - name: Replay the public notebook without private data or training
+      - name: Replay the original dated research review
         run: /tmp/otto-frontier/bin/python research/frontier/review.py --execute
+      - name: Execute and inspect the training-scale status notebook
+        run: |
+          /tmp/otto-frontier/bin/python -m ipykernel install --user --name otto-scale-review
+          /tmp/otto-frontier/bin/python - <<'PY'
+          from pathlib import Path
+          import nbformat
+          from nbclient import NotebookClient
+          source = Path('research/frontier/02_training_scale_status.ipynb')
+          nb = nbformat.read(source, as_version=4)
+          NotebookClient(nb, kernel_name='otto-scale-review', timeout=120).execute()
+          cells = [c for c in nb.cells if c.cell_type == 'code']
+          assert [c.execution_count for c in cells] == [1, 2, 3, 4]
+          outputs = [o for c in cells for o in c.outputs]
+          assert not any(o.output_type == 'error' for o in outputs)
+          plots = [o.data for o in outputs if 'application/vnd.plotly.v1+json' in o.get('data', {})]
+          assert len(plots) == 2 and all('image/svg+xml' in p for p in plots)
+          assert 'SCALE_STATUS_REVIEW_COMPLETE' in str(cells[-1].outputs)
+          target = Path('artifacts/training_scale_status.ipynb')
+          target.parent.mkdir(exist_ok=True)
+          nbformat.write(nb, target)
+          reopened = nbformat.read(target, as_version=4)
+          assert 'SCALE_STATUS_REVIEW_COMPLETE' in str(reopened.cells[-1].outputs)
+          print('TRAINING_SCALE_STATUS_EXECUTION_AND_REOPEN_PASSED')
+          PY
