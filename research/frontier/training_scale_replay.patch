@@ -1,0 +1,7 @@
+--- a/training_scale.py
++++ b/training_scale.py
+@@ -223,3 +223,2 @@
+     resources_cache=setup_features(d)
+-    replay(d,resources_cache[0],resources_cache[1])
+-    save(out/'replay.json',{'status':'PASSED','exact_original_examples':8})
++    replay(d,*resources_cache,out)

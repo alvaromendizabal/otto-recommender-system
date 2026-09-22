@@ -1,0 +1,22 @@
+name: Frontier review
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d
+      - name: Install the existing locked analysis environment
+        run: |
+          uv venv /tmp/otto-frontier --python 3.12.13 --no-project
+          uv pip install --python /tmp/otto-frontier/bin/python --require-hashes -r notebooks/requirements.txt
+      - name: Replay the public notebook without private data or training
+        run: /tmp/otto-frontier/bin/python research/frontier/review.py --execute
