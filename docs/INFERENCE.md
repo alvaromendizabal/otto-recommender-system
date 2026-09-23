@@ -1,6 +1,6 @@
 # Competition inference and model replay
 
-**Accepted Kaggle result: 0.56842 private / 0.56862 public.** The frozen reference model used the verified official competition prefixes. Kaggle reports **Complete (after deadline)**.
+**Current best verified Kaggle result: 0.57100 private / 0.57121 public**, submission reference **56472100**, scored after the competition deadline. The frozen 102-feature reference remains fully reproducible at 0.56842 private / 0.56862 public. Both use the verified official competition prefixes; neither is an official medal or rank claim.
 
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
@@ -20,9 +20,18 @@ binds the notebook kernel to that interpreter, and invokes the locked Python
 heartbeats expose elapsed time and the number of prediction-part receipts.
 The notebook execution and final prediction manifest have separate receipts.
 
+
+## Latest objective-routing submission
+
+The current best file is `otto_objective_router_1bff4f74728e7ebe.csv.gz`, SHA-256 `2870b76b4a79f2475022c403b268ddb67ab84652f55480beeda678ace6854a95`. It contains the complete **5,015,409 rows for 1,671,803 official sessions** and was validated before upload. Kaggle reports submission **56472100** as complete after the deadline at **0.57100 private / 0.57121 public**.
+
+The recipe is deliberately simple and auditable: use the established fusion output for **clicks and carts** while preserving the accepted reference submission's **order lists exactly**. Relative to the frozen reference, this moved the displayed scores by **+0.00258 private / +0.00259 public**. The construction was motivated by retrospective objective-level evidence, so this leaderboard result is the measurement; the retrospective calculation is not treated as a forecast.
+
+This newer submission does not overwrite the frozen-model delivery artifact below. The 0.56842 / 0.56862 release remains the canonical reproduction of the selected 102-feature ranking system; the objective router is a separately identified post-processing submission built from verified outputs.
+
 ## Download and submit the completed full run
 
-**The corrected full run is complete and verified.** Its gzip contains 289,541,110 bytes and SHA-256 `49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2`. Kaggle accepted this exact file and scored it at **0.56842 private / 0.56862 public**. No further upload is needed for this release.
+**The frozen reference full run is complete and verified.** Its gzip contains 289,541,110 bytes and SHA-256 `49e332948b47396fb609eaaac09a4cf3089468c38b58a15203075d6c107260f2`. Kaggle accepted this exact file and scored it at **0.56842 private / 0.56862 public**. No further upload is needed for this frozen reference release; the newer objective-router submission is documented separately above.
 
 To download the exact verified artifact in the SageMaker project terminal:
 

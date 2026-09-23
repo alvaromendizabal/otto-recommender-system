@@ -1,0 +1,73 @@
+{
+  "snapshot_date": "2026-09-22 America/Los_Angeles",
+  "competition": {
+    "submission_ref": 56472100,
+    "filename": "otto_objective_router_1bff4f74728e7ebe.csv.gz",
+    "private_score": 0.571,
+    "public_score": 0.57121,
+    "previous_private": 0.56842,
+    "previous_public": 0.56862,
+    "private_gain": 0.00258,
+    "public_gain": 0.00259,
+    "historical_private_target": 0.60503,
+    "remaining_private_gap": 0.03403,
+    "status": "Complete after deadline",
+    "official_medal_or_rank_claim": false
+  },
+  "training_scale": {
+    "pilot_8192": 0.546284,
+    "challenger_32768": 0.550513,
+    "gain": 0.004229,
+    "paired_95_interval": [
+      -0.000352,
+      0.008903
+    ],
+    "decision": "INCONCLUSIVE_SCALE_GAIN_NO_AUTOMATIC_EXPANSION",
+    "established_100k_on_matched_bridge": 0.563622,
+    "bridge_delta_32k_minus_established": -0.013109,
+    "bridge_paired_95_interval": [
+      -0.018313,
+      -0.007731
+    ],
+    "decision_after_bridge": "STOP_PILOT_EXPANSION_RETURN_TO_ESTABLISHED_PIPELINE"
+  },
+  "neural_stack": {
+    "state": "IN_PROGRESS_NO_SELECTION_OR_EVALUATION_RESULT",
+    "capability": "supervised task-conditioned sequence retrieval + neural-aware order ranking",
+    "fit_sessions": 100000,
+    "selection_sessions": 20000,
+    "evaluation_sessions": 432492,
+    "historical_events": 110057408,
+    "history_length": 10,
+    "future_length": 10,
+    "embedding_dim": 500,
+    "time_dim": 50,
+    "base_candidates": 400,
+    "neural_topk": 200,
+    "order_candidate_cap": 600,
+    "ranker_rounds": 350,
+    "ranker_leaves": 28,
+    "ranker_learning_rate": 0.05,
+    "promotion_weighted_gain": 0.003,
+    "wall_clock_limit": null,
+    "last_verified_committed_checkpoint_steps": 6000,
+    "checkpoint_note": "At least step 6000 was committed in the prior single-GPU run. The active rerun reuses prepared data and is expected to verify/load the latest compatible checkpoint before emitting neural_resume.",
+    "active_execution_note": "Latest supplied rerun passed tests, reused reference hydration and sequence preparation, and entered supervised_sequence_training; no selection/evaluation result was present in the supplied log."
+  },
+  "reproducibility": {
+    "project_source_commit": "2638faa34afa427ed4ac4e92bba04deda57c688e",
+    "public_main_before_update": "80fbe820e70aae739b90e8d0c75f8d20778361d2",
+    "neural_handoff_sha256": "386b497ccedff4a124e27db00111c1423a155ef51d7de1f1ee120fd0f4eec849",
+    "engineering_tests": 41,
+    "native_ranker_integration_tests": 1,
+    "design_notebook_code_cells": 4,
+    "design_notebook_plotly_outputs": 2,
+    "automatic_submission": false
+  },
+  "boundaries": [
+    "Competition and temporal scores are not interchangeable.",
+    "The neural experiment has no measured selection/evaluation gain yet.",
+    "Raw events, labels, per-session predictions, embeddings, optimizer state and full model weights remain private in AWS.",
+    "The first-place mechanism is independently adapted; the eight-model winning neural ensemble is not yet reproduced end to end."
+  ]
+}

@@ -1,18 +1,20 @@
 # Frontier research · evidence, mechanisms and decisions
 
-**Latest snapshot:** September 21, 2026, 8:09 PM Pacific / September 22, 2026, 03:09 UTC.
+**Latest snapshot:** September 22, 2026. The scale-up experiment is complete, the matched bridge has closed the small-pilot branch, and the project has moved to supervised sequence retrieval. The strongest verified post-competition Kaggle result is **0.57100 private / 0.57121 public**. Competition scores and temporal research scores remain separate evaluation settings.
 
-Start with [02_training_scale_status.ipynb](02_training_scale_status.ipynb). Three larger-training rankers are complete and sealed; 249 of 256 evaluation chunks are committed. A bounded deadline pause leaves 448 sessions to score. There is no final scale-up result or promotion decision. [Aggregate status](training_scale_status.json)
+Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for the earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for checkpoint/recovery engineering, and [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the current ceiling-escape round.
 
-[01_frontier_review.ipynb](01_frontier_review.ipynb) and [evidence.json](evidence.json) preserve the earlier dated snapshot: five completed scoring studies and the initial pre-training failure. Their references to a pending rerun describe that earlier snapshot, not the current checkpoint state. Both notebooks are readable without AWS or private competition data.
+## Training scale: completed and bridged
 
-## Current training-scale comparison
+The fixed 8,192→32,768-session comparison completed on 16,384 matched evaluation sessions. Weighted Recall@20 moved from **0.546284 to 0.550513**: **+0.004229**, with a paired 95% interval of **[-0.000352, +0.008903]**. Both time halves and all objectives improved in point estimates, but the interval crossed zero, so the preregistered promotion gate did not pass.
 
-The original 8,192 fitting sessions are nested in 32,768 sessions. All 498,404 original sampled rows are retained inside 1,993,202 rows. Candidate generation, 134 features, negative sampling, seed and task-specific training schedules are unchanged. Three pilot control models are reused and three larger-training models are complete.
+A retrospective same-session bridge then compared the 32,768-session challenger with an archived, established 100,000-session pipeline from the same corpus lineage. The established pipeline scored **0.563622** versus **0.550513** for the challenger, a **-0.013109** difference for the pilot with a paired interval entirely below zero. The research decision is therefore **stop pilot expansion and return to the established pipeline**.
 
-Order queries containing both positive and negative candidates increase from 685 to 2,644. This passes the predefined training-support requirement; it does not establish a recall gain. Evaluation completed 15,936 of the fixed 16,384 sessions before the worker reached its deadline. All 249 returned scoring chunks passed identity, hash and count-bound checks. All 922 included inventory entries passed checksum verification. Private model receipts agree with the returned seals and omitted-artifact inventory; native weights are reverified by the AWS runner rather than downloaded for this review.
+## Current frontier: supervised sequence retrieval
 
-The next owner invocation uses the exact same handoff and science ID. It reuses completed models and feature chunks, finishes seven evaluation chunks, aggregates the entire cohort, calculates the fixed paired interval and decision, and generates the final result notebook. Cached training arrays may be reread for integrity checks. No new hyperparameters or cohort selection are introduced.
+The active experiment independently adapts a first-place-style task-conditioned sequence encoder and hard-negative contrastive objective. It preserves the incumbent 400 candidates, appends up to 200 neural order candidates, and fits one fixed neural-aware order ranker on the established 100,000-session fitting universe. Click/cart routing stays fixed. The frozen downstream roles are 100,000 fit, 20,000 selection and 432,492 evaluation sessions.
+
+The public [reproduction matrix](../neural_stack/reproduction_matrix.json) distinguishes mechanisms that are adapted and evaluated from those merely prepared or still missing. In particular, the complete eight-model winning neural candidate ensemble and TheoViel's full matrix-factorization / sequence-to-sequence / XGBoost stack are **not** claimed as reproduced. The real neural run has no published selection/evaluation gain yet.
 
 ## Completed mechanism studies
 
@@ -22,7 +24,7 @@ The next owner invocation uses the exact same handoff and science ID. It reuses 
 | Three two-hop graph paths | Candidate coverage improved; achieved recommendations regressed | Do not submit unchanged rankers |
 | Candidate-aware training and 18 path features | Primary recipe regressed | Stop tested recipe |
 | 64-dimensional graph factorization and 16 affinity summaries | Small uncertain negative effect; order recall declined | No demonstrated improvement |
-| Nested training scale | Models complete; full evaluation pending | Resume seven remaining chunks |
+| Nested training scale | +0.004229 point gain over pilot control; interval crossed zero; established 100k bridge stronger | Stop pilot expansion |
 
 Compare point scores only within each matched study. Reported intervals are descriptive paired session-bootstrap intervals, not corrections for adaptive research or training-seed variability. Public totals reproduce point scores but not bootstrap distributions. The corpus was previously explored. The pilot control is not the accepted 102-feature submission model.
 
@@ -53,4 +55,4 @@ python -m pytest tests/test_frontier_publication.py tests/test_training_scale_pu
 
 Only aggregate evidence, source identities, selected code and executed interpretation are public. Raw events, row-level targets and predictions, cohort IDs, full models, embeddings, environments and account logs remain private. Publication does not pull, reset or migrate the pinned AWS runtime.
 
-Finish the original fixed evaluation. Advancement requires at least +0.003 weighted recall, nonnegative time-half changes, no pooled order loss, sufficient support and a positive lower paired confidence bound. A pass still requires a matched representative comparison with the actual submitted pipeline before a new competition-improvement claim. The authenticated submission history remains 0.56842 private / 0.56862 public, reference 56132573. No new submission was made.
+The next decision comes from the supervised-neural integration, not another pilot-scale variant. A nonpositive selection gain stops the recipe. Full temporal advancement requires at least +0.003 weighted recall, nonnegative time-half changes, no pooled order loss, sufficient support and a positive lower paired confidence bound. The strongest verified post-competition submission is 0.57100 private / 0.57121 public, reference 56472100. The neural experiment has not yet produced a new submission or validation claim.
