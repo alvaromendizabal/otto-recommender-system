@@ -3,7 +3,7 @@
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Corrected inference is complete on the attested official truncated test, with a verified Kaggle result of **0.56842 private / 0.56862 public**.
+performance. Corrected inference is complete on the attested official truncated test. The frozen reference scored **0.56842 private / 0.56862 public**; a later objective-routing submission improved this to **0.57100 private / 0.57121 public** after the deadline. Neither is presented as an official medal or rank.
 See [the source audit](../reports/submissions/data_provenance_audit.json).
 
 **How do you turn anonymous shopping events into useful recommendations—and demonstrate
