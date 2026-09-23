@@ -1,0 +1,10 @@
+{
+  "status": "EXECUTED",
+  "code_cells": 5,
+  "plotly_outputs": 3,
+  "svg_fallbacks": 3,
+  "sentinel": true,
+  "sha256": "aba6d582c42be2bb142c66808415139f2723e80991ec9f379415c621d9b0cabf",
+  "data_free_review": true,
+  "project_results_claimed": false
+}
