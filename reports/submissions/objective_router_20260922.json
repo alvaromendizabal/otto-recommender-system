@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "observed_utc": "2026-09-22T18:55:01.153Z",
+  "competition": "otto-recommender-system",
+  "evaluation_setting": "post-competition Kaggle scoring; not an official medal or rank",
+  "submission_ref": 56472100,
+  "file": "otto_objective_router_1bff4f74728e7ebe.csv.gz",
+  "sha256": "2870b76b4a79f2475022c403b268ddb67ab84652f55480beeda678ace6854a95",
+  "status": "Complete after deadline",
+  "private_score": 0.571,
+  "public_score": 0.57121,
+  "previous_valid_private": 0.56842,
+  "previous_valid_public": 0.56862,
+  "private_gain": 0.00258,
+  "public_gain": 0.00259,
+  "sessions": 1671803,
+  "rows": 5015409,
+  "recipe": {
+    "clicks": "established fixed fusion output",
+    "carts": "established fixed fusion output",
+    "orders": "ordered labels preserved exactly from the accepted frozen-reference submission"
+  },
+  "validation": [
+    "official truncated-prefix source pinned",
+    "complete session/objective schema validated",
+    "20 unique nonnegative item IDs per list",
+    "order lists checked identical to frozen accepted submission",
+    "duplicate identical upload suppressed after completed server submission was found"
+  ],
+  "boundaries": [
+    "This file is a separately identified objective-routing submission, not new model training.",
+    "The retrospective objective-level construction motivated the test but is not substituted for the Kaggle result.",
+    "The competition was already closed; the score does not establish a new official placement or medal."
+  ]
+}
