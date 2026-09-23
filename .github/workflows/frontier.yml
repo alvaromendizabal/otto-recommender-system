@@ -44,3 +44,30 @@ jobs:
           assert 'SCALE_STATUS_REVIEW_COMPLETE' in str(reopened.cells[-1].outputs)
           print('TRAINING_SCALE_STATUS_EXECUTION_AND_REOPEN_PASSED')
           PY
+      - name: Verify the neural-frontier publication contracts
+        run: /tmp/otto-frontier/bin/python -m pytest tests/test_neural_stack_publication.py -q
+      - name: Re-execute and reopen the neural-frontier notebook
+        run: |
+          cd research/neural_stack
+          /tmp/otto-frontier/bin/python -m ipykernel install --user --name otto-neural-review
+          /tmp/otto-frontier/bin/python - <<'PY'
+          from pathlib import Path
+          import nbformat
+          from nbclient import NotebookClient
+          source = Path('03_neural_stack_status.ipynb')
+          nb = nbformat.read(source, as_version=4)
+          NotebookClient(nb, kernel_name='otto-neural-review', timeout=120).execute()
+          cells = [c for c in nb.cells if c.cell_type == 'code']
+          assert [c.execution_count for c in cells] == [1, 2, 3]
+          outputs = [o for c in cells for o in c.outputs]
+          assert not any(o.output_type == 'error' for o in outputs)
+          plots = [o.data for o in outputs if 'application/vnd.plotly.v1+json' in o.get('data', {})]
+          assert len(plots) == 3 and all('image/svg+xml' in p for p in plots)
+          assert 'NEURAL_STACK_STATUS_NOTEBOOK_COMPLETE' in str(cells[-1].outputs)
+          target = Path('../../artifacts/neural_stack_status.ipynb')
+          target.parent.mkdir(exist_ok=True)
+          nbformat.write(nb, target)
+          reopened = nbformat.read(target, as_version=4)
+          assert 'NEURAL_STACK_STATUS_NOTEBOOK_COMPLETE' in str(reopened.cells[-1].outputs)
+          print('NEURAL_STACK_STATUS_EXECUTION_AND_REOPEN_PASSED')
+          PY
