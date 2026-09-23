@@ -1,0 +1,70 @@
+{
+  "scope": "Component-level audit. Prepared code and synthetic tests are not an achieved reproduction score. No overall reproduction percentage is claimed.",
+  "sources": {
+    "first_place": {
+      "repository": "mrkmakr/OTTO-Multi-Objective-Recommender-System",
+      "commit": "befc46bdfb747a1bcd840bd04af7ef2e84052b9c",
+      "neural_path": "codes/otto/scripts_nn/emb_model_v42.py",
+      "ranker_path": "codes/otto/scripts_ranker/train_ranker.py",
+      "upstream_license_files_in_staged_snapshot": [],
+      "publication_policy": "No upstream source code or weights vendored; independently implement mathematical mechanisms and attribute the source."
+    },
+    "third_place": {
+      "repository": "TheoViel/kaggle_otto_rs",
+      "commit": "b1507a8728cfed4edb7c36a48417c8603a697fcc",
+      "documented_team_private_score": 0.60382,
+      "documented_team_public_score": 0.60437,
+      "license": "MIT",
+      "scope": "README describes Theo's contribution, not all team members' code."
+    }
+  },
+  "components": [
+    {
+      "component": "Baseline co-visitation, event statistics, task ranking",
+      "status": "Adapted and evaluated",
+      "our_evidence": "Established pipeline plus accepted objective router 0.57100 private. Not equivalent to the entire winning candidate stack."
+    },
+    {
+      "component": "Winner multiple co-visitation variants and multi-hop configurations",
+      "status": "Partially adapted",
+      "our_evidence": "A bounded two-hop replacement improved coverage but regressed achieved recall; not the full winning multi-channel union."
+    },
+    {
+      "component": "Winner v42 task-conditioned sequence MLP and hard-negative contrastive objective",
+      "status": "Independently implemented in this handoff; project evaluation pending",
+      "implementation": "sequence_objective.py",
+      "local_validation": "Mathematical loss fixture, gradients, padding, objective conditioning, exact retrieval ties, native optimizer-state resume. Not upstream trained-weight parity."
+    },
+    {
+      "component": "Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42",
+      "status": "Not recreated as an integrated ensemble",
+      "our_evidence": "Existing generic two-tower/ANN work does not establish reproduction of these eight encoders."
+    },
+    {
+      "component": "Candidate-aware neural integration with established order ranking",
+      "status": "Prepared; project evaluation pending",
+      "implementation": "candidate_integration.py",
+      "design": "Retain original 400, append novel neural top-200, retain old source semantics, fixed ranker on 100000 fitting-session universe."
+    },
+    {
+      "component": "Word2Vec candidate/session similarity features",
+      "status": "Adapted and tested previously",
+      "our_evidence": "100000 fitting sessions, 20000 selection sessions; intent-only point gain 0.000112 with interval crossing zero. Do not rerun unchanged."
+    },
+    {
+      "component": "Theo matrix-factorization / sequence-to-sequence feature stack and full 744-feature XGBoost system",
+      "status": "Integrated validated reproduction not established",
+      "our_evidence": "The recent normalized-graph factorization is not equivalent to that full system."
+    },
+    {
+      "component": "Multiple ranker configurations and complementary model ensemble",
+      "status": "Not fully recreated",
+      "our_evidence": "Current objective routing is a fixed component switch, not the full winning ensemble."
+    }
+  ],
+  "next_backlog": [
+    "Execute this fixed supervised-neural/order-ranking integration; stop on nonpositive selection gain.",
+    "If useful, test neural-source ablations and complementary encoders on selection/OOF predictions; never learn blend weights from reported evaluation outcomes.",
+    "Address remaining MF/XGBoost and multi-channel candidate gaps without duplicating existing Word2Vec studies."
+  ]
+}
