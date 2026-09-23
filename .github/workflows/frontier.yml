@@ -45,7 +45,33 @@ jobs:
           print('TRAINING_SCALE_STATUS_EXECUTION_AND_REOPEN_PASSED')
           PY
       - name: Verify the neural-frontier publication contracts
-        run: /tmp/otto-frontier/bin/python -m pytest tests/test_neural_stack_publication.py -q
+        run: |
+          /tmp/otto-frontier/bin/python - <<'PY'
+          import hashlib
+          import importlib.util
+          import json
+          from pathlib import Path
+          import numpy as np
+          root = Path('research/neural_stack')
+          status = json.loads((root / 'status.json').read_text())
+          matrix = json.loads((root / 'reproduction_matrix.json').read_text())
+          receipt = json.loads((root / 'notebook_receipt.json').read_text())
+          notebook = root / '03_neural_stack_status.ipynb'
+          assert status['competition']['private_score'] == 0.571
+          assert status['competition']['public_score'] == 0.57121
+          assert status['neural_stack']['state'] == 'IN_PROGRESS_NO_SELECTION_OR_EVALUATION_RESULT'
+          assert hashlib.sha256(notebook.read_bytes()).hexdigest() == receipt['sha256']
+          components = {x['component']: x['status'] for x in matrix['components']}
+          assert 'Not recreated as an integrated ensemble' in components['Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42']
+          path = root / 'candidate_integration.py'
+          spec = importlib.util.spec_from_file_location('candidate_integration_public', path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          original = np.array([10, 20, 30], dtype=np.int64)
+          neural = np.array([30, 40, 50, 40, 999], dtype=np.int64)
+          np.testing.assert_array_equal(module.combine_candidates(original, neural, 100), [10, 20, 30, 40, 50])
+          print('NEURAL_PUBLICATION_CONTRACTS_PASSED')
+          PY
       - name: Re-execute and reopen the neural-frontier notebook
         run: |
           cd research/neural_stack
