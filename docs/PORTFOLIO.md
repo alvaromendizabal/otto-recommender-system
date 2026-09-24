@@ -3,8 +3,8 @@
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Corrected inference is complete on the attested official truncated test. The frozen reference scored **0.56842 private / 0.56862 public**; a later objective-routing submission improved this to **0.57100 private / 0.57121 public** after the deadline. Neither is presented as an official medal or rank.
-See [the source audit](../reports/submissions/data_provenance_audit.json).
+performance. Corrected inference is complete on the attested official truncated test. The frozen reference scored **0.56842 private / 0.56862 public**; the objective router improved this to 0.57100 / 0.57121, and the current long-session cart router reaches **0.57140 private / 0.57166 public** after the deadline. These are post-competition measurements, not official medal or rank claims.
+See [the source audit](../reports/submissions/data_provenance_audit.json) and [current frontier scorecard](../research/frontier/04_competition_frontier.ipynb).
 
 **How do you turn anonymous shopping events into useful recommendations—and demonstrate
 that the improvements are real?**

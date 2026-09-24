@@ -1,0 +1,106 @@
+{
+  "snapshot_date": "2026-09-23",
+  "competition": {
+    "evaluation_setting": "post-competition Kaggle scoring; not an official medal or rank",
+    "historical_private_winner": 0.60503,
+    "frozen_reference": {
+      "ref": null,
+      "private": 0.56842,
+      "public": 0.56862
+    },
+    "objective_router": {
+      "ref": 56472100,
+      "private": 0.571,
+      "public": 0.57121
+    },
+    "incumbent": {
+      "ref": 56504354,
+      "private": 0.5714,
+      "public": 0.57166,
+      "sha256": "4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d",
+      "sessions": 1671803,
+      "rows": 5015409,
+      "recipe": "fusion clicks; selected orders; selected carts only for observed prefixes with >=21 events"
+    },
+    "threshold14": {
+      "ref": 56504676,
+      "private": 0.5713,
+      "public": 0.57168,
+      "sha256": "5d2ee2c768cbf421763634b680983be23c332f9489138de749682cff423159ed",
+      "decision": "not promoted because private score is below the threshold-21 incumbent"
+    },
+    "remaining_private_gap": 0.03363
+  },
+  "closed_hypotheses": [
+    {
+      "name": "neural-aware order reranker",
+      "decision": "STOP_NONPOSITIVE_SELECTION_GAIN",
+      "evidence": {
+        "incumbent_weighted": 0.6006832301181787,
+        "challenger_weighted": 0.5939176514831638,
+        "gain": -0.006765578635014924,
+        "net_order_hits": -38,
+        "paired_95_interval": [
+          -0.010523480493042818,
+          -0.003018676599241806
+        ]
+      }
+    },
+    {
+      "name": "neural residual insertion",
+      "decision": "STOP_NO_QUALIFIED_OOF_POLICY",
+      "evidence": {
+        "best_fit_only_order_hit_delta": 2,
+        "required_order_hit_delta": 5,
+        "selection_targets_read": false
+      }
+    },
+    {
+      "name": "cart threshold refinement",
+      "decision": "CLOSE_THRESHOLD_FAMILY_KEEP_THRESHOLD_21_PRIVATE_INCUMBENT",
+      "evidence": {
+        "selected_threshold": 14,
+        "qualified_thresholds": [
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "threshold14_private_delta": -0.0001,
+        "threshold14_public_delta": 0.00002
+      }
+    },
+    {
+      "name": "three-seed LightGBM order ensemble",
+      "decision": "STOP_NO_QUALIFIED_SEED_ENSEMBLE",
+      "evidence": {
+        "selection_sessions": 20000,
+        "baseline_order_hits": 2306,
+        "best_arm": "mean3",
+        "best_net_hits": 0,
+        "evaluation_labels_read": false
+      }
+    }
+  ],
+  "active_frontier": [
+    {
+      "name": "candidate-to-session similarity stack",
+      "status": "reserved evaluation owner-run; no final result published in this snapshot"
+    },
+    {
+      "name": "GPU XGBoost order stack",
+      "status": "engineering recovery after model reload parity gate; selection/evaluation result not yet published"
+    }
+  ],
+  "remaining_top_solution_gaps": [
+    "complete first-place eight-model neural candidate ensemble v15/v18/v21/v23/v27/v29/v31/v42",
+    "full third-place-style matrix-factorization / sequence-to-sequence / broad similarity feature stack",
+    "complementary boosted-ranker ensemble beyond same-family seed averaging"
+  ],
+  "publication_boundaries": [
+    "AWS remains the canonical private execution workspace.",
+    "No raw competition data, labels, per-session predictions, credentials, multi-GB checkpoints, optimizer state, or embeddings are published here.",
+    "Offline temporal metrics and Kaggle scores are reported as separate evaluation settings."
+  ]
+}

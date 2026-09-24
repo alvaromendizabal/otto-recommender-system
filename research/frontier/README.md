@@ -1,8 +1,33 @@
 # Frontier research · evidence, mechanisms and decisions
 
-**Latest snapshot:** September 22, 2026. The scale-up experiment is complete, the matched bridge has closed the small-pilot branch, and the project has moved to supervised sequence retrieval. The strongest verified post-competition Kaggle result is **0.57100 private / 0.57121 public**. Competition scores and temporal research scores remain separate evaluation settings.
+**Latest snapshot:** September 23, 2026. The strongest verified post-competition Kaggle result is **0.57140 private / 0.57166 public** on submission **56504354**. The recorded historical private winner is **0.60503**, leaving a **0.03363** gap. Competition scores and temporal research scores remain separate evaluation settings.
 
-Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for the earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for checkpoint/recovery engineering, and [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the current ceiling-escape round.
+Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for scale/recovery engineering, [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the dated supervised-neural design snapshot, and [04_competition_frontier.ipynb](04_competition_frontier.ipynb) for the current executed scorecard.
+
+## September 23 score-moving frontier
+
+The post-competition submission lineage now has three verified milestones:
+
+- Frozen official-prefix reference: **0.56842 private / 0.56862 public**.
+- Objective router, submission 56472100: **0.57100 / 0.57121**.
+- Long-session cart router, submission 56504354: **0.57140 / 0.57166**. It keeps fusion clicks and selected orders, and uses selected carts only when the observed prefix has at least 21 events.
+
+A bounded exact-threshold study qualified thresholds 14–18 on historical ledgers and submitted threshold 14 only after freezing the rule. It scored **0.57130 private / 0.57168 public**. The slight public movement did not offset the private-score regression, so the family is closed and threshold 21 remains the incumbent.
+
+## Closed neural and ensemble branches
+
+The trained task-conditioned neural retriever increased order candidate coverage, but the first downstream neural-aware order ranker scored **0.593918** versus **0.600683** for the incumbent on the 20,000-session selection cohort, a **-0.006766** weighted difference with **-38 order hits**. The paired 95% interval was entirely below zero. A later residual-insertion grid then achieved at most **+2 fitting-only order hits**, below its +5 gate, without opening selection labels.
+
+A separate three-seed LightGBM order ensemble tested individual seeds, equal-score means, standardized-score means, Borda and reciprocal-rank fusion. The best fixed arm, mean-of-three, tied the incumbent at **2,306 order hits**; every other arm lost hits. No arm qualified, evaluation labels remained closed, and the branch is stopped.
+
+## Active frontier
+
+Two materially different capabilities remain open in this snapshot:
+
+- **Candidate-to-session similarity stack:** adapts the third-place-style aggregation idea to the completed learned representation. It reached owner-run reserved evaluation; no final result is published here yet.
+- **GPU XGBoost order stack:** introduces a different boosted-tree family and ranking objective rather than another LightGBM seed. Its first owner run completed one GPU fit but stopped at an engineering serialization-parity gate before selection. No predictive gain is claimed until the corrected continuation passes selection and reserved evaluation.
+
+The complete first-place eight-model neural candidate ensemble and the full third-place matrix-factorization / sequence-to-sequence / broad similarity-feature stack are still not claimed as reproduced.
 
 ## Training scale: completed and bridged
 
@@ -25,6 +50,10 @@ The public [reproduction matrix](../neural_stack/reproduction_matrix.json) disti
 | Candidate-aware training and 18 path features | Primary recipe regressed | Stop tested recipe |
 | 64-dimensional graph factorization and 16 affinity summaries | Small uncertain negative effect; order recall declined | No demonstrated improvement |
 | Nested training scale | +0.004229 point gain over pilot control; interval crossed zero; established 100k bridge stronger | Stop pilot expansion |
+| Neural-aware order ranking | -0.006766 weighted selection gain; -38 order hits | Stop tested reranker |
+| Sparse neural residual insertion | Best +2 fitting-only order hits vs +5 gate | Stop residual policy family |
+| Cart threshold refinement | Threshold 14: 0.57130 private / 0.57168 public vs threshold-21 incumbent 0.57140 / 0.57166 | Close threshold family; keep threshold 21 |
+| Three-seed LightGBM order ensemble | Best fixed arm tied baseline; all others lost hits | Stop same-family seed bagging |
 
 Compare point scores only within each matched study. Reported intervals are descriptive paired session-bootstrap intervals, not corrections for adaptive research or training-seed variability. Public totals reproduce point scores but not bootstrap distributions. The corpus was previously explored. The pilot control is not the accepted 102-feature submission model.
 
@@ -55,4 +84,4 @@ python -m pytest tests/test_frontier_publication.py tests/test_training_scale_pu
 
 Only aggregate evidence, source identities, selected code and executed interpretation are public. Raw events, row-level targets and predictions, cohort IDs, full models, embeddings, environments and account logs remain private. Publication does not pull, reset or migrate the pinned AWS runtime.
 
-The next decision comes from the supervised-neural integration, not another pilot-scale variant. A nonpositive selection gain stops the recipe. Full temporal advancement requires at least +0.003 weighted recall, nonnegative time-half changes, no pooled order loss, sufficient support and a positive lower paired confidence bound. The strongest verified post-competition submission is 0.57100 private / 0.57121 public, reference 56472100. The neural experiment has not yet produced a new submission or validation claim.
+The next decisions come from the still-open similarity-stack and XGBoost branches, not from reopening stopped neural residual, threshold, or same-family seed-bagging recipes. The strongest verified post-competition submission is **0.57140 private / 0.57166 public**, reference **56504354**. Any new model must pass its frozen local gates before competition inference or upload.

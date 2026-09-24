@@ -1,4 +1,7 @@
-# Supervised neural retrieval · current frontier
+# Supervised neural retrieval · dated September 22 snapshot
+
+> **Superseded status view:** this directory preserves the design and evidence available before the completed neural downstream tests. For the current competition score, stopped neural integrations and active frontier, see [04 · Competition frontier](../frontier/04_competition_frontier.ipynb) and [frontier_status_20260923.json](../../reports/research/frontier_status_20260923.json).
+
 
 **Status:** real project execution is in progress. This directory records the design, source attribution, reproducibility boundaries and latest verified state. It does **not** claim a new neural validation score.
 

@@ -1,0 +1,26 @@
+{
+  "submission_ref": 56504676,
+  "sha256": "5d2ee2c768cbf421763634b680983be23c332f9489138de749682cff423159ed",
+  "private_score": 0.5713,
+  "public_score": 0.57168,
+  "selected_threshold": 14,
+  "qualified_thresholds": [
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "cells": 9,
+  "leave_one_window_out_passed": true,
+  "main_reference_improvement_hits": 73,
+  "positive_improvement_cells": 9,
+  "rows": 5015409,
+  "sessions": 1671803,
+  "changed_cart_lists_vs_threshold21": 45769,
+  "incumbent_ref": 56504354,
+  "incumbent_private": 0.5714,
+  "incumbent_public": 0.57166,
+  "decision": "CLOSE_THRESHOLD_FAMILY_KEEP_THRESHOLD_21_PRIVATE_INCUMBENT",
+  "scope": "Threshold frozen from completed historical ledgers before the Kaggle measurement."
+}

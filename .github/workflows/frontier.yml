@@ -97,3 +97,47 @@ jobs:
           assert 'NEURAL_STACK_STATUS_NOTEBOOK_COMPLETE' in str(reopened.cells[-1].outputs)
           print('NEURAL_STACK_STATUS_EXECUTION_AND_REOPEN_PASSED')
           PY
+      - name: Verify the current competition-frontier snapshot
+        run: |
+          /tmp/otto-frontier/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          status = json.loads(Path('reports/research/frontier_status_20260923.json').read_text())
+          c = status['competition']
+          assert c['incumbent']['ref'] == 56504354
+          assert c['incumbent']['private'] == 0.5714
+          assert c['incumbent']['public'] == 0.57166
+          assert c['incumbent']['sha256'] == '4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d'
+          assert c['remaining_private_gap'] == 0.03363
+          closed = {x['name']: x['decision'] for x in status['closed_hypotheses']}
+          assert closed['neural-aware order reranker'].startswith('STOP_')
+          assert closed['neural residual insertion'].startswith('STOP_')
+          assert closed['three-seed LightGBM order ensemble'].startswith('STOP_')
+          assert closed['cart threshold refinement'].startswith('CLOSE_')
+          print('COMPETITION_FRONTIER_SNAPSHOT_PASSED')
+          PY
+      - name: Re-execute and reopen the competition-frontier scorecard
+        run: |
+          cd research/frontier
+          /tmp/otto-frontier/bin/python -m ipykernel install --user --name otto-current-frontier
+          /tmp/otto-frontier/bin/python - <<'PY'
+          from pathlib import Path
+          import nbformat
+          from nbclient import NotebookClient
+          source = Path('04_competition_frontier.ipynb')
+          nb = nbformat.read(source, as_version=4)
+          NotebookClient(nb, kernel_name='otto-current-frontier', timeout=120).execute()
+          cells = [c for c in nb.cells if c.cell_type == 'code']
+          assert [c.execution_count for c in cells] == [1, 2, 3, 4]
+          outputs = [o for c in cells for o in c.outputs]
+          assert not any(o.output_type == 'error' for o in outputs)
+          plots = [o.data for o in outputs if 'application/vnd.plotly.v1+json' in o.get('data', {})]
+          assert len(plots) == 3 and all('image/svg+xml' in p for p in plots)
+          assert 'COMPETITION_FRONTIER_SCORECARD_COMPLETE' in str(cells[-1].outputs)
+          target = Path('../../artifacts/competition_frontier.ipynb')
+          target.parent.mkdir(exist_ok=True)
+          nbformat.write(nb, target)
+          reopened = nbformat.read(target, as_version=4)
+          assert 'COMPETITION_FRONTIER_SCORECARD_COMPLETE' in str(reopened.cells[-1].outputs)
+          print('COMPETITION_FRONTIER_EXECUTION_AND_REOPEN_PASSED')
+          PY
