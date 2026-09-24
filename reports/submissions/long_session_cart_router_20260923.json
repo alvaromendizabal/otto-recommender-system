@@ -1,0 +1,29 @@
+{
+  "submission_ref": 56504354,
+  "file_name": "otto_long_cart_router_96e865f85df05dae.csv.gz",
+  "sha256": "4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d",
+  "private_score": 0.5714,
+  "public_score": 0.57166,
+  "sessions": 1671803,
+  "rows": 5015409,
+  "changed_cart_lists": 49815,
+  "prior_best": {
+    "ref": 56472100,
+    "private_score": 0.571,
+    "public_score": 0.57121
+  },
+  "gain": {
+    "private": 0.0004,
+    "public": 0.00045
+  },
+  "recipe": "fusion clicks; selected orders; selected carts for observed prefixes with >=21 events",
+  "validation": [
+    "engineering tests passed",
+    "design notebook passed",
+    "full submission build passed",
+    "all 5,015,409 rows validated",
+    "click/order sources preserved",
+    "Kaggle status completed after deadline"
+  ],
+  "scope": "Post-competition evaluation; no official medal or rank claim."
+}
