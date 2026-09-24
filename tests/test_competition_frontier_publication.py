@@ -13,7 +13,9 @@ def test_frontier_snapshot_preserves_verified_incumbent_and_gap() -> None:
     assert c["incumbent"]["ref"] == 56504354
     assert c["incumbent"]["private"] == 0.5714
     assert c["incumbent"]["public"] == 0.57166
-    assert c["incumbent"]["sha256"] == "4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d"
+    assert c["incumbent"]["sha256"] == (
+        "4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d"
+    )
     assert c["remaining_private_gap"] == 0.03363
     assert c["threshold14"]["private"] < c["incumbent"]["private"]
 
