@@ -1,6 +1,6 @@
 # Competition inference and model replay
 
-**Current best verified Kaggle result: 0.57100 private / 0.57121 public**, submission reference **56472100**, scored after the competition deadline. The frozen 102-feature reference remains fully reproducible at 0.56842 private / 0.56862 public. Both use the verified official competition prefixes; neither is an official medal or rank claim.
+**Current best verified Kaggle result: 0.57140 private / 0.57166 public**, submission reference **56504354**, scored after the competition deadline. The frozen 102-feature reference remains fully reproducible at 0.56842 private / 0.56862 public. The objective router at 0.57100 / 0.57121 remains an intermediate verified milestone. All use the verified official competition prefixes; none is an official medal or rank claim.
 
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
@@ -21,13 +21,15 @@ heartbeats expose elapsed time and the number of prediction-part receipts.
 The notebook execution and final prediction manifest have separate receipts.
 
 
-## Latest objective-routing submission
+## Latest verified post-competition submissions
 
-The current best file is `otto_objective_router_1bff4f74728e7ebe.csv.gz`, SHA-256 `2870b76b4a79f2475022c403b268ddb67ab84652f55480beeda678ace6854a95`. It contains the complete **5,015,409 rows for 1,671,803 official sessions** and was validated before upload. Kaggle reports submission **56472100** as complete after the deadline at **0.57100 private / 0.57121 public**.
+The objective router `otto_objective_router_1bff4f74728e7ebe.csv.gz` remains an auditable intermediate milestone at **0.57100 private / 0.57121 public** (submission **56472100**). It uses established fusion output for clicks and carts while preserving accepted selected-ranker order lists.
 
-The recipe is deliberately simple and auditable: use the established fusion output for **clicks and carts** while preserving the accepted reference submission's **order lists exactly**. Relative to the frozen reference, this moved the displayed scores by **+0.00258 private / +0.00259 public**. The construction was motivated by retrospective objective-level evidence, so this leaderboard result is the measurement; the retrospective calculation is not treated as a forecast.
+The current private-score incumbent is `otto_long_cart_router_96e865f85df05dae.csv.gz`, SHA-256 `4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d`. It contains all **5,015,409 rows for 1,671,803 official sessions**. The fixed recipe keeps fusion clicks and selected-ranker orders, and routes carts to the selected cart ranker only when the observed prefix has **21 or more events**. Kaggle reports submission **56504354** complete after the deadline at **0.57140 private / 0.57166 public**, a **+0.00040 private / +0.00045 public** movement over the objective router.
 
-This newer submission does not overwrite the frozen-model delivery artifact below. The 0.56842 / 0.56862 release remains the canonical reproduction of the selected 102-feature ranking system; the objective router is a separately identified post-processing submission built from verified outputs.
+A bounded threshold follow-up froze threshold 14 from nine completed historical cells before upload. Submission **56504676** scored **0.57130 private / 0.57168 public**. Because private score declined by 0.00010 versus threshold 21, threshold 14 is not promoted and the nearby threshold-search family is closed.
+
+These routed submissions do not overwrite the frozen-model delivery artifact below. The 0.56842 / 0.56862 release remains the canonical reproduction of the selected 102-feature ranking system; later submissions are separately identified post-processing recipes built from verified outputs.
 
 ## Download and submit the completed full run
 
