@@ -3,7 +3,7 @@
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
 The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Corrected inference is complete on the attested official truncated test. The frozen reference scored **0.56842 private / 0.56862 public**; the objective router improved this to 0.57100 / 0.57121, and the current long-session cart router reaches **0.57140 private / 0.57166 public** after the deadline. These are post-competition measurements, not official medal or rank claims.
+performance. Corrected inference is complete on the attested official truncated test. The frozen reference scored **0.56842 private / 0.56862 public**; the objective router improved this to 0.57100 / 0.57121; the long-session cart router reached 0.57140 / 0.57166; and the promoted similarity-stack order model now reaches **0.57586 private / 0.57601 public** after the deadline. These are post-competition measurements, not official medal or rank claims.
 See [the source audit](../reports/submissions/data_provenance_audit.json) and [current frontier scorecard](../research/frontier/04_competition_frontier.ipynb).
 
 **How do you turn anonymous shopping events into useful recommendations—and demonstrate
@@ -18,6 +18,12 @@ sessions**, versus **0.564904** for a compact ranker and **0.535244** for fixed 
 [Executed research notebook](../notebooks/09_controlled_feature_study.ipynb) ·
 [Interactive Plotly report · ZIP ↓](https://github.com/alvaromendizabal/otto-recommender-system/raw/refs/heads/main/reports/portfolio/otto-research-report.zip) ·
 [Model card](MODEL_CARD.md)
+
+## Recent frontier advancement
+
+The strongest recent gain came from changing *how* the learned sequence representation is used. A first neural-aware reranker was rejected on selection, but the same trained task-conditioned representation became useful as candidate-to-session similarity evidence. The promoted order stack keeps the established 102-feature representation and adds 28 neural similarity aggregates plus seven query/retrieval diagnostics, producing a 137-feature order ranker. On the reserved 432,492-session temporal cohort it improved weighted Recall@20 by **0.004396** and recovered **508 additional order targets**; the paired 95% interval was **+0.003721 to +0.005046**, with positive gains in both chronological halves.
+
+That offline promotion transferred to the post-competition leaderboard: submission **56542128** scored **0.57586 private / 0.57601 public**, **+0.00446 / +0.00435** over the prior 0.57140 / 0.57166 incumbent. The next gated branch independently adapts a complementary attention-based v31 encoder, unions neural candidates before training, and adds cross-model agreement features. It is reported as in-progress until fitting-only cross-validation, selection, and reserved evaluation are complete. [Current frontier snapshot](../research/frontier/05_similarity_attention_frontier.md)
 
 Download the ZIP above, extract it, and open `otto-research-report.html` in a browser.
 The report includes Plotly and works offline. The figures below are SVG exports of those same chart definitions.

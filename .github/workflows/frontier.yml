@@ -62,7 +62,7 @@ jobs:
           assert status['neural_stack']['state'] == 'IN_PROGRESS_NO_SELECTION_OR_EVALUATION_RESULT'
           assert hashlib.sha256(notebook.read_bytes()).hexdigest() == receipt['sha256']
           components = {x['component']: x['status'] for x in matrix['components']}
-          assert 'Not recreated as an integrated ensemble' in components['Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42']
+          assert components['Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42'] == 'Partially recreated'
           path = root / 'candidate_integration.py'
           spec = importlib.util.spec_from_file_location('candidate_integration_public', path)
           module = importlib.util.module_from_spec(spec)
@@ -115,6 +115,25 @@ jobs:
           assert closed['three-seed LightGBM order ensemble'].startswith('STOP_')
           assert closed['cart threshold refinement'].startswith('CLOSE_')
           print('COMPETITION_FRONTIER_SNAPSHOT_PASSED')
+          PY
+      - name: Verify the promoted similarity frontier
+        run: |
+          /tmp/otto-frontier/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          status = json.loads(Path('reports/research/frontier_status_20260928.json').read_text())
+          c = status['competition']
+          assert c['incumbent']['ref'] == 56542128
+          assert c['incumbent']['private'] == 0.57586
+          assert c['incumbent']['public'] == 0.57601
+          assert c['remaining_private_gap'] == 0.02917
+          sim = status['promoted_similarity_stack']
+          assert sim['evaluation']['sessions'] == 432492
+          assert sim['evaluation']['net_order_hits'] == 508
+          assert sim['decision'] == 'PROMOTED_AND_DEPLOYED'
+          active = {x['name']: x for x in status['active_frontier']}
+          assert 'v31 attention candidate union' in active
+          print('PROMOTED_SIMILARITY_FRONTIER_PASSED')
           PY
       - name: Re-execute and reopen the competition-frontier scorecard
         run: |

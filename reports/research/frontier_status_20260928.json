@@ -1,0 +1,96 @@
+{
+  "snapshot_date": "2026-09-28",
+  "competition": {
+    "evaluation_setting": "post-competition Kaggle scoring; not an official medal or rank",
+    "historical_private_winner": 0.60503,
+    "frozen_reference": {
+      "private": 0.56842,
+      "public": 0.56862
+    },
+    "prior_incumbent": {
+      "ref": 56504354,
+      "private": 0.5714,
+      "public": 0.57166,
+      "sha256": "4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d"
+    },
+    "incumbent": {
+      "ref": 56542128,
+      "private": 0.57586,
+      "public": 0.57601,
+      "sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44",
+      "sessions": 1671803,
+      "rows": 5015409,
+      "recipe": "preserve incumbent clicks and threshold-21 carts; replace orders with promoted 137-feature neural-similarity ranker"
+    },
+    "delta_vs_prior": {
+      "private": 0.00446,
+      "public": 0.00435
+    },
+    "remaining_private_gap": 0.02917
+  },
+  "promoted_similarity_stack": {
+    "feature_count": 137,
+    "feature_blocks": {
+      "established": 102,
+      "candidate_to_session_similarity": 28,
+      "neural_query_diagnostics": 7
+    },
+    "selection": {
+      "sessions": 20000,
+      "weighted_gain": 0.003561,
+      "net_order_hits": 20
+    },
+    "evaluation": {
+      "sessions": 432492,
+      "weighted_gain": 0.004396,
+      "net_order_hits": 508,
+      "paired_95_interval": [
+        0.003721,
+        0.005046
+      ],
+      "first_half_gain": 0.004444,
+      "second_half_gain": 0.00435
+    },
+    "decision": "PROMOTED_AND_DEPLOYED"
+  },
+  "closed_since_previous_snapshot": [
+    {
+      "name": "fixed GPU XGBoost order family",
+      "decision": "STOP_NO_QUALIFIED_XGB_STACK",
+      "evidence": {
+        "best_arm": "zmean_lgb_binary_a",
+        "weighted_gain": 0.000712,
+        "net_order_hits": 4,
+        "required_weighted_gain": 0.001,
+        "required_net_order_hits": 6,
+        "evaluation_labels_read": false
+      }
+    }
+  ],
+  "active_frontier": [
+    {
+      "name": "v31 attention candidate union",
+      "status": "owner-run fitting-only cross-validation in progress; no selection/evaluation gain published",
+      "verified_progress": [
+        "five neural epochs completed",
+        "fit and selection neural retrieval completed",
+        "100000-session union feature cache completed",
+        "five fixed ranking arms under fitting-only cross-validation"
+      ],
+      "planned_feature_count": 184,
+      "planned_candidate_cap": 800
+    }
+  ],
+  "remaining_top_solution_gaps": [
+    "remaining first-place neural encoders v15/v18/v21/v23/v27/v29",
+    "full multi-source neural candidate ensemble",
+    "matrix-factorization and sequence-to-sequence retrieval/similarity channels",
+    "broader third-place-style similarity/position/time/action feature families",
+    "complementary objective-specific ranker ensembles"
+  ],
+  "publication_boundaries": [
+    "AWS remains the canonical private execution workspace.",
+    "No raw competition data, labels, per-session predictions, credentials, multi-GB checkpoints, optimizer state, embeddings, or private runner bundles are published.",
+    "Public files contain aggregate evidence, source attribution, reproducibility contracts, and decision status only."
+  ]
+}

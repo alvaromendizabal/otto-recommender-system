@@ -1,0 +1,17 @@
+{
+  "submission_ref": 56542128,
+  "evaluation_setting": "post-competition Kaggle scoring",
+  "private_score": 0.57586,
+  "public_score": 0.57601,
+  "previous_submission_ref": 56504354,
+  "previous_private_score": 0.5714,
+  "previous_public_score": 0.57166,
+  "delta_private": 0.00446,
+  "delta_public": 0.00435,
+  "sessions": 1671803,
+  "rows": 5015409,
+  "sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44",
+  "recipe": "preserve prior incumbent click/cart lists; replace orders with promoted neural-similarity ranker",
+  "validation": "complete row/session validation before one upload; server history reconciled after upload",
+  "caveat": "post-deadline measurement; not an official competition medal or rank"
+}
