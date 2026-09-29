@@ -7,7 +7,8 @@
       "neural_path": "codes/otto/scripts_nn/emb_model_v42.py",
       "ranker_path": "codes/otto/scripts_ranker/train_ranker.py",
       "upstream_license_files_in_staged_snapshot": [],
-      "publication_policy": "No upstream source code or weights vendored; independently implement mathematical mechanisms and attribute the source."
+      "publication_policy": "No upstream source code or weights vendored; independently implement mathematical mechanisms and attribute the source.",
+      "attention_neural_path": "codes/otto/scripts_nn/emb_model_v31.py"
     },
     "third_place": {
       "repository": "TheoViel/kaggle_otto_rs",
@@ -31,20 +32,22 @@
     },
     {
       "component": "Winner v42 task-conditioned sequence MLP and hard-negative contrastive objective",
-      "status": "Independently implemented in this handoff; project evaluation pending",
+      "status": "Independently adapted, trained and evaluated",
       "implementation": "sequence_objective.py",
-      "local_validation": "Mathematical loss fixture, gradients, padding, objective conditioning, exact retrieval ties, native optimizer-state resume. Not upstream trained-weight parity."
+      "local_validation": "Mathematical loss fixture, gradients, padding, objective conditioning, exact retrieval ties, native optimizer-state resume. Not upstream trained-weight parity.",
+      "our_evidence": "The learned representation was retained after a first reranker rejection, converted into candidate-to-session similarity features, passed full reserved evaluation, and contributed to the 0.57586 / 0.57601 promoted submission."
     },
     {
       "component": "Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42",
-      "status": "Not recreated as an integrated ensemble",
-      "our_evidence": "Existing generic two-tower/ANN work does not establish reproduction of these eight encoders."
+      "status": "Partially recreated",
+      "our_evidence": "v42-derived representation is trained and evaluated; v31 attention encoder is independently implemented and trained for five epochs with fitting-only candidate-union cross-fit in progress. The remaining six encoders are not claimed as reproduced."
     },
     {
       "component": "Candidate-aware neural integration with established order ranking",
-      "status": "Prepared; project evaluation pending",
+      "status": "Partially adapted and evaluated",
       "implementation": "candidate_integration.py",
-      "design": "Retain original 400, append novel neural top-200, retain old source semantics, fixed ranker on 100000 fitting-session universe."
+      "design": "v42 similarity stack: established 400-candidate pool plus learned similarity/query features; v31 branch: preserve established candidates, union complementary neural candidates before training, and evaluate fixed arms under fit-only cross-validation.",
+      "our_evidence": "v42 similarity integration passed selection and full reserved evaluation, then scored 0.57586 private / 0.57601 public. v31 union has no published selection/evaluation result yet."
     },
     {
       "component": "Word2Vec candidate/session similarity features",
@@ -58,13 +61,14 @@
     },
     {
       "component": "Multiple ranker configurations and complementary model ensemble",
-      "status": "Not fully recreated",
-      "our_evidence": "Current objective routing is a fixed component switch, not the full winning ensemble."
+      "status": "Partially tested",
+      "our_evidence": "Same-family seed averaging and a fixed GPU XGBoost family were rejected by selection gates. Broader complementary ranker ensembles remain open."
     }
   ],
   "next_backlog": [
-    "Execute this fixed supervised-neural/order-ranking integration; stop on nonpositive selection gain.",
-    "If useful, test neural-source ablations and complementary encoders on selection/OOF predictions; never learn blend weights from reported evaluation outcomes.",
-    "Address remaining MF/XGBoost and multi-channel candidate gaps without duplicating existing Word2Vec studies."
+    "Finish the fixed v31 fitting-only candidate-union cross-fit; open selection only for a qualifying arm.",
+    "If v31 qualifies, require untouched selection and full reserved temporal evaluation before deployment.",
+    "Recreate remaining complementary first-place neural encoders one mechanism at a time and retain only sources that add candidate coverage or ranking value.",
+    "Address remaining matrix-factorization, sequence-to-sequence, broader similarity-feature and complementary-ranker gaps without duplicating closed Word2Vec/XGBoost recipes."
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "snapshot_date": "2026-09-28",
+  "scope": "aggregate owner-run engineering/research ledger; local synthetic tests are excluded from owner-run counts",
+  "owner_run_outcomes": {
+    "successful_as_designed": 18,
+    "engineering_command_environment_ui_resource_failures": 15,
+    "nonblocking_post_result_defects": 1
+  },
+  "active_compute_cost_estimate_usd": {
+    "successful_runs": 64.8,
+    "failed_runs_and_incidents": 9.83,
+    "total_attributed_active_compute": 74.63,
+    "note": "estimate from recorded run durations and observed SageMaker Studio rates; excludes idle Studio time, persistent storage, S3, taxes, credits, and unrelated projects"
+  },
+  "interpretation": "A scientifically valid rejection counts as a successful run. Engineering/resource incidents that prevent the intended scientific decision are counted separately."
+}

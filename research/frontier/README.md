@@ -1,16 +1,17 @@
 # Frontier research · evidence, mechanisms and decisions
 
-**Latest snapshot:** September 23, 2026. The strongest verified post-competition Kaggle result is **0.57140 private / 0.57166 public** on submission **56504354**. The recorded historical private winner is **0.60503**, leaving a **0.03363** gap. Competition scores and temporal research scores remain separate evaluation settings.
+**Latest snapshot:** September 28, 2026. The strongest verified post-competition Kaggle result is **0.57586 private / 0.57601 public** on submission **56542128**. The recorded historical private winner is **0.60503**, leaving a **0.02917** gap. Competition scores and temporal research scores remain separate evaluation settings.
 
-Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for scale/recovery engineering, [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the dated supervised-neural design snapshot, and [04_competition_frontier.ipynb](04_competition_frontier.ipynb) for the current executed scorecard.
+Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for scale/recovery engineering, [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the dated supervised-neural design snapshot, [04_competition_frontier.ipynb](04_competition_frontier.ipynb) for the September 23 scorecard, and [05_similarity_v31_status.md](05_similarity_v31_status.md) for the current promoted similarity result and v31 frontier.
 
-## September 23 score-moving frontier
+## September 28 score-moving frontier
 
 The post-competition submission lineage now has three verified milestones:
 
 - Frozen official-prefix reference: **0.56842 private / 0.56862 public**.
 - Objective router, submission 56472100: **0.57100 / 0.57121**.
 - Long-session cart router, submission 56504354: **0.57140 / 0.57166**. It keeps fusion clicks and selected orders, and uses selected carts only when the observed prefix has at least 21 events.
+- **Neural-similarity orders, submission 56542128: 0.57586 / 0.57601.** It preserves the prior click/cart lists and replaces orders with the promoted 137-feature similarity ranker.
 
 A bounded exact-threshold study qualified thresholds 14–18 on historical ledgers and submitted threshold 14 only after freezing the rule. It scored **0.57130 private / 0.57168 public**. The slight public movement did not offset the private-score regression, so the family is closed and threshold 21 remains the incumbent.
 
@@ -20,12 +21,13 @@ The trained task-conditioned neural retriever increased order candidate coverage
 
 A separate three-seed LightGBM order ensemble tested individual seeds, equal-score means, standardized-score means, Borda and reciprocal-rank fusion. The best fixed arm, mean-of-three, tied the incumbent at **2,306 order hits**; every other arm lost hits. No arm qualified, evaluation labels remained closed, and the branch is stopped.
 
-## Active frontier
+## Current frontier
 
-Two materially different capabilities remain open in this snapshot:
+The candidate-to-session similarity branch is now **promoted and measured**. Its 137-feature order ranker improved weighted Recall@20 by **+0.004396** and recovered **+508 order targets** on all 432,492 reserved temporal sessions; the paired 95% interval was **+0.003721 to +0.005046** and both chronological halves were positive. Official-prefix deployment then scored **0.57586 private / 0.57601 public** on submission 56542128.
 
-- **Candidate-to-session similarity stack:** adapts the third-place-style aggregation idea to the completed learned representation. It reached owner-run reserved evaluation; no final result is published here yet.
-- **GPU XGBoost order stack:** introduces a different boosted-tree family and ranking objective rather than another LightGBM seed. Its first owner run completed one GPU fit but stopped at an engineering serialization-parity gate before selection. No predictive gain is claimed until the corrected continuation passes selection and reserved evaluation.
+The fixed GPU XGBoost family completed selection but did not qualify: its best arm added **+4 order hits** and **+0.000712 weighted Recall@20**, below the frozen +6-hit and +0.001 gates. Evaluation labels remained closed, so that branch is scientifically stopped rather than repeatedly tuned.
+
+The active model branch independently adapts a first-place-style **v31 attention encoder** as a complement to the already evaluated v42-derived representation. Five neural epochs are complete; fit/selection neural retrieval and the 100,000-session union feature cache are complete; fitting-only five-arm cross-validation is the current decision stage. No v31 selection or reserved-evaluation gain is published before those gates pass.
 
 The complete first-place eight-model neural candidate ensemble and the full third-place matrix-factorization / sequence-to-sequence / broad similarity-feature stack are still not claimed as reproduced.
 
@@ -84,4 +86,4 @@ python -m pytest tests/test_frontier_publication.py tests/test_training_scale_pu
 
 Only aggregate evidence, source identities, selected code and executed interpretation are public. Raw events, row-level targets and predictions, cohort IDs, full models, embeddings, environments and account logs remain private. Publication does not pull, reset or migrate the pinned AWS runtime.
 
-The next decisions come from the still-open similarity-stack and XGBoost branches, not from reopening stopped neural residual, threshold, or same-family seed-bagging recipes. The strongest verified post-competition submission is **0.57140 private / 0.57166 public**, reference **56504354**. Any new model must pass its frozen local gates before competition inference or upload.
+The next decision comes from the v31 candidate-union cross-fit, not from reopening stopped neural residual, threshold, same-family seed-bagging, or fixed XGBoost recipes. The strongest verified post-competition submission is **0.57586 private / 0.57601 public**, reference **56542128**. Any new model must pass fitting-only, selection, and reserved temporal gates before competition inference or upload.

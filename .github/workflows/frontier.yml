@@ -116,6 +116,25 @@ jobs:
           assert closed['cart threshold refinement'].startswith('CLOSE_')
           print('COMPETITION_FRONTIER_SNAPSHOT_PASSED')
           PY
+      - name: Verify the promoted similarity frontier
+        run: |
+          /tmp/otto-frontier/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          status = json.loads(Path('reports/research/frontier_status_20260928.json').read_text())
+          c = status['competition']
+          assert c['incumbent']['ref'] == 56542128
+          assert c['incumbent']['private'] == 0.57586
+          assert c['incumbent']['public'] == 0.57601
+          assert c['remaining_private_gap'] == 0.02917
+          sim = status['promoted_similarity_stack']
+          assert sim['evaluation']['sessions'] == 432492
+          assert sim['evaluation']['net_order_hits'] == 508
+          assert sim['decision'] == 'PROMOTED_AND_DEPLOYED'
+          active = {x['name']: x for x in status['active_frontier']}
+          assert 'v31 attention candidate union' in active
+          print('PROMOTED_SIMILARITY_FRONTIER_PASSED')
+          PY
       - name: Re-execute and reopen the competition-frontier scorecard
         run: |
           cd research/frontier

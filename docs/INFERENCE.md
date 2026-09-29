@@ -1,6 +1,6 @@
 # Competition inference and model replay
 
-**Current best verified Kaggle result: 0.57140 private / 0.57166 public**, submission reference **56504354**, scored after the competition deadline. The frozen 102-feature reference remains fully reproducible at 0.56842 private / 0.56862 public. The objective router at 0.57100 / 0.57121 remains an intermediate verified milestone. All use the verified official competition prefixes; none is an official medal or rank claim.
+**Current best verified Kaggle result: 0.57586 private / 0.57601 public**, submission reference **56542128**, scored after the competition deadline. The promoted similarity-stack order model preserves the 0.57140 / 0.57166 incumbent's click/cart lists and replaces orders after passing selection and the full 432,492-session temporal evaluation. The frozen 102-feature reference remains fully reproducible at 0.56842 private / 0.56862 public. All use the verified official competition prefixes; none is an official medal or rank claim.
 
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
@@ -25,11 +25,11 @@ The notebook execution and final prediction manifest have separate receipts.
 
 The objective router `otto_objective_router_1bff4f74728e7ebe.csv.gz` remains an auditable intermediate milestone at **0.57100 private / 0.57121 public** (submission **56472100**). It uses established fusion output for clicks and carts while preserving accepted selected-ranker order lists.
 
-The current private-score incumbent is `otto_long_cart_router_96e865f85df05dae.csv.gz`, SHA-256 `4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d`. It contains all **5,015,409 rows for 1,671,803 official sessions**. The fixed recipe keeps fusion clicks and selected-ranker orders, and routes carts to the selected cart ranker only when the observed prefix has **21 or more events**. Kaggle reports submission **56504354** complete after the deadline at **0.57140 private / 0.57166 public**, a **+0.00040 private / +0.00045 public** movement over the objective router.
+The prior private-score incumbent `otto_long_cart_router_96e865f85df05dae.csv.gz`, SHA-256 `4b6770f3b750e3c265ad1f2094f6caa8791d31b93fd90656ca14761e55ed8c0d`, remains an auditable lineage milestone at **0.57140 private / 0.57166 public**. The current incumbent is the validated similarity-stack submission, SHA-256 `3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44`. It contains all **5,015,409 rows for 1,671,803 official sessions**, preserves the prior incumbent's fusion clicks and threshold-21 cart routing, and replaces orders with the promoted 137-feature similarity ranker. Kaggle reports submission **56542128** complete after the deadline at **0.57586 private / 0.57601 public**, a **+0.00446 private / +0.00435 public** movement over submission 56504354.
 
 A bounded threshold follow-up froze threshold 14 from nine completed historical cells before upload. Submission **56504676** scored **0.57130 private / 0.57168 public**. Because private score declined by 0.00010 versus threshold 21, threshold 14 is not promoted and the nearby threshold-search family is closed.
 
-These routed submissions do not overwrite the frozen-model delivery artifact below. The 0.56842 / 0.56862 release remains the canonical reproduction of the selected 102-feature ranking system; later submissions are separately identified post-processing recipes built from verified outputs.
+These later submissions do not overwrite the frozen-model delivery artifact below. The 0.56842 / 0.56862 release remains the canonical reproduction of the selected 102-feature ranking system; later routed and learned-order submissions are separately identified descendants built from verified outputs.
 
 ## Download and submit the completed full run
 
