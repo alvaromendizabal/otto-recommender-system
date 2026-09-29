@@ -2,7 +2,7 @@
 
 **Latest snapshot:** September 28, 2026. The strongest verified post-competition Kaggle result is **0.57586 private / 0.57601 public** on submission **56542128**. The recorded historical private winner is **0.60503**, leaving a **0.02917** gap. Competition scores and temporal research scores remain separate evaluation settings.
 
-Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for scale/recovery engineering, [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the dated supervised-neural design snapshot, [04_competition_frontier.ipynb](04_competition_frontier.ipynb) for the September 23 scorecard, and [05_similarity_v31_frontier.md](05_similarity_v31_frontier.md) for the current promoted similarity result and v31 frontier.
+Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for scale/recovery engineering, [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the dated supervised-neural design snapshot, [04_competition_frontier.ipynb](04_competition_frontier.ipynb) for the September 23 scorecard, and [05_similarity_attention_frontier.md](05_similarity_attention_frontier.md) for the current promoted similarity result and v31 frontier.
 
 ## September 28 score-moving frontier
 
