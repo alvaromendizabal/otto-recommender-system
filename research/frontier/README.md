@@ -1,8 +1,8 @@
 # Frontier research · evidence, mechanisms and decisions
 
-**Latest snapshot:** September 28, 2026. The strongest verified post-competition Kaggle result is **0.57586 private / 0.57601 public** on submission **56542128**. The recorded historical private winner is **0.60503**, leaving a **0.02917** gap. Competition scores and temporal research scores remain separate evaluation settings.
+**Latest snapshot:** September 29, 2026. The strongest verified post-competition Kaggle result is **0.57586 private / 0.57601 public** on submission **56542128**. The recorded historical private winner is **0.60503**, leaving a **0.02917** gap. Competition scores and temporal research scores remain separate evaluation settings; the current XGBoost/blend study is still offline and in reserved evaluation.
 
-Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for scale/recovery engineering, [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the dated supervised-neural design snapshot, [04_competition_frontier.ipynb](04_competition_frontier.ipynb) for the September 23 scorecard, and [05_similarity_attention_frontier.md](05_similarity_attention_frontier.md) for the current promoted similarity result and v31 frontier.
+Start with [01_frontier_review.ipynb](01_frontier_review.ipynb) for earlier mechanism studies, [02_training_scale_status.ipynb](02_training_scale_status.ipynb) for scale/recovery engineering, [../neural_stack/03_neural_stack_status.ipynb](../neural_stack/03_neural_stack_status.ipynb) for the dated supervised-neural design snapshot, [04_competition_frontier.ipynb](04_competition_frontier.ipynb) for the September 23 scorecard, [05_similarity_attention_frontier.md](05_similarity_attention_frontier.md) for the promoted similarity result, and [06_transition_model_frontier.md](06_transition_model_frontier.md) for the current transition/model-family frontier.
 
 ## September 28 score-moving frontier
 
@@ -23,13 +23,15 @@ A separate three-seed LightGBM order ensemble tested individual seeds, equal-sco
 
 ## Current frontier
 
-The candidate-to-session similarity branch is now **promoted and measured**. Its 137-feature order ranker improved weighted Recall@20 by **+0.004396** and recovered **+508 order targets** on all 432,492 reserved temporal sessions; the paired 95% interval was **+0.003721 to +0.005046** and both chronological halves were positive. Official-prefix deployment then scored **0.57586 private / 0.57601 public** on submission 56542128.
+The candidate-to-session similarity branch remains the **promoted and measured incumbent**. Its 137-feature order ranker improved weighted Recall@20 by **+0.004396** and recovered **+508 order targets** on all 432,492 reserved temporal sessions; official-prefix deployment then scored **0.57586 private / 0.57601 public** on submission 56542128.
 
-The fixed GPU XGBoost family completed selection but did not qualify: its best arm added **+4 order hits** and **+0.000712 weighted Recall@20**, below the frozen +6-hit and +0.001 gates. Evaluation labels remained closed, so that branch is scientifically stopped rather than repeatedly tuned.
+The complementary attention study is now closed under its original fitting-only gates. On the incumbent candidate pool its best attention-only arm added **+7 order hits / +0.000235 weighted Recall@20**; the tested neural candidate union regressed, so selection remained closed. A subsequent dense interaction/score-stack study again peaked at **+7 order hits / +0.000235** and was also closed without opening selection.
 
-The active model branch independently adapts a first-place-style **v31 attention encoder** as a complement to the already evaluated v42-derived representation. Five neural epochs are complete; fit/selection neural retrieval and the 100,000-session union feature cache are complete; fitting-only five-arm cross-validation is the current decision stage. No v31 selection or reserved-evaluation gain is published before those gates pass.
+The next representation family independently adapted broader leading-solution mechanisms: direct candidate-source evidence, position/time/action-weighted co-visitation and directional transition factors. Its 496-feature `full_transition` arm recovered **+37 fitting-order hits** and **+0.001241 weighted Recall@20**. That passed the hit and fold-stability requirements but narrowly missed the frozen +0.0015 weighted-gain gate, so its selection labels remained closed.
 
-The complete first-place eight-model neural candidate ensemble and the full third-place matrix-factorization / sequence-to-sequence / broad similarity-feature stack are still not claimed as reproduced.
+Rather than discard that stronger representation, a distinct model-family experiment fixed an XGBoost binary classifier, a query-group ranker and preregistered blends against the LightGBM baseline. That study passed fitting-only screening and the full 20,000-session selection gate and entered the 432,492-session reserved temporal evaluation. The final arm identity and evaluation gain are not published until the run completes.
+
+The complete first-place eight-model neural candidate ensemble and the full third-place matrix-factorization / sequence-to-sequence / broad candidate stack are still not claimed as reproduced.
 
 ## Training scale: completed and bridged
 
@@ -37,11 +39,11 @@ The fixed 8,192→32,768-session comparison completed on 16,384 matched evaluati
 
 A retrospective same-session bridge then compared the 32,768-session challenger with an archived, established 100,000-session pipeline from the same corpus lineage. The established pipeline scored **0.563622** versus **0.550513** for the challenger, a **-0.013109** difference for the pilot with a paired interval entirely below zero. The research decision is therefore **stop pilot expansion and return to the established pipeline**.
 
-## Current frontier: supervised sequence retrieval
+## Sequence-retrieval lineage
 
-The active experiment independently adapts a first-place-style task-conditioned sequence encoder and hard-negative contrastive objective. It preserves the incumbent 400 candidates, appends up to 200 neural order candidates, and fits one fixed neural-aware order ranker on the established 100,000-session fitting universe. Click/cart routing stays fixed. The frozen downstream roles are 100,000 fit, 20,000 selection and 432,492 evaluation sessions.
+The first sequence experiment independently adapted a first-place-style task-conditioned encoder and hard-negative contrastive objective. Its v42-derived representation ultimately became useful as similarity evidence and was promoted. A later complementary attention encoder was trained and evaluated under fitting-only candidate-aware cross-validation; its candidate union did not qualify and is closed. The frozen downstream roles remain 100,000 fit, 20,000 selection and 432,492 evaluation sessions.
 
-The public [reproduction matrix](../neural_stack/reproduction_matrix.json) distinguishes mechanisms that are adapted and evaluated from those merely prepared or still missing. In particular, the complete eight-model winning neural candidate ensemble and TheoViel's full matrix-factorization / sequence-to-sequence / XGBoost stack are **not** claimed as reproduced. The real neural run has no published selection/evaluation gain yet.
+The public [reproduction matrix](../neural_stack/reproduction_matrix.json) distinguishes mechanisms that are adapted and evaluated from those still missing. Two complementary neural encoder families have now been independently adapted; broader source/transition features and an XGBoost ranking family are also tested. The complete eight-model winning neural candidate ensemble and TheoViel's full matrix-factorization / sequence-to-sequence candidate stack are **not** claimed as reproduced.
 
 ## Completed mechanism studies
 
@@ -56,6 +58,9 @@ The public [reproduction matrix](../neural_stack/reproduction_matrix.json) disti
 | Sparse neural residual insertion | Best +2 fitting-only order hits vs +5 gate | Stop residual policy family |
 | Cart threshold refinement | Threshold 14: 0.57130 private / 0.57168 public vs threshold-21 incumbent 0.57140 / 0.57166 | Close threshold family; keep threshold 21 |
 | Three-seed LightGBM order ensemble | Best fixed arm tied baseline; all others lost hits | Stop same-family seed bagging |
+| Complementary attention candidate union | Best base arm +7 order hits / +0.000235; union arms regressed | Stop tested union; preserve encoder as feature source |
+| Dense neural interaction + score stack | Best arm +7 order hits / +0.000235; below +0.0015 gain gate | Stop dense-stack family |
+| Transition/source representation | Best arm +37 order hits / +0.001241; stable but below +0.0015 gain gate | Preserve representation; test complementary model family |
 
 Compare point scores only within each matched study. Reported intervals are descriptive paired session-bootstrap intervals, not corrections for adaptive research or training-seed variability. Public totals reproduce point scores but not bootstrap distributions. The corpus was previously explored. The pilot control is not the accepted 102-feature submission model.
 
@@ -86,4 +91,4 @@ python -m pytest tests/test_frontier_publication.py tests/test_training_scale_pu
 
 Only aggregate evidence, source identities, selected code and executed interpretation are public. Raw events, row-level targets and predictions, cohort IDs, full models, embeddings, environments and account logs remain private. Publication does not pull, reset or migrate the pinned AWS runtime.
 
-The next decision comes from the v31 candidate-union cross-fit, not from reopening stopped neural residual, threshold, same-family seed-bagging, or fixed XGBoost recipes. The strongest verified post-competition submission is **0.57586 private / 0.57601 public**, reference **56542128**. Any new model must pass fitting-only, selection, and reserved temporal gates before competition inference or upload.
+The next decision comes from the in-progress transition-source XGBoost/blend reserved evaluation, not from reopening stopped attention-union, dense-stack, threshold, seed-bagging, or earlier fixed-XGBoost recipes. The strongest verified post-competition submission remains **0.57586 private / 0.57601 public**, reference **56542128**. No new competition inference or upload is justified until the reserved evaluation is complete and passes its frozen gate.
