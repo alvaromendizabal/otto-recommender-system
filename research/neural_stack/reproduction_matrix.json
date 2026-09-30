@@ -39,15 +39,15 @@
     },
     {
       "component": "Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42",
-      "status": "Partially recreated",
-      "our_evidence": "v42-derived representation is trained and evaluated; v31 attention encoder is independently implemented and trained for five epochs with fitting-only candidate-union cross-fit in progress. The remaining six encoders are not claimed as reproduced."
+      "status": "Partially recreated and evaluated",
+      "our_evidence": "v42-derived representation is trained, evaluated and promoted as similarity evidence; a complementary attention encoder is independently trained and fitting-only evaluated. Its base representation added +7 order hits but the tested candidate union regressed. The remaining six encoders are not claimed as reproduced."
     },
     {
       "component": "Candidate-aware neural integration with established order ranking",
-      "status": "Partially adapted and evaluated",
+      "status": "Adapted and evaluated in multiple fixed studies",
       "implementation": "candidate_integration.py",
       "design": "v42 similarity stack: established 400-candidate pool plus learned similarity/query features; v31 branch: preserve established candidates, union complementary neural candidates before training, and evaluate fixed arms under fit-only cross-validation.",
-      "our_evidence": "v42 similarity integration passed selection and full reserved evaluation, then scored 0.57586 private / 0.57601 public. v31 union has no published selection/evaluation result yet."
+      "our_evidence": "v42 similarity integration passed selection and full reserved evaluation, then scored 0.57586 private / 0.57601 public. The complementary attention candidate union failed fitting-only gates, and a later dense interaction/score-stack study also failed to qualify."
     },
     {
       "component": "Word2Vec candidate/session similarity features",
@@ -56,19 +56,19 @@
     },
     {
       "component": "Theo matrix-factorization / sequence-to-sequence feature stack and full 744-feature XGBoost system",
-      "status": "Integrated validated reproduction not established",
-      "our_evidence": "The recent normalized-graph factorization is not equivalent to that full system."
+      "status": "Partially adapted and evaluated",
+      "our_evidence": "Direct source evidence, position/time/action-weighted co-visitation and directional low-rank transition factors were independently adapted into a 496-feature representation. Its best fitting-only arm added +37 order hits and +0.001241 weighted Recall@20 but missed the frozen +0.0015 gain gate. Full upstream MF/Seq2Seq candidate retrieval and the complete 744-feature system are not claimed as reproduced."
     },
     {
       "component": "Multiple ranker configurations and complementary model ensemble",
-      "status": "Partially tested",
-      "our_evidence": "Same-family seed averaging and a fixed GPU XGBoost family were rejected by selection gates. Broader complementary ranker ensembles remain open."
+      "status": "Active reserved evaluation",
+      "our_evidence": "Same-family seed averaging and an earlier fixed GPU XGBoost family were rejected. A newer transition/source XGBoost classifier, query-group ranker and fixed-blend study passed fitting-only and selection gates and entered reserved temporal evaluation; final gain is not yet published."
     }
   ],
   "next_backlog": [
-    "Finish the fixed v31 fitting-only candidate-union cross-fit; open selection only for a qualifying arm.",
-    "If v31 qualifies, require untouched selection and full reserved temporal evaluation before deployment.",
-    "Recreate remaining complementary first-place neural encoders one mechanism at a time and retain only sources that add candidate coverage or ranking value.",
-    "Address remaining matrix-factorization, sequence-to-sequence, broader similarity-feature and complementary-ranker gaps without duplicating closed Word2Vec/XGBoost recipes."
+    "Finish the transition/source XGBoost-blend reserved evaluation and publish its frozen decision before any deployment.",
+    "If the reserved evaluation qualifies, reproduce official-prefix inference while preserving current best click/cart outputs unless separately improved.",
+    "Recreate remaining complementary first-place neural encoders one mechanism at a time and retain only sources that add unique target coverage.",
+    "Complete matrix-factorization, sequence-to-sequence and action-specific Word2Vec candidate retrieval without duplicating closed feature-only studies."
   ]
 }
