@@ -1,0 +1,91 @@
+{
+  "snapshot_date": "2026-09-29",
+  "competition": {
+    "evaluation_setting": "post-competition Kaggle scoring; not an official medal or rank",
+    "historical_private_winner": 0.60503,
+    "incumbent": {
+      "ref": 56542128,
+      "private": 0.57586,
+      "public": 0.57601,
+      "sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44"
+    },
+    "remaining_private_gap": 0.02917
+  },
+  "completed_since_previous_snapshot": [
+    {
+      "name": "complementary attention candidate union",
+      "evaluation_role": "fitting-only cross-validation",
+      "decision": "STOP_NO_QUALIFIED_ATTENTION_ARM",
+      "best_arm": {
+        "weighted_gain": 0.000235,
+        "net_order_hits": 7
+      },
+      "candidate_union_result": "regressed materially; selection remained closed",
+      "selection_labels_read": false,
+      "evaluation_labels_read": false
+    },
+    {
+      "name": "dense neural interaction and score stack",
+      "evaluation_role": "fitting-only cross-validation",
+      "decision": "STOP_NO_QUALIFIED_DENSE_ARM",
+      "best_arm": {
+        "name": "dual_dense",
+        "weighted_gain": 0.000234716,
+        "net_order_hits": 7
+      },
+      "required_weighted_gain": 0.0015,
+      "selection_labels_read": false,
+      "evaluation_labels_read": false
+    },
+    {
+      "name": "transition and source representation",
+      "evaluation_role": "fitting-only cross-validation",
+      "decision": "STOP_NO_QUALIFIED_TRANSITION_ARM",
+      "feature_count": 496,
+      "best_arm": {
+        "name": "full_transition",
+        "weighted_gain": 0.001240639,
+        "net_order_hits": 37
+      },
+      "required_weighted_gain": 0.0015,
+      "hit_gate_passed": true,
+      "fold_stability_passed": true,
+      "selection_labels_read": false,
+      "evaluation_labels_read": false
+    }
+  ],
+  "active_frontier": [
+    {
+      "name": "transition-source XGBoost and fixed blends",
+      "status": "reserved temporal evaluation in progress after fitting-only and selection gates passed",
+      "representation_features": 496,
+      "model_families": [
+        "gradient-boosted binary classifier",
+        "query-group boosted ranker",
+        "fixed preregistered blends with LightGBM"
+      ],
+      "fitting_gate_passed": true,
+      "selection_sessions_completed": 20000,
+      "selection_gate_passed": true,
+      "evaluation_sessions_total": 432492,
+      "last_observed_evaluation_sessions": 134144,
+      "final_evaluation_result_published": false,
+      "submission_attempted": false,
+      "disclosure": "selected arm identity and final gain remain private/unclaimed until the run completes"
+    }
+  ],
+  "remaining_top_solution_gaps": [
+    "remaining first-place neural encoders v15/v18/v21/v23/v27/v29",
+    "full multi-source neural candidate ensemble",
+    "matrix-factorization candidate retrieval rather than only transition-factor features",
+    "sequence-to-sequence candidate retrieval",
+    "action-specific Word2Vec candidate channels",
+    "objective-specific click/cart improvements beyond the current order-focused frontier"
+  ],
+  "publication_boundaries": [
+    "AWS remains the canonical private execution workspace.",
+    "No raw competition data, labels, per-session predictions, credentials, model binaries, optimizer state, embeddings, private runner bundles, or row-level evaluation outputs are published.",
+    "Public files contain aggregate evidence, source attribution, gate definitions and decision status only.",
+    "The active reserved evaluation is explicitly in progress; no final metric or leaderboard claim is inferred."
+  ]
+}
