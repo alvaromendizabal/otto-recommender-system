@@ -135,6 +135,25 @@ jobs:
           assert 'v31 attention candidate union' in active
           print('PROMOTED_SIMILARITY_FRONTIER_PASSED')
           PY
+      - name: Verify the September 29 transition/model frontier
+        run: |
+          /tmp/otto-frontier/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          status = json.loads(Path('reports/research/frontier_status_20260929.json').read_text())
+          c = status['competition']
+          assert c['incumbent']['ref'] == 56542128
+          assert c['incumbent']['private'] == 0.57586
+          completed = {x['name']: x for x in status['completed_since_previous_snapshot']}
+          assert completed['transition and source representation']['best_arm']['net_order_hits'] == 37
+          assert completed['transition and source representation']['decision'].startswith('STOP_')
+          active = {x['name']: x for x in status['active_frontier']}
+          xgb = active['transition-source XGBoost and fixed blends']
+          assert xgb['selection_gate_passed'] is True
+          assert 0 < xgb['last_observed_evaluation_sessions'] < xgb['evaluation_sessions_total']
+          assert xgb['final_evaluation_result_published'] is False
+          print('TRANSITION_MODEL_FRONTIER_PASSED')
+          PY
       - name: Re-execute and reopen the competition-frontier scorecard
         run: |
           cd research/frontier
