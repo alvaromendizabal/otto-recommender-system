@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml)
 
-**Current verified result:** **0.57586 private / 0.57601 public** on submission **56542128**, scored after the competition deadline. The promoted similarity-stack order model improves the prior 0.57140 / 0.57166 incumbent by **+0.00446 private / +0.00435 public** while preserving its click and cart lists. The recorded historical private winning benchmark is **0.60503**, leaving a **0.02917** private-score gap. **Current frontier:** candidate-to-session neural similarity is now promoted and measured; the fixed GPU XGBoost family is closed at selection; a complementary attention-based v31 candidate union is in gated cross-fit. [Current frontier snapshot](research/frontier/05_similarity_attention_frontier.md) · [Submission provenance](docs/INFERENCE.md)
+**Current verified result:** **0.57586 private / 0.57601 public** on submission **56542128**, scored after the competition deadline. The promoted similarity-stack order model improves the prior 0.57140 / 0.57166 incumbent by **+0.00446 private / +0.00435 public** while preserving its click and cart lists. The recorded historical private winning benchmark is **0.60503**, leaving a **0.02917** private-score gap. **Current frontier:** the attention-candidate union and dense neural interaction branches are closed under fitting-only gates; a broader transition/source representation recovered **+37 fitting-order hits** but narrowly missed its weighted-gain gate; a complementary XGBoost classifier/ranker + fixed-blend study has passed fitting and selection and is in reserved temporal evaluation, with no final gain claimed yet. [Current transition/model snapshot](research/frontier/06_transition_model_frontier.md) · [Submission provenance](docs/INFERENCE.md)
 
 ## Start here
 
@@ -16,7 +16,8 @@
 | [Training scale and recovery](research/frontier/02_training_scale_status.ipynb) | Larger training support, model sealing and checkpoint recovery; later completed and bridged to the established pipeline |
 | [03 · Neural frontier](research/neural_stack/03_neural_stack_status.ipynb) | Dated neural-design snapshot and first-place sequence-retrieval adaptation |
 | [04 · Competition frontier](research/frontier/04_competition_frontier.ipynb) | Executed September 23 scorecard: verified leaderboard progression and closed hypotheses at that snapshot |
-| [05 · Similarity + v31 frontier](research/frontier/05_similarity_attention_frontier.md) | Current 0.57586 result, similarity-stack promotion, XGBoost closeout and v31 union status |
+| [05 · Similarity + attention frontier](research/frontier/05_similarity_attention_frontier.md) | Promoted 0.57586 similarity result and the first complementary-attention study |
+| [06 · Transition + model frontier](research/frontier/06_transition_model_frontier.md) | Dense-interaction closeout, transition/source features, model-family diversification and current reserved evaluation |
 | [05 · Two-tower results](notebooks/05_two_tower_results.ipynb) and [06 · ANN benchmark](notebooks/06_ann_benchmark.ipynb) | Objective-conditioned neural retrieval and nearest-neighbor experiments |
 | [10 · Competition inference](notebooks/10_competition_inference.ipynb) | Frozen native-model replay and verified official-prefix batch delivery |
 
@@ -72,4 +73,4 @@ uv sync --frozen --extra dev --extra ml
 .venv/bin/python scripts/run_quality_gate.py
 ```
 
-**Scope:** the delivered reference system and verified post-competition submission lineage are complete and inspectable; performance research remains open. The current private-score incumbent is **0.57586 private / 0.57601 public**. The historical private winning benchmark of **0.60503** has not been reached. Candidate-to-session neural similarity is promoted; the tested fixed XGBoost family is closed; the attention-based v31 union remains under gated evaluation. The complete winning candidate/ranker ensemble has not been reproduced. No official rank, medal, production-service deployment, or state-of-the-art claim is made.
+**Scope:** the delivered reference system and verified post-competition submission lineage are complete and inspectable; performance research remains open. The current private-score incumbent is **0.57586 private / 0.57601 public**. The historical private winning benchmark of **0.60503** has not been reached. Candidate-to-session neural similarity is promoted; the tested attention union and dense interaction branches are closed; transition/source features are preserved as useful fitting-only evidence; and a distinct XGBoost/blend branch is undergoing reserved evaluation. The complete winning candidate/ranker ensemble has not been reproduced. No official rank, medal, production-service deployment, or state-of-the-art claim is made.
