@@ -62,7 +62,7 @@ jobs:
           assert status['neural_stack']['state'] == 'IN_PROGRESS_NO_SELECTION_OR_EVALUATION_RESULT'
           assert hashlib.sha256(notebook.read_bytes()).hexdigest() == receipt['sha256']
           components = {x['component']: x['status'] for x in matrix['components']}
-          assert components['Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42'] == 'Partially recreated'
+          assert components['Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42'] == 'Partially recreated and evaluated'
           path = root / 'candidate_integration.py'
           spec = importlib.util.spec_from_file_location('candidate_integration_public', path)
           module = importlib.util.module_from_spec(spec)
