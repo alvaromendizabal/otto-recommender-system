@@ -1,6 +1,6 @@
 # Competition inference and model replay
 
-**Current best verified Kaggle result: 0.57586 private / 0.57601 public**, submission reference **56542128**, scored after the competition deadline. The promoted similarity-stack order model preserves the 0.57140 / 0.57166 incumbent's click/cart lists and replaces orders after passing selection and the full 432,492-session temporal evaluation. The frozen 102-feature reference remains fully reproducible at 0.56842 private / 0.56862 public. All use the verified official competition prefixes; none is an official medal or rank claim.
+**Current best verified Kaggle result: 0.57586 private / 0.57601 public**, submission reference **56542128**, scored after the competition deadline. The promoted similarity-stack order model preserves the 0.57140 / 0.57166 incumbent's click/cart lists and replaces orders after passing selection and the full 432,492-session temporal evaluation. The frozen 102-feature reference remains fully reproducible at 0.56842 private / 0.56862 public. Later transition/source and XGBoost/blend research remains offline; no newer leaderboard score or deployment is claimed until its reserved evaluation completes. All verified submissions use the attested official competition prefixes; none is an official medal or rank claim.
 
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.

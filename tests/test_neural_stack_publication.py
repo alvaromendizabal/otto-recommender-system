@@ -26,7 +26,7 @@ def test_reproduction_matrix_does_not_claim_complete_winner_reproduction() -> No
     statuses = {row["component"]: row["status"] for row in matrix["components"]}
     ensemble = "Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42"
     objective = "Winner v42 task-conditioned sequence MLP and hard-negative contrastive objective"
-    assert statuses[ensemble] == "Partially recreated"
+    assert statuses[ensemble] == "Partially recreated and evaluated"
     assert statuses[objective] == "Independently adapted, trained and evaluated"
 
 

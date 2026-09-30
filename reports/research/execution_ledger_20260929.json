@@ -1,0 +1,17 @@
+{
+  "snapshot_date": "2026-09-29",
+  "scope": "aggregate owner-run engineering/research ledger; current in-progress XGBoost evaluation excluded from completed-run classifications",
+  "owner_run_outcomes": {
+    "successful_as_designed": 20,
+    "engineering_command_environment_ui_resource_failures": 16,
+    "nonblocking_post_result_or_ui_incidents": 3
+  },
+  "active_compute_cost_estimate_usd": {
+    "completed_successful_runs": 65.418989,
+    "completed_failed_runs_and_incidents": 9.835856,
+    "completed_total_attributed_active_compute": 75.254845,
+    "current_in_progress_run_last_observed_usd": 4.1734,
+    "note": "completed totals exclude the active XGBoost evaluation until its final outcome is known; estimates exclude idle Studio time, persistent storage, S3, taxes, credits and unrelated projects"
+  },
+  "interpretation": "A scientifically valid rejection counts as a successful run. Engineering/resource incidents that prevent the intended decision are failures. UI/monitor incidents after scientific progress remains intact are tracked separately."
+}
