@@ -1,0 +1,25 @@
+{
+  "snapshot_date": "2026-10-01",
+  "scope": "aggregate owner-run engineering/research ledger through the completed 785-feature CPU frontier",
+  "owner_run_outcomes": {
+    "successful_as_designed": 28,
+    "engineering_command_environment_ui_resource_failures": 22,
+    "nonblocking_post_result_or_ui_incidents": 6
+  },
+  "active_compute_cost_estimate_usd": {
+    "completed_successful_runs_lower_bound": 80.6755,
+    "completed_failed_runs_known_lower_bound": 10.2559,
+    "controlled_interrupted_recovery_lower_bound": 0.942,
+    "known_accounted_active_compute_lower_bound": 91.8734,
+    "unresolved_short_startup_failure_costs_present": true,
+    "note": "Lower bounds exclude unresolved short startup/preflight costs, idle Studio time, storage, S3, taxes, credits and unrelated projects."
+  },
+  "interpretation": "A scientifically valid rejection counts as a successful run. Engineering, packaging, dependency, resource or command failures that prevent the intended decision count as blocking failures. Post-result reporting/performance issues that preserve the scientific decision are tracked separately.",
+  "latest_scientific_state": {
+    "incumbent_kaggle_private": 0.57586,
+    "incumbent_kaggle_public": 0.57601,
+    "latest_complete_cpu_frontier_decision": "STOP_COMPLETE_THIRDPLACE_FRONTIER",
+    "latest_complete_cpu_frontier_best_gain": 0.0032340114735465966,
+    "latest_complete_cpu_frontier_gate": 0.0035
+  }
+}
