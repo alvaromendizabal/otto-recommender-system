@@ -43,7 +43,7 @@
     },
     {
       "component": "Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42",
-      "status": "Partially recreated/evaluated; next GPU frontier prepared",
+      "status": "Partially recreated and evaluated",
       "our_evidence": "v42-derived representation is trained, evaluated and promoted as similarity evidence. A complementary v31-style attention encoder was trained and fitting-only evaluated; its tested candidate union regressed. v27/v29 mechanisms have been audited and are the next bounded GPU study; no scientific outcome is claimed yet. v15/v18/v21/v23 remain unreproduced."
     },
     {
