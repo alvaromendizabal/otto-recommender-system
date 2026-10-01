@@ -1,5 +1,5 @@
 {
-  "scope": "Component-level audit. Prepared code and synthetic tests are not an achieved reproduction score. No overall reproduction percentage is claimed.",
+  "scope": "Component-level audit through October 1, 2026. Prepared code and synthetic tests are not achieved competition scores. Candidate-ceiling gains are not ranking gains. No overall reproduction percentage is claimed.",
   "sources": {
     "first_place": {
       "repository": "mrkmakr/OTTO-Multi-Objective-Recommender-System",
@@ -8,7 +8,11 @@
       "ranker_path": "codes/otto/scripts_ranker/train_ranker.py",
       "upstream_license_files_in_staged_snapshot": [],
       "publication_policy": "No upstream source code or weights vendored; independently implement mathematical mechanisms and attribute the source.",
-      "attention_neural_path": "codes/otto/scripts_nn/emb_model_v31.py"
+      "attention_neural_path": "codes/otto/scripts_nn/emb_model_v31.py",
+      "neural_paths": {
+        "v27": "codes/otto/scripts_nn/emb_model_v27.py",
+        "v29": "codes/otto/scripts_nn/emb_model_v29.py"
+      }
     },
     "third_place": {
       "repository": "TheoViel/kaggle_otto_rs",
@@ -40,7 +44,7 @@
     {
       "component": "Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42",
       "status": "Partially recreated and evaluated",
-      "our_evidence": "v42-derived representation is trained, evaluated and promoted as similarity evidence; a complementary attention encoder is independently trained and fitting-only evaluated. Its base representation added +7 order hits but the tested candidate union regressed. The remaining six encoders are not claimed as reproduced."
+      "our_evidence": "v42-derived representation is trained, evaluated and promoted as similarity evidence. A complementary v31-style attention encoder was trained and fitting-only evaluated; its tested candidate union regressed. v27/v29 mechanisms have been audited and are the next bounded GPU study; no scientific outcome is claimed yet. v15/v18/v21/v23 remain unreproduced."
     },
     {
       "component": "Candidate-aware neural integration with established order ranking",
@@ -51,24 +55,25 @@
     },
     {
       "component": "Word2Vec candidate/session similarity features",
-      "status": "Adapted and tested previously",
-      "our_evidence": "100000 fitting sessions, 20000 selection sessions; intent-only point gain 0.000112 with interval crossing zero. Do not rerun unchanged."
+      "status": "Adapted and evaluated; retrieval branch closed",
+      "our_evidence": "Earlier generic similarity features were weak. A later action-specific click/time, cart and order Word2Vec retrieval study recovered zero additional targets beyond the stronger MF+v42 pool even when the candidate budget expanded beyond 1,000. Do not rerun unchanged."
     },
     {
       "component": "Theo matrix-factorization / sequence-to-sequence feature stack and full 744-feature XGBoost system",
-      "status": "Partially adapted and evaluated",
-      "our_evidence": "Direct source evidence, position/time/action-weighted co-visitation and directional low-rank transition factors were independently adapted into a 496-feature representation. Its best fitting-only arm added +37 order hits and +0.001241 weighted Recall@20 but missed the frozen +0.0015 gain gate. Full upstream MF/Seq2Seq candidate retrieval and the complete 744-feature system are not claimed as reproduced."
+      "status": "Substantially adapted and evaluated under bounded studies",
+      "our_evidence": "Exact MF-general/MF-intent retrieval plus v42 raised 20k fitting candidate ceiling by +0.032215 and recovered +1446/+261/+69 click/cart/order targets versus base400. Action-specific Word2Vec added zero incremental targets. Lag-conditioned Seq2Seq added only +0.000819 ceiling and no orders. Broad 579-feature ranking gained +0.000813; a 785-feature feature-rank/popularity/XGBoost/blend recreation peaked at +0.003234 with +54/+3/+17 hits but missed its frozen +0.0035 fitting gate. No full upstream equivalence is claimed."
     },
     {
       "component": "Multiple ranker configurations and complementary model ensemble",
-      "status": "Active reserved evaluation",
-      "our_evidence": "Same-family seed averaging and an earlier fixed GPU XGBoost family were rejected. A newer transition/source XGBoost classifier, query-group ranker and fixed-blend study passed fitting-only and selection gates and entered reserved temporal evaluation; final gain is not yet published."
+      "status": "Evaluated; current CPU family closed under frozen gates",
+      "our_evidence": "The transition/source zmean_all3 arm completed 432492-session reserved evaluation at +0.002665 weighted Recall@20 and +308 order hits with a positive paired interval and positive time halves, but missed +0.003/+347 promotion gates. The later 785-feature third-place-inspired CPU frontier peaked at +0.003234 fitting-only gain but missed its +0.0035 gate. No newer submission was attempted."
     }
   ],
   "next_backlog": [
-    "Finish the transition/source XGBoost-blend reserved evaluation and publish its frozen decision before any deployment.",
-    "If the reserved evaluation qualifies, reproduce official-prefix inference while preserving current best click/cart outputs unless separately improved.",
-    "Recreate remaining complementary first-place neural encoders one mechanism at a time and retain only sources that add unique target coverage.",
-    "Complete matrix-factorization, sequence-to-sequence and action-specific Word2Vec candidate retrieval without duplicating closed feature-only studies."
+    "Run the bounded v29/v27 GPU adaptation and measure incremental candidate/representation value without claiming a result in advance.",
+    "If v29/v27 provide complementary signal, test stable-pool similarity/source features before reopening candidate-union policies.",
+    "Recreate v23/v21 and v18/v15 only after v29/v27 establishes which first-place mechanisms transfer.",
+    "Use a fresh chronological confirmation cohort before a final promotion after adaptive research.",
+    "Produce a new competition submission only after fitting, selection and reserved evaluation all clear frozen gates."
   ]
 }
