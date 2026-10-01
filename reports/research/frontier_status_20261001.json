@@ -1,0 +1,170 @@
+{
+  "snapshot_date": "2026-10-01",
+  "competition": {
+    "evaluation_setting": "post-competition Kaggle scoring; not an official medal or rank",
+    "historical_private_winner": 0.60503,
+    "research_target": 0.65,
+    "incumbent": {
+      "ref": 56542128,
+      "private": 0.57586,
+      "public": 0.57601,
+      "sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44"
+    },
+    "remaining_private_gap": 0.02917,
+    "remaining_target_gap": 0.07414,
+    "newer_submission_published": false
+  },
+  "completed_since_20260929": [
+    {
+      "name": "transition-source XGBoost and fixed blends",
+      "role": "432492-session reserved temporal evaluation",
+      "decision": "STOP_TRANSITION_XGB_EVALUATION_GATE",
+      "chosen_arm": "zmean_all3",
+      "weighted_gain": 0.0026653974297953242,
+      "net_additional_order_hits": 308,
+      "paired_95_interval": [
+        0.002021342927115243,
+        0.00327065289714206
+      ],
+      "time_half_gains": [
+        0.002909881841161699,
+        0.0024298377276202876
+      ],
+      "required_weighted_gain": 0.003,
+      "required_order_hits": 347,
+      "passed": false,
+      "submission_attempted": false
+    },
+    {
+      "name": "MF plus v42 candidate-ceiling frontier",
+      "role": "20000 fitting sessions; candidate oracle only",
+      "decision": "ADVANCE_CANDIDATE_AWARE_RANKER",
+      "base_weighted_ceiling": 0.683998575776351,
+      "best_weighted_ceiling": 0.7162138749114059,
+      "weighted_ceiling_gain": 0.03221529913505483,
+      "recovered_targets": {
+        "clicks": 1446,
+        "carts": 261,
+        "orders": 69
+      },
+      "candidate_budget": 800,
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "expanded-pool candidate-aware LambdaRank",
+      "role": "fitting-only OOF",
+      "decision": "STOP_EXPANDED_CANDIDATE_RANKER",
+      "weighted_gain": -0.004682989968435788,
+      "hit_gain": {
+        "clicks": -205,
+        "carts": -35,
+        "orders": -11
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "protected novelty insertion",
+      "role": "fitting-only OOF",
+      "decision": "STOP_PROTECTED_MF_V42_TREE_INTEGRATION",
+      "best_arm": "p18_c2",
+      "weighted_gain": -0.0012769963046303603,
+      "hit_gain": {
+        "clicks": -61,
+        "carts": -9,
+        "orders": -3
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "action-specific Word2Vec retrieval",
+      "role": "20000 fitting sessions; candidate oracle only",
+      "decision": "STOP_ACTION_W2V_RETRIEVAL",
+      "best_incremental_weighted_ceiling_gain": 0,
+      "recovered_targets_beyond_mf_v42": {
+        "clicks": 0,
+        "carts": 0,
+        "orders": 0
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "lag-conditioned Seq2Seq retrieval",
+      "role": "20000 fitting sessions; candidate oracle only",
+      "decision": "STOP_SEQ2SEQ_LAG_RETRIEVAL",
+      "best_incremental_weighted_ceiling_gain": 0.0008193377059935897,
+      "recovered_targets_beyond_mf_v42": {
+        "clicks": 27,
+        "carts": 14,
+        "orders": 0
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "579-feature broad similarity representation",
+      "role": "fitting-only OOF",
+      "decision": "STOP_BROAD_FEATURE_FRONTIER",
+      "baseline_features": 496,
+      "challenger_features": 579,
+      "weighted_gain": 0.0008131379622699191,
+      "hit_gain": {
+        "clicks": 7,
+        "carts": -15,
+        "orders": 9
+      },
+      "fold_gains": [
+        0.006279582579579307,
+        0.002543255769566539,
+        -0.0017564491673776397,
+        -0.006708833236596599,
+        0.004341052436857475
+      ],
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "785-feature complete third-place CPU frontier",
+      "role": "fitting-only OOF",
+      "decision": "STOP_COMPLETE_THIRDPLACE_FRONTIER",
+      "chosen_arm": "zmean",
+      "feature_count": 785,
+      "weighted_gain": 0.0032340114735465966,
+      "hit_gain": {
+        "clicks": 54,
+        "carts": 3,
+        "orders": 17
+      },
+      "nonnegative_folds": 4,
+      "worst_fold": -0.00036400235649540903,
+      "required_weighted_gain": 0.0035,
+      "passed": false,
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    }
+  ],
+  "active_frontier": [
+    {
+      "name": "first-place v29/v27 GPU adaptation",
+      "status": "prepared as next bounded experiment; not yet executed",
+      "mechanisms": [
+        "longer sequence context",
+        "multi-positive supervision",
+        "task conditioning",
+        "hard-negative mining",
+        "attention in v29"
+      ],
+      "scientific_result_published": false,
+      "submission_attempted": false
+    }
+  ],
+  "publication_boundaries": [
+    "AWS remains the canonical private execution workspace.",
+    "Candidate ceiling is reported separately from achieved Recall@20.",
+    "No raw data, row-level labels or predictions, embeddings, model binaries, optimizer state, private runner bundles, credentials or exact private orchestration are published.",
+    "No newer Kaggle score or submission is claimed."
+  ]
+}
