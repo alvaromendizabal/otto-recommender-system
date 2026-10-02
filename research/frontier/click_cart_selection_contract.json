@@ -1,0 +1,94 @@
+{
+  "snapshot": "2026-10-02",
+  "status": "SELECTION_PENDING",
+  "metric": {
+    "name": "Weighted Recall@20",
+    "higher_is_better": true,
+    "weights": {
+      "clicks": 0.1,
+      "carts": 0.3,
+      "orders": 0.6
+    }
+  },
+  "competition_state": {
+    "submission_id": 56542128,
+    "private_score": 0.57586,
+    "public_score": 0.57601,
+    "historical_private_winner": 0.60503,
+    "private_gap": 0.02917
+  },
+  "fitting_result": {
+    "decision": "PROMOTE_TO_SELECTION",
+    "candidate_budget": 400,
+    "feature_count": 589,
+    "clicks": {
+      "baseline_hits": 10151,
+      "challenger_hits": 10337,
+      "hit_gain": 186,
+      "weighted_gain": 0.000961
+    },
+    "carts": {
+      "baseline_hits": 2616,
+      "challenger_hits": 2669,
+      "hit_gain": 53,
+      "weighted_gain": 0.002574
+    },
+    "combined_weighted_gain": 0.003535,
+    "chronological_fold_gains": [
+      0.003765,
+      0.002781,
+      0.003639,
+      0.001635,
+      0.005639
+    ],
+    "nonnegative_folds": 5,
+    "worst_fold_gain": 0.001635,
+    "frozen_gate": {
+      "min_combined_weighted_gain": 0.003,
+      "min_click_hit_gain": 0,
+      "min_cart_hit_gain": 10,
+      "min_nonnegative_folds": 4,
+      "min_worst_fold_gain": -0.001
+    }
+  },
+  "selection_contract": {
+    "cohort_sessions": 20000,
+    "comparator": "actual incumbent click/cart policy; orders unchanged",
+    "selection_labels_opened": false,
+    "reserved_evaluation_labels_opened": false,
+    "bootstrap_replicates": 2000,
+    "frozen_gate": {
+      "min_combined_weighted_gain": 0.0025,
+      "min_click_hit_gain": 0,
+      "min_cart_hit_gain": 10,
+      "paired_bootstrap_lower_bound_must_be_positive": true,
+      "first_chronological_half_min_gain": 0,
+      "second_chronological_half_min_gain": 0
+    }
+  },
+  "reserved_evaluation": {
+    "cohort_sessions": 432492,
+    "status": "BLOCKED_UNTIL_SELECTION_PASSES"
+  },
+  "publication_boundary": {
+    "includes": [
+      "aggregate metrics",
+      "metric and validation contracts",
+      "source attribution",
+      "promotion and kill gates",
+      "cohort sizes and stage roles"
+    ],
+    "excludes": [
+      "raw competition data",
+      "row-level labels",
+      "row-level predictions",
+      "session identifiers",
+      "private runners",
+      "full embeddings",
+      "model checkpoints",
+      "optimizer state",
+      "credentials",
+      "private cloud paths"
+    ]
+  }
+}
