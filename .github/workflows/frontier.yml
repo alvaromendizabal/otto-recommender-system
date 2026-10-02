@@ -154,6 +154,29 @@ jobs:
           assert xgb['final_evaluation_result_published'] is False
           print('TRANSITION_MODEL_FRONTIER_PASSED')
           PY
+      - name: Verify the October 2 neural/objective frontier
+        run: |
+          /tmp/otto-frontier/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          status = json.loads(Path('reports/research/frontier_status_20261002.json').read_text())
+          c = status['competition']
+          assert c['incumbent']['ref'] == 56542128
+          assert c['incumbent']['private'] == 0.57586
+          completed = {x['name']: x for x in status['completed_since_20261001']}
+          cc = completed['objective-specific click/cart multisource ranking']
+          assert cc['decision'] == 'PROMOTE_TO_SELECTION'
+          assert cc['combined_weighted_gain'] == 0.00353469
+          assert cc['clicks']['net_hits'] == 186
+          assert cc['carts']['net_hits'] == 53
+          assert cc['nonnegative_folds'] == 5
+          active = {x['name']: x for x in status['active_frontier']}
+          sel = active['click/cart multisource selection']
+          assert sel['selection_targets_read'] is False
+          assert sel['evaluation_targets_read'] is False
+          assert sel['submission_attempted'] is False
+          print('NEURAL_OBJECTIVE_FRONTIER_PASSED')
+          PY
       - name: Re-execute and reopen the competition-frontier scorecard
         run: |
           cd research/frontier
