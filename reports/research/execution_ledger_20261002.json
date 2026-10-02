@@ -1,0 +1,32 @@
+{
+  "snapshot_date": "2026-10-02",
+  "scope": "aggregate owner-run engineering/research ledger through the positive click/cart multisource fitting result; selection not yet executed",
+  "since_explicit_tally_directive": {
+    "successful_intended_executions": 14,
+    "blocking_execution_failures": 13,
+    "valid_negative_experiments_among_successes": 12,
+    "decisive_negative_scientific_results_recovered_from_failed_executions": 1
+  },
+  "cumulative_owner_run_outcomes": {
+    "successful_scientific_executions": 34,
+    "blocking_execution_failures": 29,
+    "nonblocking_post_result_or_ui_incidents": 6
+  },
+  "active_compute_cost_estimate_usd": {
+    "successful_scientific_compute_lower_bound": 84.399,
+    "failed_blocking_compute_known_lower_bound": 11.1922,
+    "controlled_interrupted_recovery_lower_bound": 0.942,
+    "known_accounted_active_compute_lower_bound": 96.5332,
+    "unresolved_short_startup_failure_costs_present": true,
+    "note": "Lower bounds exclude unresolved short startup/preflight costs, idle Studio time, persistent storage, S3, taxes, credits and unrelated projects."
+  },
+  "interpretation": "A scientifically valid rejection counts as a successful run. An avoidable implementation/runtime failure remains a blocking execution failure even when enough sealed scientific evidence survives to interpret the hypothesis.",
+  "latest_scientific_state": {
+    "incumbent_kaggle_private": 0.57586,
+    "incumbent_kaggle_public": 0.57601,
+    "latest_qualified_fitting_experiment": "objective-specific click/cart multisource ranking",
+    "fitting_combined_weighted_gain": 0.00353469,
+    "fitting_nonnegative_folds": 5,
+    "next_stage": "independent selection"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "snapshot_date": "2026-10-02",
+  "competition": {
+    "evaluation_setting": "post-competition Kaggle scoring; not an official medal or rank",
+    "historical_private_winner": 0.60503,
+    "research_target": 0.65,
+    "incumbent": {
+      "ref": 56542128,
+      "private": 0.57586,
+      "public": 0.57601,
+      "sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44"
+    },
+    "remaining_private_gap": 0.02917,
+    "remaining_target_gap": 0.07414,
+    "newer_submission_published": false
+  },
+  "completed_since_20261001": [
+    {
+      "name": "v27/v29 neural retrieval frontier",
+      "evaluation_role": "20000 fitting sessions; candidate oracle only",
+      "decision": "STOP_DIRECT_RETRIEVAL_BELOW_ORDER_GATE",
+      "best_arm": "dual_append_1200",
+      "weighted_candidate_ceiling_gain": 0.005065,
+      "recovered_targets": {
+        "clicks": 217,
+        "carts": 56,
+        "orders": 7
+      },
+      "required_order_hit_gain": 10,
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "v27/v29 stable-pool similarity stack",
+      "evaluation_role": "fitting-only OOF",
+      "decision": "STOP_V27_V29_SIMILARITY_STACK",
+      "net_order_hits": 4,
+      "weighted_order_contribution_gain": 0.0007,
+      "nonnegative_folds": 3,
+      "worst_fold_gain": -0.003642,
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "v21/v23 neural retrieval frontier",
+      "evaluation_role": "20000 fitting sessions; candidate oracle only",
+      "decision": "STOP_V21_V23_CANDIDATE_FRONTIER",
+      "best_arm": "all4_append_1200",
+      "weighted_candidate_ceiling_gain": 0.00158,
+      "recovered_targets": {
+        "clicks": 52,
+        "carts": 9,
+        "orders": 5
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "v15/v18 neural retrieval frontier",
+      "evaluation_role": "20000 fitting sessions; candidate oracle only",
+      "decision": "STOP_V15_V18_CANDIDATE_FRONTIER",
+      "best_equal_budget_arm": "all6_append_1200",
+      "weighted_candidate_ceiling_gain": -0.0011378,
+      "recovered_targets": {
+        "clicks": -19,
+        "carts": -7,
+        "orders": -4
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "order heterogeneous source-aware fusion",
+      "evaluation_role": "fitting-only OOF",
+      "decision": "STOP_SOURCE_FUSION_FITTING",
+      "baseline_order_hits": 2238,
+      "candidate_ceiling_order_hits": 2628,
+      "stable_pool": {
+        "order_hits": 2238,
+        "net_order_hits": 0,
+        "weighted_gain": 0,
+        "nonnegative_folds": 3,
+        "worst_fold_gain": -0.002651
+      },
+      "expanded_pool": {
+        "order_hits": 2198,
+        "net_order_hits": -40,
+        "weighted_gain": -0.006997084548104956,
+        "nonnegative_folds": 0,
+        "worst_fold_gain": -0.011881
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "QueryFormer-style order field-sequence interaction",
+      "evaluation_role": "fitting-only OOF",
+      "decision": "CLOSED_UNDER_FROZEN_ORDER_GATE",
+      "owner_execution_note": "all 10 fits and five folds completed; final aggregate reporting assertion failed and remains counted as an execution failure",
+      "baseline_order_hits": 2238,
+      "field400": {
+        "order_hits": 2246,
+        "net_order_hits": 8,
+        "weighted_gain": 0.0013994169096209913,
+        "nonnegative_folds": 4,
+        "worst_fold_gain": -0.0026509572901325476
+      },
+      "field1200": {
+        "order_hits": 2224,
+        "net_order_hits": -14,
+        "weighted_gain": -0.002448979591836735,
+        "nonnegative_folds": 1,
+        "worst_fold_gain": -0.005585106382978723
+      },
+      "qf400": {
+        "order_hits": 2228,
+        "net_order_hits": -10,
+        "weighted_gain": -0.001749271137026239,
+        "nonnegative_folds": 2,
+        "worst_fold_gain": -0.004904632152588555
+      },
+      "qf1200": {
+        "order_hits": 2194,
+        "net_order_hits": -44,
+        "weighted_gain": -0.007696793002915451,
+        "nonnegative_folds": 0,
+        "worst_fold_gain": -0.011170212765957446
+      },
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    },
+    {
+      "name": "objective-specific click/cart multisource ranking",
+      "evaluation_role": "fitting-only OOF",
+      "decision": "PROMOTE_TO_SELECTION",
+      "candidate_pool": 400,
+      "feature_count": 589,
+      "chosen_policy": "clicks_source400__carts_source400",
+      "clicks": {
+        "baseline_hits": 10151,
+        "challenger_hits": 10337,
+        "net_hits": 186,
+        "weighted_gain": 0.000961
+      },
+      "carts": {
+        "baseline_hits": 2616,
+        "challenger_hits": 2669,
+        "net_hits": 53,
+        "weighted_gain": 0.0025736
+      },
+      "combined_weighted_gain": 0.00353469,
+      "fold_gains": [
+        0.003765,
+        0.002781,
+        0.003639,
+        0.001635,
+        0.005639
+      ],
+      "nonnegative_folds": 5,
+      "worst_fold_gain": 0.00163542,
+      "required_combined_gain": 0.003,
+      "passed": true,
+      "selection_targets_read": false,
+      "evaluation_targets_read": false
+    }
+  ],
+  "active_frontier": [
+    {
+      "name": "click/cart multisource selection",
+      "status": "fitting winner frozen; independent 20000-session selection pending",
+      "challenger": "589-feature source400 for clicks and carts; incumbent orders unchanged",
+      "selection_gate": {
+        "min_combined_weighted_gain": 0.0025,
+        "min_click_hit_gain": 0,
+        "min_cart_hit_gain": 10,
+        "paired_bootstrap_95_lower_bound_gt": 0,
+        "first_half_gain_min": 0,
+        "second_half_gain_min": 0
+      },
+      "bootstrap_replicates": 2000,
+      "selection_targets_read": false,
+      "evaluation_targets_read": false,
+      "submission_attempted": false
+    }
+  ],
+  "publication_boundaries": [
+    "AWS remains the canonical private execution workspace.",
+    "Candidate ceiling is reported separately from achieved Recall@20.",
+    "No raw competition data, row-level labels/predictions, cohort IDs, checkpoints, optimizer state, private runners, credentials or exact orchestration are published.",
+    "The click/cart challenger is fitting-qualified only; selection, reserved evaluation and competition transfer remain unclaimed.",
+    "No newer Kaggle score or submission is claimed."
+  ]
+}

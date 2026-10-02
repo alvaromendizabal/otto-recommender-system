@@ -1,5 +1,5 @@
 {
-  "scope": "Component-level audit through October 1, 2026. Prepared code and synthetic tests are not achieved competition scores. Candidate-ceiling gains are not ranking gains. No overall reproduction percentage is claimed.",
+  "scope": "Component-level audit through October 2, 2026. Prepared code and synthetic tests are not achieved competition scores. Candidate-ceiling gains are not ranking gains. Fitting qualification does not imply selection/evaluation or leaderboard transfer.",
   "sources": {
     "first_place": {
       "repository": "mrkmakr/OTTO-Multi-Objective-Recommender-System",
@@ -10,8 +10,14 @@
       "publication_policy": "No upstream source code or weights vendored; independently implement mathematical mechanisms and attribute the source.",
       "attention_neural_path": "codes/otto/scripts_nn/emb_model_v31.py",
       "neural_paths": {
+        "v15": "codes/otto/scripts_nn/emb_model_v15.py",
+        "v18": "codes/otto/scripts_nn/emb_model_v18.py",
+        "v21": "codes/otto/scripts_nn/emb_model_v21.py",
+        "v23": "codes/otto/scripts_nn/emb_model_v23.py",
         "v27": "codes/otto/scripts_nn/emb_model_v27.py",
-        "v29": "codes/otto/scripts_nn/emb_model_v29.py"
+        "v29": "codes/otto/scripts_nn/emb_model_v29.py",
+        "v31": "codes/otto/scripts_nn/emb_model_v31.py",
+        "v42": "codes/otto/scripts_nn/emb_model_v42.py"
       }
     },
     "third_place": {
@@ -44,14 +50,14 @@
     {
       "component": "Eight winning neural candidate models v15/v18/v21/v23/v27/v29/v31/v42",
       "status": "Partially recreated and evaluated",
-      "our_evidence": "v42-derived representation is trained, evaluated and promoted as similarity evidence. A complementary v31-style attention encoder was trained and fitting-only evaluated; its tested candidate union regressed. v27/v29 mechanisms have been audited and are the next bounded GPU study; no scientific outcome is claimed yet. v15/v18/v21/v23 remain unreproduced."
+      "our_evidence": "All eight named mechanism variants are now materially covered under independent bounded adaptations: v42 is promoted as similarity evidence; v31 candidate-union/dense variants are closed; v27/v29 direct retrieval added +0.005065 candidate ceiling but only +7 orders, and their stable-pool similarity stack added +4 orders; v21/v23 added +0.001580 ceiling with +52/+9/+5 click/cart/order targets; v15/v18 equal-budget insertion regressed. This does not claim checkpoint parity or reproduction of the complete winning ensemble."
     },
     {
       "component": "Candidate-aware neural integration with established order ranking",
       "status": "Adapted and evaluated in multiple fixed studies",
       "implementation": "candidate_integration.py",
       "design": "v42 similarity stack: established 400-candidate pool plus learned similarity/query features; v31 branch: preserve established candidates, union complementary neural candidates before training, and evaluate fixed arms under fit-only cross-validation.",
-      "our_evidence": "v42 similarity integration passed selection and full reserved evaluation, then scored 0.57586 private / 0.57601 public. The complementary attention candidate union failed fitting-only gates, and a later dense interaction/score-stack study also failed to qualify."
+      "our_evidence": "v42 similarity integration passed selection and full reserved evaluation, then scored 0.57586 private / 0.57601 public. v31 union/dense studies did not qualify. Later v27/v29, v21/v23 and v15/v18 retrieval/integration studies established additional representation coverage but failed their frozen order-side promotion gates. Order-side heterogeneous source fusion and a QueryFormer-style field-sequence model were subsequently tested and closed under fitting-only gates."
     },
     {
       "component": "Word2Vec candidate/session similarity features",
@@ -66,14 +72,25 @@
     {
       "component": "Multiple ranker configurations and complementary model ensemble",
       "status": "Evaluated; current CPU family closed under frozen gates",
-      "our_evidence": "The transition/source zmean_all3 arm completed 432492-session reserved evaluation at +0.002665 weighted Recall@20 and +308 order hits with a positive paired interval and positive time halves, but missed +0.003/+347 promotion gates. The later 785-feature third-place-inspired CPU frontier peaked at +0.003234 fitting-only gain but missed its +0.0035 gate. No newer submission was attempted."
+      "our_evidence": "The transition/source zmean_all3 arm completed 432492-session reserved evaluation at +0.002665 weighted Recall@20 and +308 order hits but missed +0.003/+347 promotion gates. The 785-feature CPU frontier later peaked at +0.003234 fitting-only gain but missed +0.0035. A new objective-specific 589-feature click/cart source-aware ranker on the stable 400-candidate pool has now cleared its fitting gate at +0.003535 combined weighted contribution with +186 clicks, +53 carts and 5/5 positive folds; independent selection is pending."
+    },
+    {
+      "component": "Heterogeneous source-aware objective ranking",
+      "status": "Order recipe closed; click/cart fitting-only challenger qualified for selection",
+      "our_evidence": "Flat order source fusion tied the 400-candidate baseline and lost 40 orders on the 1200 pool. Reusing the source representation objective-specifically for clicks/carts on the stable 400 pool produced +186 click hits and +53 cart hits, +0.003535 combined official-metric contribution and 5/5 positive fitting folds. Selection remains unopened."
+    },
+    {
+      "component": "QueryFormer-style field-sequence interaction",
+      "status": "Independently adapted and fitting-only evaluated; current order recipe closed",
+      "our_evidence": "A nonlinear field control gained +8 order hits / +0.001399 on 400 candidates but missed stability/gain gates. The explicit cross-attention model lost 10 orders on 400 candidates and 44 on 1200. No selection or evaluation labels were opened."
     }
   ],
   "next_backlog": [
-    "Run the bounded v29/v27 GPU adaptation and measure incremental candidate/representation value without claiming a result in advance.",
-    "If v29/v27 provide complementary signal, test stable-pool similarity/source features before reopening candidate-union policies.",
-    "Recreate v23/v21 and v18/v15 only after v29/v27 establishes which first-place mechanisms transfer.",
-    "Use a fresh chronological confirmation cohort before a final promotion after adaptive research.",
-    "Produce a new competition submission only after fitting, selection and reserved evaluation all clear frozen gates."
+    "Run the frozen click/cart challenger once on the independent 20000-session selection cohort against the actual incumbent click/cart policy; keep orders unchanged.",
+    "If selection passes, freeze a reserved-evaluation contract and evaluate all 432492 reserved temporal sessions before any competition inference.",
+    "If selection fails, close the exact 589-feature source400 recipe and move to a materially different contextual feature-transport / nonlinear click-cart architecture rather than another tree/source permutation.",
+    "Use leakage-safe heterogeneous OOF stacking only after multiple distinct model families qualify.",
+    "Establish a fresh chronological confirmation cohort before the strongest final promotion after adaptive research.",
+    "Produce a new competition submission only after fitting, selection and reserved/fresh confirmation evaluation clear their frozen gates."
   ]
 }
