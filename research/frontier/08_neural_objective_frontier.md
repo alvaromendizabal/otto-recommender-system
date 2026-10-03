@@ -4,7 +4,7 @@ This employer-facing snapshot records the completed work after the October 1 can
 
 ## Verified competition state
 
-The strongest verified post-competition Kaggle result remains **0.57586 private / 0.57601 public**, submission **56542128**. The recorded historical private winner is **0.60503**, leaving a **0.02917** private-score gap. No experiment in this snapshot has produced a newer competition submission.
+The strongest verified post-competition Kaggle result remains **0.57586 private / 0.57601 public**, submission **56542128**. No experiment in this snapshot has produced a newer competition submission.
 
 The primary metric is pooled **Weighted Recall@20 = 0.10 clicks + 0.30 carts + 0.60 orders**, higher is better. Candidate coverage is reported only as an oracle ceiling and is never substituted for achieved ranking quality.
 

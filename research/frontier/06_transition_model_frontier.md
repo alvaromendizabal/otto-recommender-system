@@ -4,7 +4,7 @@ This is a public aggregate status snapshot. AWS remains the canonical private ex
 
 ## Verified incumbent
 
-The strongest verified post-competition submission remains **56542128 at 0.57586 private / 0.57601 public**. It preserves the previous click/cart lists and replaces orders with the promoted neural-similarity ranker. The recorded historical private winner is **0.60503**, leaving a **0.02917** private-score gap. No experiment described below has produced or claimed a newer leaderboard score.
+The strongest verified post-competition submission remains **56542128 at 0.57586 private / 0.57601 public**. It preserves the previous click/cart lists and replaces orders with the promoted neural-similarity ranker. No experiment described below has produced or claimed a newer leaderboard score.
 
 ## What closed since the previous snapshot
 

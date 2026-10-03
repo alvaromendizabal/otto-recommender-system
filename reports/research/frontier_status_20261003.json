@@ -1,0 +1,109 @@
+{
+  "snapshot_date": "2026-10-03",
+  "metric": {
+    "name": "Weighted Recall@20",
+    "higher_is_better": true,
+    "weights": {
+      "clicks": 0.1,
+      "carts": 0.3,
+      "orders": 0.6
+    }
+  },
+  "verified_submission": {
+    "submission_id": 56542128,
+    "private_score": 0.57586,
+    "public_score": 0.57601,
+    "scope": "post-competition measurement; no official rank claim"
+  },
+  "completed_frontier": [
+    {
+      "name": "source-aware click/cart independent selection",
+      "decision": "STOP_CLICK_CART_SELECTION",
+      "selection_sessions": 20000,
+      "click_hit_gain": 259,
+      "cart_hit_gain": -61,
+      "combined_weighted_gain": -0.00173786,
+      "bootstrap_95_ci": [
+        -0.0039144,
+        0.0004145
+      ]
+    },
+    {
+      "name": "contextual reliability-aware transport",
+      "decision": "STOP_CRAFT_V1",
+      "fits": 20,
+      "folds": 5,
+      "best_arm": "contextual gate",
+      "combined_gain": -0.00235234,
+      "cart_hits_vs_deployment": -71,
+      "cart_hits_vs_source400": -28
+    },
+    {
+      "name": "candidate-conditioned sequence interaction",
+      "decision": "STOP_STANDALONE_SEQUENCE",
+      "fits": 20,
+      "folds": 5,
+      "best_policy": "DIN-style long-session",
+      "combined_gain": 0.00167809,
+      "cart_hit_gain_vs_deployment": 12,
+      "cart_hit_gain_vs_source400": 55,
+      "combined_nonnegative_folds": 5
+    },
+    {
+      "name": "heterogeneous OOF stack",
+      "decision": "PROMOTE_TO_FRESH_SELECTION_V2",
+      "chosen_policy": "within-session standardized-score sequence fusion",
+      "combined_gain": 0.00420318,
+      "cart_hit_gain": 64,
+      "combined_nonnegative_folds": 5,
+      "cart_nonnegative_folds": 5
+    },
+    {
+      "name": "Fresh Selection V2",
+      "decision": "PROMOTE_TO_FINAL_RESERVE_V2",
+      "sessions": 20000,
+      "combined_gain": 0.00319387,
+      "click_hit_gain": 136,
+      "cart_hit_gain": 47,
+      "bootstrap_95_ci": [
+        0.001865,
+        0.004554
+      ],
+      "first_half_gain": 0.004021,
+      "second_half_gain": 0.002373
+    }
+  ],
+  "active_frontier": {
+    "name": "Final Reserve V2",
+    "status": "PREDICTION_PREPARATION_ACTIVE",
+    "sessions_total": 412492,
+    "sessions_predictions_frozen": 200000,
+    "sessions_remaining": 212492,
+    "shards_complete": 4,
+    "shards_total": 9,
+    "reserve_labels_opened": false,
+    "candidate": "source-aware clicks + heterogeneous sequence-score cart stack; incumbent orders unchanged"
+  },
+  "publication_boundary": {
+    "includes": [
+      "aggregate metrics",
+      "validation contracts",
+      "model-family descriptions",
+      "promotion decisions",
+      "engineering/reproducibility evidence"
+    ],
+    "excludes": [
+      "raw competition data",
+      "row-level labels",
+      "row-level predictions",
+      "session identifiers",
+      "private runners",
+      "full model checkpoints",
+      "embeddings",
+      "optimizer state",
+      "credentials",
+      "private cloud paths",
+      "exact private orchestration"
+    ]
+  }
+}

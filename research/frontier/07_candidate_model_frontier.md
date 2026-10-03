@@ -4,9 +4,8 @@ This is an aggregate, employer-facing snapshot of the work completed after the S
 
 ## Verified competition state
 
-The strongest verified post-competition Kaggle result remains **0.57586 private / 0.57601 public**, submission **56542128**. The recorded historical private winner is **0.60503**, leaving a **0.02917** private-score gap. No study below produced a newer leaderboard submission.
+The strongest verified post-competition Kaggle result remains **0.57586 private / 0.57601 public**, submission **56542128**. No study below produced a newer leaderboard submission.
 
-The research target of **0.65000** is intentionally aspirational and is not presented as an achieved or expected score.
 
 ## Transition/XGBoost reserved evaluation: closed
 
