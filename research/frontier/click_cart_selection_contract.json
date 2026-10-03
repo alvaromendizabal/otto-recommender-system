@@ -1,6 +1,6 @@
 {
-  "snapshot": "2026-10-02",
-  "status": "SELECTION_PENDING",
+  "snapshot": "2026-10-03",
+  "status": "SELECTION_COMPLETED_REJECTED",
   "metric": {
     "name": "Weighted Recall@20",
     "higher_is_better": true,
@@ -13,9 +13,7 @@
   "competition_state": {
     "submission_id": 56542128,
     "private_score": 0.57586,
-    "public_score": 0.57601,
-    "historical_private_winner": 0.60503,
-    "private_gap": 0.02917
+    "public_score": 0.57601
   },
   "fitting_result": {
     "decision": "PROMOTE_TO_SELECTION",
@@ -31,9 +29,9 @@
       "baseline_hits": 2616,
       "challenger_hits": 2669,
       "hit_gain": 53,
-      "weighted_gain": 0.002574
+      "weighted_gain": 0.0025736
     },
-    "combined_weighted_gain": 0.003535,
+    "combined_weighted_gain": 0.00353469,
     "chronological_fold_gains": [
       0.003765,
       0.002781,
@@ -42,33 +40,31 @@
       0.005639
     ],
     "nonnegative_folds": 5,
-    "worst_fold_gain": 0.001635,
-    "frozen_gate": {
-      "min_combined_weighted_gain": 0.003,
-      "min_click_hit_gain": 0,
-      "min_cart_hit_gain": 10,
-      "min_nonnegative_folds": 4,
-      "min_worst_fold_gain": -0.001
-    }
+    "worst_fold_gain": 0.00163542
   },
-  "selection_contract": {
+  "selection_result": {
+    "decision": "STOP_CLICK_CART_SELECTION",
     "cohort_sessions": 20000,
-    "comparator": "actual incumbent click/cart policy; orders unchanged",
-    "selection_labels_opened": false,
-    "reserved_evaluation_labels_opened": false,
     "bootstrap_replicates": 2000,
-    "frozen_gate": {
-      "min_combined_weighted_gain": 0.0025,
-      "min_click_hit_gain": 0,
-      "min_cart_hit_gain": 10,
-      "paired_bootstrap_lower_bound_must_be_positive": true,
-      "first_chronological_half_min_gain": 0,
-      "second_chronological_half_min_gain": 0
-    }
-  },
-  "reserved_evaluation": {
-    "cohort_sessions": 432492,
-    "status": "BLOCKED_UNTIL_SELECTION_PASSES"
+    "clicks": {
+      "baseline_hits": 9928,
+      "challenger_hits": 10187,
+      "hit_gain": 259
+    },
+    "carts": {
+      "baseline_hits": 2736,
+      "challenger_hits": 2675,
+      "hit_gain": -61
+    },
+    "combined_weighted_gain": -0.00173786,
+    "paired_bootstrap_95_interval": [
+      -0.0039144,
+      0.0004145
+    ],
+    "first_half_gain": -0.0011423,
+    "second_half_gain": -0.0023272,
+    "selection_labels_opened": true,
+    "reserved_evaluation_labels_opened": false
   },
   "publication_boundary": {
     "includes": [
