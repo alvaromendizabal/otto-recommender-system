@@ -79,4 +79,4 @@ def test_protocol_document_matches_completed_contract() -> None:
     assert "0.57586 private / 0.57601 public" in text
     assert "+0.003535" in text
     assert "STOP_CLICK_CART_SELECTION" in text
-    assert "−61 hits" in text
+    assert "-61 hits" in text or "−61 hits" in text
