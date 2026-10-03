@@ -72,4 +72,4 @@ The project deliberately paid the cost of creating a fresh selection boundary ra
 
 This keeps the promotion claim interpretable despite extensive adaptive experimentation.
 
-See [12_reserved_evaluation_v2.md](12_reserved_evaluation_v2.md) for the active final reserve stage.
+See [12_reserved_evaluation.md](12_reserved_evaluation.md) for the active final reserve stage.
