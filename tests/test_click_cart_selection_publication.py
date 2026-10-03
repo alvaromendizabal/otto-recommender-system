@@ -1,4 +1,4 @@
-"""Public contract tests for the fitting-qualified click/cart selection stage."""
+"""Public contract tests for the completed click/cart selection stage."""
 from __future__ import annotations
 
 import json
@@ -12,56 +12,37 @@ def load_contract() -> dict:
     return json.loads((FRONTIER / "click_cart_selection_contract.json").read_text())
 
 
-def test_verified_incumbent_and_gap_are_frozen() -> None:
-    data = load_contract()
-    state = data["competition_state"]
+def test_verified_incumbent_is_published_without_external_score_comparison() -> None:
+    state = load_contract()["competition_state"]
     assert state["submission_id"] == 56542128
     assert state["private_score"] == 0.57586
     assert state["public_score"] == 0.57601
-    assert state["historical_private_winner"] == 0.60503
-    assert abs(state["private_gap"] - (0.60503 - 0.57586)) < 1e-12
+    assert "historical_private_winner" not in state
+    assert "private_gap" not in state
 
 
-def test_fitting_promotion_arithmetic_and_stability() -> None:
+def test_fitting_result_is_preserved() -> None:
     data = load_contract()["fitting_result"]
     assert data["decision"] == "PROMOTE_TO_SELECTION"
     assert data["candidate_budget"] == 400
     assert data["feature_count"] == 589
     assert data["clicks"]["challenger_hits"] - data["clicks"]["baseline_hits"] == 186
     assert data["carts"]["challenger_hits"] - data["carts"]["baseline_hits"] == 53
-    assert abs(
-        data["combined_weighted_gain"]
-        - (data["clicks"]["weighted_gain"] + data["carts"]["weighted_gain"])
-    ) < 1e-12
     assert data["nonnegative_folds"] == 5
-    assert all(value > 0 for value in data["chronological_fold_gains"])
-    assert min(data["chronological_fold_gains"]) == data["worst_fold_gain"]
 
 
-def test_fitting_gate_is_recomputed_from_published_evidence() -> None:
-    data = load_contract()["fitting_result"]
-    gate = data["frozen_gate"]
-    assert data["combined_weighted_gain"] >= gate["min_combined_weighted_gain"]
-    assert data["clicks"]["hit_gain"] >= gate["min_click_hit_gain"]
-    assert data["carts"]["hit_gain"] >= gate["min_cart_hit_gain"]
-    assert data["nonnegative_folds"] >= gate["min_nonnegative_folds"]
-    assert data["worst_fold_gain"] >= gate["min_worst_fold_gain"]
-
-
-def test_selection_remains_preregistered_and_unopened() -> None:
-    data = load_contract()
-    selection = data["selection_contract"]
-    assert selection["cohort_sessions"] == 20_000
-    assert selection["bootstrap_replicates"] == 2_000
-    assert selection["selection_labels_opened"] is False
-    assert selection["reserved_evaluation_labels_opened"] is False
-    assert data["reserved_evaluation"]["cohort_sessions"] == 432_492
-    assert data["reserved_evaluation"]["status"] == "BLOCKED_UNTIL_SELECTION_PASSES"
-    gate = selection["frozen_gate"]
-    assert gate["min_combined_weighted_gain"] == 0.0025
-    assert gate["min_click_hit_gain"] == 0
-    assert gate["min_cart_hit_gain"] == 10
-    assert gate["paired_bootstrap_lower_bound_must_be_positive"] is True
+def test_independent_selection_result_is_closed() -> None:
+    data = load_contract()["selection_result"]
+    assert data["decision"] == "STOP_CLICK_CART_SELECTION"
+    assert data["cohort_sessions"] == 20_000
+    assert data["bootstrap_replicates"] == 2_000
+    assert data["clicks"]["hit_gain"] == 259
+    assert data["carts"]["hit_gain"] == -61
+    assert data["combined_weighted_gain"] < 0
+    assert data["paired_bootstrap_95_interval"][0] < 0
+    assert data["paired_bootstrap_95_interval"][1] > 0
+    assert data["selection_labels_opened"] is True
+    assert data["reserved_evaluation_labels_opened"] is False
 
 
 def test_public_contract_excludes_private_artifacts() -> None:
@@ -93,10 +74,9 @@ def test_public_contract_excludes_private_artifacts() -> None:
     assert "model checkpoints" in excluded
 
 
-def test_protocol_document_matches_machine_readable_contract() -> None:
+def test_protocol_document_matches_completed_contract() -> None:
     text = (FRONTIER / "09_click_cart_selection_protocol.md").read_text()
     assert "0.57586 private / 0.57601 public" in text
     assert "+0.003535" in text
-    assert "2,000 replicates" in text
-    assert "432,492 sessions" in text
-    assert "Selection and reserved-evaluation labels" not in text or "closed" in text.lower()
+    assert "STOP_CLICK_CART_SELECTION" in text
+    assert "-61 hits" in text or f"{chr(0x2212)}61 hits" in text

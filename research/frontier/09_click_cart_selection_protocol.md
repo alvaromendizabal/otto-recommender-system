@@ -1,97 +1,99 @@
-# Click/cart selection protocol · October 2, 2026
+# Click/cart selection · completed protocol and outcome
 
-This public protocol freezes the next validation step for the strongest current fitting challenger. AWS remains the canonical private execution workspace. GitHub publishes aggregate evidence, source attribution, metric contracts, promotion gates and validation design; raw competition data, row-level labels/predictions, private runners, checkpoints, embeddings, optimizer state, credentials and exact cloud orchestration remain private.
+This document preserves the frozen protocol and final outcome of the first objective-specific click/cart source-aware challenger.
+
+AWS remained the canonical private execution workspace. The public record contains aggregate metrics, gate definitions, and decisions only.
 
 ## Verified competition state
 
-The strongest verified post-competition Kaggle result remains **0.57586 private / 0.57601 public**, submission **56542128**. The recorded historical private winner is **0.60503**, leaving a **0.02917** private-score gap. No newer Kaggle submission is claimed by this protocol.
+The strongest verified post-competition Kaggle result remains **0.57586 private / 0.57601 public**, submission **56542128**.
 
-The primary metric is pooled **Weighted Recall@20 = 0.10 clicks + 0.30 carts + 0.60 orders**, higher is better.
+The official metric is pooled **Weighted Recall@20 = 0.10 clicks + 0.30 carts + 0.60 orders**, higher is better.
 
-## Fitting result that opened selection
+## Fitting result
 
-The promoted fitting challenger keeps the established 400-candidate pool and augments the candidate/session representation with heterogeneous source evidence. The public result is aggregate only.
+The 589-feature source-aware challenger retained the stable 400-candidate pool.
 
 | Metric | Clicks | Carts |
 | --- | ---: | ---: |
 | Baseline hits | 10,151 | 2,616 |
 | Challenger hits | **10,337** | **2,669** |
 | Net hits | **+186** | **+53** |
-| Official weighted contribution | **+0.000961** | **+0.002574** |
+| Weighted contribution | **+0.000961** | **+0.002574** |
 
-Combined official-metric contribution improved by **+0.003535**. All **5/5** chronological fitting folds were positive; the worst fold remained **+0.001635**.
+Combined fitting gain: **+0.003535**
 
-The frozen fitting gate required:
+Stability:
 
-- combined click/cart weighted gain >= **+0.0030**;
-- click hit gain >= **0**;
-- cart hit gain >= **+10**;
-- at least **4/5** nonnegative folds;
-- worst fold >= **-0.001**.
+- 5/5 chronological folds positive
+- worst fold **+0.001635**
 
-The challenger passed every fitting gate. The 1,200-candidate variants regressed, so the selected fitting policy is explicitly the **source-aware 400-candidate click/cart ranker**, not a broader candidate union.
+Decision: **PROMOTE_TO_SELECTION**
 
-## Frozen selection design
+## Frozen independent-selection gate
 
-Selection uses the independent **20,000-session selection cohort**. The challenger is frozen before selection labels are opened.
+The 20,000-session selection comparison was frozen before label access.
 
-The deployment-relevant comparator is the actual incumbent click/cart policy:
+Promotion required all of:
 
-- **clicks:** the established incumbent click list;
-- **carts:** the selected cart model for long observed prefixes and the incumbent fusion policy otherwise;
-- **orders:** unchanged and not optimized in this selection milestone.
+- combined click/cart gain ≥ +0.0025
+- click hit gain ≥ 0
+- cart hit gain ≥ +10
+- paired-bootstrap 95% lower bound > 0
+- chronological first half ≥ 0
+- chronological second half ≥ 0
 
-The selection stage advances only if all of the following hold:
+Bootstrap replicates: **2,000**
 
-- combined click/cart weighted gain >= **+0.0025**;
-- click hit gain >= **0**;
-- cart hit gain >= **+10**;
-- paired session-bootstrap 95% interval has a lower bound **> 0**;
-- chronological first-half gain >= **0**;
-- chronological second-half gain >= **0**.
+## Independent selection outcome
 
-The paired bootstrap uses **2,000 replicates**. Reserved evaluation labels remain closed unless selection passes.
+The challenger failed the frozen gate:
 
-## Leakage and promotion discipline
+- clicks: **9,928 → 10,187**, **+259 hits**
+- carts: **2,736 → 2,675**, **−61 hits**
+- combined weighted gain: **−0.001738**
+- paired 95% interval: **[−0.003914, +0.000415]**
+- first half: **−0.001142**
+- second half: **−0.002327**
 
-The public contract is intentionally staged:
+Decision:
 
-1. fit and freeze the final click/cart challenger using fitting data only;
-2. generate all selection predictions with frozen models and frozen retrieval/source features;
-3. open selection labels once for the predeclared comparison;
-4. if selection passes, freeze the reserved-evaluation contract before opening reserved labels;
-5. only after reserved evaluation passes may full competition inference be justified.
+**STOP_CLICK_CART_SELECTION**
 
-No blend weights, thresholds or feature choices are learned from selection or reserved evaluation results.
+The opened selection cohort was permanently retired from tuning.
 
-## Next decisions
+## Research consequence
 
-**If selection passes:** freeze the exact click/cart challenger, open the predeclared reserved temporal evaluation on all **432,492 sessions**, preserve incumbent orders, and compare only the qualified click/cart replacement.
+The result exposed asymmetric transfer:
 
-**If selection fails:** close this exact 589-feature source-aware tree recipe rather than retuning it on selection. The next research step should introduce a materially different capability such as contextual feature transport or a complementary nonlinear click/cart model.
+- source-aware evidence helped clicks;
+- the same joint recipe damaged carts.
 
-**If only one objective transfers:** preserve the incumbent for the other objective and require the surviving objective to satisfy its own frozen weighted-contribution/stability requirements before promotion.
+That evidence motivated two materially different follow-up families:
+
+1. contextual/reliability-aware routing;
+2. candidate-conditioned temporal sequence interaction.
+
+Both were evaluated under fresh fitting-only OOF controls rather than retuning the rejected source-aware tree recipe.
+
+See [10_contextual_and_sequence_frontier.md](10_contextual_and_sequence_frontier.md) for those experiments and [11_heterogeneous_stack_and_fresh_selection.md](11_heterogeneous_stack_and_fresh_selection.md) for the later stack promotion.
 
 ## Public/private boundary
 
-Public artifacts intentionally expose:
+Public:
 
-- metric definitions and direction;
-- aggregate fitting evidence;
-- fitting and selection gates;
-- cohort sizes and role separation;
-- source/reproduction status;
-- decision logic and failure criteria.
+- aggregate hit counts and metric deltas
+- cohort sizes
+- frozen gate
+- confidence interval
+- chronological stability
+- decision
 
-They intentionally exclude:
+Private:
 
-- raw event partitions;
-- row-level targets or predictions;
-- session/cohort identifiers;
-- full embeddings or neural checkpoints;
-- optimizer state;
-- private handoff runners;
-- private cloud paths and account metadata;
-- exact private orchestration details.
-
-See [08_neural_objective_frontier.md](08_neural_objective_frontier.md) for the fitting evidence that qualified this stage and [click_cart_selection_contract.json](click_cart_selection_contract.json) for the machine-readable frozen contract.
+- session IDs
+- row-level labels/predictions
+- full embeddings/checkpoints
+- private runners
+- cloud paths and credentials
+- exact competitive orchestration

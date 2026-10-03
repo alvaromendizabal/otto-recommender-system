@@ -1,0 +1,93 @@
+{
+  "snapshot_date": "2026-10-03",
+  "competition": {
+    "evaluation_setting": "post-competition Kaggle scoring; no official medal or rank claim",
+    "incumbent": {
+      "ref": 56542128,
+      "private": 0.57586,
+      "public": 0.57601
+    },
+    "newer_submission_published": false
+  },
+  "recent_research": [
+    {
+      "name": "source-aware click/cart independent selection",
+      "decision": "STOP_CLICK_CART_SELECTION",
+      "selection_sessions": 20000,
+      "click_hit_gain": 259,
+      "cart_hit_gain": -61,
+      "combined_weighted_gain": -0.00173786,
+      "paired_bootstrap_95_interval": [
+        -0.0039144,
+        0.0004145
+      ]
+    },
+    {
+      "name": "CRAFT contextual routing",
+      "decision": "STOP_CRAFT_V1",
+      "model_fits": 20,
+      "folds": 5,
+      "best_arm": "craft_gate",
+      "combined_gain": -0.00235234
+    },
+    {
+      "name": "sequence cross-attention",
+      "decision": "STOP_SEQUENCE_STANDALONE",
+      "model_fits": 20,
+      "folds": 5,
+      "best_arm": "din_xattn__long_only",
+      "combined_gain": 0.00167809,
+      "cart_hit_gain": 12
+    },
+    {
+      "name": "heterogeneous OOF stack",
+      "decision": "PROMOTE_TO_FRESH_SELECTION_V2",
+      "base_rankers": 9,
+      "chosen_arm": "zmean_seq__all",
+      "combined_gain": 0.00420318,
+      "cart_hit_gain": 64,
+      "nonnegative_combined_folds": 5,
+      "nonnegative_cart_folds": 5
+    },
+    {
+      "name": "Fresh Selection V2",
+      "decision": "PASS",
+      "sessions": 20000,
+      "combined_gain": 0.00319387,
+      "click_hit_gain": 136,
+      "cart_hit_gain": 47,
+      "paired_95_interval": [
+        0.001865,
+        0.004554
+      ],
+      "first_half_gain": 0.004021,
+      "second_half_gain": 0.002373
+    }
+  ],
+  "active_frontier": {
+    "name": "Final Reserve V2",
+    "status": "PREDICTION_PREPARATION_ACTIVE",
+    "candidate": "source400 clicks + zmean_seq__all carts; orders unchanged",
+    "reserve_sessions": 412492,
+    "predicted_sessions": 200000,
+    "completed_shards": 4,
+    "total_shards": 9,
+    "labels_opened": false,
+    "bootstrap_replicates": 2000,
+    "frozen_gate": {
+      "min_combined_weighted_gain": 0.0025,
+      "min_click_hit_gain": 0,
+      "min_cart_hit_gain": 200,
+      "bootstrap_95_lower_bound_gt_zero": true,
+      "first_half_min_gain": 0,
+      "second_half_min_gain": 0,
+      "min_nonnegative_quarters": 3,
+      "worst_quarter_min_gain": -0.0005
+    }
+  },
+  "publication_boundary": [
+    "AWS remains the canonical private execution workspace.",
+    "GitHub publishes aggregate evidence and reproducibility contracts.",
+    "No raw data, row-level labels or predictions, cohort IDs, private checkpoints, credentials, or private runners are published."
+  ]
+}
