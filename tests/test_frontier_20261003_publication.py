@@ -59,14 +59,14 @@ def test_current_employer_facing_docs_surface_current_research_state() -> None:
         FRONTIER / "09_click_cart_selection_protocol.md",
         FRONTIER / "10_contextual_and_sequence_frontier.md",
         FRONTIER / "11_heterogeneous_stack_and_fresh_selection.md",
-        FRONTIER / "12_reserved_evaluation_v2.md",
+        FRONTIER / "12_reserved_evaluation.md",
     ]
     for path in current_docs:
         assert path.exists()
         assert path.read_text().strip()
 
     readme = (ROOT / "README.md").read_text()
-    reserve = (FRONTIER / "12_reserved_evaluation_v2.md").read_text()
+    reserve = (FRONTIER / "12_reserved_evaluation.md").read_text()
     assert "0.57586 private / 0.57601 public" in readme
     assert "200,000 / 412,492" in readme
     assert "4 / 9" in reserve
