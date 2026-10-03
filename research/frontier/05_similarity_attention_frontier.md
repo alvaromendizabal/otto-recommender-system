@@ -11,7 +11,7 @@ This is a public, aggregate status snapshot. AWS remains the canonical private e
 | Long-session cart router · 56504354 | 0.57140 | 0.57166 | Prior incumbent |
 | **Neural-similarity orders · 56542128** | **0.57586** | **0.57601** | **Current incumbent** |
 
-The current submission improves the prior incumbent by **+0.00446 private / +0.00435 public**. The recorded historical private winner is **0.60503**, so the remaining private-score gap is **0.02917**. These are post-competition measurements, not official medal or rank claims.
+The current submission improves the prior incumbent by **+0.00446 private / +0.00435 public**. These are post-competition measurements, not official medal or rank claims.
 
 ## Why the similarity branch mattered
 
