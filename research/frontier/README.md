@@ -20,7 +20,7 @@ AWS/SageMaker remains the canonical private execution environment. GitHub publis
 8. [09_click_cart_selection_protocol.md](09_click_cart_selection_protocol.md) — independent selection outcome for the source-aware joint recipe
 9. [10_contextual_and_sequence_frontier.md](10_contextual_and_sequence_frontier.md) — CRAFT and sequence cross-attention
 10. [11_heterogeneous_stack_and_fresh_selection.md](11_heterogeneous_stack_and_fresh_selection.md) — OOF stack promotion and fresh selection
-11. [12_reserved_evaluation_v2.md](12_reserved_evaluation_v2.md) — active final reserve protocol and checkpoint state
+11. [12_reserved_evaluation.md](12_reserved_evaluation.md) — active final reserve protocol and checkpoint state
 
 ## Current research state
 
