@@ -1,6 +1,6 @@
 {
   "snapshot": "2026-10-02",
-  "status": "SELECTION_PENDING",
+  "status": "SELECTION_CLOSED",
   "metric": {
     "name": "Weighted Recall@20",
     "higher_is_better": true,
@@ -10,12 +10,11 @@
       "orders": 0.6
     }
   },
-  "competition_state": {
+  "verified_submission": {
     "submission_id": 56542128,
     "private_score": 0.57586,
     "public_score": 0.57601,
-    "historical_private_winner": 0.60503,
-    "private_gap": 0.02917
+    "scope": "post-competition measurement; no official rank claim"
   },
   "fitting_result": {
     "decision": "PROMOTE_TO_SELECTION",
@@ -54,21 +53,30 @@
   "selection_contract": {
     "cohort_sessions": 20000,
     "comparator": "actual incumbent click/cart policy; orders unchanged",
-    "selection_labels_opened": false,
-    "reserved_evaluation_labels_opened": false,
     "bootstrap_replicates": 2000,
     "frozen_gate": {
       "min_combined_weighted_gain": 0.0025,
       "min_click_hit_gain": 0,
       "min_cart_hit_gain": 10,
-      "paired_bootstrap_lower_bound_must_be_positive": true,
+      "paired_bootstrap_95_ci_lower_gt_zero": true,
       "first_chronological_half_min_gain": 0,
       "second_chronological_half_min_gain": 0
     }
   },
-  "reserved_evaluation": {
-    "cohort_sessions": 432492,
-    "status": "BLOCKED_UNTIL_SELECTION_PASSES"
+  "selection_result": {
+    "decision": "STOP_CLICK_CART_SELECTION",
+    "selection_labels_opened": true,
+    "reserved_evaluation_labels_opened": false,
+    "click_hit_gain": 259,
+    "cart_hit_gain": -61,
+    "combined_weighted_gain": -0.00173786,
+    "paired_bootstrap_95_ci": [
+      -0.0039144,
+      0.0004145
+    ],
+    "first_half_gain": -0.0011423,
+    "second_half_gain": -0.0023272,
+    "passed": false
   },
   "publication_boundary": {
     "includes": [
