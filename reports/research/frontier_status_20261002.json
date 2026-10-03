@@ -2,16 +2,12 @@
   "snapshot_date": "2026-10-02",
   "competition": {
     "evaluation_setting": "post-competition Kaggle scoring; not an official medal or rank",
-    "historical_private_winner": 0.60503,
-    "research_target": 0.65,
     "incumbent": {
       "ref": 56542128,
       "private": 0.57586,
       "public": 0.57601,
       "sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44"
     },
-    "remaining_private_gap": 0.02917,
-    "remaining_target_gap": 0.07414,
     "newer_submission_published": false
   },
   "completed_since_20261001": [
