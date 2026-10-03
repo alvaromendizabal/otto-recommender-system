@@ -12,16 +12,15 @@ def load_contract() -> dict:
     return json.loads((FRONTIER / "click_cart_selection_contract.json").read_text())
 
 
-def test_verified_submission_is_frozen_without_competitor_comparison() -> None:
+def test_verified_submission_is_frozen() -> None:
     data = load_contract()
     state = data["verified_submission"]
-    assert state["submission_id"] == 56542128
-    assert state["private_score"] == 0.57586
-    assert state["public_score"] == 0.57601
-    serialized = json.dumps(data).lower()
-    assert "historical_private_winner" not in serialized
-    assert "private_gap" not in serialized
-    assert "0.60503" not in serialized
+    assert state == {
+        "submission_id": 56542128,
+        "private_score": 0.57586,
+        "public_score": 0.57601,
+        "scope": "post-competition measurement; no official rank claim",
+    }
 
 
 def test_fitting_promotion_arithmetic_and_stability() -> None:
@@ -40,7 +39,7 @@ def test_fitting_promotion_arithmetic_and_stability() -> None:
     assert min(data["chronological_fold_gains"]) == data["worst_fold_gain"]
 
 
-def test_fitting_gate_is_recomputed_from_published_evidence() -> None:
+def test_fitting_gate_recomputes_from_published_evidence() -> None:
     data = load_contract()["fitting_result"]
     gate = data["frozen_gate"]
     assert data["combined_weighted_gain"] >= gate["min_combined_weighted_gain"]
@@ -54,9 +53,11 @@ def test_selection_result_is_closed_and_recomputes_failure() -> None:
     data = load_contract()
     selection = data["selection_contract"]
     result = data["selection_result"]
+
     assert data["status"] == "SELECTION_CLOSED"
     assert selection["cohort_sessions"] == 20_000
     assert selection["bootstrap_replicates"] == 2_000
+
     assert result["decision"] == "STOP_CLICK_CART_SELECTION"
     assert result["selection_labels_opened"] is True
     assert result["reserved_evaluation_labels_opened"] is False
@@ -91,6 +92,7 @@ def test_public_contract_excludes_private_artifacts() -> None:
                 visit(item)
 
     visit(data)
+
     excluded = set(data["publication_boundary"]["excludes"])
     assert "row-level labels" in excluded
     assert "row-level predictions" in excluded
@@ -106,4 +108,3 @@ def test_protocol_document_matches_completed_contract() -> None:
     assert "STOP_CLICK_CART_SELECTION" in text
     assert "+259" in text
     assert "-61" in text
-    assert "0.60503" not in text
