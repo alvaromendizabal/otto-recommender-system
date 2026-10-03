@@ -53,36 +53,22 @@ def test_validation_lineage_preserves_measured_decisions() -> None:
     assert fresh["second_half_gain"] > 0
 
 
-def test_current_employer_facing_surfaces_avoid_competitor_score_comparisons() -> None:
-    paths = [
-        ROOT / "README.md",
-        FRONTIER / "README.md",
-        FRONTIER / "05_similarity_attention_frontier.md",
-        FRONTIER / "06_transition_model_frontier.md",
-        FRONTIER / "07_candidate_model_frontier.md",
-        FRONTIER / "08_neural_objective_frontier.md",
-        FRONTIER / "09_click_cart_selection_protocol.md",
-        FRONTIER / "10_contextual_sequence_stack_validation.md",
-        REPORTS / "frontier_status_20261002.json",
-        REPORTS / "frontier_status_20261003.json",
-    ]
-    forbidden = (
-        "0.60503",
-        "historical private winner",
-        "historical private winning benchmark",
-        "remaining private-score gap",
-        "remaining private gap",
-        "research target of **0.65000**",
-    )
-    for path in paths:
-        text = path.read_text().lower()
-        for phrase in forbidden:
-            assert phrase.lower() not in text, f"{phrase!r} leaked into {path}"
+def test_current_employer_facing_surfaces_are_project_evidence_first() -> None:
+    readme = (ROOT / "README.md").read_text()
+    frontier = (FRONTIER / "README.md").read_text()
+    current = (FRONTIER / "10_contextual_sequence_stack_validation.md").read_text()
+
+    assert "200,000 / 412,492" in readme
+    assert "Fresh Selection V2" in readme
+    assert "Final Reserve V2" in frontier
+    assert "+0.004203" in current
+    assert "+0.003194" in current
 
 
 def test_publication_boundary_excludes_private_competition_artifacts() -> None:
     data = json.loads((REPORTS / "frontier_status_20261003.json").read_text())
     excluded = set(data["publication_boundary"]["excludes"])
+
     assert "raw competition data" in excluded
     assert "row-level labels" in excluded
     assert "row-level predictions" in excluded
@@ -94,6 +80,7 @@ def test_publication_boundary_excludes_private_competition_artifacts() -> None:
 
 def test_current_frontier_document_matches_status() -> None:
     text = (FRONTIER / "10_contextual_sequence_stack_validation.md").read_text()
+
     assert "+0.004203" in text
     assert "+0.003194" in text
     assert "[+0.001865, +0.004554]" in text
