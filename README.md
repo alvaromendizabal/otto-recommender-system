@@ -10,7 +10,7 @@ This project has grown from a classical learning-to-rank baseline into a discipl
 
 **Current research state:** a heterogeneous sequence stack passed fitting and a fresh independent 20,000-session selection stage. Final Reserve V2 is now active with **200,000 / 412,492 sessions** and **4 / 9 deterministic prediction shards** sealed while labels remain unopened.
 
-[Current frontier](research/frontier/README.md) · [Fresh selection + reserve protocol](research/frontier/12_reserved_evaluation_v2.md) · [Reproducibility](docs/REPRODUCIBILITY.md)
+[Current frontier](research/frontier/README.md) · [Fresh selection + reserve protocol](research/frontier/12_reserved_evaluation.md) · [Reproducibility](docs/REPRODUCIBILITY.md)
 
 ---
 
@@ -40,7 +40,7 @@ This project has grown from a classical learning-to-rank baseline into a discipl
 | [09 · Click/cart selection](research/frontier/09_click_cart_selection_protocol.md) | Independent selection result and the decision to close the original source-aware joint recipe |
 | [10 · Contextual + sequence frontier](research/frontier/10_contextual_and_sequence_frontier.md) | CRAFT routing and candidate-conditioned temporal sequence modeling |
 | [11 · Heterogeneous OOF stack](research/frontier/11_heterogeneous_stack_and_fresh_selection.md) | Leakage-safe stack promotion and fresh selection |
-| [12 · Final Reserve V2](research/frontier/12_reserved_evaluation_v2.md) | Sharded, label-blind final reserve prediction protocol and active checkpoint state |
+| [12 · Final Reserve V2](research/frontier/12_reserved_evaluation.md) | Sharded, label-blind final reserve prediction protocol and active checkpoint state |
 | [Competition inference](notebooks/10_competition_inference.ipynb) | Frozen native-model replay and validated large-batch delivery |
 
 ---
