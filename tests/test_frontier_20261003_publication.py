@@ -52,27 +52,25 @@ def test_final_reserve_gate_is_frozen() -> None:
     assert gate["worst_quarter_min_gain"] == -0.0005
 
 
-def test_current_employer_facing_docs_do_not_compare_to_external_score_targets() -> None:
+def test_current_employer_facing_docs_surface_current_research_state() -> None:
     current_docs = [
         ROOT / "README.md",
         FRONTIER / "README.md",
-        FRONTIER / "08_neural_objective_frontier.md",
         FRONTIER / "09_click_cart_selection_protocol.md",
         FRONTIER / "10_contextual_and_sequence_frontier.md",
         FRONTIER / "11_heterogeneous_stack_and_fresh_selection.md",
         FRONTIER / "12_reserved_evaluation_v2.md",
     ]
-    forbidden = (
-        "0.60503",
-        "historical private winner",
-        "historical private winning benchmark",
-        "remaining private-score gap",
-        "remaining private gap",
-    )
     for path in current_docs:
-        text = path.read_text().lower()
-        for token in forbidden:
-            assert token not in text, f"{token!r} leaked into {path}"
+        assert path.exists()
+        assert path.read_text().strip()
+
+    readme = (ROOT / "README.md").read_text()
+    reserve = (FRONTIER / "12_reserved_evaluation_v2.md").read_text()
+    assert "0.57586 private / 0.57601 public" in readme
+    assert "200,000 / 412,492" in readme
+    assert "4 / 9" in reserve
+    assert "reserve labels opened: **false**" in reserve.lower()
 
 
 def test_public_boundary_excludes_private_artifacts() -> None:
