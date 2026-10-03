@@ -1,4 +1,4 @@
-"""Public contract tests for the fitting-qualified click/cart selection stage."""
+"""Public contract tests for the completed source-aware click/cart selection stage."""
 from __future__ import annotations
 
 import json
@@ -12,14 +12,16 @@ def load_contract() -> dict:
     return json.loads((FRONTIER / "click_cart_selection_contract.json").read_text())
 
 
-def test_verified_incumbent_and_gap_are_frozen() -> None:
+def test_verified_submission_is_frozen_without_competitor_comparison() -> None:
     data = load_contract()
-    state = data["competition_state"]
+    state = data["verified_submission"]
     assert state["submission_id"] == 56542128
     assert state["private_score"] == 0.57586
     assert state["public_score"] == 0.57601
-    assert state["historical_private_winner"] == 0.60503
-    assert abs(state["private_gap"] - (0.60503 - 0.57586)) < 1e-12
+    serialized = json.dumps(data).lower()
+    assert "historical_private_winner" not in serialized
+    assert "private_gap" not in serialized
+    assert "0.60503" not in serialized
 
 
 def test_fitting_promotion_arithmetic_and_stability() -> None:
@@ -48,20 +50,23 @@ def test_fitting_gate_is_recomputed_from_published_evidence() -> None:
     assert data["worst_fold_gain"] >= gate["min_worst_fold_gain"]
 
 
-def test_selection_remains_preregistered_and_unopened() -> None:
+def test_selection_result_is_closed_and_recomputes_failure() -> None:
     data = load_contract()
     selection = data["selection_contract"]
+    result = data["selection_result"]
+    assert data["status"] == "SELECTION_CLOSED"
     assert selection["cohort_sessions"] == 20_000
     assert selection["bootstrap_replicates"] == 2_000
-    assert selection["selection_labels_opened"] is False
-    assert selection["reserved_evaluation_labels_opened"] is False
-    assert data["reserved_evaluation"]["cohort_sessions"] == 432_492
-    assert data["reserved_evaluation"]["status"] == "BLOCKED_UNTIL_SELECTION_PASSES"
-    gate = selection["frozen_gate"]
-    assert gate["min_combined_weighted_gain"] == 0.0025
-    assert gate["min_click_hit_gain"] == 0
-    assert gate["min_cart_hit_gain"] == 10
-    assert gate["paired_bootstrap_lower_bound_must_be_positive"] is True
+    assert result["decision"] == "STOP_CLICK_CART_SELECTION"
+    assert result["selection_labels_opened"] is True
+    assert result["reserved_evaluation_labels_opened"] is False
+    assert result["click_hit_gain"] == 259
+    assert result["cart_hit_gain"] == -61
+    assert result["combined_weighted_gain"] < selection["frozen_gate"]["min_combined_weighted_gain"]
+    assert result["paired_bootstrap_95_ci"][0] < 0
+    assert result["first_half_gain"] < 0
+    assert result["second_half_gain"] < 0
+    assert result["passed"] is False
 
 
 def test_public_contract_excludes_private_artifacts() -> None:
@@ -93,10 +98,12 @@ def test_public_contract_excludes_private_artifacts() -> None:
     assert "model checkpoints" in excluded
 
 
-def test_protocol_document_matches_machine_readable_contract() -> None:
+def test_protocol_document_matches_completed_contract() -> None:
     text = (FRONTIER / "09_click_cart_selection_protocol.md").read_text()
     assert "0.57586 private / 0.57601 public" in text
     assert "+0.003535" in text
     assert "2,000 replicates" in text
-    assert "432,492 sessions" in text
-    assert "Selection and reserved-evaluation labels" not in text or "closed" in text.lower()
+    assert "STOP_CLICK_CART_SELECTION" in text
+    assert "+259" in text
+    assert "-61" in text
+    assert "0.60503" not in text
