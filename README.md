@@ -150,4 +150,4 @@ The full research and inference workflows require the official OTTO data and lar
 
 For the full experiment lineage—including rejected hypotheses, source attribution, neural reproduction status and validation decisions—use the [frontier research index](research/frontier/README.md).
 
-**Current release state:** the verified competition release remains **0.57586 private / 0.57601 public**. The newest click/cart research stack is not deployed while comparator reconciliation is in progress.
+**Current release state:** the verified competition release remains **0.57586 private / 0.57601 public**. The newest click/cart research stack is **not currently promoted or deployed** while comparator reconciliation is in progress.
