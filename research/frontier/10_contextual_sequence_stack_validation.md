@@ -1,5 +1,7 @@
 # Contextual, sequence and ensemble validation frontier · October 3, 2026
 
+> **Post-snapshot correction — October 5, 2026:** This document preserves the October 3 research snapshot, but its Fresh Selection V2 / Final Reserve V2 promotion interpretation is no longer current. A later deployment-parity audit found that the click/cart comparator in that validation path did not exactly reproduce the deployed objective-specific routing policy. The fitting and model-family experiments remain useful evidence; the later promotion claim is withdrawn pending comparator reconciliation. The verified competition incumbent remains **0.57586 private / 0.57601 public**. See [11_validation_integrity_reconciliation.md](11_validation_integrity_reconciliation.md).
+
 This snapshot documents the post-selection research program that followed the source-aware click/cart study. It is intentionally employer-facing and aggregate: AWS remains the canonical private execution workspace, while GitHub publishes model-family decisions, validation design, aggregate metrics, source attribution and reproducibility contracts. Raw events, row-level targets/predictions, cohort IDs, private runners, model binaries, embeddings, credentials and exact cloud orchestration remain private.
 
 ## Verified competition lineage
@@ -128,4 +130,4 @@ This public snapshot includes aggregate evidence, validation roles, model-family
 
 ## Current decision
 
-Continue Final Reserve V2 until all nine prediction shards are frozen. Only then may reserve labels be opened once for the preregistered final comparison. A successful final reserve evaluation would unlock official full-test inference; otherwise the ensemble is closed and research returns to a materially different ranking objective.
+This dated snapshot is preserved for provenance. The current decision has changed: **do not use the later Fresh Selection V2 / Final Reserve V2 result as promotion evidence until the deployed comparator is reconstructed and the frozen challenger comparison is recomputed.** The externally verified similarity-order submission remains the accepted champion. See [11_validation_integrity_reconciliation.md](11_validation_integrity_reconciliation.md).

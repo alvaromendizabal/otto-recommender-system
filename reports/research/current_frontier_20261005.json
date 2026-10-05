@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "as_of_utc": "2026-10-05T00:00:00Z",
+  "metric": {
+    "name": "Weighted Recall@20",
+    "direction": "higher_is_better",
+    "weights": {
+      "clicks": 0.1,
+      "carts": 0.3,
+      "orders": 0.6
+    }
+  },
+  "verified_competition_champion": {
+    "private_score": 0.57586,
+    "public_score": 0.57601,
+    "submission_reference": 56542128,
+    "status": "verified_post_competition"
+  },
+  "research_frontier": {
+    "click_cart_stack_status": "research_comparator_reconciliation",
+    "valid_fitting_evidence": {
+      "weighted_gain": 0.004203,
+      "combined_nonnegative_folds": "5/5",
+      "cart_nonnegative_folds": "5/5"
+    },
+    "later_promotion_interpretation": "withdrawn_pending_corrected_comparator",
+    "current_release_gate": "reconstruct deployed comparator and recompute frozen comparison before any new deployment"
+  },
+  "delivered_scale": {
+    "training_events": 216716096,
+    "engineered_feature_formulas": 1482,
+    "selected_reference_features": 102,
+    "official_test_sessions": 1671803,
+    "official_output_rows": 5015409
+  },
+  "public_reproduction_scope": {
+    "includes": [
+      "aggregate metrics",
+      "validation contracts",
+      "selected implementations",
+      "tests",
+      "executed notebooks",
+      "source attribution"
+    ],
+    "excludes": [
+      "raw competition data",
+      "row-level labels",
+      "row-level predictions",
+      "session identifiers",
+      "private runners",
+      "full checkpoints",
+      "embeddings",
+      "credentials",
+      "exact private orchestration"
+    ]
+  }
+}
