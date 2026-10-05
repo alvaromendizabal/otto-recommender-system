@@ -22,7 +22,7 @@
 | [07 · Candidate + model frontier](research/frontier/07_candidate_model_frontier.md) | MF/W2V/Seq2Seq candidate work, broad third-place recreation and CPU closeouts |
 | [08 · Neural + objective frontier](research/frontier/08_neural_objective_frontier.md) | Full first-place neural mechanism sweep, order-side source/sequence closeouts and the fitting-qualified click/cart challenger |
 | [09 · Click/cart selection protocol](research/frontier/09_click_cart_selection_protocol.md) | Frozen source-aware selection design and the independently measured transfer decision |
-| [10 · Contextual, sequence + ensemble validation](research/frontier/10_contextual_sequence_stack_validation.md) | Contextual routing, sequence interaction, heterogeneous OOF stacking, Fresh Selection V2 and active final-reserve preparation |
+| [10 · Contextual, sequence + ensemble validation](research/frontier/10_contextual_sequence_stack_validation.md) | Dated contextual/sequence/ensemble snapshot retained for provenance; superseded promotion interpretation is explicitly corrected |
 | [11 · Validation integrity + comparator reconciliation](research/frontier/11_validation_integrity_reconciliation.md) | How deployment-parity auditing caught a comparator mismatch, preserved the scientific record and blocked an unqualified release |
 | [05 · Two-tower results](notebooks/05_two_tower_results.ipynb) and [06 · ANN benchmark](notebooks/06_ann_benchmark.ipynb) | Objective-conditioned neural retrieval and nearest-neighbor experiments |
 | [10 · Competition inference](notebooks/10_competition_inference.ipynb) | Frozen native-model replay and verified official-prefix batch delivery |
