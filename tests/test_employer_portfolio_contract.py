@@ -8,18 +8,23 @@ README = (ROOT / "README.md").read_text(encoding="utf-8")
 OVERVIEW = (ROOT / "docs/EMPLOYER_OVERVIEW.md").read_text(encoding="utf-8")
 ARCH = (ROOT / "docs/ARCHITECTURE.md").read_text(encoding="utf-8")
 PORTFOLIO = (ROOT / "docs/PORTFOLIO.md").read_text(encoding="utf-8")
-STATUS = json.loads((ROOT / "reports/research/current_frontier_20261005.json").read_text(encoding="utf-8"))
+STATUS = json.loads(
+    (ROOT / "reports/research/current_frontier_20261005.json").read_text(
+        encoding="utf-8"
+    )
+)
 
 EMPLOYER_SURFACES = "\n".join((README, OVERVIEW, ARCH, PORTFOLIO)).lower()
 
 
 def test_first_minute_story_is_present() -> None:
-    assert "60-second overview" in README
-    assert "what i owned" in README.lower()
-    assert "216.7m" in README
-    assert "1.67m" in README
-    assert "5.02m" in README
-    assert "0.57586 private / 0.57601 public" in README
+    readme = README.lower()
+    assert "60-second overview" in readme
+    assert "what i owned" in readme
+    assert "216.7m" in readme
+    assert "1.67m" in readme
+    assert "5.02m" in readme
+    assert "0.57586 private / 0.57601 public" in readme
 
 
 def test_three_review_depths_are_explicit() -> None:
@@ -51,6 +56,7 @@ def test_publication_boundary_remains_private() -> None:
 
 
 def test_current_challenger_status_is_consistent() -> None:
-    assert STATUS["research_frontier"]["click_cart_stack_status"] == "research_comparator_reconciliation"
+    status = STATUS["research_frontier"]["click_cart_stack_status"]
+    assert status == "research_comparator_reconciliation"
     assert "not deployed" in OVERVIEW.lower() or "blocked" in OVERVIEW.lower()
     assert "comparator reconciliation" in PORTFOLIO.lower()
