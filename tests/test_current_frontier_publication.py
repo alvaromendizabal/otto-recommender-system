@@ -6,8 +6,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 README = (ROOT / "README.md").read_text(encoding="utf-8")
 FRONTIER = (ROOT / "research/frontier/README.md").read_text(encoding="utf-8")
-INTEGRITY = (ROOT / "research/frontier/11_validation_integrity_reconciliation.md").read_text(encoding="utf-8")
-STATUS = json.loads((ROOT / "reports/research/current_frontier_20261005.json").read_text(encoding="utf-8"))
+INTEGRITY = (
+    ROOT / "research/frontier/11_validation_integrity_reconciliation.md"
+).read_text(encoding="utf-8")
+STATUS = json.loads(
+    (ROOT / "reports/research/current_frontier_20261005.json").read_text(
+        encoding="utf-8"
+    )
+)
 
 
 def test_verified_champion_is_consistent() -> None:
@@ -20,15 +26,30 @@ def test_verified_champion_is_consistent() -> None:
 
 
 def test_newer_stack_is_not_publicly_promoted() -> None:
-    assert STATUS["research_frontier"]["click_cart_stack_status"] == "research_comparator_reconciliation"
-    assert STATUS["research_frontier"]["later_promotion_interpretation"] == "withdrawn_pending_corrected_comparator"
-    assert "not currently promoted" in README
+    frontier = STATUS["research_frontier"]
+    assert (
+        frontier["click_cart_stack_status"]
+        == "research_comparator_reconciliation"
+    )
+    assert (
+        frontier["later_promotion_interpretation"]
+        == "withdrawn_pending_corrected_comparator"
+    )
+    assert "not currently promoted" in README.lower()
     assert "withdrawn pending comparator reconciliation" in INTEGRITY.lower()
 
 
 def test_public_status_has_no_private_execution_material() -> None:
     serialized = json.dumps(STATUS, sort_keys=True).lower()
-    for token in ("/home/sagemaker-user", "s3://", ".pyz", "aws_access_key", "secret_access_key", "session_ids"):
+    tokens = (
+        "/home/" + "sagemaker-user",
+        "s3://",
+        ".pyz",
+        "aws_" + "access_key",
+        "secret_" + "access_key",
+        "session_" + "ids",
+    )
+    for token in tokens:
         assert token not in serialized
 
 

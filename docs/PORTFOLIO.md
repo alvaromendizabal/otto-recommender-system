@@ -1,33 +1,49 @@
 # OTTO research case study
 
-**Source correction:** the initial Kaggle submission is invalidated because its
-input contained full post-competition test sessions, including future events.
-The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Corrected inference is complete on the attested official truncated test. The frozen reference scored **0.56842 private / 0.56862 public**; the objective router improved this to 0.57100 / 0.57121; the long-session cart router reached 0.57140 / 0.57166; and the promoted similarity-stack order model now reaches **0.57586 private / 0.57601 public** after the deadline. These are post-competition measurements, not official medal or rank claims.
-See [the source audit](../reports/submissions/data_provenance_audit.json) and [current frontier scorecard](../research/frontier/04_competition_frontier.ipynb).
+**A large-scale session recommender built from retrieval through validated batch delivery.**
 
-**How do you turn anonymous shopping events into useful recommendations—and demonstrate
-that the improvements are real?**
+This project turns anonymous click/cart/order event streams into three ranked product lists while preserving point-in-time correctness, controlled temporal evaluation and end-to-end artifact lineage.
 
-This project builds a complete session recommender, studies its feature representation
-under controlled conditions, and carries the selected models through full competition
-inference. The key result is **0.584392 weighted Recall@20** on **432,492 reserved temporal
-sessions**, versus **0.564904** for a compact ranker and **0.535244** for fixed candidate fusion.
+## At a glance
 
-[Project overview](../README.md) ·
+- **216,716,096** training events
+- **1,482** engineered feature formulas
+- **102** selected features in the controlled reference
+- **432,492** reserved temporal evaluation sessions
+- **1,671,803** full inference sessions
+- **5,015,409** validated output rows
+- verified post-competition release: **0.57586 private / 0.57601 public**
+
+[Employer overview](EMPLOYER_OVERVIEW.md) ·
+[Architecture](ARCHITECTURE.md) ·
 [Executed research notebook](../notebooks/09_controlled_feature_study.ipynb) ·
 [Interactive Plotly report · ZIP ↓](https://github.com/alvaromendizabal/otto-recommender-system/raw/refs/heads/main/reports/portfolio/otto-research-report.zip) ·
 [Model card](MODEL_CARD.md)
 
-## Recent frontier advancement
+## Project ownership
 
-The strongest recent gain came from changing *how* the learned sequence representation is used. A first neural-aware reranker was rejected on selection, but the same trained task-conditioned representation became useful as candidate-to-session similarity evidence. The promoted order stack keeps the established 102-feature representation and adds 28 neural similarity aggregates plus seven query/retrieval diagnostics, producing a 137-feature order ranker. On the reserved 432,492-session temporal cohort it improved weighted Recall@20 by **0.004396** and recovered **508 additional order targets**; the paired 95% interval was **+0.003721 to +0.005046**, with positive gains in both chronological halves.
+I owned the recommender architecture, temporal validation design, feature research, ranking experiments, neural/sequence studies, AWS execution/recovery workflow, full inference, CI/reproducibility layer and publication boundaries represented in this repository.
 
-That offline promotion transferred to the post-competition leaderboard: submission **56542128** scored **0.57586 private / 0.57601 public**, **+0.00446 / +0.00435** over the prior 0.57140 / 0.57166 incumbent. The later program deliberately broadened beyond the promoted order representation. It materially covered the remaining first-place neural variants v15/v18/v21/v23/v27/v29, tested exact MF retrieval and third-place-inspired similarity/popularity/rank families, and evaluated multiple candidate-integration strategies. These experiments exposed substantial candidate headroom but repeatedly showed that broader candidate unions can degrade achieved ranking. Flat order source fusion tied the stable-pool baseline and regressed on the expanded pool; a clean-room QueryFormer-style field-sequence model also failed its order-side fitting gate. The strongest new signal instead came from **objective-specific click/cart source-aware ranking**: on 20,000 fitting sessions, the stable 400-candidate challenger recovered **+186 click hits and +53 cart hits**, adding **+0.003535 combined official-metric contribution** with **5/5 positive folds**. That challenger is frozen for independent selection; no selection, reserved-evaluation or leaderboard gain is claimed yet. [Current frontier snapshot](../research/frontier/08_neural_objective_frontier.md)
+The project deliberately keeps the externally verified release separate from newer research. That distinction matters: model quality is only promoted when the data, comparator, metric and deployment policy all match the frozen validation contract.
 
-Download the ZIP above, extract it, and open `otto-research-report.html` in a browser.
-The report includes Plotly and works offline. The figures below are SVG exports of those same chart definitions.
-Their values come from the checked-in experiment reports, not manually entered chart data.
+## Verified release and current research state
+
+The controlled reference study reaches **0.584392 weighted Recall@20** on **432,492 reserved temporal sessions**, versus **0.564904** for a compact ranker and **0.535244** for candidate fusion.
+
+A later neural-similarity order ranker improved the established release and transferred to the post-competition evaluation: submission **56542128** scored **0.57586 private / 0.57601 public** while preserving the established click/cart policy.
+
+Post-release research broadened the system with source-aware ranking, additional neural encoders, sequence interaction and heterogeneous OOF stacking. The strongest newer click/cart stack has valid fitting evidence, but its later promotion interpretation is currently **withdrawn pending comparator reconciliation** after deployment-parity auditing found that the validation comparator did not exactly reconstruct the deployed routing policy.
+
+That correction is part of the engineering story: artifacts were preserved, the release was blocked, and the externally verified system remained unchanged rather than publishing an unqualified result.
+
+[Validation-integrity update](../research/frontier/11_validation_integrity_reconciliation.md)
+
+## Source provenance correction
+
+An earlier competition-input incident used a post-competition full-session release containing future events. Those scores are retained only as incident evidence and are not model-performance claims. Corrected inference uses the attested official truncated test input, whose provenance and partition hashes are verified before prediction.
+
+[Source audit](../reports/submissions/data_provenance_audit.json) ·
+[Inference provenance](INFERENCE.md)
 
 ## What is being predicted?
 
