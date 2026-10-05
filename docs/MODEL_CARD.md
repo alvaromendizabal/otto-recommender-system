@@ -1,6 +1,8 @@
 # Model card: controlled OTTO ranker
 
-**Competition result:** **0.56842 private / 0.56862 public**, accepted by Kaggle as a late submission using the frozen reference model and verified official test prefixes.
+> **Scope:** this card describes the reproducible 102-feature controlled reference model. The project also contains later routed descendants; the strongest verified post-competition release is **0.57586 private / 0.57601 public**. See [Inference and provenance](INFERENCE.md).
+
+**Reference-model competition result:** **0.56842 private / 0.56862 public**, accepted by Kaggle as a late submission using the frozen reference model and verified official test prefixes.
 
 **Source correction:** the initial Kaggle submission is invalidated because its
 input contained full post-competition test sessions, including future events.
