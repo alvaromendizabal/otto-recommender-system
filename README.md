@@ -1,82 +1,153 @@
 # OTTO · Session-based recommendation
 
-**From anonymous shopping events to three ranked product lists.** An end-to-end recommendation project combining co-visitation retrieval, task-specific learning to rank, temporal validation, controlled feature research, and cloud batch inference.
+**End-to-end recommender-system research at production scale:** multi-source retrieval, learning to rank, neural representations, temporal validation, resumable AWS inference, and reproducible experiment evidence.
 
 [![CI](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml)
 
-**Current verified result:** **0.57586 private / 0.57601 public** on submission **56542128**, scored after the competition deadline. The public research frontier now emphasizes two things at once: broader modeling capability and stronger validation integrity. Source-aware ranking, contextual models, candidate-conditioned sequence interaction and leakage-safe heterogeneous OOF ensembling have all been exercised. A later validation-integrity audit found that the newest click/cart stack had been compared with an incomplete reconstruction of the deployed objective-specific routing policy, so that stack has been returned to **research / reconciliation** status rather than presented as a promoted result. The externally scored similarity-order system remains the verified champion while the comparator is reconstructed and re-audited. [Validation integrity update](research/frontier/11_validation_integrity_reconciliation.md) · [Submission provenance](docs/INFERENCE.md)
+**Verified release:** **0.57586 private / 0.57601 public** on post-competition submission **56542128**. The released system combines the established click/cart routing policy with a promoted neural-similarity order ranker. No official medal, rank, online-service deployment, or business-lift claim is made.
 
+## 60-second overview
 
-## Start here
-
-| Review path | What it demonstrates |
+| Area | Evidence |
 | --- | --- |
-| [Research case study](docs/PORTFOLIO.md) | Problem framing, validation, feature selection, failure slices and engineering tradeoffs |
-| [09 · Controlled feature study](notebooks/09_controlled_feature_study.ipynb) | Executed comparisons, ablations, uncertainty and audit evidence |
-| [Frontier research review](research/frontier/01_frontier_review.ipynb) | Five completed scoring studies, candidate-coverage diagnosis and decisions |
-| [Training scale and recovery](research/frontier/02_training_scale_status.ipynb) | Larger training support, model sealing and checkpoint recovery; later completed and bridged to the established pipeline |
-| [03 · Neural frontier](research/neural_stack/03_neural_stack_status.ipynb) | Dated neural-design snapshot and first-place sequence-retrieval adaptation |
-| [04 · Competition frontier](research/frontier/04_competition_frontier.ipynb) | Executed September 23 scorecard: verified leaderboard progression and closed hypotheses at that snapshot |
-| [05 · Similarity + attention frontier](research/frontier/05_similarity_attention_frontier.md) | Promoted 0.57586 similarity result and the first complementary-attention study |
-| [06 · Transition + model frontier](research/frontier/06_transition_model_frontier.md) | Dense-interaction closeout, transition/source features and model-family diversification |
-| [07 · Candidate + model frontier](research/frontier/07_candidate_model_frontier.md) | MF/W2V/Seq2Seq candidate work, broad third-place recreation and CPU closeouts |
-| [08 · Neural + objective frontier](research/frontier/08_neural_objective_frontier.md) | Full first-place neural mechanism sweep, order-side source/sequence closeouts and the fitting-qualified click/cart challenger |
-| [09 · Click/cart selection protocol](research/frontier/09_click_cart_selection_protocol.md) | Frozen source-aware selection design and the independently measured transfer decision |
-| [10 · Contextual, sequence + ensemble validation](research/frontier/10_contextual_sequence_stack_validation.md) | Dated contextual/sequence/ensemble snapshot retained for provenance; superseded promotion interpretation is explicitly corrected |
-| [11 · Validation integrity + comparator reconciliation](research/frontier/11_validation_integrity_reconciliation.md) | How deployment-parity auditing caught a comparator mismatch, preserved the scientific record and blocked an unqualified release |
-| [05 · Two-tower results](notebooks/05_two_tower_results.ipynb) and [06 · ANN benchmark](notebooks/06_ann_benchmark.ipynb) | Objective-conditioned neural retrieval and nearest-neighbor experiments |
-| [10 · Competition inference](notebooks/10_competition_inference.ipynb) | Frozen native-model replay and verified official-prefix batch delivery |
+| **Problem** | Rank the next products a shopper may click, add to cart, or order from an anonymous observed session prefix |
+| **Scale** | **216.7M** training events · **1.67M** official inference sessions · **5.02M** validated output rows |
+| **Retrieval** | Co-visitation channels, session revisits, popularity, neural and latent retrieval studies; up to **400 candidates/session** |
+| **Ranking** | Task-specific LambdaRank plus neural-similarity, source-aware, sequence and heterogeneous-ensemble research |
+| **Feature research** | **1,482** engineered formulas screened into a **102-feature** controlled reference schema; later specialized rankers extend that representation |
+| **Validation** | Chronological roles, point-in-time feature contracts, OOF stacking, paired uncertainty, frozen promotion gates, deployment-parity checks |
+| **Engineering** | AWS/SageMaker + S3, resumable batch jobs, immutable manifests, checkpoint reuse, native-model replay, resource/cost telemetry |
+| **Quality** | Locked environments, pytest/ruff/mypy, GitHub Actions, executed notebooks, reproducible portfolio figures |
+| **Verified result** | **0.57586 private / 0.57601 public** after the competition deadline |
 
-## The task and architecture
+## What I owned
 
-Predict what a shopper will click, add to cart and order next, using only the observed session prefix and permitted history. Input consists of product IDs, timestamps and event types, not product descriptions or user demographics. Output is three ranked lists of 20 products per session.
+I designed and implemented the project as an end-to-end ML system rather than a standalone model notebook:
 
-The [organizer's metric](https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md) weights pooled Recall@20 as **10% clicks + 30% carts + 60% orders**. Denominators include capped future targets missing from retrieval. Candidate coverage is an oracle ceiling, never an achieved recommendation score.
+- **recommender architecture:** candidate generation, feature computation, objective-specific ranking and routing;
+- **validation design:** temporal fit/selection/evaluation roles, point-in-time correctness, leakage controls and promotion gates;
+- **feature research:** large candidate/session feature catalog, screening, ablations, interpretation and error analysis;
+- **model research:** LightGBM/XGBoost ranking, neural retrieval, learned similarity, sequence interaction and leakage-safe OOF ensembling;
+- **cloud execution:** AWS-canonical training/inference, checkpointing, resume logic, deterministic artifact identities and bounded resource use;
+- **delivery:** full-population inference, output validation, submission provenance and reproducible replay;
+- **engineering quality:** CI, tests, executed notebooks, immutable evidence, failure regression tests and public/private publication boundaries.
 
-```mermaid
+## Choose your review depth
+
+| Time | Start here | Best for |
+| --- | --- | --- |
+| **60 seconds** | [Employer overview](docs/EMPLOYER_OVERVIEW.md) | Recruiters, hiring managers, general ML leaders |
+| **5 minutes** | [System architecture](docs/ARCHITECTURE.md) · [Research case study](docs/PORTFOLIO.md) | Senior ML engineers, data scientists, recommendation/search teams |
+| **Deep dive** | [Controlled study](notebooks/09_controlled_feature_study.ipynb) · [Frontier research](research/frontier/README.md) · [Reproducibility](docs/REPRODUCIBILITY.md) | Applied scientists and technical interviewers |
+
+## System architecture
+
+~~~mermaid
 flowchart LR
-    H[Permitted historical events] --> G[Co-visitation and item statistics]
-    P[Observed session prefix] --> C[Up to 400 candidates]
-    G --> C
-    P --> F[Candidate-session features]
-    C --> F
-    F --> R[Three task-specific LambdaRank models]
-    R --> O[20 clicks · 20 carts · 20 orders]
-```
+    A[216.7M historical events] --> H[Point-in-time history]
+    P[Observed session prefix] --> C[Multi-source candidate retrieval]
+    H --> C
+    C --> K[Up to 400 candidates/session]
+    P --> F[Candidate × session features]
+    H --> F
+    K --> F
+    F --> R1[Click ranker]
+    F --> R2[Cart ranker]
+    F --> R3[Order ranker]
+    P --> N[Neural / sequence representations]
+    N --> R1
+    N --> R2
+    N --> R3
+    R1 --> O[3 × top-20 recommendation lists]
+    R2 --> O
+    R3 --> O
+    O --> B[Resumable batch inference]
+    B --> V[5.02M validated rows + immutable provenance]
+~~~
 
-## Delivered system and controlled evidence
+The metric is pooled **Weighted Recall@20 = 10% clicks + 30% carts + 60% orders**. Candidate coverage is treated as an oracle ceiling, never as achieved recommendation quality.
 
-The original feature study processes **216.7 million training events**, engineers **1,482 feature formulas**, and selects **102 features**. On its **432,492-session reserved temporal cohort**, the selected model reaches **0.584392 weighted Recall@20**, versus **0.564904** for the compact ranker and **0.535244** for candidate fusion. These systems share candidates and evaluation sessions. These are offline results, not Kaggle scores. [Exact evaluation](reports/research/evaluation.json)
+[Architecture and data contracts →](docs/ARCHITECTURE.md)
 
-![Matched temporal evaluation](reports/portfolio/results.svg)
+## Measured outcomes
 
-The selected representation improves on the compact ranker by **1.949 percentage points**, with a paired 95% session-bootstrap interval of **1.840 to 2.065 points**. Chronological fitting, selection and evaluation roles, frozen artifact identities, and a reconstruction audit support the comparison. Previously explored data and training-seed uncertainty remain limitations. [Validation and failure slices](docs/PORTFOLIO.md)
+### Controlled temporal study
 
-Full batch inference covers **1,671,803 official test sessions** and **5,015,409 validated prediction rows**. The frozen 102-feature reference scored **0.56842 private / 0.56862 public**. The objective router moved to **0.57100 / 0.57121**, and the long-session cart router reached **0.57140 / 0.57166**. The promoted similarity-stack submission **56542128** preserves the long-session router's click/cart lists and replaces orders with a task-specific 137-feature ranker that combines the established representation with learned candidate-to-session similarity and neural-query diagnostics; it reaches **0.57586 private / 0.57601 public**. All are post-deadline measurements; none establishes an official medal or rank. [Inference and provenance](docs/INFERENCE.md)
+On a **432,492-session reserved temporal cohort**, the selected controlled reference reaches:
 
-## Research: test mechanisms, measure outcomes, preserve decisions
+| System | Weighted Recall@20 |
+| --- | ---: |
+| Candidate fusion | 0.535244 |
+| Compact ranker | 0.564904 |
+| **Selected ranker** | **0.584392** |
 
-The recent studies test timing/training interactions, objective-specific routing, multi-hop retrieval, candidate-aware ranking, explicit path features and learned graph affinities. Their matched controls generally use **134 features**, not the submitted 102-feature system.
+The selected representation improves on the compact ranker by **1.949 percentage points**, with a paired 95% session-bootstrap interval of **1.840 to 2.065 points**. These are offline results on matched temporal data, not competition scores.
 
-The two-hop mechanism increased candidate coverage by **0.023199**, but achieved recall declined. Its tested retraining recipe also regressed. The later timing hybrid and latent-affinity experiments did not establish transferable gains. These findings remain visible in the [executed comparison notebook](research/frontier/01_frontier_review.ipynb), alongside counts, intervals and [selected method implementations](research/frontier/README.md). Different cohorts must not be read as a leaderboard progression.
+### Verified full-population lineage
 
-**Frontier progression:** after the promoted v42-derived similarity stack, the project systematically broadened its modeling capabilities instead of repeatedly tuning the incumbent. Transition/XGBoost, candidate expansion, Word2Vec, lag-Seq2Seq, broad third-place-inspired features, the remaining first-place neural variants, flat heterogeneous source fusion, and QueryFormer-style order interaction were all evaluated under frozen gates and closed when they did not transfer. The strongest click/cart source-aware tree result then passed fitting but failed independent selection because click gains did not transfer to carts. That negative transfer motivated contextual routing and candidate-conditioned sequence models; neither passed standalone, but their preserved OOF predictions enabled a heterogeneous ensemble with strong fitting evidence. A subsequent deployment-parity audit identified that later click/cart validation had used an incomplete comparator reconstruction rather than the exact deployed routing policy. The project therefore **withdrew the promotion interpretation, preserved the artifacts, and blocked further deployment until comparator reconciliation completes**. This correction is intentionally public: catching and containing validation drift is part of the engineering result. [Validation integrity update](research/frontier/11_validation_integrity_reconciliation.md) · [Reproduction matrix](research/neural_stack/reproduction_matrix.json)
+| Release | Private | Public |
+| --- | ---: | ---: |
+| Frozen 102-feature reference | 0.56842 | 0.56862 |
+| Objective router | 0.57100 | 0.57121 |
+| Long-session cart router | 0.57140 | 0.57166 |
+| **Neural-similarity order release** | **0.57586** | **0.57601** |
 
-## Engineering and publication boundaries
+Full inference covers **1,671,803 official sessions** and **5,015,409 recommendation rows**. The current verified release preserves the established click/cart policy and replaces orders with a task-specific ranker that combines the controlled representation with learned candidate-to-session similarity and neural query diagnostics.
 
-**AWS is the canonical private execution workspace; GitHub is the curated review surface.** The public update includes executed notebooks, aggregate evidence, readable selected implementations and tests. It does not copy raw events, per-session labels or predictions, cohort IDs, full models, embeddings, environments, credentials or account logs.
+[Inference and provenance →](docs/INFERENCE.md)
 
-Content-addressed inputs, atomic receipts, native-model replay, resource bounds and return bundles make long workflows inspectable and restartable. Later frontier runs extend that discipline to reusable neural checkpoints, fitting caches, per-part evaluation receipts, one-upload submission ledgers and explicit stop decisions. Engineering failures are recorded separately from model-quality failures. The similarity deployment required several engineering recoveries before producing a fully validated score; the fixed XGBoost branch later completed selection and was rejected scientifically rather than presented as a gain. The public repository reports aggregate outcomes and reproducibility contracts, not private checkpoints or row-level predictions.
+## Research depth
 
-## Explore and inspect
+The repository preserves successful and unsuccessful hypotheses so model decisions remain inspectable. Major studies include:
 
-Foundational notebooks cover [validation](notebooks/01_validation_protocol.ipynb), [retrieval](notebooks/02_retrieval_benchmarks.ipynb), [candidate budgets](notebooks/03_candidate_frontier.ipynb), [hard negatives](notebooks/04_hard_negative_quality.ipynb), [ranking features](notebooks/07_ranking_features.ipynb) and [ranking evaluation](notebooks/08_ranking_evaluation.ipynb). Earlier manual research remains in [research/manual](research/manual/README.md). [Environment and artifact requirements](docs/REPRODUCIBILITY.md)
+- temporal and candidate-budget experiments;
+- graph/co-visitation path features;
+- matrix-factorization and Word2Vec retrieval;
+- first-place-inspired neural sequence encoders;
+- learned candidate-to-session similarity;
+- source-aware ranking and XGBoost variants;
+- candidate-conditioned sequence interaction;
+- contextual reliability-aware models;
+- heterogeneous OOF stacking;
+- candidate-ceiling versus achieved-ranking diagnosis.
 
-Important findings are embedded in the saved notebooks as inline Plotly figures and static fallbacks. The [original portable report](https://github.com/alvaromendizabal/otto-recommender-system/raw/refs/heads/main/reports/portfolio/otto-research-report.zip) is supplementary, not a replacement for notebook evidence.
+A recent deployment-parity audit found that one newer click/cart validation path had not reconstructed the exact deployed comparator. That challenger was returned to **research / comparator reconciliation** status rather than being presented as a release. The fitting evidence is preserved; the externally verified release remains unchanged.
 
-```bash
+[Validation-integrity case study →](research/frontier/11_validation_integrity_reconciliation.md)
+
+## Engineering and reproducibility
+
+The repository is intentionally more than a modeling report:
+
+- **content-addressed inputs and artifacts** prevent silent cache reuse;
+- **atomic receipts and immutable manifests** bind models, data, code and metrics;
+- **resumable batch inference** reuses completed partitions after interruption;
+- **native-model replay** verifies selected model behavior;
+- **resource and runtime bounds** make expensive jobs inspectable;
+- **GitHub Actions** runs quality, neural-contract, notebook and portfolio jobs;
+- **executed notebooks** persist Plotly outputs and replay from checked evidence;
+- **regression tests** encode previously encountered failure modes.
+
+Public GitHub contains selected implementations, aggregate evidence, tests, notebooks and reproducibility contracts. Raw competition data, row-level labels/predictions, private runners, full checkpoints, embeddings, credentials and exact private orchestration remain outside the public repository.
+
+## Technology
+
+**Python · Polars · PyArrow · LightGBM · XGBoost · PyTorch · FAISS · scikit-learn · AWS SageMaker · S3 · Plotly · pytest · ruff · mypy · GitHub Actions**
+
+## Reproduce the public review
+
+~~~bash
 uv sync --frozen --extra dev --extra ml
 .venv/bin/python scripts/run_quality_gate.py
-```
+.venv/bin/python scripts/project_status.py
+~~~
 
-**Scope:** the delivered reference system and verified post-competition submission lineage are complete and inspectable. Current research emphasizes controlled transfer, heterogeneous OOF ensembling, independent validation and deployment-parity auditing. The newest click/cart stack has **strong fitting evidence but is not currently promoted**: a comparator reconstruction issue was discovered during official-inference parity work and the project is reconciling that comparison before any further release decision. No newer competition submission, official rank, medal, production-service deployment, or state-of-the-art claim is made.
+The full research and inference workflows require the official OTTO data and larger private artifacts. The public review path is intentionally semi-reproducible: enough code, contracts, tests and executed evidence to inspect the engineering and scientific decisions without publishing restricted data or private competitive artifacts.
+
+[Reproducibility guide →](docs/REPRODUCIBILITY.md)
+
+## Deep research archive
+
+For the full experiment lineage—including rejected hypotheses, source attribution, neural reproduction status and validation decisions—use the [frontier research index](research/frontier/README.md).
+
+**Current release state:** the verified competition release remains **0.57586 private / 0.57601 public**. The newest click/cart research stack is not deployed while comparator reconciliation is in progress.
