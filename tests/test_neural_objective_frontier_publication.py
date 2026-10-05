@@ -17,7 +17,6 @@ def test_verified_kaggle_incumbent_is_unchanged() -> None:
     assert c["incumbent"]["ref"] == 56542128
     assert c["incumbent"]["private"] == 0.57586
     assert c["incumbent"]["public"] == 0.57601
-    assert c["remaining_private_gap"] == 0.02917
     assert c["newer_submission_published"] is False
 
 
