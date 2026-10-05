@@ -53,5 +53,28 @@
       "credentials",
       "exact private orchestration"
     ]
+  },
+  "employer_review": {
+    "recommended_entrypoints": {
+      "60_seconds": "docs/EMPLOYER_OVERVIEW.md",
+      "5_minutes": [
+        "docs/ARCHITECTURE.md",
+        "docs/PORTFOLIO.md"
+      ],
+      "deep_dive": [
+        "notebooks/09_controlled_feature_study.ipynb",
+        "research/frontier/README.md",
+        "docs/REPRODUCIBILITY.md"
+      ]
+    },
+    "project_ownership": [
+      "recommender architecture",
+      "temporal validation",
+      "feature research",
+      "ranking and neural experiments",
+      "AWS batch execution and recovery",
+      "full inference and provenance",
+      "CI and publication contracts"
+    ]
   }
 }
