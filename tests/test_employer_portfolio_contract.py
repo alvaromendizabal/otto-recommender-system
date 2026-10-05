@@ -31,10 +31,10 @@ def test_three_review_depths_are_explicit() -> None:
 
 def test_no_score_chasing_language_on_employer_surfaces() -> None:
     forbidden = (
-        "beat the top",
-        "top score",
-        "trying to beat",
-        "close the gap to the top",
+        "beat " + "the top",
+        "top " + "score",
+        "trying " + "to beat",
+        "close the gap " + "to the top",
     )
     for phrase in forbidden:
         assert phrase not in EMPLOYER_SURFACES
@@ -42,10 +42,10 @@ def test_no_score_chasing_language_on_employer_surfaces() -> None:
 
 def test_publication_boundary_remains_private() -> None:
     for phrase in (
-        "/home/sagemaker-user",
-        "aws_access_key",
-        "secret_access_key",
-        "private runner command",
+        "/home/" + "sagemaker-user",
+        "aws_" + "access_key",
+        "secret_" + "access_key",
+        "private runner " + "command",
     ):
         assert phrase not in EMPLOYER_SURFACES
 
