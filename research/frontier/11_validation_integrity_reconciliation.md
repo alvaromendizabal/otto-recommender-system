@@ -1,6 +1,6 @@
-# Validation integrity and comparator reconciliation · October 5, 2026
+# Validation integrity and comparator correction · October 5, 2026
 
-This update documents a validation-integrity correction discovered during deployment-parity work. It is intentionally employer-facing and aggregate: the public repository records the scientific contract, the correction, and the engineering controls without publishing row-level predictions, cohort/session identifiers, private runners, checkpoints, embeddings, credentials, or exact cloud orchestration.
+This case study documents a validation-integrity correction discovered during deployment-parity work. It is intentionally aggregate and employer-facing: the public repository records the scientific contract, correction and release decision without publishing row-level predictions, cohort/session identifiers, private runners, checkpoints, embeddings, credentials, or exact cloud orchestration.
 
 ## Verified external state
 
@@ -20,19 +20,39 @@ After the externally verified similarity-order milestone, the project expanded b
 - immutable prediction/model identities;
 - deployment-parity replay and output-membership checks.
 
-The strongest heterogeneous sequence stack produced **+0.004203 deployment-aligned fitting gain with 5/5 nonnegative combined and cart folds**. That is still valid fitting evidence.
+The heterogeneous sequence stack produced **+0.004203 fitting gain with 5/5 nonnegative combined and cart folds**. That remains valid fitting evidence.
 
 ## What the audit found
 
-A subsequent validation path compared the frozen click/cart challenger against a baseline that did not exactly reproduce the deployed objective-specific routing policy.
+A later validation path compared the frozen click/cart challenger against a baseline that did not exactly reproduce the deployed objective-specific routing policy.
 
 That distinction matters because the deployed incumbent is not simply candidate order. It uses objective-specific routing and ranking policies that changed through the verified submission lineage.
 
-The issue surfaced during official-inference parity checks, where the reconstructed baseline disagreed with the immutable incumbent on nearly every session in a preserved deployment batch. The project stopped the release rather than treating the mismatch as harmless.
+The issue surfaced during official-inference parity checks, where the reconstructed baseline disagreed with immutable incumbent recommendations. The project stopped the release rather than treating the mismatch as harmless.
+
+## Corrected reconciliation result
+
+The follow-up audit:
+
+- reproduced incumbent click/cart top-20 membership on **4,096 / 4,096** preserved official prefixes;
+- verified **423 / 423** archived statistic parts covering **432,492 sessions**;
+- recomputed the frozen challenger against the true comparator without refitting.
+
+The corrected result was:
+
+| Quantity | Result |
+| --- | ---: |
+| Weighted Recall@20 gain | **+0.00395690** |
+| Click-hit gain | **−3,529** |
+| Cart-hit gain | **+1,922** |
+
+The frozen qualification contract required non-regressing clicks. The challenger therefore **failed qualification and was rejected**.
+
+Passing the aggregate weighted point estimate did not override a failed objective-level gate.
 
 ## Scientific consequence
 
-The later Fresh Selection V2 / Final Reserve V2 promotion interpretation is **withdrawn pending comparator reconciliation**.
+The earlier Fresh Selection V2 / Final Reserve V2 promotion interpretation is superseded by the corrected comparison.
 
 This does **not** invalidate:
 
@@ -42,40 +62,31 @@ This does **not** invalidate:
 - the v42 similarity-order result;
 - the reproducibility infrastructure and preserved artifacts.
 
-It does mean that later click/cart gain, interval and chronology claims cannot be used as evidence of improvement over the deployed incumbent until the comparator is reconstructed and the frozen challenger is re-evaluated against it.
-
-## Current reconciliation protocol
-
-The current bounded audit has four goals:
-
-1. reconstruct the deployed click/cart policy from immutable submission lineage and archived model/evaluation evidence;
-2. prove parity against preserved incumbent predictions on a deployment slice;
-3. recompute the frozen challenger point comparison against that true comparator without refitting or reopening raw target-item labels;
-4. record an append-only release decision and registry correction.
-
-A corrected promotion check still requires a material positive weighted gain, non-regressing clicks and a meaningful cart improvement. Passing point estimates alone is not sufficient; uncertainty and chronological stability must also be defensibly reconciled before promotion.
+It does mean that the newer click/cart stack is **not promoted**, its full inference remains stopped, and later research must begin from a scientifically valid baseline.
 
 ## Why this matters for the portfolio
 
 The project treats validation as production infrastructure, not a presentation layer. A strong-looking result is not retained because it is convenient: comparator identity, model identity, cohort identity, and deployment parity are first-class contracts.
 
-The correction is therefore part of the research result:
+The correction demonstrates:
 
 - immutable historical evidence is preserved;
 - stale promotion claims are corrected rather than rewritten;
-- expensive deployment is blocked until evidence is valid;
+- expensive deployment is blocked when a correctness gate fails;
 - external competition scores remain clearly separated from offline validation;
-- public GitHub surfaces publish aggregate evidence and contracts, while sensitive artifacts stay private.
+- negative scientific results become inputs to the next architecture decision;
+- public GitHub exposes aggregate evidence and tests while sensitive artifacts stay private.
 
 ## Current release state
 
 | Component | State |
 | --- | --- |
-| Verified competition champion | **0.57586 private / 0.57601 public** |
-| Heterogeneous click/cart stack | **Research — comparator reconciliation** |
+| Verified competition release | **0.57586 private / 0.57601 public** |
+| Heterogeneous click/cart challenger | **Rejected after corrected comparator** |
 | Official competition input attestation | Verified |
 | Incumbent order recommendations | Preserved and certified |
-| New challenger full inference | Blocked pending corrected qualification |
+| New challenger full inference | Stopped |
 | New Kaggle submission | None |
+| Current research focus | Candidate availability under point-in-time controls |
 
-The next public update should publish the corrected comparison outcome, whether positive or negative. If the challenger fails, the project closes that promotion cleanly and moves to a materially different objective/representation rather than tuning against consumed holdouts. If it passes every corrected gate, official inference resumes from preserved checkpoints.
+The follow-on research is summarized in [12 · Corrected comparator and candidate-coverage frontier](12_corrected_comparator_candidate_coverage.md).
