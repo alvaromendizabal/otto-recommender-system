@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "as_of_utc": "2026-10-05T00:00:00Z",
+  "schema_version": 2,
+  "as_of_utc": "2026-10-06T02:15:00Z",
   "metric": {
     "name": "Weighted Recall@20",
     "direction": "higher_is_better",
@@ -17,14 +17,44 @@
     "status": "verified_post_competition"
   },
   "research_frontier": {
-    "click_cart_stack_status": "research_comparator_reconciliation",
-    "valid_fitting_evidence": {
-      "weighted_gain": 0.004203,
-      "combined_nonnegative_folds": "5/5",
-      "cart_nonnegative_folds": "5/5"
+    "click_cart_stack_status": "rejected_after_corrected_comparator",
+    "corrected_comparator": {
+      "official_prefixes_replayed": 4096,
+      "top20_membership_mismatches": 0,
+      "archived_statistic_parts_verified": 423,
+      "archived_sessions": 432492,
+      "weighted_gain": 0.0039569,
+      "click_hit_gain": -3529,
+      "cart_hit_gain": 1922,
+      "decision": "rejected_click_gate"
     },
-    "later_promotion_interpretation": "withdrawn_pending_corrected_comparator",
-    "current_release_gate": "reconstruct deployed comparator and recompute frozen comparison before any new deployment"
+    "top20_uniform_development": {
+      "status": "development_only_not_promoted",
+      "five_fold_sessions": 3502,
+      "incumbent_cart_hits": 2696,
+      "candidate_cart_hits": 2806,
+      "cart_hit_gain": 110,
+      "weighted_cart_contribution_gain": 0.00534153,
+      "replay_top20_membership_mismatches": 0
+    },
+    "time_controlled_diagnostics": {
+      "evaluation_queries": 16000,
+      "cart_denominator": 4778,
+      "strongest_ranked_cart_hits": 2181,
+      "original_candidate_pool_ceiling_hits": 2824,
+      "within_pool_misses": 643,
+      "outside_pool_misses": 1954,
+      "latest_closed_direction": "directed_rank96_spectral_cart_retrieval",
+      "latest_equal_budget_coverage_hits": {
+        "original_pool": 2824,
+        "direct_association": 2828,
+        "spectral": 2802,
+        "fixed_combination": 2805
+      },
+      "sampled_cart_output_catalog_ceiling_hits": 3005,
+      "current_question": "expand point-in-time candidate vocabulary before another reranking cycle"
+    },
+    "current_release_gate": "no newer research candidate is promoted; independent confirmation and end-to-end scored transfer remain required"
   },
   "delivered_scale": {
     "training_events": 216716096,
@@ -64,6 +94,7 @@
       "deep_dive": [
         "notebooks/09_controlled_feature_study.ipynb",
         "research/frontier/README.md",
+        "research/frontier/12_corrected_comparator_candidate_coverage.md",
         "docs/REPRODUCIBILITY.md"
       ]
     },
