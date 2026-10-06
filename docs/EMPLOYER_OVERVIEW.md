@@ -57,7 +57,7 @@ Full inference spans 1.67M sessions. Intermediate partitions are sealed with ide
 
 ### 5. Validation must match deployment
 
-The repository includes deployment-parity checks because a good offline score is only meaningful if the comparator, feature contract and release policy are the same ones being evaluated. A recent audit caught a comparator reconstruction mismatch in a newer research path and blocked that challenger from release.
+The repository includes deployment-parity checks because a good offline score is only meaningful if the comparator, feature contract and release policy are the same ones being evaluated. A deployment-parity audit caught a comparator reconstruction mismatch in a newer research path; the corrected replay reproduced the true incumbent and **rejected the challenger because click hits regressed**, despite positive cart and aggregate point estimates.
 
 ## Measured evidence
 
@@ -90,6 +90,8 @@ The project evaluates mechanisms from multiple recommender families:
 - hard-negative and candidate-budget studies.
 
 Negative experiments remain documented so the repository demonstrates decision quality, not just successful endpoints.
+
+The current time-controlled diagnosis also separates ranking and retrieval error: on a 4,778-target cart denominator, the strongest ranked system recovers **2,181** targets while the existing candidate pool contains **2,824**. This makes candidate availability the active research bottleneck and gives the next experiment a concrete reason to exist.
 
 ## Production-style engineering signals
 

@@ -32,6 +32,9 @@ def test_three_review_depths_are_explicit() -> None:
     assert entrypoints["60_seconds"] == "docs/EMPLOYER_OVERVIEW.md"
     assert "docs/ARCHITECTURE.md" in entrypoints["5_minutes"]
     assert "docs/REPRODUCIBILITY.md" in entrypoints["deep_dive"]
+    assert "research/frontier/12_corrected_comparator_candidate_coverage.md" in (
+        entrypoints["deep_dive"]
+    )
 
 
 def test_no_score_chasing_language_on_employer_surfaces() -> None:
@@ -55,8 +58,9 @@ def test_publication_boundary_remains_private() -> None:
         assert phrase not in EMPLOYER_SURFACES
 
 
-def test_current_challenger_status_is_consistent() -> None:
-    status = STATUS["research_frontier"]["click_cart_stack_status"]
-    assert status == "research_comparator_reconciliation"
-    assert "not deployed" in OVERVIEW.lower() or "blocked" in OVERVIEW.lower()
-    assert "comparator reconciliation" in PORTFOLIO.lower()
+def test_current_research_state_is_consistent() -> None:
+    frontier = STATUS["research_frontier"]
+    assert frontier["click_cart_stack_status"] == "rejected_after_corrected_comparator"
+    assert "rejected" in OVERVIEW.lower()
+    assert "candidate availability" in PORTFOLIO.lower()
+    assert "candidate availability" in README.lower()

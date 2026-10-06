@@ -65,7 +65,7 @@ Research channels include:
 
 The production-style pipeline uses bounded candidate budgets, while research reports track **candidate ceiling** separately from achieved ranking quality.
 
-That distinction matters: better coverage is useful only if downstream ranking can exploit it.
+That distinction matters: better coverage is useful only if downstream ranking can exploit it. Current time-controlled diagnostics also quantify the opposite failure mode: a ranker cannot recover targets that never enter the pool, so candidate availability and ranking error are reported separately.
 
 ## 3. Feature layer
 
@@ -135,7 +135,7 @@ The validation stack includes:
 - explicit promotion/kill thresholds;
 - deployment-parity replay.
 
-A later click/cart research path was intentionally blocked when parity auditing showed that its comparator did not exactly match the deployed routing policy.
+A later click/cart research path was intentionally blocked when parity auditing showed that its comparator did not exactly match the deployed routing policy. The corrected replay subsequently reproduced the real incumbent and rejected that challenger because its click objective regressed, demonstrating that release qualification is enforced at the final routing-policy level rather than inferred from aggregate model scores.
 
 ## 7. Batch inference and recovery
 

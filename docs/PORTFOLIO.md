@@ -32,11 +32,13 @@ The controlled reference study reaches **0.584392 weighted Recall@20** on **432,
 
 A later neural-similarity order ranker improved the established release and transferred to the post-competition evaluation: submission **56542128** scored **0.57586 private / 0.57601 public** while preserving the established click/cart policy.
 
-Post-release research broadened the system with source-aware ranking, additional neural encoders, sequence interaction and heterogeneous OOF stacking. The strongest newer click/cart stack has valid fitting evidence, but its later promotion interpretation is currently **withdrawn pending comparator reconciliation** after deployment-parity auditing found that the validation comparator did not exactly reconstruct the deployed routing policy.
+Post-release research broadened the system with source-aware ranking, additional neural encoders, sequence interaction, heterogeneous OOF stacking, top-20-aligned objectives and retrieval diagnostics. Deployment-parity auditing found that one newer click/cart validation path had not reconstructed the exact deployed routing policy.
 
-That correction is part of the engineering story: artifacts were preserved, the release was blocked, and the externally verified system remained unchanged rather than publishing an unqualified result.
+The corrected audit reproduced the deployed comparator on **4,096 preserved official prefixes** and rejected the challenger: **+0.00395690** weighted point gain, **−3,529 click hits**, and **+1,922 cart hits**. The frozen click non-regression gate failed, so the externally verified release remained unchanged.
 
-[Validation-integrity update](../research/frontier/11_validation_integrity_reconciliation.md)
+Later controlled work separated ranking from retrieval error. On **16,000 chronological evaluation queries**, the strongest time-controlled cart ranker recovers **2,181 of 4,778 capped targets**, while the existing pool contains **2,824**. The measured bottleneck is now candidate availability rather than another small feature or reranker variation.
+
+[Validation-integrity update](../research/frontier/11_validation_integrity_reconciliation.md) · [Current candidate-coverage frontier](../research/frontier/12_corrected_comparator_candidate_coverage.md)
 
 ## Source provenance correction
 
@@ -382,17 +384,10 @@ changed contracts, and exact reuse on real small model fits.
 
 ## What remains an open research question
 
-The [frozen robustness study](ROBUSTNESS.md) has verified all three reference-window
-seeds. The feature gain stays positive at **+1.949, +2.022 and +2.031 percentage points**;
-all three select the same 102-feature representation. This supports seed consistency
-on one period. The next bounded research work is to build and audit **the early temporal
-window**, then the middle window, each with its three planned seeds.
+The current research question is **candidate availability under strict point-in-time controls**.
 
-After those comparisons, evaluate a predeclared action-specific hybrid on a fresh
-selection/evaluation split. Joint feature-family removals and neural retrieval certified to
-the same historical boundary are additional experiments, not completed results.
+On the time-controlled cart diagnostic, the existing candidate pool contains **2,824 of 4,778 capped targets**, while the strongest achieved ranker recovers **2,181**. That leaves **643** misses inside the pool and **1,954** outside it. Recent nearest-session, direct-association and low-rank retrieval studies added little equal-budget coverage; the sampled cart-output catalog itself reaches only **3,005** targets as a loose diagnostic ceiling.
 
-The present evidence supports a substantial, reproducible offline study and a complete
-batch inference implementation. It does not establish cross-period universality, a novel
-model architecture, a leaderboard rank, or online revenue lift. Those limits make the
-conclusions testable and the next experiments clear.
+The next useful experiment must therefore demonstrate that a broader permitted item vocabulary or retrieval mechanism materially expands candidate coverage before the project spends on another full ranking cycle. Any promising result still requires independent confirmation and end-to-end scored transfer before becoming a release.
+
+The present evidence supports a substantial, reproducible offline study, a verified post-competition release, disciplined validation correction, and a complete batch-inference implementation. It does not establish an official medal/rank, online revenue lift, or a newer promoted challenger.
