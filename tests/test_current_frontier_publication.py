@@ -9,6 +9,9 @@ FRONTIER = (ROOT / "research/frontier/README.md").read_text(encoding="utf-8")
 INTEGRITY = (
     ROOT / "research/frontier/11_validation_integrity_reconciliation.md"
 ).read_text(encoding="utf-8")
+COVERAGE = (
+    ROOT / "research/frontier/12_corrected_comparator_candidate_coverage.md"
+).read_text(encoding="utf-8")
 STATUS = json.loads(
     (ROOT / "reports/research/current_frontier_20261005.json").read_text(
         encoding="utf-8"
@@ -25,18 +28,27 @@ def test_verified_champion_is_consistent() -> None:
     assert "0.57586 private / 0.57601 public" in FRONTIER
 
 
-def test_newer_stack_is_not_publicly_promoted() -> None:
+def test_corrected_challenger_is_rejected_not_promoted() -> None:
     frontier = STATUS["research_frontier"]
-    assert (
-        frontier["click_cart_stack_status"]
-        == "research_comparator_reconciliation"
-    )
-    assert (
-        frontier["later_promotion_interpretation"]
-        == "withdrawn_pending_corrected_comparator"
-    )
-    assert "not currently promoted" in README.lower()
-    assert "withdrawn pending comparator reconciliation" in INTEGRITY.lower()
+    corrected = frontier["corrected_comparator"]
+    assert frontier["click_cart_stack_status"] == "rejected_after_corrected_comparator"
+    assert corrected["top20_membership_mismatches"] == 0
+    assert corrected["click_hit_gain"] == -3529
+    assert corrected["cart_hit_gain"] == 1922
+    assert corrected["decision"] == "rejected_click_gate"
+    assert "corrected click/cart challenger is **rejected**" in README.lower()
+    assert "failed qualification and was rejected" in INTEGRITY.lower()
+
+
+def test_candidate_availability_is_current_frontier() -> None:
+    diag = STATUS["research_frontier"]["time_controlled_diagnostics"]
+    assert diag["cart_denominator"] == 4778
+    assert diag["strongest_ranked_cart_hits"] == 2181
+    assert diag["original_candidate_pool_ceiling_hits"] == 2824
+    assert diag["outside_pool_misses"] == 1954
+    assert "candidate availability" in README.lower()
+    assert "candidate availability" in FRONTIER.lower()
+    assert "candidate availability" in COVERAGE.lower()
 
 
 def test_public_status_has_no_private_execution_material() -> None:
