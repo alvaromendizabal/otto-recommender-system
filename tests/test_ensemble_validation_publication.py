@@ -59,8 +59,8 @@ def test_current_employer_facing_surfaces_preserve_snapshot_and_current_state() 
     snapshot = (FRONTIER / "10_contextual_sequence_stack_validation.md").read_text()
 
     assert "0.57586 private / 0.57601 public" in readme
-    assert "comparator reconciliation" in readme.lower()
-    assert "comparator reconciliation" in frontier.lower()
+    assert "corrected click/cart challenger is **rejected**" in readme.lower()
+    assert "candidate availability" in frontier.lower()
     assert "200,000 / 412,492 sessions" in snapshot
     assert "+0.004203" in snapshot
     assert "+0.003194" in snapshot
