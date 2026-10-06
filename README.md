@@ -111,9 +111,11 @@ The repository preserves successful and unsuccessful hypotheses so model decisio
 - heterogeneous OOF stacking;
 - candidate-ceiling versus achieved-ranking diagnosis.
 
-A recent deployment-parity audit found that one newer click/cart validation path had not reconstructed the exact deployed comparator. That challenger was returned to **research / comparator reconciliation** status rather than being presented as a release. The fitting evidence is preserved; the externally verified release remains unchanged.
+A deployment-parity audit found that one newer click/cart validation path had not reconstructed the exact deployed comparator. The corrected replay reproduced the deployed click/cart policy on **4,096 preserved official prefixes**, reconciled **423 archived statistic parts across 432,492 sessions**, and rejected the challenger because a positive weighted point estimate still contained a **3,529-click regression**. The fitting evidence remains preserved; the externally verified release is unchanged.
 
-[Validation-integrity case study →](research/frontier/11_validation_integrity_reconciliation.md)
+Subsequent controlled research tested top-20-aligned objectives, forward-time ranking, behavior transfer, session memory and learned retrieval. The strongest time-controlled cart ranker recovered **2,181 of 4,778 capped targets**, while the existing candidate pool contained **2,824**. That gap makes **candidate availability**—not another small reranker tweak—the current research frontier.
+
+[Validation-integrity case study →](research/frontier/11_validation_integrity_reconciliation.md) · [Current candidate-coverage frontier →](research/frontier/12_corrected_comparator_candidate_coverage.md)
 
 ## Engineering and reproducibility
 
@@ -150,4 +152,4 @@ The full research and inference workflows require the official OTTO data and lar
 
 For the full experiment lineage—including rejected hypotheses, source attribution, neural reproduction status and validation decisions—use the [frontier research index](research/frontier/README.md).
 
-**Current release state:** the verified competition release remains **0.57586 private / 0.57601 public**. The newest click/cart research stack is **not currently promoted or deployed** while comparator reconciliation is in progress.
+**Current release state:** the verified competition release remains **0.57586 private / 0.57601 public**. The corrected click/cart challenger is **rejected**, no newer research candidate is deployed, and current work is focused on point-in-time candidate coverage before another release claim.
