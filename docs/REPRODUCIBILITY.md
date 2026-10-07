@@ -6,6 +6,11 @@ content identities. A report records the exact model/data contract used for its 
 
 ## Review and replay without AWS or the dataset
 
+Start with `python3 -S scripts/review_portfolio.py` for a read-only, dependency-free
+consistency check (Python 3.11+). It reconciles the latest recorded release, recomputes
+controlled-study metrics and checks the separate candidate-coverage diagnosis. See the
+[five-minute reviewer guide](REVIEWER_GUIDE.md) for the completed delivery and its limits.
+
 The Linux CI environments use Python **3.13.15** for the project and **3.12.13** for
 analysis. `uv.lock` pins the project stack. `notebooks/requirements.in` records the
 analysis dependencies; `notebooks/requirements.txt` locks every transitive dependency
@@ -38,7 +43,7 @@ not rerun historical graph construction or prove full-dataset runtime by itself.
 
 ## Rebuild the README and case-study figures
 
-The seven public figures use Plotly and the same locked analysis environment as the
+The eight public figures use Plotly and the same locked analysis environment as the
 notebooks. They read the verified research reports; they do not fit models or rerun
 full inference. With the analysis environment above installed:
 

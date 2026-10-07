@@ -90,7 +90,11 @@ def test_accepted_submission_reports_verified_displayed_scores(tmp_path: Path) -
     assert result.returncode == 0, result.stderr
     status = json.loads(result.stdout)
     assert status["kaggle_submission"] == "complete (after deadline)"
-    assert status["kaggle_scores"] == {"private": "0.56842", "public": "0.56862"}
+    assert status["reference_kaggle_scores"] == {"private": "0.56842", "public": "0.56862"}
+    assert status["kaggle_scores"] == {"private": "0.57586", "public": "0.57601"}
+    assert status["verified_release"]["submission_reference"] == 56542128
+    assert status["current_research_status"] == "rejected_after_corrected_comparator"
+    assert "candidate vocabulary" in status["next_task"]
     assert status["competition_prediction"] == (
         "official input, full file and native replay verified"
     )
