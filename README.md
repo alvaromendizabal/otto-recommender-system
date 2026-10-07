@@ -6,6 +6,10 @@
 
 **Verified release:** **0.57586 private / 0.57601 public** on post-competition submission **56542128**. The released system combines the established click/cart routing policy with a promoted neural-similarity order ranker. No official medal, rank, online-service deployment, or business-lift claim is made.
 
+**Delivery complete; further research is optional.** The published system includes validated
+full-batch inference, a scored release, executed notebooks and reproducible evidence checks.
+[Start the five-minute review](docs/REVIEWER_GUIDE.md). Current evidence cutoff: October 6, 2026, 02:15 UTC.
+
 ## 60-second overview
 
 | Area | Evidence |
@@ -138,13 +142,21 @@ Public GitHub contains selected implementations, aggregate evidence, tests, note
 
 ## Reproduce the public review
 
+Check the compact evidence with Python alone, without installing the ML stack or accessing AWS:
+
+~~~bash
+python3 -S scripts/review_portfolio.py
+~~~
+
+For the full software quality gate and detailed status:
+
 ~~~bash
 uv sync --frozen --extra dev --extra ml
 .venv/bin/python scripts/run_quality_gate.py
 .venv/bin/python scripts/project_status.py
 ~~~
 
-The full research and inference workflows require the official OTTO data and larger private artifacts. The public review path is intentionally semi-reproducible: enough code, contracts, tests and executed evidence to inspect the engineering and scientific decisions without publishing restricted data or private competitive artifacts.
+The full research and inference workflows require the official OTTO data and larger private artifacts. The public review path is intentionally semi-reproducible: enough code, contracts, tests and executed evidence to inspect the engineering and scientific decisions without publishing restricted data or private competitive artifacts. The quick check recomputes aggregate arithmetic and verifies recorded identities; it does not rerun training or obtain a new competition score.
 
 [Reproducibility guide →](docs/REPRODUCIBILITY.md)
 

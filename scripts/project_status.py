@@ -259,6 +259,23 @@ def project_status(root: Path) -> dict[str, Any]:
             "scope": "Saved observation only; use retrieval_status.py for live AWS state.",
         }
         break
+    # Keep historical reference provenance intact, but do not present it as the
+    # newest release or let an old feature gate replace the corrected frontier.
+    from otto_recsys.portfolio_review import FRONTIER, RELEASE, review_snapshot
+
+    if ((root / FRONTIER).is_file() and (root / RELEASE).is_file()
+            and result.get("kaggle_submission") == "complete (after deadline)"):
+        review = review_snapshot(root)
+        result["reference_kaggle_scores"] = result.pop("kaggle_scores")
+        result["verified_release"] = review["verified_release"]
+        result["kaggle_scores"] = {
+            split: f"{review['verified_release'][f'{split}_score']:.5f}"
+            for split in ("private", "public")
+        }
+        result["release_evidence_as_of_utc"] = review["as_of_utc"]
+        result["current_research_status"] = review["research_status"]
+        result["candidate_diagnostic"] = review["candidate_diagnostic"]
+        result["next_task"] = "Keep feature engineering open: " + review["next_research_question"]
     return result
 
 
@@ -286,6 +303,12 @@ def main() -> int:
         print(json.dumps(result, indent=2))
     else:
         print(f"[{result['timestamp']}] OTTO PROJECT STATUS commit={result['commit']}")
+        if "verified_release" in result:
+            release = result["verified_release"]
+            print(f"Verified post-competition release: {release['private_score']:.5f} private / "
+                  f"{release['public_score']:.5f} public; "
+                  f"evidence as of {result['release_evidence_as_of_utc']}")
+            print(f"Current research: {result['current_research_status']}")
         for key in (
             "fold0_training",
             "exact_comparison",

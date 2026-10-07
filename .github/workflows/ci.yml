@@ -17,6 +17,10 @@ jobs:
           cache-suffix: quality
       - name: Install locked development stack
         run: uv sync --frozen --extra dev --extra ml
+      - name: Verify the dependency-free public review
+        run: |
+          .venv/bin/python -S scripts/review_portfolio.py
+          .venv/bin/python -S -O scripts/review_portfolio.py --json
       - name: Verify committed notebook bytes before replay
         run: >-
           uv run --frozen --extra dev --extra ml python -m pytest -q
