@@ -1,0 +1,48 @@
+name: Public synthetic demo
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  public-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Test the demo with Python's standard library only
+        run: python3 -S -m unittest discover -s tests -p test_public_demo.py -v
+      - name: Run, reuse and independently verify the synthetic demo
+        run: |
+          python3 -S scripts/run_public_demo.py --output artifacts/public_demo > /tmp/public-demo-first.json
+          python3 -S scripts/run_public_demo.py --output artifacts/public_demo > /tmp/public-demo-reused.json
+          python3 -S scripts/run_public_demo.py --output artifacts/public_demo --check > /tmp/public-demo-check.json
+          python3 -S - <<'PY'
+          import json
+          from pathlib import Path
+
+          first = json.loads(Path('/tmp/public-demo-first.json').read_text())
+          replay = json.loads(Path('/tmp/public-demo-reused.json').read_text())
+          checked = json.loads(Path('/tmp/public-demo-check.json').read_text())
+          if first['reused'] or not replay['reused']:
+              raise SystemExit('Demo did not prove a completed, verified replay')
+          if checked['status'] != 'passed':
+              raise SystemExit('Demo verification failed')
+          output = Path('artifacts/public_demo')
+          for name in ('predictions.json', 'result.json', 'report.html', 'manifest.json'):
+              if not (output / name).is_file() or not (output / name).stat().st_size:
+                  raise SystemExit(f'Missing demo artifact: {name}')
+          if not first['synthetic'] or not replay['synthetic']:
+              raise SystemExit('Demo must identify its synthetic data')
+          print('OTTO_PUBLIC_SYNTHETIC_DEMO_AND_REPLAY_PASSED')
+          PY
+      - name: Retain the runnable synthetic report and verified receipts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: public-synthetic-demo
+          path: artifacts/public_demo/
+          if-no-files-found: error
+          retention-days: 7

@@ -94,8 +94,8 @@ The shared-minus-baseline descriptive paired 95% gain interval is +0.837 to +4.5
 Per-task minus shared is **−0.421 pp**, interval −1.448 to +0.666 pp.
 These intervals condition on fitted models and this small, systematically sampled,
 repeatedly inspected development cohort. They do not include training variability or
-correct for repeated research selection. **0.604069 is not a Kaggle score**, and
-cannot be compared with the historical winning private score as evidence of parity.
+correct for repeated research selection. **0.604069 is not a Kaggle score** and
+does not establish performance on the competition evaluation population.
 
 ### Decision and feature attribution
 
@@ -140,13 +140,12 @@ Feature engineering remains open: 14 inventory families still require work, alon
 six previously covered scopes and two data-based exclusions. No new full-scale
 training, final-holdout access or Kaggle submission follows from this pilot.
 
-## Competitive gap and the next research questions
+## Remaining research questions
 
-The accepted private score is 0.56842 versus the historical winning 0.60503:
-a **0.03661 absolute gap (3.661 percentage points)**. We cannot defensibly allocate
-that gap between features, retrieval, model capacity and ensembling from experiments
-on different cohorts. Today's 0.604069 is not a measurement of the remaining
-leaderboard gap.
+Experiments on different cohorts do not isolate the relative contributions of
+features, retrieval, model capacity and ensembling. This pilot's 0.604069 describes
+the shared arm on its selection subset; further matched studies are needed to
+identify which changes transfer.
 
 Strong OTTO representations use candidate-to-session relationships, action/recency
 weights and complementary collaborative spaces. The current original catalog is

@@ -42,7 +42,6 @@ progress. Record source and result commits, pull requests and merges. Keep canon
 notebook names, publish executed outputs, and make employer-facing claims match
 verified evidence.
 
-The target is the strongest realistically attainable performance, with the historical
-leader treated as a research target rather than a guaranteed outcome. Favor useful
-information per experiment, reliable recovery, methodological validity, restrained
-compute spending, and a polished employer-facing repository.
+Develop a validated, reproducible recommender through measured improvements. Favor
+useful information per experiment, reliable recovery, methodological validity,
+restrained compute spending, and a polished employer-facing repository.

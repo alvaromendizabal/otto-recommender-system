@@ -275,7 +275,11 @@ def project_status(root: Path) -> dict[str, Any]:
         result["release_evidence_as_of_utc"] = review["as_of_utc"]
         result["current_research_status"] = review["research_status"]
         result["candidate_diagnostic"] = review["candidate_diagnostic"]
-        result["next_task"] = "Keep feature engineering open: " + review["next_research_question"]
+        result["next_task"] = (
+            f"Archived research question ({review['as_of_utc']}): keep feature engineering open; "
+            + review["next_research_question"]
+            + ". This snapshot does not prescribe a new run."
+        )
     return result
 
 

@@ -6,7 +6,20 @@ content identities. A report records the exact model/data contract used for its 
 
 ## Review and replay without AWS or the dataset
 
-Start with `python3 -S scripts/review_portfolio.py` for a read-only, dependency-free
+The public demonstration is a complete local run with **Python 3.11+ and the standard library**:
+
+```bash
+python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo
+python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo
+python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo --check
+python3 -S -m unittest discover -s tests -p test_public_demo.py -v
+```
+
+The first command generates deterministic synthetic history, observed prefixes and future evaluation targets. Retrieval and ranking run before target evaluation. Predictions, metrics and a self-contained interactive `report.html` are bound to a SHA-256 manifest. The second run verifies and reuses the completed outputs; `--check` is read-only. Tampered or incompatible outputs fail instead of being silently reused. Use a fresh output directory after changing source code.
+
+These illustrative metrics are not research scores. See [Public demo](PUBLIC_DEMO.md) for the conventional baseline and [Publication scope](PUBLICATION_SCOPE.md) for the limits of each reproduction path.
+
+Use `python3 -S scripts/review_portfolio.py` for a separate read-only, dependency-free
 consistency check (Python 3.11+). It reconciles the latest recorded release, recomputes
 controlled-study metrics and checks the separate candidate-coverage diagnosis. See the
 [five-minute reviewer guide](REVIEWER_GUIDE.md) for the completed delivery and its limits.

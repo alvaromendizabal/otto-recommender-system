@@ -36,7 +36,7 @@ Run the synthetic two-stage tests and frozen-schema guards before paid compute. 
 
 Publish contracts, model checkpoints, UTC heartbeats, arm counters, per-session statistics and phase-specific results to the owned S3 prefix. A second pass disables training and must reproduce every model hash and metric. Independently recalculate pooled metric arithmetic and verify native feature order. Successful validation remains separately saved when ablations append results. A changed schema, source, input or model checkpoint must fail before replacement fitting.
 
-Feature engineering remains open. The accepted Kaggle score is unchanged, and this reused development cohort cannot establish parity with the historical winning private score.
+Feature engineering remains open. The accepted Kaggle score is unchanged, and this reused development cohort cannot establish performance on the competition evaluation population.
 
 ## Reproduction
 
@@ -57,9 +57,8 @@ are positive, but this does not establish temporal or training stability.
 
 The fixed candidate ceiling is 0.692289 on these development sessions. The
 0.097215 gap from the shared ranker is recoverable ranking headroom only in
-principle, not an expected feature gain. None of these development quantities
-can be subtracted from the historical Kaggle winning score to estimate the
-competition gap. The accepted private-score gap remains 0.03661.
+principle, not an expected feature gain. These quantities describe the declared
+development cohort and cannot estimate performance on a different population.
 
 ## Primary-source review and remaining representation gaps
 

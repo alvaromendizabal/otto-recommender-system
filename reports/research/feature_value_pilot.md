@@ -26,9 +26,9 @@ Adding candidate-relative demand to the baseline produces **-0.002163** pooled c
 
 Dropping the ten row-normalized graph additions has the strongest point estimate (**0.490712**) and improves both temporal fold point estimates. Its advantage over the full shared arm is **+0.005975**, with a sign-reversed descriptive interval **[-0.004751, +0.019238]**. This warrants a larger fitting-only confirmation, not immediate deletion. Funnel, episode and raw-graph removals reduce the pooled point estimate; degree-normalized removal has mixed fold behavior. **No feature-retention decision was made.**
 
-## Research target and missing signals
+## Research questions and missing signals
 
-The historical private winning score is **0.60503**, but this pilot's reused fitting subset is not comparable with that leaderboard. The winner's [primary write-up](https://www.kaggle.com/competitions/otto-recommender-system/writeups/mrkmakr-1st-place-solution) emphasizes multiple co-visitation views, multi-step retrieval, action-conditioned neural similarities, multiple-window popularity ranks and about 1,200 candidates. These are a research coverage checklist, not a promise that another feature list guarantees a record.
+This pilot's reused fitting subset does not establish competition performance. The first-place author's [primary write-up](https://www.kaggle.com/competitions/otto-recommender-system/writeups/mrkmakr-1st-place-solution) emphasizes multiple co-visitation views, multi-step retrieval, action-conditioned neural similarities, multiple-window popularity ranks and about 1,200 candidates. These mechanisms motivate controlled comparisons; their contribution must be measured under this project's validation protocol.
 
 The candidate-oracle ceiling on this exact 400-candidate subset is **0.635088** versus best measured ranking **0.490712**. Both ranking loss inside the pool and missed targets outside it remain relevant. Next, inspect the existing retrieval inventory and stage a bounded action-conditioned/multi-hop candidate coverage and resource test; independently confirm the row-normalized ablation on more fitting sessions. Do not enlarge training simply because one small arm is best.
 

@@ -1,6 +1,6 @@
 # Retrieval development study
 
-The accepted competition baseline is 0.56842 private / 0.56862 public. The historical winning private score is 0.60503. Development selection scores below use a different cohort and are not leaderboard estimates.
+The accepted competition baseline for this study was 0.56842 private / 0.56862 public. Development selection scores below use a different cohort and are not leaderboard estimates.
 
 The learned-feature pilot did not support promotion: the baseline achieved 0.59952343 and intent embeddings achieved 0.59963590 on the same 20,000 selection sessions. The paired descriptive 95% interval for the difference spans zero. Full results and provenance are retained in `reports/research/representation_results.json` and `representation_run.json`.
 
@@ -45,7 +45,7 @@ The current experiment addresses one missing family. The feature-research comple
 
 The [MiaSRec paper](https://arxiv.org/html/2405.00986v1) motivates item-frequency embeddings and multiple adaptively selected session representations. Its benchmarks exclude OTTO and evaluate next-item prediction, so its reported gains cannot be transferred to OTTO's weighted multi-objective score. A useful adaptation would preserve action-specific future targets and compare complementary candidate coverage before an expensive training sweep.
 
-[OTTO's TRON research](https://arxiv.org/abs/2307.14906) supports investigating loss construction and negative sampling as part of scalable session retrieval. Architecture, training targets, candidate discovery, and ranking must be evaluated separately. We do not infer that a newer encoder alone will outperform the competition winner.
+[OTTO's TRON research](https://arxiv.org/abs/2307.14906) supports investigating loss construction and negative sampling as part of scalable session retrieval. Architecture, training targets, candidate discovery, and ranking must be evaluated separately. A newer encoder requires a matched comparison to establish improvement in this system.
 
 [HIPHOP](https://arxiv.org/abs/2507.04623) additionally uses LLM-derived semantic embeddings and cross-session intent relationships. Applying semantic content requires real item descriptions or metadata; anonymized item identifiers alone do not establish product meaning. The currently verified OTTO inputs contain interaction identifiers, timestamps, and action types. No product semantics will be invented from identifiers.
 

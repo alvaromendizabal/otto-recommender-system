@@ -1,9 +1,9 @@
 # Project status and research direction
 
-**Feature engineering remains open.** The accepted baseline scores **0.56842 private /
+**Feature engineering remains open.** The accepted baseline for these studies scored **0.56842 private /
 0.56862 public**. Its engineering release is complete, and all nine original temporal
-validation cells are independently audited. This does not complete the current request
-for broad feature research or establish the historical winning score of 0.60503.
+validation cells are independently audited. Broader feature research still requires
+measured comparisons and separately specified temporal confirmation.
 
 ## Verified experiment state
 

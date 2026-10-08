@@ -3,7 +3,20 @@
 **The delivered system is complete:** a controlled offline study, a validated full-population
 batch prediction, a scored post-competition release, executed notebooks, and automated
 quality checks. Further candidate-retrieval research remains open and does not change the
-released model. The current aggregate evidence is dated **October 6, 2026, 02:15 UTC**.
+released model. The published aggregate evidence is dated **October 6, 2026, 02:15 UTC**.
+
+## Start with working software
+
+From the repository root, using Python 3.11+:
+
+```bash
+python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo
+python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo --check
+```
+
+Open `/tmp/otto-public-demo/report.html`. Select a session and objective to inspect the observed prefix, ranked products, score components and held-out targets. The report is self-contained and works offline. Repeating the first command checks and reuses completed outputs; `--check` only verifies them.
+
+This synthetic example demonstrates the software and evaluation contracts with transparent public rules. It does not reproduce the private research model or its measured performance. [Walkthrough and artifact contracts](PUBLIC_DEMO.md).
 
 ## Five-minute review
 
@@ -43,13 +56,13 @@ For locked tests, model replay and notebook execution, use [Reproducibility](REP
 | --- | --- | --- |
 | Controlled temporal study | 0.564904 → **0.584392** on 432,492 sessions | +1.949 percentage points from the selected representation over the compact control |
 | Scored release, submission 56542128 | **0.57586 private / 0.57601 public** | Post-competition evaluation; no official medal/rank claim |
-| Later time-controlled cart diagnostic | 2,181 ranked hits; 2,824 targets available in the candidate pool; 4,778 capped targets | Different cohort and objective; coverage is an oracle ceiling, not achieved ranking |
+| Archived time-controlled cart diagnostic | 2,181 ranked hits; 2,824 targets available in the candidate pool; 4,778 capped targets | Different cohort and objective; 643 within-pool misses and 1,954 outside-pool misses |
 
 The [original official-prefix receipt](../reports/submissions/kaggle_submission.json)
 records the older 0.56842 / 0.56862 reference. It remains immutable historical evidence.
 The [promoted release receipt](../reports/submissions/similarity_stack_20260925.json)
-records the newer score. `project_status.py` labels both and uses the current frontier
-for its next research question. Earlier full-session input scores remain invalidated.
+records the newer score. `project_status.py` labels both and dates its archived research
+question. Earlier full-session input scores remain invalidated.
 
 ## Delivery boundaries
 
@@ -60,6 +73,7 @@ for its next research question. Earlier full-session input scores remain invalid
 | Scored post-competition release | [Recorded submission](../reports/submissions/similarity_stack_20260925.json) |
 | Small public native-model replay | [Notebook 10](../notebooks/10_competition_inference.ipynb); deliberately limited review sample |
 | Re-execution and recovery checks | [CI](../.github/workflows/ci.yml) and [notebook execution receipts](../notebooks/execution.json) |
+| Dependency-free hands-on demo | [Demo source](../src/otto_recsys/public_demo.py), [tests](../tests/test_public_demo.py) and [dedicated CI](../.github/workflows/public-demo.yml) |
 | Attribution and adaptation status | [Source reproduction matrix](../research/neural_stack/reproduction_matrix.json) |
 
 The complete winning ensemble has not been reproduced, and no newer research challenger
@@ -71,3 +85,5 @@ replay. Full event data, full prediction populations, larger checkpoints, embedd
 credentials and private run orchestration remain outside this publication. The project
 uses AWS for canonical private research; running this review does not access a space or
 start any cloud resources.
+
+See [Publication scope](PUBLICATION_SCOPE.md) for the exact distinction between synthetic data, existing historical reference artifacts and current private research assets.
