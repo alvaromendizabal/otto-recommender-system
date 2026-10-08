@@ -1,19 +1,19 @@
 # Supervised neural retrieval · dated September 22 snapshot
 
-> **Superseded status view:** this directory preserves the design and evidence available before the completed neural downstream tests. For the current competition score, stopped neural integrations and active frontier, see [04 · Competition frontier](../frontier/04_competition_frontier.ipynb) and [frontier_status_20260923.json](../../reports/research/frontier_status_20260923.json).
+> **Archived September 22 status view:** this directory preserves the design and evidence available before the completed neural downstream tests. For the current verified release and research status, see the [project overview](../../README.md). The subsequent [04 · Competition frontier](../frontier/04_competition_frontier.ipynb) and [September 23 snapshot](../../reports/research/frontier_status_20260923.json) remain historical evidence.
 
 
-**Status:** real project execution is in progress. This directory records the design, source attribution, reproducibility boundaries and latest verified state. It does **not** claim a new neural validation score.
+**Status at the archived snapshot:** real project execution was in progress. This directory records the design, source attribution, reproducibility boundaries and state verified at that time. It does **not** claim a new neural validation score or describe a currently running job.
 
-The strongest verified competition result is **0.57100 private / 0.57121 public** (submission `56472100`, scored after the competition deadline). The historical private winning benchmark recorded by the project is **0.60503**, leaving a **0.03403** absolute gap. The current neural experiment addresses a capability present in leading OTTO systems that the submitted router does not yet reproduce: supervised, task-conditioned sequence retrieval integrated with downstream ranking.
+At this snapshot, the strongest verified competition result was **0.57100 private / 0.57121 public** (submission `56472100`, scored after the competition deadline). The neural experiment investigates supervised, task-conditioned sequence retrieval integrated with downstream ranking, a capability documented in the cited OTTO implementations.
 
 Start with [03_neural_stack_status.ipynb](03_neural_stack_status.ipynb). It is an executed, data-free review notebook with inline Plotly output and static fallbacks. [status.json](status.json) is the machine-readable snapshot; [reproduction_matrix.json](reproduction_matrix.json) states exactly which leading-solution mechanisms are adapted, validated, pending or still missing.
 
 ## Why this round exists
 
-Recent small-pilot research did not establish a path to the winning score. Increasing the pilot from 8,192 to 32,768 fitting sessions produced a **+0.004229** matched point gain but an interval crossing zero. More importantly, a same-corpus bridge showed the established 100,000-session pipeline at **0.563622** on the same 16,384 sessions, versus **0.550513** for the 32,768-session pilot. That evidence ended pilot expansion.
+Recent small-pilot research did not establish a reliable improvement over the existing pipeline. Increasing the pilot from 8,192 to 32,768 fitting sessions produced a **+0.004229** matched point gain but an interval crossing zero. More importantly, a same-corpus bridge showed the established 100,000-session pipeline at **0.563622** on the same 16,384 sessions, versus **0.550513** for the 32,768-session pilot. That evidence ended pilot expansion.
 
-The next capability therefore comes from the leading-solution gap analysis rather than another shallow feature variant.
+The next capability therefore follows the review of task-conditioned retrieval mechanisms and their potential contribution to ranking.
 
 ## Adapted first-place mechanism
 

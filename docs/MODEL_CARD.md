@@ -97,12 +97,13 @@ the full catalog. It excludes model scoring, network, storage and service overhe
 
 ## Verification and lineage
 
-The independent auditor reconstructed every observed prefix and all 788,883 target
+The separate programmatic audit reconstructed every observed prefix and all 788,883 target
 records across fit, selection and evaluation from the original Parquet event partitions.
 Both directions of the comparisons contain zero differences. Complete per-query metric
 counts reproduce every published score, all 24 native model digests match, and 4,608
 sampled prediction/candidate checks have zero mismatches. Another 6,912 sampled
-NDCG, reciprocal-rank and hit-rate checks match independent arithmetic.
+NDCG, reciprocal-rank and hit-rate checks match separately implemented arithmetic.
+This is a project verification procedure, not an external third-party certification.
 
 | Artifact | Identity / evidence |
 |---|---|
@@ -110,7 +111,7 @@ NDCG, reciprocal-rank and hit-rate checks match independent arithmetic.
 | Selection seal | `0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e` |
 | Evaluation | `adff5d8966b06ba568de08e84646061c42a2d87899fc5d1ba1577f1783cc1114` |
 | Native models and feature order | [Evaluation seal](../reports/research/evaluation_seal.json) |
-| Independent audit | [Audit report](../reports/research/audit.json) |
+| Separate programmatic audit | [Audit report](../reports/research/audit.json) |
 | Full evidence hashes | [Publication manifest](../reports/research/manifest.json) |
 
 Competition inference uses the frozen ranking weights with a separately identified

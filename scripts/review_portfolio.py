@@ -37,7 +37,8 @@ def main() -> int:
         print(f"Separate cart diagnostic: {diagnostic['ranked_hits']:,} ranked hits; "
               f"{diagnostic['coverage_hits']:,} candidate ceiling; "
               f"{diagnostic['denominator']:,} capped targets.")
-        print(f"Open research: {snapshot['next_research_question']}.")
+        print(f"Archived research question ({snapshot['as_of_utc']}): "
+              f"{snapshot['next_research_question']}.")
         print("OTTO_PUBLIC_REVIEW_PASSED — recorded evidence checked; no new model or score.")
     return 0
 

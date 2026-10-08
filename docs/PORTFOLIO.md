@@ -26,7 +26,11 @@ I owned the recommender architecture, temporal validation design, feature resear
 
 The project deliberately keeps the externally verified release separate from newer research. That distinction matters: model quality is only promoted when the data, comparator, metric and deployment policy all match the frozen validation contract.
 
-## Verified release and current research state
+## Verified release and archived research decisions
+
+The research summary below reflects the public evidence snapshot of October 6, 2026,
+02:15 UTC. Historical results remain unchanged; this page does not publish subsequent
+private experiments or prescribe the next research run.
 
 The controlled reference study reaches **0.584392 weighted Recall@20** on **432,492 reserved temporal sessions**, versus **0.564904** for a compact ranker and **0.535244** for candidate fusion.
 
@@ -36,9 +40,9 @@ Post-release research broadened the system with source-aware ranking, additional
 
 The corrected audit reproduced the deployed comparator on **4,096 preserved official prefixes** and rejected the challenger: **+0.00395690** weighted point gain, **−3,529 click hits**, and **+1,922 cart hits**. The frozen click non-regression gate failed, so the externally verified release remained unchanged.
 
-Later controlled work separated ranking from retrieval error. On **16,000 chronological evaluation queries**, the strongest time-controlled cart ranker recovers **2,181 of 4,778 capped targets**, while the existing pool contains **2,824**. The measured bottleneck is now candidate availability rather than another small feature or reranker variation.
+Later controlled work separated ranking from retrieval error. On **16,000 chronological evaluation queries**, the archived source-intent reference recovers **2,181 of 4,778 capped targets**, while the existing pool contains **2,824**. This leaves measurable headroom in both ranking and candidate availability; the counts alone do not establish which intervention will improve the system.
 
-[Validation-integrity update](../research/frontier/11_validation_integrity_reconciliation.md) · [Current candidate-coverage frontier](../research/frontier/12_corrected_comparator_candidate_coverage.md)
+[Validation-integrity update](../research/frontier/11_validation_integrity_reconciliation.md) · [Archived candidate-coverage diagnosis](../research/frontier/12_corrected_comparator_candidate_coverage.md)
 
 ## Source provenance correction
 
@@ -379,15 +383,15 @@ changed contracts, and exact reuse on real small model fits.
 | Ranking | [Training](../src/otto_recsys/research/training.py) and [model selection](../src/otto_recsys/research/study.py) |
 | Neural retrieval | [Two-tower package](../gpu/two_tower) and [executed results](../notebooks/05_two_tower_results.ipynb) |
 | Approximate search | [ANN benchmark](../notebooks/06_ann_benchmark.ipynb) |
-| Data and evaluation integrity | [Temporal corpus](../src/otto_recsys/research/protocol.py) and [independent audit](../src/otto_recsys/research/audit.py) |
+| Data and evaluation integrity | [Temporal corpus](../src/otto_recsys/research/protocol.py) and [separate programmatic audit](../src/otto_recsys/research/audit.py) |
 | MLOps and recovery | [Cloud orchestration](../src/otto_recsys/cloud), [checkpoint storage](../src/otto_recsys/cloud/research_checkpoints.py), and [CI](../.github/workflows/ci.yml) |
 
-## What remains an open research question
+## What the archived error analysis establishes
 
-The current research question is **candidate availability under strict point-in-time controls**.
+The archived study investigated **candidate availability under strict point-in-time controls** alongside ranking error.
 
-On the time-controlled cart diagnostic, the existing candidate pool contains **2,824 of 4,778 capped targets**, while the strongest achieved ranker recovers **2,181**. That leaves **643** misses inside the pool and **1,954** outside it. Recent nearest-session, direct-association and low-rank retrieval studies added little equal-budget coverage; the sampled cart-output catalog itself reaches only **3,005** targets as a loose diagnostic ceiling.
+On that time-controlled cart diagnostic, the existing candidate pool contains **2,824 of 4,778 capped targets**, while the archived source-intent reference recovers **2,181**. That leaves **643** misses inside the pool and **1,954** outside it. The nearest-session, direct-association and low-rank retrieval studies recorded in that snapshot added little equal-budget coverage; the sampled cart-output catalog itself reaches only **3,005** targets as a loose diagnostic ceiling.
 
-The next useful experiment must therefore demonstrate that a broader permitted item vocabulary or retrieval mechanism materially expands candidate coverage before the project spends on another full ranking cycle. Any promising result still requires independent confirmation and end-to-end scored transfer before becoming a release.
+The **643** within-pool misses identify ranking headroom; the **1,954** outside-pool misses identify retrieval headroom. Neither oracle difference is an achievable forecast, and their relative sizes do not establish the value or cost of a particular change. A new release would require its own frozen comparison, defensible confirmation and end-to-end scored transfer.
 
 The present evidence supports a substantial, reproducible offline study, a verified post-competition release, disciplined validation correction, and a complete batch-inference implementation. It does not establish an official medal/rank, online revenue lift, or a newer promoted challenger.

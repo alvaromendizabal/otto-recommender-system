@@ -1,6 +1,6 @@
 # Corrected comparator and candidate-coverage frontier · October 5, 2026
 
-This update records the current OTTO research frontier after the deployment-parity correction. It is intentionally aggregate and employer-facing: the public repository preserves scientific decisions, comparable metrics, and reproducibility contracts without exposing row-level predictions, private runners, checkpoints, embeddings, credentials, or exact cloud orchestration.
+This historical update records the OTTO research diagnosis after the deployment-parity correction, through the public snapshot of October 6, 2026, 02:15 UTC. It preserves the results and decisions available then; it is not a claim about the latest private experiment or a direction to launch another run. Public material and the bounded historical native-model replay are described in the [publication scope](../../docs/PUBLICATION_SCOPE.md).
 
 ## Verified external state
 
@@ -38,28 +38,28 @@ That result is retained as **development evidence only**. The candidate replayed
 
 A stricter forward-time history-only study later compared ordinary pairwise ranking with the top-20 objective on **16,000 chronological evaluation queries**. The top-20 arm recovered **2,180** cart targets versus **2,161** for pairwise, but its descriptive interval crossed zero. That bounded configuration was closed rather than tuned until it passed.
 
-## Current bottleneck: candidate availability
+## Archived diagnosis: candidate availability and ranking headroom
 
-The time-controlled diagnosis now separates ranking error from retrieval error.
+The time-controlled diagnosis separates ranking error from retrieval error on this cohort.
 
 | Diagnostic | Cart targets |
 | --- | ---: |
 | Capped evaluation denominator | **4,778** |
-| Strongest achieved ranking | **2,181** |
+| Archived source-intent reference ranking | **2,181** |
 | Existing candidate-pool ceiling | **2,824** |
 | Misses still inside the candidate pool | **643** |
 | Misses outside the candidate pool | **1,954** |
 
-Roughly three quarters of the remaining misses are therefore outside the current candidate pool.
+Roughly three quarters of this reference's remaining misses are outside its candidate pool. The **643** within-pool misses also leave ranking headroom; the counts do not determine which intervention will deliver a gain.
 
-Recent bounded retrieval experiments were designed to attack that gap:
+The bounded retrieval experiments recorded in this snapshot were designed to attack that gap:
 
 - nearest-session memory added only single-digit equal-budget coverage;
 - direct item-to-cart association added **4** retrievable targets;
 - a rank-96 spectral approximation regressed by **22** targets at equal budget;
 - even the full sampled cart-output catalog raised the diagnostic ceiling only from **2,824 to 3,005**.
 
-The current research question is consequently broader than another reranker tweak: **which point-in-time item evidence expands the candidate vocabulary enough to justify a new ranking cycle?**
+The archived research question was: **which point-in-time item evidence could expand the candidate vocabulary?** This hypothesis did not exclude improving ranking within existing pools. Candidate coverage remains a diagnostic ceiling, not an achieved recommendation score or a prerequisite for every ranking study.
 
 ## What this demonstrates
 
@@ -76,9 +76,9 @@ The research record intentionally includes negative results because they drive a
 
 Public GitHub contains selected implementation kernels, aggregate evidence, executed notebooks, tests, CI contracts, architecture documentation, and source attribution.
 
-The repository intentionally excludes raw competition data, row-level targets/predictions, session identifiers, private runners, full checkpoints, private embeddings, credentials, and exact private orchestration.
+The repository excludes full competition datasets and prediction populations, current private models and embeddings, private runners, credentials, and exact private orchestration. It already includes a bounded historical replay with three reference models and eight official-prefix examples; that exception is explicit in the [publication scope](../../docs/PUBLICATION_SCOPE.md).
 
-## Current release state
+## Release state at this snapshot
 
 | Component | State |
 | --- | --- |
@@ -86,7 +86,7 @@ The repository intentionally excludes raw competition data, row-level targets/pr
 | Corrected heterogeneous click/cart challenger | **Rejected** |
 | Top-20 / uniform candidate | **Development evidence only; not promoted** |
 | Official-feature engineering replay | Passed on preserved sample |
-| Current research frontier | Candidate-vocabulary / coverage expansion |
+| Archived research hypothesis | Candidate-vocabulary / coverage expansion |
 | New Kaggle submission | None |
 
-The next public result should be a bounded candidate-generation study or an independently confirmed challenger—not a reinterpretation of a closed experiment.
+A later public result needs its own evidence and qualification; this snapshot does not authorize reopening a closed experiment or promoting a development-only challenger.

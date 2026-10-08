@@ -136,8 +136,8 @@ first file used the full test sessions released after the competition. These
 include events that the official task withholds as targets. The organizer
 [documents the full release](https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md).
 For example, official session 12899779 has one observed click; the original input
-also supplied its next click. Thus **0.93583 cannot be compared with the historical
-winning 0.60503** or cited as model performance. Kaggle acceptance verifies neither
+also supplied its next click. Thus **0.93583 is invalid as a measure of model
+performance**. Kaggle acceptance verifies neither
 input provenance nor freedom from leakage.
 
 The training-only **0.584392** reference evaluation and the frozen temporal study

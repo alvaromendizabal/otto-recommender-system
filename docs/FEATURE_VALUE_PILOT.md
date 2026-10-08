@@ -1,10 +1,10 @@
 # Feature-value pilot: measured ranking effects, not feature count
 
-## Research target and mechanism
+## Research question and mechanism
 
-The top competition performance remains a research target, not a guaranteed outcome. A passing engineering check does not establish predictive improvement. Feature engineering remains open; ranking fits below are controlled feature experiments, not a move to final training. A score above the historical record must be established on a comparable competition evaluation, never inferred from this small fitting pilot.
+A passing engineering check does not establish predictive improvement. Feature engineering remains open; ranking fits below are controlled feature experiments, not a move to final training. Their scores apply to the declared fitting cohort and cannot establish competition performance.
 
-The first-place author's write-up reports multi-window popularity ranks, action-conditioned neural similarities, multiple co-visitation views and roughly 1,200 candidates. About 200 candidate features were narrowed to roughly 100 per objective. [Primary solution](https://www.kaggle.com/competitions/otto-recommender-system/writeups/mrkmakr-1st-place-solution). The final private winner score is 0.60503. [Official leaderboard](https://www.kaggle.com/competitions/otto-recommender-system/leaderboard).
+The first-place author's write-up reports multi-window popularity ranks, action-conditioned neural similarities, multiple co-visitation views and roughly 1,200 candidates. About 200 candidate features were narrowed to roughly 100 per objective. [Primary solution](https://www.kaggle.com/competitions/otto-recommender-system/writeups/mrkmakr-1st-place-solution). Its [competition evaluation](https://www.kaggle.com/competitions/otto-recommender-system/leaderboard) is distinct from this fitting-only pilot.
 
 The certified representation has 400 candidates and 102 baseline plus 32 shared additions. For six count sources (6-hour clicks; 72-hour carts/orders; 168-hour carts; 336-hour total activity; 1-hour total activity), compute a tie-aware popularity percentile and fraction of candidate-set activity. Zero count yields zero evidence. This adds 12 interpretable features. The transform accepts no labels and runs on complete candidates before target-dependent negative sampling. It is invariant to candidate permutation and positive scaling of counts.
 
@@ -16,7 +16,7 @@ Reuse the four verified 256-session feature partitions and denominator ledger fr
 
 No selection or evaluation rows enter the experiment. Compare baseline, shared, baseline plus relative demand, shared plus relative demand, and five leave-one-family-out shared variants: funnel, episode, raw graph, row-normalized graph, degree-normalized graph. Nine arms, three objectives, two folds: at most 54 small native rankers. Use 150 fixed rounds, 15 leaves, four threads and no validation-based early stopping or hyperparameter search. Candidates, time-censored labels, negative-sampling policy and seed match across arms. [LightGBM parameters](https://lightgbm.readthedocs.io/en/latest/Parameters.html).
 
-Compute the [competition pooled weighted Recall@20](https://www.kaggle.com/competitions/otto-recommender-system/overview/evaluation), not a mean of per-session recalls. Also compute the candidate-oracle ceiling on the same cohort. Report fold support, embargo exclusions, label censoring, objective recalls, paired unadjusted descriptive intervals, resource usage and native reload parity. Small reused fitting results cannot establish a leaderboard record. Nonnegative gain on both folds plus positive pooled gain permits expanded fitting-only replication, never automatic promotion.
+Compute the [competition pooled weighted Recall@20](https://www.kaggle.com/competitions/otto-recommender-system/overview/evaluation), not a mean of per-session recalls. Also compute the candidate-oracle ceiling on the same cohort. Report fold support, embargo exclusions, label censoring, objective recalls, paired unadjusted descriptive intervals, resource usage and native reload parity. Small reused fitting results require separate confirmation. Nonnegative gain on both folds plus positive pooled gain permits expanded fitting-only replication, never automatic promotion.
 
 ## Durable execution and open gaps
 

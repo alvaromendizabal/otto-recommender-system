@@ -8,6 +8,14 @@ The system converts **216.7 million anonymous shopping events** into objective-s
 
 The strongest verified post-competition release scored **0.57586 private / 0.57601 public** and generated **5,015,409 validated recommendation rows for 1,671,803 sessions**.
 
+## Try the engineering in one command
+
+```bash
+python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo
+```
+
+Open `/tmp/otto-public-demo/report.html`. The interactive report traces synthetic sessions through retrieval, task-specific ranking and held-out evaluation, with item score explanations and verified artifact identities. Python 3.11+ is the only requirement. The example runs locally without accounts or cloud resources; its metrics are illustrative and separate from the measured research below. [Demo walkthrough](PUBLIC_DEMO.md).
+
 ## What I built
 
 | Layer | Implementation |
@@ -91,7 +99,7 @@ The project evaluates mechanisms from multiple recommender families:
 
 Negative experiments remain documented so the repository demonstrates decision quality, not just successful endpoints.
 
-The current time-controlled diagnosis also separates ranking and retrieval error: on a 4,778-target cart denominator, the strongest ranked system recovers **2,181** targets while the existing candidate pool contains **2,824**. This makes candidate availability the active research bottleneck and gives the next experiment a concrete reason to exist.
+An archived time-controlled diagnosis separates ranking and retrieval error: on a 4,778-target cart denominator, the reference system recovers **2,181** targets while its candidate pool contains **2,824**. That leaves **643 available targets missed by ranking** and **1,954 outside the pool**. This evidence supports investigating both mechanisms, without treating a candidate ceiling as achieved recommendation quality.
 
 ## Production-style engineering signals
 
@@ -107,11 +115,23 @@ Employers reviewing the codebase should notice:
 - CI jobs for quality, neural contracts, notebooks and portfolio artifacts;
 - clear separation between public reproducibility evidence and private large artifacts.
 
+## What a reviewer can reproduce
+
+| Path | What it verifies | Boundary |
+| --- | --- | --- |
+| Synthetic demo | Complete local retrieval, ranking, evaluation, explanations and deterministic replay | Conventional teaching rules; no research-performance claim |
+| Evidence review | Published aggregate arithmetic, release identities and error decomposition | No retraining or new external evaluation |
+| Historical native-model replay | Three public reference models on eight example sessions | Bounded historical sample; not the private release |
+| Full research workflows | Code, protocols, tests and executed reports are inspectable | Original data and larger private artifacts required |
+
+The [publication scope](PUBLICATION_SCOPE.md) identifies the existing public reference artifacts and what remains private. Online serving and business impact were not evaluated.
+
 ## Review next
 
 - [Architecture](ARCHITECTURE.md)
 - [Research case study](PORTFOLIO.md)
 - [Reproducibility](REPRODUCIBILITY.md)
+- [Public demo](PUBLIC_DEMO.md)
 - [Inference and provenance](INFERENCE.md)
 - [Controlled feature study](../notebooks/09_controlled_feature_study.ipynb)
 - [Research frontier](../research/frontier/README.md)
