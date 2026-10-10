@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "FITTING_ONLY_SHARED_SCREEN_PASSED",
+  "source": {
+    "github_commit": "95c24fb18ed69bc18648bdcf61a03b4812d23450",
+    "s3_prefix": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-feature-confirmation/fit-screen-95c24fb1/",
+    "statistics_sha256": "4f4204f65c58dcca43db84dfd6dd86baee67b151eeaaffc0c0bae1ceb0232361"
+  },
+  "protocol": {
+    "role": "fit",
+    "selection_access": false,
+    "sessions": 1024,
+    "folds": 3,
+    "rounds": 75,
+    "candidate_budget": 400,
+    "negative_budget": 60,
+    "candidate_seed": 20260908,
+    "model_fits": 18,
+    "feature_retention_decisions": 0
+  },
+  "baseline": {
+    "weighted_recall_at_20": 0.5280964300613863,
+    "clicks_recall_at_20": 0.45491388044579534,
+    "carts_recall_at_20": 0.37058823529411766,
+    "orders_recall_at_20": 0.6190476190476191
+  },
+  "shared": {
+    "weighted_recall_at_20": 0.537569879015436,
+    "clicks_recall_at_20": 0.46099290780141844,
+    "carts_recall_at_20": 0.38823529411764707,
+    "orders_recall_at_20": 0.625
+  },
+  "comparison": {
+    "weighted_gain": 0.009473448954049668,
+    "orders_gain": 0.005952380952380931,
+    "fold_weighted_gains": [0.003885630498533743, 0.0009230769230769154, 0.027109442784151172],
+    "nonnegative_folds": 3,
+    "paired_gain_interval_95": [-0.009633767735509221, 0.03073267750860371],
+    "bootstrap_replicates": 1000,
+    "advance_to_fitting_only_block_ablation": true
+  },
+  "resources": {
+    "elapsed_seconds": 15.405792683000016,
+    "peak_rss_mib": 1377.76171875
+  },
+  "interpretation": [
+    "The frozen 32 additions passed the preregistered fitting-only point-estimate advancement rule on this 1,024-session cohort.",
+    "All three whole-session fold gains were nonnegative and pooled orders recall increased.",
+    "The paired 95% bootstrap gain interval includes zero, so this is not independent proof of a stable ranking lift and does not authorize promotion or selection access.",
+    "Feature engineering remains open. The larger competitive gap is candidate coverage/frontier breadth, and the separate as-of demand/support family remains untested on real data."
+  ],
+  "next_priority": "Keep the shared features active while expanding candidate recall and testing missing winner-level retrieval/source-aggregation families. Do not treat this fitting-only pass as the end of feature engineering."
+}
