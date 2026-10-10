@@ -3,9 +3,14 @@
 **The delivered system is complete:** a controlled offline study, a validated full-population
 batch prediction, a scored post-competition release, executed notebooks, and automated
 quality checks. Further candidate-retrieval research remains open and does not change the
-released model. The published aggregate evidence is dated **October 6, 2026, 02:15 UTC**.
+released model. The detailed study below retains its **October 6, 2026, 02:15 UTC** evidence cutoff;
+[current research status](RESEARCH_STATUS.md) records later inspected execution separately.
 
 ## Start with working software
+
+**[Explore the synthetic demo](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site)** to inspect the public pipeline's
+observed sessions, recommendations and separate future-target evaluation.
+
 
 From the repository root, using Python 3.11+:
 
@@ -76,9 +81,10 @@ question. Earlier full-session input scores remain invalidated.
 | Dependency-free hands-on demo | [Demo source](../src/otto_recsys/public_demo.py), [tests](../tests/test_public_demo.py) and [dedicated CI](../.github/workflows/public-demo.yml) |
 | Attribution and adaptation status | [Source reproduction matrix](../research/neural_stack/reproduction_matrix.json) |
 
-The complete winning ensemble has not been reproduced, and no newer research challenger
-has been promoted. Broader candidate coverage needs fresh independent confirmation and
-scored transfer. Online deployment and revenue lift were not evaluated.
+The [component audit](../research/neural_stack/reproduction_matrix.json) preserves
+method attribution and implementation scope. New candidates require their own
+independent confirmation and scored transfer. Online deployment and revenue lift
+were not evaluated.
 
 Public code includes selected method implementations and an intentionally small native-model
 replay. Full event data, full prediction populations, larger checkpoints, embeddings,

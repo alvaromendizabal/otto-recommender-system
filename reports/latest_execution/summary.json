@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "scope": "latest_inspected_owner_return",
+  "version": "v27",
+  "run_id": "20261010T031015229433Z-70322c6a",
+  "recorded_ended_utc": null,
+  "execution_status": "SUCCESS",
+  "scientific_experiment_completed": true,
+  "scientific_outcome": "CLOSED_SUPPORT_RANKER_NEGATIVE",
+  "completed_checkpoint_models": 2,
+  "new_fits_this_invocation": 0,
+  "selection": {
+    "sessions": 20000,
+    "previously_exposed": true,
+    "independent_confirmation": false,
+    "reported_weighted_delta_vs_incumbent": 0.006525037936267071,
+    "reported_weighted_delta_vs_matched_control": 0.0008598887202832574,
+    "descriptive_95_interval_vs_matched_control": [
+      -0.0004489333723377422,
+      0.0021930711032684
+    ],
+    "frozen_gate_passed": false,
+    "failed_checks": [
+      "minimum_gain_vs_matched_control",
+      "positive_lower_bound_vs_matched_control"
+    ]
+  },
+  "candidate_qualified": false,
+  "confirmation_status": "SKIPPED_SCIENTIFIC_GATE",
+  "submission_status": "SKIPPED_SCIENTIFIC_GATE",
+  "submission_created": false,
+  "resumable_pending": false,
+  "existing_scored_release": {
+    "submission_ref": 56542128,
+    "private_score": 0.57586,
+    "public_score": 0.57601,
+    "evidence_source": "reports/submissions/similarity_stack_20260925.json",
+    "independently_reverified_by_this_return": false
+  },
+  "provenance": {
+    "source_zip_sha256": "6d472048fa636893fc94f54e74a0426a039344f70155885261c833b347b6cda1",
+    "manifest_sha256": "86b8405c8e6daf8793415e925b3c48b960f682dc3ce9bf82f55be49e4382fa0e",
+    "verified_manifest_members": 111,
+    "zip_members": 112,
+    "only_unmanifested_member": "return_manifest.json",
+    "aggregate_sources": {
+      "ledger": {
+        "bytes": 2637,
+        "sha256": "124c9133faa721eaada7e629a4b2728b8c4daddd355aa7a16f1aacce3e14ed1b"
+      },
+      "result": {
+        "bytes": 2636,
+        "sha256": "5c02604eb0f0b68037124fc49a7f8f9ed87fa3af6565c50d68666f9b6d514f5f"
+      },
+      "confirmation": {
+        "bytes": 780,
+        "sha256": "54a256d3a4f42bd229a5240d66645a1c4e165ca5d27ced82508acc8ca8401b7d"
+      },
+      "ranking": {
+        "bytes": 50496,
+        "sha256": "58dce8d57f061f8dad33367a5d03109dc9eb48ea2f5ad4972b114b782012d2db"
+      },
+      "resume": {
+        "bytes": 439,
+        "sha256": "c2fd1b8b0fa4edb9542f81d2d3e60d516e4f3bff3ca9e7fdd20a7f565dd10013"
+      },
+      "submission": {
+        "bytes": 778,
+        "sha256": "27199d3263f7827a441c90ddd9093bf8c1626606c16997d3a6e72ce9529e2d97"
+      }
+    }
+  },
+  "verification_scope": {
+    "included_bytes_verified": true,
+    "private_models_executed": false,
+    "private_predictions_independently_replayed": false,
+    "archive_members_extracted": false,
+    "live_aws_state_verified_by_reproducer": false
+  },
+  "limitations": [
+    "Successful execution completed a negative experiment, not a promoted release.",
+    "Selection was exposed; its bootstrap interval is descriptive, not confirmation.",
+    "Model checkpoints were reused; this invocation performed zero new fits.",
+    "Prior competition scores retain their earlier source; this run made no submission.",
+    "The return records no end timestamp. The run ID is not a completion timestamp.",
+    "Latest inspected owner return does not establish globally latest cloud or live state."
+  ]
+}
