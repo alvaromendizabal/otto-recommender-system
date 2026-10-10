@@ -6,7 +6,7 @@ research workspace, cloud account or complete competition data.
 
 | Public material | What it lets a reviewer verify |
 | --- | --- |
-| Selected reference implementations, tests and data contracts | Metric arithmetic, temporal checks, model interfaces and recovery behavior |
+| Public research implementations, tests and data contracts | Metric arithmetic, temporal checks, model interfaces and recovery behavior |
 | Aggregate reports, recorded submission receipts and executed notebooks | The published measurements and their stated scope |
 | Dependency-free evidence checker | Consistency of aggregate counts and recorded artifact identities; it does not independently authenticate the original observations |
 | [Synthetic demonstration](PUBLIC_DEMO.md) | A small, inspectable recommendation workflow using invented data; its results are not competition measurements |
@@ -22,6 +22,10 @@ embeddings, unpublished feature recipes, private run orchestration and credentia
 remain outside this publication. New portfolio work must not copy those assets into
 code, notebook outputs, HTML, logs or download bundles. Synthetic examples must stay
 clearly labeled and separate from measured research evidence.
+
+The [hosted demo](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site) serves the same reviewed synthetic report as the
+local launcher. Session-specific browser exports contain public synthetic predictions
+and explanations, not future targets or private research outputs.
 
 Recorded scores are post-competition results. Programmatic audits are project checks,
 not third-party certification. No official medal/rank, online deployment, revenue lift,

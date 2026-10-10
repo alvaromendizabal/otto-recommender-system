@@ -2,7 +2,7 @@
 
 **A large-scale session recommender built from retrieval through validated batch delivery.**
 
-This project turns anonymous click/cart/order event streams into three ranked product lists while preserving point-in-time correctness, controlled temporal evaluation and end-to-end artifact lineage.
+I built a system that turns anonymous click/cart/order event streams into three ranked product lists while preserving point-in-time correctness, controlled temporal evaluation and end-to-end artifact lineage.
 
 ## At a glance
 
@@ -30,7 +30,9 @@ The project deliberately keeps the externally verified release separate from new
 
 The research summary below reflects the public evidence snapshot of October 6, 2026,
 02:15 UTC. Historical results remain unchanged; this page does not publish subsequent
-private experiments or prescribe the next research run.
+private experiments or prescribe the next research run. The [current status](RESEARCH_STATUS.md)
+records later inspected execution separately; the historical figures and study results
+below retain their original identities and populations.
 
 The controlled reference study reaches **0.584392 weighted Recall@20** on **432,492 reserved temporal sessions**, versus **0.564904** for a compact ranker and **0.535244** for candidate fusion.
 

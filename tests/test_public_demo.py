@@ -153,6 +153,44 @@ class PublicDemoTests(unittest.TestCase):
         )
         self.assertEqual(demo.canonical_json(first), demo.canonical_json(second))
 
+    def test_future_target_randomness_cannot_change_observed_inputs_or_predictions(self) -> None:
+        original_random = demo.random.Random
+
+        def changed_target_stream(seed: int) -> object:
+            return original_random(seed + 10_000 if seed == 44 else seed)
+
+        with patch.object(demo.random, "Random", side_effect=changed_target_stream):
+            altered = demo.generate_synthetic(seed=42)
+        self.assertNotEqual(self.data.targets, altered.targets)
+        self.assertEqual(self.data.history, altered.history)
+        self.assertEqual(self.data.queries, altered.queries)
+        self.assertEqual(
+            demo.canonical_json(demo.predict(self.model, self.data.queries)),
+            demo.canonical_json(demo.predict(self.model, altered.queries)),
+        )
+
+    def test_public_score_explanations_reconcile_to_actual_ranked_predictions(self) -> None:
+        predictions = demo.predict(self.model, self.data.queries)
+        for row in predictions["rows"]:
+            for objective in row["objectives"].values():
+                self.assertEqual(
+                    [item["item"] for item in objective["explanations"]],
+                    objective["recommendations"],
+                )
+                for item in objective["explanations"]:
+                    features = item["features"]
+                    self.assertEqual(
+                        set(features), {"cooccurrence", "prefix_recency", "popularity"}
+                    )
+                    self.assertTrue(all(0 <= value <= 1 for value in features.values()))
+                    self.assertAlmostEqual(
+                        item["score"],
+                        0.6 * features["cooccurrence"]
+                        + 0.3 * features["prefix_recency"]
+                        + 0.1 * features["popularity"],
+                        places=14,
+                    )
+
     def test_scoring_rejects_modified_sealed_predictions(self) -> None:
         predictions = demo.predict(self.model, self.data.queries)
         path, digest = self._seal(predictions)
@@ -202,6 +240,38 @@ class PublicDemoTests(unittest.TestCase):
         invalid = replace(target, ts=queries[target.session].query_ts)
         with self.assertRaises(ValueError):
             demo.evaluate_predictions(path, (invalid, *self.data.targets[1:]), digest)
+
+    def test_pooled_recall_caps_and_deduplicates_targets_before_combining_sessions(self) -> None:
+        rows = []
+        for session, recommendations, extra in (
+            (7, list(range(1, 21)), 21),
+            (8, list(range(101, 121)), 999),
+        ):
+            rows.append({
+                "session": session,
+                "query_ts": 100,
+                "objectives": {
+                    action: {
+                        "recommendations": recommendations,
+                        "candidates": [*recommendations, extra],
+                    }
+                    for action in ACTIONS
+                },
+            })
+        payload = {"schema_version": 1, "k": 20, "candidate_limit": 21, "rows": rows}
+        targets = tuple(demo.Event(7, item, 101, "clicks") for item in range(1, 26))
+        targets += (demo.Event(8, 999, 101, "clicks"), demo.Event(8, 999, 102, "clicks"))
+        path, digest = self._seal(payload)
+        metrics = demo.evaluate_predictions(path, targets, digest)
+        clicks = metrics["objectives"]["clicks"]
+        self.assertEqual(clicks["denominator"], 21)
+        self.assertEqual(clicks["hits"], 20)
+        self.assertAlmostEqual(clicks["recall_at_20"], 20 / 21)
+        self.assertEqual(clicks["candidate_hits"], 21)
+        self.assertEqual(clicks["candidate_oracle"], 1)
+        self.assertAlmostEqual(metrics["weighted_recall_at_20"], 0.1 * 20 / 21)
+        self.assertAlmostEqual(metrics["weighted_candidate_oracle"], 0.1)
+        self.assertNotEqual(clicks["recall_at_20"], 0.5)
 
     def test_evaluation_rejects_missing_prediction_session_coverage(self) -> None:
         predictions = demo.predict(self.model, self.data.queries)
@@ -309,10 +379,17 @@ class PublicDemoTests(unittest.TestCase):
         ]
         self.assertEqual(len(details), len(panels))
         self.assertTrue(all("open" not in attrs for attrs in details))
-        for _, attrs in markup.elements:
+        navigation_urls = {
+            "https://github.com/alvaromendizabal/otto-recommender-system",
+            "https://github.com/alvaromendizabal/otto-recommender-system/blob/main/"
+            "docs/REVIEWER_GUIDE.md",
+        }
+        for tag, attrs in markup.elements:
             for key in ("src", "href"):
                 value = attrs.get(key) or ""
-                self.assertFalse(value.startswith(("http://", "https://", "//")), value)
+                if value.startswith(("http://", "https://", "//")):
+                    self.assertEqual((tag, key), ("a", "href"), value)
+                    self.assertIn(value, navigation_urls)
 
     def test_report_escapes_prediction_evidence_and_scope(self) -> None:
         result = demo.run_demo(self.directory / "demo")

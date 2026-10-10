@@ -13,8 +13,23 @@ jobs:
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.13.15'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.19.0'
+          package-manager-cache: false
       - name: Test the demo with Python's standard library only
         run: python3 -S -m unittest discover -s tests -p test_public_demo.py -v
+      - name: Exercise the generated report's actual UI handlers
+        run: node --test tests/public_demo_ui.test.mjs
+      - name: Test the single-file publication boundary
+        run: python3 -S -m unittest discover -s tools -p test_public_demo_boundary.py -v
+      - name: Verify the sanitized latest execution evidence
+        run: |
+          python3 -S -m unittest discover -s tools -p test_execution_summary.py -v
+          python3 -S tools/summarize_execution.py --check
       - name: Run, reuse and independently verify the synthetic demo
         run: |
           python3 -S scripts/run_public_demo.py --output artifacts/public_demo > /tmp/public-demo-first.json
@@ -39,10 +54,21 @@ jobs:
               raise SystemExit('Demo must identify its synthetic data')
           print('OTTO_PUBLIC_SYNTHETIC_DEMO_AND_REPLAY_PASSED')
           PY
+      - name: Stage and verify the exact single-file hosted report
+        run: |
+          python3 -S tools/check_public_demo.py --source artifacts/public_demo --dist "$RUNNER_TEMP/otto-public-site" --stage
+          python3 -S tools/check_public_demo.py --source artifacts/public_demo --dist "$RUNNER_TEMP/otto-public-site"
       - name: Retain the runnable synthetic report and verified receipts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: public-synthetic-demo
           path: artifacts/public_demo/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Retain only the reviewed hosted file
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: public-synthetic-demo-site
+          path: ${{ runner.temp }}/otto-public-site/index.html
           if-no-files-found: error
           retention-days: 7

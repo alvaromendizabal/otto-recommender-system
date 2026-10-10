@@ -6,6 +6,9 @@ content identities. A report records the exact model/data contract used for its 
 
 ## Review and replay without AWS or the dataset
 
+[Open the hosted synthetic walkthrough](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site) without installing anything,
+or generate and verify the same public demonstration locally below.
+
 The public demonstration is a complete local run with **Python 3.11+ and the standard library**:
 
 ```bash
@@ -13,9 +16,18 @@ python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo
 python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo
 python3 -S scripts/run_public_demo.py --output /tmp/otto-public-demo --check
 python3 -S -m unittest discover -s tests -p test_public_demo.py -v
+node --test tests/public_demo_ui.test.mjs
 ```
 
 The first command generates deterministic synthetic history, observed prefixes and future evaluation targets. Retrieval and ranking run before target evaluation. Predictions, metrics and a self-contained interactive `report.html` are bound to a SHA-256 manifest. The second run verifies and reuses the completed outputs; `--check` is read-only. Tampered or incompatible outputs fail instead of being silently reused. Use a fresh output directory after changing source code.
+
+The interactive report also supports observed-event highlighting, expandable score
+components and selected-session prediction exports. These actions inspect the
+completed synthetic run; they do not fit a model or rerank using future targets.
+
+The Node UI test generates a real temporary report using Python's standard-library
+launcher and checks the inline controls against its actual artifacts; it does not
+require a pre-existing report or a browser.
 
 These illustrative metrics are not research scores. See [Public demo](PUBLIC_DEMO.md) for the conventional baseline and [Publication scope](PUBLICATION_SCOPE.md) for the limits of each reproduction path.
 
@@ -23,6 +35,19 @@ Use `python3 -S scripts/review_portfolio.py` for a separate read-only, dependenc
 consistency check (Python 3.11+). It reconciles the latest recorded release, recomputes
 controlled-study metrics and checks the separate candidate-coverage diagnosis. See the
 [five-minute reviewer guide](REVIEWER_GUIDE.md) for the completed delivery and its limits.
+
+The [v27 execution summary](../reports/latest_execution/summary.json) is a separate
+sanitized owner-return receipt. Check its fixed public contract with:
+
+```bash
+python tools/summarize_execution.py --check
+```
+
+This verifies the published status, counts, provenance and promotion boundary, not
+private model behavior or a new competition score. Regenerating it from the original
+return additionally requires the private archive. [Research status](RESEARCH_STATUS.md)
+separates successful execution from the rejected candidate and preserves the prior
+release receipt.
 
 The Linux CI environments use Python **3.13.15** for the project and **3.12.13** for
 analysis. `uv.lock` pins the project stack. `notebooks/requirements.in` records the
