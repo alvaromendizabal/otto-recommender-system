@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="368" viewBox="0 0 1200 368" role="img" aria-labelledby="title desc">
+  <title id="title">OTTO: recommendation engineering from data to delivery</title>
+  <desc id="desc">A multi-stage offline recommender: 216.7 million training events, 1.67 million official inference sessions, and 5.02 million validated output rows. Retrieve relevant candidates, rank by objective, and validate batch delivery. Historical research scale, not the small public demo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101d32"/><stop offset="1" stop-color="#182c42"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#62e4ca"/><stop offset="1" stop-color="#89bfff"/></linearGradient>
+  </defs>
+  <rect width="1200" height="368" rx="20" fill="url(#bg)"/>
+  <rect x="0" y="24" width="5" height="76" rx="2" fill="url(#accent)"/>
+  <g font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif">
+    <g fill="#83e2d0"><rect x="44" y="35" width="8" height="8" rx="2"/><rect x="56" y="35" width="8" height="8" rx="2"/><rect x="44" y="47" width="8" height="8" rx="2"/><rect x="56" y="47" width="8" height="8" rx="2"/></g>
+    <text x="79" y="51" fill="#c4d2e3" font-size="14" font-weight="650" letter-spacing="2">OTTO / RECOMMENDATION ENGINEERING</text>
+    <text x="44" y="123" fill="#ffffff" font-size="46" font-weight="700" letter-spacing="-1.2">From event streams</text>
+    <text x="44" y="177" fill="#ffffff" font-size="46" font-weight="700" letter-spacing="-1.2">to verified recommendations.</text>
+    <text x="46" y="210" fill="#b7c8db" font-size="17">Temporal evaluation. Learned representations. Reliable batch delivery.</text>
+    <line x1="46" y1="239" x2="785" y2="239" stroke="#385067"/>
+    <text x="46" y="292" fill="#83e2d0" font-size="37" font-weight="700">216.7M</text>
+    <text x="46" y="318" fill="#c4d2e3" font-size="15">training events</text>
+    <text x="291" y="292" fill="#83e2d0" font-size="37" font-weight="700">1.67M</text>
+    <text x="291" y="318" fill="#c4d2e3" font-size="15">official inference sessions</text>
+    <text x="558" y="292" fill="#83e2d0" font-size="37" font-weight="700">5.02M</text>
+    <text x="558" y="318" fill="#c4d2e3" font-size="15">validated output rows</text>
+    <line x1="827" y1="40" x2="827" y2="326" stroke="#385067"/>
+    <text x="859" y="55" fill="#a8bed3" font-size="12" letter-spacing="1.6">ONE SYSTEM. THREE STAGES.</text>
+    <g fill="#203950" stroke="#38546a"><rect x="854" y="79" width="307" height="67" rx="10"/><rect x="854" y="164" width="307" height="67" rx="10"/><rect x="854" y="249" width="307" height="67" rx="10"/></g>
+    <g fill="#83e2d0" font-size="15" font-weight="700"><text x="875" y="106">01</text><text x="875" y="191">02</text><text x="875" y="276">03</text></g>
+    <g fill="#ffffff" font-size="20" font-weight="650"><text x="913" y="106">Retrieve</text><text x="913" y="191">Rank</text><text x="913" y="276">Validate</text></g>
+    <g fill="#bed0df" font-size="13"><text x="913" y="129">Multi-source candidate discovery</text><text x="913" y="214">Click, cart and order objectives</text><text x="913" y="299">Complete coverage and provenance</text></g>
+    <g stroke="#83e2d0" stroke-width="1.5" fill="none"><path d="M1008 146v17m-4-4 4 4 4-4"/><path d="M1008 231v17m-4-4 4 4 4-4"/></g>
+    <text x="46" y="348" fill="#8fa7bd" font-size="11">Historical offline research and delivery. The public demo uses separately labeled synthetic data.</text>
+  </g>
+</svg>
