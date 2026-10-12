@@ -14,16 +14,16 @@ def sha(path: Path) -> str:
 
 def main() -> None:
     path = ROOT / "scripts/reproduce_reference.py"
-    text = path.read_text()
-    text = text.replace("*(base + day * i for i in range(1, 5)),", "history_end=base + day,\n            fit_end=base + 2 * day,\n            selection_end=base + 3 * day,\n            evaluation_end=base + 4 * day,")
+    text = path.read_text().replace(
+        "*(base + day * i for i in range(1, 5)),",
+        "history_end=base + day,\n            fit_end=base + 2 * day,\n            selection_end=base + 3 * day,\n            evaluation_end=base + 4 * day,",
+    )
     path.write_text(text)
-
-    # Rebuild digest propagation from the fixed redacted originals on each pass.
-    # Replacing already-replaced text strands intermediate digests in a dependency chain.
     path = ROOT / "tools/sanitize_public_metadata.py"
     text = path.read_text()
-    text = text.replace("    for _ in range(32):\n", "    redacted_originals = dict(changed)\n    for _ in range(32):\n")
-    text = text.replace("        updated = dict(changed)\n", "        updated = dict(redacted_originals)\n")
+    if "redacted_originals = dict(changed)" not in text:
+        text = text.replace("    for _ in range(32):\n", "    redacted_originals = dict(changed)\n    for _ in range(32):\n")
+        text = text.replace("        updated = dict(changed)\n", "        updated = dict(redacted_originals)\n")
     path.write_text(text)
 
     receipt_path = ROOT / "reports/privacy/redactions.json"
@@ -54,7 +54,32 @@ def main() -> None:
             "method": "Exact expected public bytes verified before updating references",
             "measurements_changed": False,
         }
-        receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+
+    # A receipt_id authenticates its complete body, including the redacted metadata.
+    # Recompute only these two authenticated public derivatives; retain original IDs here.
+    derived = {
+        "reports/submissions/kaggle_submission.json": "f15d5e12031e57607c9e51bb43cbe5a9e8ca4b7302ddc217be6dadd780a83bde",
+        "reports/submissions/history/adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3/kaggle_submission.json": "b5ef9791b6d6ed8a4016f3db5144ff4055847d9f6bb594b46cbf3128eabecf8a",
+    }
+    for name, expected_public in derived.items():
+        path = ROOT / name
+        data = json.loads(path.read_text())
+        body = {k: v for k, v in data.items() if k != "receipt_id"}
+        current_id = hashlib.sha256(json.dumps(body, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+        if data["receipt_id"] == current_id:
+            continue
+        if sha(path) != expected_public:
+            raise ValueError("unrecognized receipt mutation; refusing to reseal")
+        receipt.setdefault("public_receipt_derivatives", {})[name] = {
+            "original_receipt_id": data["receipt_id"],
+            "public_receipt_id": current_id,
+            "reason": "Cloud metadata redaction; measurements, prediction identities and status unchanged",
+        }
+        data["receipt_id"] = current_id
+        path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+        receipt["files"][name]["public_sha256"] = sha(path)
+    receipt["byte_identity_scope"] = "Hashes document this redaction transaction. Later regenerated figures and notebooks have their own execution manifests and Git revisions."
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
 
     path = ROOT / "docs/EMPLOYER_OVERVIEW.md"
     text = path.read_text().replace(
