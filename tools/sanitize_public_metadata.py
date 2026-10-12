@@ -65,13 +65,14 @@ def redact(root: Path, *, apply: bool) -> dict:
         for account in sorted(accounts):
             text = text.replace(account, "000000000000")
         changed[p] = text
+    redacted_originals = dict(changed)
     for _ in range(32):
         replacements = {
             sha(original[p]): sha(text.encode())
             for p, text in changed.items()
             if text.encode() != original[p]
         }
-        updated = dict(changed)
+        updated = dict(redacted_originals)
         for p, text in updated.items():
             for before, after in replacements.items():
                 text = text.replace(before, after)

@@ -1,9 +1,15 @@
 {
+  "byte_identity_scope": "Hashes document this redaction transaction. Later regenerated figures and notebooks have their own execution manifests and Git revisions.",
   "credentials_copied": false,
+  "dependency_reference_repair": {
+    "measurements_changed": false,
+    "method": "Exact expected public bytes verified before updating references",
+    "scope": "Two stranded intermediate digests in the feature inventory"
+  },
   "files": {
     "configs/feature_research.json": {
       "original_sha256": "c3752898df01fc78bbf2d7a1a029b0e64121198ebfdb5e58ed3424eaaaa54ac5",
-      "public_sha256": "17fc1f9bafc9a78301a433ea4d13e75fe08f55dc2f58e6bd51b80c44a8c75710"
+      "public_sha256": "a91f59cc8605f86a463b66b4727832468ccee9503c416831e78e15813037c066"
     },
     "configs/task_feature_pilot.json": {
       "original_sha256": "e7afb82fb70a52f1dbc78782fc73b255c4c36fd9306628c5d243794e745fbe56",
@@ -399,7 +405,7 @@
     },
     "reports/submissions/history/adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3/kaggle_submission.json": {
       "original_sha256": "ad01c839483bd56d8e387a1d0fd8fdab31e241e55254856722c586d949d2086c",
-      "public_sha256": "b5ef9791b6d6ed8a4016f3db5144ff4055847d9f6bb594b46cbf3128eabecf8a"
+      "public_sha256": "d5fc805465b6fae2e1d744e0192c2a087d8ec3e9120ecbfaa532986d507c4742"
     },
     "reports/submissions/history/adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3/reports/research/competition_cloud_verification.json": {
       "original_sha256": "73cfd394713d6f204aea13d6cf0049b639e2dee4fea29f6afccc51a7ed55deee",
@@ -407,7 +413,7 @@
     },
     "reports/submissions/kaggle_submission.json": {
       "original_sha256": "4d5b69106a999d9dd739f3557f5a046b277129643e787f6800633e48824b2cfa",
-      "public_sha256": "f15d5e12031e57607c9e51bb43cbe5a9e8ca4b7302ddc217be6dadd780a83bde"
+      "public_sha256": "4a89c74ce555dff7ccc1aa8e46a9dd9d010b2e65ffd66e311b9766b0a3da472b"
     },
     "research/manual/otto_feature_round01/experiment.py": {
       "original_sha256": "69354b587a01fd489e9db16dcd2f73db964768981c6b8053f5bce263a54f4f94",
@@ -425,6 +431,18 @@
   "measurement_values_edited": false,
   "original_hashes": "Provenance for pre-redaction files; not current public byte identities",
   "policy": "Deployment account numbers replaced with the reserved all-zero placeholder",
+  "public_receipt_derivatives": {
+    "reports/submissions/history/adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3/kaggle_submission.json": {
+      "original_receipt_id": "8c1b091f7ed15d5c8e4cda8428638ef8c48a3c9e453046df3a4d74b4b15c840f",
+      "public_receipt_id": "b27814447f9b22883848bce72de864f681cd9051c77d495eeb3d4ce71a441331",
+      "reason": "Cloud metadata redaction; measurements, prediction identities and status unchanged"
+    },
+    "reports/submissions/kaggle_submission.json": {
+      "original_receipt_id": "596a33ef8930c55b578d326f46c9b3083ca1da3225bd822ca74008b41ccc6499",
+      "public_receipt_id": "4806b6e567af14899661fcd6a04d03e08822f7f601c0ade1c25f1668edf2cde3",
+      "reason": "Cloud metadata redaction; measurements, prediction identities and status unchanged"
+    }
+  },
   "schema_version": 1,
   "scope": "Current tracked text only; Git history not rewritten"
 }

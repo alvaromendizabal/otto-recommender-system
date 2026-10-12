@@ -69,15 +69,16 @@ synthetic metrics are not research-performance evidence. [Demo guide](PUBLIC_DEM
 | Synthetic demo | Local retrieval, ranking, evaluation, explanations and deterministic reuse | Transparent teaching rules, invented data |
 | Evidence review | Aggregate arithmetic, release identities and error decomposition | No model retraining or new external evaluation |
 | Historical native replay | Three public reference models on eight example sessions | Limited historical sample, not the current private release |
-| Full research workflows | Code, protocols, tests and executed evidence | Official data and larger private artifacts required |
+| Native training and full reference | Actual public research stages from raw JSONL | Invented fixture or independently obtained official training data |
+| Later neural-enhanced release | Recorded delivery and experimental evidence | Exact private-state reconstruction remains incomplete |
 
 The [publication scope](PUBLICATION_SCOPE.md) records the source notices and the
 existing public model-replay exception. Private event populations, checkpoints and
 active research recipes remain outside Git.
 
-The delivered release and current experiments have separate states. The
-[research status](RESEARCH_STATUS.md) records the inspected v27 negative decision
-without changing the confirmed score or treating ongoing feature research as complete.
+The [October 12 closeout](RESEARCH_STATUS.md) preserves the verified release and
+concludes active experimentation. Earlier decisions remain archived; open research
+hypotheses are not mislabeled completed or scheduled for further execution.
 
 [Architecture](ARCHITECTURE.md) · [Reproducibility](REPRODUCIBILITY.md) ·
 [Controlled study](../notebooks/09_controlled_feature_study.ipynb) · [Research archive](../research/frontier/README.md)

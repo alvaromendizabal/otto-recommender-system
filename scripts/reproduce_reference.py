@@ -215,7 +215,10 @@ def train(args: argparse.Namespace) -> dict[str, Any]:
     else:
         day, base = 86_400_000, 1_661_000_000_000
         protocol = TemporalProtocol(
-            *(base + day * i for i in range(1, 5)),
+            history_end=base + day,
+            fit_end=base + 2 * day,
+            selection_end=base + 3 * day,
+            evaluation_end=base + 4 * day,
             seed=20260908,
             fit_sessions=128,
             selection_sessions=64,
