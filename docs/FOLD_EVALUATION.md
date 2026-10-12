@@ -201,7 +201,7 @@ validates hashes and sessions and independently reconstructs all point estimates
 and paired intervals; it does not replay raw-label retrieval.
 
 ```bash
-OTTO_BUCKET=otto-recsys-560403859723-us-west-2
+OTTO_BUCKET=otto-recsys-000000000000-us-west-2
 OTTO_COMPARISON_ID=3f67e29fd5e74436b25d79f75eb30d13c51672202a8a1e0e4ee73fb077e92543
 OTTO_AUDIT_DIR="artifacts/comparison_audit/$OTTO_COMPARISON_ID"
 aws s3 sync \

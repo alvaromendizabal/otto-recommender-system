@@ -1,5 +1,7 @@
 # Review the completed OTTO delivery
 
+**Fastest review:** [engineering decisions](DECISIONS.md), [native reference walkthrough](QUICKSTART.md), then sealed evaluation and native model files. The [current closeout](RESEARCH_STATUS.md) supersedes archived stage-status narratives.
+
 **The delivered system is complete:** a controlled offline study, a validated full-population
 batch prediction, a scored post-competition release, executed notebooks, and automated
 quality checks. Further candidate-retrieval research remains open and does not change the

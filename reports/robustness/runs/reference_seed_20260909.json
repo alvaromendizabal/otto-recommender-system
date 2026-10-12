@@ -1,6 +1,6 @@
 {
   "cell_id": "reference_seed_20260909",
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints",
   "durable_training_evidence": {
     "evaluation_parts": 423,
     "evaluation_sessions": 432492,
@@ -96,10 +96,10 @@
     }
   },
   "job_observed_at_utc": "2026-09-09T03:45:04.572952+00:00",
-  "launch_sha256": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
+  "launch_sha256": "a03616051d8fbcbe79bfd2a7a721b07bba4cc98511004a996f0283bedbd97cb1",
   "observed_at_utc": "2026-09-09T03:47:19.200920+00:00",
   "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
-  "request_sha256": "c35f841199fe28115f567de3e00751e638a405cdb1643485791a1c69f7cb5f8e",
+  "request_sha256": "111248e5fd533c5d658b11edf9f389cc1e0e793e9933ffe0e7d3e18b26c0cf74",
   "schema_version": 1,
   "scope": "Completed training and full replication verification. Metric values remain scoped to the reference temporal window.",
   "source_commit": "b63b547c9b86ed868e809c4059d62b858822da1a",
@@ -125,9 +125,9 @@
         "MaxRuntimeInSeconds": 1800
       }
     },
-    "launch_sha256": "4eac4c66a72bde87d0bd7d488c053f7217084d1b23855e13701c5b3dea58977d",
+    "launch_sha256": "26f72c9a01ccaa0be00e47beb0402b545f17390fc12e4eed19062bd22941aed5",
     "observed_at_utc": "2026-09-09T03:47:19.200920+00:00",
-    "request_sha256": "815905deeea210995018285270c82ef2107f22c465e4f9e6af00da9702320203",
+    "request_sha256": "057abe4694f9bc740be743b553dd618de67b1e4c961c0a6c35cd98b5dc4ff1ea",
     "status": "passed",
     "verified_outputs": [
       {
@@ -205,7 +205,7 @@
     {
       "bytes": 3247,
       "name": "launch.json",
-      "sha256": "80bc1eaf6554672873cb1861d71d2972ab3f753eb37b67b3887f40655d77871c",
+      "sha256": "a03616051d8fbcbe79bfd2a7a721b07bba4cc98511004a996f0283bedbd97cb1",
       "version_id": "LSqxbCI.t8vxWspHOy3diO7JGRRtDdO1"
     }
   ]

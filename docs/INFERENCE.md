@@ -41,7 +41,7 @@ To download the exact verified artifact in the SageMaker project terminal:
 cd "$HOME/otto-recommender-system" &&
 mkdir -p artifacts/competition &&
 aws s3api get-object --region us-west-2 \
-  --bucket otto-recsys-560403859723-us-west-2 \
+  --bucket otto-recsys-000000000000-us-west-2 \
   --key ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/delivery/90bb97d39ec49999261d73b166581258961362a6ac4ee237c7c341c7c957dfc8/inference/prediction/submission.csv.gz \
   --version-id i0gMnNzo7V1V.SpQoFqGW5XberD.8QcG \
   artifacts/competition/submission.csv.gz &&

@@ -3,6 +3,7 @@
 This does not rewrite Git history, remove research attribution, or alter model weights.
 The original hashes identify pre-redaction bytes, not publicly reproducible bytes.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -13,12 +14,25 @@ import subprocess
 from pathlib import Path
 
 SAFE_ACCOUNTS = {"000000000000", "123456789012"}
-TEXT_SUFFIXES = {".json", ".jsonl", ".md", ".txt", ".py", ".toml", ".yml", ".yaml", ".ipynb", ".html", ".svg", ".log"}
+TEXT_SUFFIXES = {
+    ".json",
+    ".jsonl",
+    ".md",
+    ".txt",
+    ".py",
+    ".toml",
+    ".yml",
+    ".yaml",
+    ".ipynb",
+    ".html",
+    ".svg",
+    ".log",
+}
 RECEIPT = "reports/privacy/redactions.json"
 PATTERNS = (
     re.compile(r"arn:(?:aws|aws-us-gov|aws-cn):[^:\s\"\\]+:[^:\s\"\\]*:(\d{12}):"),
     re.compile(r"otto-recsys-(\d{12})-[a-z]+-[a-z]+-\d"),
-    re.compile(r'(?:owner_account|account_id)[\"\s\\:]+(\d{12})'),
+    re.compile(r"(?:owner_account|account_id)[\"\s\\:]+(\d{12})"),
 )
 
 
@@ -52,8 +66,11 @@ def redact(root: Path, *, apply: bool) -> dict:
             text = text.replace(account, "000000000000")
         changed[p] = text
     for _ in range(32):
-        replacements = {sha(original[p]): sha(text.encode()) for p, text in changed.items()
-                        if text.encode() != original[p]}
+        replacements = {
+            sha(original[p]): sha(text.encode())
+            for p, text in changed.items()
+            if text.encode() != original[p]
+        }
         updated = dict(changed)
         for p, text in updated.items():
             for before, after in replacements.items():
@@ -64,14 +81,23 @@ def redact(root: Path, *, apply: bool) -> dict:
         changed = updated
     else:
         raise ValueError("cyclic byte-hash references; review the public metadata manually")
-    differences = {str(p.relative_to(root)): {"original_sha256": sha(original[p]),
-                    "public_sha256": sha(text.encode())}
-                   for p, text in changed.items() if text.encode() != original[p]}
-    report = {"schema_version": 1, "scope": "Current tracked text only; Git history not rewritten",
-              "policy": "Deployment account numbers replaced with the reserved all-zero placeholder",
-              "measurement_values_edited": False, "credentials_copied": False,
-              "original_hashes": "Provenance for pre-redaction files; not current public byte identities",
-              "files": differences}
+    differences = {
+        str(p.relative_to(root)): {
+            "original_sha256": sha(original[p]),
+            "public_sha256": sha(text.encode()),
+        }
+        for p, text in changed.items()
+        if text.encode() != original[p]
+    }
+    report = {
+        "schema_version": 1,
+        "scope": "Current tracked text only; Git history not rewritten",
+        "policy": "Deployment account numbers replaced with the reserved all-zero placeholder",
+        "measurement_values_edited": False,
+        "credentials_copied": False,
+        "original_hashes": "Provenance for pre-redaction files; not current public byte identities",
+        "files": differences,
+    }
     if apply and differences:
         for name in differences:
             (root / name).write_text(changed[root / name], encoding="utf-8")

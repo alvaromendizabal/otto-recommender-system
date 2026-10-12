@@ -3,6 +3,7 @@
 This is a publication safeguard, not a comprehensive secret audit or history rewrite.
 Only filenames and rule names are emitted; matched values are never printed.
 """
+
 from __future__ import annotations
 
 import json
@@ -14,7 +15,10 @@ from sanitize_public_metadata import account_ids, files
 SECRET_PATTERNS = (
     ("aws-access-key", re.compile(r"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b")),
     ("github-token", re.compile(r"\bgh[pousr]_[A-Za-z0-9]{36,}\b")),
-    ("private-key", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----\n[A-Za-z0-9+/]")),
+    (
+        "private-key",
+        re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----\n[A-Za-z0-9+/]"),
+    ),
     ("signed-cloud-url", re.compile(r"[?&]X-Amz-(?:Signature|Credential)=[A-Za-z0-9%]{16,}")),
 )
 
@@ -32,9 +36,16 @@ def main() -> int:
     for path in files(root):
         for rule in violations(path.read_text(encoding="utf-8")):
             findings.append({"path": str(path.relative_to(root)), "rule": rule})
-    print(json.dumps({"status": "passed" if not findings else "failed",
-                      "scope": "Current tracked UTF-8 publication, not Git history",
-                      "findings": findings}, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": "passed" if not findings else "failed",
+                "scope": "Current tracked UTF-8 publication, not Git history",
+                "findings": findings,
+            },
+            indent=2,
+        )
+    )
     return int(bool(findings))
 
 

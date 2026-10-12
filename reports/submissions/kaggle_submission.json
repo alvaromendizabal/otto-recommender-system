@@ -41,7 +41,7 @@
     "status": "passed"
   },
   "prediction": {
-    "bucket": "otto-recsys-560403859723-us-west-2",
+    "bucket": "otto-recsys-000000000000-us-west-2",
     "bytes": 289541110,
     "filename": "submission.csv.gz",
     "input_id": "0dafdd7d6ee7a3680a1b89d0166eccd09a84b35dc68b5119cfde0b996b65813f",
@@ -55,7 +55,7 @@
   "receipt_id": "596a33ef8930c55b578d326f46c9b3083ca1da3225bd822ca74008b41ccc6499",
   "schema_version": 1,
   "source_files": {
-    "reports/research/competition_cloud_verification.json": "6e899eaee0e49e27b57b5695b7e1647230d6e221f3ef1c7428981995ee613d00",
+    "reports/research/competition_cloud_verification.json": "44ac714dba4fad2c4dd06fcd5708eb6741803098d645bffd4c69c548f9c97388",
     "reports/research/competition_notebook_execution.json": "72570b5f538aad74ebb83c2990c473a5858bfb93722339c3e5ec06909c0d0df5",
     "reports/research/competition_prediction.json": "fb3d15d9169f4dddd14a5d299405de806bf7d15e68cfc9838d4d71424133c1c2",
     "reports/research/competition_prediction_contract.json": "4d8169b2c2d0627c818b2837fb49b6281083b8701b832767c15c29a780e1799a"

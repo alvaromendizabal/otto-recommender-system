@@ -1,5 +1,11 @@
 # Public review and private research boundaries
 
+## Clone-to-results scope
+
+The [public launcher](../reproduce.py) connects raw conversion, historical retrieval, features, matched LightGBM fitting, sealed temporal evaluation and CSV validation. The small profile uses invented records; full reference research accepts independently obtained official training JSONL. Neither promises exact reconstruction of the later private neural release. No owner cloud credentials are required.
+
+Public deployment-account numbers are replaced with reserved placeholders. [Redaction provenance](../reports/privacy/redactions.json) distinguishes original hashes from current public bytes. Measured scores and model weights are unchanged. Git history is not rewritten; placeholder cloud locations are not live deployment targets.
+
 This repository is an employer-facing record of a completed offline recommendation
 study and batch delivery. Public review does not require access to the private
 research workspace, cloud account or complete competition data.

@@ -9,7 +9,7 @@
     "github_commit": "29439ec2c3e18e524762129323a1a1cdb2189fcb",
     "post_merge_ci_run": 34564900791,
     "post_merge_ci_conclusion": "success",
-    "s3_prefix": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-feature-confirmation/early-scale-29439ec2/"
+    "s3_prefix": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-feature-confirmation/early-scale-29439ec2/"
   },
   "protocol": {
     "role": "fit",

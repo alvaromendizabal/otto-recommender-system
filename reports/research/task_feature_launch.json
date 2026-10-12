@@ -1,6 +1,6 @@
 {
-  "bucket": "otto-recsys-560403859723-us-west-2",
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/task-feature-pilot/e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6/checkpoints/",
+  "bucket": "otto-recsys-000000000000-us-west-2",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/task-feature-pilot/e57d55d8f85813cc984c35582afbf232251509da9e3c890e640700edc5bc69c6/checkpoints/",
   "inputs": [
     {
       "bytes": 2117,
@@ -207,7 +207,7 @@
       "sha256": "093b4dfd4d045164a913f72b059cca972ecfc622f6242b4bee08a7e94a23dee9"
     }
   ],
-  "owner_account": "560403859723",
+  "owner_account": "000000000000",
   "pricing": {
     "maximum_instance_compute_usd": 0.8568,
     "rate_usd_per_hour": 3.4272,

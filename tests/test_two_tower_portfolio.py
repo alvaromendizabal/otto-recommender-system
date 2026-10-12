@@ -17,7 +17,7 @@ def test_resume_proof_public_artifact_is_sanitized_and_passed() -> None:
     assert payload["final_step"] == 80
     assert payload["advanced_steps"] == 40
     assert "arn:aws" not in text
-    assert "otto-recsys-560403859723" not in text
+    assert "otto-recsys-000000000000" not in text
 
 
 def test_two_tower_notebook_is_committed_as_executed_evidence() -> None:
@@ -39,7 +39,7 @@ def test_completed_fold_training_evidence_is_consistent_and_public() -> None:
     assert payload["best_valid_loss"] == min(row["valid"]["loss"] for row in payload["history"])
     assert payload["billable_seconds"] == 621
     assert "arn:aws" not in path.read_text()
-    assert "560403859723" not in path.read_text()
+    assert "000000000000" not in path.read_text()
     notebook = json.loads(Path("notebooks/05_two_tower_results.ipynb").read_text())
     for cell in notebook["cells"]:
         if cell["cell_type"] == "code":
@@ -63,7 +63,7 @@ def test_export_evidence_covers_every_objective_without_claiming_quality() -> No
     )
     assert all(row["sessions"] == payload["sessions"] for row in payload["objectives"].values())
     assert "completed" in payload["quality_evaluation"]
-    assert "560403859723" not in path.read_text()
+    assert "000000000000" not in path.read_text()
     assert Path("reports/figures/two_tower_export.png").stat().st_size > 1000
 
 
@@ -91,7 +91,7 @@ def test_published_retrieval_report_matches_independently_audited_counts() -> No
             weighted += weight * (counts[3 + 3 * j] - counts[1]) / counts[0]
         assert point["weighted_incremental_ceiling"] == pytest.approx(weighted)
     assert "arn:aws" not in path.read_text()
-    assert "560403859723" not in path.read_text()
+    assert "000000000000" not in path.read_text()
     assert Path("reports/figures/two_tower_retrieval.png").stat().st_size > 1000
 
 

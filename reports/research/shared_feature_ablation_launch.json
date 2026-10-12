@@ -1,6 +1,6 @@
 {
-  "bucket": "otto-recsys-560403859723-us-west-2",
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/checkpoints/",
+  "bucket": "otto-recsys-000000000000-us-west-2",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/checkpoints/",
   "inputs": [
     {
       "bytes": 2117,
@@ -465,7 +465,7 @@
       "sha256": "8a275158b20a9fc1ca92c85fd0f7b952b59104298e6ba9616a50e4a0a9e29837"
     }
   ],
-  "owner_account": "560403859723",
+  "owner_account": "000000000000",
   "phase": "ablation",
   "pricing": {
     "maximum_instance_compute_usd": 0.8568,

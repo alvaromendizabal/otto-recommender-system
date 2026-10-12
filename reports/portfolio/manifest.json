@@ -2,8 +2,8 @@
   "contract": {
     "analysis_lock_sha256": "3f07413e08d060e6d6bd286ceeec91342ab9d04557a3dfdc0dcb843d8c9f6b7c",
     "generator_sha256": "69830160ce74c895c55e63a80717e1699cc2ca0f7a27c42145fc67b6f9b89c72",
-    "research_manifest_sha256": "afeed018da5fc95d169c4ea921ebd83f619e8899eff71d56d62ca9714f4022e2",
-    "robustness_comparison_sha256": "4a50a261447b57dc67802f9bd9115d81b0cf629f00f1f985cbf4ce8cab354e9b",
+    "research_manifest_sha256": "84207c551dda36da2a0544a90a93f49c1a481a70e42d57fa8cb9faa58429b4c0",
+    "robustness_comparison_sha256": "8f35e73aa0c446bc0c4d562772145e0363c257565a501c06b49e082cde756205",
     "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e"
   },
   "figures": 8,

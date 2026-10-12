@@ -9,7 +9,7 @@
     "github_commit": "91d3dcd1324fdaf06252c5afb128795fab22203e",
     "post_merge_ci_run": 34561363574,
     "post_merge_ci_conclusion": "success",
-    "s3_prefix": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-feature-confirmation/early-smoke-91d3dcd1/"
+    "s3_prefix": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-feature-confirmation/early-smoke-91d3dcd1/"
   },
   "protocol": {
     "history_end_ms": 1660687200000,

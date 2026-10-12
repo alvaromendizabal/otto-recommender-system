@@ -1,5 +1,7 @@
 # OTTO · Retrieval, ranking and reliable batch delivery
 
+**Release complete; reproducible public reference available.** One documented entry point connects raw JSONL to native training, temporal evaluation and verified recommendations. [Clone-to-results](QUICKSTART.md) · [Engineering decisions](DECISIONS.md) · [Final research status](RESEARCH_STATUS.md).
+
 **Alvaro Mendizabal · Machine Learning Engineering · Recommendation Systems**
 
 ## Result and responsibility

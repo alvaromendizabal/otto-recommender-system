@@ -352,8 +352,8 @@ def load_references():
             if tmp.exists():
                 raise ValueError('Interrupted small reference transfer; return report for review')
             cmd = ['aws', 's3api', 'get-object', '--region', 'us-west-2', '--bucket',
-                   'otto-recsys-560403859723-us-west-2', '--key', key, '--version-id', version,
-                   '--expected-bucket-owner', '560403859723', '--cli-connect-timeout', '5',
+                   'otto-recsys-000000000000-us-west-2', '--key', key, '--version-id', version,
+                   '--expected-bucket-owner', '000000000000', '--cli-connect-timeout', '5',
                    '--cli-read-timeout', '20', str(tmp)]
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=35,
                                     env={**os.environ, 'AWS_MAX_ATTEMPTS': '1', 'AWS_PAGER': ''})

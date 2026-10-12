@@ -1,5 +1,7 @@
 # Reproducibility
 
+**Start with the [clone-to-results guide](QUICKSTART.md).** The new reproduce.py entry point supports dependency-free review, genuine native training on invented records, and a reader-supplied raw-data reference run. Detailed stage-level commands below remain available. Later neural-release exact reconstruction is a separate, incomplete scope.
+
 Source, compact evidence and executed notebooks are versioned in Git. Large event
 partitions, feature caches, native checkpoints and prediction parts live in S3 under
 content identities. A report records the exact model/data contract used for its result.
