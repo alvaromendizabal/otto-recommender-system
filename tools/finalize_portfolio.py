@@ -1,33 +1,78 @@
-"""Finalize public source and add navigation without replacing detailed documentation."""
+"""One-time publication migration, with exact preconditions and no model changes."""
+from __future__ import annotations
+
+import hashlib
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-INSERTS = {
-    "REPRODUCIBILITY.md": "**Start with the [clone-to-results guide](QUICKSTART.md).** The new reproduce.py entry point supports dependency-free review, genuine native training on invented records, and a reader-supplied raw-data reference run. Detailed stage-level commands below remain available. Later neural-release exact reconstruction is a separate, incomplete scope.",
-    "PUBLICATION_SCOPE.md": "## Clone-to-results scope\n\nThe [public launcher](../reproduce.py) connects raw conversion, historical retrieval, features, matched LightGBM fitting, sealed temporal evaluation and CSV validation. The small profile uses invented records; full reference research accepts independently obtained official training JSONL. Neither promises exact reconstruction of the later private neural release. No owner cloud credentials are required.\n\nPublic deployment-account numbers are replaced with reserved placeholders. [Redaction provenance](../reports/privacy/redactions.json) distinguishes original hashes from current public bytes. Measured scores and model weights are unchanged. Git history is not rewritten; placeholder cloud locations are not live deployment targets.",
-    "REVIEWER_GUIDE.md": "**Fastest review:** [engineering decisions](DECISIONS.md), [native reference walkthrough](QUICKSTART.md), then sealed evaluation and native model files. The [current closeout](RESEARCH_STATUS.md) supersedes archived stage-status narratives.",
-    "EMPLOYER_OVERVIEW.md": "**Release complete; reproducible public reference available.** One documented entry point connects raw JSONL to native training, temporal evaluation and verified recommendations. [Clone-to-results](QUICKSTART.md) · [Engineering decisions](DECISIONS.md) · [Final research status](RESEARCH_STATUS.md).",
-}
+
+
+def sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main() -> None:
+    path = ROOT / "scripts/reproduce_reference.py"
+    text = path.read_text()
+    text = text.replace("*(base + day * i for i in range(1, 5)),", "history_end=base + day,\n            fit_end=base + 2 * day,\n            selection_end=base + 3 * day,\n            evaluation_end=base + 4 * day,")
+    path.write_text(text)
+
+    # Rebuild digest propagation from the fixed redacted originals on each pass.
+    # Replacing already-replaced text strands intermediate digests in a dependency chain.
+    path = ROOT / "tools/sanitize_public_metadata.py"
+    text = path.read_text()
+    text = text.replace("    for _ in range(32):\n", "    redacted_originals = dict(changed)\n    for _ in range(32):\n")
+    text = text.replace("        updated = dict(changed)\n", "        updated = dict(redacted_originals)\n")
+    path.write_text(text)
+
+    receipt_path = ROOT / "reports/privacy/redactions.json"
+    receipt = json.loads(receipt_path.read_text())
+    path = ROOT / "configs/feature_research.json"
+    inventory = json.loads(path.read_text())
+    fixes = {
+        "robustness": ("8f35e73aa0c446bc0c4d562772145e0363c257565a501c06b49e082cde756205",
+                       "225f8e205c0d4c036c2cbdf9c2731c0cb67020414486c9dc1f7bb2b4b1fce483"),
+        "shared_run": ("77679c410647ceedf2f959e937d2d5e45f2ea7ab0ed20a5925616b578672a9be",
+                       "430c726ad4930f7d23b72f0be083d7b68dc757a004a8f0c623a63d35f56f5ba6"),
+    }
+    changed = False
+    for key, (intermediate, expected) in fixes.items():
+        ref = inventory["evidence"][key]
+        if sha(ROOT / ref["path"]) != expected:
+            raise ValueError("public evidence changed outside the authenticated redaction")
+        if ref["sha256"] not in (intermediate, expected):
+            raise ValueError("unexpected reference identity; no automatic replacement authorized")
+        if ref["sha256"] != expected:
+            ref["sha256"] = expected
+            changed = True
+    if changed:
+        path.write_text(json.dumps(inventory, indent=2, ensure_ascii=False) + "\n")
+        receipt["files"]["configs/feature_research.json"]["public_sha256"] = sha(path)
+        receipt["dependency_reference_repair"] = {
+            "scope": "Two stranded intermediate digests in the feature inventory",
+            "method": "Exact expected public bytes verified before updating references",
+            "measurements_changed": False,
+        }
+        receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+
+    path = ROOT / "docs/EMPLOYER_OVERVIEW.md"
+    text = path.read_text().replace(
+        "| Full research workflows | Code, protocols, tests and executed evidence | Official data and larger private artifacts required |",
+        "| Native training and full reference | Actual public research stages from raw JSONL | Invented fixture or independently obtained official training data |\n| Later neural-enhanced release | Recorded delivery and experimental evidence | Exact private-state reconstruction remains incomplete |",
+    )
+    text = text.replace(
+        "The delivered release and current experiments have separate states. The\n[research status](RESEARCH_STATUS.md) records the inspected v27 negative decision\nwithout changing the confirmed score or treating ongoing feature research as complete.",
+        "The [October 12 closeout](RESEARCH_STATUS.md) preserves the verified release and\nconcludes active experimentation. Earlier decisions remain archived; open research\nhypotheses are not mislabeled completed or scheduled for further execution.",
+    )
+    path.write_text(text)
+    path = ROOT / "docs/REVIEWER_GUIDE.md"
+    text = path.read_text().replace(
+        "quality checks. Further candidate-retrieval research remains open and does not change the\nreleased model.",
+        "quality checks. Active experimentation is concluded; remaining hypotheses do not change the\nreleased model.",
+    )
+    path.write_text(text)
+
 
 if __name__ == "__main__":
-    for name, paragraph in INSERTS.items():
-        path = ROOT / "docs" / name
-        text = path.read_text()
-        if "QUICKSTART.md" in text:
-            continue
-        heading, rest = text.split("\n", 1)
-        path.write_text(heading + "\n\n" + paragraph + "\n" + rest)
-    path = ROOT / "reproduce.py"
-    text = path.read_text()
-    if "from contextlib import suppress" not in text:
-        text = text.replace("import argparse\n", "import argparse\nfrom contextlib import suppress\n")
-    for spaces, sig in ((12, "SIGTERM"), (16, "SIGKILL")):
-        pad = " " * spaces
-        before = f"{pad}try:\n{pad}    os.killpg(process.pid, signal.{sig})\n{pad}except ProcessLookupError:\n{pad}    pass"
-        after = f"{pad}with suppress(ProcessLookupError):\n{pad}    os.killpg(process.pid, signal.{sig})"
-        text = text.replace(before, after)
-    path.write_text(text)
-    path = ROOT / "scripts/reproduce_reference.py"
-    text = path.read_text().replace("predeclared small integration profile; not the historical 102-feature model", "Small fixture profile; not the historical model")
-    text = text.replace("Use the locked project environment for train/research; completed outputs are preserved.", "Use the locked ML environment. Completed outputs are preserved.")
-    path.write_text(text)
+    main()
