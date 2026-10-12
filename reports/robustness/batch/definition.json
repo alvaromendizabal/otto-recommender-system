@@ -21,7 +21,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -32,7 +32,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
             }
           },
           {
@@ -43,7 +43,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {
@@ -95,7 +95,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -106,7 +106,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
             }
           },
           {
@@ -117,7 +117,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {
@@ -172,7 +172,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -183,7 +183,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260908/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/middle_seed_20260908/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
             }
           },
           {
@@ -194,7 +194,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {
@@ -246,7 +246,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -257,7 +257,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260908/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/middle_seed_20260908/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
             }
           },
           {
@@ -268,7 +268,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {
@@ -323,7 +323,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -334,7 +334,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260909/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/middle_seed_20260909/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
             }
           },
           {
@@ -345,7 +345,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {
@@ -400,7 +400,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -411,7 +411,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260909/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/middle_seed_20260909/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
             }
           },
           {
@@ -422,7 +422,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {
@@ -477,7 +477,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -488,7 +488,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/middle_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/train/launch.json"
             }
           },
           {
@@ -499,7 +499,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {
@@ -554,7 +554,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py"
             }
           },
           {
@@ -565,7 +565,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/middle_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/middle_seed_20260910/batch/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/audit/launch.json"
             }
           },
           {
@@ -576,7 +576,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz"
             }
           },
           {

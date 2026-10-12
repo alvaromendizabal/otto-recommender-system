@@ -39,7 +39,7 @@ MODEL_PARAMS = {'learning_rate': 0.05, 'num_leaves': 15, 'min_data_in_leaf': 20,
                 'bagging_fraction': 1.0, 'bagging_freq': 0}
 REF_PREFIX = 'ranking/research/feature-value-pilot/b9f53c29297a/output/'
 NEG_KEY = ('ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/'
-           'robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/'
+           'robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/'
            'windows/early/inputs/fit_cache/contract.json')
 REFERENCES = {
     'fold-0-shared.json': (REF_PREFIX+'fold-0-shared.json', '8KlO6sVC.L7qdLkBlZiV1l2kqXQbYfRa', 13855),

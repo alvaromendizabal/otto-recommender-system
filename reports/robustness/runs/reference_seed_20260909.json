@@ -1,6 +1,6 @@
 {
   "cell_id": "reference_seed_20260909",
-  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/reference_seed_20260909/checkpoints",
   "durable_training_evidence": {
     "evaluation_parts": 423,
     "evaluation_sessions": 432492,
@@ -96,18 +96,18 @@
     }
   },
   "job_observed_at_utc": "2026-09-09T03:45:04.572952+00:00",
-  "launch_sha256": "a03616051d8fbcbe79bfd2a7a721b07bba4cc98511004a996f0283bedbd97cb1",
+  "launch_sha256": "d53d39610d6d51e9e49eff053a40177cc7e951d5785d18d13db23b7f554a26ff",
   "observed_at_utc": "2026-09-09T03:47:19.200920+00:00",
-  "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
-  "request_sha256": "111248e5fd533c5d658b11edf9f389cc1e0e793e9933ffe0e7d3e18b26c0cf74",
+  "protocol_id": "77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd",
+  "request_sha256": "62cc6bc457b0ef08a4b06298fef7f6e85a090ebae06db716aaeaecce4069255d",
   "schema_version": 1,
   "scope": "Completed training and full replication verification. Metric values remain scoped to the reference temporal window.",
   "source_commit": "b63b547c9b86ed868e809c4059d62b858822da1a",
   "source_sha256": "c96c90d0dcafca9ca9239a7383b54b003d32e2d0566cc43a515dee8c03d2d6da",
   "verification": {
-    "audit_id": "31fc62bab554716dd24cb02cea888075db17aad373ebd0ec2f41fcc5452d13b4",
+    "audit_id": "408acfa7d30040f430c3bdfcfbb7b65895160b658c5b1e2d1ef2ecb1d21f10a1",
     "audit_path": "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json",
-    "audit_sha256": "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda",
+    "audit_sha256": "8b675160d5cacb2dbbcd22d6cbe3796ea9b95892ae090796ce2d04a388e54038",
     "job": {
       "CreationTime": "2026-09-09T03:36:29.365000+00:00",
       "ProcessingEndTime": "2026-09-09T03:44:02.787000+00:00",
@@ -125,9 +125,9 @@
         "MaxRuntimeInSeconds": 1800
       }
     },
-    "launch_sha256": "26f72c9a01ccaa0be00e47beb0402b545f17390fc12e4eed19062bd22941aed5",
+    "launch_sha256": "7d98f3d5de2cec347a5b7c9fe688bda425a3a9eef331bf1a277fa3c58d2ea18a",
     "observed_at_utc": "2026-09-09T03:47:19.200920+00:00",
-    "request_sha256": "057abe4694f9bc740be743b553dd618de67b1e4c961c0a6c35cd98b5dc4ff1ea",
+    "request_sha256": "93dd126e27b74e8c406f1c77834cd57609f5075d05a6eadd180d2c5602443de7",
     "status": "passed",
     "verified_outputs": [
       {
@@ -135,22 +135,22 @@
           "ChecksumSHA256": "PSt3oLqPsEo1DSU0YYKUCuv7asBG2Xi6EuPYpFnD3to=",
           "ContentLength": 17120,
           "Metadata": {
-            "sha256": "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda"
+            "sha256": "8b675160d5cacb2dbbcd22d6cbe3796ea9b95892ae090796ce2d04a388e54038"
           },
           "VersionId": "ELH_ZPmOpQ9Y.YFcgvk2e1H71bGSZR3s"
         },
-        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints/robustness_audit/report.json"
+        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/reference_seed_20260909/checkpoints/robustness_audit/report.json"
       },
       {
         "head": {
           "ChecksumSHA256": "GnCerYARG4EDImhRL+kmShHGUA64RgLiMGnmi8RBmfk=",
           "ContentLength": 982,
           "Metadata": {
-            "sha256": "1a709ead80111b81032268512fe9264a11c6500eb84602e23069e68bc44199f9"
+            "sha256": "724327e55e6e28620d2f936a317eb11b098eebc8996032150594671f74ef46cb"
           },
           "VersionId": "2yw3eanh53j8vZGyMMdd94Y.VbMM1Jw5"
         },
-        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/reference_seed_20260909/checkpoints/robustness_audit/job_status.json"
+        "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/reference_seed_20260909/checkpoints/robustness_audit/job_status.json"
       }
     ],
     "verified_uploads": [
@@ -205,7 +205,7 @@
     {
       "bytes": 3247,
       "name": "launch.json",
-      "sha256": "a03616051d8fbcbe79bfd2a7a721b07bba4cc98511004a996f0283bedbd97cb1",
+      "sha256": "d53d39610d6d51e9e49eff053a40177cc7e951d5785d18d13db23b7f554a26ff",
       "version_id": "LSqxbCI.t8vxWspHOy3diO7JGRRtDdO1"
     }
   ]

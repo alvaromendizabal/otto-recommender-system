@@ -429,6 +429,765 @@
     }
   },
   "measurement_values_edited": false,
+  "nested_metadata_projection": {
+    "canonical_projection": {
+      "021a19e019e89d31d9b22f6fc90a7dd554253efeb558700e8306d2d6b2313824": {
+        "object_location": "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "44c4ac2a3dbf5c9196037f3b434f20e741acf14b1ec9f65d3c5c424391bda816"
+      },
+      "0224fccc6aa1444ce82d7a8cbac65c3f1be8c2ae7654a40e033e27af58011162": {
+        "object_location": "reports/robustness/runs/middle_seed_20260909.request.json#prior-public-bytes",
+        "public_digest": "838f067afb28cca314440845b4ef5a058abfbc69b650d5c0ddd74954e0132538"
+      },
+      "027829323383f0a293306f160e0e22373787db513e2267e1d257ea47d408013e": {
+        "object_location": "reports/robustness/runs/middle_seed_20260908.audit.launch.json#prior-public-bytes",
+        "public_digest": "2d4e876ca94a148e5661f7a236b6d7f9fd3e54a759c16eb358a37a471997b53a"
+      },
+      "045ac5caa0fc1fa79a6eeacc62f1efcac8514b6d2525b391ca9ae3b1adb6fde3": {
+        "object_location": "reports/robustness/cells/middle_seed_20260909/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "fe3af099693361d352b0788750e59bdbb27ad0fadf8e6a21efa1f14442b27a9d"
+      },
+      "057abe4694f9bc740be743b553dd618de67b1e4c961c0a6c35cd98b5dc4ff1ea": {
+        "object_location": "reports/robustness/cells/reference_seed_20260909/verification_request.json#prior-public-bytes",
+        "public_digest": "93dd126e27b74e8c406f1c77834cd57609f5075d05a6eadd180d2c5602443de7"
+      },
+      "05d35b652e51ebff91205cda6087678bbf22ca39d41d1b977c49883dc3277427": {
+        "object_location": "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "06ec6903bf2d59287ff4c56a8f93ccc3314d2cd9aa083d55772ce83663b719fa"
+      },
+      "0827afdbb41d5f82730046c1c6859712b628bb5f98e185ab5850115f42b33948": {
+        "object_location": "reports/robustness/cells/early_seed_20260910/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "78b3556bf43b9636f48fe5370b2213cca93c08238d8df6c54bd4928c6e2fdfaa"
+      },
+      "0cd1f7abe24f5667892d689c8e879fcbc2594296bee966e7639a14087f3f3d6f": {
+        "object_location": "reports/robustness/cells/middle_seed_20260908/job_status.json#prior-public-bytes",
+        "public_digest": "72b3da4a7352c095a81d8e3f0bedcc3066eb608150710e15c96dc0a6b8f9afbe"
+      },
+      "111248e5fd533c5d658b11edf9f389cc1e0e793e9933ffe0e7d3e18b26c0cf74": {
+        "object_location": "reports/robustness/runs/reference_seed_20260909.request.json#prior-public-bytes",
+        "public_digest": "62cc6bc457b0ef08a4b06298fef7f6e85a090ebae06db716aaeaecce4069255d"
+      },
+      "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388": {
+        "object_location": "configs/robustness.toml#prior-public",
+        "public_digest": "77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd"
+      },
+      "177a692d0b03a7f111125276686424e21e0617d76d9867b07e147656b83d66d1": {
+        "object_location": "reports/robustness/cells/early_seed_20260908/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "7a3dca71916c995c31c7c4fb24a8687e3900d425a84ac34fb49e7992d717ff65"
+      },
+      "1a709ead80111b81032268512fe9264a11c6500eb84602e23069e68bc44199f9": {
+        "object_location": "reports/robustness/cells/reference_seed_20260909/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "724327e55e6e28620d2f936a317eb11b098eebc8996032150594671f74ef46cb"
+      },
+      "1ccda901d8b95fc98840ab45dfdabe37476626c2659360218a2a2067a89e9d79": {
+        "object_location": "reports/robustness/runs/middle_seed_20260909.audit.request.json#prior-public-bytes",
+        "public_digest": "5d31f6ec442dd49a263c2d44e9763c74e2b9967a64dc0b3a79c6582f06aa6472"
+      },
+      "1d141140619dca370d9b53dcaaf7f4fa527b3f271371394dbea24c52999946e3": {
+        "object_location": "reports/robustness/runs/early_seed_20260910.audit.launch.json#prior-public-bytes",
+        "public_digest": "980694d0b6f18d71663a555716b56414b9bec6d1cb88d2d9581a786ddd374d6f"
+      },
+      "1e191acca7a30240450d7e1baa496e51a1c92bdcbabef81f882734de051b3973": {
+        "object_location": "reports/robustness/runs/middle_seed_20260908.audit.request.json#prior-public-bytes",
+        "public_digest": "50e7e946bd4e2f5a184ab8e8cb137972e96a9449a95b9ec6484e664d35dbde18"
+      },
+      "1e9a66f41ee8cffd532b47744695f5aea7122bb341684bf2829968be5e051ca6": {
+        "object_location": "reports/robustness/cells/middle_seed_20260909/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "feff8f55320f99ed0c9f85e7b3495359c1e263606694d65eabcbefdaf706d97e"
+      },
+      "200fd227c720ad0c5db511c0e085cbf2639470c5d62aafd66d0d41125a2e0f22": {
+        "object_location": "reports/robustness/runs/early_seed_20260910.launch.json#prior-public-bytes",
+        "public_digest": "6a90bd5c5dd97c956ba5b74f64879ccb3f3880b4a24f3d142b44ece0d47da67e"
+      },
+      "225f8e205c0d4c036c2cbdf9c2731c0cb67020414486c9dc1f7bb2b4b1fce483": {
+        "object_location": "reports/robustness/comparison.json#prior-public-bytes",
+        "public_digest": "b607b90de8138b0984c4f638f13c8ca90190eb8f5f1ce5daa992f3c3cbd6bfee"
+      },
+      "22c22113cfc28c216eb4188be84a6cadb1f82183e661ce428b7ca9aeb81dfacb": {
+        "object_location": "reports/robustness/cells/reference_seed_20260910/verification_request.json#prior-public-bytes",
+        "public_digest": "acc2856d71a5c93c3f346f080ea42ae28a4345d8eea635349597aee7717661fd"
+      },
+      "26f72c9a01ccaa0be00e47beb0402b545f17390fc12e4eed19062bd22941aed5": {
+        "object_location": "reports/robustness/cells/reference_seed_20260909/verification_launch.json#prior-public-bytes",
+        "public_digest": "7d98f3d5de2cec347a5b7c9fe688bda425a3a9eef331bf1a277fa3c58d2ea18a"
+      },
+      "29abeb08da6d3d3512fc73998bffef6ea857460d1535ad9e7075065ea0487c2e": {
+        "object_location": "reports/robustness/runs/reference_seed_20260910.launch.json#prior-public-bytes",
+        "public_digest": "aa854489caa005ed09841237b5c76c9db9aa8756cc2ed6499b140a196491ed09"
+      },
+      "29fd518678cb1ab285448de8d9e7c3d4d1966b2a6560554964137f774ec6adb5": {
+        "object_location": "reports/robustness/runs/reference_seed_20260910.request.json#prior-public-bytes",
+        "public_digest": "3cf45fc95b8be91e09f4bee4a2871e9a1b7669baca6fdcf547259da9f555f8a4"
+      },
+      "2b287e3b4e8aa891861b9cfaec59f9f581b1c74b7f085f6d97c84256785efeae": {
+        "object_location": "reports/robustness/cells/early_seed_20260909/job_status.json#prior-public-bytes",
+        "public_digest": "3e00ea2d23f2207c51ef8a09a9eb24f9bccb420e38f9e3c034e3b4ed103aa9b7"
+      },
+      "2bda8753a94372221b1d84cd02bc1c4d84e3ac9dd5b25f2e201f49b0fddeebcd": {
+        "object_location": "reports/robustness/runs/middle_seed_20260908.request.json#prior-public-bytes",
+        "public_digest": "89e380dfc86f6c4da8fb87d66b809ff2f6bcf4d19af3a7eade6a54ac867503ed"
+      },
+      "31fc62bab554716dd24cb02cea888075db17aad373ebd0ec2f41fcc5452d13b4": {
+        "object_location": "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "408acfa7d30040f430c3bdfcfbb7b65895160b658c5b1e2d1ef2ecb1d21f10a1"
+      },
+      "3b355a60c7774b149bd45a25b786f1d444edc8f3da9c1236f26a8b97f0cdc6ad": {
+        "object_location": "reports/robustness/cells/middle_seed_20260909/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "dc41cb418fbdc2ef76c7f2468483d18a6d8f2bbe4b93d6aa53f0cc61258fc43c"
+      },
+      "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda": {
+        "object_location": "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "8b675160d5cacb2dbbcd22d6cbe3796ea9b95892ae090796ce2d04a388e54038"
+      },
+      "3e4ffcba534accfc9b67c2d67124a090b77e8b164672adc3ee5b16875422d41a": {
+        "object_location": "reports/robustness/cells/reference_seed_20260910/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "a0a7513eb08f6435caa2ad279fabfc331f5c8e2add1c5112dcd9e02bbb463db6"
+      },
+      "4092987a87b42a5a7030cd4887aa07cf76f36cec9e1ce4d92674f6660a6a3c4d": {
+        "object_location": "reports/robustness/reference_launch.json#original",
+        "public_digest": "0ad364756d21f1a5a6b9eaa4dd0abac3c1cbffaff970efe79f87701ea3e7404d"
+      },
+      "41b7718ae3fc9627c86f320ca5a4bae3cfba8bd7313e021454996686037a64ca": {
+        "object_location": "reports/robustness/cells/early_seed_20260908/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "64d8b66c839fc329a62cf9d9217e0b34eec12ac3d67260df3c2f6bc71e46e112"
+      },
+      "43f494ace2c0e5cbc090e73b80d1e1b43330d83e6e16682ce1864b1e27430c1b": {
+        "object_location": "reports/robustness/cells/early_seed_20260909/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "92c2658b5f37c0efb1edb9f7a60cb106d867f0b857ad82060e6fdf2c6b07f9f9"
+      },
+      "450743549522d35a8eaecd5c2d764dda5bd8276141bb07902ac3eb4f26342c1c": {
+        "object_location": "reports/robustness/cells/early_seed_20260910/job_status.json#prior-public-bytes",
+        "public_digest": "3050950c89004dfdff2838673651943564154e7f1f0553b51c0953ffa574421a"
+      },
+      "474eaf6505b75aeb16f873e5234d51fe2baca86134189b77a279a680d809c541": {
+        "object_location": "reports/robustness/cells/early_seed_20260910/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "eff8c43ae377815408799085141ef5c9b7d3c730468d187a8d909caf03d2f098"
+      },
+      "49a84d88b6230239893cd9b7b5765dfe7c97a5ba99311cb8dd82a354ee776be0": {
+        "object_location": "reports/robustness/cells/early_seed_20260910/preparation.json#without:input_id#prior-public",
+        "public_digest": "c0785250d32bc4175f1fa81dbab85c0d0995b816e7c3db779c1d04dff2d560eb"
+      },
+      "4befcb1aab8d177299da52fd907995ecd0f3c178dbbab6584f18feccb4674ea2": {
+        "object_location": "reports/robustness/cells/middle_seed_20260910/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "aac935b5201f7718e8c341ddbbb891860c140f23ee953e3983248e57b8699021"
+      },
+      "4d7c34f74a35adfe2f18ce0639f958106fca0a354c8c6f9571123180f09cce87": {
+        "object_location": "reports/robustness/cells/middle_seed_20260908/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "98fa6e27d6cddaeb89657002c24e2b75150276848910f383656df82349eeff3e"
+      },
+      "4e024ff1708e0877bf14933bc12aa10762342fbc0dd8585087167a408d03136c": {
+        "object_location": "reports/robustness/runs/early_seed_20260910.launch.json#original",
+        "public_digest": "51ce170eba208174c32dd2b52f20c11d4f022b9884e1e8ac93965ea5f5595e8e"
+      },
+      "4ea9612f574f985b7b4ca00a41accdfb40f555b81dc54168500c4479f98e1aed": {
+        "object_location": "reports/robustness/cells/middle_seed_20260910/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "c2f841358bf90b958d979fdc53a8b45a10a6abd7c912c2968bf163779e6866cc"
+      },
+      "53c120330061639ce149925b368506445f19e65f8622e539fda03d3ce6256d14": {
+        "object_location": "reports/robustness/cells/middle_seed_20260908/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "35407434c65af74f9e17c83cd9f7d9eedbc5e467074cbc4bc2a242163d070c6b"
+      },
+      "58c20b66dc3468aae332aef6ac3d023b73ee104808a6b842e41f138978b8af4b": {
+        "object_location": "reports/robustness/cells/middle_seed_20260910/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "2dd8325c960cbad5159aec29bf6179cc2a472170cfbdbf10bc038444b4074e89"
+      },
+      "6405662b6877b27b3dff6e1d79d9a89ccdb0f8613962469867db40d3aea26e44": {
+        "object_location": "reports/robustness/runs/middle_seed_20260909.launch.json#prior-public-bytes",
+        "public_digest": "4a630acd09c868505e2961716b8ceb9ed75378800564df5f3c2a26d572581484"
+      },
+      "6491991f6ff0b9c7fc22b6eb37bed2fa6a5dcbcefeb484efb5b837b1d22f9830": {
+        "object_location": "reports/robustness/runs/early_seed_20260909.launch.json#prior-public-bytes",
+        "public_digest": "4f61aec6cf36f70422575790ace9b5d495a1f81b5362b011dceb7463297ce322"
+      },
+      "66e733602f57b369a89b023334f7f2d78df3c3c68c7d0ab9eea3c9110f4db8b8": {
+        "object_location": "reports/robustness/runs/middle_seed_20260908.launch.json#prior-public-bytes",
+        "public_digest": "f23c97931ab071064d0de0d59e34b3473d97759e98166e23ce709d60fc3d1db1"
+      },
+      "6b8e9dc24468ea206e70c8c1b870be4173b6697b1bb30f8d52145d6d8dcda406": {
+        "object_location": "reports/robustness/cells/early_seed_20260910/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "55a0c6447a3cd61a02616ee0f204ea01afbb9662218bfe5fd3c7ae2c0300a1ac"
+      },
+      "6e0a6ebabf0bf544be321363b1cae03ae4061e8a5b51d03a06006dcaecf7d506": {
+        "object_location": "reports/robustness/cells/reference_seed_20260910/verification_launch.json#prior-public-bytes",
+        "public_digest": "f0f24e1369ccc602a7360ce7889842a38295d5b40989e51c2b814f1c9b0a6ad2"
+      },
+      "6fcf430a65b7d5a51a07f20c39c20c65abe55c46c807cf966c63a7a92fa7d936": {
+        "object_location": "configs/robustness.toml#prior-public-bytes",
+        "public_digest": "9da610388418ddff92a41e6e48ae4cf28b68c654596042113eaa1e92a6b0f31f"
+      },
+      "7181ac0c628d0b2d22bb99661cb9027f4ffb64e7d1b5a2b209aea53d112a1b41": {
+        "object_location": "reports/robustness/cells/reference_seed_20260910/job_status.json#prior-public-bytes",
+        "public_digest": "849afd11d1427813181b46d60c0493b3b545d85acbe71dd7ff0a1564f1452de6"
+      },
+      "731301f48064d7b8d06c8e8300d1ee37fe7814251b024813ff0e6656fe52b9ed": {
+        "object_location": "reports/robustness/cells/middle_seed_20260909/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "2266acd46ace1fb2cc39f27160813d5ba404f9fc20119b65e68ef626bcd38483"
+      },
+      "7399fd05db3bc301ec7992beaccafc86192d6b2e90aaea916fca1ffa67c50979": {
+        "object_location": "reports/robustness/runs/middle_seed_20260910.audit.request.json#prior-public-bytes",
+        "public_digest": "90dbd9e6078670fd645f677663f1b9b10678bd0b348491e078b66e9c303a17ee"
+      },
+      "74b2762ad3c99b94ed9fb4cbc7eb74b498ece36eaded43c46dd907d79ff2c5cc": {
+        "object_location": "reports/robustness/runs/early_seed_20260909.launch.json#original",
+        "public_digest": "5c4dcced72f090f6535bb63658a0b3316c1f69855ab7a144191d34a44cc3c4c6"
+      },
+      "75ed60e66a3de8ba8ee431f48c27422d76df74531f77e6648ec80d84909363eb": {
+        "object_location": "reports/robustness/runs/early_seed_20260908.launch.json#prior-public-bytes",
+        "public_digest": "debeb0d0892970853aaab565850bde85b94600e1778877a2a087563ac4cd5614"
+      },
+      "76b34f4b09cb76f05f2a5c2659672506aac985349e9b6229efca43bb305573dd": {
+        "object_location": "reports/robustness/runs/middle_seed_20260910.launch.json#original",
+        "public_digest": "3257d5d0232146e37c4f4df59f8dd24d077d3274ea31f5512c1c8fdbc716758d"
+      },
+      "77aaf0f4eb9638355e43a64e6ad428057148417bcd52fb20593dcf0efe30cf64": {
+        "object_location": "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "d8bf1a66dcba1b479020cffb3e15ed777bf01ebff165af8124fbb7fb02744504"
+      },
+      "78a0bb105333c7d97dcc1ff0bd75661f0488c6a245efdc7376577ce849731346": {
+        "object_location": "reports/robustness/runs/early_seed_20260908.launch.json#original",
+        "public_digest": "72a6f073c244a5b8b266e8c91999c84b814cf962a510205e5334d4fa3e6e3b1b"
+      },
+      "79dcab9e2cb160c1ac318597a48d9adf89dc5bf63fce12da75aa93abcb6dd7c4": {
+        "object_location": "reports/robustness/runs/early_seed_20260910.audit.request.json#prior-public-bytes",
+        "public_digest": "69631751cd6c38f40a9059587abe4f5e74c2488c695fcd442c2132017103af8f"
+      },
+      "7fc4e1610f7f14da1a2d99565f66715202283ccbad304e31253a34fa51c3bce4": {
+        "object_location": "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "cf959faff0f51dbb39adff92f42d29896a41f2f6423829e386f92b659f85be4d"
+      },
+      "858b7118e1e8fe71fa325875395d8c273d47fb1f3d1629f50222de734a016a6f": {
+        "object_location": "reports/robustness/runs/reference_seed_20260910.launch.json#original",
+        "public_digest": "5e46138a0ddb0a7260c3ec38b571a9b553531f5b3893e716f55677577c8c9a2d"
+      },
+      "89a891cd7bee9bc71c3458ad91e81bb63838791a636a949a211f342cec45fd2b": {
+        "object_location": "reports/robustness/runs/middle_seed_20260908.launch.json#original",
+        "public_digest": "48c838ffc668a682a4f78e2175c9c56a6caf64c434c9587eac92201c8e9a311b"
+      },
+      "90b81f365bed7a97a4f14bcfef722d8d5aa414f97cdb4708ba65edac821568ea": {
+        "object_location": "reports/robustness/cells/early_seed_20260908/verification_launch.json#prior-public-bytes",
+        "public_digest": "6ef40d3a79bc2d88520aee52052eef01a400e731e6748de497fe4466c37cd7a6"
+      },
+      "9cd919e5795348e73ff2ae8dd78c2d564280b41ae21323009c24855c7c888b52": {
+        "object_location": "research/manual/otto_feature_round01/experiment.py#prior-public-bytes",
+        "public_digest": "36ea1069b0ee8328137a01378ca2144f31bd29d602788cc29c2f24ab7db874b8"
+      },
+      "9d078e2bd17869dd3fb5b4a8bbe95e196a24d595bd8892226ae06425436db230": {
+        "object_location": "reports/robustness/runs/middle_seed_20260910.audit.launch.json#prior-public-bytes",
+        "public_digest": "c6c64d0627c2809597cda5b457985dcba2fabbe14f3aa3d245f2550378114203"
+      },
+      "a03616051d8fbcbe79bfd2a7a721b07bba4cc98511004a996f0283bedbd97cb1": {
+        "object_location": "reports/robustness/runs/reference_seed_20260909.launch.json#prior-public-bytes",
+        "public_digest": "d53d39610d6d51e9e49eff053a40177cc7e951d5785d18d13db23b7f554a26ff"
+      },
+      "a1715df516393f3713364e44e24c1598def4e68df1d50e844e3f926b1472de2b": {
+        "object_location": "reports/robustness/cells/middle_seed_20260908/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "484d9a3aaf741ca046e72ca31c324a08a1df5b19b438ed4c2117ff62d7d83876"
+      },
+      "a454ac05270bdf54291cc8f20ab3d9d6b2f8861b0436e54365885eb647254a48": {
+        "object_location": "reports/robustness/runs/middle_seed_20260909.audit.launch.json#prior-public-bytes",
+        "public_digest": "4002ec70ddcc80951081e967c150e098557c9fb3d5b42c1c32ab2634d8d2cbc8"
+      },
+      "a45e302def5e7681b1ef8e40761a3d25cfdee260abeee67a239650a9bd16ec7f": {
+        "object_location": "reports/robustness/runs/middle_seed_20260910.launch.json#prior-public-bytes",
+        "public_digest": "20b6070ea22dad5f7382ed5cb9981eccab16d86c65e942fabcf127b7e31076fa"
+      },
+      "a9b445d03ddc6551d1921355b8042f3330470d89fa9205f2f0dac2a9c590c961": {
+        "object_location": "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json#without:audit_id#prior-public",
+        "public_digest": "ecc86dc1517b988b00e1a6d6ccc08b179da79f3ecfd53a16991a8ae6da25a2a7"
+      },
+      "ac6e59ff3feda519f9418345287842843ccef1cc9850ed42c6c92d884d71f8b3": {
+        "object_location": "reports/robustness/cells/reference_seed_20260909/job_status.json#prior-public-bytes",
+        "public_digest": "15832ace8ef7c4540f8eb5b27c5d53614fc6a28691a476acb4c497eb93eccb89"
+      },
+      "b3e8621a9ed4dd37f184f5eeede45137f25d1e8882211f334e1dc6fe68de03bd": {
+        "object_location": "reports/robustness/runs/early_seed_20260909.request.json#prior-public-bytes",
+        "public_digest": "0215d40cd7701cc2be617359bf9dbb33d9582a3ede831720ee43f7a14829b872"
+      },
+      "b77d90230bbe4e3713aac21e25570e979a52c601a52098de494ae013b514d6ac": {
+        "object_location": "reports/robustness/cells/early_seed_20260908/verification_request.json#prior-public-bytes",
+        "public_digest": "5eec52b9ff49c75b74f263da5f00756d4a87c16a84e84f1f07826b9917e87c30"
+      },
+      "c2be754d6ec35a58b59bddc08caf6d6008d753bdd5ea011f2ed37c4b346f209c": {
+        "object_location": "reports/robustness/runs/early_seed_20260908.request.json#prior-public-bytes",
+        "public_digest": "d53c5804f1ebaa5f7f196a086e23e7e30f5cf914a8685c63ac75de9ba2961b90"
+      },
+      "c306342f3b918efa9cb6dec2c2dbefad25b1ddf44194e498f8cd463ea8abdf05": {
+        "object_location": "reports/robustness/cells/early_seed_20260908/job_status.json#prior-public-bytes",
+        "public_digest": "3de92ce9ad2194b1c2cc54eed0d796470f09c7f6c135306ed8d77246f3416c35"
+      },
+      "c34ded67b3257f17eeaeab807a6737541ee32650450cfa3a9be069d2aa33c01c": {
+        "object_location": "reports/robustness/runs/middle_seed_20260909.launch.json#original",
+        "public_digest": "bcd169526ed0e9a6ca6e2c5ac6706bf2aa305566b2a8a4d33d0c1df8677c05f1"
+      },
+      "c40e268148b9f52716a84646582a4873f4defe034fc4c605d39823af6514eb87": {
+        "object_location": "reports/robustness/runs/early_seed_20260910.request.json#prior-public-bytes",
+        "public_digest": "d01b8f68ac729121682935df9b7bc34427934e5a7a9419ae46a30d9f7866ab5e"
+      },
+      "c8cc9e7c68427abdefa7fb07392c549145e4582761afe9b03a09b8240102a750": {
+        "object_location": "reports/robustness/runs/early_seed_20260909.audit.launch.json#prior-public-bytes",
+        "public_digest": "df90c800ec837d11adbca0055459e8404a42825882482c0104974fa9f7f6370e"
+      },
+      "d0277ba728d790d701a0dc828bfdcb474b6262f84ab5c7bf7eb0097c55fe1fa3": {
+        "object_location": "reports/robustness/cells/middle_seed_20260910/preparation.json#prior-public-bytes",
+        "public_digest": "f5ca4030c86249c36f9bf2ecff78d81347cd29ff929636b3b80a8942e97bc765"
+      },
+      "d042b8dc715e93072aa518b1393746845e9891fdeb3b3dc76fa457d9e2c788b8": {
+        "object_location": "reports/robustness/cells/early_seed_20260910/preparation.json#prior-public-bytes",
+        "public_digest": "e96ad6ce679f1f2b3f93edb61852a241a6c579b0c046390fcd4428a84b4311d5"
+      },
+      "d16adddf59fde096463e61204c6b9f99882802840babdca6cc3fa2cc9e34857c": {
+        "object_location": "reports/robustness/cells/middle_seed_20260908/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "2eac14bd67226732ff43453b5308bb7a861849750798d669be4369245adbe945"
+      },
+      "d3005ff0158b60bf2cd343f17008bff88b2071bdb144108219da01cf73ea660a": {
+        "object_location": "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "36f308bfb8e444705cd27943c00738ac780d9df81aff768205c28825ff588541"
+      },
+      "d3766623c3b6bf9afd2746345b613ebef2d3ed1f303f79b896605de5ea535e4c": {
+        "object_location": "reports/robustness/cells/middle_seed_20260909/job_status.json#prior-public-bytes",
+        "public_digest": "07a00585a32ee226b35b090007b44ceb30e84d0665e1de281ea726c173c9ce5a"
+      },
+      "d6812d3109f3e84207733a86c19a076c11cd5d4c75c3e52e8dbf421e1de2c3a7": {
+        "object_location": "reports/robustness/cells/early_seed_20260908/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "c74b5f7e6121d73b167dad9c22d8391cd22acc071d99fd8baf4611262657b494"
+      },
+      "d80b2e7144cd475253447c1200bc48d62d63f13f19482e7bda6315574adc9c2e": {
+        "object_location": "reports/robustness/runs/reference_seed_20260909.launch.json#original",
+        "public_digest": "b45906b032a9e390efc9ed1663c92ff479b5d85810537b30eada084944cadeff"
+      },
+      "e344943bc6357867983d626bcca62338ee981a5108e519b4f214633dabbd4f08": {
+        "object_location": "reports/robustness/cells/early_seed_20260908/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "f9d77c3504e6285c95b767d12c2edba1a01bd4476cdd32c54b3dd1dc17f9e99e"
+      },
+      "e42af5ae56904174016a661e5122196465ec972f56962e95be5093b5111e4db4": {
+        "object_location": "reports/robustness/cells/middle_seed_20260910/robustness_audit/report.json/inputs#prior-public",
+        "public_digest": "1d589adeb0b599eec7804636d5811d599ad76200241a03d4f802ed2a7c1dd4df"
+      },
+      "e4e3718babb0dff099960c08a96ae017480e598b70aa3670469f6424274072a0": {
+        "object_location": "reports/robustness/runs/early_seed_20260909.audit.request.json#prior-public-bytes",
+        "public_digest": "5decc8f21d92178b5b49a74aa27268fbcf2d86e7da1489592477bc05593e49e8"
+      },
+      "e56a2e58e7cafd105b3fb912eabb285e590e41cf64bceb0eb796ef33ef370df4": {
+        "object_location": "reports/robustness/cells/middle_seed_20260910/preparation.json#without:input_id#prior-public",
+        "public_digest": "ccb8f0f8c9afac810a88859fee3119b63fe83835a1782a4efddedd412a316beb"
+      },
+      "ec41c43aba197125320dd0ff595ff843211f10707e7ceae1d99618cab6be6594": {
+        "object_location": "reports/robustness/cells/middle_seed_20260910/job_status.json#prior-public-bytes",
+        "public_digest": "a9c92cfc3032b89332ffaa16b81aff6776575a9583347fea595f37cf74c61592"
+      },
+      "f55919a531ed4d3922e190e23384d3bdf47d506f0ec20e2141c1ae11bd14239a": {
+        "object_location": "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json#prior-public-bytes",
+        "public_digest": "e7ed316cece974bb4f1307b0d5644f8904fb44cb2534159c561cb44edb13591f"
+      },
+      "f6c3887fe0a1ebfd432b3547b4ff2c7c440c5cf94eb3d4f1258a5e5a6637b9f1": {
+        "object_location": "reports/robustness/runs/middle_seed_20260910.request.json#prior-public-bytes",
+        "public_digest": "5a52bd72d7aa9b859cb66256e0f64eedd24b9766d93591cc9d3eaca27a2b0427"
+      },
+      "fdbb8f29a0c3fbadea55ae0e51fef0e2e58239fec47c52ba9fa5abb7f1215620": {
+        "object_location": "reports/robustness/cells/early_seed_20260910/robustness_audit/job_status.json#prior-public-bytes",
+        "public_digest": "32232624358c60a0eab47e03c46ee6ef3aaa954dcaab53b436bad31163bec9e1"
+      }
+    },
+    "files": {
+      "configs/feature_research.json": {
+        "previous_public_sha256": "a91f59cc8605f86a463b66b4727832468ccee9503c416831e78e15813037c066",
+        "projected_public_sha256": "58e73c17e461971cfec899bf58916b9e1b64accc3b3b11f8e70aec866a0aa3b9"
+      },
+      "configs/robustness.toml": {
+        "previous_public_sha256": "6fcf430a65b7d5a51a07f20c39c20c65abe55c46c807cf966c63a7a92fa7d936",
+        "projected_public_sha256": "9da610388418ddff92a41e6e48ae4cf28b68c654596042113eaa1e92a6b0f31f"
+      },
+      "reports/manual_research/source_manifest.json": {
+        "previous_public_sha256": "073c69e67e4b2d43cc6e1670cdda69c847214fafe828b0c5006b5c16f800e12c",
+        "projected_public_sha256": "11394a69d131e69b3c49cd86aaf79156a1fd0fed4ac71451c45aceaf6dc002c6"
+      },
+      "reports/portfolio/manifest.json": {
+        "previous_public_sha256": "3726e63f65daefe9c5fd3ca51006148ac22299c6b2a816f1dfdf0b859f738ce4",
+        "projected_public_sha256": "d047058b0aef02148c31b257fdbd28dd25b4fdd7afa1fcaff87c7acd3ff0db0c"
+      },
+      "reports/robustness/batch/definition.json": {
+        "previous_public_sha256": "8e62decb1d3067867232ef2cda6f43e9201ec330e79ace3d022a4e84129c335b",
+        "projected_public_sha256": "86d9d2070e861adbf1fb1664f4aeaec5e4d11838f45f372081950c0d573c9dd8"
+      },
+      "reports/robustness/batch/early_seed_20260910.audit.launch.json": {
+        "previous_public_sha256": "1d141140619dca370d9b53dcaaf7f4fa527b3f271371394dbea24c52999946e3",
+        "projected_public_sha256": "980694d0b6f18d71663a555716b56414b9bec6d1cb88d2d9581a786ddd374d6f"
+      },
+      "reports/robustness/batch/early_seed_20260910.train.launch.json": {
+        "previous_public_sha256": "200fd227c720ad0c5db511c0e085cbf2639470c5d62aafd66d0d41125a2e0f22",
+        "projected_public_sha256": "6a90bd5c5dd97c956ba5b74f64879ccb3f3880b4a24f3d142b44ece0d47da67e"
+      },
+      "reports/robustness/batch/execution.json": {
+        "previous_public_sha256": "5a49ceaf882576ccd138ab42468143f8d2213935f7218251fe743225b88093b8",
+        "projected_public_sha256": "51ea3bcb70af87a86e6e7368ea2ce825e69e935dbcb10880f168e4801ae78a4c"
+      },
+      "reports/robustness/batch/middle_seed_20260908.audit.launch.json": {
+        "previous_public_sha256": "027829323383f0a293306f160e0e22373787db513e2267e1d257ea47d408013e",
+        "projected_public_sha256": "2d4e876ca94a148e5661f7a236b6d7f9fd3e54a759c16eb358a37a471997b53a"
+      },
+      "reports/robustness/batch/middle_seed_20260908.train.launch.json": {
+        "previous_public_sha256": "66e733602f57b369a89b023334f7f2d78df3c3c68c7d0ab9eea3c9110f4db8b8",
+        "projected_public_sha256": "f23c97931ab071064d0de0d59e34b3473d97759e98166e23ce709d60fc3d1db1"
+      },
+      "reports/robustness/batch/middle_seed_20260909.audit.launch.json": {
+        "previous_public_sha256": "a454ac05270bdf54291cc8f20ab3d9d6b2f8861b0436e54365885eb647254a48",
+        "projected_public_sha256": "4002ec70ddcc80951081e967c150e098557c9fb3d5b42c1c32ab2634d8d2cbc8"
+      },
+      "reports/robustness/batch/middle_seed_20260909.train.launch.json": {
+        "previous_public_sha256": "6405662b6877b27b3dff6e1d79d9a89ccdb0f8613962469867db40d3aea26e44",
+        "projected_public_sha256": "4a630acd09c868505e2961716b8ceb9ed75378800564df5f3c2a26d572581484"
+      },
+      "reports/robustness/batch/middle_seed_20260910.audit.launch.json": {
+        "previous_public_sha256": "9d078e2bd17869dd3fb5b4a8bbe95e196a24d595bd8892226ae06425436db230",
+        "projected_public_sha256": "c6c64d0627c2809597cda5b457985dcba2fabbe14f3aa3d245f2550378114203"
+      },
+      "reports/robustness/batch/middle_seed_20260910.train.launch.json": {
+        "previous_public_sha256": "a45e302def5e7681b1ef8e40761a3d25cfdee260abeee67a239650a9bd16ec7f",
+        "projected_public_sha256": "20b6070ea22dad5f7382ed5cb9981eccab16d86c65e942fabcf127b7e31076fa"
+      },
+      "reports/robustness/batch/plan.json": {
+        "previous_public_sha256": "212be433aa1ba51cba5565acefaccfbdb97116b1a38ab32cc288ac8fccf78351",
+        "projected_public_sha256": "53dce078da804d78b757d4ccc66ef2259170cc7ac276f84689a5f522b7b72fa9"
+      },
+      "reports/robustness/cells/early_seed_20260908/job_status.json": {
+        "previous_public_sha256": "c306342f3b918efa9cb6dec2c2dbefad25b1ddf44194e498f8cd463ea8abdf05",
+        "projected_public_sha256": "3de92ce9ad2194b1c2cc54eed0d796470f09c7f6c135306ed8d77246f3416c35"
+      },
+      "reports/robustness/cells/early_seed_20260908/preparation.json": {
+        "previous_public_sha256": "d042b8dc715e93072aa518b1393746845e9891fdeb3b3dc76fa457d9e2c788b8",
+        "projected_public_sha256": "e96ad6ce679f1f2b3f93edb61852a241a6c579b0c046390fcd4428a84b4311d5"
+      },
+      "reports/robustness/cells/early_seed_20260908/robustness_audit/job_status.json": {
+        "previous_public_sha256": "d6812d3109f3e84207733a86c19a076c11cd5d4c75c3e52e8dbf421e1de2c3a7",
+        "projected_public_sha256": "c74b5f7e6121d73b167dad9c22d8391cd22acc071d99fd8baf4611262657b494"
+      },
+      "reports/robustness/cells/early_seed_20260908/robustness_audit/report.json": {
+        "previous_public_sha256": "e344943bc6357867983d626bcca62338ee981a5108e519b4f214633dabbd4f08",
+        "projected_public_sha256": "f9d77c3504e6285c95b767d12c2edba1a01bd4476cdd32c54b3dd1dc17f9e99e"
+      },
+      "reports/robustness/cells/early_seed_20260908/verification_launch.json": {
+        "previous_public_sha256": "90b81f365bed7a97a4f14bcfef722d8d5aa414f97cdb4708ba65edac821568ea",
+        "projected_public_sha256": "6ef40d3a79bc2d88520aee52052eef01a400e731e6748de497fe4466c37cd7a6"
+      },
+      "reports/robustness/cells/early_seed_20260908/verification_request.json": {
+        "previous_public_sha256": "b77d90230bbe4e3713aac21e25570e979a52c601a52098de494ae013b514d6ac",
+        "projected_public_sha256": "5eec52b9ff49c75b74f263da5f00756d4a87c16a84e84f1f07826b9917e87c30"
+      },
+      "reports/robustness/cells/early_seed_20260909/job_status.json": {
+        "previous_public_sha256": "2b287e3b4e8aa891861b9cfaec59f9f581b1c74b7f085f6d97c84256785efeae",
+        "projected_public_sha256": "3e00ea2d23f2207c51ef8a09a9eb24f9bccb420e38f9e3c034e3b4ed103aa9b7"
+      },
+      "reports/robustness/cells/early_seed_20260909/preparation.json": {
+        "previous_public_sha256": "d042b8dc715e93072aa518b1393746845e9891fdeb3b3dc76fa457d9e2c788b8",
+        "projected_public_sha256": "e96ad6ce679f1f2b3f93edb61852a241a6c579b0c046390fcd4428a84b4311d5"
+      },
+      "reports/robustness/cells/early_seed_20260909/robustness_audit/job_status.json": {
+        "previous_public_sha256": "43f494ace2c0e5cbc090e73b80d1e1b43330d83e6e16682ce1864b1e27430c1b",
+        "projected_public_sha256": "92c2658b5f37c0efb1edb9f7a60cb106d867f0b857ad82060e6fdf2c6b07f9f9"
+      },
+      "reports/robustness/cells/early_seed_20260909/robustness_audit/report.json": {
+        "previous_public_sha256": "f55919a531ed4d3922e190e23384d3bdf47d506f0ec20e2141c1ae11bd14239a",
+        "projected_public_sha256": "e7ed316cece974bb4f1307b0d5644f8904fb44cb2534159c561cb44edb13591f"
+      },
+      "reports/robustness/cells/early_seed_20260909/verification_launch.json": {
+        "previous_public_sha256": "c8cc9e7c68427abdefa7fb07392c549145e4582761afe9b03a09b8240102a750",
+        "projected_public_sha256": "df90c800ec837d11adbca0055459e8404a42825882482c0104974fa9f7f6370e"
+      },
+      "reports/robustness/cells/early_seed_20260910/job_status.json": {
+        "previous_public_sha256": "450743549522d35a8eaecd5c2d764dda5bd8276141bb07902ac3eb4f26342c1c",
+        "projected_public_sha256": "3050950c89004dfdff2838673651943564154e7f1f0553b51c0953ffa574421a"
+      },
+      "reports/robustness/cells/early_seed_20260910/preparation.json": {
+        "previous_public_sha256": "d042b8dc715e93072aa518b1393746845e9891fdeb3b3dc76fa457d9e2c788b8",
+        "projected_public_sha256": "e96ad6ce679f1f2b3f93edb61852a241a6c579b0c046390fcd4428a84b4311d5"
+      },
+      "reports/robustness/cells/early_seed_20260910/robustness_audit/job_status.json": {
+        "previous_public_sha256": "fdbb8f29a0c3fbadea55ae0e51fef0e2e58239fec47c52ba9fa5abb7f1215620",
+        "projected_public_sha256": "32232624358c60a0eab47e03c46ee6ef3aaa954dcaab53b436bad31163bec9e1"
+      },
+      "reports/robustness/cells/early_seed_20260910/robustness_audit/report.json": {
+        "previous_public_sha256": "474eaf6505b75aeb16f873e5234d51fe2baca86134189b77a279a680d809c541",
+        "projected_public_sha256": "eff8c43ae377815408799085141ef5c9b7d3c730468d187a8d909caf03d2f098"
+      },
+      "reports/robustness/cells/early_seed_20260910/verification_launch.json": {
+        "previous_public_sha256": "1d141140619dca370d9b53dcaaf7f4fa527b3f271371394dbea24c52999946e3",
+        "projected_public_sha256": "980694d0b6f18d71663a555716b56414b9bec6d1cb88d2d9581a786ddd374d6f"
+      },
+      "reports/robustness/cells/middle_seed_20260908/job_status.json": {
+        "previous_public_sha256": "0cd1f7abe24f5667892d689c8e879fcbc2594296bee966e7639a14087f3f3d6f",
+        "projected_public_sha256": "72b3da4a7352c095a81d8e3f0bedcc3066eb608150710e15c96dc0a6b8f9afbe"
+      },
+      "reports/robustness/cells/middle_seed_20260908/preparation.json": {
+        "previous_public_sha256": "d0277ba728d790d701a0dc828bfdcb474b6262f84ab5c7bf7eb0097c55fe1fa3",
+        "projected_public_sha256": "f5ca4030c86249c36f9bf2ecff78d81347cd29ff929636b3b80a8942e97bc765"
+      },
+      "reports/robustness/cells/middle_seed_20260908/robustness_audit/job_status.json": {
+        "previous_public_sha256": "d16adddf59fde096463e61204c6b9f99882802840babdca6cc3fa2cc9e34857c",
+        "projected_public_sha256": "2eac14bd67226732ff43453b5308bb7a861849750798d669be4369245adbe945"
+      },
+      "reports/robustness/cells/middle_seed_20260908/robustness_audit/report.json": {
+        "previous_public_sha256": "4d7c34f74a35adfe2f18ce0639f958106fca0a354c8c6f9571123180f09cce87",
+        "projected_public_sha256": "98fa6e27d6cddaeb89657002c24e2b75150276848910f383656df82349eeff3e"
+      },
+      "reports/robustness/cells/middle_seed_20260908/verification_launch.json": {
+        "previous_public_sha256": "027829323383f0a293306f160e0e22373787db513e2267e1d257ea47d408013e",
+        "projected_public_sha256": "2d4e876ca94a148e5661f7a236b6d7f9fd3e54a759c16eb358a37a471997b53a"
+      },
+      "reports/robustness/cells/middle_seed_20260909/job_status.json": {
+        "previous_public_sha256": "d3766623c3b6bf9afd2746345b613ebef2d3ed1f303f79b896605de5ea535e4c",
+        "projected_public_sha256": "07a00585a32ee226b35b090007b44ceb30e84d0665e1de281ea726c173c9ce5a"
+      },
+      "reports/robustness/cells/middle_seed_20260909/preparation.json": {
+        "previous_public_sha256": "d0277ba728d790d701a0dc828bfdcb474b6262f84ab5c7bf7eb0097c55fe1fa3",
+        "projected_public_sha256": "f5ca4030c86249c36f9bf2ecff78d81347cd29ff929636b3b80a8942e97bc765"
+      },
+      "reports/robustness/cells/middle_seed_20260909/robustness_audit/job_status.json": {
+        "previous_public_sha256": "731301f48064d7b8d06c8e8300d1ee37fe7814251b024813ff0e6656fe52b9ed",
+        "projected_public_sha256": "2266acd46ace1fb2cc39f27160813d5ba404f9fc20119b65e68ef626bcd38483"
+      },
+      "reports/robustness/cells/middle_seed_20260909/robustness_audit/report.json": {
+        "previous_public_sha256": "1e9a66f41ee8cffd532b47744695f5aea7122bb341684bf2829968be5e051ca6",
+        "projected_public_sha256": "feff8f55320f99ed0c9f85e7b3495359c1e263606694d65eabcbefdaf706d97e"
+      },
+      "reports/robustness/cells/middle_seed_20260909/verification_launch.json": {
+        "previous_public_sha256": "a454ac05270bdf54291cc8f20ab3d9d6b2f8861b0436e54365885eb647254a48",
+        "projected_public_sha256": "4002ec70ddcc80951081e967c150e098557c9fb3d5b42c1c32ab2634d8d2cbc8"
+      },
+      "reports/robustness/cells/middle_seed_20260910/job_status.json": {
+        "previous_public_sha256": "ec41c43aba197125320dd0ff595ff843211f10707e7ceae1d99618cab6be6594",
+        "projected_public_sha256": "a9c92cfc3032b89332ffaa16b81aff6776575a9583347fea595f37cf74c61592"
+      },
+      "reports/robustness/cells/middle_seed_20260910/preparation.json": {
+        "previous_public_sha256": "d0277ba728d790d701a0dc828bfdcb474b6262f84ab5c7bf7eb0097c55fe1fa3",
+        "projected_public_sha256": "f5ca4030c86249c36f9bf2ecff78d81347cd29ff929636b3b80a8942e97bc765"
+      },
+      "reports/robustness/cells/middle_seed_20260910/robustness_audit/job_status.json": {
+        "previous_public_sha256": "58c20b66dc3468aae332aef6ac3d023b73ee104808a6b842e41f138978b8af4b",
+        "projected_public_sha256": "2dd8325c960cbad5159aec29bf6179cc2a472170cfbdbf10bc038444b4074e89"
+      },
+      "reports/robustness/cells/middle_seed_20260910/robustness_audit/report.json": {
+        "previous_public_sha256": "4befcb1aab8d177299da52fd907995ecd0f3c178dbbab6584f18feccb4674ea2",
+        "projected_public_sha256": "aac935b5201f7718e8c341ddbbb891860c140f23ee953e3983248e57b8699021"
+      },
+      "reports/robustness/cells/middle_seed_20260910/verification_launch.json": {
+        "previous_public_sha256": "9d078e2bd17869dd3fb5b4a8bbe95e196a24d595bd8892226ae06425436db230",
+        "projected_public_sha256": "c6c64d0627c2809597cda5b457985dcba2fabbe14f3aa3d245f2550378114203"
+      },
+      "reports/robustness/cells/reference_seed_20260909/job_status.json": {
+        "previous_public_sha256": "ac6e59ff3feda519f9418345287842843ccef1cc9850ed42c6c92d884d71f8b3",
+        "projected_public_sha256": "15832ace8ef7c4540f8eb5b27c5d53614fc6a28691a476acb4c497eb93eccb89"
+      },
+      "reports/robustness/cells/reference_seed_20260909/robustness_audit/job_status.json": {
+        "previous_public_sha256": "1a709ead80111b81032268512fe9264a11c6500eb84602e23069e68bc44199f9",
+        "projected_public_sha256": "724327e55e6e28620d2f936a317eb11b098eebc8996032150594671f74ef46cb"
+      },
+      "reports/robustness/cells/reference_seed_20260909/robustness_audit/report.json": {
+        "previous_public_sha256": "3d2b77a0ba8fb04a350d25346182940aebfb6ac046d978ba12e3d8a459c3deda",
+        "projected_public_sha256": "8b675160d5cacb2dbbcd22d6cbe3796ea9b95892ae090796ce2d04a388e54038"
+      },
+      "reports/robustness/cells/reference_seed_20260909/verification_launch.json": {
+        "previous_public_sha256": "26f72c9a01ccaa0be00e47beb0402b545f17390fc12e4eed19062bd22941aed5",
+        "projected_public_sha256": "7d98f3d5de2cec347a5b7c9fe688bda425a3a9eef331bf1a277fa3c58d2ea18a"
+      },
+      "reports/robustness/cells/reference_seed_20260909/verification_request.json": {
+        "previous_public_sha256": "057abe4694f9bc740be743b553dd618de67b1e4c961c0a6c35cd98b5dc4ff1ea",
+        "projected_public_sha256": "93dd126e27b74e8c406f1c77834cd57609f5075d05a6eadd180d2c5602443de7"
+      },
+      "reports/robustness/cells/reference_seed_20260910/job_status.json": {
+        "previous_public_sha256": "7181ac0c628d0b2d22bb99661cb9027f4ffb64e7d1b5a2b209aea53d112a1b41",
+        "projected_public_sha256": "849afd11d1427813181b46d60c0493b3b545d85acbe71dd7ff0a1564f1452de6"
+      },
+      "reports/robustness/cells/reference_seed_20260910/robustness_audit/job_status.json": {
+        "previous_public_sha256": "3e4ffcba534accfc9b67c2d67124a090b77e8b164672adc3ee5b16875422d41a",
+        "projected_public_sha256": "a0a7513eb08f6435caa2ad279fabfc331f5c8e2add1c5112dcd9e02bbb463db6"
+      },
+      "reports/robustness/cells/reference_seed_20260910/robustness_audit/report.json": {
+        "previous_public_sha256": "05d35b652e51ebff91205cda6087678bbf22ca39d41d1b977c49883dc3277427",
+        "projected_public_sha256": "06ec6903bf2d59287ff4c56a8f93ccc3314d2cd9aa083d55772ce83663b719fa"
+      },
+      "reports/robustness/cells/reference_seed_20260910/verification_launch.json": {
+        "previous_public_sha256": "6e0a6ebabf0bf544be321363b1cae03ae4061e8a5b51d03a06006dcaecf7d506",
+        "projected_public_sha256": "f0f24e1369ccc602a7360ce7889842a38295d5b40989e51c2b814f1c9b0a6ad2"
+      },
+      "reports/robustness/cells/reference_seed_20260910/verification_request.json": {
+        "previous_public_sha256": "22c22113cfc28c216eb4188be84a6cadb1f82183e661ce428b7ca9aeb81dfacb",
+        "projected_public_sha256": "acc2856d71a5c93c3f346f080ea42ae28a4345d8eea635349597aee7717661fd"
+      },
+      "reports/robustness/comparison.json": {
+        "previous_public_sha256": "225f8e205c0d4c036c2cbdf9c2731c0cb67020414486c9dc1f7bb2b4b1fce483",
+        "projected_public_sha256": "b607b90de8138b0984c4f638f13c8ca90190eb8f5f1ce5daa992f3c3cbd6bfee"
+      },
+      "reports/robustness/progress.json": {
+        "previous_public_sha256": "18dbb5bf4f04aa3e35cf8ea6e85c79a4543dc112d48bc9710416b7b1a703c23a",
+        "projected_public_sha256": "f9cc1d1f3a4ec1baa7202f87ada0e73caa0cc5d8904872dcd22bdac99c947405"
+      },
+      "reports/robustness/runs/early_seed_20260908.json": {
+        "previous_public_sha256": "f61a09428b8892542003c2104b4f067dd1b93c1d1bafcf7723824b06ca683752",
+        "projected_public_sha256": "3ff1a49942f9f9635e85021036b0d8c6387dabe0ed6c5e493fbc833378263c59"
+      },
+      "reports/robustness/runs/early_seed_20260908.launch.json": {
+        "previous_public_sha256": "75ed60e66a3de8ba8ee431f48c27422d76df74531f77e6648ec80d84909363eb",
+        "projected_public_sha256": "debeb0d0892970853aaab565850bde85b94600e1778877a2a087563ac4cd5614"
+      },
+      "reports/robustness/runs/early_seed_20260908.request.json": {
+        "previous_public_sha256": "c2be754d6ec35a58b59bddc08caf6d6008d753bdd5ea011f2ed37c4b346f209c",
+        "projected_public_sha256": "d53c5804f1ebaa5f7f196a086e23e7e30f5cf914a8685c63ac75de9ba2961b90"
+      },
+      "reports/robustness/runs/early_seed_20260909.audit.json": {
+        "previous_public_sha256": "826a8860f0a41b788a0ccf94c231e744e5c8f3043d73fb8e9636da97f6bb8f28",
+        "projected_public_sha256": "9cb52d4b0f9be22f53e0f48ebe197da72acc14ace45bcc3aacfccfb5f6a08a5e"
+      },
+      "reports/robustness/runs/early_seed_20260909.audit.launch.json": {
+        "previous_public_sha256": "c8cc9e7c68427abdefa7fb07392c549145e4582761afe9b03a09b8240102a750",
+        "projected_public_sha256": "df90c800ec837d11adbca0055459e8404a42825882482c0104974fa9f7f6370e"
+      },
+      "reports/robustness/runs/early_seed_20260909.audit.request.json": {
+        "previous_public_sha256": "e4e3718babb0dff099960c08a96ae017480e598b70aa3670469f6424274072a0",
+        "projected_public_sha256": "5decc8f21d92178b5b49a74aa27268fbcf2d86e7da1489592477bc05593e49e8"
+      },
+      "reports/robustness/runs/early_seed_20260909.json": {
+        "previous_public_sha256": "7f0cbed41261be4b4fb4228e5b826d5381bf6b68eee865ca589cb53a439ee0fb",
+        "projected_public_sha256": "b7be5b75916a1c75b274c4101953dcbb6b46a10435c0d9cba42bbfb12f6e5ce1"
+      },
+      "reports/robustness/runs/early_seed_20260909.launch.json": {
+        "previous_public_sha256": "6491991f6ff0b9c7fc22b6eb37bed2fa6a5dcbcefeb484efb5b837b1d22f9830",
+        "projected_public_sha256": "4f61aec6cf36f70422575790ace9b5d495a1f81b5362b011dceb7463297ce322"
+      },
+      "reports/robustness/runs/early_seed_20260909.request.json": {
+        "previous_public_sha256": "b3e8621a9ed4dd37f184f5eeede45137f25d1e8882211f334e1dc6fe68de03bd",
+        "projected_public_sha256": "0215d40cd7701cc2be617359bf9dbb33d9582a3ede831720ee43f7a14829b872"
+      },
+      "reports/robustness/runs/early_seed_20260910.audit.json": {
+        "previous_public_sha256": "ae55c476d1ab814796c1b49587821780e5ccc628c9b7d0528e77b7c058592724",
+        "projected_public_sha256": "de8a413c0f907b47d3a732fc86a0455a6db20853d0ad8b1b70cc01fde1abc533"
+      },
+      "reports/robustness/runs/early_seed_20260910.audit.launch.json": {
+        "previous_public_sha256": "1d141140619dca370d9b53dcaaf7f4fa527b3f271371394dbea24c52999946e3",
+        "projected_public_sha256": "980694d0b6f18d71663a555716b56414b9bec6d1cb88d2d9581a786ddd374d6f"
+      },
+      "reports/robustness/runs/early_seed_20260910.audit.request.json": {
+        "previous_public_sha256": "79dcab9e2cb160c1ac318597a48d9adf89dc5bf63fce12da75aa93abcb6dd7c4",
+        "projected_public_sha256": "69631751cd6c38f40a9059587abe4f5e74c2488c695fcd442c2132017103af8f"
+      },
+      "reports/robustness/runs/early_seed_20260910.json": {
+        "previous_public_sha256": "52ff3cdf7bcd1f03328376d24484d3f747c5f5b245b15f8f6a9050a32e5cac8f",
+        "projected_public_sha256": "fee02ffb78ce6fe2932d3138cd0cd86302c586d179fb589b4cae01dd7ca0e264"
+      },
+      "reports/robustness/runs/early_seed_20260910.launch.json": {
+        "previous_public_sha256": "200fd227c720ad0c5db511c0e085cbf2639470c5d62aafd66d0d41125a2e0f22",
+        "projected_public_sha256": "6a90bd5c5dd97c956ba5b74f64879ccb3f3880b4a24f3d142b44ece0d47da67e"
+      },
+      "reports/robustness/runs/early_seed_20260910.request.json": {
+        "previous_public_sha256": "c40e268148b9f52716a84646582a4873f4defe034fc4c605d39823af6514eb87",
+        "projected_public_sha256": "d01b8f68ac729121682935df9b7bc34427934e5a7a9419ae46a30d9f7866ab5e"
+      },
+      "reports/robustness/runs/middle_seed_20260908.audit.json": {
+        "previous_public_sha256": "cf4f24b1dc8067656f3e9758c467dfd14593d1327b5c596c4304145bac32737b",
+        "projected_public_sha256": "2341dae416a3cbd18b5b76adbeb8948aada80498eb5de7e8d3281aea02208e4b"
+      },
+      "reports/robustness/runs/middle_seed_20260908.audit.launch.json": {
+        "previous_public_sha256": "027829323383f0a293306f160e0e22373787db513e2267e1d257ea47d408013e",
+        "projected_public_sha256": "2d4e876ca94a148e5661f7a236b6d7f9fd3e54a759c16eb358a37a471997b53a"
+      },
+      "reports/robustness/runs/middle_seed_20260908.audit.request.json": {
+        "previous_public_sha256": "1e191acca7a30240450d7e1baa496e51a1c92bdcbabef81f882734de051b3973",
+        "projected_public_sha256": "50e7e946bd4e2f5a184ab8e8cb137972e96a9449a95b9ec6484e664d35dbde18"
+      },
+      "reports/robustness/runs/middle_seed_20260908.json": {
+        "previous_public_sha256": "295ccfdfdea5154e6f149c9e4df3e57ccd7b5266ba73c129b757ef5a62a6d918",
+        "projected_public_sha256": "aae3bd6b02d0b134c63246b91e9ad9826a4e55dac282d3dde8776006f4478f0d"
+      },
+      "reports/robustness/runs/middle_seed_20260908.launch.json": {
+        "previous_public_sha256": "66e733602f57b369a89b023334f7f2d78df3c3c68c7d0ab9eea3c9110f4db8b8",
+        "projected_public_sha256": "f23c97931ab071064d0de0d59e34b3473d97759e98166e23ce709d60fc3d1db1"
+      },
+      "reports/robustness/runs/middle_seed_20260908.request.json": {
+        "previous_public_sha256": "2bda8753a94372221b1d84cd02bc1c4d84e3ac9dd5b25f2e201f49b0fddeebcd",
+        "projected_public_sha256": "89e380dfc86f6c4da8fb87d66b809ff2f6bcf4d19af3a7eade6a54ac867503ed"
+      },
+      "reports/robustness/runs/middle_seed_20260909.audit.json": {
+        "previous_public_sha256": "97fc849770846c943e4df3092c643efa13987c2da9a9855d91e9629d51bf8788",
+        "projected_public_sha256": "4b014e12b76c3a34a6f69ef16084ba2a398d5e76defe9ef008a5c0ae5b4199db"
+      },
+      "reports/robustness/runs/middle_seed_20260909.audit.launch.json": {
+        "previous_public_sha256": "a454ac05270bdf54291cc8f20ab3d9d6b2f8861b0436e54365885eb647254a48",
+        "projected_public_sha256": "4002ec70ddcc80951081e967c150e098557c9fb3d5b42c1c32ab2634d8d2cbc8"
+      },
+      "reports/robustness/runs/middle_seed_20260909.audit.request.json": {
+        "previous_public_sha256": "1ccda901d8b95fc98840ab45dfdabe37476626c2659360218a2a2067a89e9d79",
+        "projected_public_sha256": "5d31f6ec442dd49a263c2d44e9763c74e2b9967a64dc0b3a79c6582f06aa6472"
+      },
+      "reports/robustness/runs/middle_seed_20260909.json": {
+        "previous_public_sha256": "4244928ea63787c383092fee6ce2d4023eb5b58520faf83ed8e38ebac19835f6",
+        "projected_public_sha256": "a26c9f73d72609a82231999c87e0cf25eaf9d22dc012bf849c1d3e2b528cc51b"
+      },
+      "reports/robustness/runs/middle_seed_20260909.launch.json": {
+        "previous_public_sha256": "6405662b6877b27b3dff6e1d79d9a89ccdb0f8613962469867db40d3aea26e44",
+        "projected_public_sha256": "4a630acd09c868505e2961716b8ceb9ed75378800564df5f3c2a26d572581484"
+      },
+      "reports/robustness/runs/middle_seed_20260909.request.json": {
+        "previous_public_sha256": "0224fccc6aa1444ce82d7a8cbac65c3f1be8c2ae7654a40e033e27af58011162",
+        "projected_public_sha256": "838f067afb28cca314440845b4ef5a058abfbc69b650d5c0ddd74954e0132538"
+      },
+      "reports/robustness/runs/middle_seed_20260910.audit.json": {
+        "previous_public_sha256": "4e68fcaf1cf89c1e01bd430de080b6fafae24fc818f073497226ba1ff87e056d",
+        "projected_public_sha256": "750ad35db3d9eb45edb52559fba8be99084744325b11077852f325116f388b48"
+      },
+      "reports/robustness/runs/middle_seed_20260910.audit.launch.json": {
+        "previous_public_sha256": "9d078e2bd17869dd3fb5b4a8bbe95e196a24d595bd8892226ae06425436db230",
+        "projected_public_sha256": "c6c64d0627c2809597cda5b457985dcba2fabbe14f3aa3d245f2550378114203"
+      },
+      "reports/robustness/runs/middle_seed_20260910.audit.request.json": {
+        "previous_public_sha256": "7399fd05db3bc301ec7992beaccafc86192d6b2e90aaea916fca1ffa67c50979",
+        "projected_public_sha256": "90dbd9e6078670fd645f677663f1b9b10678bd0b348491e078b66e9c303a17ee"
+      },
+      "reports/robustness/runs/middle_seed_20260910.json": {
+        "previous_public_sha256": "83a5e8e43d0e5bafc845218f180370e44ef665554162caaf4bd5edc0b848468a",
+        "projected_public_sha256": "9b13668713cdf96351572347f1ad559b5a033d0b9fe1116d46318a69f2c6bb69"
+      },
+      "reports/robustness/runs/middle_seed_20260910.launch.json": {
+        "previous_public_sha256": "a45e302def5e7681b1ef8e40761a3d25cfdee260abeee67a239650a9bd16ec7f",
+        "projected_public_sha256": "20b6070ea22dad5f7382ed5cb9981eccab16d86c65e942fabcf127b7e31076fa"
+      },
+      "reports/robustness/runs/middle_seed_20260910.request.json": {
+        "previous_public_sha256": "f6c3887fe0a1ebfd432b3547b4ff2c7c440c5cf94eb3d4f1258a5e5a6637b9f1",
+        "projected_public_sha256": "5a52bd72d7aa9b859cb66256e0f64eedd24b9766d93591cc9d3eaca27a2b0427"
+      },
+      "reports/robustness/runs/reference_seed_20260909.json": {
+        "previous_public_sha256": "92d4e2e6e54b169466690b302419c86a3e55918f15f8d93b51a19f7116e37979",
+        "projected_public_sha256": "d536ba63ed1087866f071ca41c252e4198925009c22171e0edb54426f7b7e1d4"
+      },
+      "reports/robustness/runs/reference_seed_20260909.launch.json": {
+        "previous_public_sha256": "a03616051d8fbcbe79bfd2a7a721b07bba4cc98511004a996f0283bedbd97cb1",
+        "projected_public_sha256": "d53d39610d6d51e9e49eff053a40177cc7e951d5785d18d13db23b7f554a26ff"
+      },
+      "reports/robustness/runs/reference_seed_20260909.request.json": {
+        "previous_public_sha256": "111248e5fd533c5d658b11edf9f389cc1e0e793e9933ffe0e7d3e18b26c0cf74",
+        "projected_public_sha256": "62cc6bc457b0ef08a4b06298fef7f6e85a090ebae06db716aaeaecce4069255d"
+      },
+      "reports/robustness/runs/reference_seed_20260910.json": {
+        "previous_public_sha256": "803a6b1dc6f648ff2facdfb1468500991b086f351e690aa69de0f9f0feb7e34f",
+        "projected_public_sha256": "94088b269c14d32ade1217d975c7f406b47d668ca98315c96d3f428ea86de304"
+      },
+      "reports/robustness/runs/reference_seed_20260910.launch.json": {
+        "previous_public_sha256": "29abeb08da6d3d3512fc73998bffef6ea857460d1535ad9e7075065ea0487c2e",
+        "projected_public_sha256": "aa854489caa005ed09841237b5c76c9db9aa8756cc2ed6499b140a196491ed09"
+      },
+      "reports/robustness/runs/reference_seed_20260910.request.json": {
+        "previous_public_sha256": "29fd518678cb1ab285448de8d9e7c3d4d1966b2a6560554964137f774ec6adb5",
+        "projected_public_sha256": "3cf45fc95b8be91e09f4bee4a2871e9a1b7669baca6fdcf547259da9f555f8a4"
+      },
+      "research/manual/otto_feature_round01/experiment.py": {
+        "previous_public_sha256": "9cd919e5795348e73ff2ae8dd78c2d564280b41ae21323009c24855c7c888b52",
+        "projected_public_sha256": "36ea1069b0ee8328137a01378ca2144f31bd29d602788cc29c2f24ab7db874b8"
+      }
+    },
+    "iterations": 9,
+    "measurements_changed": false,
+    "private_artifact_hashes_replaced": false,
+    "scope": "Public derivatives of redacted metadata, including nested canonical digests",
+    "source_revision": "95fa2c6a3ad99f6e501fc5ce80b08502f633cc64"
+  },
   "original_hashes": "Provenance for pre-redaction files; not current public byte identities",
   "policy": "Deployment account numbers replaced with the reserved all-zero placeholder",
   "public_receipt_derivatives": {

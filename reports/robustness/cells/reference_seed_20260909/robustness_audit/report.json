@@ -45,13 +45,13 @@
     },
     "variants": 8
   },
-  "audit_id": "31fc62bab554716dd24cb02cea888075db17aad373ebd0ec2f41fcc5452d13b4",
+  "audit_id": "408acfa7d30040f430c3bdfcfbb7b65895160b658c5b1e2d1ef2ecb1d21f10a1",
   "cell_id": "reference_seed_20260909",
   "cohort_seed": 20260908,
   "comparison": "repeat the frozen selection procedure; report all planned cells",
   "elapsed_seconds": 155.063751888,
   "evaluation_id": "f3f56680d8374ee6529a82a11837b6ed982d29359ae826fa82fefbd1399c4afc",
-  "input_id": "77aaf0f4eb9638355e43a64e6ad428057148417bcd52fb20593dcf0efe30cf64",
+  "input_id": "d8bf1a66dcba1b479020cffb3e15ed777bf01ebff165af8124fbb7fb02744504",
   "inputs": {
     "code": {
       "audit.py": "3e82301426ac688e96fdd15e9b7d10b2f084abcd093552933716506780d1973b",
@@ -61,11 +61,11 @@
       "evaluation/contract.json": "c0849006f35b7abdb912c7df660cb018790bf16bd5bcfa01400f8150387fa678",
       "evaluation/report.json": "16b7245d0de1f66eb7cea6437484da17d8a39a1fe62c397fe462c725fd2faf4d",
       "evaluation_seal.json": "260ce7053b2049f4c267c1425bc435067c634509bb200da8d5b79162bc3e3369",
-      "job_status.json": "ac6e59ff3feda519f9418345287842843ccef1cc9850ed42c6c92d884d71f8b3",
+      "job_status.json": "15832ace8ef7c4540f8eb5b27c5d53614fc6a28691a476acb4c497eb93eccb89",
       "models/ablation_report.json": "11c9d2e55b798502e6fec8ef7328ee3f950e96a9109f24f050b0aabf11f17f69",
       "models/study_contract.json": "f16a5f8d26020a78e5259525e32892895ab52a333fdf2862a1750267af2df9f1"
     },
-    "launch": "d80b2e7144cd475253447c1200bc48d62d63f13f19482e7bda6315574adc9c2e",
+    "launch": "b45906b032a9e390efc9ed1663c92ff479b5d85810537b30eada084944cadeff",
     "model_sha256": {
       "models/core/carts/model.txt": "467c28930ac5c3f7b215324e527a3fbfbfa1f7576f7999ceafda8863c288411e",
       "models/core/clicks/model.txt": "9b6936d31384fcdfd38d72f80f5b4ae4ace676a6f22739066181f79e935e03b9",
@@ -92,7 +92,7 @@
       "models/without_source/clicks/model.txt": "9629d3564f216e130ffb4ced048b4fc61237306e826dcb9c3f8822522a7b2d38",
       "models/without_source/orders/model.txt": "bd368bf4a2c516ec5ef2ed623903c5c8eeff21d1fc2979c66ccfa073018536de"
     },
-    "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+    "protocol_id": "77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd",
     "reference_audit_id": "5e3a177008f2431d2c989045dc3a10b6bc51ed5bfdb04c2317bb2d20925afb61",
     "selection_statistic_sha256": {
       "core": "8a3eb08719b99d8bc49c0496de55f8809ff9aed390b0a445fcee7ae41fa9388d",
@@ -179,7 +179,7 @@
     "session_ids_sha256": "4cf12c12854d69cc512732ed24888449c1b3cf79c7449a376727aa83e1d49c1a",
     "sessions": 256
   },
-  "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+  "protocol_id": "77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd",
   "python": "3.13.15",
   "reference_corpus_id": "55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754",
   "reference_source_commit": "9256279d220f54f4194270aa9ef50dacfafb1234",

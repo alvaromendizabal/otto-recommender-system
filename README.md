@@ -87,6 +87,8 @@ The pooled metric weights clicks **10%**, carts **30%** and orders **60%**. Futu
 
 **Better candidate coverage was not enough.** A later orders retriever increased reachable hits from **2,556 to 2,600**. Its first reranking integration delivered **2,302** correct top-20 order hits against the incumbent's **2,326**, so it was rejected. This preserved the verified release rather than trading integrity for a favorable diagnostic. [Closeout and decision record](docs/RESEARCH_STATUS.md).
 
+The earlier corrected click/cart challenger is **rejected** after replay against the actual deployed comparator. That validation-integrity case remains available alongside the later orders study. [Inspect the correction](research/frontier/11_validation_integrity_reconciliation.md).
+
 ## Review by interest
 
 | Reviewer | Recommended path |

@@ -1,6 +1,6 @@
 {
   "bootstrap_replicates": 1000,
-  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260909/checkpoints",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260909/checkpoints",
   "conversion_manifest": {
     "events_processed": 216716096,
     "input_offset": 11307535945,
@@ -41,7 +41,7 @@
     "max_retained": 128,
     "screening_rows": 500000
   },
-  "input_checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/early/inputs",
+  "input_checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/windows/early/inputs",
   "owner_account": "000000000000",
   "protocol": {
     "evaluation_end": "2022-08-22T22:00:00+00:00",
@@ -78,7 +78,7 @@
     "cohort_seed": 20260908,
     "comparison": "repeat the frozen selection procedure; report all planned cells",
     "model_seed": 20260909,
-    "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+    "protocol_id": "77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd",
     "reference_corpus_id": "55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754",
     "reference_source_commit": "9256279d220f54f4194270aa9ef50dacfafb1234",
     "window": "early"
@@ -1184,7 +1184,7 @@
   },
   "training_launch": {
     "bootstrap_replicates": 1000,
-    "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260909/checkpoints",
+    "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260909/checkpoints",
     "conversion_manifest": {
       "events_processed": 216716096,
       "input_offset": 11307535945,
@@ -1225,7 +1225,7 @@
       "max_retained": 128,
       "screening_rows": 500000
     },
-    "input_checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/early/inputs",
+    "input_checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/windows/early/inputs",
     "owner_account": "000000000000",
     "protocol": {
       "evaluation_end": "2022-08-22T22:00:00+00:00",
@@ -1262,7 +1262,7 @@
       "cohort_seed": 20260908,
       "comparison": "repeat the frozen selection procedure; report all planned cells",
       "model_seed": 20260909,
-      "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+      "protocol_id": "77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd",
       "reference_corpus_id": "55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754",
       "reference_source_commit": "9256279d220f54f4194270aa9ef50dacfafb1234",
       "window": "early"

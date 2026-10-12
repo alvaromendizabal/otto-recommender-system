@@ -15,13 +15,13 @@
     "observed_at_utc": "2026-09-09T21:03:27.176716+00:00"
   },
   "launch_file": "early_seed_20260909.launch.json",
-  "launch_sha256": "6491991f6ff0b9c7fc22b6eb37bed2fa6a5dcbcefeb484efb5b837b1d22f9830",
+  "launch_sha256": "4f61aec6cf36f70422575790ace9b5d495a1f81b5362b011dceb7463297ce322",
   "observed_at_utc": "2026-09-09T20:17:32.027798+00:00",
   "request_file": "early_seed_20260909.request.json",
-  "request_sha256": "b3e8621a9ed4dd37f184f5eeede45137f25d1e8882211f334e1dc6fe68de03bd",
+  "request_sha256": "0215d40cd7701cc2be617359bf9dbb33d9582a3ede831720ee43f7a14829b872",
   "reused_preparation": {
-    "input_checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/windows/early/inputs",
-    "preparation_id": "49a84d88b6230239893cd9b7b5765dfe7c97a5ba99311cb8dd82a354ee776be0",
+    "input_checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/windows/early/inputs",
+    "preparation_id": "c0785250d32bc4175f1fa81dbab85c0d0995b816e7c3db779c1d04dff2d560eb",
     "validation": "Worker verifies all preparation contracts and content before reuse.",
     "window": "early"
   },
@@ -43,7 +43,7 @@
         "ServerSideEncryption": "AES256",
         "VersionId": "iQ5mWUVOHIzoCPNVnOrNjWeKv5W6opan"
       },
-      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py",
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/processing_research.py",
       "name": "bootstrap"
     },
     {
@@ -59,7 +59,7 @@
         "ServerSideEncryption": "AES256",
         "VersionId": "ycb1Yl1crEPEVtxLmu1KeBDKAnn1_yEB"
       },
-      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260909/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/launch.json",
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260909/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/launch.json",
       "name": "launch"
     },
     {
@@ -75,7 +75,7 @@
         "ServerSideEncryption": "AES256",
         "VersionId": "o1xFVSpxXEyes0JJeJs9.Q1LNDqEqddc"
       },
-      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz",
+      "key": "ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/robustness/77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd/early_seed_20260908/source/d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a/source.tar.gz",
       "name": "source"
     }
   ]

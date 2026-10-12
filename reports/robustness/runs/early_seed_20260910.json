@@ -1,10 +1,10 @@
 {
   "audit_evidence": "reports/robustness/cells/early_seed_20260910/robustness_audit/report.json",
-  "audit_id": "6b8e9dc24468ea206e70c8c1b870be4173b6697b1bb30f8d52145d6d8dcda406",
+  "audit_id": "55a0c6447a3cd61a02616ee0f204ea01afbb9662218bfe5fd3c7ae2c0300a1ac",
   "cell_id": "early_seed_20260910",
   "counted_as_verified": true,
   "launch_file": "early_seed_20260910.launch.json",
-  "launch_sha256": "200fd227c720ad0c5db511c0e085cbf2639470c5d62aafd66d0d41125a2e0f22",
+  "launch_sha256": "6a90bd5c5dd97c956ba5b74f64879ccb3f3880b4a24f3d142b44ece0d47da67e",
   "observed_at_utc": "2026-09-09T23:16:55.584257+00:00",
   "observed_step": {
     "AttemptCount": 1,
@@ -22,7 +22,7 @@
   "pipeline_execution_arn": "arn:aws:sagemaker:us-west-2:000000000000:pipeline/otto-robustness-1136d945b56c-remaining/execution/mwta9jt5e1nc",
   "request_file": "early_seed_20260910.request.json",
   "request_scope": "Exact Processing step arguments from the launched pipeline definition; SageMaker appends an execution suffix to the actual job name.",
-  "request_sha256": "c40e268148b9f52716a84646582a4873f4defe034fc4c605d39823af6514eb87",
+  "request_sha256": "d01b8f68ac729121682935df9b7bc34427934e5a7a9419ae46a30d9f7866ab5e",
   "schema_version": 1,
   "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
   "source_sha256": "d5c296630d9ffd65882b2201975411249f733948a272b36414e443864e3d3d4a",
