@@ -2,15 +2,13 @@
 
 # OTTO · Session-based recommendation
 
-### From anonymous events to verified recommendations.
+![OTTO engineering overview: 216.7M training events, multi-source retrieval, task-specific ranking and verified batch delivery](docs/assets/overview.svg)
 
-**Retrieval · Learning to rank · Temporal evaluation · Reproducible batch delivery**
+[![CI](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml)
+[![Reproducibility](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/reproduce.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/reproduce.yml)
+[![Public demo](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/public-demo.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/public-demo.yml)
 
-[![CI](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml/badge.svg)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml)
-[![Reproducibility](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/reproduce.yml/badge.svg)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/reproduce.yml)
-[![Public demo](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/public-demo.yml/badge.svg)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/public-demo.yml)
-
-[**Start here**](docs/QUICKSTART.md) · [**Interactive demo**](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site) · [**Reviewer guide**](docs/REVIEWER_GUIDE.md) · [**Engineering decisions**](docs/DECISIONS.md)
+[**Employer overview**](docs/EMPLOYER_OVERVIEW.md) · [**Interactive demo**](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site) · [**Evidence map**](docs/EVIDENCE_MAP.md) · [**Five-minute review**](docs/REVIEWER_GUIDE.md)
 
 </div>
 
@@ -30,31 +28,6 @@ The controlled study and release use **different populations**. Neither establis
 
 ![Controlled feature study: reference rankers and ablations](reports/portfolio/results.svg)
 
-## Reproduce something real
-
-**No accounts or dataset:** clone, then run the evidence audit and interactive synthetic walkthrough with Python 3.11+:
-
-```bash
-git clone https://github.com/alvaromendizabal/otto-recommender-system.git
-cd otto-recommender-system
-python3 -S reproduce.py review --output artifacts/review
-```
-
-**Train native models from raw events:** install the locked Python 3.13 environment and run the small invented-data profile through the **actual** JSONL converter, historical retriever, feature engine, LightGBM ablations and temporal evaluator:
-
-```bash
-uv sync --frozen --extra dev --extra ml
-uv run --frozen --extra dev --extra ml python reproduce.py train --output artifacts/reference
-uv run --frozen --extra dev --extra ml python reproduce.py train --output artifacts/reference
-uv run --frozen --extra dev --extra ml python reproduce.py verify --output artifacts/reference
-```
-
-The second training invocation verifies and reuses completed artifacts. The result includes native model files, a sealed temporal comparison, three top-20 lists per evaluation session, and an artifact manifest. **Its synthetic metrics are integration-test results, not the historical score.**
-
-**Bring the official training data:** [Quickstart → full reference research](docs/QUICKSTART.md#full-reference-research) connects locally obtained JSONL to the published research protocol. It needs appropriate CPU, memory and disk—not access to my AWS account. The default is a resource plan; full execution requires explicit consent.
-
-The public reference, small native replay and later neural-enhanced release are separate reproduction scopes. Exact reconstruction of the latter is **not** promised by a fresh clone. [Scope and prerequisites](docs/PUBLICATION_SCOPE.md).
-
 ## What I owned
 
 **The recommendation system.** Multi-source retrieval, candidate/session features, click/cart/order rankers, routing and learned similarity. The architecture keeps candidate availability separate from achieved ranking and validates the complete output population.
@@ -62,6 +35,8 @@ The public reference, small native replay and later neural-enhanced release are 
 **The scientific decisions.** Chronological fit/selection/evaluation roles, fitting-only feature screening, matched ablations, capped pooled metrics, uncertainty estimates and explicit rejection criteria. I preserve negative results instead of presenting every new model as an improvement.
 
 **The delivery engineering.** Streaming conversion, process-level resource boundaries, immutable artifact identities, partition recovery, native-model checks, offline reports and publication safeguards. [Implementation walkthrough](docs/ARCHITECTURE.md) · [Detailed case study](docs/PORTFOLIO.md).
+
+**Inspect the work behind the claims:** the [engineering evidence map](docs/EVIDENCE_MAP.md) links each design question to its implementation, tests and measured evidence.
 
 ## How the system works
 
@@ -81,6 +56,38 @@ flowchart LR
 
 The pooled metric weights clicks **10%**, carts **30%** and orders **60%**. Future targets remain outside retrieval and prediction. [Data and evaluation contract](docs/MODEL_CARD.md).
 
+## Reproduce something real
+
+**No accounts or dataset:** clone, then run the evidence audit and interactive synthetic walkthrough with Python 3.11+:
+
+```bash
+git clone https://github.com/alvaromendizabal/otto-recommender-system.git
+cd otto-recommender-system
+python3 -S reproduce.py review --output artifacts/review
+```
+
+Open the generated interactive report to inspect invented sessions, recommendations and score components. The demo is separate from the recorded research results. [Quickstart](docs/QUICKSTART.md).
+
+<details>
+<summary><strong>Go deeper: native model training and data-enabled reference research</strong></summary>
+
+Install the locked Python 3.13 environment and run the small invented-data profile through the **actual** JSONL converter, historical retriever, feature engine, LightGBM ablations and temporal evaluator:
+
+```bash
+uv sync --frozen --extra dev --extra ml
+uv run --frozen --extra dev --extra ml python reproduce.py train --output artifacts/reference
+uv run --frozen --extra dev --extra ml python reproduce.py train --output artifacts/reference
+uv run --frozen --extra dev --extra ml python reproduce.py verify --output artifacts/reference
+```
+
+The second training invocation verifies and reuses completed artifacts. The result includes native model files, a sealed temporal comparison, three top-20 lists per evaluation session, and an artifact manifest. **Its synthetic metrics are integration-test results, not the historical score.**
+
+**Bring the official training data:** [Quickstart → full reference research](docs/QUICKSTART.md#full-reference-research) connects locally obtained JSONL to the published research protocol. It needs appropriate CPU, memory and disk—not access to my AWS account. The default is a resource plan; full execution requires explicit consent.
+
+The public reference, small native replay and later neural-enhanced release are separate reproduction scopes. Exact reconstruction of the latter is **not** promised by a fresh clone. [Scope and prerequisites](docs/PUBLICATION_SCOPE.md).
+
+</details>
+
 ## Two engineering lessons worth reviewing
 
 **Better features mattered.** The selected representation improved the controlled reference by **1.949 percentage points**, with a paired session-bootstrap 95% interval of **1.840–2.065 points**. [Executed feature study](notebooks/09_controlled_feature_study.ipynb).
@@ -96,7 +103,7 @@ The earlier corrected click/cart challenger is **rejected** after replay against
 | **ML engineering** | [Architecture](docs/ARCHITECTURE.md) → [Decisions](docs/DECISIONS.md) → [Native reproduction](docs/QUICKSTART.md) |
 | **Data science** | [Model card](docs/MODEL_CARD.md) → [Controlled study](notebooks/09_controlled_feature_study.ipynb) → [Research decisions](docs/RESEARCH_STATUS.md) |
 | **Applied AI** | [Neural retrieval code](gpu/two_tower) → [Representation study](research/neural_stack) → [Release provenance](docs/INFERENCE.md) |
-| **Hiring overview** | [Five-minute guide](docs/REVIEWER_GUIDE.md) → [Employer overview](docs/EMPLOYER_OVERVIEW.md) |
+| **Hiring overview** | [Five-minute guide](docs/REVIEWER_GUIDE.md) → [Evidence map](docs/EVIDENCE_MAP.md) → [Employer overview](docs/EMPLOYER_OVERVIEW.md) |
 
 ## Project status
 
