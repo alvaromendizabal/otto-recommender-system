@@ -1,0 +1,33 @@
+name: reproducibility
+
+on:
+  push:
+    branches: [main, 'portfolio/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    name: Public source snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Archive only tracked public files
+        run: |
+          mkdir -p /tmp/otto-public-source
+          git archive --format=zip --output=/tmp/otto-public-source/source.zip HEAD
+          git rev-parse HEAD > /tmp/otto-public-source/commit.txt
+          cd /tmp/otto-public-source
+          sha256sum source.zip > SHA256SUMS
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: public-source
+          path: /tmp/otto-public-source/
+          if-no-files-found: error
+          retention-days: 7
