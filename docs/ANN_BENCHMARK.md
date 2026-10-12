@@ -176,7 +176,7 @@ PyTorch 2.13.0 CPU wheels in CI; they do not certify full-scale CUDA behavior.
 Run from the clean checkout matching `origin/main`:
 
 ```bash
-OTTO_BUCKET=otto-recsys-560403859723-us-west-2
+OTTO_BUCKET=otto-recsys-000000000000-us-west-2
 .venv/bin/python scripts/launch_two_tower_ann.py \
   --bucket "$OTTO_BUCKET" --region us-west-2 --fold 0 \
   --reuse-reference-run 2734f718f9ef0db5c4957365a0720c376497da361f890eead7518f89d95a8b76 \
@@ -224,7 +224,7 @@ Reconnect to the tracked execution at any time:
 
 ```bash
 .venv/bin/python scripts/launch_two_tower_ann.py \
-  --bucket otto-recsys-560403859723-us-west-2 --region us-west-2 \
+  --bucket otto-recsys-000000000000-us-west-2 --region us-west-2 \
   --fold 0 --watch --download
 ```
 
@@ -309,7 +309,7 @@ preflight in [FOLD_EVALUATION.md](FOLD_EVALUATION.md#3-compare-with-frozen-retri
 Then fetch only the accepted ANN predictions:
 
 ```bash
-OTTO_BUCKET=otto-recsys-560403859723-us-west-2
+OTTO_BUCKET=otto-recsys-000000000000-us-west-2
 OTTO_ANN_RUN=0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9
 aws s3 sync \
   "s3://$OTTO_BUCKET/retrieval/two-tower/ann/fold-0/$OTTO_ANN_RUN/checkpoints/prediction_export/" \
@@ -348,7 +348,7 @@ retains unchanged local files; the audit revalidates them before reporting succe
 ```bash
 OTTO_ANN_RUN=0b5d1b47ea2432ec5658616b87a8de6569d9435155a5cfc1ea59fb974e190ad9
 aws s3 sync \
-  "s3://otto-recsys-560403859723-us-west-2/retrieval/two-tower/ann/fold-0/$OTTO_ANN_RUN/checkpoints/" \
+  "s3://otto-recsys-000000000000-us-west-2/retrieval/two-tower/ann/fold-0/$OTTO_ANN_RUN/checkpoints/" \
   "artifacts/two_tower_ann/$OTTO_ANN_RUN/audit/" \
   --exclude '*' --include 'metrics.json*' --include 'contract.json*' \
   --include 'cohort.json*' --include 'selection.json*' \
@@ -394,7 +394,7 @@ Download only its compact saved counts and reports, then run the existing audito
 ```bash
 OTTO_COMPARISON_RUN=f9a921f625ca76d5b614df78ac8625b8dfafd3b67829fb6a213322b5f6ac1832
 aws s3 sync \
-  "s3://otto-recsys-560403859723-us-west-2/retrieval/two-tower/ann-comparisons/fold-0/$OTTO_COMPARISON_RUN/" \
+  "s3://otto-recsys-000000000000-us-west-2/retrieval/two-tower/ann-comparisons/fold-0/$OTTO_COMPARISON_RUN/" \
   "artifacts/ann_comparison/$OTTO_COMPARISON_RUN/" \
   --region us-west-2 --only-show-errors &&
 .venv/bin/python scripts/audit_two_tower_comparison.py \

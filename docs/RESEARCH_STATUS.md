@@ -1,62 +1,34 @@
-# Release and research status
+# Research status · October 12, 2026
 
-## Confirmed release
+**The portfolio release is complete. Active experimentation is concluded; the verified delivered policy is preserved.** This is a closeout, not an assertion that every research hypothesis has been exhausted or that private full-system restoration has been proven.
 
-The retained post-competition release is **0.57586 private / 0.57601 public**,
-submission **56542128**. The [recorded receipt](../reports/submissions/similarity_stack_20260925.json)
-binds that result to the released artifact. The controlled temporal study and the
-synthetic public demo are separate evaluation populations and cannot be substituted
-for this score.
+## Delivered result
 
-Batch delivery is complete. Feature engineering and retrieval research remain open
-under the [standing rules](EXECUTION_RULES.md); untested or deferred hypotheses are
-not counted as completed findings.
+The recorded post-competition release scores **0.57586 private / 0.57601 public**. It combines established click/cart policies with the promoted neural-similarity orders ranker. The [original receipt](../reports/submissions/similarity_stack_20260925.json) records 1,671,803 sessions and 5,015,409 output rows. There is no online deployment or measured business-lift claim.
 
-## Inspected v27 owner return — 10 October 2026
+The closeout audit independently matched the existing submitted CSV's complete SHA-256 against that release receipt. It performed no fitting, inference or new submission. [Sanitized current closeout](../reports/closeout/summary.json).
 
-The inspected owner return records **SUCCESS** and a completed scientific comparison,
-with decision **CLOSED_SUPPORT_RANKER_NEGATIVE**. It reused **two completed ranker
-checkpoints**, with **zero new fits in this invocation**. Successful execution did
-not produce a qualified candidate.
+## Final completed modeling comparison
 
-The comparison used **20,000 previously exposed selection sessions**:
+On the previously exposed 20,000-query orders selection population, a learned retrieval expansion increased candidate-oracle hits from 2,556 to 2,600. That passed its declared retrieval screen. Its first candidate-aware ranking comparison did not qualify:
 
-| Comparison | Weighted Recall@20 difference |
+| Policy | Correct top-20 order hits |
 |---|---:|
-| Candidate versus incumbent | +0.00652504 |
-| Candidate versus matched control | +0.000859889 |
-| Descriptive 95% interval for the matched-control difference | −0.000448933 to +0.002193071 |
+| Existing incumbent | 2,326 |
+| Matched retrained ranker | 2,312 |
+| Primary retrained ranker | 2,302 |
+| Frozen incumbent applied to expanded candidates | 2,315 |
 
-The candidate failed the frozen matched-control gain and lower-bound checks. Its
-improvement against the incumbent did not isolate a sufficient contribution over
-the matched control. These selection sessions are not a fresh independent holdout.
+The candidate denominator was 3,370 capped order targets. **Reachable targets and ranked hits are different measurements.** The primary was rejected; neither it nor its matched control replaced the release. A subsequent objective experiment was blocked before fitting because its required cached inputs were unavailable. It is untested, not a negative scientific result.
 
-Later independent confirmation and submission were **SKIPPED_SCIENTIFIC_GATE**.
-No submission was created or left pending, and no new external score was produced.
-The retained release above remains supported by its earlier receipt, not reverified
-by this experiment.
+## Reproduction status
 
-The [sanitized execution summary](../reports/latest_execution/summary.json) records
-the inspected return and evidence scope. Archive integrity was checked against
-111 manifested members. Verify the committed summary with
-`python tools/summarize_execution.py --check`; this validates the public evidence
-contract without running private models. No completion timestamp is inferred from the dated run ID,
-and this is not a claim to have inventoried every live cloud process or artifact.
-Private models and full predictions are not published or independently replayed by
-this summary.
+A new public entry point connects raw JSONL validation, conversion, chronological corpus construction, retrieval, feature computation, native fitting, evaluation and prediction validation. The small native profile uses invented data and short fits; a reader-supplied official training file enables the published reference protocol. [Run it](QUICKSTART.md).
 
-## Keep historical decisions visible
+The later neural-enhanced release is not reproducible merely by cloning and running the fixture. The private full-data pipeline has unresolved exact-replay and artifact-availability requirements. The closeout did not verify a full durable backup. No unfavorable result or missing artifact is hidden behind a new filename, changed threshold or synthetic substitute.
 
-- The [controlled study](../notebooks/09_controlled_feature_study.ipynb) measures
-  feature value on a declared temporal population.
-- The [deployment-parity correction](../research/frontier/11_validation_integrity_reconciliation.md)
-  rejected a click/cart challenger after reconstructing the actual comparator.
-- The [candidate-coverage diagnosis](../research/frontier/12_corrected_comparator_candidate_coverage.md)
-  separates available-but-missed targets from missing candidates.
-- The [earlier feature roadmap](ROADMAP.md) records its original baseline and study
-  milestones; its dated experiments are not a live execution inventory.
+## Historical evidence remains available
 
-A new release requires a distinct hypothesis, valid source/comparator contracts,
-matched controls, a predeclared promotion decision, defensible independent
-confirmation and verified inference. Online serving, revenue lift and unrestricted
-feature-research completion are not established by this portfolio release.
+[The v27 owner summary](../reports/latest_execution/summary.json) and [archived frontier record](../reports/research/current_frontier_20261005.json) describe earlier stages, not the present status. Their original decisions and measurements remain available for audit. The corrected click/cart policy was rejected against the actual deployed comparator; it is not a pending release.
+
+Further research would require a new explicit decision, durable eligible inputs, a declared comparator and budget, and a complete validated release path. No further experimental run is scheduled by this closeout.

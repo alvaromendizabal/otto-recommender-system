@@ -45,7 +45,7 @@
   "synchronization": {
     "github_public_content": "Synchronization helper, offline tests, methodology/status review and instructions only",
     "not_in_scope": "Account-wide backup, remote uncommitted files, full corpus replication, ML environment installation, new graphs or training",
-    "private_archive_uri": "s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/",
+    "private_archive_uri": "s3://otto-recsys-000000000000-us-west-2/manual/workspace-sync/af39235b19df/",
     "private_evidence": "Three reviewed ZIPs and their exact source scripts, models and sample data stay in private S3 and outside the Git checkout",
     "proof_of_completion": "Owner-run restore receipt must report AWS_GITHUB_WORKSPACE_SYNCED; package preparation is not proof of remote synchronization",
     "state_at_package_preparation": "OWNER_EXECUTION_PENDING",

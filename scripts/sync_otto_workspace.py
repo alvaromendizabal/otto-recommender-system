@@ -25,9 +25,9 @@ import zipfile
 from pathlib import Path, PurePosixPath
 from typing import Any
 
-ACCOUNT = "560403859723"
+ACCOUNT = "000000000000"
 REGION = "us-west-2"
-BUCKET = "otto-recsys-560403859723-us-west-2"
+BUCKET = "otto-recsys-000000000000-us-west-2"
 DOMAIN = "d-njhxv1erusdc"
 SPACE = "otto-dev"
 REPO_URL = "https://github.com/alvaromendizabal/otto-recommender-system.git"

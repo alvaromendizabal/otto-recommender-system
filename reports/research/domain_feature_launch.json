@@ -1,5 +1,5 @@
 {
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
   "corpus": [
     {
       "bytes": 22716,
@@ -38,7 +38,7 @@
     }
   ],
   "model_inputs_sha256": "2886a9b11170c1366b0bddf751b64621d678b9b756f2951ddebdfa78ce9ba1da",
-  "owner_account": "560403859723",
+  "owner_account": "000000000000",
   "region": "us-west-2",
   "resources": {
     "instance_type": "ml.c7i.16xlarge",
@@ -725,7 +725,7 @@
   },
   "created_at_utc": "2026-09-10T05:29:07.573578+00:00",
   "public_source_url": "https://github.com/alvaromendizabal/otto-recommender-system/commit/4336737fce1f7bc00bde939a0ec05e1dbeca1f06",
-  "reference_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/graph-features/187e02182af0e1c542a0ecee5d2a1ef332d2f01063f18a3345b86af892865ba7/checkpoints/models/baseline/",
+  "reference_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/graph-features/187e02182af0e1c542a0ecee5d2a1ef332d2f01063f18a3345b86af892865ba7/checkpoints/models/baseline/",
   "pricing": {
     "verified_at_utc": "2026-09-10T05:25:07.637136+00:00",
     "service": "AmazonSageMaker",

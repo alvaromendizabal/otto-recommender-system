@@ -14,9 +14,9 @@
     "selection_cache/contract.json": "a263021ffbded63589d19960dd39f07cd41260c7c5280dcfbc6d25a0408ea513",
     "selection_cache/manifest.json": "63ff495d09a88f78273b34eaa9620f023a1563bc9ea854e8c97b5dfa0b5d1d85"
   },
-  "input_id": "e56a2e58e7cafd105b3fb912eabb285e590e41cf64bceb0eb796ef33ef370df4",
+  "input_id": "ccb8f0f8c9afac810a88859fee3119b63fe83835a1782a4efddedd412a316beb",
   "prepared_at": "2026-09-09T20:50:12.818+00:00",
-  "protocol_id": "1136d945b56c5ae4cd5f149e14736108430accee7a3b9dbf0da8681b694c8388",
+  "protocol_id": "77736c20afacceed5ac0f6c75d1ed4e75cdc67d6f0b4a59a5f7b6b3a890f06fd",
   "source_commit": "64d9feee44ccc9bc275f0a77fc80873e6d718323",
   "status": "passed",
   "window": "middle"

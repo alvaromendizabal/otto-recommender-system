@@ -56,7 +56,7 @@
     "robustness": {
       "path": "reports/robustness/comparison.json",
       "kind": "controlled_result",
-      "sha256": "4a50a261447b57dc67802f9bd9115d81b0cf629f00f1f985cbf4ce8cab354e9b"
+      "sha256": "b607b90de8138b0984c4f638f13c8ca90190eb8f5f1ce5daa992f3c3cbd6bfee"
     },
     "embedding": {
       "path": "reports/research/representation_results.json",
@@ -131,7 +131,7 @@
     "domain_audit": {
       "path": "reports/research/domain_feature_audit.json",
       "kind": "controlled_result",
-      "sha256": "64e308b4e0bdbd0136fa62a1b400b3683162cb995c7000344bbc3da99f0bc01a"
+      "sha256": "81b67cc8bca5c082f2b95b703a88a828b0be35fc39425d51744f497a894e2ca8"
     },
     "domain_screening": {
       "path": "reports/research/domain_feature_screening.json",
@@ -146,7 +146,7 @@
     "task_config": {
       "path": "configs/task_feature_pilot.json",
       "kind": "protocol",
-      "sha256": "e7afb82fb70a52f1dbc78782fc73b255c4c36fd9306628c5d243794e745fbe56"
+      "sha256": "f6b44500ccb7c7ab6ab6b54291c1e6549c8eaaba1732c043c5912ca95903bfb2"
     },
     "task_code": {
       "path": "src/otto_recsys/research/task_feature_pilot.py",
@@ -176,7 +176,7 @@
     "task_run": {
       "path": "reports/research/task_feature_run.json",
       "kind": "run_receipt",
-      "sha256": "0761fad16e45a2024438d5c9627c4d75bbd54a39f6dcc77a279415f9ab4f3326"
+      "sha256": "2f8cd2f1c8a1a6c3fcf0eb09a724080f53fa9a7756f318fd2eb19734459b1ff0"
     },
     "shared_config": {
       "path": "configs/shared_feature_validation.json",
@@ -206,7 +206,7 @@
     "shared_run": {
       "path": "reports/research/shared_feature_run.json",
       "kind": "run_receipt",
-      "sha256": "4e112c49e001817c31063bda7fc9a3ce10566789983c8bf07d543c0a41573d06"
+      "sha256": "430c726ad4930f7d23b72f0be083d7b68dc757a004a8f0c623a63d35f56f5ba6"
     },
     "shared_confirmation_protocol": {
       "path": "configs/shared_feature_confirmation.json",

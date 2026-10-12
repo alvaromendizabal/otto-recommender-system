@@ -60,7 +60,7 @@ renamed copy. Verify the helper before running it:
 ```bash
 cd "$HOME"
 printf '%s  %s\n' \
-  'd5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686' \
+  'ed2d2981f3dddf1f27b6d9e5f99a26d22b1ac1473b426c7230104b4097930d89' \
   "$HOME/sync_otto_workspace.py" | sha256sum --check && \
 python3 -u "$HOME/sync_otto_workspace.py" archive
 ```
@@ -75,14 +75,14 @@ inputs, missing permissions, or a resource limit cause a stop for review.
 Destination bucket/prefix:
 
 ```text
-s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/
+s3://otto-recsys-000000000000-us-west-2/manual/workspace-sync/af39235b19df/
 ```
 
 Bundle keys remain under `bundles/`. The corrected helper uses these revision keys:
 
 ```text
-source/d5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686/sync_otto_workspace.py
-source/d5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686/manifest.json
+source/ed2d2981f3dddf1f27b6d9e5f99a26d22b1ac1473b426c7230104b4097930d89/sync_otto_workspace.py
+source/ed2d2981f3dddf1f27b6d9e5f99a26d22b1ac1473b426c7230104b4097930d89/manifest.json
 ```
 
 Objects use conditional creation and full-byte read-back verification. Existing
@@ -119,10 +119,10 @@ cd "$HOME"
   helper="$(mktemp /tmp/otto-sync.XXXXXX)"
   trap 'rm -f -- "$helper"' EXIT
   aws s3 cp \
-    "s3://otto-recsys-560403859723-us-west-2/manual/workspace-sync/af39235b19df/source/d5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686/sync_otto_workspace.py" \
+    "s3://otto-recsys-000000000000-us-west-2/manual/workspace-sync/af39235b19df/source/ed2d2981f3dddf1f27b6d9e5f99a26d22b1ac1473b426c7230104b4097930d89/sync_otto_workspace.py" \
     "$helper" --region us-west-2 --only-show-errors
   printf '%s  %s\n' \
-    'd5a10235ec9fe8df01b26b8b016724a562d42bfa4b920b53cbca40d920670686' "$helper" | sha256sum --check
+    'ed2d2981f3dddf1f27b6d9e5f99a26d22b1ac1473b426c7230104b4097930d89' "$helper" | sha256sum --check
   python3 -u "$helper" restore --confirm-space otto-dev
 )
 ```

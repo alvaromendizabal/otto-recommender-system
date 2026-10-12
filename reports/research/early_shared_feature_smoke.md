@@ -19,7 +19,7 @@ This stage rebuilt both wide historical graph families at the preregistered **20
 | Smoke runtime | 396.214 s |
 | Model fits | 0 |
 
-The fit matrix SHA-256 is `957017138f27a307ce41faed47ba3a3068ceec779e95a1218f74cb5892f22ed1`; the selection matrix SHA-256 is `c708518d9325d9aab647788dc71e7e9f747f2218e7ba180195113dfe1f63c6f5`. Durable graph partitions, matrices, fitting-only diagnostics, the complete per-session replay hashes, worker log, and result receipt remain under `s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-feature-confirmation/early-smoke-91d3dcd1/`.
+The fit matrix SHA-256 is `957017138f27a307ce41faed47ba3a3068ceec779e95a1218f74cb5892f22ed1`; the selection matrix SHA-256 is `c708518d9325d9aab647788dc71e7e9f747f2218e7ba180195113dfe1f63c6f5`. Durable graph partitions, matrices, fitting-only diagnostics, the complete per-session replay hashes, worker log, and result receipt remain under `s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-feature-confirmation/early-smoke-91d3dcd1/`.
 
 ## Interpretation
 

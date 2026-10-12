@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-12",
+  "status": "portfolio_release_complete_active_experimentation_concluded",
+  "source_return_members_verified": 25,
+  "source_evidence_members": {
+    "result.json": "67be802012b522aaa02d16239dfbca5dbc8abfc11b0e6ccacc971e2196ff2d19",
+    "submission_audit.json": "589775cfff4a0b8055efaeff1250a1f233fdc08dfae018e55c87b03c5d030c70"
+  },
+  "existing_submission_sha256_verified": true,
+  "existing_submission_sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44",
+  "verification_scope": "Complete byte match to previously validated submitted CSV; no new row-level replay or signed-in score check",
+  "new_submission": false,
+  "new_model_fits": 0,
+  "complete_private_state_backup_verified": false,
+  "release": {
+    "private_score": 0.57586,
+    "public_score": 0.57601,
+    "sessions": 1671803,
+    "rows": 5015409,
+    "setting": "recorded post-competition scoring"
+  },
+  "last_ranking_comparison": {
+    "selection_queries": 20000,
+    "orders_denominator": 3370,
+    "population_previously_exposed": true,
+    "base_oracle_hits": 2556,
+    "expanded_oracle_hits": 2600,
+    "incumbent_hits": 2326,
+    "matched_hits": 2312,
+    "primary_hits": 2302,
+    "frozen_expanded_hits": 2315,
+    "decision": "rejected_preserve_incumbent"
+  },
+  "public_scope": "Aggregate evidence only. No credentials, deployment identifiers, private paths, row-level data or private model payloads.",
+  "reproduction_boundary": "Public raw-data reference and synthetic native integration profile are distinct from later neural-release exact replay."
+}

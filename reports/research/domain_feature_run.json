@@ -1,15 +1,15 @@
 {
-  "audit_sha256": "64e308b4e0bdbd0136fa62a1b400b3683162cb995c7000344bbc3da99f0bc01a",
+  "audit_sha256": "81b67cc8bca5c082f2b95b703a88a828b0be35fc39425d51744f497a894e2ca8",
   "audited_at_utc": "2026-09-10T06:38:47.968+00:00",
   "baseline_models_reused": 3,
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
   "collector_sha256": "1e4d52219def233d5065dbe02bdccda285d6dd744cca3d7b60fa38cc4efdb565",
   "cost_scope": "Instance compute estimate only; not an invoice; excludes storage, requests, logs and transfer",
   "estimated_instance_compute_usd": "2.868593056000000000000000000",
   "evaluation_access": false,
   "job_name": "otto-domain-features-09629193067f",
   "kaggle_promotion": false,
-  "launch_sha256": "187b0cd784c4b5f17aac9fbc4996623f6856b020272ac1b1fbec7b77a7c90215",
+  "launch_sha256": "145de4da37605fe19bfec65f3d9868fb3688f433425fef0788b35ef35270c713",
   "managed_status": "Completed",
   "new_models_fitted": 12,
   "observed": {

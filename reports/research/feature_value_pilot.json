@@ -484,8 +484,8 @@
   "schema_version": 1,
   "source": {
     "commit": "b9f53c29297a6df08cbeabf6890e0736047f9acf",
-    "independent_audit_s3": "s3://otto-recsys-560403859723-us-west-2/ranking/research/feature-value-pilot/b9f53c29297a/independent_metric_audit.json",
-    "result_s3": "s3://otto-recsys-560403859723-us-west-2/ranking/research/feature-value-pilot/b9f53c29297a/output/result.json",
+    "independent_audit_s3": "s3://otto-recsys-000000000000-us-west-2/ranking/research/feature-value-pilot/b9f53c29297a/independent_metric_audit.json",
+    "result_s3": "s3://otto-recsys-000000000000-us-west-2/ranking/research/feature-value-pilot/b9f53c29297a/output/result.json",
     "result_sha256": "b6a4f9494c3dc7be5942524928675694cdacc0200e7c30d754811444f21b6d03",
     "result_version_id": "TYI5eax3wlTjAflWR8bJvMQb2vlHaV7H"
   },

@@ -5,7 +5,7 @@
   "source_commit": "06d5551bc2da9e07ff760af8b523fdb27f14e680",
   "source_sha256": "74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d",
   "study_id": "1a2816eceec36dbf2f6bdc63085ebda99887894ce2f3e9a1816d680f3a18ae57",
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/checkpoints/",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/checkpoints/",
   "observed": {
     "AppSpecification": {
       "ContainerEntrypoint": [
@@ -26,7 +26,7 @@
           "S3DataDistributionType": "FullyReplicated",
           "S3DataType": "S3Prefix",
           "S3InputMode": "File",
-          "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/processing_task_feature_pilot.py"
+          "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/processing_task_feature_pilot.py"
         }
       },
       {
@@ -37,7 +37,7 @@
           "S3DataDistributionType": "FullyReplicated",
           "S3DataType": "S3Prefix",
           "S3InputMode": "File",
-          "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/source.tar.gz"
+          "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/source.tar.gz"
         }
       },
       {
@@ -48,11 +48,11 @@
           "S3DataDistributionType": "FullyReplicated",
           "S3DataType": "S3Prefix",
           "S3InputMode": "File",
-          "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/ablation/launch.json"
+          "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/ablation/launch.json"
         }
       }
     ],
-    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-shared-ablation-74ff53909e59",
+    "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:000000000000:processing-job/otto-shared-ablation-74ff53909e59",
     "ProcessingJobName": "otto-shared-ablation-74ff53909e59",
     "ProcessingJobStatus": "Completed",
     "ProcessingResources": {
@@ -63,7 +63,7 @@
       }
     },
     "ProcessingStartTime": "2026-09-10T20:17:13.486000+00:00",
-    "RoleArn": "arn:aws:iam::560403859723:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
+    "RoleArn": "arn:aws:iam::000000000000:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
     "StoppingCondition": {
       "MaxRuntimeInSeconds": 900
     }
@@ -91,7 +91,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/processing_task_feature_pilot.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/processing_task_feature_pilot.py"
             }
           },
           {
@@ -102,7 +102,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/source.tar.gz"
             }
           },
           {
@@ -113,11 +113,11 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/launch.json"
             }
           }
         ],
-        "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-shared-validation-74ff53909e59",
+        "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:000000000000:processing-job/otto-shared-validation-74ff53909e59",
         "ProcessingJobName": "otto-shared-validation-74ff53909e59",
         "ProcessingJobStatus": "Completed",
         "ProcessingResources": {
@@ -128,7 +128,7 @@
           }
         },
         "ProcessingStartTime": "2026-09-10T20:08:40.561000+00:00",
-        "RoleArn": "arn:aws:iam::560403859723:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
+        "RoleArn": "arn:aws:iam::000000000000:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
         "StoppingCondition": {
           "MaxRuntimeInSeconds": 900
         }
@@ -158,7 +158,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/processing_task_feature_pilot.py"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/processing_task_feature_pilot.py"
             }
           },
           {
@@ -169,7 +169,7 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/source.tar.gz"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/source.tar.gz"
             }
           },
           {
@@ -180,11 +180,11 @@
               "S3DataDistributionType": "FullyReplicated",
               "S3DataType": "S3Prefix",
               "S3InputMode": "File",
-              "S3Uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/ablation/launch.json"
+              "S3Uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-features/74ff53909e59eedf1ceecd5351284d6257a60dfa2a2ab63c7a4f855c550b3a0d/source/ablation/launch.json"
             }
           }
         ],
-        "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:560403859723:processing-job/otto-shared-ablation-74ff53909e59",
+        "ProcessingJobArn": "arn:aws:sagemaker:us-west-2:000000000000:processing-job/otto-shared-ablation-74ff53909e59",
         "ProcessingJobName": "otto-shared-ablation-74ff53909e59",
         "ProcessingJobStatus": "Completed",
         "ProcessingResources": {
@@ -195,7 +195,7 @@
           }
         },
         "ProcessingStartTime": "2026-09-10T20:17:13.486000+00:00",
-        "RoleArn": "arn:aws:iam::560403859723:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
+        "RoleArn": "arn:aws:iam::000000000000:role/service-role/AmazonSageMaker-ExecutionRole-20260902T115323",
         "StoppingCondition": {
           "MaxRuntimeInSeconds": 900
         }
@@ -215,7 +215,7 @@
     "configuration": "12,800 fit / 5,120 selection; shared frozen 32 additions; 900 seconds",
     "filesAvailable": 77,
     "inputBytes": 481216069,
-    "ownerVerified": "560403859723",
+    "ownerVerified": "000000000000",
     "smoke": "7 passed; Ruff and mypy passed",
     "sourceCommit": "06d5551bc2da9e07ff760af8b523fdb27f14e680"
   },
@@ -248,12 +248,12 @@
   "decision": "Keep the full frozen shared 32 additions as a challenger. All five removals lowered point recall but all block intervals span zero; no block pruning or promotion. Perform bounded earlier-window feature preflight, then matched temporal replication before further tuning on this cohort.",
   "scope": "Reused development cohorts, one seed; descriptive slices and conditional uncertainty. Not a Kaggle score or independent temporal confirmation.",
   "files": {
-    "shared_feature_ablation_launch.json": "ac94120fb6c3484f9a9eda7202db7a092b982aeee96c5999a39deffc85c82b39",
+    "shared_feature_ablation_launch.json": "bf380dd1d0f9a085dacdfb158cbd7f98144e346baf4910ceeb42984ec0f46ef3",
     "shared_feature_audit.json": "7c8dc765424d014c8472f68765e48c23f54978e519a5d8345fb18acb90198b94",
     "shared_feature_results.json": "e86b8d32f4e9f6566a6ed12a8b917255053afdd48201bc1db7a9f64cb61a9364",
     "shared_feature_status.json": "90ddcc2a0fb0c6e520b0ef24d6f3a9312dd3a28060456c7cf174cd7c90e1835d",
     "shared_feature_validation_audit.json": "8e4fd1d43cc1f68e68d60cac7c0d8791038e15435f7d2ce319cbf1159a58e895",
-    "shared_feature_validation_launch.json": "e60b92aa5c048072c20d0b97bdebef6fc2eb1fa7c7330839bac42470a03c9d29",
+    "shared_feature_validation_launch.json": "68d6b404e0983719e40841b3d0640ed18a4c396dfdca81132c6c8d4e7cb5454a",
     "shared_feature_validation_results.json": "86bf7aeec95f04b1f8a754b202f90c62f4fb266e989205b358fad9945d9f2615",
     "shared_feature_validation_status.json": "7057db2f7dc11331015be1d8e86f3054ca4219263a9dcb9c823011650765242a"
   }

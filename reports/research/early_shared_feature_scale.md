@@ -24,7 +24,7 @@ The run reused the already-certified Aug-16 symmetric and forward graphs, recons
 
 The one baseline-near-duplicate flag is `domain_funnel_full_count_share` with maximum absolute baseline correlation `0.9995758536`. The lowest session-support addition is `domain_funnel_transition_1_0_mean_gap_log_hours`, nonzero in `6.0546875%` of the 1,024 sessions. These are **diagnostic flags, not retention decisions**. No feature formula or shortlist was changed after seeing them.
 
-Durable source artifacts remain under `s3://otto-recsys-560403859723-us-west-2/ranking/research/shared-feature-confirmation/early-scale-29439ec2/`. The four 102,400-row parts have SHA-256 values `b0a8c549...`, `35ce5a41...`, `b01db42d...`, and `a001ca2e...`; the 1,024-row denominator ledger is `2bfe3218...`; the full diagnostics receipt is `9712580d...`.
+Durable source artifacts remain under `s3://otto-recsys-000000000000-us-west-2/ranking/research/shared-feature-confirmation/early-scale-29439ec2/`. The four 102,400-row parts have SHA-256 values `b0a8c549...`, `35ce5a41...`, `b01db42d...`, and `a001ca2e...`; the 1,024-row denominator ledger is `2bfe3218...`; the full diagnostics receipt is `9712580d...`.
 
 ## Interpretation
 

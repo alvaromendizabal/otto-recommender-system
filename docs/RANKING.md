@@ -77,9 +77,9 @@ with 51,570,200 candidate rows per objective in 32 buckets.
 All namespaces use the existing project bucket:
 
 ```text
-s3://otto-recsys-560403859723-us-west-2/ranking/features/<feature-id>/
-s3://otto-recsys-560403859723-us-west-2/ranking/candidates/<candidate-id>/
-s3://otto-recsys-560403859723-us-west-2/ranking/models/<run-id>/
+s3://otto-recsys-000000000000-us-west-2/ranking/features/<feature-id>/
+s3://otto-recsys-000000000000-us-west-2/ranking/candidates/<candidate-id>/
+s3://otto-recsys-000000000000-us-west-2/ranking/models/<run-id>/
 ```
 
 The normal CLI preflight restores missing observed features from the exact
@@ -97,7 +97,7 @@ verified artifacts; it is not necessary merely to view the completed baseline:
 
 ```bash
 .venv/bin/python scripts/run_ranking.py \
-  --checkpoint-uri s3://otto-recsys-560403859723-us-west-2/ranking \
+  --checkpoint-uri s3://otto-recsys-000000000000-us-west-2/ranking \
   --publish-report --execute-notebooks
 ```
 

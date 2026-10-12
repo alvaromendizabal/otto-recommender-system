@@ -27,11 +27,11 @@
     "downloaded_bytes": 296087864,
     "downloaded_full_file_sha256_checked": true,
     "downloaded_sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
-    "s3_owner_account": "560403859723",
+    "s3_owner_account": "000000000000",
     "s3_version_and_size_checked": true
   },
   "prediction": {
-    "bucket": "otto-recsys-560403859723-us-west-2",
+    "bucket": "otto-recsys-000000000000-us-west-2",
     "bytes": 296087864,
     "filename": "submission.csv.gz",
     "input_id": "2b001d27dedaa6b684675cfc0facb65dc5c2ef85b07758016239f9d71b48ebe8",
@@ -42,10 +42,10 @@
     "sha256": "adc1c7d496249b8a37550c4c077dba8d12bc413d0fe89a80221472cd813a7ef3",
     "version_id": "92OnoNYLP2bOg5gso7CjMvV8sg9JtNmQ"
   },
-  "receipt_id": "8c1b091f7ed15d5c8e4cda8428638ef8c48a3c9e453046df3a4d74b4b15c840f",
+  "receipt_id": "b27814447f9b22883848bce72de864f681cd9051c77d495eeb3d4ce71a441331",
   "schema_version": 1,
   "source_files": {
-    "reports/research/competition_cloud_verification.json": "73cfd394713d6f204aea13d6cf0049b639e2dee4fea29f6afccc51a7ed55deee",
+    "reports/research/competition_cloud_verification.json": "219fc1dd9b07a11586245109564f87ab31c52bbd9a2581e69411486df51dc698",
     "reports/research/competition_notebook_execution.json": "4f8ea92b4f610d56a5b8e36026c669cb43d97c93b20767c48dc62fb2c5185419",
     "reports/research/competition_prediction.json": "e2b1a2708953ce47cd9318cc8fa0ef2345cb7b2dabce1e3c24a7977a06e0a362",
     "reports/research/competition_prediction_contract.json": "79b0534c6e795990d51746817a89d74604d25bff2ff1d129d5b7b0d4d344c556"

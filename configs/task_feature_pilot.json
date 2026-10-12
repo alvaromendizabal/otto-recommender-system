@@ -2,7 +2,7 @@
   "preregistered_at_utc": "2026-09-10T18:41:37.334212+00:00",
   "hypothesis": "Task-specific shortlists at the same feature budget improve pooled Recall@20 over shared weighted utility screening.",
   "source_commit": "ef588a6091a1833a465bc8bba0f72d85c3bc672e",
-  "source_checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
+  "source_checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/domain-features/09629193067f093173a0eed4fa0e451b80e687e024d4063b034f12933d4cc8bd/checkpoints/",
   "source_manifests": {
     "fit": "defc23c78c19d0fd36ba36b82d72f6993a9bdf229ed0de5be3af2d80c6fb27db",
     "selection": "6be19480267b1d90e7d05375df74aa2e390ca2d376335e7532b73fff6bbc1b66"

@@ -1,5 +1,5 @@
 {
-  "checkpoint_uri": "s3://otto-recsys-560403859723-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/runs/cc4acc5a7fcad37c1b2faab2e79f1abcbeadce15e4bca652440eb0b6ad65e978/checkpoints",
+  "checkpoint_uri": "s3://otto-recsys-000000000000-us-west-2/ranking/research/55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754/runs/cc4acc5a7fcad37c1b2faab2e79f1abcbeadce15e4bca652440eb0b6ad65e978/checkpoints",
   "corpus": [
     {
       "bytes": 22716,
@@ -38,7 +38,7 @@
     }
   ],
   "model_inputs_sha256": "2886a9b11170c1366b0bddf751b64621d678b9b756f2951ddebdfa78ce9ba1da",
-  "owner_account": "560403859723",
+  "owner_account": "000000000000",
   "region": "us-west-2",
   "resources": {
     "feature_workers": 16,
