@@ -9,6 +9,7 @@ import importlib.metadata
 import json
 import logging
 import platform
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -29,15 +30,52 @@ def write_json(path: Path, value: Any) -> None:
     temp.replace(path)
 
 
+def artifact_inventory(root: Path) -> dict[str, str]:
+    """Seal every completed artifact; logs remain explicitly outside the receipt."""
+    inventory = {}
+    for path in sorted(root.rglob("*")):
+        if path.is_symlink():
+            raise ValueError("invalid artifact path: symbolic links are not artifacts")
+        name = path.relative_to(root)
+        if path.is_file() and name.as_posix() != "reproduction.json" and "logs" not in name.parts:
+            inventory[name.as_posix()] = digest(path)
+    return inventory
+
+
 def verify(root: Path) -> dict[str, Any]:
-    receipt = json.loads((root / "reproduction.json").read_text())
-    if receipt.get("status") != "passed" or not receipt.get("files"):
+    receipt_path = root / "reproduction.json"
+    if receipt_path.is_symlink():
+        raise ValueError("invalid artifact path: receipt is a symbolic link")
+    receipt = json.loads(receipt_path.read_text())
+    files = receipt.get("files")
+    if receipt.get("status") != "passed" or not isinstance(files, dict) or not files:
         raise ValueError("a complete reproduction receipt is required")
-    for name, expected in receipt["files"].items():
-        path = root / name
-        if not path.resolve().is_relative_to(root.resolve()) or not path.is_file():
+    for name, expected in files.items():
+        if not isinstance(name, str):
             raise ValueError("invalid artifact path")
-        if digest(path) != expected:
+        relative = Path(name)
+        path = root / relative
+        if (
+            relative.is_absolute()
+            or ".." in relative.parts
+            or "\\" in name
+            or relative.as_posix() != name
+            or name == "reproduction.json"
+            or not path.resolve().is_relative_to(root.resolve())
+            or not path.is_file()
+            or any(
+                (root / Path(*relative.parts[:i])).is_symlink()
+                for i in range(1, len(relative.parts) + 1)
+            )
+        ):
+            raise ValueError("invalid artifact path")
+        if not isinstance(expected, str) or re.fullmatch(r"[0-9a-f]{64}", expected) is None:
+            raise ValueError("invalid artifact checksum")
+    actual = artifact_inventory(root)
+    if set(files) != set(actual):
+        raise ValueError("unexpected or missing reproduction artifacts")
+    for name, expected in files.items():
+        if actual[name] != expected:
             raise ValueError(f"artifact checksum mismatch: {name}")
     return receipt
 
@@ -334,14 +372,7 @@ def train(args: argparse.Namespace) -> dict[str, Any]:
         "files": {},
     }
     write_json(root / "summary.json", {k: v for k, v in result.items() if k != "files"})
-    result["files"] = {
-        str(p.relative_to(root)): digest(p)
-        for p in sorted(root.rglob("*"))
-        if p.is_file()
-        and p.suffix in (".json", ".jsonl", ".parquet", ".txt", ".csv")
-        and p.name != "reproduction.json"
-        and "logs" not in p.parts
-    }
+    result["files"] = artifact_inventory(root)
     write_json(root / "reproduction.json", result)
     return verify(root)
 

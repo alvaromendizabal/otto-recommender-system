@@ -77,3 +77,13 @@ Full-data historical-score agreement is not asserted until a new complete run is
 ## Safety and provenance
 
 The entry point performs no cloud API calls, package installation, dataset downloads or publication. Lockfile, runtime, source and raw-data identities are recorded. Only voluntarily supplied input paths are read. Keep private datasets and generated full-data outputs untracked. Current public cloud metadata uses placeholders; see [the redaction record](../reports/privacy/redactions.json). Git history has not been rewritten.
+
+
+### What verification binds
+
+A completed native reference receipt inventories every generated artifact, including
+binary caches and native models. Verification rejects missing, extra or changed files,
+noncanonical paths and symbolic links. Only diagnostic files beneath `logs/` and the
+receipt itself are excluded from its checksum inventory. This verifies local artifact
+consistency; it does not independently authenticate a historical score. Use a fresh
+output directory after changing a source, runtime or data contract.
