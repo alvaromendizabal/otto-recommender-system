@@ -191,6 +191,111 @@ class ReviewTests(unittest.TestCase):
         tree = ast.parse((HERE / "run.py").read_text())
         self.assertFalse(any(isinstance(node, ast.Assert) for node in ast.walk(tree)))
 
+    def add_scope(self) -> None:
+        (self.root / "engine").mkdir()
+        (self.root / "engine/imported.py").write_text("VALUE = 1\n")
+        self.project["source_scopes"] = [{"directory": "engine", "suffixes": [".py"]}]
+        self.save()
+
+    def test_imported_source_drift_rejects_reuse(self) -> None:
+        self.add_scope()
+        self.run_review()
+        (self.root / "engine/imported.py").write_text("VALUE = 2\n")
+        with self.assertRaisesRegex(ValueError, "source changed"):
+            self.run_review()
+
+    def test_added_source_rejects_reuse(self) -> None:
+        self.add_scope()
+        self.run_review()
+        (self.root / "engine/new.py").write_text("VALUE = 2\n")
+        with self.assertRaisesRegex(ValueError, "source changed"):
+            self.run_review()
+
+    def test_removed_source_rejects_reuse(self) -> None:
+        self.add_scope()
+        (self.root / "engine/other.py").write_text("VALUE = 2\n")
+        self.run_review()
+        (self.root / "engine/other.py").unlink()
+        with self.assertRaisesRegex(ValueError, "source changed"):
+            self.run_review()
+
+    def test_runtime_caches_are_not_sources(self) -> None:
+        self.add_scope()
+        self.run_review()
+        (self.root / "engine/__pycache__").mkdir()
+        (self.root / "engine/__pycache__/imported.pyc").write_bytes(b"cache")
+        self.assertTrue(self.run_review()["reused"])
+
+    def test_scope_path_and_suffix_contract(self) -> None:
+        for directory, suffixes in [
+            ("..", [".py"]),
+            ("/etc", [".py"]),
+            ("review/../engine", [".py"]),
+            ("review", []),
+            ("review", ["py"]),
+            ("review", "*.py"),
+        ]:
+            self.project["source_scopes"] = [{"directory": directory, "suffixes": suffixes}]
+            self.save()
+            with (
+                self.subTest(directory=directory, suffixes=suffixes),
+                self.assertRaises(ValueError),
+            ):
+                RUN.load_project(self.root)
+
+    def test_empty_source_scope_fails_closed(self) -> None:
+        self.add_scope()
+        (self.root / "engine/imported.py").unlink()
+        with self.assertRaisesRegex(ValueError, "Empty source scope"):
+            RUN.load_project(self.root)
+
+    @unittest.skipIf(sys.platform == "win32", "Symlink permission is platform-specific")
+    def test_scope_rejects_symlinked_files_and_directories(self) -> None:
+        self.add_scope()
+        for name, target in [
+            ("linked.py", self.root / "proof.py"),
+            ("linked", self.root / "review"),
+        ]:
+            link = self.root / "engine" / name
+            link.symlink_to(target, target_is_directory=target.is_dir())
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "Symlink"):
+                RUN.load_project(self.root)
+            link.unlink()
+
+    def test_receipt_command_metadata_is_verified(self) -> None:
+        self.run_review()
+        receipt = json.loads((self.output / "receipt.json").read_text())
+        receipt["checks"][0]["args"] = ["different"]
+        (self.output / "receipt.json").write_text(json.dumps(receipt))
+        manifest = json.loads((self.output / "manifest.json").read_text())
+        manifest["files"]["receipt.json"] = RUN.digest(self.output / "receipt.json")
+        (self.output / "manifest.json").write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, "Command identity"):
+            RUN.verify(self.output, self.root, self.project, False)
+
+    def test_rehashed_html_still_must_match_receipt(self) -> None:
+        self.run_review()
+        (self.output / "index.html").write_text("misleading page")
+        manifest = json.loads((self.output / "manifest.json").read_text())
+        manifest["files"]["index.html"] = RUN.digest(self.output / "index.html")
+        (self.output / "manifest.json").write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, "page does not match"):
+            RUN.verify(self.output, self.root, self.project, False)
+
+    def test_immutable_links_require_clean_checkout(self) -> None:
+        self.run_review()
+        receipt = json.loads((self.output / "receipt.json").read_text())
+        receipt["checkout"] = {"commit": "a" * 40, "clean": True}
+        self.assertIn("/blob/" + "a" * 40 + "/", RUN.page(self.project, receipt, self.root))
+        receipt["checkout"]["clean"] = False
+        self.assertNotIn("/blob/" + "a" * 40 + "/", RUN.page(self.project, receipt, self.root))
+
+    def test_source_archive_needs_no_git_metadata(self) -> None:
+        self.run_review()
+        receipt = json.loads((self.output / "receipt.json").read_text())
+        self.assertEqual(receipt["checkout"], {"commit": None, "clean": False})
+        self.assertIsNone(receipt["node"])
+
 
 if __name__ == "__main__":
     unittest.main()

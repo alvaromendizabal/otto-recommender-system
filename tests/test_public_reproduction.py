@@ -120,3 +120,63 @@ def test_scorer_does_not_accept_future_target_columns() -> None:
     assert "labels.parquet" not in source
     assert "verify_seal" in source
     assert "validate_submission" in source
+
+
+def test_verify_rejects_unlisted_artifacts(tmp_path: Path) -> None:
+    path = tmp_path / "model.txt"
+    path.write_text("native model")
+    MODULE.write_json(
+        tmp_path / "reproduction.json",
+        {
+            "status": "passed",
+            "files": {path.name: MODULE.digest(path)},
+        },
+    )
+    (tmp_path / "untracked.bin").write_bytes(b"untracked")
+    with pytest.raises(ValueError, match="unexpected or missing"):
+        MODULE.verify(tmp_path)
+
+
+def test_inventory_covers_binary_caches_and_excludes_only_logs(tmp_path: Path) -> None:
+    (tmp_path / "cache.npy").write_bytes(b"binary fixture")
+    (tmp_path / "logs").mkdir()
+    (tmp_path / "logs/progress.log").write_text("running")
+    inventory = MODULE.artifact_inventory(tmp_path)
+    assert set(inventory) == {"cache.npy"}
+    MODULE.write_json(tmp_path / "reproduction.json", {"status": "passed", "files": inventory})
+    assert MODULE.verify(tmp_path)["files"] == inventory
+    (tmp_path / "cache.npy").write_bytes(b"changed binary fixture")
+    with pytest.raises(ValueError, match="checksum"):
+        MODULE.verify(tmp_path)
+
+
+@pytest.mark.parametrize("name", ["alias.txt", "receipt", "nested"])
+def test_verify_rejects_file_receipt_and_directory_symlinks(tmp_path: Path, name: str) -> None:
+    source = tmp_path / "model.txt"
+    source.write_text("native model")
+    receipt = {"status": "passed", "files": {source.name: MODULE.digest(source)}}
+    MODULE.write_json(tmp_path / "reproduction.json", receipt)
+    if name == "receipt":
+        (tmp_path / "reproduction.json").rename(tmp_path / "original.json")
+        (tmp_path / "reproduction.json").symlink_to(tmp_path / "original.json")
+    elif name == "nested":
+        (tmp_path / "nested").symlink_to(tmp_path, target_is_directory=True)
+    else:
+        (tmp_path / name).symlink_to(source)
+    with pytest.raises(ValueError, match="artifact path"):
+        MODULE.verify(tmp_path)
+
+
+@pytest.mark.parametrize("name", ["./model.txt", "nested/../model.txt", "nested\\model.txt"])
+def test_verify_rejects_noncanonical_manifest_paths(tmp_path: Path, name: str) -> None:
+    path = tmp_path / "model.txt"
+    path.write_text("native model")
+    MODULE.write_json(
+        tmp_path / "reproduction.json",
+        {
+            "status": "passed",
+            "files": {name: MODULE.digest(path)},
+        },
+    )
+    with pytest.raises(ValueError, match="artifact path"):
+        MODULE.verify(tmp_path)

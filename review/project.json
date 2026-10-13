@@ -90,5 +90,74 @@
   ],
   "schema_version": 1,
   "repository": "alvaromendizabal/otto-recommender-system",
-  "reviewed_base_commit": "d696e74051aa4b7fb7b6625ad180596fd01568ce"
+  "reviewed_base_commit": "d696e74051aa4b7fb7b6625ad180596fd01568ce",
+  "source_scopes": [
+    {
+      "directory": "src/otto_recsys",
+      "suffixes": [
+        ".py"
+      ]
+    },
+    {
+      "directory": "scripts",
+      "suffixes": [
+        ".py"
+      ]
+    },
+    {
+      "directory": "tests",
+      "suffixes": [
+        ".py",
+        ".mjs"
+      ]
+    },
+    {
+      "directory": "tools",
+      "suffixes": [
+        ".py"
+      ]
+    },
+    {
+      "directory": "configs",
+      "suffixes": [
+        ".toml"
+      ]
+    },
+    {
+      "directory": "reports/portfolio",
+      "suffixes": [
+        ".json"
+      ]
+    },
+    {
+      "directory": "reports/submissions",
+      "suffixes": [
+        ".json"
+      ]
+    },
+    {
+      "directory": "reports/closeout",
+      "suffixes": [
+        ".json"
+      ]
+    },
+    {
+      "directory": "reports/latest_execution",
+      "suffixes": [
+        ".json"
+      ]
+    },
+    {
+      "directory": "reports/research",
+      "suffixes": [
+        ".json"
+      ]
+    }
+  ],
+  "source_files": [
+    "pyproject.toml",
+    "uv.lock",
+    "README.md",
+    "review/README.md"
+  ]
 }
