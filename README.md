@@ -1,5 +1,7 @@
 <div align="center">
 
+> **Inspect the engineering:** [Source-linked review brief](review/README.md) · [Run the verified public checks](review/README.md#one-command-an-inspectable-result) · [Review-kit CI](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/employer-review.yml)
+
 # OTTO · Session-based recommendation
 
 ![OTTO engineering overview: 216.7M training events, multi-source retrieval, task-specific ranking and verified batch delivery](docs/assets/overview.svg)

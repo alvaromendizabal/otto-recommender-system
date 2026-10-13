@@ -1,0 +1,94 @@
+{
+  "title": "Retrieve broadly. Rank carefully. Deliver reliably.",
+  "discipline": "Recommendation / learning to rank / ML systems",
+  "summary": "A large-scale session recommender with multi-source retrieval, objective-specific ranking, controlled feature studies, and verified batch delivery. Public reference training and bounded evidence review serve different reproducibility needs.",
+  "signals": [
+    {
+      "value": "216.7M",
+      "label": "Recorded training events"
+    },
+    {
+      "value": "1.67M",
+      "label": "Official inference sessions"
+    },
+    {
+      "value": "+1.949 pp",
+      "label": "Matched weighted Recall@20 study gain"
+    }
+  ],
+  "scope": "The selected Python command runs the existing public reference review and synthetic recommendation report. Optional Node checks exercise the report interface. The existing native training and full-data reference workflows remain available, separate from the later private neural release.",
+  "private_boundary": "Raw event populations, private embeddings, current neural checkpoints, exact selected blend rules, complete prediction rows, and private AWS orchestration remain excluded.",
+  "cards": [
+    {
+      "audience": "Applied AI",
+      "title": "Keep retrieval coverage separate from ranking quality.",
+      "decision": "Measure what candidate generation can reach and what the final ranked list actually recovers.",
+      "boundary": "An increased candidate ceiling does not establish an improved top-20 result.",
+      "implementation": "src/otto_recsys/ranking/candidates.py",
+      "tests": "tests/test_candidates.py",
+      "evidence": "docs/EVIDENCE_MAP.md"
+    },
+    {
+      "audience": "Data science",
+      "title": "Make feature gains a matched comparison.",
+      "decision": "Compare controlled representations on the same temporal population and preserve paired uncertainty estimates.",
+      "boundary": "The local feature-study metric is not the externally recorded release score.",
+      "implementation": "src/otto_recsys/ranking/features.py",
+      "tests": "tests/test_ranking_features.py",
+      "evidence": "docs/PORTFOLIO.md"
+    },
+    {
+      "audience": "ML engineering",
+      "title": "Recover training without losing model identity.",
+      "decision": "Use native model reloads, full-query ranking metrics, and atomic iteration checkpoints.",
+      "boundary": "This source does not certify every upstream private retrieval artifact.",
+      "implementation": "src/otto_recsys/ranking/lambdarank.py",
+      "tests": "tests/test_lambdarank.py",
+      "evidence": "docs/INFERENCE.md"
+    },
+    {
+      "audience": "ML engineering",
+      "title": "Offer a reference workflow without the private recipe.",
+      "decision": "Provide explicit review, native training, verification, and resource-bounded full-data research modes.",
+      "boundary": "The public reference is not an exact reconstruction of the later neural-similarity release.",
+      "implementation": "reproduce.py",
+      "tests": "tests/test_public_demo.py",
+      "evidence": "docs/QUICKSTART.md"
+    }
+  ],
+  "commands": [
+    {
+      "id": "reference-review",
+      "runtime": "python",
+      "entry": "reproduce.py",
+      "args": [
+        "review",
+        "--output",
+        "{output}/demo"
+      ]
+    },
+    {
+      "id": "recommendation-interface",
+      "runtime": "node",
+      "entry": "tests/public_demo_ui.test.mjs",
+      "args": []
+    }
+  ],
+  "read_more": [
+    {
+      "path": "docs/PORTFOLIO.md",
+      "label": "Case study"
+    },
+    {
+      "path": "docs/QUICKSTART.md",
+      "label": "Native reference workflow"
+    },
+    {
+      "path": "docs/EVIDENCE_MAP.md",
+      "label": "Technical evidence map"
+    }
+  ],
+  "schema_version": 1,
+  "repository": "alvaromendizabal/otto-recommender-system",
+  "reviewed_base_commit": "d696e74051aa4b7fb7b6625ad180596fd01568ce"
+}
