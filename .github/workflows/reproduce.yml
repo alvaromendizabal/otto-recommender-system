@@ -1,18 +1,15 @@
 name: reproducibility
-
 on:
   push:
     branches: [main, 'portfolio/**']
   pull_request:
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   native-reference:
     name: Clone-to-native-results
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -25,7 +22,7 @@ jobs:
       - name: Install the project lock
         run: uv sync --frozen --extra dev --extra ml
       - name: Public launcher and publication contracts
-        run: uv run --frozen --extra dev --extra ml pytest -q tests/test_public_reproduction.py tests/test_publication_closeout.py tests/test_employer_portfolio_contract.py
+        run: uv run --frozen --extra dev --extra ml pytest -q tests/test_public_reproduction.py tests/test_final_release.py
       - name: Execute review, native training, exact reuse and verification
         run: |
           .venv/bin/python -S reproduce.py review --output artifacts/review --max-seconds 120
@@ -42,9 +39,8 @@ jobs:
             artifacts/review/
           if-no-files-found: error
           retention-days: 14
-
   publication-boundary:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -52,11 +48,10 @@ jobs:
           persist-credentials: false
       - run: python tools/check_public_boundary.py
       - run: python tools/sanitize_public_metadata.py
-
   source:
     name: Public source snapshot
     needs: publication-boundary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
