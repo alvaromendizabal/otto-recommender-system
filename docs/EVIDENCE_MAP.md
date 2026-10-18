@@ -36,3 +36,7 @@ For an **applied AI** review, start with [neural retrieval](../gpu/two_tower) an
 Full event and prediction populations, later private checkpoints and embeddings, unpublished feature recipes, private execution orchestration and credentials are not part of the public handoff. Existing source notices, historical aggregates and the deliberately bounded native replay remain intact. [Exact publication boundary](PUBLICATION_SCOPE.md).
 
 **Status:** the verified release is retained and active experimentation is concluded. The repository is a reviewable engineering artifact, not a promise of future model gains.
+
+## Historical development records
+
+The [early shared-feature screen](HISTORICAL_DEVELOPMENT_EVIDENCE.md) preserves the fitting-only comparison, fold stability and interval spanning zero from the earlier proposal. Its development result does not change the final selection or release.

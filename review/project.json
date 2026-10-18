@@ -172,7 +172,8 @@
     "uv.lock",
     "README.md",
     "review/README.md",
-    "docs/RECOMMENDATION_DIAGNOSTICS.md"
+    "docs/RECOMMENDATION_DIAGNOSTICS.md",
+    "docs/HISTORICAL_DEVELOPMENT_EVIDENCE.md"
   ],
   "reports": [
     {
