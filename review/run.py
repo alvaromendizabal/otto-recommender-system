@@ -86,6 +86,17 @@ def load_project(root: Path) -> dict:
             local_file(root, card[kind])
     for value in project["read_more"]:
         local_file(root, value["path"])
+    for report in project.get("reports", []):
+        path = Path(report["path"])
+        require(
+            not path.is_absolute()
+            and ".." not in path.parts
+            and path.as_posix() == report["path"]
+            and "\\" not in report["path"]
+            and path.suffix == ".html",
+            "Unsafe generated report path",
+        )
+        require(isinstance(report["label"], str) and bool(report["label"]), "Missing report label")
     scoped_files(root, project)
     return project
 
@@ -187,6 +198,12 @@ def page(project: dict, receipt: dict | None = None, root: Path = ROOT) -> str:
             + '<a href="receipt.json">Machine-readable receipt</a>'
             ' · <a href="manifest.json">Artifact checksums</a></p>'
         )
+    if receipt is not None and project.get("reports"):
+        report_links = " · ".join(
+            '<a href="' + quote(item["path"], safe="/") + '">' + esc(item["label"]) + "</a>"
+            for item in project["reports"]
+        )
+        checks += "<h3>Inspect the generated results</h3><p>" + report_links + "</p>"
     more = " · ".join(link(item["path"], item["label"]) for item in project["read_more"])
     template = local_file(root, "review/template.html").read_text(encoding="utf-8")
     return Template(template).substitute(
@@ -359,6 +376,8 @@ def execute(root: Path, project: dict, output: Path, with_node: bool, timeout: i
                 }
             )
             print(f"CHECK {command['id']} PASS", flush=True)
+        for report in project.get("reports", []):
+            local_file(staging, report["path"])
         require(before == source_hashes(root, project), "Reviewed source changed during checks")
         receipt = {
             "schema_version": 1,

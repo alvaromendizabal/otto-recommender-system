@@ -29,7 +29,7 @@ CONFIGURATION = {
 }
 HISTORY_CUTOFF = 100_000
 _OWNER = "otto-recsys-public-demo-v1"
-_ARTIFACTS = ("predictions.json", "result.json", "report.html")
+_ARTIFACTS = ("predictions.json", "evaluation.json", "result.json", "report.html")
 
 
 @dataclass(frozen=True)
@@ -457,6 +457,24 @@ def run_demo(output_dir: str | Path, seed: int = 42) -> dict[str, Any]:
     model = fit_history(data.history, HISTORY_CUTOFF)
     predictions = predict(model, data.queries)
     predictions_sha = seal_predictions(predictions, output / "predictions.json")
+    # Export the complete invented evaluation population only after sealing predictions.
+    # A separate standard-library auditor can now recompute every metric without
+    # importing this generator, retriever, ranker, or evaluator.
+    evaluation = {
+        "schema_version": 1,
+        "synthetic": True,
+        "predictions_sha256": predictions_sha,
+        "queries": [
+            {
+                "session": query.session,
+                "query_ts": query.query_ts,
+                "prefix_events": len(query.prefix),
+            }
+            for query in data.queries
+        ],
+        "targets": [asdict(event) for event in data.targets],
+    }
+    _write_once(output / "evaluation.json", canonical_json(evaluation))
     metrics = evaluate_predictions(output / "predictions.json", data.targets, predictions_sha)
     row_lookup = {row["session"]: row for row in predictions["rows"]}
     examples = []

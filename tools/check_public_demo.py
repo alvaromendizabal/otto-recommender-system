@@ -23,7 +23,13 @@ sys.path.insert(0, str(ROOT / "src"))
 from otto_recsys.public_demo import verify_output  # noqa: E402
 from otto_recsys.public_demo_report import render_report  # noqa: E402
 
-SOURCE_FILES = {"report.html", "predictions.json", "result.json", "manifest.json"}
+SOURCE_FILES = {
+    "report.html",
+    "predictions.json",
+    "evaluation.json",
+    "result.json",
+    "manifest.json",
+}
 MAX_BYTES = 2_000_000
 SECRET = re.compile(
     r"(?:AKIA|ASIA)[A-Z0-9]{16}|gh[pousr]_[A-Za-z0-9]{30,}|"

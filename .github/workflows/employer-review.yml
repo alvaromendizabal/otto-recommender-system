@@ -1,4 +1,4 @@
-name: Employer review kit
+name: Public review
 on:
   pull_request:
   push:
@@ -31,6 +31,8 @@ jobs:
         run: |
           python -B -S -m unittest discover -s review -p test_run.py -v
           python -B -S -O -m unittest discover -s review -p test_run.py
+      - name: Verify independent recommendation metric accounting
+        run: python -B -S -m unittest discover -s tools -p test_recommendation_audit.py -v
       - name: Verify the deterministic inspection brief
         run: python -B -S review/run.py --check-page
       - name: Execute, reuse, and verify the actual public review

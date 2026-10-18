@@ -47,7 +47,7 @@ jobs:
           if checked['status'] != 'passed':
               raise SystemExit('Demo verification failed')
           output = Path('artifacts/public_demo')
-          for name in ('predictions.json', 'result.json', 'report.html', 'manifest.json'):
+          for name in ('predictions.json', 'evaluation.json', 'result.json', 'report.html', 'manifest.json'):
               if not (output / name).is_file() or not (output / name).stat().st_size:
                   raise SystemExit(f'Missing demo artifact: {name}')
           if not first['synthetic'] or not replay['synthetic']:
