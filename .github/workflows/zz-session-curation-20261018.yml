@@ -21,87 +21,68 @@ jobs:
         with:
           python-version: '3.13.15'
           enable-cache: false
-      - name: Verify and apply the exact reviewed change plan
+      - name: Apply the checksum-verified source plan
         shell: python
         run: |
           import base64, hashlib, json, os, pathlib, shutil, subprocess, zlib
-          root = pathlib.Path.cwd()
-          raw = zlib.decompress(base64.b64decode(''.join((root / '.cleanup-20261018' / ('part' + str(i))).read_text().strip() for i in range(3))))
-          if hashlib.sha256(raw).hexdigest() != 'f805bf9ddaf671302997192fe48fc099b6745e12f0cf7b05169c92e568bbf87e':
-              raise ValueError('Change-plan checksum mismatch')
-          plan = json.loads(raw)
-          if plan['repository'] != os.environ['GITHUB_REPOSITORY']:
-              raise ValueError('Repository mismatch')
-          main = subprocess.check_output(['git','rev-parse','origin/main'], text=True).strip()
-          if main != plan['base']:
-              raise ValueError('Main advanced; reconcile instead of overwriting it')
-          divergent = subprocess.check_output(['git','diff','--name-only', main, 'HEAD'], text=True).splitlines()
-          if any(not (p.startswith('.cleanup-20261018/') or p.startswith('.github/workflows/zz-session-')) for p in divergent):
-              raise ValueError('Cleanup branch contains additional work; reconcile first')
+          root=pathlib.Path.cwd()
+          raw=zlib.decompress(base64.b64decode(''.join((root/'.cleanup-20261018'/('part'+str(i))).read_text().strip() for i in range(3))))
+          if hashlib.sha256(raw).hexdigest()!='f805bf9ddaf671302997192fe48fc099b6745e12f0cf7b05169c92e568bbf87e': raise ValueError('Plan checksum mismatch')
+          plan=json.loads(raw)
+          if plan['repository']!=os.environ['GITHUB_REPOSITORY']: raise ValueError('Wrong repository')
+          main=subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip()
+          if main!=plan['base']: raise ValueError('Main advanced; reconcile before applying')
+          extra=subprocess.check_output(['git','diff','--name-only',main,'HEAD'],text=True).splitlines()
+          if any(not(p.startswith('.cleanup-20261018/') or p.startswith('.github/workflows/zz-session-')) for p in extra): raise ValueError('Other branch work exists')
           def path(name):
-              p = root / name
-              if not p.resolve().is_relative_to(root) or p.is_symlink() or '.git' in p.parts:
-                  raise ValueError('Unsafe repository path: ' + name)
+              p=root/name
+              if not p.resolve().is_relative_to(root) or p.is_symlink() or '.git' in p.parts: raise ValueError('Unsafe path')
               return p
           for row in plan['changes']:
-              p = path(row['path'])
-              actual = hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
-              if actual != row['before']:
-                  raise ValueError('Source mismatch: ' + row['path'])
+              p=path(row['path'])
+              if (hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None)!=row['before']: raise ValueError('Input changed: '+row['path'])
           for name in plan['delete']:
-              p = path(name)
+              p=path(name)
               if p.is_dir(): shutil.rmtree(p)
               elif p.is_file(): p.unlink()
-              else: raise ValueError('Retirement path missing: ' + name)
+              else: raise ValueError('Missing retirement path: '+name)
           for row in plan['changes']:
-              p = path(row['path'])
+              p=path(row['path'])
               if 'cells' in row:
-                  value = json.loads(p.read_text())
-                  value['cells'] = [value['cells'][i] for i in row['cells']]
-                  text = json.dumps(value, indent=1, ensure_ascii=False) + '\n'
+                  value=json.loads(p.read_text()); value['cells']=[value['cells'][i] for i in row['cells']]
+                  text=json.dumps(value,indent=1,ensure_ascii=False)+'\n'
               elif row.get('filter_receipt'):
-                  value = json.loads(p.read_text())
-                  value['files'] = {k:v for k,v in value['files'].items() if path(k).is_file()}
-                  value.pop('dependency_reference_repair', None)
-                  text = json.dumps(value, indent=2, sort_keys=True) + '\n'
+                  value=json.loads(p.read_text()); value['files']={k:v for k,v in value['files'].items() if path(k).is_file()}; value.pop('dependency_reference_repair',None)
+                  text=json.dumps(value,indent=2,sort_keys=True)+'\n'
               elif 'edits' in row:
-                  text = p.read_text()
-                  for start,end,replacement in reversed(row['edits']):
-                      text = text[:start] + replacement + text[end:]
-              else:
-                  text = row['text']
-              data = text.encode('utf-8')
-              if hashlib.sha256(data).hexdigest() != row['after']:
-                  raise ValueError('Transformed output mismatch: ' + row['path'])
-              p.parent.mkdir(parents=True, exist_ok=True)
-              p.write_bytes(data)
-          print(json.dumps({'verified_changes':len(plan['changes']), 'retirement_entries':len(plan['delete'])}))
-      - name: Resolve only the retained dependency set
+                  text=p.read_text()
+                  for start,end,replacement in reversed(row['edits']): text=text[:start]+replacement+text[end:]
+              else: text=row['text']
+              data=text.encode()
+              if hashlib.sha256(data).hexdigest()!=row['after']: raise ValueError('Output mismatch: '+row['path'])
+              p.parent.mkdir(parents=True,exist_ok=True); p.write_bytes(data)
+          p=path('scripts/build_portfolio_figures.py')
+          p.write_text(p.read_text().replace('"Three temporal windows and three model seeds. All nine selected rankers beat their "','"Three temporal windows and three model seeds. "\n                "All nine selected rankers beat their "').replace('"matched compact controls by 1.791 to 2.180 percentage points. Error bars are paired "','"matched compact controls by 1.791 to 2.180 percentage points. "\n                "Error bars are paired "'))
+          p=path('tests/test_final_release.py')
+          text=p.read_text(); start=text.index('    with workspace_lock(tmp_path):',text.index('def test_checkpoint_lock'))
+          end=text.index('    with workspace_lock(tmp_path):\n        pass',start)
+          text=text[:start]+'    with (\n        workspace_lock(tmp_path),\n        pytest.raises(RuntimeError, match="active writer"),\n        workspace_lock(tmp_path),\n    ):\n        raise AssertionError("second writer entered")\n'+text[end:]
+          p.write_text(text)
+          print('Verified and applied',len(plan['changes']),'changes and',len(plan['delete']),'retirement entries')
+      - name: Lock and enforce all retained lint rules
         run: |
           uv lock
           uv sync --frozen --extra dev --extra ml
-          uv run --frozen --extra dev --extra ml ruff format src scripts tests
-      - name: Apply safe lint fixes
-        run: uv run --frozen --extra dev --extra ml ruff check --fix src scripts tests --ignore E501,SIM117
-      - name: Finish formatting without changing metric captions or locking semantics
-        shell: python
-        run: |
-          from pathlib import Path
-          p=Path('scripts/build_portfolio_figures.py')
-          t=p.read_text().replace('"Three temporal windows and three model seeds. All nine selected rankers beat their "','"Three temporal windows and three model seeds. "\n                "All nine selected rankers beat their "').replace('"matched compact controls by 1.791 to 2.180 percentage points. Error bars are paired "','"matched compact controls by 1.791 to 2.180 percentage points. "\n                "Error bars are paired "')
-          p.write_text(t)
-          p=Path('tests/test_final_release.py')
-          t=p.read_text().replace('with workspace_lock(tmp_path), pytest.raises(RuntimeError, match="active writer"):\n        with workspace_lock(tmp_path):\n            raise AssertionError("second writer entered")','with (\n        workspace_lock(tmp_path),\n        pytest.raises(RuntimeError, match="active writer"),\n        workspace_lock(tmp_path),\n    ):\n        raise AssertionError("second writer entered")')
-          p.write_text(t)
-      - name: Verify retained code and public evidence
-        run: |
+          uv run --frozen --extra dev --extra ml ruff check --fix src scripts tests
           uv run --frozen --extra dev --extra ml ruff format src scripts tests
           uv run --frozen --extra dev --extra ml ruff check src scripts tests
+      - name: Verify public evidence and replay
+        run: |
           python -B -S review/run.py --render
           python -B -S scripts/review_portfolio.py --json
           python -B -S review/run.py --output "$RUNNER_TEMP/public-review"
           python -B -S review/run.py --output "$RUNNER_TEMP/public-review" --check
-      - name: Commit source-only changes; workflow publication uses the authorized connector
+      - name: Commit and push source only
         run: |
           git restore --source=HEAD --staged --worktree .github/workflows
           git rm -rf --ignore-unmatch .cleanup-20261018
@@ -110,7 +91,7 @@ jobs:
           if git diff --cached --name-only | grep '^.github/workflows/'; then exit 1; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Curate the final recommendation project; retire unused GPU and experimental pipelines'
+          git commit -m 'Curate final recommendation project; retire unused GPU and experimental pipelines'
           git archive --format=zip --output="$RUNNER_TEMP/public-source.zip" HEAD
           git rev-parse HEAD > "$RUNNER_TEMP/public-source-commit.txt"
           git push origin HEAD:cleanup/public-surface-20261018
