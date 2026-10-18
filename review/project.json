@@ -68,6 +68,19 @@
       ]
     },
     {
+      "id": "independent-recommendation-audit",
+      "runtime": "python",
+      "entry": "tools/audit_recommendations.py",
+      "args": [
+        "--demo-output",
+        "{output}/demo/demo",
+        "--output",
+        "{output}/recommendation-audit.json",
+        "--html",
+        "{output}/recommendation-diagnostics.html"
+      ]
+    },
+    {
       "id": "recommendation-interface",
       "runtime": "node",
       "entry": "tests/public_demo_ui.test.mjs",
@@ -90,7 +103,7 @@
   ],
   "schema_version": 1,
   "repository": "alvaromendizabal/otto-recommender-system",
-  "reviewed_base_commit": "d696e74051aa4b7fb7b6625ad180596fd01568ce",
+  "reviewed_base_commit": "088cf699129b8c84ebaaf8e61334637d7b295882",
   "source_scopes": [
     {
       "directory": "src/otto_recsys",
@@ -158,6 +171,18 @@
     "pyproject.toml",
     "uv.lock",
     "README.md",
-    "review/README.md"
+    "review/README.md",
+    "docs/RECOMMENDATION_DIAGNOSTICS.md",
+    "docs/HISTORICAL_DEVELOPMENT_EVIDENCE.md"
+  ],
+  "reports": [
+    {
+      "path": "recommendation-diagnostics.html",
+      "label": "Recommendation diagnostics"
+    },
+    {
+      "path": "demo/demo/report.html",
+      "label": "Session walkthrough"
+    }
   ]
 }

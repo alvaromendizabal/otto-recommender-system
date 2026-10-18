@@ -288,7 +288,7 @@ class PublicDemoTests(unittest.TestCase):
         first = demo.run_demo(output, seed=42)
         initial_bytes = self._snapshot(output)
         self.assertTrue(
-            {"predictions.json", "result.json", "report.html", "manifest.json"}
+            {"predictions.json", "evaluation.json", "result.json", "report.html", "manifest.json"}
             <= initial_bytes.keys()
         )
         second = demo.run_demo(output, seed=42)
@@ -329,7 +329,7 @@ class PublicDemoTests(unittest.TestCase):
         first = self.directory / "first"
         second = self.directory / "second"
         self.assertEqual(demo.run_demo(first, seed=42), demo.run_demo(second, seed=42))
-        for name in ("predictions.json", "result.json", "report.html"):
+        for name in ("predictions.json", "evaluation.json", "result.json", "report.html"):
             self.assertEqual((first / name).read_bytes(), (second / name).read_bytes())
 
     def test_resume_rejects_a_different_seed_without_modifying_artifacts(self) -> None:
@@ -341,7 +341,7 @@ class PublicDemoTests(unittest.TestCase):
         self.assertEqual(initial_bytes, self._snapshot(output))
 
     def test_replay_rejects_modified_outputs_without_overwriting_them(self) -> None:
-        for name in ("predictions.json", "result.json", "report.html"):
+        for name in ("predictions.json", "evaluation.json", "result.json", "report.html"):
             with self.subTest(name=name):
                 output = self.directory / name.replace(".", "_")
                 demo.run_demo(output, seed=42)

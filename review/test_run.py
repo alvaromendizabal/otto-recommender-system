@@ -72,6 +72,36 @@ class ReviewTests(unittest.TestCase):
             RUN.verify(self.output, self.root, self.project, False)["status"], "passed"
         )
 
+    def test_declared_reports_must_exist_and_are_linked_after_execution(self) -> None:
+        self.project["reports"] = [{"path": "diagnostics.html", "label": "Inspect diagnostics"}]
+        self.project["commands"][0]["args"] = ["{output}/diagnostics.html"]
+        self.save()
+        (self.root / "proof.py").write_text(
+            "from pathlib import Path\nimport sys\n"
+            "Path(sys.argv[1]).write_text('<h1>Synthetic diagnostics</h1>')\n"
+        )
+        self.run_review()
+        self.assertIn(
+            '<a href="diagnostics.html">Inspect diagnostics</a>',
+            (self.output / "index.html").read_text(),
+        )
+        self.assertNotIn("Inspect diagnostics", RUN.page(self.project, root=self.root))
+        (self.output / "diagnostics.html").unlink()
+        with self.assertRaisesRegex(ValueError, "Unexpected or missing"):
+            RUN.verify(self.output, self.root, self.project, False)
+
+    def test_generated_report_paths_and_missing_output_reject(self) -> None:
+        for path in ("../escape.html", "/tmp/report.html", "a/../report.html", "script.py"):
+            self.project["reports"] = [{"path": path, "label": "Report"}]
+            self.save()
+            with self.subTest(path=path), self.assertRaisesRegex(ValueError, "Unsafe"):
+                RUN.load_project(self.root)
+        self.project["reports"] = [{"path": "missing.html", "label": "Report"}]
+        self.save()
+        with self.assertRaisesRegex(ValueError, "Missing reviewed file"):
+            self.run_review()
+        self.assertFalse(self.output.exists())
+
     def test_nested_manifests_are_verified(self) -> None:
         self.project["commands"][0]["args"] = ["{output}/demo"]
         self.save()

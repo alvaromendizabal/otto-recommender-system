@@ -27,6 +27,13 @@ python3 -S review/run.py --output /tmp/ml-review
 
 Open `/tmp/ml-review/index.html`. The directory contains an accessible HTML brief, `receipt.json`, `manifest.json`, and logs for each executed command. No Python package installation, model download, cloud credentials, or external dataset is required. On Windows, substitute a writable directory outside the checkout for `/tmp/ml-review`.
 
+The generated brief links **Session walkthrough** and **Recommendation diagnostics**.
+`recommendation-diagnostics.html` reconciles hits, ranking shortfall, and retrieval
+shortfall for every objective and observed-prefix slice. The corresponding
+`recommendation-audit.json` records the complete counts and source identities.
+The audit reads all 48 invented sessions from the sealed JSON exports; it does not
+import the recommender, target generator, or original metric implementation.
+
 To execute the browser engine checks as well, install Node.js and use a separate output directory:
 
 ```bash
@@ -39,6 +46,7 @@ The default path does not execute Node checks and never labels them as passed. C
 | Check | Runtime | Inspected entry point |
 |---|---|---|
 | `reference-review` | python | [`reproduce.py`](../reproduce.py) |
+| `independent-recommendation-audit` | python | [`tools/audit_recommendations.py`](../tools/audit_recommendations.py) |
 | `recommendation-interface` | node | [`tests/public_demo_ui.test.mjs`](../tests/public_demo_ui.test.mjs) |
 
 ## What is actually reproduced

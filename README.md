@@ -1,8 +1,5 @@
 <div align="center">
 
-> **Inspect the engineering:** [Source-linked review brief](review/README.md) · [Run the verified public checks](review/README.md#one-command-an-inspectable-result) · [Review-kit CI](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/employer-review.yml)
-> **Reproducibility assurance:** one command produces a review receipt that binds the public source inventory, runtime, executed checks and generated artifacts; exact reuse rejects changed imported code or fixtures.
-
 # OTTO · Session-based recommendation
 
 ![OTTO engineering overview: 216.7M training events, multi-source retrieval, task-specific ranking and verified batch delivery](docs/assets/overview.svg)
@@ -44,7 +41,7 @@ The controlled study and release use **different populations**. Neither establis
 ## How the system works
 
 ```mermaid
-flowchart LR
+flowchart TD
     H[Historical events] --> C[Candidate retrieval]
     P[Observed prefix] --> C
     C --> F[Candidate + session features]
@@ -61,15 +58,17 @@ The pooled metric weights clicks **10%**, carts **30%** and orders **60%**. Futu
 
 ## Reproduce something real
 
-**No accounts or dataset:** clone, then run the evidence audit and interactive synthetic walkthrough with Python 3.11+:
+**No accounts or dataset:** clone, then run the evidence audit, interactive synthetic walkthrough, and independent recommendation diagnostics with Python 3.11+:
 
 ```bash
 git clone https://github.com/alvaromendizabal/otto-recommender-system.git
 cd otto-recommender-system
-python3 -S reproduce.py review --output artifacts/review
+python3 -B -S review/run.py --output ../otto-review
 ```
 
-Open the generated interactive report to inspect invented sessions, recommendations and score components. The demo is separate from the recorded research results. [Quickstart](docs/QUICKSTART.md).
+The combined review runs the project's native `reproduce.py review` entrypoint, then adds the independent audit. Open `../otto-review/index.html`, then **Session walkthrough** or **Recommendation diagnostics**. The walkthrough explains invented sessions and recommendation scores. The independent auditor reads the complete 48-session prediction and target exports, then reconciles every capped target into an achieved hit, a ranking shortfall, or a retrieval shortfall. It also reports observed-prefix slices with exact denominators. These counts show where a pipeline loses relevant items without requiring access to private model artifacts.
+
+The audit uses only the JSON exports; it does not import the recommender or its metric implementation. An identical rerun verifies saved artifacts, while altered source or outputs stop reuse. Synthetic metrics remain separate from the recorded research results. [Audit definitions](docs/RECOMMENDATION_DIAGNOSTICS.md) · [Quickstart](docs/QUICKSTART.md) · [All review checks](review/README.md).
 
 <details>
 <summary><strong>Go deeper: native model training and data-enabled reference research</strong></summary>
