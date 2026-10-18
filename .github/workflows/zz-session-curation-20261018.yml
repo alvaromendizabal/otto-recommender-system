@@ -65,7 +65,7 @@ jobs:
           p.write_text(p.read_text().replace('"Three temporal windows and three model seeds. All nine selected rankers beat their "','"Three temporal windows and three model seeds. "\n                "All nine selected rankers beat their "').replace('"matched compact controls by 1.791 to 2.180 percentage points. Error bars are paired "','"matched compact controls by 1.791 to 2.180 percentage points. "\n                "Error bars are paired "'))
           p=path('tests/test_final_release.py')
           text=p.read_text(); start=text.index('    with workspace_lock(tmp_path):',text.index('def test_checkpoint_lock'))
-          end=text.index('    with workspace_lock(tmp_path):\n        pass',start)
+          end=text.index('    with workspace_lock(tmp_path):\n        assert (tmp_path / ".lock").is_file()',start)
           text=text[:start]+'    with (\n        workspace_lock(tmp_path),\n        pytest.raises(RuntimeError, match="active writer"),\n        workspace_lock(tmp_path),\n    ):\n        raise AssertionError("second writer entered")\n'+text[end:]
           p.write_text(text)
           print('Verified and applied',len(plan['changes']),'changes and',len(plan['delete']),'retirement entries')
