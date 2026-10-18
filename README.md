@@ -66,7 +66,7 @@ cd otto-recommender-system
 python3 -B -S review/run.py --output ../otto-review
 ```
 
-Open `../otto-review/index.html`, then **Session walkthrough** or **Recommendation diagnostics**. The walkthrough explains invented sessions and recommendation scores. The independent auditor reads the complete 48-session prediction and target exports, then reconciles every capped target into an achieved hit, a ranking shortfall, or a retrieval shortfall. It also reports observed-prefix slices with exact denominators. These counts show where a pipeline loses relevant items without requiring access to private model artifacts.
+The combined review runs the project's native `reproduce.py review` entrypoint, then adds the independent audit. Open `../otto-review/index.html`, then **Session walkthrough** or **Recommendation diagnostics**. The walkthrough explains invented sessions and recommendation scores. The independent auditor reads the complete 48-session prediction and target exports, then reconciles every capped target into an achieved hit, a ranking shortfall, or a retrieval shortfall. It also reports observed-prefix slices with exact denominators. These counts show where a pipeline loses relevant items without requiring access to private model artifacts.
 
 The audit uses only the JSON exports; it does not import the recommender or its metric implementation. An identical rerun verifies saved artifacts, while altered source or outputs stop reuse. Synthetic metrics remain separate from the recorded research results. [Audit definitions](docs/RECOMMENDATION_DIAGNOSTICS.md) · [Quickstart](docs/QUICKSTART.md) · [All review checks](review/README.md).
 
