@@ -36,18 +36,31 @@ def main() -> int:
     if converted.status != "complete" or converted.sessions_processed != 1_671_803:
         raise ValueError("competition test conversion is incomplete")
     report = {
-        "schema_version": 1, "status": "passed", "source": SOURCE,
+        "schema_version": 1,
+        "status": "passed",
+        "source": SOURCE,
         "download_url": "https://www.kaggle.com/competitions/otto-recommender-system/data?select=test.jsonl",
-        "raw_sha256": RAW_SHA256, "raw_bytes": RAW_BYTES,
+        "raw_sha256": RAW_SHA256,
+        "raw_bytes": RAW_BYTES,
         "conversion": asdict(converted),
-        "files": {p.name: {"sha256": sha256_file(p), "bytes": p.stat().st_size}
-                  for p in sorted(args.output.glob("part-*.parquet"))},
+        "files": {
+            p.name: {"sha256": sha256_file(p), "bytes": p.stat().st_size}
+            for p in sorted(args.output.glob("part-*.parquet"))
+        },
     }
     destination = Path("reports/submissions/competition_input.json")
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(report, sort_keys=True, indent=2) + "\n")
-    print(json.dumps({"status": "passed", "events": converted.events_processed,
-                      "sessions": converted.sessions_processed, "parts": converted.parts_written}))
+    print(
+        json.dumps(
+            {
+                "status": "passed",
+                "events": converted.events_processed,
+                "sessions": converted.sessions_processed,
+                "parts": converted.parts_written,
+            }
+        )
+    )
     return 0
 
 

@@ -12,8 +12,8 @@ from typing import Any
 import lightgbm as lgb
 import numpy as np
 
+from otto_recsys.checkpoints import workspace_lock
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
-from otto_recsys.ranking.feature_cache import workspace_lock
 from otto_recsys.research.metrics import ranked_hits
 from otto_recsys.research.protocol import atomic_json
 from otto_recsys.runtime import Heartbeat

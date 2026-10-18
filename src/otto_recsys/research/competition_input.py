@@ -23,8 +23,12 @@ def check_competition_input(directory: Path, expected: dict[str, Any]) -> dict[s
     observed = {p.name: {"sha256": sha256_file(p), "bytes": p.stat().st_size} for p in parts}
     if not parts or observed != expected["files"]:
         raise ValueError("competition test partition bytes differ from their source attestation")
-    return {"source": expected["source"], "raw_sha256": expected["raw_sha256"],
-            "sessions": converted["sessions_processed"], "events": converted["events_processed"]}
+    return {
+        "source": expected["source"],
+        "raw_sha256": expected["raw_sha256"],
+        "sessions": converted["sessions_processed"],
+        "events": converted["events_processed"],
+    }
 
 
 def require_competition_input(directory: Path) -> dict[str, Any]:

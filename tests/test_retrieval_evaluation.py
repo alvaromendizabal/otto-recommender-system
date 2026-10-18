@@ -60,9 +60,7 @@ def test_incremental_recall_tracks_neural_only_positive_hits() -> None:
 
 
 def test_weighted_objective_score_uses_official_weights() -> None:
-    score = weighted_objective_score(
-        {"clicks": 0.5, "carts": 0.6, "orders": 0.7}
-    )
+    score = weighted_objective_score({"clicks": 0.5, "carts": 0.6, "orders": 0.7})
     assert score == pytest.approx(0.65)
 
 

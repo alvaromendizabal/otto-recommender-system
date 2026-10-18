@@ -1,44 +1,16 @@
-# Public review and private research boundaries
+# Public implementation and private artifacts
 
-## Clone-to-results scope
+The current repository contains the retained recommendation approach, its native reference training path, final result receipts, tests, one controlled-study notebook and an authored public demonstration.
 
-The [public launcher](../reproduce.py) connects raw conversion, historical retrieval, features, matched LightGBM fitting, sealed temporal evaluation and CSV validation. The small profile uses invented records; full reference research accepts independently obtained official training JSONL. Neither promises exact reconstruction of the later private neural release. No owner cloud credentials are required.
+| Published | Reproducible scope |
+|---|---|
+| Historical retrieval and feature/ranking source | Execute the retained public reference with a locked environment and eligible user-supplied data |
+| Small native profile | Exercise the real converter, feature engine, LightGBM training and prediction validation with invented records |
+| Standard-library review and independent auditor | Recompute authored outputs and reconcile target accounting |
+| Unchanged historical receipts and controlled-study evidence | Check aggregate arithmetic, stored identities and measurement scope |
 
-Public deployment-account numbers are replaced with reserved placeholders. [Redaction provenance](../reports/privacy/redactions.json) distinguishes original hashes from current public bytes. Measured scores and model weights are unchanged. Git history is not rewritten; placeholder cloud locations are not live deployment targets.
+The latest delivered policy also uses private similarity artifacts and routing rules. Exact reconstruction of that later release is not promised. Complete events, private prediction populations, trained private weights/embeddings, tuning recipes and credentials are not distributed. The previous project-specific AWS workspace and bucket were decommissioned; they are not reproduction prerequisites or supported download locations.
 
-This repository is an employer-facing record of a completed offline recommendation
-study and batch delivery. Public review does not require access to the private
-research workspace, cloud account or complete competition data.
+The synthetic walkthrough is explicitly separate from historical evaluation. No official medal, production deployment or business lift is claimed. The publication checker scans current text for high-confidence secrets and owner deployment identifiers; it is not a guarantee about all Git history. [Recorded redaction provenance](../reports/privacy/redactions.json).
 
-| Public material | What it lets a reviewer verify |
-| --- | --- |
-| Public research implementations, tests and data contracts | Metric arithmetic, temporal checks, model interfaces and recovery behavior |
-| Aggregate reports, recorded submission receipts and executed notebooks | The published measurements and their stated scope |
-| Dependency-free evidence checker | Consistency of aggregate counts and recorded artifact identities; it does not independently authenticate the original observations |
-| [Synthetic demonstration](PUBLIC_DEMO.md) | A small, inspectable recommendation workflow using invented data; its results are not competition measurements |
-| Bounded historical native-model replay | Three already-public controlled-reference LightGBM models and candidate examples from eight official-prefix sessions, reproducing 24 historical output rows |
-
-The existing replay is a deliberate, limited exception to the otherwise aggregate
-publication boundary. It includes reference-model files and example row-level inputs
-and outputs under `reports/research/inference_replay/`. It is not the complete later
-release, a full dataset, or a way to reproduce the competition score from scratch.
-
-Full event data and label/prediction populations, current private checkpoints and
-embeddings, unpublished feature recipes, private run orchestration and credentials
-remain outside this publication. New portfolio work must not copy those assets into
-code, notebook outputs, HTML, logs or download bundles. Synthetic examples must stay
-clearly labeled and separate from measured research evidence.
-
-The [hosted demo](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site) serves the same reviewed synthetic report as the
-local launcher. Session-specific browser exports contain public synthetic predictions
-and explanations, not future targets or private research outputs.
-
-Recorded scores are post-competition results. Programmatic audits are project checks,
-not third-party certification. No official medal/rank, online deployment, revenue lift,
-or improvement from unpublished experiments is claimed. Historical evidence retains
-its original date and scope.
-
-The [demo launcher](../scripts/run_public_demo.py) uses the Python standard library.
-See [Reproducibility](REPRODUCIBILITY.md) for the supported public commands and
-[Model card](MODEL_CARD.md) for the controlled reference's limitations. Upstream method
-attribution is recorded in the [component audit](../research/neural_stack/reproduction_matrix.json).
+Obsolete experiment implementations and launchers have been removed from the current tree. Existing Git history is retained for provenance, not offered as a supported alternative project. OTTO supplies the upstream dataset/task; retained implementations use the credited Python ecosystem packages, including LightGBM, Polars, DuckDB, SciPy and NumPy.

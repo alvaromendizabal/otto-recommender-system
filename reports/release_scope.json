@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "scope": "Retained historical release and public reference; no new fit or score",
+  "release_sha256": "3e2e8085da1ae804ae9c71d626b0818b599c2d686552c4b3e70cb76587642d44",
+  "submission_reference": 56542128,
+  "private_score": 0.57586,
+  "public_score": 0.57601,
+  "sessions": 1671803,
+  "rows": 5015409,
+  "receipt_sha256": "2535843b4a219473444ebfd1d6b0c380b451f43c983f2411a8c445bea9ddf6b9",
+  "recorded_base_commit": "439a1dc3150a327f41ec42e679cb821f844273e2",
+  "public_reference": "Historical co-visitation, selected features, task-specific LightGBM ranking, sealed temporal evaluation and batch validation",
+  "private_release": "Established clicks/cart routing with the promoted similarity-feature orders ranker",
+  "exact_private_release_reproduction": false,
+  "production_deployment_claim": false
+}

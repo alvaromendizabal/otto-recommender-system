@@ -104,8 +104,12 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
     lock = threading.Lock()
 
     def emit(event: str, **fields: Any) -> None:
-        record = {"timestamp": datetime.now(UTC).isoformat(), "event": event,
-                  "total_elapsed_seconds": round(time.perf_counter() - started, 3), **fields}
+        record = {
+            "timestamp": datetime.now(UTC).isoformat(),
+            "event": event,
+            "total_elapsed_seconds": round(time.perf_counter() - started, 3),
+            **fields,
+        }
         text = json.dumps(record, sort_keys=True)
         with lock:
             print(text, flush=True)
@@ -115,8 +119,9 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
     nbformat = importlib.import_module("nbformat")
     nbclient = importlib.import_module("nbclient")
     manager = importlib.import_module("jupyter_client")
-    runtime = {distribution.metadata["Name"]: distribution.version
-               for distribution in distributions()}
+    runtime = {
+        distribution.metadata["Name"]: distribution.version for distribution in distributions()
+    }
     runtime["python"] = sys.version
     dependencies = input_checksums(root)
     dependencies["notebooks/requirements.txt"] = sha256(root / "notebooks/requirements.txt")
@@ -129,8 +134,12 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
     for source in sources:
         stage_started = time.perf_counter()
         notebook = nbformat.read(source, as_version=4)
-        identity = {"runtime": runtime, "dependencies": dependencies, "timeout": timeout,
-                    "cells": [(c.cell_type, c.source) for c in notebook.cells]}
+        identity = {
+            "runtime": runtime,
+            "dependencies": dependencies,
+            "timeout": timeout,
+            "cells": [(c.cell_type, c.source) for c in notebook.cells],
+        }
         input_id = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
         destination = output / source.name
         receipt = valid_receipt(destination, input_id)
@@ -148,8 +157,11 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
             beginning: float = stage_started,
         ) -> None:
             while not stop_event.wait(15):
-                emit("heartbeat", notebook=notebook_name,
-                     stage_elapsed_seconds=round(time.perf_counter() - beginning, 3))
+                emit(
+                    "heartbeat",
+                    notebook=notebook_name,
+                    stage_elapsed_seconds=round(time.perf_counter() - beginning, 3),
+                )
 
         thread = threading.Thread(target=heartbeat, name="notebook-heartbeat", daemon=True)
         thread.start()
@@ -160,15 +172,25 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
                 # Bind the kernel to this exact analysis interpreter, not a user's default kernel.
                 # Private filesystem sockets avoid exposing local outputs over plaintext TCP.
                 kernel = manager.KernelManager(
-                    kernel_name="python3", transport="ipc", ip=str(workspace / "kernel"),
+                    kernel_name="python3",
+                    transport="ipc",
+                    ip=str(workspace / "kernel"),
                 )
                 kernel.kernel_spec.argv = [
-                    sys.executable, "-Xfrozen_modules=off", "-m", "ipykernel_launcher",
-                    "-f", "{connection_file}",
+                    sys.executable,
+                    "-Xfrozen_modules=off",
+                    "-m",
+                    "ipykernel_launcher",
+                    "-f",
+                    "{connection_file}",
                 ]
                 client = nbclient.NotebookClient(
-                    notebook, km=kernel, timeout=timeout, allow_errors=False,
-                    force_raise_errors=True, ipython_hist_file=":memory:",
+                    notebook,
+                    km=kernel,
+                    timeout=timeout,
+                    allow_errors=False,
+                    force_raise_errors=True,
+                    ipython_hist_file=":memory:",
                     resources={"metadata": {"path": str(workspace / "notebooks")}},
                 )
                 kernel_log = workspace / "kernel.log"
@@ -183,30 +205,49 @@ def _execute(root: Path, output: Path, *, timeout: int) -> dict[str, Any]:
                 cells = validate_outputs(result)
                 atomic_json(destination, result)
                 receipt = {
-                    "input_id": input_id, "sha256": sha256(destination), "code_cells": cells,
-                    "notebook": source.name, "runtime": runtime,
+                    "input_id": input_id,
+                    "sha256": sha256(destination),
+                    "code_cells": cells,
+                    "notebook": source.name,
+                    "runtime": runtime,
                     "completed_at_utc": datetime.now(UTC).isoformat(),
                     "compute_seconds": round(time.perf_counter() - stage_started, 3),
                 }
                 atomic_json(destination.with_suffix(".json"), receipt)
                 receipts.append(receipt)
-                emit("notebook_complete", notebook=source.name, code_cells=cells,
-                     stage_elapsed_seconds=receipt["compute_seconds"])
+                emit(
+                    "notebook_complete",
+                    notebook=source.name,
+                    code_cells=cells,
+                    stage_elapsed_seconds=receipt["compute_seconds"],
+                )
         except BaseException as error:
-            emit("notebook_failed", notebook=source.name, error=str(error),
-                 stage_elapsed_seconds=round(time.perf_counter() - stage_started, 3))
+            emit(
+                "notebook_failed",
+                notebook=source.name,
+                error=str(error),
+                stage_elapsed_seconds=round(time.perf_counter() - stage_started, 3),
+            )
             raise
         finally:
             stop.set()
             thread.join(timeout=16)
-    summary = {"status": "passed", "notebooks": len(receipts), "reused_notebooks": reused,
-               "code_cells": sum(r["code_cells"] for r in receipts),
-               "attempt_elapsed_seconds": round(time.perf_counter() - started, 3),
-               "retained_compute_seconds": sum(r["compute_seconds"] for r in receipts),
-               "receipts": receipts}
+    summary = {
+        "status": "passed",
+        "notebooks": len(receipts),
+        "reused_notebooks": reused,
+        "code_cells": sum(r["code_cells"] for r in receipts),
+        "attempt_elapsed_seconds": round(time.perf_counter() - started, 3),
+        "retained_compute_seconds": sum(r["compute_seconds"] for r in receipts),
+        "receipts": receipts,
+    }
     atomic_json(output / "manifest.json", summary)
-    emit("notebooks_complete", notebooks=len(receipts), reused_notebooks=reused,
-         code_cells=summary["code_cells"])
+    emit(
+        "notebooks_complete",
+        notebooks=len(receipts),
+        reused_notebooks=reused,
+        code_cells=summary["code_cells"],
+    )
     return summary
 
 

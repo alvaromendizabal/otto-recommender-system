@@ -34,7 +34,7 @@ STAGES: tuple[Stage, ...] = (
     ),
     Stage(
         "smoke",
-        (sys.executable, "scripts/run_smoke.py"),
+        (sys.executable, "scripts/run_public_demo.py", "--output", "artifacts/quality-smoke"),
     ),
 )
 

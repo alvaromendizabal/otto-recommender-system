@@ -471,44 +471,67 @@ def make_charts(data: dict[str, Any]) -> list[Chart]:
         rows = []
         for row in records:
             interval = row["paired_intervals"]["core"]
-            rows.append({
-                "Window": row["window"].title(), "Seed": row["model_seed"],
-                "Sessions": row["sessions"],
-                "Selected Recall@20": row["scores"]["selected"]["weighted_recall_at_20"],
-                "Compact Recall@20": row["scores"]["core"]["weighted_recall_at_20"],
-                "Gain (pp)": 100 * interval["absolute_gain"],
-                "95% lower (pp)": 100 * interval["gain_interval"][0],
-                "95% upper (pp)": 100 * interval["gain_interval"][1],
-            })
+            rows.append(
+                {
+                    "Window": row["window"].title(),
+                    "Seed": row["model_seed"],
+                    "Sessions": row["sessions"],
+                    "Selected Recall@20": row["scores"]["selected"]["weighted_recall_at_20"],
+                    "Compact Recall@20": row["scores"]["core"]["weighted_recall_at_20"],
+                    "Gain (pp)": 100 * interval["absolute_gain"],
+                    "95% lower (pp)": 100 * interval["gain_interval"][0],
+                    "95% upper (pp)": 100 * interval["gain_interval"][1],
+                }
+            )
         fig = go.Figure()
-        for window, color in (("Early", "#3566C5"), ("Middle", "#087F73"),
-                              ("Reference", "#8B5FBF")):
+        for window, color in (
+            ("Early", "#3566C5"),
+            ("Middle", "#087F73"),
+            ("Reference", "#8B5FBF"),
+        ):
             subset = [r for r in rows if r["Window"] == window]
             fig.add_scatter(
-                name=window, mode="markers", marker={"color": color, "size": 12},
+                name=window,
+                mode="markers",
+                marker={"color": color, "size": 12},
                 y=[f"{r['Window']} · {r['Seed']}" for r in subset],
                 x=[r["Gain (pp)"] for r in subset],
-                error_x={"type": "data", "symmetric": False,
-                         "array": [r["95% upper (pp)"] - r["Gain (pp)"] for r in subset],
-                         "arrayminus": [r["Gain (pp)"] - r["95% lower (pp)"] for r in subset]},
-                hovertemplate=("%{y}<br>Selected minus compact: %{x:.3f} pp"
-                               "<extra>%{fullData.name}</extra>"),
+                error_x={
+                    "type": "data",
+                    "symmetric": False,
+                    "array": [r["95% upper (pp)"] - r["Gain (pp)"] for r in subset],
+                    "arrayminus": [r["Gain (pp)"] - r["95% lower (pp)"] for r in subset],
+                },
+                hovertemplate=(
+                    "%{y}<br>Selected minus compact: %{x:.3f} pp<extra>%{fullData.name}</extra>"
+                ),
             )
         fig.add_vline(x=0, line_dash="dot", line_color="#64748B")
         fig.update_xaxes(title="Gain in weighted Recall@20 · percentage points", range=[0, 2.5])
         fig.update_yaxes(autorange="reversed")
         title = "Feature gains repeat across all nine audited runs"
-        charts.append(Chart(
-            "robustness", title,
-            "Three temporal windows and three model seeds. All nine selected rankers beat their "
-            "matched compact controls by 1.791 to 2.180 percentage points. Error bars are paired "
-            "95% session-bootstrap intervals conditional on each fitted pair. Seeds share a "
-            "cohort within each window; these are not nine independent datasets. The largest "
-            "absolute score is 0.590759 in the middle window, whose sessions differ from the "
-            "reference cohort. The original reference seed remains frozen for submission.",
-            style(fig, title, "All planned outcomes retained · frozen seed policy",
-                  height=710, left=250), rows,
-        ))
+        charts.append(
+            Chart(
+                "robustness",
+                title,
+                "Three temporal windows and three model seeds. "
+                "All nine selected rankers beat their "
+                "matched compact controls by 1.791 to 2.180 percentage points. "
+                "Error bars are paired "
+                "95% session-bootstrap intervals conditional on each fitted pair. Seeds share a "
+                "cohort within each window; these are not nine independent datasets. The largest "
+                "absolute score is 0.590759 in the middle window, whose sessions differ from the "
+                "reference cohort. The original reference seed remains frozen for submission.",
+                style(
+                    fig,
+                    title,
+                    "All planned outcomes retained · frozen seed policy",
+                    height=710,
+                    left=250,
+                ),
+                rows,
+            )
+        )
     return charts
 
 
@@ -567,7 +590,7 @@ diagnostic and replication cohorts are labeled separately. These are offline res
 The report includes its Plotly library; it needs no internet connection, Python,
 dataset download or AWS account.</p>""" + (
         f"<p><a href='{REPOSITORY}'>Repository</a> · "
-        f"<a href='{REPOSITORY}/blob/main/docs/PORTFOLIO.md'>Full case study</a> · "
+        f"<a href='{REPOSITORY}/blob/main/docs/MODEL_CARD.md'>Full case study</a> · "
         f"<a href='{REPOSITORY}/blob/main/notebooks/09_controlled_feature_study.ipynb'>"
         f"Executed research notebook</a></p><nav>{navigation}</nav></header>"
         + "".join(sections)

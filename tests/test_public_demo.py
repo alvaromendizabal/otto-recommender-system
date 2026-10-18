@@ -118,9 +118,7 @@ class PublicDemoTests(unittest.TestCase):
                 self.assertEqual(len(ranked), len(set(ranked)))
                 self.assertEqual(len(candidates), len(set(candidates)))
                 self.assertTrue(set(ranked).issubset(candidates))
-                self.assertEqual(
-                    [item["item"] for item in objective["explanations"]], ranked
-                )
+                self.assertEqual([item["item"] for item in objective["explanations"]], ranked)
 
     def test_prediction_rejects_duplicate_session_rows(self) -> None:
         query = self.data.queries[0]
@@ -148,9 +146,7 @@ class PublicDemoTests(unittest.TestCase):
 
     def test_prediction_replay_is_byte_deterministic(self) -> None:
         first = demo.predict(self.model, self.data.queries)
-        second = demo.predict(
-            demo.fit_history(self.data.history, self.cutoff), self.data.queries
-        )
+        second = demo.predict(demo.fit_history(self.data.history, self.cutoff), self.data.queries)
         self.assertEqual(demo.canonical_json(first), demo.canonical_json(second))
 
     def test_future_target_randomness_cannot_change_observed_inputs_or_predictions(self) -> None:
@@ -203,17 +199,19 @@ class PublicDemoTests(unittest.TestCase):
             "schema_version": 1,
             "k": 20,
             "candidate_limit": 21,
-            "rows": [{
-                "session": 7,
-                "query_ts": 100,
-                "objectives": {
-                    action: {
-                        "recommendations": list(range(1, 21)),
-                        "candidates": list(range(1, 22)),
-                    }
-                    for action in ACTIONS
-                },
-            }],
+            "rows": [
+                {
+                    "session": 7,
+                    "query_ts": 100,
+                    "objectives": {
+                        action: {
+                            "recommendations": list(range(1, 21)),
+                            "candidates": list(range(1, 22)),
+                        }
+                        for action in ACTIONS
+                    },
+                }
+            ],
         }
         targets = (
             demo.Event(7, 21, 101, "clicks"),
@@ -225,7 +223,9 @@ class PublicDemoTests(unittest.TestCase):
         self.assertAlmostEqual(metrics["weighted_recall_at_20"], 0.6)
         self.assertAlmostEqual(metrics["weighted_candidate_oracle"], 0.7)
         for action, expected_hits, expected_pool in (
-            ("clicks", 0, 1), ("carts", 0, 0), ("orders", 1, 1)
+            ("clicks", 0, 1),
+            ("carts", 0, 0),
+            ("orders", 1, 1),
         ):
             objective = metrics["objectives"][action]
             self.assertEqual(objective["hits"], expected_hits)
@@ -247,17 +247,19 @@ class PublicDemoTests(unittest.TestCase):
             (7, list(range(1, 21)), 21),
             (8, list(range(101, 121)), 999),
         ):
-            rows.append({
-                "session": session,
-                "query_ts": 100,
-                "objectives": {
-                    action: {
-                        "recommendations": recommendations,
-                        "candidates": [*recommendations, extra],
-                    }
-                    for action in ACTIONS
-                },
-            })
+            rows.append(
+                {
+                    "session": session,
+                    "query_ts": 100,
+                    "objectives": {
+                        action: {
+                            "recommendations": recommendations,
+                            "candidates": [*recommendations, extra],
+                        }
+                        for action in ACTIONS
+                    },
+                }
+            )
         payload = {"schema_version": 1, "k": 20, "candidate_limit": 21, "rows": rows}
         targets = tuple(demo.Event(7, item, 101, "clicks") for item in range(1, 26))
         targets += (demo.Event(8, 999, 101, "clicks"), demo.Event(8, 999, 102, "clicks"))
@@ -368,13 +370,14 @@ class PublicDemoTests(unittest.TestCase):
         report = (output / "report.html").read_text(encoding="utf-8")
         self.assertIn("All item IDs, sessions and results on this page are synthetic", report)
         self.assertIn("published temporal study and scored release", report)
-        self.assertIn(f'{result["metrics"]["weighted_recall_at_20"]:.4f}', report)
+        self.assertIn(f"{result['metrics']['weighted_recall_at_20']:.4f}", report)
         markup = ReportMarkup()
         markup.feed(report)
         panels = [attrs for _, attrs in markup.elements if "data-demo-panel" in attrs]
         self.assertEqual(len(panels), len(result["examples"]) * len(ACTIONS))
         details = [
-            attrs for tag, attrs in markup.elements
+            attrs
+            for tag, attrs in markup.elements
             if tag == "details" and attrs.get("class") == "evaluation"
         ]
         self.assertEqual(len(details), len(panels))

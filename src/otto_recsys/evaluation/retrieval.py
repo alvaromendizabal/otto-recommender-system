@@ -195,9 +195,7 @@ def paired_poisson_bootstrap_delta(
     offset = 0
     while offset < iterations:
         width = min(chunk_size, iterations - offset)
-        weights = generator.poisson(1.0, size=(width, base.size)).astype(
-            np.float64, copy=False
-        )
+        weights = generator.poisson(1.0, size=(width, base.size)).astype(np.float64, copy=False)
         weighted_denominator = weights @ denom
         valid = weighted_denominator > 0
         if not np.all(valid):
@@ -210,10 +208,9 @@ def paired_poisson_bootstrap_delta(
                     )
                     weights[row] = replacement
                     weighted_denominator[row] = replacement @ denom
-        deltas[offset : offset + width] = (
-            (weights @ union) / weighted_denominator
-            - (weights @ base) / weighted_denominator
-        )
+        deltas[offset : offset + width] = (weights @ union) / weighted_denominator - (
+            weights @ base
+        ) / weighted_denominator
         offset += width
 
     alpha = (1.0 - confidence) / 2.0

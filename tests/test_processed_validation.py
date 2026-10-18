@@ -20,11 +20,11 @@ def build_processed_dataset(
         '{"session":1,"events":['
         '{"aid":10,"ts":1000,"type":"clicks"},'
         '{"aid":11,"ts":2000,"type":"carts"}'
-        ']}\n'
+        "]}\n"
         '{"session":2,"events":['
         '{"aid":20,"ts":3000,"type":"clicks"},'
         '{"aid":21,"ts":4000,"type":"orders"}'
-        ']}\n',
+        "]}\n",
         encoding="utf-8",
     )
 

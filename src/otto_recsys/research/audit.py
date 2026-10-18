@@ -408,14 +408,16 @@ def replay_models(root: Path, frame: pl.DataFrame, *, sessions: int, seed: int) 
                 ideal = sum(1 / math.log2(rank + 1) for rank in range(1, min(20, len(truth)) + 1))
                 support = {
                     "ndcg": sum(1 / math.log2(rank + 1) for rank in positions) / ideal
-                    if ideal else 0.0,
+                    if ideal
+                    else 0.0,
                     "mrr": 1 / positions[0] if positions else 0.0,
                     "hit_rate": float(bool(positions)),
                 }
                 for metric, value in support.items():
                     require(
-                        math.isclose(value, row[f"{label}_{objective}_{metric}"],
-                                     abs_tol=1e-12, rel_tol=0),
+                        math.isclose(
+                            value, row[f"{label}_{objective}_{metric}"], abs_tol=1e-12, rel_tol=0
+                        ),
                         "native supporting metric replay differs",
                     )
                     supporting_comparisons += 1

@@ -2,78 +2,69 @@
 
 # OTTO · Session-based recommendation
 
-![OTTO engineering overview: 216.7M training events, multi-source retrieval, task-specific ranking and verified batch delivery](docs/assets/overview.svg)
+**Retrieve relevant items. Rank by intent. Verify every output.**
+
+![OTTO: historical event processing, task-specific ranking and verified batch delivery](docs/assets/overview.svg)
 
 [![CI](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/ci.yml)
 [![Reproducibility](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/reproduce.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/reproduce.yml)
-[![Public demo](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/public-demo.yml/badge.svg?branch=main)](https://github.com/alvaromendizabal/otto-recommender-system/actions/workflows/public-demo.yml)
 
-[**Employer overview**](docs/EMPLOYER_OVERVIEW.md) · [**Interactive demo**](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site) · [**Evidence map**](docs/EVIDENCE_MAP.md) · [**Five-minute review**](docs/REVIEWER_GUIDE.md)
+[**Interactive demo**](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site) · [**Architecture**](docs/ARCHITECTURE.md) · [**Model card**](docs/MODEL_CARD.md) · [**Run locally**](docs/QUICKSTART.md)
 
 </div>
 
-I built a multi-stage recommender that turns short, anonymous shopping sessions into separate next-click, cart and purchase recommendations. My work spans event processing, candidate retrieval, feature research, task-specific ranking, neural similarity, temporal evaluation and verifiable batch delivery.
+I built a session-based recommendation system for separate next-click, cart and purchase predictions. The retained work covers historical co-visitation, candidate/session features, objective-specific LightGBM ranking, temporal evaluation and resumable batch delivery.
 
-## 60-second overview
+## Results at a glance
 
-| Dimension | Evidence |
-|:--|:--|
-| **Scale** | **216.7M** training events · **1.67M** official inference sessions · **5.02M** validated output rows |
-| **Representation** | **1,482** feature formulas screened into a **102-feature** controlled reference; specialized order ranking extends it |
-| **Controlled study** | **0.584392 weighted Recall@20**, versus **0.564904** for the compact control on **432,492 temporal sessions** |
-| **Recorded release** | **0.57586 private / 0.57601 public** · post-competition scoring, not an official rank or medal |
-| **Engineering** | Sealed model choices, checksum-bound artifacts, resumable partitions, native-model replay, executed notebooks and CI |
+| Evidence | Result | Measurement scope |
+|:--|:--|:--|
+| Historical processing scale | **216.7M training events** | Recorded research input, not live traffic |
+| Validated batch output | **1.67M sessions / 5.02M rows** | One top-20 list for each of three objectives |
+| Controlled feature study | **0.564904 → 0.584392 weighted Recall@20** | Same 432,492 temporal sessions; **+1.949 percentage points** |
+| Retained scored release | **0.57586 private / 0.57601 public** | Post-competition evaluation; not an official rank or medal |
 
-The controlled study and release use **different populations**. Neither establishes online business lift. [Measurement definitions](docs/MODEL_CARD.md) · [Recorded release receipt](reports/submissions/similarity_stack_20260925.json).
+The controlled study and retained release use **different populations**. Neither establishes online business lift. The public reference uses the selected feature/ranking approach; the later delivered release also uses private similarity-feature and routing artifacts. [Exact scope](docs/PUBLICATION_SCOPE.md) · [Unchanged release receipt](reports/submissions/similarity_stack_20260925.json).
 
-![Controlled feature study: reference rankers and ablations](reports/portfolio/results.svg)
+![Controlled feature study results](reports/portfolio/results.svg)
 
 ## What I owned
 
-**The recommendation system.** Multi-source retrieval, candidate/session features, click/cart/order rankers, routing and learned similarity. The architecture keeps candidate availability separate from achieved ranking and validates the complete output population.
+**The modeling path:** label-blind retrieval, candidate and session features, separate rankers for clicks/carts/orders, and complete top-20 validation. The controlled study screened 1,482 formulas into a 102-feature representation.
 
-**The scientific decisions.** Chronological fit/selection/evaluation roles, fitting-only feature screening, matched ablations, capped pooled metrics, uncertainty estimates and explicit rejection criteria. I preserve negative results instead of presenting every new model as an improvement.
+**The evaluation:** chronological fit/selection/evaluation roles, training-only feature screening, matched ablations, exact metric denominators and paired uncertainty. Candidate availability is measured separately from achieved ranking.
 
-**The delivery engineering.** Streaming conversion, process-level resource boundaries, immutable artifact identities, partition recovery, native-model checks, offline reports and publication safeguards. [Implementation walkthrough](docs/ARCHITECTURE.md) · [Detailed case study](docs/PORTFOLIO.md).
+**The delivery:** streaming conversion, bounded materialization, source/model identities, exclusive-writer checkpoints, native model reloads and resumable prediction partitions.
 
-**Inspect the work behind the claims:** the [engineering evidence map](docs/EVIDENCE_MAP.md) links each design question to its implementation, tests and measured evidence.
-
-## How the system works
+## Retained architecture
 
 ```mermaid
-flowchart TD
-    H[Historical events] --> C[Candidate retrieval]
-    P[Observed prefix] --> C
-    C --> F[Candidate + session features]
-    H --> F
-    P --> F
-    F --> R[Task-specific rankers]
-    R --> V[Validate top-20 lists]
-    V --> B[Resumable batch artifact]
-    T[Future targets] -. evaluation only .-> E[Temporal metrics]
-    R --> E
+flowchart LR
+    H[Historical events] --> C[Co-visitation + observed-prefix candidates]
+    P[Observed session prefix] --> C
+    C --> F[Candidate/session features]
+    F --> R[Task-specific LightGBM rankers]
+    R --> V[Unique top-20 lists + full coverage checks]
+    V --> B[Resumable batch output]
+    R --> E[Sealed temporal evaluation]
 ```
 
-The pooled metric weights clicks **10%**, carts **30%** and orders **60%**. Future targets remain outside retrieval and prediction. [Data and evaluation contract](docs/MODEL_CARD.md).
+The metric weights clicks 10%, carts 30% and orders 60%. Future targets never enter retrieval or scoring. [Inspect the source and tests](docs/ARCHITECTURE.md).
 
-## Reproduce something real
+## Reproduce the public workflow
 
-**No accounts or dataset:** clone, then run the evidence audit, interactive synthetic walkthrough, and independent recommendation diagnostics with Python 3.11+:
+With Python 3.11+; no account, dataset or model download:
 
 ```bash
 git clone https://github.com/alvaromendizabal/otto-recommender-system.git
 cd otto-recommender-system
 python3 -B -S review/run.py --output ../otto-review
+python3 -B -S review/run.py --output ../otto-review --check
 ```
 
-The combined review runs the project's native `reproduce.py review` entrypoint, then adds the independent audit. Open `../otto-review/index.html`, then **Session walkthrough** or **Recommendation diagnostics**. The walkthrough explains invented sessions and recommendation scores. The independent auditor reads the complete 48-session prediction and target exports, then reconciles every capped target into an achieved hit, a ranking shortfall, or a retrieval shortfall. It also reports observed-prefix slices with exact denominators. These counts show where a pipeline loses relevant items without requiring access to private model artifacts.
+Open `../otto-review/index.html`. The native `reproduce.py review` path builds an authored 48-session walkthrough. An independent auditor reads its prediction/target exports and reconciles hits, ranking shortfalls and retrieval shortfalls. These **synthetic integration results are not competition performance**.
 
-The audit uses only the JSON exports; it does not import the recommender or its metric implementation. An identical rerun verifies saved artifacts, while altered source or outputs stop reuse. Synthetic metrics remain separate from the recorded research results. [Audit definitions](docs/RECOMMENDATION_DIAGNOSTICS.md) · [Quickstart](docs/QUICKSTART.md) · [All review checks](review/README.md).
-
-<details>
-<summary><strong>Go deeper: native model training and data-enabled reference research</strong></summary>
-
-Install the locked Python 3.13 environment and run the small invented-data profile through the **actual** JSONL converter, historical retriever, feature engine, LightGBM ablations and temporal evaluator:
+For real, small-scale training through the retained converter, retriever, feature engine and LightGBM evaluator:
 
 ```bash
 uv sync --frozen --extra dev --extra ml
@@ -82,35 +73,22 @@ uv run --frozen --extra dev --extra ml python reproduce.py train --output artifa
 uv run --frozen --extra dev --extra ml python reproduce.py verify --output artifacts/reference
 ```
 
-The second training invocation verifies and reuses completed artifacts. The result includes native model files, a sealed temporal comparison, three top-20 lists per evaluation session, and an artifact manifest. **Its synthetic metrics are integration-test results, not the historical score.**
+The second training invocation verifies and reuses completed artifacts. Full reference execution can use independently obtained training JSONL; it is plan-only until explicitly authorized. [Requirements and commands](docs/QUICKSTART.md).
 
-**Bring the official training data:** [Quickstart → full reference research](docs/QUICKSTART.md#full-reference-research) connects locally obtained JSONL to the published research protocol. It needs appropriate CPU, memory and disk—not access to my AWS account. The default is a resource plan; full execution requires explicit consent.
+## Review the implementation
 
-The public reference, small native replay and later neural-enhanced release are separate reproduction scopes. Exact reconstruction of the latter is **not** promised by a fresh clone. [Scope and prerequisites](docs/PUBLICATION_SCOPE.md).
+| Question | Source | Verification |
+|:--|:--|:--|
+| How is the temporal population separated? | [Temporal corpus](src/otto_recsys/research/protocol.py) | [Protocol tests](tests/test_research_protocol.py) |
+| How are candidates and features constructed? | [Retrieval](src/otto_recsys/research/retrievers.py) · [Features](src/otto_recsys/research/features.py) | [Retrieval tests](tests/test_research_retrieval.py) · [Feature tests](tests/test_research_features.py) |
+| How are models selected and frozen? | [Training](src/otto_recsys/research/training.py) · [Study](src/otto_recsys/research/study.py) | [Training tests](tests/test_research_training.py) |
+| How are delivered rows checked? | [Inference](src/otto_recsys/research/inference.py) | [Inference tests](tests/test_research_inference.py) |
+| Can the reported feature gain be inspected? | [Executed controlled study](notebooks/09_controlled_feature_study.ipynb) | [Evidence checker](scripts/review_portfolio.py) |
 
-</details>
+## Release boundary
 
-## Two engineering lessons worth reviewing
+This is a completed offline ML portfolio project, not a deployed retail service. Public source, tests, the controlled notebook and compact final evidence are retained. Unused GPU retrievers, abandoned model branches, workspace launchers and dated experiment dumps are not part of the current project.
 
-**Better features mattered.** The selected representation improved the controlled reference by **1.949 percentage points**, with a paired session-bootstrap 95% interval of **1.840–2.065 points**. [Executed feature study](notebooks/09_controlled_feature_study.ipynb).
+Private data, full prediction populations, trained private similarity artifacts, exact routing recipes and credentials remain excluded. The original project-specific AWS storage was decommissioned; public commands do not depend on it. Git history is retained, but historical branches are not supported execution paths.
 
-**Better candidate coverage was not enough.** A later orders retriever increased reachable hits from **2,556 to 2,600**. Its first reranking integration delivered **2,302** correct top-20 order hits against the incumbent's **2,326**, so it was rejected. This preserved the verified release rather than trading integrity for a favorable diagnostic. [Closeout and decision record](docs/RESEARCH_STATUS.md).
-
-The earlier corrected click/cart challenger is **rejected** after replay against the actual deployed comparator. That validation-integrity case remains available alongside the later orders study. [Inspect the correction](research/frontier/11_validation_integrity_reconciliation.md).
-
-## Review by interest
-
-| Reviewer | Recommended path |
-|:--|:--|
-| **ML engineering** | [Architecture](docs/ARCHITECTURE.md) → [Decisions](docs/DECISIONS.md) → [Native reproduction](docs/QUICKSTART.md) |
-| **Data science** | [Model card](docs/MODEL_CARD.md) → [Controlled study](notebooks/09_controlled_feature_study.ipynb) → [Research decisions](docs/RESEARCH_STATUS.md) |
-| **Applied AI** | [Neural retrieval code](gpu/two_tower) → [Representation study](research/neural_stack) → [Release provenance](docs/INFERENCE.md) |
-| **Hiring overview** | [Five-minute guide](docs/REVIEWER_GUIDE.md) → [Evidence map](docs/EVIDENCE_MAP.md) → [Employer overview](docs/EMPLOYER_OVERVIEW.md) |
-
-## Project status
-
-**Portfolio release complete; active experimental work concluded.** The October 12, 2026 closeout rechecked the previously submitted CSV's full checksum. It did not retrain models or claim a new score. Some private experimental caches were unavailable; their presence is not required for the new public reference workflow, but exact later-release reconstruction remains a documented limitation. [Sanitized closeout](reports/closeout/summary.json).
-
-Existing notebooks, research modules, test suites, aggregate evidence and archived decisions remain available. Cloud-account identifiers in historical public metadata are replaced with placeholders; original-to-public byte changes are documented without exposing those identifiers. No credentials or owner-specific cloud setup are required for public reproduction. [Security and publication policy](docs/PUBLICATION_SCOPE.md).
-
-**Stack:** Python · Polars · LightGBM · PyTorch · FAISS · AWS SageMaker/S3 · Plotly · pytest · GitHub Actions.
+**Alvaro Mendizabal · Machine Learning Engineer** · Python · Polars · LightGBM · temporal validation · reproducible ML systems.

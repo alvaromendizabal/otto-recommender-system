@@ -17,8 +17,8 @@ import lightgbm as lgb
 import numpy as np
 import polars as pl
 
+from otto_recsys.checkpoints import workspace_lock
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
-from otto_recsys.ranking.feature_cache import workspace_lock
 from otto_recsys.research.competition_input import require_competition_input
 from otto_recsys.research.dataset import OBJECTIVES
 from otto_recsys.research.deployment import source_identity
