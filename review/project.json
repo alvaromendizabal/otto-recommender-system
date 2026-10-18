@@ -24,27 +24,27 @@
       "title": "Keep retrieval coverage separate from ranking quality.",
       "decision": "Measure what candidate generation can reach and what the final ranked list actually recovers.",
       "boundary": "An increased candidate ceiling does not establish an improved top-20 result.",
-      "implementation": "src/otto_recsys/ranking/candidates.py",
-      "tests": "tests/test_candidates.py",
-      "evidence": "docs/EVIDENCE_MAP.md"
+      "implementation": "src/otto_recsys/research/retrievers.py",
+      "tests": "tests/test_research_retrieval.py",
+      "evidence": "docs/ARCHITECTURE.md"
     },
     {
       "audience": "Data science",
       "title": "Make feature gains a matched comparison.",
       "decision": "Compare controlled representations on the same temporal population and preserve paired uncertainty estimates.",
       "boundary": "The local feature-study metric is not the externally recorded release score.",
-      "implementation": "src/otto_recsys/ranking/features.py",
-      "tests": "tests/test_ranking_features.py",
-      "evidence": "docs/PORTFOLIO.md"
+      "implementation": "src/otto_recsys/research/features.py",
+      "tests": "tests/test_research_features.py",
+      "evidence": "docs/MODEL_CARD.md"
     },
     {
       "audience": "ML engineering",
       "title": "Recover training without losing model identity.",
       "decision": "Use native model reloads, full-query ranking metrics, and atomic iteration checkpoints.",
       "boundary": "This source does not certify every upstream private retrieval artifact.",
-      "implementation": "src/otto_recsys/ranking/lambdarank.py",
-      "tests": "tests/test_lambdarank.py",
-      "evidence": "docs/INFERENCE.md"
+      "implementation": "src/otto_recsys/research/training.py",
+      "tests": "tests/test_research_training.py",
+      "evidence": "docs/QUICKSTART.md"
     },
     {
       "audience": "ML engineering",
@@ -52,7 +52,7 @@
       "decision": "Provide explicit review, native training, verification, and resource-bounded full-data research modes.",
       "boundary": "The public reference is not an exact reconstruction of the later neural-similarity release.",
       "implementation": "reproduce.py",
-      "tests": "tests/test_public_demo.py",
+      "tests": "tests/test_public_reproduction.py",
       "evidence": "docs/QUICKSTART.md"
     }
   ],
@@ -89,21 +89,21 @@
   ],
   "read_more": [
     {
-      "path": "docs/PORTFOLIO.md",
-      "label": "Case study"
+      "path": "docs/ARCHITECTURE.md",
+      "label": "Retained architecture"
     },
     {
       "path": "docs/QUICKSTART.md",
       "label": "Native reference workflow"
     },
     {
-      "path": "docs/EVIDENCE_MAP.md",
-      "label": "Technical evidence map"
+      "path": "docs/MODEL_CARD.md",
+      "label": "Final evidence and limitations"
     }
   ],
   "schema_version": 1,
   "repository": "alvaromendizabal/otto-recommender-system",
-  "reviewed_base_commit": "088cf699129b8c84ebaaf8e61334637d7b295882",
+  "reviewed_base_commit": "439a1dc3150a327f41ec42e679cb821f844273e2",
   "source_scopes": [
     {
       "directory": "src/otto_recsys",
@@ -155,12 +155,6 @@
       ]
     },
     {
-      "directory": "reports/latest_execution",
-      "suffixes": [
-        ".json"
-      ]
-    },
-    {
       "directory": "reports/research",
       "suffixes": [
         ".json"
@@ -173,7 +167,7 @@
     "README.md",
     "review/README.md",
     "docs/RECOMMENDATION_DIAGNOSTICS.md",
-    "docs/HISTORICAL_DEVELOPMENT_EVIDENCE.md"
+    "reports/release_scope.json"
   ],
   "reports": [
     {

@@ -15,8 +15,8 @@ import numpy as np
 import polars as pl
 import psutil
 
+from otto_recsys.checkpoints import workspace_lock
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
-from otto_recsys.ranking.feature_cache import workspace_lock
 from otto_recsys.research.dataset import OBJECTIVES, Queries, session_hash
 from otto_recsys.research.evaluation import verify_seal
 from otto_recsys.research.features import FeatureEngine, feature_catalog

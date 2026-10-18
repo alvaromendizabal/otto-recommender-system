@@ -16,8 +16,8 @@ from typing import Any
 
 import duckdb
 
+from otto_recsys.checkpoints import workspace_lock
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
-from otto_recsys.ranking.feature_cache import workspace_lock
 from otto_recsys.runtime import Heartbeat
 
 DAY_MS = 86_400_000
@@ -211,10 +211,13 @@ def build_temporal_corpus(
                         WHERE e.ts < {protocol.history_end}) TO {sql_path(history)}
                         (FORMAT PARQUET, COMPRESSION ZSTD)""")
                     history.replace(output / "history.parquet")
-                    atomic_json(history_receipt, {
-                        "input_id": input_id,
-                        "sha256": sha256_file(output / "history.parquet"),
-                    })
+                    atomic_json(
+                        history_receipt,
+                        {
+                            "input_id": input_id,
+                            "sha256": sha256_file(output / "history.parquet"),
+                        },
+                    )
                 else:
                     logger.info("temporal_history_reused")
                 stage["phase"] = "query_prefixes"

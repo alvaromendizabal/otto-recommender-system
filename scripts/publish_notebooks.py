@@ -4,6 +4,7 @@ This command does not execute kernels or call Git. A results-branch workflow run
 all quality gates and the executor before invoking it. This script publishes only
 notebooks; the workflow separately builds and verifies the portfolio figure bundle.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -56,10 +57,17 @@ def cell_sources(notebook: dict[str, Any]) -> list[tuple[str, str]]:
 
 
 def identity(
-    notebook: dict[str, Any], inputs: dict[str, str], runtime: dict[str, str], timeout: int,
+    notebook: dict[str, Any],
+    inputs: dict[str, str],
+    runtime: dict[str, str],
+    timeout: int,
 ) -> str:
-    value = {"runtime": runtime, "dependencies": inputs, "timeout": timeout,
-             "cells": cell_sources(notebook)}
+    value = {
+        "runtime": runtime,
+        "dependencies": inputs,
+        "timeout": timeout,
+        "cells": cell_sources(notebook),
+    }
     return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
 
@@ -95,14 +103,18 @@ def atomic_bytes(path: Path, data: bytes) -> None:
 def publish(root: Path, executed: Path, *, timeout: int = 300) -> dict[str, Any]:
     """Validate the entire batch before copying any bytes; receipts are committed last."""
     root, executed = root.resolve(), executed.resolve()
-    if timeout <= 0 or any(executed.is_relative_to(root / path)
-                           for path in ("notebooks", "reports", "configs")):
+    if timeout <= 0 or any(
+        executed.is_relative_to(root / path) for path in ("notebooks", "reports", "configs")
+    ):
         raise ValueError("Execution outputs must be separate, with a positive cell timeout")
     sources = sorted((root / "notebooks").glob("[0-9][0-9]_*.ipynb"))
     manifest = load(executed / "manifest.json")
-    if (not sources or manifest["status"] != "passed"
-            or manifest["notebooks"] != len(sources)
-            or manifest["reused_notebooks"] != len(sources)):
+    if (
+        not sources
+        or manifest["status"] != "passed"
+        or manifest["notebooks"] != len(sources)
+        or manifest["reused_notebooks"] != len(sources)
+    ):
         raise ValueError("Require successful execution and verified reuse of every notebook")
     receipts = manifest["receipts"]
     names = [path.name for path in sources]
@@ -119,21 +131,25 @@ def publish(root: Path, executed: Path, *, timeout: int = 300) -> dict[str, Any]
         original = load(source)
         raw = result_path.read_bytes()
         result = json.loads(raw)
-        if (receipt != by_name[source.name]
-                or receipt["notebook"] != source.name
-                or receipt["sha256"] != hashlib.sha256(raw).hexdigest()
-                or receipt["input_id"] != identity(original, inputs, runtime, timeout)
-                or receipt["runtime"] != runtime
-                or cell_sources(result) != cell_sources(original)
-                or validate_outputs(result) != receipt["code_cells"]):
+        if (
+            receipt != by_name[source.name]
+            or receipt["notebook"] != source.name
+            or receipt["sha256"] != hashlib.sha256(raw).hexdigest()
+            or receipt["input_id"] != identity(original, inputs, runtime, timeout)
+            or receipt["runtime"] != runtime
+            or cell_sources(result) != cell_sources(original)
+            or validate_outputs(result) != receipt["code_cells"]
+        ):
             raise ValueError(f"Execution/source/evidence mismatch: {source.name}")
         prepared.append((source, raw, receipt))
     total_cells = sum(receipt["code_cells"] for _, _, receipt in prepared)
     if manifest["code_cells"] != total_cells:
         raise ValueError("Execution manifest code-cell total is inconsistent")
     record = {
-        "status": "passed", "published_at_utc": datetime.now(UTC).isoformat(),
-        "notebooks": len(prepared), "code_cells": total_cells,
+        "status": "passed",
+        "published_at_utc": datetime.now(UTC).isoformat(),
+        "notebooks": len(prepared),
+        "code_cells": total_cells,
         "retained_compute_seconds": manifest["retained_compute_seconds"],
         "verification": "Source cells, input/runtime fingerprints, output bytes and reuse verified",
         "receipts": [receipt for _, _, receipt in prepared],
@@ -141,8 +157,10 @@ def publish(root: Path, executed: Path, *, timeout: int = 300) -> dict[str, Any]
     for source, raw, _ in prepared:
         atomic_bytes(source, raw)
     # Kept outside reports/configs, so publishing the receipt does not invalidate input identity.
-    atomic_bytes(root / "notebooks/execution.json",
-                 (json.dumps(record, indent=2, sort_keys=True) + "\n").encode())
+    atomic_bytes(
+        root / "notebooks/execution.json",
+        (json.dumps(record, indent=2, sort_keys=True) + "\n").encode(),
+    )
     return record
 
 

@@ -14,7 +14,7 @@ def test_raw_validation_accepts_valid_session(tmp_path: Path) -> None:
         '{"aid":10,"ts":1000,"type":"clicks"},'
         '{"aid":11,"ts":2000,"type":"carts"},'
         '{"aid":11,"ts":3000,"type":"orders"}'
-        ']}\n',
+        "]}\n",
         encoding="utf-8",
     )
 
@@ -40,7 +40,7 @@ def test_raw_validation_rejects_time_reversal(tmp_path: Path) -> None:
         '{"session":1,"events":['
         '{"aid":10,"ts":2000,"type":"clicks"},'
         '{"aid":11,"ts":1000,"type":"carts"}'
-        ']}\n',
+        "]}\n",
         encoding="utf-8",
     )
 
@@ -55,9 +55,7 @@ def test_raw_validation_rejects_unknown_action(tmp_path: Path) -> None:
     source = tmp_path / "sample.jsonl"
 
     source.write_text(
-        '{"session":1,"events":['
-        '{"aid":10,"ts":1000,"type":"unknown"}'
-        ']}\n',
+        '{"session":1,"events":[{"aid":10,"ts":1000,"type":"unknown"}]}\n',
         encoding="utf-8",
     )
 

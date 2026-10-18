@@ -25,20 +25,17 @@ def main() -> int:
     else:
         release = snapshot["verified_release"]
         controlled = snapshot["controlled_study"]
-        diagnostic = snapshot["candidate_diagnostic"]
-        print(f"OTTO PUBLIC REVIEW — evidence as of {snapshot['as_of_utc']}")
-        print(f"Release: {release['private_score']:.5f} private / "
-              f"{release['public_score']:.5f} public; {release['evaluation_setting']}.")
+        print("OTTO PUBLIC REVIEW — retained historical release")
+        print(
+            f"Release: {release['private_score']:.5f} private / "
+            f"{release['public_score']:.5f} public; {release['evaluation_setting']}."
+        )
         print(f"Delivery: {release['sessions']:,} sessions; {release['rows']:,} rows.")
-        print(f"Offline study: {controlled['weighted_recall_at_20']['selected']:.6f}; "
-              f"{controlled['sessions']:,} sessions; "
-              f"+{100 * controlled['selected_minus_core']:.3f} percentage points over compact.")
-        print(f"Later challenger: {snapshot['research_status']}.")
-        print(f"Separate cart diagnostic: {diagnostic['ranked_hits']:,} ranked hits; "
-              f"{diagnostic['coverage_hits']:,} candidate ceiling; "
-              f"{diagnostic['denominator']:,} capped targets.")
-        print(f"Archived research question ({snapshot['as_of_utc']}): "
-              f"{snapshot['next_research_question']}.")
+        print(
+            f"Offline study: {controlled['weighted_recall_at_20']['selected']:.6f}; "
+            f"{controlled['sessions']:,} sessions; "
+            f"+{100 * controlled['selected_minus_core']:.3f} percentage points over compact."
+        )
         print("OTTO_PUBLIC_REVIEW_PASSED — recorded evidence checked; no new model or score.")
     return 0
 

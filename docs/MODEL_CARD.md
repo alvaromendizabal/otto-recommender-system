@@ -1,138 +1,33 @@
-# Model card: controlled OTTO ranker
+# Model card · retained recommendation system
 
-> **Scope:** this card describes the reproducible 102-feature controlled reference model. The project also contains later routed descendants; the strongest verified post-competition release is **0.57586 private / 0.57601 public**. See [Inference and provenance](INFERENCE.md).
+## Task and intended use
 
-**Reference-model competition result:** **0.56842 private / 0.56862 public**, accepted by Kaggle as a late submission using the frozen reference model and verified official test prefixes.
+Given an anonymous observed shopping-session prefix, return separate top-20 lists for clicks, carts and orders. The project is an offline research and batch-inference portfolio, not an online retail service.
 
-**Source correction:** the initial Kaggle submission is invalidated because its
-input contained full post-competition test sessions, including future events.
-The 0.93554 / 0.93583 scores are retained as incident evidence, not valid model
-performance. Corrected inference and Kaggle scoring are complete on the attested official truncated test.
-See [the source audit](../reports/submissions/data_provenance_audit.json).
+## Retained approach
 
-## Purpose and intended use
+Historical co-visitation and observed-prefix candidates feed candidate/session features and task-specific LightGBM ranking. The controlled reference selected 102 features from 1,482 formulas using fitting-only screening. The later delivered release preserves established click/cart routing and uses a promoted 137-feature similarity orders ranker. Private similarities, routing and final model artifacts are outside the public reproduction scope.
 
-Rank candidate products for the next click, cart and order in anonymous OTTO shopping
-sessions. This is an offline research and batch-inference demonstration for an employer
-portfolio. Outputs are ordered product IDs, not calibrated purchase probabilities.
-No online deployment, revenue lift, or personalization across identified users is claimed.
-The valid late submission scores **0.56842 private / 0.56862 public**. This is a
-historical competition evaluation and does not establish a leaderboard rank or
-state-of-the-art result. [Accepted result and source evidence](INFERENCE.md#recorded-kaggle-result)
+## Measurements
 
-## Model and inputs
+| Record | Value | Scope |
+|---|---:|---|
+| Compact control | 0.564904 weighted Recall@20 | 432,492 temporal evaluation sessions |
+| Selected representation | 0.584392 weighted Recall@20 | The same matched population |
+| Paired improvement interval | +1.840 to +2.065 percentage points | Recorded session-bootstrap 95% interval |
+| Retained scored release | 0.57586 private / 0.57601 public | Post-competition evaluation, not an official rank |
+| Batch coverage | 1,671,803 sessions / 5,015,409 rows | Three objective-specific rows per session |
 
-Three native LightGBM 4.7.0 LambdaRank models use the same selected 102-feature schema.
-Click, cart and order checkpoints contain 40, 60 and 95 boosting iterations respectively.
-The experiment uses learning rate 0.05, 31 leaves, minimum leaf size 100, deterministic
-CPU training and a fixed seed of 20260908. Complete parameter contracts accompany each
-native checkpoint.
+[Controlled-study manifest](../reports/research/manifest.json) · [Evaluation](../reports/research/evaluation.json) · [Release receipt](../reports/submissions/similarity_stack_20260925.json) · [Scope record](../reports/release_scope.json).
 
-Candidate generation combines three historical co-visitation channels, observed-session
-revisits and historical popularity into a common pool of up to 400 products. The selected
-schema contains 57 historical-context, 19 session-context, 17 recurrence, 5 graph-affinity
-and 4 intent-interaction features. Direct source-family columns were excluded after matched
-selection experiments. Graph and intent interactions still encode retrieval information. The catalog defines all formulas and their availability in
-[feature_catalog.csv](../reports/research/feature_catalog.csv).
+These populations are different. The earlier incorrect full-test input was excluded from accepted performance; [the source-provenance audit](../reports/submissions/data_provenance_audit.json) retains that limitation. This publication does not claim a new model score, online revenue lift or a complete independent authentication of historical receipts.
 
-Raw product and session IDs locate observations and candidates; they are not numeric
-model features. Features use the fixed permitted history and observed prefix. Unseen
-items and missing graph edges receive defined fallback values. Candidate generation
-cannot recover every future product; those missed targets remain in evaluation.
+## Validation and failure boundaries
 
-## Training and selection
+History, fitting, selection and evaluation have explicit temporal roles. Feature screening uses fitting labels only; reserved evaluation follows a model seal. Retrieval coverage is an upper bound, not achieved ranking. Missing candidates, cold-start products and changes in session behavior remain failure modes. Metrics weight clicks 10%, carts 30% and orders 60%, using the declared capped pooled denominator for each objective.
 
-The source conversion covers 216,716,096 events in 12,899,779 training sessions.
-All 217 original Parquet partitions were independently hashed; raw JSONL source identity
-is retained, but the original conversion was not independently replayed.
+Source identities, input hashes and complete output coverage protect reuse. These controls catch artifact and population inconsistencies; they do not establish future business performance.
 
-| Role | Availability, UTC | Query sample |
-|---|---|---:|
-| Historical retrieval | Before August 20, 2022, 22:00 | All permitted history |
-| Ranker fitting | August 20–23, 22:00 boundaries | 100,000 sessions |
-| Model selection | August 23–24, 22:00 boundaries | 20,000 sessions |
-| Reserved evaluation | August 24–26, 22:00 boundaries | All 432,492 eligible sessions |
+## Reproduction
 
-Sessions are disjoint across roles and assigned by their first event. Exclusive period
-ends clip future observations. Prefix cuts and sampling do not consult target labels.
-Targets are the next click and unique future cart/order items.
-
-The broad screening sample has 514,013 candidate rows from 8,448 fitting sessions.
-Three session-grouped folds and three binary objective pilots provide gain/stability
-diagnostics. Quality, redundancy and capacity screening reduce 1,482 formulas to 128.
-Eight matched configurations fit three rankers each. All use the same fitting candidate
-sample: discovered positives plus 30 hard and 30 random negatives. Selection retains
-all 400 candidates per query. Models maximize selection Recall@20, with fewer features
-then variant name resolving exact ties. The source-family ablation wins all tasks.
-
-The model-selection seal was persisted before the evaluation labels were opened. The
-original OTTO dataset had earlier exploratory exposure; this newly reserved temporal
-study does not claim never-inspected data. Earlier Item2Vec and neural checkpoints are
-not inputs to the controlled comparison.
-
-## Evaluation and tradeoffs
-
-| Metric | Fusion | Compact ranker | Selected ranker |
-|---|---:|---:|---:|
-| Click Recall@20 | 0.526781 | 0.457558 | 0.505645 |
-| Cart Recall@20 | 0.430211 | 0.408325 | 0.427919 |
-| Order Recall@20 | 0.589171 | 0.661085 | 0.675753 |
-| Weighted Recall@20 | 0.535244 | 0.564904 | 0.584392 |
-
-The selected model improves weighted recall by 0.049148 over fusion and 0.019488 over
-the compact control. The respective paired 95% gain intervals are [0.046972, 0.051363]
-and [0.018399, 0.020645], from 1,000 session bootstrap replicates. These quantify query
-sampling uncertainty conditional on the frozen model and temporal cohort, not training
-or hyperparameter-search uncertainty.
-
-Fusion wins click and cart recall. Orders carry 60% of the official metric and explain
-the aggregate gain. The 2–5-event prefix slice slightly loses to fusion. No hybrid was
-chosen after observing these evaluation results. The 400-candidate weighted ceiling
-is 0.686951, leaving both retrieval and ranking headroom.
-
-Native TreeSHAP and whole-query family permutation are diagnostic explanations, not
-causal effects. The warm feature-computation benchmark measures 64 queries over two
-passes of the same 32 prefixes: selected p50/p95 5.83/6.42 ms versus 17.21/22.10 ms for
-the full catalog. It excludes model scoring, network, storage and service overhead.
-
-## Verification and lineage
-
-The separate programmatic audit reconstructed every observed prefix and all 788,883 target
-records across fit, selection and evaluation from the original Parquet event partitions.
-Both directions of the comparisons contain zero differences. Complete per-query metric
-counts reproduce every published score, all 24 native model digests match, and 4,608
-sampled prediction/candidate checks have zero mismatches. Another 6,912 sampled
-NDCG, reciprocal-rank and hit-rate checks match separately implemented arithmetic.
-This is a project verification procedure, not an external third-party certification.
-
-| Artifact | Identity / evidence |
-|---|---|
-| Temporal corpus | `55ad451e895863af311e4a917a6fe0d4ab9165ad6b406fffb066d25bf0af4754` |
-| Selection seal | `0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e` |
-| Evaluation | `adff5d8966b06ba568de08e84646061c42a2d87899fc5d1ba1577f1783cc1114` |
-| Native models and feature order | [Evaluation seal](../reports/research/evaluation_seal.json) |
-| Separate programmatic audit | [Audit report](../reports/research/audit.json) |
-| Full evidence hashes | [Publication manifest](../reports/research/manifest.json) |
-
-Competition inference uses the frozen ranking weights with a separately identified
-historical graph refreshed from all permitted training events. Training history must
-precede test observations and have disjoint session IDs. This operational refresh does
-not change or retroactively replace the research evaluation.
-
-Notebook 10 now replays eight official-prefix sessions from the corrected full output. The managed run completed on September 9 and generated 5,015,409 task rows in a 289,541,110-byte gzip. All rows, exact session coverage, recommendation lists and the downloaded SHA-256 were independently checked. [Execution and coverage evidence](../reports/research/competition_cloud_verification.json). Kaggle accepted and scored this artifact at **0.56842 private / 0.56862 public**; the notebook verifies the receipt and reports those displayed scores.
-
-## Limits and appropriate conclusions
-
-The selected feature procedure beats the matched compact ranker in **all nine audited runs**. Gains range from **+1.791 to +2.180 percentage points**, with all paired 95% session-bootstrap intervals above zero. Every window and seed chooses the variant without direct source-score features for all three actions.
-
-The highest absolute offline score is **0.590759**, middle window seed **20260908**. On the reference cohort, seed **20260910** is highest at **0.584988**. Different windows use different sessions, so these are descriptive maxima. The original reference seed **20260908** remains the submission model, with **0.584392** on its reserved evaluation; no new seed is chosen using evaluation results.
-
-The headline model uses a bounded 100,000-session fitting sample. All nine cells are complete, but repeated seeds share the same cohort within each window and histories overlap across periods. This does not establish robustness to every period, seed, market or catalog. The dataset is historical and anonymized;
-protected-group fairness and individual-level outcomes cannot be evaluated from these
-inputs. The task is offline recommendation, with no online exploration or exposure-bias
-correction. The multi-objective metric is a prescribed weighted aggregate, not a learned
-Pareto frontier or a business-utility estimate.
-
-Further temporal cohorts, certified neural retrieval under the same
-cutoffs and an online experiment would extend the evidence. Those are future research
-questions, not prerequisites for reproducing the completed experiment.
+The [public review](../review/README.md) is dependency-free. The native training profile uses actual project components with invented records. Full reference research needs independently obtained official training data, the locked environment and declared resources. The complete private release is not recoverable from the fixture, and former AWS object locations are no longer a supported download path.

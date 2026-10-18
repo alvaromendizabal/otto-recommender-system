@@ -1,6 +1,6 @@
 # Run the synthetic recommendation demo
 
-**[Explore the recommendation walkthrough](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site)** · [Current research status](RESEARCH_STATUS.md)
+**[Explore the recommendation walkthrough](https://alvaro-otto-session-lab.tartmacaw2.chatgpt.site)** · [Current research status](MODEL_CARD.md)
 
 Run a complete, small recommendation pipeline locally with **Python 3.11 or later**.
 It uses only the standard library: no installation, account, data download, GPU or
@@ -128,5 +128,5 @@ check behavior; they are not a rendered-browser layout audit.
 - [Publication and reproducibility scope](PUBLICATION_SCOPE.md)
 
 The public demo, recorded-evidence review and bounded historical model replay are
-three different review paths. The [reproducibility guide](REPRODUCIBILITY.md)
+three different review paths. The [reproducibility guide](QUICKSTART.md)
 explains what each path actually executes.

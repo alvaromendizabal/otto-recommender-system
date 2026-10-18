@@ -22,9 +22,17 @@ def test_renamed_or_modified_partitions_cannot_reuse_valid_provenance(tmp_path):
     (tmp_path / "manifest.json").write_text(json.dumps(conversion))
     part = tmp_path / "part-000000.parquet"
     part.write_bytes(b"attested-prefix")
-    expected = {"conversion": conversion, "source": "competition", "raw_sha256": "a" * 64,
-                "files": {part.name: {"sha256": hashlib.sha256(part.read_bytes()).hexdigest(),
-                                       "bytes": part.stat().st_size}}}
+    expected = {
+        "conversion": conversion,
+        "source": "competition",
+        "raw_sha256": "a" * 64,
+        "files": {
+            part.name: {
+                "sha256": hashlib.sha256(part.read_bytes()).hexdigest(),
+                "bytes": part.stat().st_size,
+            }
+        },
+    }
     assert check_competition_input(tmp_path, expected)["events"] == 1
     part.write_bytes(b"future-events-added")
     with pytest.raises(ValueError, match="partition bytes"):

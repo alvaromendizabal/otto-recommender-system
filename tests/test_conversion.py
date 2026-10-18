@@ -15,11 +15,11 @@ def make_source(tmp_path: Path) -> tuple[Path, Path]:
         '{"aid":10,"ts":1000,"type":"clicks"},'
         '{"aid":11,"ts":2000,"type":"carts"},'
         '{"aid":12,"ts":3000,"type":"orders"}'
-        ']}\n'
+        "]}\n"
         '{"session":2,"events":['
         '{"aid":20,"ts":4000,"type":"clicks"},'
         '{"aid":21,"ts":5000,"type":"orders"}'
-        ']}\n',
+        "]}\n",
         encoding="utf-8",
     )
 
@@ -54,8 +54,7 @@ def test_conversion_preserves_all_events(tmp_path: Path) -> None:
     assert manifest.parts_written == 2
 
     rows = sum(
-        pq.ParquetFile(path).metadata.num_rows
-        for path in sorted(output.glob("part-*.parquet"))
+        pq.ParquetFile(path).metadata.num_rows for path in sorted(output.glob("part-*.parquet"))
     )
 
     assert rows == 5
@@ -95,8 +94,7 @@ def test_conversion_resumes_from_partial_manifest(
     assert complete.events_processed == 5
 
     rows = sum(
-        pq.ParquetFile(path).metadata.num_rows
-        for path in sorted(output.glob("part-*.parquet"))
+        pq.ParquetFile(path).metadata.num_rows for path in sorted(output.glob("part-*.parquet"))
     )
 
     assert rows == 5

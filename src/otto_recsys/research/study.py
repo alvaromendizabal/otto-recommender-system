@@ -13,8 +13,8 @@ import lightgbm as lgb
 import numpy as np
 import polars as pl
 
+from otto_recsys.checkpoints import workspace_lock
 from otto_recsys.experiments.manifest import canonical_json_sha256, sha256_file
-from otto_recsys.ranking.feature_cache import workspace_lock
 from otto_recsys.research.dataset import OBJECTIVES, Queries
 from otto_recsys.research.features import feature_catalog
 from otto_recsys.research.materialize import MODEL_METADATA
