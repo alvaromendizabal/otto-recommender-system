@@ -1,0 +1,79 @@
+name: Repair canonical recommendation review
+on:
+  push:
+    branches: [maintenance/portfolio-sweep-20261019]
+    paths: [.github/workflows/zz-review-repair.yml]
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d
+        with:
+          python-version: '3.12.13'
+          enable-cache: false
+      - name: Reconcile only inspected review links and public/private scope
+        shell: python
+        run: |
+          import hashlib,json,subprocess
+          from pathlib import Path
+          base='f27ea2115b102f56aac89ea71104a2b60d201a42'
+          if subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip()!=base:
+              raise RuntimeError('Main advanced; reconcile before editing')
+          subprocess.run(['git','diff','--exit-code',base,'HEAD','--','.',':(exclude).github/workflows/zz-review-repair.yml'],check=True)
+          p=Path('review/README.md');text=p.read_text()
+          replacements={'src/otto_recsys/ranking/candidates.py':'src/otto_recsys/research/retrievers.py','tests/test_candidates.py':'tests/test_research_retrieval.py','docs/EVIDENCE_MAP.md':'docs/ARCHITECTURE.md','src/otto_recsys/ranking/features.py':'src/otto_recsys/research/features.py','tests/test_ranking_features.py':'tests/test_research_features.py','docs/PORTFOLIO.md':'docs/MODEL_CARD.md','src/otto_recsys/ranking/lambdarank.py':'src/otto_recsys/research/training.py','tests/test_lambdarank.py':'tests/test_research_training.py','docs/INFERENCE.md':'docs/QUICKSTART.md','Provide explicit review, native training, verification, and resource-bounded full-data research modes.':'Provide explicit evidence review, native reference training, verified reuse and output inspection.','tests/test_public_demo.py':'tests/test_public_reproduction.py','The existing native training and full-data reference workflows remain available, separate from the later private neural release.':'The maintained native reference training is separate from the later delivered release, which additionally uses private similarity-feature and routing artifacts.','current neural checkpoints':'private fitted checkpoints'}
+          for old,new in replacements.items():
+              if old not in text:raise ValueError('Expected reference missing: '+old)
+              text=text.replace(old,new)
+          p.write_text(text.rstrip()+'\n')
+          p=Path('review/project.json');value=json.loads(p.read_text())
+          value['cards'][-1]['decision']='Provide explicit evidence review, native reference training, verified reuse and output inspection.'
+          value['cards'][-1]['boundary']='The public reference is not an exact reconstruction of the later private similarity-enhanced release.'
+          value['scope']='The selected Python command runs the existing public reference review and synthetic recommendation report. Optional Node checks exercise the report interface. The maintained native reference training is separate from the later delivered release, which additionally uses private similarity-feature and routing artifacts.'
+          value['private_boundary']=value['private_boundary'].replace('current neural checkpoints','private fitted checkpoints')
+          p.write_text(json.dumps(value,indent=2)+'\n')
+          p=Path('notebooks/09_controlled_feature_study.ipynb');raw=p.read_bytes()
+          if hashlib.sha256(raw).hexdigest()!='44ac6a88017ea856c78cf5bd173baa3ba8c750f213284bc89b132cd7cec0cc76':
+              raise ValueError('Canonical study changed before navigation repair')
+          value=json.loads(raw);before=[c for c in value['cells'] if c['cell_type']=='code']
+          cell=value['cells'][0];text=''.join(cell['source'])
+          old='[Notebook 10](10_competition_inference.ipynb)\nruns native models and generates predictions. [Methods](../docs/RESEARCH.md)'
+          if old not in text:raise ValueError('Obsolete study pointer missing')
+          text=text.replace(old,'[The native reference workflow](../docs/QUICKSTART.md)\nruns retained models and verifies predictions. [Methods](../docs/ARCHITECTURE.md)')
+          cell['source']=text.splitlines(keepends=True)
+          if before!=[c for c in value['cells'] if c['cell_type']=='code']:raise ValueError('Computational cells unexpectedly changed')
+          p.write_text(json.dumps(value,indent=1,ensure_ascii=False)+'\n')
+      - name: Re-execute and seal the actual controlled-study notebook
+        run: |
+          uv venv /tmp/otto-analysis --python 3.12.13 --no-project
+          uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
+          /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
+          /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
+          /tmp/otto-analysis/bin/python scripts/publish_notebooks.py
+          python3 -B -S review/run.py --render
+          python3 -B -S review/run.py --output "$RUNNER_TEMP/review"
+          python3 -B -S review/run.py --output "$RUNNER_TEMP/review" --check
+      - name: Commit only the repaired source and genuine notebook execution
+        run: |
+          git add review/README.md review/project.json review/index.html notebooks/09_controlled_feature_study.ipynb notebooks/execution.json
+          git diff --cached --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Remove stale prototype links and verify the retained recommendation study'
+          git push origin HEAD:maintenance/portfolio-sweep-20261019
+          git archive --format=zip --output="$RUNNER_TEMP/source.zip" HEAD
+          git rev-parse HEAD > "$RUNNER_TEMP/commit.txt"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: repaired-source
+          path: |
+            ${{ runner.temp }}/source.zip
+            ${{ runner.temp }}/commit.txt
+          retention-days: 3
+          if-no-files-found: error
