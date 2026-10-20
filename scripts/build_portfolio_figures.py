@@ -558,7 +558,12 @@ def html_report(charts: list[Chart]) -> str:
         )
         sections.append(
             f"<section id='{chart.name}'><h2>{escape(chart.title)}</h2>"
-            f"<p>{escape(chart.caption)}</p><div class='chart'>{fragment}</div>"
+            f"<p>{escape(chart.caption)}</p>"
+            f"<p class='chart-hint' id='hint-{chart.name}'>Swipe, scroll or use the arrow keys "
+            "to explore the full chart. Exact values are below.</p>"
+            f"<div class='chart' role='region' tabindex='0' "
+            f"aria-label='{escape(chart.title)} — scrollable chart' "
+            f"aria-describedby='hint-{chart.name}'>{fragment}</div>"
             f"<details><summary>View exact values</summary>{table_html(chart.rows)}"
             "</details></section>"
         )
@@ -574,11 +579,14 @@ header{padding:0 12px 24px}h1{font-size:clamp(30px,5vw,48px);line-height:1.15;le
 h2{font-size:23px;line-height:1.3}p{max-width:90ch}a{color:#087f73;text-underline-offset:3px}
 nav{line-height:2.2}section{background:white;padding:28px;margin:24px 0;border:1px solid #dce3ec;
 border-radius:12px;scroll-margin-top:20px}.chart{overflow-x:auto}.plotly-graph-div{min-width:760px}
+.chart:focus-visible{outline:3px solid #087f73;outline-offset:3px}
+.chart-hint{display:none;font-size:14px;color:#42526e}
 summary{cursor:pointer;color:#087f73;font-weight:600}details{overflow:auto}table{border-collapse:collapse;
 font-size:14px;width:100%;margin-top:16px}
 th,td{text-align:left;padding:10px;border-bottom:1px solid #e7ecf2}
 th{background:#f4f6f9}.eyebrow{font-size:13px;letter-spacing:2px;font-weight:700;color:#087f73}
-@media(max-width:640px){main{padding:24px 12px}section{padding:16px}h2{font-size:21px}}
+@media(max-width:640px){main{padding:24px 12px}section{padding:16px}h2{font-size:21px}
+.chart-hint{display:block}}
 </style></head><body><main><header><div class="eyebrow">OTTO / MACHINE LEARNING RESEARCH</div>
 <h1>From shopping events to measured recommendations</h1>
 <p>Explore the controlled feature study: compare ranking quality, inspect feature decisions,

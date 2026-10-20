@@ -18,9 +18,12 @@ class Links(HTMLParser):
         super().__init__()
         self.hrefs = []
         self.ids = set()
+        self.chart_regions = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if "chart" in attrs.get("class", "").split():
+            self.chart_regions.append(attrs)
         if "id" in attrs:
             self.ids.add(attrs["id"])
         if tag == "a" and "href" in attrs:
@@ -70,6 +73,16 @@ class ReportArtifactsTests(unittest.TestCase):
 
     def test_saved_report_has_live_review_links(self):
         self.assertEqual(broken_links((REPORT / "index.html").read_text(), ROOT), [])
+
+    def test_wide_charts_are_keyboard_accessible_and_explained(self):
+        parsed = Links()
+        parsed.feed((REPORT / "index.html").read_text())
+        self.assertEqual(len(parsed.chart_regions), 8)
+        for region in parsed.chart_regions:
+            self.assertEqual(region.get("tabindex"), "0")
+            self.assertEqual(region.get("role"), "region")
+            self.assertTrue(region.get("aria-label"))
+            self.assertIn(region.get("aria-describedby"), parsed.ids)
 
     def test_download_is_the_same_single_offline_report(self):
         with zipfile.ZipFile(REPORT / "otto-research-report.zip") as archive:
