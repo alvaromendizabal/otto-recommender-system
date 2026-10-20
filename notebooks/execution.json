@@ -1,13 +1,13 @@
 {
   "code_cells": 11,
   "notebooks": 1,
-  "published_at_utc": "2026-10-20T00:45:22.781441+00:00",
+  "published_at_utc": "2026-10-20T04:14:52.516754+00:00",
   "receipts": [
     {
       "code_cells": 11,
-      "completed_at_utc": "2026-10-20T00:45:22.237836+00:00",
-      "compute_seconds": 28.179,
-      "input_id": "1e864af158a1261928f23c5dafa34fb8546143f0820d3e720df73056851a7ffc",
+      "completed_at_utc": "2026-10-20T04:14:52.023461+00:00",
+      "compute_seconds": 19.409,
+      "input_id": "13a04051c964bba6df404eea32b35f7c9eec649709a689c0e3de422b6b34bfbd",
       "notebook": "09_controlled_feature_study.ipynb",
       "runtime": {
         "Jinja2": "3.1.6",
@@ -70,10 +70,10 @@
         "typing_extensions": "4.16.0",
         "wcwidth": "0.8.3"
       },
-      "sha256": "d2813d600b42945d6d3bbd6f1ed949f66d05fc3a0894d798617b636a5637b167"
+      "sha256": "3dbe5a8aef30cdf7cecd8985a236ef9a1355d11dfea6a02fa54ff14c98876e13"
     }
   ],
-  "retained_compute_seconds": 28.179,
+  "retained_compute_seconds": 19.409,
   "status": "passed",
   "verification": "Source cells, input/runtime fingerprints, output bytes and reuse verified"
 }

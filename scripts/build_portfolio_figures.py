@@ -590,7 +590,7 @@ diagnostic and replication cohorts are labeled separately. These are offline res
 The report includes its Plotly library; it needs no internet connection, Python,
 dataset download or AWS account.</p>""" + (
         f"<p><a href='{REPOSITORY}'>Repository</a> · "
-        f"<a href='{REPOSITORY}/blob/main/docs/MODEL_CARD.md'>Full case study</a> · "
+        f"<a href='{REPOSITORY}/blob/main/docs/MODEL_CARD.md'>Model card</a> · "
         f"<a href='{REPOSITORY}/blob/main/notebooks/09_controlled_feature_study.ipynb'>"
         f"Executed research notebook</a></p><nav>{navigation}</nav></header>"
         + "".join(sections)
