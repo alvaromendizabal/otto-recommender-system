@@ -10,10 +10,10 @@ A large-scale session recommender with multi-source retrieval, objective-specifi
 
 | Focus | Decision to inspect | Follow the proof |
 |---|---|---|
-| Applied AI | **Keep retrieval coverage separate from ranking quality.** Measure what candidate generation can reach and what the final ranked list actually recovers. | [Code](../src/otto_recsys/ranking/candidates.py) · [Tests](../tests/test_candidates.py) · [Evidence](../docs/EVIDENCE_MAP.md) |
-| Data science | **Make feature gains a matched comparison.** Compare controlled representations on the same temporal population and preserve paired uncertainty estimates. | [Code](../src/otto_recsys/ranking/features.py) · [Tests](../tests/test_ranking_features.py) · [Evidence](../docs/PORTFOLIO.md) |
-| ML engineering | **Recover training without losing model identity.** Use native model reloads, full-query ranking metrics, and atomic iteration checkpoints. | [Code](../src/otto_recsys/ranking/lambdarank.py) · [Tests](../tests/test_lambdarank.py) · [Evidence](../docs/INFERENCE.md) |
-| ML engineering | **Offer a reference workflow without the private recipe.** Provide explicit review, native training, verification, and resource-bounded full-data research modes. | [Code](../reproduce.py) · [Tests](../tests/test_public_demo.py) · [Evidence](../docs/QUICKSTART.md) |
+| Applied AI | **Keep retrieval coverage separate from ranking quality.** Measure what candidate generation can reach and what the final ranked list actually recovers. | [Code](../src/otto_recsys/research/retrievers.py) · [Tests](../tests/test_research_retrieval.py) · [Evidence](../docs/ARCHITECTURE.md) |
+| Data science | **Make feature gains a matched comparison.** Compare controlled representations on the same temporal population and preserve paired uncertainty estimates. | [Code](../src/otto_recsys/research/features.py) · [Tests](../tests/test_research_features.py) · [Evidence](../docs/MODEL_CARD.md) |
+| ML engineering | **Recover training without losing model identity.** Use native model reloads, full-query ranking metrics, and atomic iteration checkpoints. | [Code](../src/otto_recsys/research/training.py) · [Tests](../tests/test_research_training.py) · [Evidence](../docs/QUICKSTART.md) |
+| ML engineering | **Offer a reference workflow without the private recipe.** Provide explicit evidence review, native reference training, verified reuse and output inspection. | [Code](../reproduce.py) · [Tests](../tests/test_public_reproduction.py) · [Evidence](../docs/QUICKSTART.md) |
 
 The linked tests are review entry points, not a claim that this compact command executes the full research suite. The project’s canonical reproducibility guide describes the broader environment and tests.
 
@@ -51,7 +51,7 @@ The default path does not execute Node checks and never labels them as passed. C
 
 ## What is actually reproduced
 
-The selected Python command runs the existing public reference review and synthetic recommendation report. Optional Node checks exercise the report interface. The existing native training and full-data reference workflows remain available, separate from the later private neural release.
+The selected Python command runs the existing public reference review and synthetic recommendation report. Optional Node checks exercise the report interface. The maintained native reference training is separate from the later delivered release, which additionally uses private similarity-feature and routing artifacts.
 
 A repeat invocation verifies the saved bundle rather than rerunning completed checks. `--check` performs verification only. A changed linked source file, missing evidence, changed artifact, failed command, invalid path, or mismatched check mode causes a nonzero exit. Use a fresh output directory after an intentional source change; stale evidence is never silently relabeled as current.
 
@@ -63,7 +63,7 @@ Verification also binds each command to its declared entry point, arguments and 
 
 ## Public/private boundary
 
-Raw event populations, private embeddings, current neural checkpoints, exact selected blend rules, complete prediction rows, and private AWS orchestration remain excluded.
+Raw event populations, private embeddings, private fitted checkpoints, exact selected blend rules, complete prediction rows, and private AWS orchestration remain excluded.
 
 This review adds no training result and changes no historical score, selection decision, notebook output, source attribution, or license. A synthetic demonstration, an aggregate evidence check, public reference training, and exact private-model replay are different reproducibility levels.
 

@@ -1,0 +1,44 @@
+name: Repository hygiene
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  source-and-navigation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Verify tracked source and Markdown/notebook navigation
+        shell: python
+        run: |
+          import json,re,subprocess
+          from pathlib import Path
+          from urllib.parse import unquote,urlsplit
+          root=Path.cwd().resolve()
+          paths=[x for x in subprocess.check_output(['git','ls-files','-z'],text=True).split('\0') if x]
+          errors=[];links=0;notebooks=0
+          for name in paths:
+              p=Path(name)
+              if any(x in {'__pycache__','.ipynb_checkpoints','node_modules','.venv'} or x.startswith('.cleanup') for x in p.parts):
+                  errors.append('Tracked cache or temporary preparation: '+name)
+              if p.name in {'.DS_Store','.env'} or name.startswith('.github/workflows/zz-') or name.endswith('.pyz') or ('_return_' in p.name and p.suffix=='.zip'):
+                  errors.append('Tracked temporary/sensitive runtime artifact: '+name)
+              if p.suffix=='.md': texts=[(root/p).read_text(encoding='utf-8')]
+              elif p.suffix=='.ipynb':
+                  n=json.loads((root/p).read_text(encoding='utf-8'));notebooks+=1
+                  texts=[''.join(c.get('source',[])) for c in n.get('cells',[]) if c.get('cell_type')=='markdown']
+              else: continue
+              for text in texts:
+                  text=re.sub(r'(?ms)^```[^\n]*\n.*?^```[^\n]*$','',text)
+                  for target in re.findall(r'\]\(([^\s)]+)',text):
+                      u=urlsplit(target.strip('<>'))
+                      if u.scheme or u.netloc or not u.path: continue
+                      links+=1;dest=(root/p.parent/unquote(u.path)).resolve()
+                      if not dest.is_relative_to(root) or not dest.exists():errors.append(name+' -> '+target)
+          print(json.dumps({'tracked_files':len(paths),'notebooks':notebooks,'local_file_links':links,'errors':errors},indent=2))
+          if errors:raise SystemExit(1)
