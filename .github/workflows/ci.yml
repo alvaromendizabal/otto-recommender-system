@@ -44,6 +44,10 @@ jobs:
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
           /tmp/otto-analysis/bin/python scripts/publish_notebooks.py
+      - name: Reject stale report generation, dead review links and mismatched downloads
+        run: |
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
+          python3 -S -m unittest discover -s tools -p test_report_artifacts.py -v
       - name: Retain executed evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:

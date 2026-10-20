@@ -1,7 +1,7 @@
 {
   "contract": {
     "analysis_lock_sha256": "3f07413e08d060e6d6bd286ceeec91342ab9d04557a3dfdc0dcb843d8c9f6b7c",
-    "generator_sha256": "69830160ce74c895c55e63a80717e1699cc2ca0f7a27c42145fc67b6f9b89c72",
+    "generator_sha256": "51d6da73242646b20e200b6144b0619f25d7576f9e90077595a95d1ae2768db9",
     "research_manifest_sha256": "84207c551dda36da2a0544a90a93f49c1a481a70e42d57fa8cb9faa58429b4c0",
     "robustness_comparison_sha256": "b607b90de8138b0984c4f638f13c8ca90190eb8f5f1ce5daa992f3c3cbd6bfee",
     "seal_id": "0b77504da3e1be6d41fec6e9fa8395106bd4d32741e60a913d87874d83b6af4e"
@@ -9,25 +9,25 @@
   "figures": 8,
   "files": {
     "ablations.json": "47fb9e00d6af37c373a05635b3d366140a5f9a97309a65e5c07b26284982e2c3",
-    "ablations.svg": "d5080b66bfc2bce314f4716bb07c59697216968f110d33a81dbaf96ea78645d5",
+    "ablations.svg": "512a41cbc8249eae6fd9f29d32109dad1ce1a52d8e60287194168d4e7946fb21",
     "feature_cost.json": "b72b2af5d8e037e1cef6ad9bc6fa89647ed4c5a3fd5122077fe2eb11e950afe7",
-    "feature_cost.svg": "3e297f93455614db1ea675ce2d35bcda30d2d0679ff7a3fd251a758777c2e5df",
+    "feature_cost.svg": "7505f69d9f45838c299e9265713d24057b8716cfdf586c55b9652f066d6741bd",
     "feature_dependence.json": "e5b99d1623dc4c74570f444fe3a39d6d332839c5db5550869246018e783e4be7",
-    "feature_dependence.svg": "9512d90835056a158106ffb7524efd15d75c2f65c2dd4a5450c9214ccd48fce8",
+    "feature_dependence.svg": "87f084477630aa2e7a0ae2f46071e5d74b8e6484ea5a8c474fab3489404f5ed5",
     "feature_selection.json": "f3b785549490c6705295bcd487c17d3187b5e3593e19ae824e63aed304de7dfb",
-    "feature_selection.svg": "8feb5e5467e56c5740f99c7da228ae2836fc19cfa35b3ce91621e91d86f2332b",
-    "index.html": "1ecd0e4ddd08d647019d35eb359d0d6268360a821a56dc64a2b6b6c3c0b7da93",
+    "feature_selection.svg": "2bd301bf03eaa220f1169939920105a04fc045268d4b39ab63d18bb15832d5c8",
+    "index.html": "4661eec99cef5966e6c599e49ce2d3c684497cb98c21d85470eb8c43691a390e",
     "objectives.json": "8068d7712dbe6c7e59b46dba22eb45c008cc7d97583425b9b3c155001417829a",
-    "objectives.svg": "f8c0d7175a0622632423522dc2e41e6b424a4dfc6ebf0d5c60e85d7ad28058ed",
-    "otto-research-report.zip": "af28c18a63e934c3b33db7402223aa8bb6740c50df90d037a25c7dcffeeecee6",
+    "objectives.svg": "99d5b09a51f812a8a9622afbe41e9517f924cf44725dcba7f49b7d7d11ec2772",
+    "otto-research-report.zip": "175f64febb529e286aa95ffaaa7d4c036104f86321a52c025ede708bd00c37c4",
     "results.json": "42314992769f903770c2b3e5d43548346bfae1968347654f0606d43983d826e7",
-    "results.svg": "4de3f97c325545bd65b953217fb0661e3a69c98590c6503923401abb4d94ec7c",
+    "results.svg": "d9aabc732adba8958898a477908bb44301d980117e44f4e8aa915b7f0f2cfff9",
     "robustness.json": "f31d72b0c11b4bb0007779da37aca9c0049f1fd87a3dd49a55ce3fdeaf33b9f2",
-    "robustness.svg": "3a9d3241da0f54a385001ed44235f5156664aef3ca9b346f87df8bd7226ad91a",
+    "robustness.svg": "22435542e91ab90b4707e2283ec469fb7360292ae3626f0e93563b1119891cb7",
     "session_slices.json": "42783a2efefe49097d53437ecba6be3b4cc016859d1cca0cb85e35d25c057828",
-    "session_slices.svg": "80676a07fd6b1a427b2b824a872a078c4e5a057e2b3d69c27cb35129a07deb00"
+    "session_slices.svg": "c9e4d6ad451214f34835c49b6faccf6e32a44e9a2efcc48926620484e60aa215"
   },
-  "generated_at_utc": "2026-10-12T23:17:12.737608+00:00",
+  "generated_at_utc": "2026-10-20T04:22:56.363678+00:00",
   "plotly": "7.0.0",
   "status": "passed"
 }
