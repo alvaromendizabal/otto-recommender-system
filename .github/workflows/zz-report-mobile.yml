@@ -1,0 +1,108 @@
+name: Finish accessible offline report
+on:
+  push:
+    branches: [maintenance/final-artifact-audit-20261020]
+    paths: [.github/workflows/zz-report-mobile.yml]
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d
+        with:
+          python-version: '3.12.13'
+          enable-cache: false
+      - name: Apply the inspected usability-only changes and preserve research identities
+        shell: python
+        run: |
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          if subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip()!='928c2c2e46566c9245252732f2b032ec39e826d2':
+              raise ValueError('Main advanced; reconcile first')
+          p=Path('scripts/build_portfolio_figures.py');s=p.read_text()
+          if hashlib.sha256(p.read_bytes()).hexdigest()!='979027c59ab0f79d4786e2d6c844df332ddc9b7b2ae6f3d9648fd04d72661201':
+              raise ValueError('Generator changed')
+          old='            f"<p>{escape(chart.caption)}</p><div class=\'chart\'>{fragment}</div>"\n'
+          new='\n'.join([
+              '            f"<p>{escape(chart.caption)}</p>"',
+              '            f"<p class=\'chart-hint\' id=\'hint-{chart.name}\'>Swipe, scroll or use the arrow keys "',
+              '            "to explore the full chart. Exact values are below.</p>"',
+              '            f"<div class=\'chart\' role=\'region\' tabindex=\'0\' "',
+              '            f"aria-label=\'{escape(chart.title)} — scrollable chart\' "',
+              '            f"aria-describedby=\'hint-{chart.name}\'>{fragment}</div>"',''])
+          if s.count(old)!=1:raise ValueError('Expected chart region not found')
+          s=s.replace(old,new).replace('.plotly-graph-div{min-width:760px}\n','.plotly-graph-div{min-width:760px}\n.chart:focus-visible{outline:3px solid #087f73;outline-offset:3px}\n.chart-hint{display:none;font-size:14px;color:#42526e}\n')
+          s=s.replace('section{padding:16px}h2{font-size:21px}}','section{padding:16px}h2{font-size:21px}\n.chart-hint{display:block}}')
+          if hashlib.sha256(s.encode()).hexdigest()!='51d6da73242646b20e200b6144b0619f25d7576f9e90077595a95d1ae2768db9':
+              raise ValueError('Reviewed generator output mismatch')
+          p.write_text(s)
+          p=Path('tools/test_report_artifacts.py');s=p.read_text()
+          if hashlib.sha256(p.read_bytes()).hexdigest()!='e65d4f049ca10841e4fd10ab5bf8112640bc075559904456748a7e1a08c1665a':
+              raise ValueError('Artifact tests changed')
+          s=s.replace('        self.ids = set()','        self.ids = set()\n        self.chart_regions = []')
+          s=s.replace('        if "id" in attrs:\n','        if "chart" in attrs.get("class", "").split():\n            self.chart_regions.append(attrs)\n        if "id" in attrs:\n')
+          marker='    def test_download_is_the_same_single_offline_report(self):'
+          test='\n'.join([
+              '    def test_wide_charts_are_keyboard_accessible_and_explained(self):',
+              '        parsed = Links()',
+              '        parsed.feed((REPORT / "index.html").read_text())',
+              '        self.assertEqual(len(parsed.chart_regions), 8)',
+              '        for region in parsed.chart_regions:',
+              '            self.assertEqual(region.get("tabindex"), "0")',
+              '            self.assertEqual(region.get("role"), "region")',
+              '            self.assertTrue(region.get("aria-label"))',
+              '            self.assertIn(region.get("aria-describedby"), parsed.ids)','',''])
+          s=s.replace(marker,test+marker)
+          if hashlib.sha256(s.encode()).hexdigest()!='1deea60895c88ecc9175120ca78c9995f859b85ac440d8ec01105dce7b4cc6b2':
+              raise ValueError('Reviewed test output mismatch')
+          p.write_text(s)
+          pins={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in Path('reports').rglob('*')
+                if p.is_file() and not str(p).startswith('reports/portfolio/')}
+          cells={str(p):[[c['cell_type'],c['source']] for c in json.loads(p.read_text())['cells']]
+                 for p in Path('notebooks').glob('*.ipynb')}
+          Path(os.environ['RUNNER_TEMP'],'evidence.json').write_text(json.dumps({'files':pins,'cells':cells}))
+      - name: Regenerate the same evidence through the locked renderer
+        run: |
+          uv venv /tmp/otto-analysis --python 3.12.13 --no-project
+          uv pip install --python /tmp/otto-analysis/bin/python --require-hashes -r notebooks/requirements.txt
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py
+          /tmp/otto-analysis/bin/python scripts/build_portfolio_figures.py --check
+          python3 -S -m unittest discover -s tools -p test_report_artifacts.py -v
+          /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
+          /tmp/otto-analysis/bin/python scripts/execute_notebooks.py
+          /tmp/otto-analysis/bin/python scripts/publish_notebooks.py
+          python3 -B -S review/run.py --render
+      - name: Verify immutable research and publish only the reviewed report files
+        shell: python
+        run: |
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          saved=json.loads(Path(os.environ['RUNNER_TEMP'],'evidence.json').read_text())
+          for name,digest in saved['files'].items():
+              if hashlib.sha256(Path(name).read_bytes()).hexdigest()!=digest:
+                  raise ValueError('Original evidence changed: '+name)
+          for name,cells in saved['cells'].items():
+              if [[c['cell_type'],c['source']] for c in json.loads(Path(name).read_text())['cells']]!=cells:
+                  raise ValueError('Notebook computation changed: '+name)
+          subprocess.run(['git','add','scripts/build_portfolio_figures.py','tools/test_report_artifacts.py','reports/portfolio','notebooks','review/index.html'],check=True)
+          subprocess.run(['git','diff','--cached','--check'],check=True)
+          subprocess.run(['git','config','user.name','github-actions[bot]'],check=True)
+          subprocess.run(['git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com'],check=True)
+          subprocess.run(['git','commit','-m','Make wide result charts keyboard-accessible and explain mobile scrolling'],check=True)
+          subprocess.run(['git','push','origin','HEAD:maintenance/final-artifact-audit-20261020'],check=True)
+          out=Path(os.environ['RUNNER_TEMP'])
+          subprocess.run(['git','archive','--format=zip','--output='+str(out/'public-source.zip'),'HEAD'],check=True)
+          (out/'commit.txt').write_text(subprocess.check_output(['git','rev-parse','HEAD'],text=True))
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: accessible-report-public-source
+          path: |
+            ${{ runner.temp }}/public-source.zip
+            ${{ runner.temp }}/commit.txt
+          if-no-files-found: error
+          retention-days: 3
